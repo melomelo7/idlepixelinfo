@@ -1,4 +1,12 @@
 
+body{
+    background-color: red;
+}
+
+/*
+    background-color: rgb(200,247,248);
+*/
+
 .rower{
     display: flex;
     flex-direction: row;
@@ -46,10 +54,6 @@
 .list-item:hover {
     color: rgb(76, 206, 50);
     cursor: pointer;
-}
-
-body{
-    background-color: rgb(200,247,248);
 }
 
 .skill {
