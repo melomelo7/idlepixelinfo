@@ -58,7 +58,7 @@ const beasts =
 ["chicken","rat","spider","bee","lizard",
 "ants","snake","wolf","thief","ent",
 "bear","goblin","bat","skeleton",
-"fire_hawk","fire_snake","fire_witch"
+"fire_hawk","fire_snake","golem","fire_witch"
 ]
 
 function setBestiary(){
