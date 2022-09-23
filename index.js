@@ -31,7 +31,7 @@ function clickTitle(e){
 console.log("no")
 
 body=document.querySelector(".bloody")
-body.innerHTML = "thief"
+body.innerHTML = "thief  thief    thief"
 
 
 
