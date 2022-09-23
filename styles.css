@@ -1,0 +1,76 @@
+
+.rower{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.liner {
+    background-color: blueviolet;
+    text-align: center;
+    border: solid black 3px;
+    margin:5px;
+}
+
+.faq {
+
+    margin: 5px 0 5px 0;
+    background-color: rgb(173, 173, 94);
+}
+
+.thinline{
+    width: 100%;
+    margin: 5px 0;
+    border-radius: 5px;
+    height: 2px;
+    background-color: black;
+}
+
+.liner,.faq,.list{
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+.list{
+    background-color: rgb(0,76,78);
+    color: white;
+    list-style-type: none;
+}
+
+.list-item{
+    margin: 5px 0;
+    
+}
+
+.list-item:hover {
+    color: rgb(76, 206, 50);
+    cursor: pointer;
+}
+
+body{
+    background-color: rgb(200,247,248);
+}
+
+.skill {
+    color: purple;
+}
+.spell {
+    color: rgb(180, 34, 34);
+}
+.quest {
+    background-color: rgb(135, 67, 199);
+    margin-bottom: -15px;
+    border-radius: 5px;
+    padding: 2px;
+    text-align: center;
+    border: black solid 2px;
+}
+
+.areas{
+    background-color: rgb(32, 121, 91);
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px 0;
+}
+
