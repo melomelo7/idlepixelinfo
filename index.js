@@ -30,6 +30,9 @@ function clickTitle(e){
 
 console.log("no")
 
+body=document.querySelector(".bloody")
+body.innerHTML = "thief"
+
 
 
 const bestiary = document.querySelector("#Bestiary")
