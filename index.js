@@ -2,37 +2,21 @@
 //window.onresize = function(){
 //    console.log("window size:"+window.innerWidth)}
 
+console.log("yes")
+
 function clickTitle(e){
     let car = ""
     e.srcElement.innerHTML.includes("📂") ?
     car = "📂" : car = "📁"
 
     let text = e.srcElement.innerHTML.replace("&nbsp;"+car,"")
-    console.log(text)
     let section = document.querySelector("#"+text)
-/*
-    section.style.display === "none" ?
-    section.style.display = "block" :
-    section.style.display = "none"
-*/ 
     if (section.style.display === "none"){
         section.style.display = "block"
-        e.srcElement.innerHTML = e.srcElement.innerHTML.replace("📁","📂")
-    }
+        e.srcElement.innerHTML = e.srcElement.innerHTML.replace("📁","📂") }
     else {
         section.style.display = "none"
-        e.srcElement.innerHTML = e.srcElement.innerHTML.replace("📂","📁")
-    }
-
-
-}
-
-
-console.log("no")
-
-body=document.querySelector(".bloody")
-body.innerHTML = "thief  thief    thief"
-
+        e.srcElement.innerHTML = e.srcElement.innerHTML.replace("📂","📁") } }
 
 
 const bestiary = document.querySelector("#Bestiary")
@@ -158,10 +142,8 @@ function setLiners(){
         liners[i].addEventListener("click",clickTitle)
         liners[i].style.cursor = "pointer"}
     const sections = document.querySelectorAll(".section")
-    console.log(sections)
     for (i=0;i<sections.length;i++){
-        sections[i].style.display = "none"
-    }
-    }
+        sections[i].style.display = "none" } }
+
 
 setLiners()

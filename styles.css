@@ -1,13 +1,7 @@
 
 body{
-    
-    background-color: red;
-}
-
-/*
     background-color: rgb(200,247,248);
-    background-color: red;
-*/
+}
 
 .rower{
     display: flex;
