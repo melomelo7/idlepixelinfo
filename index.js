@@ -28,7 +28,7 @@ function clickTitle(e){
 }
 
 
-console.log("no")
+console.log("yes")
 
 
 
