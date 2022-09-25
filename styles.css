@@ -3,34 +3,42 @@ body{
     background-color: rgb(200,247,248);
 }
 
+H1{
+    text-align: center;
+    font-size: 50px;
+}
 .rower{
     display: flex;
     flex-direction: row;
     align-items: center;
-}
-
-.liner {
-    background-color: blueviolet;
-    text-align: center;
-    border: solid black 3px;
-    margin:5px;
+    background-color: rgb(0,76,78);
+    border-radius: 10px;
+    padding-left:10px ;
 }
 
 .faq {
-
     margin: 5px 0 5px 0;
     background-color: rgb(173, 173, 94);
 }
 
 .thinline{
     width: 100%;
-    margin: 5px 0;
+    margin: 10px 0;
     border-radius: 5px;
     height: 2px;
     background-color: black;
 }
 
-.liner,.faq,.list{
+.liner {
+    background-color: blueviolet;
+    border: solid black 3px;
+    margin:5px;
+    border-radius: 5px;
+    padding-left: 10px;
+
+}
+
+.faq,.list{
     padding: 10px;
     border-radius: 5px;
 }
@@ -70,7 +78,59 @@ body{
 .areas{
     background-color: rgb(32, 121, 91);
     border-radius: 5px;
-    padding: 5px;
+    padding: 10px;
     margin: 5px 0;
 }
 
+.in-title{
+    margin: 5px;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;    
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover{
+    color: blueviolet;
+}
+
+#experience{
+    background-color:rgb(0,76,78);
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#calculateExperience,#moreOptions{
+    background-color: blueviolet;
+    color: black;
+    border: black 3px solid;
+    padding: 5px;
+    border-radius: 20px;
+    width: 200px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#calculateExperience:hover,#moreOptions:hover{
+    color: white;
+}
+
+#calcOptions{
+    width: fit-content;
+    background-color: rgb(109, 28, 28);
+    border-radius: 10px;
+    margin-top: 20px;
+    padding: 10px;
+    border: black solid 2px;
+}
+
+
+label{
+    color: black; 
+}

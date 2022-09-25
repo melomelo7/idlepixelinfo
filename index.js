@@ -1,25 +1,6 @@
 
-//window.onresize = function(){
-//    console.log("window size:"+window.innerWidth)}
 
-console.log("yes")
-
-function clickTitle(e){
-    let car = ""
-    e.srcElement.innerHTML.includes("📂") ?
-    car = "📂" : car = "📁"
-
-    let text = e.srcElement.innerHTML.replace("&nbsp;"+car,"")
-    let section = document.querySelector("#"+text)
-    if (section.style.display === "none"){
-        section.style.display = "block"
-        e.srcElement.innerHTML = e.srcElement.innerHTML.replace("📁","📂") }
-    else {
-        section.style.display = "none"
-        e.srcElement.innerHTML = e.srcElement.innerHTML.replace("📂","📁") } }
-
-
-const bestiary = document.querySelector("#Bestiary")
+const bestiary = document.querySelector("#bestiary")
 bestiary.style = `
 display:flex;
 flex-direction: column;`
@@ -126,6 +107,83 @@ expArray=[[1,0],[2,8],[3,27],[4,65],[5,130],
 function fetchXpforLevel(level){
     return expArray[Number(level)-1][1]
 }
+
+
+const targetLevel = document.querySelector("#targetLevel")
+const currentExperience = document.querySelector("#currentExperience")
+const expResult = document.querySelector("#experienceResult")
+const calculateExperience = document.querySelector("#calculateExperience")
+calculateExperience.addEventListener("click",calculateXp)
+const moreOptions = document.querySelector("#moreOptions")
+moreOptions.addEventListener("click",toggleOptions)
+const calcOptions = document.querySelector("#calcOptions")
+calcOptions.style.display = "none"
+
+function toggleOptions(){
+    if (calcOptions.style.display === "none"){
+        calcOptions.style.display = "block"
+        moreOptions.value = "Less ..."
+    } else {
+        calcOptions.style.display = "none"
+        moreOptions.value = "More ..."
+    }
+
+
+}
+
+function calculateXp(){
+
+    let target = targetLevel.value
+    let current = currentExperience.value
+
+    let msg = ""
+    if (isNaN(target) || isNaN(current)|| target < 2 || current < 1){
+        console.log("dive1")
+        if (isNaN(target) || target < 2 ){ console.log("dive2")
+            msg = "Level to reach is not a valid number ..."}        
+        if (isNaN(current) || current < 1){ console.log("dive3")
+            msg += "Current Exp is not a valid number ..."}
+        expResult.innerHTML = msg
+        }
+    else {
+        target = Number(target)
+        current = Number(current)
+        msg = "You need " + (fetchXpforLevel(target)-current).toLocaleString()
+        + "  more <br>Experience points to reach Lv " + target
+        expResult.innerHTML = msg
+        }
+    
+   
+
+}
+
+
+const dataContainer = document.querySelector("#dataContainer")
+tableBuilder(dataContainer,Fishes)
+
+//window.onresize = function(){
+//    console.log("window size:"+window.innerWidth)}
+
+/*
+console.log("yes")
+
+function clickTitle(e){
+    let car = ""
+    e.srcElement.innerHTML.includes("📂") ?
+    car = "📂" : car = "📁"
+
+    let text = e.srcElement.innerHTML.replace("&nbsp;"+car,"")
+    let section = document.querySelector("#"+text)
+    if (section.style.display === "none"){
+        section.style.display = "block"
+        e.srcElement.innerHTML = e.srcElement.innerHTML.replace("📁","📂") }
+    else {
+        section.style.display = "none"
+        e.srcElement.innerHTML = e.srcElement.innerHTML.replace("📂","📁") } }
+*/
+
+
+
 /*
 let lv = prompt("input level to reach")
 
@@ -135,7 +193,7 @@ console.log(Number(fetchXpforLevel(lv)))
 */
 
 
-
+/*
 function setLiners(){
     const liners = document.querySelectorAll(".liner")
     for (i=0;i<liners.length;i++){
@@ -147,3 +205,4 @@ function setLiners(){
 
 
 setLiners()
+*/
