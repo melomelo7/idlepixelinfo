@@ -221,10 +221,6 @@ function calculateXp(){
 }
 
 
-const dataContainer = document.querySelector("#dataContainer")
-tableBuilder(dataContainer,Fishes)
-
-
 
 
 const quests = document.querySelectorAll(".quest")
@@ -248,6 +244,17 @@ function displayQuestOnOff(quest=""){
         {questDiv.style.display = "none"}
     else 
         {questDiv.style.display = "block"} }
+
+
+
+        
+
+
+const toolTable = document.querySelector("#toolTable")
+tableBuilder(toolTable,Tools)
+
+const fishingTable = document.querySelector("#fishingTable")
+tableBuilder(fishingTable,Fishes)
 
 
 

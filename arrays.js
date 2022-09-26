@@ -1,4 +1,53 @@
 
+function tableBuilder(container,thisArray,MaxColumn=2){
+    // uses an array of class Objects
+
+    let table = document.createElement("table")
+    container.appendChild(table)
+    table.style = `
+    background-image:linear-gradient(to top right,blue,white);
+    padding:5px;
+    border-radius:5px;
+    `
+
+    let CellStyle=`
+    border:1px solid;
+    padding:5px;
+    border-radius:5px;
+    background-color:lightgrey;
+    text-align:center;
+    `
+    let row = document.createElement("tr")
+    table.appendChild(row)
+
+    let cell = ""
+    let text = ""
+    let cpt=0
+
+    let item = Object.entries(thisArray[0])
+    for (i=0;i<item.length;i++){
+        cell = document.createElement("th")
+        row.appendChild(cell)
+        text = item[i][0]
+        cpt=0
+        while(text.indexOf("_") !==-1){
+            text = text.replace("_","<br>")
+            cpt++
+            if(cpt>10){console.log("breaker"); break} }
+        cell.innerHTML= text
+        cell.style = CellStyle }
+
+    for(i=0;i<thisArray.length;i++){
+        item = Object.entries(thisArray[i])
+        row = document.createElement("tr")
+        table.appendChild(row)
+        for(j=0;j<item.length;j++){
+            cell = document.createElement("td")
+            row.appendChild(cell)
+            text = item[j][1]
+            cell.innerHTML= text.toLocaleString()
+            cell.style = CellStyle } } }
+
 const expArray=[[1,0],[2,8],[3,27],[4,65],[5,130],
 [6,227],[7,367],[8,556],[9,804],[10,1122],
 [11,1518],[12,2005],[13,2595],[14,3300],[15,4135],
@@ -60,54 +109,26 @@ Fishes.push (new Fish("Manta Ray","?","?","?","?","?",90000,245000,90000,375000)
 Fishes.push (new Fish("Shark","?","?","?","?","?",200000,500000,200000,750000))
 Fishes.push (new Fish("Whale","?","?","?","?","?",400000,1000000,400000,1500000))
 
-function tableBuilder(container,thisArray,MaxColumn=2){
-    // uses an array of class Objects
+class Tool {
+    constructor(Tool="tool",Type="Mining",Source="Gathering",Effect = "none"){
+    this.Tool = Tool
+    this.Type = Type
+    this.Source = Source
+    this.Effect = Effect
+} }
 
-    let table = document.createElement("table")
-    container.appendChild(table)
-    table.style = `
-    background-image:linear-gradient(to top right,blue,white);
-    padding:5px;
-    border-radius:5px;
-    `
+let Tools = []
 
-    let CellStyle=`
-    border:1px solid;
-    padding:5px;
-    border-radius:5px;
-    background-color:lightgrey;
-    text-align:center;
-    `
-    let row = document.createElement("tr")
-    table.appendChild(row)
-
-    let cell = ""
-    let text = ""
-    let cpt=0
-
-    let item = Object.entries(thisArray[0])
-    for (i=0;i<item.length;i++){
-        cell = document.createElement("th")
-        row.appendChild(cell)
-        text = item[i][0]
-        cpt=0
-        while(text.indexOf("_") !==-1){
-            text = text.replace("_","<br>")
-            cpt++
-            if(cpt>10){console.log("breaker"); break} }
-        cell.innerHTML= text
-        cell.style = CellStyle }
-
-    for(i=0;i<thisArray.length;i++){
-        item = Object.entries(thisArray[i])
-        row = document.createElement("tr")
-        table.appendChild(row)
-        for(j=0;j<item.length;j++){
-            cell = document.createElement("td")
-            row.appendChild(cell)
-            text = item[j][1]
-            cell.innerHTML= text.toLocaleString()
-            cell.style = CellStyle } } }
-
+Tools.push(new Tool("Pickaxe","Mining","Game Shop","Reduce amount of Stardust required when converting ores into Exp"))
+Tools.push(new Tool("Hammer","Crafting","Game Shop","Reduce amount of Stardust required when converting bars into Exp"))
+Tools.push(new Tool("Rake","Farming","Gathering (Lv3) Desert Mines","Each upgrade increases your chance at finding seeds by +5%"))
+Tools.push(new Tool("Watering Can","Farming","Gathering (Lv75) Fields","??? not yet coded ..."))
+Tools.push(new Tool("Axe","Woodcutting","Gathering (Lv20) Friendly Forest","Each upgrade increases logs received when cutting a tree by +5units"))
+Tools.push(new Tool("Fishing Net","Fishing","Craft/Buy => Quest related content","Each upgrade increase catched fishing Exp by +5%"))
+Tools.push(new Tool("Fishing Rod","Fishing","Gathering (Lv30) Quiet Pond","Each upgrade increase catched fishing Exp by +5%"))
+Tools.push(new Tool("Harpoon","Fishing","Gathering (Lv60) Quiet Pond","Each upgrade increase catched fishing Exp by +5%"))
+Tools.push(new Tool("Brewing Kit","Brewing","Crafting","Each upgrade increases potion duration by 25%"))
+Tools.push(new Tool("Needle","Crafting","Crafting","Each upgrade opens higher type of armour : undo armor to get back half skin cost"))
+Tools.push(new Tool("Chisel","Mining","Gathering (Lv50) Desert Mines","Each upgrade allows to find next tier of Geodes"))
 
 // tableBuilder(body,Fishes)
