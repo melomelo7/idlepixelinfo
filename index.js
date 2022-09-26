@@ -257,6 +257,6 @@ const fishingTable = document.querySelector("#fishingTable")
 tableBuilder(fishingTable,Fishes)
 
 
-
+alert ("new")
 //window.onresize = function(){
 //    console.log("window size:"+window.innerWidth)}
