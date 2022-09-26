@@ -81,32 +81,10 @@ function clickOn(e){
 
 setBestiary()
 
-expArray=[[1,0],[2,8],[3,27],[4,65],[5,130],
-[6,227],[7,367],[8,556],[9,804],[10,1122],
-[11,1518],[12,2005],[13,2595],[14,3300],[15,4135],
-[16,5113],[17,6250],[18,7564],[19,9072],[20,10794],
-[21,12749],[22,14960],[23,17449],[24,20242],[25,23364],
-[26,26485],[27,30713],[28,35000],[29,39741],[30,44970],
-[31,50727],[32,57052],[33,63987],[34,71579],[35,79875],
-[36,88928],[37,98792],[38,109524],[39,121185],[40,133841],
-[41,147561],[42,162416],[43,178484],[44,195847],[45,214590],
-[46,234805],[47,256588],[48,280040],[49,305271],[50,332393],
-[51,361527],[52,392799],[53,426344],[54,462303],[55,500827],
-[56,542071],[57,586204],[58,633400],[59,683844],[60,737732],
-[61,795270],[62,856675],[63,922176],[64,992013],[65,1066441],
-[66,1145727],[67,1230153],[68,1320017],[69,1415631],[70,1517324],
-[71,1625443],[72,1740352],[73,1862436],[74,1992098],[75,2129765],
-[76,2275883],[77,2430922],[78,2595378],[79,2769771],[80,2954649],
-[81,3150587],[82,3358189],[83,3578093],[84,3810966],[85,4057512],
-[86,4318467],[87,4594609],[88,4886753],[89,5195753],[90,5522511],
-[91,5867971],[92,6233125],[93,6619015],[94,7026736],[95,7457435],
-[96,7912320],[97,8392657],[98,8899774],[99,9435067],[100,10000000]]
 
 
 //.toLocaleString()
-function fetchXpforLevel(level){
-    return expArray[Number(level)-1][1]
-}
+
 
 
 const targetLevel = document.querySelector("#targetLevel")
@@ -118,91 +96,160 @@ const moreOptions = document.querySelector("#moreOptions")
 moreOptions.addEventListener("click",toggleOptions)
 const calcOptions = document.querySelector("#calcOptions")
 calcOptions.style.display = "none"
+const includeOptions = document.querySelector("#includeOptions")
+includeOptions.checked = false
 
 function toggleOptions(){
     if (calcOptions.style.display === "none"){
+        checkType()
         calcOptions.style.display = "block"
-        moreOptions.value = "Less ..."
-    } else {
+        moreOptions.value = "Less ..." 
+        includeOptions.checked = true }
+    else {
         calcOptions.style.display = "none"
-        moreOptions.value = "More ..."
-    }
+        moreOptions.value = "More ..." 
+        includeOptions.checked = false } }
+
+const radioTypes = document.getElementsByName("type")
+radioTypes.forEach(function(item){item.addEventListener("click",checkType)})
+
+const radioTools = document.getElementsByName("tool")
+radioTools.forEach(function(item){item.addEventListener("click",checkOptions)})
+
+const radioItems = document.getElementsByName("item")
+radioItems.forEach(function(item){item.addEventListener("click",checkOptions)})
 
 
-}
+function checkType(){
+    const oreToggle = document.querySelector("#oreToggle")
+    oreToggle.style.display = "none"
+    let type = document.querySelector("#labelType")
+    for(i=0;i<radioTypes.length;i++){
+        if (radioTypes[i].checked){
+            type.innerHTML = "Type : " + radioTypes[i].value
+            if (type.innerHTML.includes("Mining")){
+                oreToggle.style.display = "block"}
+            else{
+                oreToggle.style.display = "none"
+                if(radioItems[0].checked){
+                    radioItems[1].checked=true} } } } 
+    checkOptions() }
+
+function checkOptions(){
+    let gem = document.querySelector("#labelGem")
+    for(i=0;i<radioTools.length;i++){
+        if (radioTools[i].checked)
+            {gem.innerHTML = "Gem : " + radioTools[i].value } }            
+
+    let item = document.querySelector("#labelItem")
+    for(i=0;i<radioItems.length;i++){
+        if (radioItems[i].checked)
+            {item.innerHTML = "Item : " + radioItems[i].value } } }
+
+
 
 function calculateXp(){
 
     let target = targetLevel.value
     let current = currentExperience.value
-
+    let needed = 0
     let msg = ""
-    if (isNaN(target) || isNaN(current)|| target < 2 || current < 1){
-        console.log("dive1")
-        if (isNaN(target) || target < 2 ){ console.log("dive2")
+    let goodInput = true
+
+    if (isNaN(target) || isNaN(current)|| target < 2 || current < 1 || fetchXpforLevel(target) < Number(current)){
+        goodInput = false
+        if (isNaN(target) || target < 2 ){ 
             msg = "Level to reach is not a valid number ..."}        
-        if (isNaN(current) || current < 1){ console.log("dive3")
+        if (isNaN(current) || current < 1){
             msg += "Current Exp is not a valid number ..."}
-        expResult.innerHTML = msg
+        if (fetchXpforLevel(target) < Number(current)){
+        msg += "Target Level AND/OR Current Experience is/are wrong here ..."}            
         }
     else {
+        console.log("dive2")
         target = Number(target)
         current = Number(current)
-        msg = "You need " + (fetchXpforLevel(target)-current).toLocaleString()
-        + "  more <br>Experience points to reach Lv " + target
-        expResult.innerHTML = msg
+        needed = fetchXpforLevel(target)-current
+        msg = "You need " + needed.toLocaleString()
+        + "  more Experience points to reach Lv " + target
         }
     
-   
+    if(includeOptions.checked && goodInput ){
+        let base = 13
+        let toolBonus = 0
+        let mining = ""
+        let SdMult = 0
+        let itemExp = 0
+        let thisItem = ""
+        let itemQuantity = 0
 
+        let ItemS = [
+            {text : "Stone", mining : 0.1,crafting : 0.1},
+            {text : "Copper",mining : 1,crafting : 5},
+            {text : "Iron",  mining : 5,crafting : 25},
+            {text : "Silver",mining : 10,crafting : 50},
+            {text : "Gold",  mining : 20,crafting : 100},
+            {text : "Promethium",mining : 100,crafting : 500}]
+
+        let skill = document.querySelector("#labelType")
+        skill.innerHTML.includes("Mining") ?
+        mining = true : mining = false
+
+        for(i=0;i<radioTools.length;i++){
+            if(radioTools[i].checked){toolBonus = i}}
+        SdMult = base-toolBonus
+
+        msg+= "<br> Current tool provides -" + toolBonus + " on Star Dust per Experience conversion"
+        msg+= "<br> so for this configuration : 1 Exp will cost " + SdMult + " Star Dusts."
+    
+        for(i=0;i<radioItems.length;i++){
+            if(radioItems[i].checked){thisItem = radioItems[i].value}}
+        msg+= "<br> using " + thisItem + " for the conversion result as :" 
+
+        thisItem = ItemS.filter(x => x.text === thisItem)[0]
+        mining ? itemExp = thisItem.mining : itemExp = thisItem.crafting
+
+        thisItem.text === "Stone" ?
+        itemQuantity = needed * 10 : itemQuantity = Math.ceil(needed/itemExp)
+
+        msg+= "<br>" + itemQuantity.toLocaleString() + " " + thisItem.text +
+        " needed here for a total of " + (itemQuantity * itemExp).toLocaleString() +
+        " Exp <br> which will cost " + ((itemQuantity * itemExp)*SdMult).toLocaleString() + 
+        " Star Dust for the conversion."
+    }
+   expResult.innerHTML = msg
 }
 
 
 const dataContainer = document.querySelector("#dataContainer")
 tableBuilder(dataContainer,Fishes)
 
+
+
+
+const quests = document.querySelectorAll(".quest")
+quests.forEach(x=>x.addEventListener("click", function(e){displayQuestOnOff(e.srcElement.innerHTML)} ))
+quests.forEach(x=>x.click())
+
+function displayQuestOnOff(quest=""){
+    let status = ""
+
+    let cpt = 0
+    while (quest.indexOf(" ")>0){
+        quest = quest.replace(" ","_")
+        cpt++
+        if(cpt>50){break}}
+
+    let questDiv = document.querySelector("#"+quest)
+    status =  questDiv.style.display
+    if (!status){status = "block"}
+
+    if (status === "block")
+        {questDiv.style.display = "none"}
+    else 
+        {questDiv.style.display = "block"} }
+
+
+
 //window.onresize = function(){
 //    console.log("window size:"+window.innerWidth)}
-
-/*
-console.log("yes")
-
-function clickTitle(e){
-    let car = ""
-    e.srcElement.innerHTML.includes("📂") ?
-    car = "📂" : car = "📁"
-
-    let text = e.srcElement.innerHTML.replace("&nbsp;"+car,"")
-    let section = document.querySelector("#"+text)
-    if (section.style.display === "none"){
-        section.style.display = "block"
-        e.srcElement.innerHTML = e.srcElement.innerHTML.replace("📁","📂") }
-    else {
-        section.style.display = "none"
-        e.srcElement.innerHTML = e.srcElement.innerHTML.replace("📂","📁") } }
-*/
-
-
-
-/*
-let lv = prompt("input level to reach")
-
-console.log("Xp for Lv"+lv+" : "+fetchXpforLevel(lv))
-console.log(typeof(fetchXpforLevel(lv)))
-console.log(Number(fetchXpforLevel(lv)))
-*/
-
-
-/*
-function setLiners(){
-    const liners = document.querySelectorAll(".liner")
-    for (i=0;i<liners.length;i++){
-        liners[i].addEventListener("click",clickTitle)
-        liners[i].style.cursor = "pointer"}
-    const sections = document.querySelectorAll(".section")
-    for (i=0;i<sections.length;i++){
-        sections[i].style.display = "none" } }
-
-
-setLiners()
-*/

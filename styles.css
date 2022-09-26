@@ -21,6 +21,11 @@ H1{
     background-color: rgb(173, 173, 94);
 }
 
+.drops{
+    margin: 5px 0 5px 0;
+    background-color: rgb(173, 173, 94);    
+}
+
 .thinline{
     width: 100%;
     margin: 10px 0;
@@ -38,7 +43,7 @@ H1{
 
 }
 
-.faq,.list{
+.faq,.list,.drops{
     padding: 10px;
     border-radius: 5px;
 }
@@ -71,8 +76,9 @@ H1{
     margin-bottom: -15px;
     border-radius: 5px;
     padding: 2px;
-    text-align: center;
     border: black solid 2px;
+    padding-left: 20px;
+    cursor: pointer;
 }
 
 .areas{
@@ -80,6 +86,7 @@ H1{
     border-radius: 5px;
     padding: 10px;
     margin: 5px 0;
+
 }
 
 .in-title{
@@ -130,7 +137,10 @@ a:hover{
     border: black solid 2px;
 }
 
-
-label{
-    color: black; 
+.radioBox{
+    background-color: black;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
 }
+
