@@ -1,5 +1,14 @@
 
 
+const body = document.querySelector("body")
+const nav = document.querySelector(".navbar")
+
+body.style.marginLeft =  Math.ceil(nav.getBoundingClientRect().width+2)+"px"
+
+
+console.log( )
+
+
 const bestiary = document.querySelector("#bestiary")
 bestiary.style = `
 display:flex;
@@ -39,7 +48,8 @@ const beasts =
 ["chicken","rat","spider","bee","lizard",
 "ants","snake","wolf","thief","ent",
 "bear","goblin","bat","skeleton",
-"fire_hawk","fire_snake","golem","fire_witch"
+"fire_hawk","fire_snake","fire_golem","fire_witch",
+"ghost","grandma","exorcist"
 ]
 
 function setBestiary(){
@@ -60,9 +70,21 @@ function setBestiary(){
 } }
 
 function clickOn(e){
+    let thisImg = document.querySelector("#loot")
+    
+    if (thisImg){
+        if (thisImg.src.includes(e.srcElement.name)){
+            bottomContainer.removeChild(thisImg)
+            bottomContainer.style.display = "none"}
+        else {
+            bottomContainer.removeChild(thisImg)
+            displayBeast(e.srcElement.name,e.clientX,e.clientY) } }
+    else 
+        {displayBeast(e.srcElement.name,e.clientX,e.clientY) } }
+
+function displayBeast(label,Xpos,Ypos){
     bottomContainer.style.display = "block"
-    label = e.srcElement.name+".JPG"
-    if (document.querySelector("#loot")){bottomContainer.removeChild(document.querySelector("#loot"))}
+    label = label+".JPG"
     let loot = document.createElement("img")
     loot.style = `
     width:300px;
@@ -70,8 +92,8 @@ function clickOn(e){
     margin:20px 0 0 0;`
     window.innerWidth < 500 ?
     loot.style.left = "80px" :
-    loot.style.left = e.clientX-30+"px"
-    loot.style.top = (Math.floor( window.scrollY )+e.clientY-20)+"px"
+    loot.style.left = Xpos-30+"px"
+    loot.style.top = (Math.floor( window.scrollY )+Ypos-20)+"px"
     loot.src ="images/"+label
     loot.setAttribute("id","loot")
     loot.addEventListener("click",function(){
@@ -79,12 +101,8 @@ function clickOn(e){
         bottomContainer.removeChild(document.querySelector("#loot"))})
     bottomContainer.appendChild(loot) }
 
+
 setBestiary()
-
-
-
-//.toLocaleString()
-
 
 
 const targetLevel = document.querySelector("#targetLevel")
