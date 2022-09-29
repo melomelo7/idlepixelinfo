@@ -2,11 +2,19 @@
 
 const body = document.querySelector("body")
 const nav = document.querySelector(".navbar")
+const navBtns = nav.querySelectorAll("li")
+const sections = document.querySelectorAll("section")
 
-body.style.marginLeft =  Math.ceil(nav.getBoundingClientRect().width+2)+"px"
+navBtns.forEach(x=>x.addEventListener("click",function(e){toggleSections(e.srcElement.innerHTML)}))
 
+function toggleSections(keep="none"){
+    console.log("in")
+    sections.forEach(x=>x.style.display="none")
+    if(keep !=="none"){
+        for (i=0;i<sections.length;i++){
+            if (sections[i].id === keep){sections[i].style.display = "block"} } } }
 
-console.log( )
+toggleSections("Credits")
 
 
 const bestiary = document.querySelector("#bestiary")
@@ -42,15 +50,6 @@ bottomContainer.style = `
     width:100%;`
     bestiary.appendChild(bottomContainer)
     bottomContainer.style.display = "none"
-
-
-const beasts = 
-["chicken","rat","spider","bee","lizard",
-"ants","snake","wolf","thief","ent",
-"bear","goblin","bat","skeleton",
-"fire_hawk","fire_snake","fire_golem","fire_witch",
-"ghost","grandma","exorcist"
-]
 
 function setBestiary(){
     let img1 =""

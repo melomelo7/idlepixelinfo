@@ -2,6 +2,7 @@
 
 body{
     background-color: rgb(200,247,248);
+    margin-left: 120px;
 }
 
 
@@ -17,6 +18,19 @@ body{
     display: flex;
     flex-direction: column;
     scrollbar-width: thin;
+  }
+
+  .navbar li {
+    color: white;
+    width: 100px;
+    text-align: right;
+    list-style:none;
+    padding: 5px 10px 5px 5px;
+  }
+
+  .navbar li:hover {
+    background-color: grey;
+    color: black;
   }
   
   .navbar a {
@@ -50,7 +64,7 @@ H1{
 }
 
 .faq {
-    margin: 5px 0 5px 0;
+    margin: 2px 0;
     background-color: rgb(173, 173, 94);
 }
 
@@ -68,6 +82,7 @@ H1{
 }
 
 .liner {
+    
     background-image: linear-gradient(to right,black ,blueviolet,blueviolet);
     border: solid black 3px;
     margin:5px;
@@ -107,7 +122,8 @@ H1{
 }
 .quest {
     background-color: rgb(113, 52, 170);
-    margin-bottom: -15px;
+    color:#f4fff8;
+    margin: -12px 5px;
     border-radius: 5px;
     padding: 2px;
     border: black solid 2px;
@@ -123,11 +139,28 @@ H1{
 }
 
 .in-title{
-    margin: 5px;
+    margin: 10px 5px;
     background-color: black;
     color: white;
     border-radius: 5px;
-    padding: 5px;    
+    padding: 5px;
+    width: fit-content;  
+}
+
+#go-area-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.go-area{
+    background-image: linear-gradient(to right,red,yellow);
+    padding: 5px;
+    margin: 10px;
+    color: black;
+    width: fit-content;
+    border-radius: 10px;
+
 }
 
 a {
@@ -177,3 +210,10 @@ a:hover{
     border-radius: 5px;
 }
 
+.tableContainer{
+    background-color: rgb(0,76,78);
+    width:fit-content;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 10px;
+}

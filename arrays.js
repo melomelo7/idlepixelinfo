@@ -5,10 +5,10 @@ function tableBuilder(container,thisArray,MaxColumn=2){
     let table = document.createElement("table")
     container.appendChild(table)
     table.style = `
-    background-image:linear-gradient(to top right,blue,white);
     padding:5px;
     border-radius:5px;
     `
+//    background-image:linear-gradient(to top right,blue,white);
 
     let CellStyle=`
     border:1px solid;
@@ -47,6 +47,18 @@ function tableBuilder(container,thisArray,MaxColumn=2){
             text = item[j][1]
             cell.innerHTML= text.toLocaleString()
             cell.style = CellStyle } } }
+
+
+const beasts = 
+["chicken","rat","spider","bee","lizard",
+"ants","snake","wolf","thief","ent",
+"bear","goblin","bat","skeleton",
+"fire_hawk","fire_snake","fire_golem","fire_witch",
+"ice_witch",
+"ghost","grandma","exorcist"
+]
+            
+
 
 const expArray=[[1,0],[2,8],[3,27],[4,65],[5,130],
 [6,227],[7,367],[8,556],[9,804],[10,1122],
