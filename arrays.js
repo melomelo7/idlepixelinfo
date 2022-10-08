@@ -55,7 +55,7 @@ const beasts =
 "bear","goblin","bat","skeleton",
 "fire_hawk","fire_snake","fire_golem","fire_witch",
 "ice_hawk","ice_golem","ice_witch","yeti",
-"ghost","grandma","exorcist"
+"ghost","grandma","exorcist","reaper",
 ]
             
 
