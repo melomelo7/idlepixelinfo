@@ -107,7 +107,7 @@ Fishes.push (new Fish("Shrimp",50,50,1,25,-10,250,1500,400,2250))
 Fishes.push (new Fish("Anchovy",100,200,5,100,-20,1000,6000,1000,9000))
 Fishes.push (new Fish("Sardine",150,400,10,200,-40,2000,12000,2000,18000))
 Fishes.push (new Fish("Crab",300,1000,35,500,-75,5000,30000,5000,45000))
-Fishes.push (new Fish("Piranha",1000,"?",50,1000,-120,10000,40000,10000,60000))
+Fishes.push (new Fish("Piranha",1000,2000,50,1000,-120,10000,40000,10000,60000))
 
 Fishes.push (new Fish("Salmon",100,200,10,100,-20,1000,6000,1000,9000))
 Fishes.push (new Fish("Trout",300,600,20,300,-40,3000,18000,3000,27000))
