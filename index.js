@@ -8,7 +8,6 @@ const sections = document.querySelectorAll("section")
 navBtns.forEach(x=>x.addEventListener("click",function(e){toggleSections(e.srcElement.innerHTML)}))
 
 function toggleSections(keep="none"){
-    console.log("in")
     sections.forEach(x=>x.style.display="none")
     if(keep !=="none"){
         for (i=0;i<sections.length;i++){
@@ -241,29 +240,27 @@ function calculateXp(){
 
 
 const quests = document.querySelectorAll(".quest")
-quests.forEach(x=>x.addEventListener("click", function(e){displayQuestOnOff(e.srcElement.innerHTML)} ))
-quests.forEach(x=>x.click())
+quests.forEach(x=>x.addEventListener("click", function(e){toggleQuestDisplay(e.srcElement.innerHTML)} ))
+const startQuest = true
+toggleQuestDisplay()
 
-function displayQuestOnOff(quest=""){
+function  toggleQuestDisplay(quest=""){
     let status = ""
+    let questDiv = ""
+    let allQuests = document.querySelectorAll(".quest-content")
 
-    let cpt = 0
-    while (quest.indexOf(" ")>0){
-        quest = quest.replace(" ","_")
-        cpt++
-        if(cpt>50){break}}
+    if (quest){
+        let cpt = 0
+        while (quest.indexOf(" ")>0){
+            quest = quest.replace(" ","_")
+            cpt++ ; if(cpt>50){break}}
+            
+        questDiv = document.querySelector("#"+quest)
+        status =  questDiv.style.display
+        status === "none" ? status = "block" : status = "none" }
 
-    let questDiv = document.querySelector("#"+quest)
-    status =  questDiv.style.display
-    if (!status){status = "block"}
-
-    if (status === "block")
-        {questDiv.style.display = "none"}
-    else 
-        {questDiv.style.display = "block"} }
-
-
-
+    allQuests.forEach(x=>x.style.display="none")
+    if (status && questDiv) {questDiv.style.display = status} }
         
 
 
