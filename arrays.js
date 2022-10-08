@@ -54,7 +54,7 @@ const beasts =
 "ants","snake","wolf","thief","ent",
 "bear","goblin","bat","skeleton",
 "fire_hawk","fire_snake","fire_golem","fire_witch",
-"ice_witch",
+"ice_hawk","ice_golem","ice_witch","yeti",
 "ghost","grandma","exorcist"
 ]
             
@@ -106,20 +106,20 @@ let Fishes = []
 Fishes.push (new Fish("Shrimp",50,50,1,25,-10,250,1500,400,2250))
 Fishes.push (new Fish("Anchovy",100,200,5,100,-20,1000,6000,1000,9000))
 Fishes.push (new Fish("Sardine",150,400,10,200,-40,2000,12000,2000,18000))
-Fishes.push (new Fish("Crab","?",1000,35,500,-75,5000,30000,5000,45000))
-Fishes.push (new Fish("Piranha","?","?",50,1000,-120,10000,40000,10000,60000))
+Fishes.push (new Fish("Crab",300,1000,35,500,-75,5000,30000,5000,45000))
+Fishes.push (new Fish("Piranha",1000,"?",50,1000,-120,10000,40000,10000,60000))
 
 Fishes.push (new Fish("Salmon",100,200,10,100,-20,1000,6000,1000,9000))
 Fishes.push (new Fish("Trout",300,600,20,300,-40,3000,18000,3000,27000))
 Fishes.push (new Fish("Pike",600,2000,35,1000,-110,10000,60000,10000,90000))
 Fishes.push (new Fish("Eel",1200,"?",55,3000,-280,30000,120000,30000,180000))
-Fishes.push (new Fish("Rainbow Fish","?","?","?",10000,"?",100000,400000,300000,1800000))
+Fishes.push (new Fish("Rainbow Fish","?","?",70,30000,-840,100000,400000,300000,1800000))
 
-Fishes.push (new Fish("Tuna","?","?",35,500,-75,5000,30000,5000,45000))
-Fishes.push (new Fish("Swordfish","?","?","?",3000,"?",30000,120000,30000,180000))
-Fishes.push (new Fish("Manta Ray","?","?","?","?","?",90000,245000,90000,375000))
-Fishes.push (new Fish("Shark","?","?","?","?","?",200000,500000,200000,750000))
-Fishes.push (new Fish("Whale","?","?","?","?","?",400000,1000000,400000,1500000))
+Fishes.push (new Fish("Tuna",360,1000,35,500,-75,5000,30000,5000,45000))
+Fishes.push (new Fish("Swordfish",1600,"?",50,3000,-220,30000,120000,30000,180000))
+Fishes.push (new Fish("Manta Ray","?","?",75,9000,-1200,90000,245000,90000,375000))
+Fishes.push (new Fish("Shark","?","?",82,20000,"?",200000,500000,200000,750000))
+Fishes.push (new Fish("Whale",5000,"?",90,40000,-5000,400000,1000000,400000,1500000))
 
 class Tool {
     constructor(Tool="tool",Type="Mining",Source="Gathering",Effect = "none"){
@@ -142,5 +142,7 @@ Tools.push(new Tool("Harpoon","Fishing","Gathering (Lv60) Quiet Pond","Each upgr
 Tools.push(new Tool("Brewing Kit","Brewing","Crafting","Each upgrade increases potion duration by 25%"))
 Tools.push(new Tool("Needle","Crafting","Crafting","Each upgrade opens higher type of armour : undo armor to get back half skin cost"))
 Tools.push(new Tool("Chisel","Mining","Gathering (Lv50) Desert Mines","Each upgrade allows to find next tier of Geodes"))
+Tools.push(new Tool("Machete","Woodcutting","Gathering (Lv70) Forest","not confirmed but probably yield more fruits per level"))
+Tools.push(new Tool("Cooks Book","Cooking","Gathering (Lv45) Dirty Kitchen","**atm not upgradable** teach recipes on cooking tab"))
 
 // tableBuilder(body,Fishes)

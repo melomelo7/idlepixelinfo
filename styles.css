@@ -45,7 +45,11 @@ body{
   .navbar a:hover {
     color: blueviolet;
   }
-  
+
+.ghost{
+    display: none;
+}
+
 .main{
     margin-top: 30px;
 }
