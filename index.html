@@ -466,16 +466,25 @@
             </div>
         </section>
 
-        
         <section  class ="section" id="Bestiary">
             <div class="liner" id="bestiaryTop"><H3>Bestiary</H3></div>
             <H3>Click any monster to show details</H3>
             <div id="bestiary"></div>
         </section>
 
-        
         <section class="section" id="Combat">
             <div class="liner" id="combatTop"><H3>Combat</H3></div>
+            <form id="fight-eval">
+                <label>For a time evaluation, input :</label><br><br>
+                <label>- Fighting points to reach</label>
+                <input type="text" id="eval-reach" value="0"><br><br>
+                <label>- Current &nbspfighting &nbsppoints</label>
+                <input type="text" id="eval-now" value="0"><br><br>
+                <div id="eval-container">
+                    <input type="button" id="eval-points" value="Evaluate">
+                    <label id="eval-result"></label>
+                </div>
+            </form>
             <div id="go-area-container">
                 <a href="#fields"><div class ="go-area">Fields</div></a>
                 <a href="#forest"><div class ="go-area">Forest</div></a>
@@ -837,12 +846,18 @@
 
             craft exp :
             -----------
+            stone statue : 10 <= 3 stones
+            stone furnace : 24
+            oil well-bronze : 15 [1 oil]
+            drill : 40
+
             oven booster : 880
             rocket : 2514
             fight medallion2 : 2212
             incinerator : 2800
             spike the club : 2356
             Ice arrows : 300
+            oil well upgrade promethium : 1424
 
             minerals mining exp values:
             ---------------------------

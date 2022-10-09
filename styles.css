@@ -221,3 +221,31 @@ a:hover{
     padding: 5px;
     margin: 10px;
 }
+
+
+#fight-eval{
+    background-color: black;
+    color: white;
+    width: fit-content;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#fight-eval{
+    background-image: linear-gradient(to top right,black 40%,blue);
+    align-self: center;
+}
+
+#eval-points{
+    background-color: blue;
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+#eval-container{
+    display: flex;
+    justify-content:space-evenly;
+}

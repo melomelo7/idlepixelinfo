@@ -103,6 +103,33 @@ function displayBeast(label,Xpos,Ypos){
 setBestiary()
 
 
+const evalReach = document.querySelector("#eval-reach")
+const evalNow = document.querySelector("#eval-now")
+const evalResult = document.querySelector("#eval-result")
+const evalPoints = document.querySelector("#eval-points")
+evalPoints.addEventListener("click",evalFightPoints)
+
+function evalFightPoints(){
+    if (evalReach.value !=="" && evalNow.value !=="" && 
+        !isNaN(evalReach.value) && !isNaN(evalNow.value) &&
+        evalReach.value > evalNow.value){
+        let time = evalReach.value - evalNow.value
+        let hours = Math.floor(time/3600)
+        let minutes = Math.floor(time/60) % 60
+        let seconds = time % 60
+    
+        hours = hours < 10 ? "0" + hours : hours
+        seconds = seconds < 10 ? "0" + seconds : seconds
+        minutes = minutes < 10 ? "0" + minutes : minutes
+
+        evalResult.innerHTML = "Time needed : "+hours+":"+minutes+":"+seconds
+    }
+    else
+    {evalResult.innerHTML="Incorrect values, try again"}
+
+}
+
+
 const targetLevel = document.querySelector("#targetLevel")
 const currentExperience = document.querySelector("#currentExperience")
 const expResult = document.querySelector("#experienceResult")
