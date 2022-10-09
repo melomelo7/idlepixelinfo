@@ -112,8 +112,8 @@ evalPoints.addEventListener("click",evalFightPoints)
 function evalFightPoints(){
     if (evalReach.value !=="" && evalNow.value !=="" && 
         !isNaN(evalReach.value) && !isNaN(evalNow.value) &&
-        evalReach.value > evalNow.value){
-        let time = evalReach.value - evalNow.value
+        Number(evalReach.value) > Number(evalNow.value)){
+        let time = Number(evalReach.value) - Number(evalNow.value)
         let hours = Math.floor(time/3600)
         let minutes = Math.floor(time/60) % 60
         let seconds = time % 60
