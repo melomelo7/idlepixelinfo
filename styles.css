@@ -236,16 +236,7 @@ a:hover{
     align-self: center;
 }
 
-#eval-points{
-    background-color: blue;
-    color: white;
-    border-radius: 5px;
-    padding: 5px;
-    cursor: pointer;
-    font-size: 15px;
-}
-
 #eval-container{
     display: flex;
-    justify-content:space-evenly;
+    justify-content:center;
 }

@@ -106,8 +106,9 @@ setBestiary()
 const evalReach = document.querySelector("#eval-reach")
 const evalNow = document.querySelector("#eval-now")
 const evalResult = document.querySelector("#eval-result")
-const evalPoints = document.querySelector("#eval-points")
-evalPoints.addEventListener("click",evalFightPoints)
+
+evalReach.addEventListener("input",evalFightPoints)
+evalNow.addEventListener("input",evalFightPoints)
 
 function evalFightPoints(){
     if (evalReach.value !=="" && evalNow.value !=="" && 
@@ -126,7 +127,6 @@ function evalFightPoints(){
     }
     else
     {evalResult.innerHTML="Incorrect values, try again"}
-
 }
 
 
