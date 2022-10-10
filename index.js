@@ -291,11 +291,25 @@ function  toggleQuestDisplay(quest=""){
         
 
 
+const dropsTable = document.querySelector("#dropsTable")
+tableBuilder(dropsTable,monsterDrops)
+
+const dropsTableBtn = document.querySelector("#dropsTableBtn")
+dropsTableBtn.style.cursor = "pointer"
+dropsTableBtn.addEventListener("click",function(){
+    if(dropsTable.style.display ==="" || dropsTable.style.display === "block")
+        {dropsTable.style.display ="none"}
+    else
+        {dropsTable.style.display ="block"} })
+
+dropsTableBtn.click()
+
 const toolTable = document.querySelector("#toolTable")
 tableBuilder(toolTable,Tools)
 
 const fishingTable = document.querySelector("#fishingTable")
 tableBuilder(fishingTable,Fishes)
+
 
 
 //window.onresize = function(){

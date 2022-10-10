@@ -84,6 +84,55 @@ const expArray=[[1,0],[2,8],[3,27],[4,65],[5,130],
 function fetchXpforLevel(level){
     return expArray[Number(level)-1][1]}
 
+
+class monsterDrop{
+    constructor(Area="Area",Monster="Monster",Drop1="",Drop2="",
+                Drop3="",Drop4="",Drop5=""){
+        this.Area = Area
+        this.Monster = Monster
+        this.Drop1 = Drop1
+        this.Drop2 = Drop2
+        this.Drop3 = Drop3
+        this.Drop4 = Drop4
+        this.Drop5 = Drop5
+    }
+}
+
+let monsterDrops = []
+
+monsterDrops.push(new monsterDrop("Fields","Chicken","Feathers","Raw Chicken"))
+monsterDrops.push(new monsterDrop("Fields","Rat","Cheese"))
+monsterDrops.push(new monsterDrop("Fields","Spider","String"))
+monsterDrops.push(new monsterDrop("Fields","Bee","Honey","Stinger"))
+monsterDrops.push(new monsterDrop("Fields","Lizard","Lizard Armor Parts","Lizard Skin"))
+
+monsterDrops.push(new monsterDrop("Forest","Ants","Needles"))
+monsterDrops.push(new monsterDrop("Forest","Snake","Poison"))
+monsterDrops.push(new monsterDrop("Forest","Wolf","Meat","Heart Crystal"))
+monsterDrops.push(new monsterDrop("Forest","Thief","Iron Dagger"))
+monsterDrops.push(new monsterDrop("Forest","Ent","Strange Leaves","Strange Leaves Fertilizer"))
+
+monsterDrops.push(new monsterDrop("Caves","Bear","Bear Armor Parts","Bear Fur"))
+monsterDrops.push(new monsterDrop("Caves","Goblin","Lantern","Mask","**Goblin Toe Nails**"))
+monsterDrops.push(new monsterDrop("Caves","Bat","Bat Armor Parts","Bat Skin"))
+monsterDrops.push(new monsterDrop("Caves","Skeleton","Sword","Shield","Skull","Train Cart","Bone Amulet"))
+
+monsterDrops.push(new monsterDrop("Volcano","Fire Snake","Fire Spell","**Lava / Molten Glass**"))
+monsterDrops.push(new monsterDrop("Volcano","Fire Golem","Bomb","**Lava / Molten Glass**"))
+monsterDrops.push(new monsterDrop("Volcano","Fire Hawk","Fire Feathers","**Lava / Molten Glass**"))
+monsterDrops.push(new monsterDrop("Volcano","Fire Witch","String","3rd story Crystal","Heart Crystal","**Lava / Molten Glass**"))
+
+monsterDrops.push(new monsterDrop("Northern Fields","Ice Hawk","Ice Feathers"))
+monsterDrops.push(new monsterDrop("Northern Fields","Ice Golem","Long Bow Frame"))
+monsterDrops.push(new monsterDrop("Northern Fields","Ice Witch","Heart Crystal","Magic Crystal"))
+monsterDrops.push(new monsterDrop("Northern Fields","Yeti","Club","4th story Crystal"))
+
+monsterDrops.push(new monsterDrop("Haunted Mansion","Ghost","Invisibility Spell"))
+monsterDrops.push(new monsterDrop("Haunted Mansion","Grandma","Heal Spell Upgrade"))
+monsterDrops.push(new monsterDrop("Haunted Mansion","Exorcist","Oxygen Mask","Oxygen Tank"))
+monsterDrops.push(new monsterDrop("Haunted Mansion","Reaper","Scythe","Robe Parts"))
+
+
 class Fish {
     constructor(
         Fish="Fish",Fishing_Exp=0,Cooking_Exp=0,Rec_Cooking_Level,

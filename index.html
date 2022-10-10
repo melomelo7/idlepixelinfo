@@ -495,12 +495,18 @@
                     <label id="eval-result"></label>
                 </div>
             </form>
+            <br>
+            <Div><h4 id="dropsTableBtn">Drops of Interest Summary (click to show)</h4>
+                <div class="tableContainer" id="dropsTable"></div>
+            </Div>
+            
             <div id="go-area-container">
                 <a href="#fields"><div class ="go-area">Fields</div></a>
                 <a href="#forest"><div class ="go-area">Forest</div></a>
                 <a href="#caves"><div class ="go-area">Caves</div></a>
                 <a href="#volcano"><div class ="go-area">Volcano</div></a>
                 <a href="#northernFields"><div class ="go-area">Northern Fields</div></a>
+                <a href="#hauntedMansion"><div class ="go-area">Haunted Mansion</div></a>
             </div>
             
             <div class="faq">
@@ -727,21 +733,117 @@
                             <div class="drops">
                                 Main Drops :
                                 <div class="thinline"></div>
-                                Ice Hawk : Ice Arrow (used in crafting : Ice Arrow)<br>
+                                Ice Hawk : Ice Feathers (used in crafting : Ice Arrow)<br>
                                 Ice Arrows base damage of 7 (.. are a nice treat for the Volcano Fire Golem)<br><br>
                                 Ice Golem : Long Bow Frame (used in crafting : Long Bow)<br>
                                 and arrows ... potentially a bunch of normal and/or fire, ice ... cool to replace/stockpile<br><br>
-                                Fire Witch : ** 2x uniques **<br>
-                                Heart (Max Hp Upgrade)<br>
+                                Ice Witch : ** 2x uniques **<br>
+                                Heart Crystal (Max Hp Upgrade)<br>
                                 Magic Crystal (Max Mana Upgrade)<br><br>
                                 Yeti[R] : <br>
                                 Club (used in crafting : spiked club upgrade) is both strong and slow,<br>
-                                upgraded for a total of 12 damage and 3 accuracy
+                                upgraded for a total of 12 damage and 3 accuracy<br>
+                                4th storyline Crystal
                             </div>
                         </li>
                     </ul>
                     <br><div class ="in-title"><a href="#combatTop">Top</a></div>
                 </div>
+
+                <div class="areas">
+                    <div class ="in-title" id="hauntedMansion">Haunted Mansion :</div>
+                    <div class="thinline"></div>
+                    <ul>
+                        <li>
+                        - You come to Mansion after obviously getting everything from NF<br>
+                        - Coming here you should be around 32hp and at 19 mana<br>
+                        - There's no gimmick here unlike in past games where you needed ghost scan<br>
+                        - I wouldn't start doing Mansion without all T1 and T2 rings, I'd even wait<br>
+                            for full T3 Damage and Defense<br>
+                        - Additionally you need to have Spiked Club, Longbow isn't necessary at all<br>
+                        - The last thing you need before you start is a Ghost Jar<br>
+                        this is to unlock the invisibility spell which is required for the Reaper<br>
+                        and makes the Exorcist far easier<br>
+                        - the Mansion adds an Item Store after your first win<br>
+                        currency used is the Ghost Essence (GE) which can be earned<br>
+                        at the rate of : 1 fight => random 100 ~ 300 GE<br>
+                        - Strongly recommended to buy the Scythe as soon as possible<br><br>
+                        - this area will bring another Spell : Invisibility<br>
+                          by beating a ghost AND owning a ghost jar you will trap the ghost inside<br>
+                          the spell is then unlocked/crafted using 666 GE<br>
+                          ** This spell will give you roughly 2 seconds of being completely untargetable.<br>
+                          The spell has a 30 second cooldown and costs 2 mana. This opens up a less grueling<br>
+                          magic EXP grind where you can cast both Invisibility and Reflect for faster combats!<br>
+                          (NOTE : its still more exp/fight to use only reflect but using invisibility makes the<br>
+                          fights 3x faster and less insanity causing)<br><br>
+                        - also a spell upgrade for Healing spell here ... same exp earned or mana invested<br>
+                        but healing effect is tripled !<br>
+                        </li>
+                        <br>
+                        <li>Items in store : <br>
+                            <ol>
+                                <li>Mana Crystal : 500 GE</li>
+                                <li>Health : Crystal 1 000 GE</li>
+                                <li>Scythe : 10 000 GE</li>
+                                <li>Piece of Robe Set : 2 000 GE</li>
+                            </ol>
+                        </li>
+                        <br>
+                        <li>Use Fight Presets : Each being back to full bat armor, except last : naked !
+                            <ol>
+                                <li>Melee : Spiked Club (Later replaced with Scythe) + Shield</li>
+                                <li>Magic : Staff + Shield (armor replaced later with Robe)</li>
+                                <li>Ranged : Bow (short until swap long one) + Shield + Fire Arrows</li>
+                                <li>Melee-Naked : Spiked Club and nothing else (to use while reflecting against Ghost and Grandma)</li>
+                            </ol>
+                        </li>
+                        <br>
+
+                        <li>Monster strategy :
+                            <ol>
+                                <li>Ghost  :<br>
+                                    His fight is relatively simple. Its a tank and spank,<br>
+                                    he occasionally goes invisible and thus unhittable through out the fight.<br>
+                                    Use fire and reflect on cooldown while he's visible.<br>
+                                    Naked reflect for more consistent damage. Pray.
+                                </li><br>
+                                <li>Grandma :<br>
+                                    Grandma is a deceptively hard fight. If you look at her stats, she seems<br>
+                                    to have low damage, low hp and low defense. The caveat is that every 3/4 ticks<br>
+                                    (I'm not entirely sure), she heals for 3 hp. So it's also a DPS race. You kinda<br>
+                                    just hope to hit big club rolls, spam fire and naked reflect. You can also heal<br>
+                                    if you feel you have the spare mana.
+                                </li><br>
+                                <li>Exorcist :<br>
+                                    Exorcist doesn't have standard auto attacks. Instead she attacks you with 100% accuracy,<br>
+                                    50+ damage attacks. This fight is a severe DPS race. Reflect her first attack, dodge the<br>
+                                    second using invisibility and spam fire on cooldown. If shes not dead by time the third<br>
+                                    attack comes, you lose. I believe you can make 3 club swings in this fight.<br>
+                                    If you want, you can opt into using the bow for faster attacks to be "safe".
+                                </li><br>
+                                <li>Reaper :<br>
+                                    The Reaper is a rough but simple fight. When his eyes glow red, you have to mitigate<br>
+                                    the next attack. Reflect > Invisibility for this. The reflect bounces back the damage<br>
+                                    and is more valuable, you'll have to use both. When using the invisibility to dodge,<br>
+                                    you must count to 2 before clicking it. Otherwise you'll invisibility too early and not dodge.<br>
+                                    During the whole fight you must spam improved heal on cooldown if you aren't at max.
+                                </li>
+                            </ol>
+                            <br>
+                            <div class="drops">
+                                Main Drops : ** this area mobs reward GE with potential Guardian Key **
+                                <div class="thinline"></div>
+                                Ghost : Invisibility Spell<br><br>
+                                Grandma : Heal Upgrade<br><br>
+                                Exorcist : Oxygen Mask / Oxygen Tank<br><br>
+                                Reaper[R] : Scythe / Robe parts<br>
+                            </div>
+                        </li>
+                    </ul>
+                    <br><div class ="in-title"><a href="#combatTop">Top</a></div>
+                </div>
+
+
             </div>
         </section>
 
