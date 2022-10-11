@@ -195,6 +195,6 @@ Tools.push(new Tool("Brewing Kit","Brewing","Crafting","Each upgrade increases p
 Tools.push(new Tool("Needle","Crafting","Crafting","Each upgrade opens higher type of armour : undo armor to get back half skin cost"))
 Tools.push(new Tool("Chisel","Mining","Gathering (Lv50) Desert Mines","Each upgrade allows to find next tier of Geodes"))
 Tools.push(new Tool("Machete","Woodcutting","Gathering (Lv70) Forest","not confirmed but probably yield more fruits per level"))
-Tools.push(new Tool("Cooks Book","Cooking","Gathering (Lv45) Dirty Kitchen","**atm not upgradable** teach recipes on cooking tab"))
+Tools.push(new Tool("Cooks Book","Cooking","Gathering (Lv45) Dirty Kitchen","**atm not upgradable** teach recipes lv30+ on cooking tab"))
 
 // tableBuilder(body,Fishes)
