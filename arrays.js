@@ -99,7 +99,6 @@ class monsterDrop{
 }
 
 let monsterDrops = []
-
 monsterDrops.push(new monsterDrop("Fields","Chicken","Feathers","Raw Chicken"))
 monsterDrops.push(new monsterDrop("Fields","Rat","Cheese"))
 monsterDrops.push(new monsterDrop("Fields","Spider","String"))
@@ -169,6 +168,10 @@ Fishes.push (new Fish("Swordfish",1250,6000,50,3000,-220,30000,120000,30000,1800
 Fishes.push (new Fish("Manta Ray",2000,"?",75,9000,-1200,90000,245000,90000,375000))
 Fishes.push (new Fish("Shark",4500,"?",82,20000,-3000,200000,500000,200000,750000))
 Fishes.push (new Fish("Whale",5000,"?",90,40000,-5000,400000,1000000,400000,1500000))
+
+Fishes.push (new Fish("Stardust Fish(S)","-",2000,50,1000,-300,"-","-","-","-"))
+Fishes.push (new Fish("Stardust Fish(M)","-","?",60,2500,-600,"-","-","-","-"))
+Fishes.push (new Fish("Stardust Fish(L)","-","?","?","?","?","-","-","-","-"))
 
 class Tool {
     constructor(Tool="tool",Type="Mining",Source="Gathering",Effect = "none"){

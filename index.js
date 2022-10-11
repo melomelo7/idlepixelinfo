@@ -288,9 +288,7 @@ function  toggleQuestDisplay(quest=""){
 
     allQuests.forEach(x=>x.style.display="none")
     if (status && questDiv) {questDiv.style.display = status} }
-        
-
-
+      
 const dropsTable = document.querySelector("#dropsTable")
 tableBuilder(dropsTable,monsterDrops)
 
