@@ -133,6 +133,68 @@ monsterDrops.push(new monsterDrop("Haunted Mansion","Exorcist","Oxygen Mask","Ox
 monsterDrops.push(new monsterDrop("Haunted Mansion","Reaper","Scythe","Robe Parts"))
 
 
+
+class Tool {
+    constructor(Tool="tool",Type="Mining",Source="Gathering",Effect = "none"){
+    this.Tool = Tool
+    this.Type = Type
+    this.Source = Source
+    this.Effect = Effect
+} }
+
+let Tools = []
+
+Tools.push(new Tool("Pickaxe","Mining","Game Shop","Reduce amount of Stardust required when converting ores into Exp"))
+Tools.push(new Tool("Hammer","Crafting","Game Shop","Reduce amount of Stardust required when converting bars into Exp"))
+Tools.push(new Tool("Rake","Farming","Gathering (Lv3) Desert Mines","Each upgrade increases your chance at finding seeds by +5%"))
+Tools.push(new Tool("Watering Can","Farming","Gathering (Lv75) Fields","??? not yet coded ..."))
+Tools.push(new Tool("Axe","Woodcutting","Gathering (Lv20) Friendly Forest","Each upgrade increases logs received when cutting a tree by +5units"))
+Tools.push(new Tool("Fishing Net","Fishing","Craft/Buy => Quest related content","Each upgrade increase catched fishing Exp by +5%"))
+Tools.push(new Tool("Fishing Rod","Fishing","Gathering (Lv30) Quiet Pond","Each upgrade increase catched fishing Exp by +5%"))
+Tools.push(new Tool("Harpoon","Fishing","Gathering (Lv60) Quiet Pond","Each upgrade increase catched fishing Exp by +5%"))
+Tools.push(new Tool("Brewing Kit","Brewing","Crafting","Each upgrade increases potion duration by 25%"))
+Tools.push(new Tool("Needle","Crafting","Crafting","Each upgrade opens higher type of armour : undo armor to get back half skin cost"))
+Tools.push(new Tool("Chisel","Mining","Gathering (Lv50) Desert Mines","Each upgrade allows to find next tier of Geodes"))
+Tools.push(new Tool("Machete","Woodcutting","Gathering (Lv70) Forest","not confirmed but probably yield more fruits per level"))
+Tools.push(new Tool("Cooks Book","Cooking","Gathering (Lv45) Dirty Kitchen","**atm not upgradable** teach recipes lv30+ on cooking tab"))
+
+
+class Potion {
+    constructor(
+        Potion="potion",Level=1,Red_Mushroom=1,Dotted_Green_Leaf=1,
+        Green_Leaf=1,Lime_Leaf=1,Strange_Leaf=1,Gold_Leaf=1,Bone=1,
+        Promethium_Ore=1,Experience){
+    this.Potion = Potion
+    this.Level = Level
+    this.Red_Mushroom = Red_Mushroom
+    this.Dotted_Green_Leaf = Dotted_Green_Leaf
+    this.Green_Leaf = Green_Leaf
+    this.Lime_Leaf = Lime_Leaf
+    this.Strange_Leaf = Strange_Leaf
+    this.Gold_Leaf = Gold_Leaf
+    this.Bone = Bone
+    this.Promethium_Ore = Promethium_Ore
+    this.Experience = Experience
+} }
+
+let Potions = []
+
+Potions.push( new Potion("Stardust",1,"",3,"","","","","","",75) )
+Potions.push( new Potion("Energy",3,10,"","","","","","","",50))
+Potions.push( new Potion("Anti Disease",5,20,6,"","","","","","",250))
+Potions.push( new Potion("Tree Speed",8,25,"",4,"","","","","",525))
+Potions.push( new Potion("Smelting Upgrade",10,50,"",3,"","","","","",550))
+Potions.push( new Potion("Great Stardust",13,35,"",10,3,"","","","",1925))
+Potions.push( new Potion("Farming Speed",15,100,"","","","","","","",500))
+Potions.push( new Potion("Rare Monster",20,50,15,"","",3,"","","",2125))
+Potions.push( new Potion("Super Stardust",25,200,"",10,"","",3,"","",4400))
+Potions.push( new Potion("Unique Gathering",27,100,"","",10,"","","","",3000))
+Potions.push( new Potion("Heat",30,50,"",15,3,"","","","",2500))
+Potions.push( new Potion("Bone",35,"",30,"","","",1,10,"",1550))
+Potions.push( new Potion("Promethium",40,"","",20,"","","","",1,2000))
+Potions.push( new Potion("Rare Monster+",45,200,80,"","",6,"","","",6000))
+Potions.push( new Potion("Ultra Stardust",50,300,"","",20,"",8,"","",12900))
+
 class Fish {
     constructor(
         Fish="Fish",Fishing_Exp=0,Cooking_Exp=0,Rec_Cooking_Level,
@@ -173,29 +235,3 @@ Fishes.push (new Fish("Whale",5000,"?",90,40000,-5000,400000,1000000,400000,1500
 Fishes.push (new Fish("Stardust Fish(S)","-",2000,50,1000,-300,"-","-","-","-"))
 Fishes.push (new Fish("Stardust Fish(M)","-","?",60,2500,-600,"-","-","-","-"))
 Fishes.push (new Fish("Stardust Fish(L)","-","?",70,5000,-2000,"-","-","-","-"))
-
-class Tool {
-    constructor(Tool="tool",Type="Mining",Source="Gathering",Effect = "none"){
-    this.Tool = Tool
-    this.Type = Type
-    this.Source = Source
-    this.Effect = Effect
-} }
-
-let Tools = []
-
-Tools.push(new Tool("Pickaxe","Mining","Game Shop","Reduce amount of Stardust required when converting ores into Exp"))
-Tools.push(new Tool("Hammer","Crafting","Game Shop","Reduce amount of Stardust required when converting bars into Exp"))
-Tools.push(new Tool("Rake","Farming","Gathering (Lv3) Desert Mines","Each upgrade increases your chance at finding seeds by +5%"))
-Tools.push(new Tool("Watering Can","Farming","Gathering (Lv75) Fields","??? not yet coded ..."))
-Tools.push(new Tool("Axe","Woodcutting","Gathering (Lv20) Friendly Forest","Each upgrade increases logs received when cutting a tree by +5units"))
-Tools.push(new Tool("Fishing Net","Fishing","Craft/Buy => Quest related content","Each upgrade increase catched fishing Exp by +5%"))
-Tools.push(new Tool("Fishing Rod","Fishing","Gathering (Lv30) Quiet Pond","Each upgrade increase catched fishing Exp by +5%"))
-Tools.push(new Tool("Harpoon","Fishing","Gathering (Lv60) Quiet Pond","Each upgrade increase catched fishing Exp by +5%"))
-Tools.push(new Tool("Brewing Kit","Brewing","Crafting","Each upgrade increases potion duration by 25%"))
-Tools.push(new Tool("Needle","Crafting","Crafting","Each upgrade opens higher type of armour : undo armor to get back half skin cost"))
-Tools.push(new Tool("Chisel","Mining","Gathering (Lv50) Desert Mines","Each upgrade allows to find next tier of Geodes"))
-Tools.push(new Tool("Machete","Woodcutting","Gathering (Lv70) Forest","not confirmed but probably yield more fruits per level"))
-Tools.push(new Tool("Cooks Book","Cooking","Gathering (Lv45) Dirty Kitchen","**atm not upgradable** teach recipes lv30+ on cooking tab"))
-
-// tableBuilder(body,Fishes)

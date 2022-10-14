@@ -305,10 +305,14 @@ dropsTableBtn.click()
 const toolTable = document.querySelector("#toolTable")
 tableBuilder(toolTable,Tools)
 
+const brewingTable = document.querySelector("#brewingTable")
+tableBuilder(brewingTable,Potions)
+
 const fishingTable = document.querySelector("#fishingTable")
 tableBuilder(fishingTable,Fishes)
 
-
-
 //window.onresize = function(){
 //    console.log("window size:"+window.innerWidth)}
+
+
+
