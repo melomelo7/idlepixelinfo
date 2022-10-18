@@ -233,5 +233,5 @@ Fishes.push (new Fish("Shark",4500,"?",82,20000,-3000,200000,500000,200000,75000
 Fishes.push (new Fish("Whale",5000,"?",90,40000,-5000,400000,1000000,400000,1500000))
 
 Fishes.push (new Fish("Stardust Fish(S)","-",2000,50,1000,-300,"-","-","-","-"))
-Fishes.push (new Fish("Stardust Fish(M)","-","?",60,2500,-600,"-","-","-","-"))
+Fishes.push (new Fish("Stardust Fish(M)","-",5000,60,2500,-600,"-","-","-","-"))
 Fishes.push (new Fish("Stardust Fish(L)","-","?",70,5000,-2000,"-","-","-","-"))
