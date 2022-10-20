@@ -45,6 +45,12 @@ function tableBuilder(container,thisArray,MaxColumn=2){
             cell = document.createElement("td")
             row.appendChild(cell)
             text = item[j][1]
+            if (typeof text === "string" && text.includes("_")){
+                cpt=0
+                while(text.indexOf("_") !==-1){
+                    text = text.replace("_","<br>")
+                    cpt++
+                    if(cpt>10){console.log("breaker"); break} } }
             cell.innerHTML= text.toLocaleString()
             cell.style = CellStyle } } }
 
@@ -162,8 +168,8 @@ Tools.push(new Tool("Cooks Book","Cooking","Gathering (Lv45) Dirty Kitchen","**a
 class Potion {
     constructor(
         Potion="potion",Level=1,Red_Mushroom=1,Dotted_Green_Leaf=1,
-        Green_Leaf=1,Lime_Leaf=1,Strange_Leaf=1,Gold_Leaf=1,Bone=1,
-        Promethium_Ore=1,Experience){
+        Green_Leaf=1,Lime_Leaf=1,Strange_Leaf=1,Gold_Leaf=1,Items="",
+        Experience){
     this.Potion = Potion
     this.Level = Level
     this.Red_Mushroom = Red_Mushroom
@@ -172,28 +178,29 @@ class Potion {
     this.Lime_Leaf = Lime_Leaf
     this.Strange_Leaf = Strange_Leaf
     this.Gold_Leaf = Gold_Leaf
-    this.Bone = Bone
-    this.Promethium_Ore = Promethium_Ore
+    this.Items = Items
     this.Experience = Experience
 } }
 
 let Potions = []
 
-Potions.push( new Potion("Stardust",1,"",3,"","","","","","",75) )
-Potions.push( new Potion("Energy",3,10,"","","","","","","",50))
-Potions.push( new Potion("Anti Disease",5,20,6,"","","","","","",250))
-Potions.push( new Potion("Tree Speed",8,25,"",4,"","","","","",525))
-Potions.push( new Potion("Smelting Upgrade",10,50,"",3,"","","","","",550))
-Potions.push( new Potion("Great Stardust",13,35,"",10,3,"","","","",1925))
-Potions.push( new Potion("Farming Speed",15,100,"","","","","","","",500))
-Potions.push( new Potion("Rare Monster",20,50,15,"","",3,"","","",2125))
-Potions.push( new Potion("Super Stardust",25,200,"",10,"","",3,"","",4400))
-Potions.push( new Potion("Unique Gathering",27,100,"","",10,"","","","",3000))
-Potions.push( new Potion("Heat",30,50,"",15,3,"","","","",2500))
-Potions.push( new Potion("Bone",35,"",30,"","","",1,10,"",1550))
-Potions.push( new Potion("Promethium",40,"","",20,"","","","",1,2000))
-Potions.push( new Potion("Rare Monster+",45,200,80,"","",6,"","","",6000))
-Potions.push( new Potion("Ultra Stardust",50,300,"","",20,"",8,"","",12900))
+Potions.push( new Potion("Stardust",1,"",3,"","","","","",75))
+Potions.push( new Potion("Energy",3,10,"","","","","","",50))
+Potions.push( new Potion("Anti Disease",5,20,6,"","","","","",250))
+Potions.push( new Potion("Tree Speed",8,25,"",4,"","","","",525))
+Potions.push( new Potion("Smelting Upgrade",10,50,"",3,"","","","",550))
+Potions.push( new Potion("Great Stardust",13,35,"",10,3,"","","",1925))
+Potions.push( new Potion("Farming Speed",15,100,"","","","","","",500))
+Potions.push( new Potion("Rare Monster",20,50,15,"","",3,"","",2125))
+Potions.push( new Potion("Super Stardust",25,200,"",10,"","",3,"",4400))
+Potions.push( new Potion("Unique Gathering",27,100,"","",10,"","","",3000))
+Potions.push( new Potion("Heat",30,50,"",15,3,"","","",2500))
+Potions.push( new Potion("Bone",35,"",30,"","","",1,"Bones x10",1550))
+Potions.push( new Potion("Promethium",40,"","",20,"","","","Promethium Ore x1",2000))
+Potions.push( new Potion("Rare Monster+",45,200,80,"","",6,"","",6000))
+Potions.push( new Potion("Ultra Stardust",50,300,"","",20,"",8,"",12900))
+Potions.push( new Potion("Rocket Speed",55,150,"","","","","","Rocket Fuel x2_Lunar Stone x1",750))
+Potions.push( new Potion("Titanium",60,"","","",20,"","","Titanium Ore x1",5000))
 
 class Fish {
     constructor(
