@@ -141,6 +141,9 @@ const calcOptions = document.querySelector("#calcOptions")
 calcOptions.style.display = "none"
 const includeOptions = document.querySelector("#includeOptions")
 includeOptions.checked = false
+const mediumCrafting = document.querySelector("#medium-crafting")
+const hammerOrb = document.querySelector("#hammer-orb")
+const pickaxeOrb = document.querySelector("#pickaxe-orb")
 
 function toggleOptions(){
     if (calcOptions.style.display === "none"){
@@ -198,6 +201,8 @@ function calculateXp(){
     let needed = 0
     let msg = ""
     let goodInput = true
+    let type = document.querySelector("#labelType")
+    let other = false
 
     if (isNaN(target) || isNaN(current)|| target < 2 || current < 1 || fetchXpforLevel(target) < Number(current)){
         goodInput = false
@@ -209,7 +214,6 @@ function calculateXp(){
         msg += "Target Level AND/OR Current Experience is/are wrong here ..."}            
         }
     else {
-        console.log("dive2")
         target = Number(target)
         current = Number(current)
         needed = fetchXpforLevel(target)-current
@@ -242,7 +246,17 @@ function calculateXp(){
             if(radioTools[i].checked){toolBonus = i}}
         SdMult = base-toolBonus
 
+        if (type.innerHTML.split(": ")[1] === "Crafting" && mediumCrafting.checked )
+            {SdMult -= 1 ; other = true}
+
+        if (type.innerHTML.split(": ")[1] === "Crafting" && hammerOrb.checked )
+            {SdMult -= 2 ; other = true}
+
+        if (type.innerHTML.split(": ")[1] === "Mining" && pickaxeOrb.checked )
+            {SdMult -= 2 ; other = true}
+
         msg+= "<br> Current tool provides -" + toolBonus + " on Star Dust per Experience conversion"
+        if (other) {msg+= "<br>( up to "+ (SdMult-base) + " with other cheked options )"}
         msg+= "<br> so for this configuration : 1 Exp will cost " + SdMult + " Star Dusts."
     
         for(i=0;i<radioItems.length;i++){
