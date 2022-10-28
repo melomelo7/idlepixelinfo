@@ -221,23 +221,23 @@ class Fish {
 
 let Fishes = []
 
-Fishes.push (new Fish("Shrimp",50,50,1,25,-10,250,1500,400,2250))
-Fishes.push (new Fish("Anchovy",100,200,5,100,-20,1000,6000,1000,9000))
-Fishes.push (new Fish("Sardine",150,400,10,200,-40,2000,12000,2000,18000))
-Fishes.push (new Fish("Crab",300,1000,35,500,-75,5000,30000,5000,45000))
-Fishes.push (new Fish("Piranha",1000,2000,50,1000,-120,10000,40000,10000,60000))
+Fishes.push (new Fish("Shrimp",50,50,1,25,-10,50,400,200,1000))
+Fishes.push (new Fish("Anchovy",100,200,5,100,-20,500,2500,1000,3000))
+Fishes.push (new Fish("Sardine",150,400,10,200,-40,500,4000,2000,10000))
+Fishes.push (new Fish("Crab",300,1000,35,500,-75,2500,10000,5000,20000))
+Fishes.push (new Fish("Piranha",1000,2000,50,1000,-120,5000,20000,10000,30000))
 
-Fishes.push (new Fish("Salmon",100,200,10,100,-20,1000,6000,1000,9000))
-Fishes.push (new Fish("Trout",300,600,20,300,-40,3000,18000,3000,27000))
-Fishes.push (new Fish("Pike",600,2000,35,1000,-110,10000,60000,10000,90000))
-Fishes.push (new Fish("Eel",1200,6000,55,3000,-280,30000,120000,30000,180000))
-Fishes.push (new Fish("Rainbow Fish",3000,"?",70,30000,-840,100000,400000,300000,1800000))
+Fishes.push (new Fish("Salmon",100,200,10,100,-20,1000,3000,1000,5000))
+Fishes.push (new Fish("Trout",300,600,20,300,-40,3000,10000,3000,12500))
+Fishes.push (new Fish("Pike",600,2000,35,1000,-110,10000,20000,7500,30000))
+Fishes.push (new Fish("Eel",1200,6000,55,3000,-280,30000,50000,30000,75000))
+Fishes.push (new Fish("Rainbow Fish",3000,"?",70,30000,-840,300000,500000,300000,600000))
 
-Fishes.push (new Fish("Tuna",360,1000,35,500,-75,5000,30000,5000,45000))
-Fishes.push (new Fish("Swordfish",1250,6000,50,3000,-220,30000,120000,30000,180000))
-Fishes.push (new Fish("Manta Ray",2000,18000,75,9000,-1200,90000,245000,90000,375000))
-Fishes.push (new Fish("Shark",4500,"?",82,20000,-3000,200000,500000,200000,750000))
-Fishes.push (new Fish("Whale",5000,"?",90,40000,-5000,400000,1000000,400000,1500000))
+Fishes.push (new Fish("Tuna",360,1000,35,500,-75,5000,20000,5000,35000))
+Fishes.push (new Fish("Swordfish",1250,6000,50,3000,-220,30000,90000,30000,100000))
+Fishes.push (new Fish("Manta Ray",2000,18000,75,9000,-1200,25000,75000,90000,175000))
+Fishes.push (new Fish("Shark",4500,"?",82,20000,-3000,50000,100000,200000,500000))
+Fishes.push (new Fish("Whale",5000,"?",90,40000,-5000,100000,3000000,400000,1000000))
 
 Fishes.push (new Fish("Stardust Fish(S)","-",2000,50,1000,-300,"-","-","-","-"))
 Fishes.push (new Fish("Stardust Fish(M)","-",5000,60,2500,-600,"-","-","-","-"))
