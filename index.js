@@ -144,6 +144,8 @@ includeOptions.checked = false
 const mediumCrafting = document.querySelector("#medium-crafting")
 const hammerOrb = document.querySelector("#hammer-orb")
 const pickaxeOrb = document.querySelector("#pickaxe-orb")
+const miningOutfit = document.querySelector("#mining-outfit")
+const craftingOutfit = document.querySelector("#crafting-outfit")
 
 function toggleOptions(){
     if (calcOptions.style.display === "none"){
@@ -249,11 +251,18 @@ function calculateXp(){
         if (type.innerHTML.split(": ")[1] === "Crafting" && mediumCrafting.checked )
             {SdMult -= 1 ; other = true}
 
+        if (type.innerHTML.split(": ")[1] === "Crafting" && craftingOutfit.checked )
+            {SdMult -= 1 ; other = true}
+
+        if (type.innerHTML.split(": ")[1] === "Mining" && miningOutfit.checked )
+            {SdMult -= 1 ; other = true}
+
         if (type.innerHTML.split(": ")[1] === "Crafting" && hammerOrb.checked )
             {SdMult -= 2 ; other = true}
 
         if (type.innerHTML.split(": ")[1] === "Mining" && pickaxeOrb.checked )
             {SdMult -= 2 ; other = true}
+
 
         msg+= "<br> Current tool provides -" + toolBonus + " on Star Dust per Experience conversion"
         if (other) {msg+= "<br>( up to "+ (SdMult-base) + " with other cheked options )"}
