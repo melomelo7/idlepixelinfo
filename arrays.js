@@ -62,6 +62,7 @@ const beasts =
 "fire_hawk","fire_snake","fire_golem","fire_witch",
 "ice_hawk","ice_golem","ice_witch","yeti",
 "ghost","grandma","exorcist","reaper",
+"gem_goblin",
 ]
             
 
