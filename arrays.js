@@ -62,6 +62,7 @@ const beasts =
 "fire_hawk","fire_snake","fire_golem","fire_witch",
 "ice_hawk","ice_golem","ice_witch","yeti",
 "ghost","grandma","exorcist","reaper",
+"blood_chicken","blood_rat","blood_spider",
 "gem_goblin",
 ]
             
@@ -200,7 +201,7 @@ Potions.push( new Potion("Bone",35,"",30,"","","",1,"Bones x10",1550))
 Potions.push( new Potion("Promethium",40,"","",20,"","","","Promethium Ore x1",2000))
 Potions.push( new Potion("Rare Monster+",45,200,80,"","",6,"","",6000))
 Potions.push( new Potion("Ultra Stardust",50,300,"","",20,"",8,"",12900))
-Potions.push( new Potion("Rocket Speed",55,150,"","","","","","Rocket Fuel x2_Lunar Stone x1",750))
+Potions.push( new Potion("Rocket Speed",55,150,"","","","","","Rocket Fuel x2_Lunar Stone x1",1500))
 Potions.push( new Potion("Titanium",60,"","","",20,"","","Titanium Ore x1",5000))
 
 class Fish {
