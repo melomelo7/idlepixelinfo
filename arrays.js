@@ -197,12 +197,14 @@ Potions.push( new Potion("Rare Monster",20,50,15,"","",3,"","",2125))
 Potions.push( new Potion("Super Stardust",25,200,"",10,"","",3,"",4400))
 Potions.push( new Potion("Unique Gathering",27,100,"","",10,"","","",3000))
 Potions.push( new Potion("Heat",30,50,"",15,3,"","","",2500))
+Potions.push( new Potion("Bait",33,"","",10,"","","","Weed x2",1000))
 Potions.push( new Potion("Bone",35,"",30,"","","",1,"Bones x10",1550))
 Potions.push( new Potion("Promethium",40,"","",20,"","","","Promethium Ore x1",2000))
 Potions.push( new Potion("Rare Monster+",45,200,80,"","",6,"","",6000))
 Potions.push( new Potion("Ultra Stardust",50,300,"","",20,"",8,"",12900))
 Potions.push( new Potion("Rocket Speed",55,150,"","","","","","Rocket Fuel x2_Lunar Stone x1",1500))
 Potions.push( new Potion("Titanium",60,"","","",20,"","","Titanium Ore x1",5000))
+Potions.push( new Potion("Geode",62,300,"","","","",10,"",9500))
 
 class Fish {
     constructor(
