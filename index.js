@@ -238,7 +238,9 @@ function calculateXp(){
             {text : "Iron",  mining : 5,crafting : 25},
             {text : "Silver",mining : 10,crafting : 50},
             {text : "Gold",  mining : 20,crafting : 100},
-            {text : "Promethium",mining : 100,crafting : 500}]
+            {text : "Promethium",mining : 100,crafting : 500},
+            {text : "Titanium",mining : 400,crafting : 2000}
+        ]
 
         let skill = document.querySelector("#labelType")
         skill.innerHTML.includes("Mining") ?
