@@ -278,5 +278,5 @@ function clickCell2(e,obj){
             let posH = window.innerHeight/2 - rect.height/2
             projectPop.style.top = posH + window.scrollY + "px"
             projectPop.style.left = posW + window.scrollX + "px"
-
+            projectPop.style.width = 300 + "px"
 }
