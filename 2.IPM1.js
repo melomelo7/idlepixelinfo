@@ -281,5 +281,4 @@ function clickCell2(e,obj){
             projectPop.style.top = posH + window.scrollY -10 + "px"
             projectPop.style.left = posW + window.scrollX +5 + "px"
             
-            info.innerHTML = ww + "!"
 }
