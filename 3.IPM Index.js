@@ -7,7 +7,7 @@ const right = document.querySelector("#right")
 const infoTitle = "Idle Planet Miner Infos" 
 info.innerHTML = infoTitle
 
-let showingProject = false
+let projectPop = undefined
 
 addLeftButton({label:"Projects",clickFunction:clickProjects})
 
