@@ -148,16 +148,15 @@ function buildProjectsGrid(cellSize){
 
 
 function clickCell2(e,obj){
-    if(showingProject){return}
-    showingProject = true
+    if(projectPop) {body.removeChild(projectPop);projectPop = undefined}
 
-    let container = document.createElement("div")
-    container.style = containerStyle
-    body.appendChild(container)
+    projectPop = document.createElement("div")
+    projectPop.style = containerStyle
+    body.appendChild(projectPop)
 
         let subContainer1 = document.createElement("div")
         subContainer1.style = subContainerStyleA
-        container.appendChild(subContainer1)
+        projectPop.appendChild(subContainer1)
 
             let text = document.createElement("div")
             text.style.fontSize = 28 + "px"
@@ -180,37 +179,37 @@ function clickCell2(e,obj){
             else 
                 {img.src = "./IPM Projects/"+obj.label+".jpg"}
 
-            subContainer1 .appendChild(img)
+            subContainer1.appendChild(img)
         
         let description = document.createElement("div")
         description.innerHTML = obj.description
         description.style.margin = "10px"
-        container.appendChild(description)
+        projectPop.appendChild(description)
 
         if (obj.comment){
             let comment = document.createElement("div")
             comment.innerHTML = obj.comment
             comment.style.margin = "10px"
-            container.appendChild(comment)}
+            projectPop.appendChild(comment)}
 
         let prerequisites = document.createElement("div")
         prerequisites.innerHTML = "Prerequisites :  " + obj.prerequisites
         prerequisites.style.margin = "10px"
-        container.appendChild(prerequisites)
+        projectPop.appendChild(prerequisites)
 
         let highestPlanet = document.createElement("div")
         highestPlanet.innerHTML = "Highest Planet Required :  " + obj.highestPlanetRequired
         highestPlanet.style.margin = "10px"
-        container.appendChild(highestPlanet)
+        projectPop.appendChild(highestPlanet)
 
         let costLabel = document.createElement("div")
         costLabel.innerHTML = "Base Cost => Cost with Max Lev Lab"
         costLabel.style.margin = "10px"
-        container.appendChild(costLabel)
+        projectPop.appendChild(costLabel)
 
         let subContainer2 = document.createElement("div")
         subContainer2.style = subContainerStyleB
-        container.appendChild(subContainer2)
+        projectPop.appendChild(subContainer2)
 
             let subContainer3 = document.createElement("div")
             subContainer3.style = subContainerStyleA
@@ -269,9 +268,9 @@ function clickCell2(e,obj){
             closeButton.style = closeButtonStyle
             closeButton.style.margin = "10px"
             closeButton.addEventListener("click",()=>{
-                showingProject = false
-                body.removeChild(container)
+                body.removeChild(projectPop)
+                projectPop = undefined
             })
-            container.appendChild(closeButton)
+            projectPop.appendChild(closeButton)
 
 }
