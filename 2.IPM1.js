@@ -58,13 +58,8 @@ function buildProjectsGrid(cellSize){
             row.appendChild(cell)
 
 
-            cell.style.border = "solid 1px white"
+            //cell.style.border = "solid 1px white"
             
-            cell.addEventListener("click",(e)=>{
-                console.log(e.srcElement.id)
-
-                console.log(e.srcElement.getBoundingClientRect())
-            })
 
         }}
 
