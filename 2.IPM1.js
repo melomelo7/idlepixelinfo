@@ -130,12 +130,12 @@ function buildProjectsGrid(cellSize){
 
 
     table.rows[9].cells[18].style.backgroundImage = 
-        "linear-gradient(to right, rgb(28,21,49) 50%, yellow 50%)"
-    table.rows[9].cells[19].style.backgroundColor="yellow"
-    table.rows[9].cells[20].style.backgroundColor="yellow"
-    table.rows[9].cells[21].style.backgroundColor="yellow"
+        "linear-gradient(to right, rgb(28,21,49) 50%, grey 50%)"
+    table.rows[9].cells[19].style.backgroundColor="grey"
+    table.rows[9].cells[20].style.backgroundColor="grey"
+    table.rows[9].cells[21].style.backgroundColor="grey"
     table.rows[9].cells[22].style.backgroundImage = 
-        "linear-gradient(to right, yellow 50%, rgb(28,21,49) 50%)"
+        "linear-gradient(to right, grey 50%, rgb(28,21,49) 50%)"
 
 
 
