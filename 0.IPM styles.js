@@ -41,9 +41,12 @@ border-radius : 30px;
 position:absolute;
 top:40px;
 left:120px;
-background-image : url("./IPM Components/bg.png");
+background-image : url("./IPM Components/bg.jpg");
+
 font-size:18px;
 `
+// background-color: black;
+
 
 const subContainerStyleA = `
 display : flex;
