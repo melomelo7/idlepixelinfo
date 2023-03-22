@@ -41,7 +41,7 @@ border-radius : 30px;
 position:absolute;
 top:40px;
 left:120px;
-background-image : url("./IPM img/bg.png");
+background-image : url("./IPM Components/bg.png");
 font-size:18px;
 `
 
