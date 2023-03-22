@@ -274,11 +274,12 @@ function clickCell2(e,obj){
             projectPop.appendChild(closeButton)
 
             let ww= 300
+            projectPop.style.width = 300 + "px"
             let rect = projectPop.getBoundingClientRect()
             let posW = window.innerWidth/2 - rect.width/2
             let posH = window.innerHeight/2 - rect.height/2
             projectPop.style.top = posH + window.scrollY + "px"
             projectPop.style.left = posW + window.scrollX + "px"
-            projectPop.style.width = 300 + "px"
+            
             info.innerHTML = ww
 }
