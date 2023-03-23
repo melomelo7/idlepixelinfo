@@ -30,6 +30,16 @@ function clickProjects(){
     }}
 
 
+function centerScreen(element){
+    let rect = element.getBoundingClientRect()
+    let posW = window.innerWidth/2 - rect.width/2
+    let posH = window.innerHeight/2 - rect.height/2
+    element.style.position = "absolute"
+    element.style.top = posH + window.scrollY -10 + "px"
+    element.style.left = posW + window.scrollX +5 + "px"
+}
+
+
 const cellSize = 35
 function buildProjectsGrid(cellSize){
     let table = document.createElement("table")
@@ -153,6 +163,7 @@ function clickCell2(e,obj){
     let projectPopWidth = 300
     projectPop = document.createElement("div")
     projectPop.style = containerStyle
+    projectPop.style.width = projectPopWidth + "px"
     body.appendChild(projectPop)
 
         let subContainer1 = document.createElement("div")
@@ -274,11 +285,5 @@ function clickCell2(e,obj){
             })
             projectPop.appendChild(closeButton)
 
-            projectPop.style.width = projectPopWidth + "px"
-            let rect = projectPop.getBoundingClientRect()
-            let posW = window.innerWidth/2 - rect.width/2
-            let posH = window.innerHeight/2 - rect.height/2
-            projectPop.style.top = posH + window.scrollY -10 + "px"
-            projectPop.style.left = posW + window.scrollX +5 + "px"
-            
+            centerScreen(projectPop)
 }
