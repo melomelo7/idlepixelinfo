@@ -13,4 +13,4 @@ addLeftButton({label:"Projects",clickFunction:clickProjects})
 
 window.onload = firstContact()
 
-console.log("Laat up Thd 0:06")
+console.log("Last up Thd 0:06")
