@@ -6,26 +6,17 @@ function cleanParent(parent){
 
 
 function firstContact(){
-
-    console.log("arrived here")
-
     let thisText = `Welcome to IPM Infos, 
     if you cant see any text, <br><br> 
     try zooming the top left corner ..." <br><br>
     (click me to close this pop-up)
     `
-
     let msg = document.createElement("Div")
     msg.innerHTML = thisText
     msg.style = containerStyle
     body.appendChild(msg)
     centerScreen(msg)
-    
-//    msg.addEventListener("click",()=>{body.removeChild(msg)})
-
-
     setTimeout(()=>{body.removeChild(msg)},3000)
-
 }
 
 
