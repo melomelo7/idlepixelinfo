@@ -34,17 +34,13 @@ margin-bottom:0;
 `
 
 const containerStyle = `
-padding : 10px;
+padding : 15px;
 color : white;
 border : blue solid 3px;
 border-radius : 30px;
 background-image : url("./IPM Components/bg.jpg");
 font-size:18px;
 `
-// background-color: black;
-//position:absolute;
-//top:40px;
-//left:120px;
 
 const subContainerStyleA = `
 display : flex;
