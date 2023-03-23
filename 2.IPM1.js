@@ -9,7 +9,7 @@ function firstContact(){
     let thisText = `Welcome to IPM Infos, 
     if you cant see any text, <br><br> 
     try zooming the top left corner ..." <br><br>
-    (click me to close this pop-up)
+    (this message will auto-destroy in 3...2...1...)
     `
     let msg = document.createElement("Div")
     msg.innerHTML = thisText
