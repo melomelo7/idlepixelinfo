@@ -150,6 +150,7 @@ function buildProjectsGrid(cellSize){
 function clickCell2(e,obj){
     if(projectPop) {body.removeChild(projectPop);projectPop = undefined}
 
+    let projectPopWidth = 300
     projectPop = document.createElement("div")
     projectPop.style = containerStyle
     body.appendChild(projectPop)
@@ -273,8 +274,7 @@ function clickCell2(e,obj){
             })
             projectPop.appendChild(closeButton)
 
-            let ww= 300
-            projectPop.style.width = 300 + "px"
+            projectPop.style.width = projectPopWidth + "px"
             let rect = projectPop.getBoundingClientRect()
             let posW = window.innerWidth/2 - rect.width/2
             let posH = window.innerHeight/2 - rect.height/2
