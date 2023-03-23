@@ -121,7 +121,7 @@ function buildProjectsGrid(cellSize){
     img.src = "./IPM Projects/origin.png"
     table.rows[17-1].cells[13-1].appendChild(img)
 
-    connections.forEach((obj)=>{
+    projectsConnections.forEach((obj)=>{
         let hr = undefined
         switch(obj.dir){
             case "hor":
