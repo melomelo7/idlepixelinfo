@@ -11,4 +11,6 @@ let projectPop = undefined
 
 addLeftButton({label:"Projects",clickFunction:clickProjects})
 
-
+window.onload = function(){
+    console.log("arrived here")
+}
