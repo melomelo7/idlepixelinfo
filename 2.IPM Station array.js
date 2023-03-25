@@ -18,87 +18,85 @@ class stationCell {
     this.totalCost = this.costs.reduce(function(a,b){return a+b},0)
 }
 
-
-
 }
 
 const stationArray = []
 
 stationArray.push(
-{label:"production boost duration #2",rows:4,cell:2},
-{label:"production boost duration #1",rows:4,cell:4},
-{label:"production boost duration #3",rows:4,cell:6},
-{label:"production boost duration #4",rows:4,cell:8},
 
-{label:"production boost speed #5",rows:4,cell:10},
-{label:"production boost speed #3",rows:4,cell:12},
-{label:"production boost speed #4",rows:4,cell:14},
-{label:"production boost speed #2",rows:6,cell:8},
-{label:"production boost speed #1",rows:8,cell:8},
-
-{label:"colonizing #6",rows:6,cell:4},
-{label:"colonizing #5",rows:8,cell:6},
-{label:"colonizing #4",rows:8,cell:12},
-{label:"colonizing #2",rows:10,cell:4},
-{label:"colonizing #3",rows:10,cell:10},
-{label:"colonizing #1",rows:12,cell:6},
-
-
-{label:"asteroids & debris #6",rows:6,cell:12},
-{label:"asteroids & debris #4",rows:8,cell:4},
-{label:"asteroids & debris #5",rows:8,cell:10},
-{label:"asteroids & debris #3",rows:10,cell:6},
-{label:"asteroids & debris #2",rows:10,cell:12},
-{label:"asteroids & debris #1",rows:12,cell:10},
-
-{label:"managers #1",rows:17,cell:4},
-{label:"managers #2",rows:10,cell:18},
-{label:"managers #3",rows:10,cell:20},
-
-{label:"credits #1",rows:27,cell:4},
-{label:"credits #2",rows:10,cell:14},
-{label:"credits #3",rows:10,cell:16},
-
-{label:"crafting #1",rows:27,cell:10},
-{label:"crafting #2",rows:24,cell:6},
-{label:"crafting #3",rows:20,cell:10},
-{label:"crafting #4",rows:17,cell:6},
-{label:"crafting #5",rows:20,cell:18},
-
-{label:"smelting #1",rows:27,cell:6},
-{label:"smelting #2",rows:24,cell:10},
-{label:"smelting #3",rows:20,cell:6},
-{label:"smelting #4",rows:17,cell:10},
-{label:"smelting #5",rows:20,cell:14},
-
-{label:"ship speed #1",rows:27,cell:8},
-{label:"ship speed #2",rows:20,cell:8},
-{label:"ship speed #3",rows:27,cell:14},
-{label:"ship speed #4",rows:24,cell:14},
-
-{label:"cargo #1",rows:24,cell:8},
-{label:"cargo #2",rows:17,cell:8},
-{label:"cargo #3",rows:27,cell:18},
-{label:"cargo #4",rows:24,cell:18},
-
-{label:"alloy & item #1",rows:24,cell:4},
-{label:"alloy & item #2",rows:17,cell:14},
-{label:"alloy & item #3",rows:17,cell:16},
-{label:"alloy & item #4",rows:14,cell:14},
-{label:"alloy & item #5",rows:14,cell:18},
-{label:"alloy & item #6",rows:12,cell:14},
-{label:"alloy & item #7",rows:12,cell:16},
-
-{label:"market #1",rows:20,cell:4},
-{label:"market #2",rows:17,cell:18},
-{label:"market #3",rows:17,cell:20},
-{label:"market #4",rows:14,cell:16},
-{label:"market #5",rows:14,cell:20},
-{label:"market #6",rows:12,cell:18},
-{label:"market #7",rows:12,cell:20},
-
-{label:"mining #1",rows:29,cell:12},
-{label:"mining #2",rows:27,cell:16},
+    {label:"production boost duration #2",rows:3,cell:1},
+    {label:"production boost duration #1",rows:3,cell:3},
+    {label:"production boost duration #3",rows:3,cell:5},
+    {label:"production boost duration #4",rows:3,cell:7},
+    
+    {label:"production boost speed #5",rows:3,cell:9},
+    {label:"production boost speed #3",rows:3,cell:11},
+    {label:"production boost speed #4",rows:3,cell:13},
+    {label:"production boost speed #2",rows:5,cell:7},
+    {label:"production boost speed #1",rows:7,cell:7},
+    
+    {label:"colonizing #6",rows:5,cell:3},
+    {label:"colonizing #5",rows:7,cell:5},
+    {label:"colonizing #4",rows:7,cell:11},
+    {label:"colonizing #2",rows:9,cell:3},
+    {label:"colonizing #3",rows:9,cell:9},
+    {label:"colonizing #1",rows:11,cell:5},
+    
+    {label:"asteroids & debris #6",rows:5,cell:11},
+    {label:"asteroids & debris #4",rows:7,cell:3},
+    {label:"asteroids & debris #5",rows:7,cell:9},
+    {label:"asteroids & debris #3",rows:9,cell:5},
+    {label:"asteroids & debris #2",rows:9,cell:11},
+    {label:"asteroids & debris #1",rows:11,cell:9},
+    
+    {label:"managers #1",rows:16,cell:3},
+    {label:"managers #2",rows:9,cell:17},
+    {label:"managers #3",rows:9,cell:19},
+    
+    {label:"credits #1",rows:26,cell:3},
+    {label:"credits #2",rows:9,cell:13},
+    {label:"credits #3",rows:9,cell:15},
+    
+    {label:"crafting #1",rows:26,cell:9},
+    {label:"crafting #2",rows:23,cell:5},
+    {label:"crafting #3",rows:19,cell:9},
+    {label:"crafting #4",rows:16,cell:5},
+    {label:"crafting #5",rows:19,cell:17},
+    
+    {label:"smelting #1",rows:26,cell:5},
+    {label:"smelting #2",rows:23,cell:9},
+    {label:"smelting #3",rows:19,cell:5},
+    {label:"smelting #4",rows:16,cell:9},
+    {label:"smelting #5",rows:19,cell:13},
+    
+    {label:"ship speed #1",rows:26,cell:7},
+    {label:"ship speed #2",rows:19,cell:7},
+    {label:"ship speed #3",rows:26,cell:13},
+    {label:"ship speed #4",rows:23,cell:13},
+    
+    {label:"cargo #1",rows:23,cell:7},
+    {label:"cargo #2",rows:16,cell:7},
+    {label:"cargo #3",rows:26,cell:17},
+    {label:"cargo #4",rows:23,cell:17},
+    
+    {label:"alloy & item #1",rows:23,cell:3},
+    {label:"alloy & item #2",rows:16,cell:13},
+    {label:"alloy & item #3",rows:16,cell:15},
+    {label:"alloy & item #4",rows:13,cell:13},
+    {label:"alloy & item #5",rows:13,cell:17},
+    {label:"alloy & item #6",rows:11,cell:13},
+    {label:"alloy & item #7",rows:11,cell:15},
+    
+    {label:"market #1",rows:19,cell:3},
+    {label:"market #2",rows:16,cell:17},
+    {label:"market #3",rows:16,cell:19},
+    {label:"market #4",rows:13,cell:15},
+    {label:"market #5",rows:13,cell:19},
+    {label:"market #6",rows:11,cell:17},
+    {label:"market #7",rows:11,cell:19},
+    
+    {label:"mining #1",rows:28,cell:11},
+    {label:"mining #2",rows:26,cell:15},
 
 )
 
@@ -484,178 +482,180 @@ new stationCell({
 const stationConnections = []
 
 stationConnections.push(
-    {rows:2,cell:2,dir:"sta"},
-    {rows:2,cell:3,dir:"sta"},
-    {rows:2,cell:4,dir:"sta"},
+
+    {rows:1,cell:1,dir:"sta"},
+    {rows:1,cell:2,dir:"sta"},
+    {rows:1,cell:3,dir:"sta"},
+    {rows:1,cell:4,dir:"sta"},
+    {rows:1,cell:5,dir:"sta"},
+
+    {rows:1,cell:9,dir:"sta"},
+    {rows:1,cell:10,dir:"sta"},
+    {rows:1,cell:11,dir:"sta"},
+    {rows:1,cell:12,dir:"sta"},
+    {rows:1,cell:13,dir:"sta"},
+
+    {rows:2,cell:1,dir:"sta"},
     {rows:2,cell:5,dir:"sta"},
-    {rows:2,cell:6,dir:"sta"},
-
-    {rows:2,cell:10,dir:"sta"},
-    {rows:2,cell:11,dir:"sta"},
-    {rows:2,cell:12,dir:"sta"},
+    {rows:2,cell:9,dir:"sta"},
     {rows:2,cell:13,dir:"sta"},
-    {rows:2,cell:14,dir:"sta"},
 
-    {rows:3,cell:2,dir:"sta"},
     {rows:3,cell:6,dir:"sta"},
-    {rows:3,cell:10,dir:"sta"},
-    {rows:3,cell:14,dir:"sta"},
+    {rows:3,cell:8,dir:"sta"},
 
-    {rows:4,cell:7,dir:"sta"},
-    {rows:4,cell:9,dir:"sta"},
+    {rows:4,cell:1,dir:"sta"},
+    {rows:4,cell:3,dir:"sta"},
+    {rows:4,cell:11,dir:"sta"},
+    {rows:4,cell:13,dir:"sta"},
 
+    {rows:5,cell:1,dir:"sta"},
     {rows:5,cell:2,dir:"sta"},
     {rows:5,cell:4,dir:"sta"},
+    {rows:5,cell:5,dir:"sta"},
+
+    {rows:5,cell:9,dir:"sta"},
+    {rows:5,cell:10,dir:"sta"},
     {rows:5,cell:12,dir:"sta"},
-    {rows:5,cell:14,dir:"sta"},
+    {rows:5,cell:13,dir:"sta"},
 
-    {rows:6,cell:2,dir:"sta"},
-    {rows:6,cell:3,dir:"sta"},
     {rows:6,cell:5,dir:"sta"},
-    {rows:6,cell:6,dir:"sta"},
-
-    {rows:6,cell:10,dir:"sta"},
-    {rows:6,cell:11,dir:"sta"},
-    {rows:6,cell:13,dir:"sta"},
-    {rows:6,cell:14,dir:"sta"},
+    {rows:6,cell:7,dir:"sta"},
+    {rows:6,cell:9,dir:"sta"},
 
     {rows:7,cell:6,dir:"sta"},
     {rows:7,cell:8,dir:"sta"},
-    {rows:7,cell:10,dir:"sta"},
 
-    {rows:8,cell:7,dir:"sta"},
+    {rows:8,cell:3,dir:"sta"},
+    {rows:8,cell:5,dir:"sta"},
     {rows:8,cell:9,dir:"sta"},
+    {rows:8,cell:11,dir:"sta"},
 
     {rows:9,cell:4,dir:"sta"},
-    {rows:9,cell:6,dir:"sta"},
     {rows:9,cell:10,dir:"sta"},
-    {rows:9,cell:12,dir:"sta"},
 
-    {rows:10,cell:5,dir:"sta"},
+    {rows:10,cell:3,dir:"sta"},
     {rows:10,cell:11,dir:"sta"},
 
+    {rows:10,cell:13,dir:"sta"},
+    {rows:10,cell:15,dir:"sta"},
+    {rows:10,cell:17,dir:"sta"},
+    {rows:10,cell:19,dir:"sta"},
+
+    {rows:11,cell:3,dir:"sta"},
     {rows:11,cell:4,dir:"sta"},
-    {rows:11,cell:12,dir:"sta"},
+    {rows:11,cell:6,dir:"sta"},
 
-    {rows:11,cell:14,dir:"sta"},
-    {rows:11,cell:16,dir:"sta"},
-    {rows:11,cell:18,dir:"sta"},
-    {rows:11,cell:20,dir:"sta"},
+    {rows:11,cell:8,dir:"sta"},
+    {rows:11,cell:10,dir:"sta"},
+    {rows:11,cell:11,dir:"sta"},
 
-    {rows:12,cell:4,dir:"sta"},
-    {rows:12,cell:5,dir:"sta"},
-    {rows:12,cell:7,dir:"sta"},
+    {rows:12,cell:6,dir:"sta"},
+    {rows:12,cell:8,dir:"sta"},
+    {rows:12,cell:13,dir:"sta"},
+    {rows:12,cell:15,dir:"sta"},
+    {rows:12,cell:17,dir:"sta"},
+    {rows:12,cell:19,dir:"sta"},
 
-    {rows:12,cell:9,dir:"sta"},
-    {rows:12,cell:11,dir:"sta"},
-    {rows:12,cell:12,dir:"sta"},
+    {rows:13,cell:6,dir:"sta"},
+    {rows:13,cell:8,dir:"sta"},
 
-    {rows:13,cell:7,dir:"sta"},
-    {rows:13,cell:9,dir:"sta"},
-    {rows:13,cell:14,dir:"sta"},
-    {rows:13,cell:16,dir:"sta"},
-    {rows:13,cell:18,dir:"sta"},
-    {rows:13,cell:20,dir:"sta"},
-
-    {rows:14,cell:7,dir:"sta"},
+    {rows:14,cell:5,dir:"sta"},
+    {rows:14,cell:6,dir:"sta"},
+    {rows:14,cell:8,dir:"sta"},
     {rows:14,cell:9,dir:"sta"},
 
-    {rows:15,cell:6,dir:"sta"},
-    {rows:15,cell:7,dir:"sta"},
-    {rows:15,cell:9,dir:"sta"},
-    {rows:15,cell:10,dir:"sta"},
+    {rows:14,cell:13,dir:"sta"},
+    {rows:14,cell:15,dir:"sta"},
+    {rows:14,cell:17,dir:"sta"},
+    {rows:14,cell:19,dir:"sta"},
 
-    {rows:15,cell:14,dir:"sta"},
-    {rows:15,cell:16,dir:"sta"},
-    {rows:15,cell:18,dir:"sta"},
-    {rows:15,cell:20,dir:"sta"},
+    {rows:15,cell:5,dir:"sta"},
+    {rows:15,cell:9,dir:"sta"},
+
+    {rows:15,cell:13,dir:"sta"},
+    {rows:15,cell:15,dir:"sta"},
+    {rows:15,cell:17,dir:"sta"},
+    {rows:15,cell:19,dir:"sta"},
 
     {rows:16,cell:6,dir:"sta"},
-    {rows:16,cell:10,dir:"sta"},
+    {rows:16,cell:8,dir:"sta"},
 
-    {rows:16,cell:14,dir:"sta"},
-    {rows:16,cell:16,dir:"sta"},
-    {rows:16,cell:18,dir:"sta"},
-    {rows:16,cell:20,dir:"sta"},
-
+    {rows:17,cell:3,dir:"sta"},
     {rows:17,cell:7,dir:"sta"},
-    {rows:17,cell:9,dir:"sta"},
 
-    {rows:18,cell:4,dir:"sta"},
-    {rows:18,cell:8,dir:"sta"},
+    {rows:17,cell:13,dir:"sta"},
+    {rows:17,cell:15,dir:"sta"},
+    {rows:17,cell:17,dir:"sta"},
+    {rows:17,cell:19,dir:"sta"},
+
+    {rows:18,cell:3,dir:"sta"},
+    {rows:18,cell:7,dir:"sta"},
+
+    {rows:18,cell:13,dir:"sta"},
+    {rows:18,cell:15,dir:"sta"},
+    {rows:18,cell:17,dir:"sta"},
+    {rows:18,cell:19,dir:"sta"},
 
     {rows:18,cell:14,dir:"sta"},
-    {rows:18,cell:16,dir:"sta"},
     {rows:18,cell:18,dir:"sta"},
-    {rows:18,cell:20,dir:"sta"},
 
-    {rows:19,cell:4,dir:"sta"},
+    {rows:19,cell:6,dir:"sta"},
     {rows:19,cell:8,dir:"sta"},
 
-    {rows:19,cell:14,dir:"sta"},
-    {rows:19,cell:16,dir:"sta"},
-    {rows:19,cell:18,dir:"sta"},
-    {rows:19,cell:20,dir:"sta"},
-
-    {rows:19,cell:15,dir:"sta"},
-    {rows:19,cell:19,dir:"sta"},
-
+    {rows:20,cell:3,dir:"sta"},
     {rows:20,cell:7,dir:"sta"},
-    {rows:20,cell:9,dir:"sta"},
+
+    {rows:20,cell:13,dir:"sta"},
+    {rows:20,cell:17,dir:"sta"},
+
+    {rows:21,cell:3,dir:"sta"},
+    {rows:21,cell:7,dir:"sta"},
+
+    {rows:21,cell:13,dir:"sta"},
+    {rows:21,cell:17,dir:"sta"},
 
     {rows:21,cell:4,dir:"sta"},
-    {rows:21,cell:8,dir:"sta"},
+    {rows:21,cell:5,dir:"sta"},
+    {rows:21,cell:6,dir:"sta"},
 
-    {rows:21,cell:14,dir:"sta"},
-    {rows:21,cell:18,dir:"sta"},
-
-    {rows:22,cell:4,dir:"sta"},
-    {rows:22,cell:8,dir:"sta"},
-
-    {rows:22,cell:14,dir:"sta"},
-    {rows:22,cell:18,dir:"sta"},
-
-    {rows:22,cell:5,dir:"sta"},
-    {rows:22,cell:6,dir:"sta"},
+    {rows:22,cell:3,dir:"sta"},
     {rows:22,cell:7,dir:"sta"},
 
-    {rows:23,cell:4,dir:"sta"},
+    {rows:22,cell:13,dir:"sta"},
+    {rows:22,cell:17,dir:"sta"},
+
+    {rows:23,cell:6,dir:"sta"},
     {rows:23,cell:8,dir:"sta"},
 
-    {rows:23,cell:14,dir:"sta"},
-    {rows:23,cell:18,dir:"sta"},
-
+    {rows:24,cell:3,dir:"sta"},
     {rows:24,cell:7,dir:"sta"},
-    {rows:24,cell:9,dir:"sta"},
 
-    {rows:25,cell:4,dir:"sta"},
-    {rows:25,cell:8,dir:"sta"},
+    {rows:24,cell:13,dir:"sta"},
+    {rows:24,cell:17,dir:"sta"},
 
-    {rows:25,cell:14,dir:"sta"},
-    {rows:25,cell:18,dir:"sta"},
+    {rows:25,cell:3,dir:"sta"},
+    {rows:25,cell:7,dir:"sta"},
 
-    {rows:26,cell:4,dir:"sta"},
+    {rows:25,cell:13,dir:"sta"},
+    {rows:25,cell:17,dir:"sta"},
+
+    {rows:26,cell:6,dir:"sta"},
     {rows:26,cell:8,dir:"sta"},
 
     {rows:26,cell:14,dir:"sta"},
-    {rows:26,cell:18,dir:"sta"},
+    {rows:26,cell:16,dir:"sta"},
 
     {rows:27,cell:7,dir:"sta"},
-    {rows:27,cell:9,dir:"sta"},
-
     {rows:27,cell:15,dir:"sta"},
-    {rows:27,cell:17,dir:"sta"},
 
+    {rows:28,cell:7,dir:"sta"},
     {rows:28,cell:8,dir:"sta"},
-    {rows:28,cell:16,dir:"sta"},
+    {rows:28,cell:9,dir:"sta"},
+    {rows:28,cell:10,dir:"sta"},
+    {rows:28,cell:12,dir:"sta"},
+    {rows:28,cell:13,dir:"sta"},
+    {rows:28,cell:14,dir:"sta"},
+    {rows:28,cell:15,dir:"sta"},
 
-    {rows:29,cell:8,dir:"sta"},
-    {rows:29,cell:9,dir:"sta"},
-    {rows:29,cell:10,dir:"sta"},
-    {rows:29,cell:11,dir:"sta"},
-    {rows:29,cell:13,dir:"sta"},
-    {rows:29,cell:14,dir:"sta"},
-    {rows:29,cell:15,dir:"sta"},
-    {rows:29,cell:16,dir:"sta"},
-    )
+)
 
