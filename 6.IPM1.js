@@ -204,7 +204,8 @@ function buildProjectsGrid(whichGrid="",cellSize=0){
             default :
                 table.rows[obj.rows-1].cells[obj.cell-1].style.backgroundColor="red"
             }
-
+        table.rows[obj.rows-1].cells[obj.cell-1]
+        .addEventListener("click",()=>{popKiller()})
         table.rows[obj.rows-1].cells[obj.cell-1]
         .addEventListener("mouseover",()=>{info.innerHTML=""})
     })
