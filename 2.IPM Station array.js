@@ -122,7 +122,7 @@ new stationCell({
     label:"production boost duration #3",
     maxLevel:2,
     bonusPerLevel:0.025,
-    costs:[200,470]}),
+    costs:[240,470]}),
 
 new stationCell({
     label:"production boost duration #4",
