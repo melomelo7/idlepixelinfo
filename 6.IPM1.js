@@ -34,15 +34,43 @@ function addLeftButton({label="",clickFunction=undefined,parent=left}){
 }
 
 
+function popKiller(){if(projectPop) {body.removeChild(projectPop);projectPop = undefined}}
+
 function clickProjects(){
+    popKiller()
+    cleanParent(right)
+    buildProjectsGrid("projects",cellSize)
+
+/*
     if (right.children.length>0){
-        console.log("childs +")
         cleanParent(right)
 
     } else {
         cleanParent(right)
-        buildProjectsGrid(cellSize)        
-    }}
+        buildProjectsGrid("projects",cellSize)        
+        }
+*/
+
+    }
+
+
+function clickStation(){
+    popKiller()
+    cleanParent(right)
+    buildProjectsGrid("station",cellSize)
+
+/*
+    if (right.children.length>0){
+        cleanParent(right)
+
+    } else {
+        cleanParent(right)
+        buildProjectsGrid("station",cellSize)        
+        }
+*/
+
+    }
+
 
 
 function centerScreen(element){
@@ -56,41 +84,61 @@ function centerScreen(element){
 
 
 const cellSize = 35
-function buildProjectsGrid(cellSize){
+function buildProjectsGrid(whichGrid="",cellSize=0){
     let table = document.createElement("table")
 
     let cut = 5
 
-    for (i=1;i<30;i++){
+    let maxRow = 0
+    let maxCol =0
+    let refArray1 = undefined
+    let refArray2 = undefined
+
+    switch (whichGrid){
+        case "projects":
+            maxRow = 29
+            maxCol = 29
+            refArray1 = projectCells
+            refArray2 = projectsConnections
+            break
+        case "station":
+            maxRow = 30
+            maxCol = 21
+            refArray1 = stationCells
+            refArray2 = stationConnections
+            break
+    }
+
+
+    for (i=1;i<=maxRow;i++){
         let row = document.createElement("tr")
 
-        if(i % 2 === 0)
+        if (whichGrid === "projects" && i % 2 === 0)
             {row.style.height = cellSize/cut + "px"}
         else
             {row.style.height = cellSize + "px"}
 
+
         table.appendChild(row)
-        for (j=1;j<30;j++){
+
+        for (j=1;j<=maxCol;j++){
             let cell = document.createElement("td")
 
-            if(j % 2 === 0)
-            {cell.style.width = cellSize/cut + "px"}
+            if (whichGrid === "projects" && j % 2 === 0)
+                {cell.style.width = cellSize/cut + "px"}
             else
-            {cell.style.width = cellSize + "px"}
-            
+                {cell.style.width = cellSize + "px"}
+
             cell.style.minWidth = cell.style.width
             cell.setAttribute("id","Row:"+i+"|Col:"+j)
             row.appendChild(cell)
 
-
-            //cell.style.border = "solid 1px white"
-            
-
+//            cell.style.border = "solid 1px white"
         }}
 
     right.appendChild(table)
 
-    projectCells.forEach((obj)=>{
+    refArray1.forEach((obj)=>{
         let img = new Image(cellSize,cellSize)
         if (obj.label.includes("telescope")){
             let txt = obj.label.split(" ")[0]
@@ -102,7 +150,9 @@ function buildProjectsGrid(cellSize){
                 {img.src = "./IPM Projects/"+txt+"2.jpg"}
             else 
                 {img.src = "./IPM Projects/"+txt+"3.jpg"}
-            } 
+            }
+        else if (obj.label.includes("#"))
+            {img.src = "./IPM Components/"+obj.label.split(" #")[0]+".jpg"}
         else 
             {img.src = "./IPM Projects/"+obj.label+".jpg"}
         
@@ -114,14 +164,16 @@ function buildProjectsGrid(cellSize){
         
         img.addEventListener("mouseover",()=>{info.innerHTML=obj.label})
         img.addEventListener("mouseout",()=>{info.innerHTML=infoTitle})
-        img.addEventListener("click",function(e){clickCell2(e,obj)})
+        img.addEventListener("click",function(e){clickCell2(e,obj,whichGrid)})
     })
 
-    let img = new Image(cellSize,cellSize)
-    img.src = "./IPM Projects/origin.png"
-    table.rows[17-1].cells[13-1].appendChild(img)
+    if (whichGrid === "projects"){
+        let img = new Image(cellSize,cellSize)
+        img.src = "./IPM Projects/origin.png"
+        table.rows[17-1].cells[13-1].appendChild(img)
+        }
 
-    projectsConnections.forEach((obj)=>{
+        refArray2.forEach((obj)=>{
         let hr = undefined
         switch(obj.dir){
             case "hor":
@@ -145,6 +197,12 @@ function buildProjectsGrid(cellSize){
             case "dia":
                 table.rows[obj.rows-1].cells[obj.cell-1].style.backgroundColor="grey"
                 break
+            case "sta":
+                table.rows[obj.rows-1].cells[obj.cell-1].style.backgroundColor="rgb(37,156,180)"
+                //table.rows[obj.rows-1].cells[obj.cell-1].style.backgroundColor="rgb(40,238,91)"
+                break
+            default :
+                table.rows[obj.rows-1].cells[obj.cell-1].style.backgroundColor="red"
             }
 
         table.rows[obj.rows-1].cells[obj.cell-1]
@@ -153,15 +211,15 @@ function buildProjectsGrid(cellSize){
 
     
 
-
-    table.rows[9].cells[18].style.backgroundImage = 
-        "linear-gradient(to right, rgb(28,21,49) 50%, grey 50%)"
-    table.rows[9].cells[19].style.backgroundColor="grey"
-    table.rows[9].cells[20].style.backgroundColor="grey"
-    table.rows[9].cells[21].style.backgroundColor="grey"
-    table.rows[9].cells[22].style.backgroundImage = 
-        "linear-gradient(to right, grey 50%, rgb(28,21,49) 50%)"
-
+    if (whichGrid ==="projects" ){
+        table.rows[9].cells[18].style.backgroundImage = 
+            "linear-gradient(to right, rgb(28,21,49) 50%, grey 50%)"
+        table.rows[9].cells[19].style.backgroundColor="grey"
+        table.rows[9].cells[20].style.backgroundColor="grey"
+        table.rows[9].cells[21].style.backgroundColor="grey"
+        table.rows[9].cells[22].style.backgroundImage = 
+            "linear-gradient(to right, grey 50%, rgb(28,21,49) 50%)"
+    }
 
 
     table.style.margin = "20px 0 0 40px"
@@ -172,8 +230,8 @@ function buildProjectsGrid(cellSize){
     }
 
 
-function clickCell2(e,obj){
-    if(projectPop) {body.removeChild(projectPop);projectPop = undefined}
+function clickCell2(e,obj,whichGrid){
+    popKiller()
 
     let projectPopWidth = 300
     projectPop = document.createElement("div")
@@ -186,12 +244,14 @@ function clickCell2(e,obj){
         projectPop.appendChild(subContainer1)
 
             let text = document.createElement("div")
-            text.style.fontSize = 28 + "px"
+            text.style.fontSize = 20 + "px"
             text.style.margin = "10px"
+            text.style.borderBottom = "blue solid 3px"
             text.innerHTML = obj.label
             subContainer1.appendChild(text)
 
             let img = new Image(40,40)
+
             if (obj.label.includes("telescope")){
                 let txt = obj.label.split(" ")[0]
                 let ref = Number(obj.label.split(" ")[1])
@@ -202,16 +262,20 @@ function clickCell2(e,obj){
                     {img.src = "./IPM Projects/"+txt+"2.jpg"}
                 else 
                     {img.src = "./IPM Projects/"+txt+"3.jpg"}
-                } 
+                }
+            else if (obj.label.includes("#"))
+                {img.src = "./IPM Components/"+obj.label.split(" #")[0]+".jpg"}
             else 
                 {img.src = "./IPM Projects/"+obj.label+".jpg"}
 
             subContainer1.appendChild(img)
         
+        if (obj.description){
         let description = document.createElement("div")
         description.innerHTML = obj.description
         description.style.margin = "10px"
         projectPop.appendChild(description)
+            }
 
         if (obj.comment){
             let comment = document.createElement("div")
@@ -219,21 +283,27 @@ function clickCell2(e,obj){
             comment.style.margin = "10px"
             projectPop.appendChild(comment)}
 
+        if (obj.prerequisites){
         let prerequisites = document.createElement("div")
         prerequisites.innerHTML = "Prerequisites :  " + obj.prerequisites
         prerequisites.style.margin = "10px"
         projectPop.appendChild(prerequisites)
+            }
 
+        if (obj.highestPlanetRequired){
         let highestPlanet = document.createElement("div")
         highestPlanet.innerHTML = "Highest Planet Required :  " + obj.highestPlanetRequired
         highestPlanet.style.margin = "10px"
         projectPop.appendChild(highestPlanet)
+            }
+        
+        if(whichGrid === "projects"){
 
         let costLabel = document.createElement("div")
         costLabel.innerHTML = "Base Cost => Cost with Max Lev Lab"
         costLabel.style.margin = "10px"
         projectPop.appendChild(costLabel)
-
+            
         let subContainer2 = document.createElement("div")
         subContainer2.style = subContainerStyleB
         projectPop.appendChild(subContainer2)
@@ -289,6 +359,41 @@ function clickCell2(e,obj){
                 obj.component3.label + " " + obj.component3.baseCost + " => " + obj.component3.costWithMaxLab
                 subContainer5.appendChild(text)
             }
+        }
+
+        if (whichGrid === "station"){
+            let bonusPerLevel = document.createElement("div")
+            bonusPerLevel.innerHTML = "Bonus per Level + "+obj.bonusPerLevel
+            bonusPerLevel.style.margin = "10px"
+            projectPop.appendChild(bonusPerLevel)
+
+            let maxLevel = document.createElement("div")
+            maxLevel.innerHTML = "Max Level : "+obj.maxLevel
+            maxLevel.style.margin = "10px"
+            projectPop.appendChild(maxLevel)
+
+            let costsLabel = document.createElement("div")
+            costsLabel.innerHTML = "Costs : "
+            costsLabel.style.margin = "10px"
+            projectPop.appendChild(costsLabel)
+
+            let costs = document.createElement("div")
+            for(i=0;i<obj.costs.length;i++){
+                costs.innerHTML += obj.costs[i] + " - "
+                if((i+1) % 7 === 0){costs.innerHTML += "<br>"}
+            }
+            costs.innerHTML = costs.innerHTML.slice(0,costs.innerHTML.length-2)
+            costs.style.margin = "10px"
+            costs.style.borderTop = "blue solid 3px"
+            costs.style.borderBottom = "blue solid 3px"
+            projectPop.appendChild(costs)
+
+            let totalCost = document.createElement("div")
+            totalCost.innerHTML = "Buy all for : "+obj.totalCost
+            totalCost.style.margin = "10px"
+            projectPop.appendChild(totalCost)
+
+        }
 
             let closeButton = document.createElement("div")
             closeButton.innerHTML = "Close"

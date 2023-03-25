@@ -2,24 +2,24 @@
 class projectCell {
     constructor({
         label="",
+        description="",
         rows=0,
         cell=0,
         component1={label:"",baseCost:0,costWithMaxLab:0},
         component2={label:"",baseCost:0,costWithMaxLab:0},
         component3={label:"",baseCost:0,costWithMaxLab:0},
-        description="",
         comment="",
         prerequisites="",
         highestPlanetRequired="",
     })
 {
     this.label=label
+    this.description = description
     this.rows= projectsArray[projectsArray.findIndex(x=>x.label===this.label)].rows
     this.cell= projectsArray[projectsArray.findIndex(x=>x.label===this.label)].cell
     this.component1 = component1
     this.component2 = component2
     this.component3 = component3
-    this.description = description
     this.comment = comment
     this.prerequisites = prerequisites
     this.highestPlanetRequired = highestPlanetRequired
