@@ -34,6 +34,12 @@ function addLeftButton({label="",clickFunction=undefined,parent=left}){
 }
 
 
+function construction(){
+    let img = new Image()
+    img.src = "./IPM Components/construction.jpg"
+    right.appendChild(img)
+}
+
 function popKiller(){
     info.innerHTML = infoTitle
     if(projectPop) {body.removeChild(projectPop);projectPop = undefined}
@@ -43,8 +49,8 @@ function clickItems(){
     popKiller()
     cleanParent(right)
 //    buildItems()
-    info.innerHTML = "Under Construction !"
-    }
+    construction()
+}
 
 function clickProjects(){
     popKiller()
