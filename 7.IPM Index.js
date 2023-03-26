@@ -9,9 +9,10 @@ info.innerHTML = infoTitle
 
 let projectPop = undefined
 
+addLeftButton({label:"Items",clickFunction:clickItems})
 addLeftButton({label:"Projects",clickFunction:clickProjects})
 addLeftButton({label:"Station",clickFunction:clickStation})
 
 window.onload = firstContact()
 
-console.log("Last up Sun 2:18")
+console.log("Last up 03/26 15:10")

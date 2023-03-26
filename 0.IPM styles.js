@@ -67,3 +67,13 @@ padding: 5px;
 border-radius:5px;
 cursor: pointer;
 `
+
+const containerRow = `
+display:flex;
+flex-direction: row;
+`
+
+const containerColumn = `
+display:flex;
+flex-direction:column;
+`

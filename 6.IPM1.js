@@ -34,23 +34,22 @@ function addLeftButton({label="",clickFunction=undefined,parent=left}){
 }
 
 
-function popKiller(){if(projectPop) {body.removeChild(projectPop);projectPop = undefined}}
+function popKiller(){
+    info.innerHTML = infoTitle
+    if(projectPop) {body.removeChild(projectPop);projectPop = undefined}
+    }
+
+function clickItems(){
+    popKiller()
+    cleanParent(right)
+//    buildItems()
+    info.innerHTML = "Under Construction !"
+    }
 
 function clickProjects(){
     popKiller()
     cleanParent(right)
     buildProjectsGrid("projects",cellSize)
-
-/*
-    if (right.children.length>0){
-        cleanParent(right)
-
-    } else {
-        cleanParent(right)
-        buildProjectsGrid("projects",cellSize)        
-        }
-*/
-
     }
 
 
@@ -58,17 +57,6 @@ function clickStation(){
     popKiller()
     cleanParent(right)
     buildProjectsGrid("station",cellSize)
-
-/*
-    if (right.children.length>0){
-        cleanParent(right)
-
-    } else {
-        cleanParent(right)
-        buildProjectsGrid("station",cellSize)        
-        }
-*/
-
     }
 
 
@@ -156,6 +144,8 @@ function buildProjectsGrid(whichGrid="",cellSize=0){
         else 
             {img.src = "./IPM Projects/"+obj.label+".jpg"}
         
+        img.style.display="block"
+
         table.rows[obj.rows-1].cells[obj.cell-1].appendChild(img)
         table.rows[obj.rows-1].cells[obj.cell-1].style=`
         border:solid 1px white;
