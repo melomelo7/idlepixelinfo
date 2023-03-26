@@ -35,6 +35,7 @@ function addLeftButton({label="",clickFunction=undefined,parent=left}){
 
 
 function construction(){
+    info.innerHTML = "Under Construction !!"
     let img = new Image()
     img.src = "./IPM Components/construction.jpg"
     right.appendChild(img)
