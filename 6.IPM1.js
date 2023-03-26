@@ -35,11 +35,14 @@ function addLeftButton({label="",clickFunction=undefined,parent=left}){
 
 
 function construction(){
-    info.innerHTML = "Under Construction !!"
+    info.innerHTML = "Under Construction !!!"
+    let thisContainer = document.createElement("div")
+    thisContainer.style = containerColumn
+    right.appendChild(thisContainer)
     let img = new Image()
     img.src = "./IPM Components/construction.jpg"
-    right.appendChild(img)
-}
+    thisContainer.appendChild(img)
+    }
 
 function popKiller(){
     info.innerHTML = infoTitle
