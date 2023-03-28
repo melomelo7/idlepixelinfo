@@ -2,7 +2,6 @@ class Item {
     constructor({
         label = "",
         type = "ore",
-        foundOnPlanets = [],
         baseCraftTime = "",
         unlockCost = 0,
         baseSellValue = 1,
@@ -10,7 +9,6 @@ class Item {
     }){
         this.label = label
         this.type = type
-        this.foundOnPlanets = foundOnPlanets
         this.baseCraftTime = baseCraftTime
         this.unlockCost = unlockCost
         this.baseSellValue = baseSellValue
@@ -24,7 +22,18 @@ class Item {
         case "bar" : return "barsColumn";break
         case "item" : return "itemsColumn";break}}
 
+    get foundOnPlanets(){
+        let newArray = []
+        for (let i=0;i<planetsArray.length;i++){
+            for(let j=0;j<planetsArray[i].ores.length;j++){
+                if (planetsArray[i].ores[j].label === this.label){
+                    newArray.push(planetsArray[i].label)
+                }}}
+        return newArray}
+
 }
+
+
 
 const itemsArray = []
 
@@ -34,7 +43,6 @@ itemsArray.push(
 new Item({
     label:"copper ore",
     type:"ore",
-    foundOnPlanets:["Balor","Drasta","Anadius"],
     unlockCost:"$ 100",
     baseSellValue: "$ 1"
 }),
@@ -42,7 +50,6 @@ new Item({
 new Item({
     label:"iron ore",
     type:"ore",
-    foundOnPlanets:["Drasta","Anadius","Dholen","Verr","Widow"],
     unlockCost:"$ 200",
     baseSellValue: "$ 2",
 }),
@@ -50,58 +57,176 @@ new Item({
 new Item({
     label:"lead ore",
     type:"ore",
-    foundOnPlanets:["Dholen","Verr","Newton","Solveig","Relic","Gorgon"],
-    unlockCost:"$ 1.25K",
+    unlockCost:"$ 1.25 K",
     baseSellValue: "$ 4",
 }),
 
 new Item({
     label:"silica ore",
     type:"ore",
-    foundOnPlanets:["Widow","Acheron","Yangtze","Solveig","Relic","Castellus"],
-    unlockCost:"$ 15.00K",
+    unlockCost:"$ 15.00 K",
     baseSellValue: "$ 8",
 }),
 
 new Item({
     label:"aluminium ore",
     type:"ore",
-    foundOnPlanets:["Yangtze","Solveig","Imir","Nith","Castellus","Osun"],
-    unlockCost:"$ 40.00K",
+    unlockCost:"$ 40.00 K",
     baseSellValue: "$ 17",
 }),
 
 new Item({
     label:"silver ore",
     type:"ore",
-    foundOnPlanets:["Relic","Nith","Micah","Zelene"],
-    unlockCost:"$ 250.00K",
+    unlockCost:"$ 250.00 K",
     baseSellValue: "$ 36",
 }),
 
 new Item({
     label:"gold ore",
     type:"ore",
-    foundOnPlanets:["Batalla","Micah","Pranas","Parnitha","Han"],
-    unlockCost:"$ 800.00K",
+    unlockCost:"$ 800.00 K",
     baseSellValue: "$ 75",
 }),
 
 new Item({
     label:"diamond",
     type:"ore",
-    foundOnPlanets:["Castellus","Gorgon","Orisoni","Han","Ploitari","Urla Rast"],
-    unlockCost:"$ 6.00M",
+    unlockCost:"$ 6.00 M",
     baseSellValue: "$ 160",
 }),
 
 new Item({
     label:"platinum ore",
     type:"ore",
-    foundOnPlanets:["Parnitha","Orisoni","Theseus","Strennus","Pax"],
-    unlockCost:"$ 25.00M",
+    unlockCost:"$ 25.00 M",
     baseSellValue: "$ 340",
 }),
+
+new Item({
+    label:"titanium ore",
+    type:"ore",
+    unlockCost:"$ 200.00 M",
+    baseSellValue: "$ ",
+}),
+
+new Item({
+    label:"iridium ore",
+    type:"ore",
+    unlockCost:"$ 1.60 B",
+    baseSellValue: "$ ",
+}),
+
+new Item({
+    label:"palladium ore",
+    type:"ore",
+    unlockCost:"$ 12.50 B",
+    baseSellValue: "$ ",
+}),
+
+new Item({
+    label:"osmium ore",
+    type:"ore",
+    unlockCost:"$ 100.00 B",
+    baseSellValue: "$ ",
+}),
+
+new Item({
+    label:"rhodium ore",
+    type:"ore",
+    unlockCost:"$ 1.50 T",
+    baseSellValue: "$ ",
+}),
+
+new Item({
+    label:"inerton ore",
+    type:"ore",
+    unlockCost:"$ 25.00 T",
+    baseSellValue: "$ ",
+}),
+
+new Item({
+    label:"quadium ore",
+    type:"ore",
+    unlockCost:"$ 400.00 T",
+    baseSellValue: "$ ",
+}),
+
+new Item({
+    label:"scrith ore",
+    type:"ore",
+    unlockCost:"$ 6.20 q",
+    baseSellValue: "$ ",
+}),
+
+new Item({
+    label:"uru ore",
+    type:"ore",
+    unlockCost:"$ 100.00 q",
+    baseSellValue: "$ ",
+}),
+
+new Item({
+    label:"vibranium ore",
+    type:"ore",
+    unlockCost:"$ 1.50 Q",
+    baseSellValue: "$ ",
+}),
+
+new Item({
+    label:"aether ore",
+    type:"ore",
+    unlockCost:"$ 25.00 Q",
+    baseSellValue: "$ ",
+}),
+
+new Item({
+    label:"viterium ore",
+    type:"ore",
+    unlockCost:"$ 360.00 Q",
+    baseSellValue: "$ ",
+}),
+
+new Item({
+    label:"xynium ore",
+    type:"ore",
+    unlockCost:"$ 7.50 s",
+    baseSellValue: "$ ",
+}),
+
+new Item({
+    label:"quolium ore",
+    type:"ore",
+    unlockCost:"$ 170.00 s",
+    baseSellValue: "$ ",
+}),
+
+new Item({
+    label:"luterium ore",
+    type:"ore",
+    unlockCost:"$ 3.90 S",
+    baseSellValue: "$ ",
+}),
+
+new Item({
+    label:"wraith ore",
+    type:"ore",
+    unlockCost:"$ 95.00 S",
+    baseSellValue: "$ ",
+}),
+
+
+/*
+new Item({
+    label:"",
+    type:"ore",
+    unlockCost:"$ .00",
+    baseSellValue: "$ ",
+}),
+*/
+
+
+
 
 
 
@@ -109,7 +234,6 @@ new Item({
 new Item({
     label:"copper bar",
     type:"bar",
-    foundOnPlanets:[],
     unlockCost:"Free",
     baseCraftTime:"20s",
     ingredients:[
@@ -121,7 +245,6 @@ new Item({
 new Item({
     label:"iron bar",
     type:"bar",
-    foundOnPlanets:[],
     unlockCost:"$ 3.00K",
     baseCraftTime:"30s",
     ingredients:[
@@ -133,7 +256,6 @@ new Item({
 new Item({
     label:"lead bar",
     type:"bar",
-    foundOnPlanets:[],
     unlockCost:"$ 9.00K",
     baseCraftTime:"40s",
     ingredients:[
@@ -145,7 +267,6 @@ new Item({
 new Item({
     label:"silicon bar",
     type:"bar",
-    foundOnPlanets:[],
     unlockCost:"$ 25.00K",
     baseCraftTime:"1m 0s",
     ingredients:[
@@ -157,7 +278,6 @@ new Item({
 new Item({
     label:"aluminium bar",
     type:"bar",
-    foundOnPlanets:[],
     unlockCost:"$ 75.00K",
     baseCraftTime:"1m 20s",
     ingredients:[
@@ -169,7 +289,6 @@ new Item({
 new Item({
     label:"silver bar",
     type:"bar",
-    foundOnPlanets:[],
     unlockCost:"$ 225.00K",
     baseCraftTime:"2m 0s",
     ingredients:[
@@ -181,7 +300,6 @@ new Item({
 new Item({
     label:"gold bar",
     type:"bar",
-    foundOnPlanets:[],
     unlockCost:"$ 500.00K",
     baseCraftTime:"3m 0s",
     ingredients:[
@@ -193,7 +311,6 @@ new Item({
 new Item({
     label:"bronze bar",
     type:"bar",
-    foundOnPlanets:[],
     unlockCost:"$ 1.00M",
     baseCraftTime:"4m 0s",
     ingredients:[
@@ -206,7 +323,6 @@ new Item({
 new Item({
     label:"steel bar",
     type:"bar",
-    foundOnPlanets:[],
     unlockCost:"$ 2.00M",
     baseCraftTime:"8m 0s",
     ingredients:[
@@ -219,7 +335,6 @@ new Item({
 new Item({
     label:"platinum bar",
     type:"bar",
-    foundOnPlanets:[],
     unlockCost:"$ 4.00M",
     baseCraftTime:"10m 0s",
     ingredients:[
@@ -243,7 +358,6 @@ new Item({
 new Item({
     label:"copper wire",
     type:"item",
-    foundOnPlanets:[],
     unlockCost:"Free",
     baseCraftTime:"1m 0s",
     ingredients:[
@@ -255,7 +369,6 @@ new Item({
 new Item({
     label:"iron nail",
     type:"item",
-    foundOnPlanets:[],
     unlockCost:"20.00K",
     baseCraftTime:"2m 0s",
     ingredients:[
@@ -267,7 +380,6 @@ new Item({
 new Item({
     label:"battery",
     type:"item",
-    foundOnPlanets:[],
     unlockCost:"50.00K",
     baseCraftTime:"4m 0s",
     ingredients:[
@@ -280,7 +392,6 @@ new Item({
 new Item({
     label:"hammer",
     type:"item",
-    foundOnPlanets:[],
     unlockCost:"100.00K",
     baseCraftTime:"8m 0s",
     ingredients:[
@@ -293,7 +404,6 @@ new Item({
 new Item({
     label:"glass",
     type:"item",
-    foundOnPlanets:[],
     unlockCost:"200.00K",
     baseCraftTime:"12m 0s",
     ingredients:[
@@ -305,7 +415,6 @@ new Item({
 new Item({
     label:"circuit",
     type:"item",
-    foundOnPlanets:[],
     unlockCost:"400.00K",
     baseCraftTime:"20m 0s",
     ingredients:[
@@ -319,7 +428,6 @@ new Item({
 new Item({
     label:"lens",
     type:"item",
-    foundOnPlanets:[],
     unlockCost:"1.00M",
     baseCraftTime:"40m 0s",
     ingredients:[
@@ -332,7 +440,6 @@ new Item({
 new Item({
     label:"laser",
     type:"item",
-    foundOnPlanets:[],
     unlockCost:"2.00M",
     baseCraftTime:"1h 0m",
     ingredients:[
@@ -346,7 +453,6 @@ new Item({
 new Item({
     label:"basic computer",
     type:"item",
-    foundOnPlanets:[],
     unlockCost:"5.00M",
     baseCraftTime:"1h 20m",
     ingredients:[
@@ -359,7 +465,6 @@ new Item({
 new Item({
     label:"solar panel",
     type:"item",
-    foundOnPlanets:[],
     unlockCost:"10.00M",
     baseCraftTime:"1h 40m",
     ingredients:[
@@ -373,7 +478,6 @@ new Item({
 new Item({
     label:"laser torch",
     type:"item",
-    foundOnPlanets:[],
     unlockCost:"20.00M",
     baseCraftTime:"1h 40m",
     ingredients:[
