@@ -49,6 +49,13 @@ function popKiller(){
     if(projectPop) {body.removeChild(projectPop);projectPop = undefined}
     }
 
+
+function clickPlanets(){
+    popKiller()
+    cleanParent(right)
+    buildPlanets()    
+}
+
 function clickItems(){
     popKiller()
     cleanParent(right)

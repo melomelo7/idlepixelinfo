@@ -18,6 +18,13 @@ border-radius:5px;
 cursor: pointer;
 `
 
+const textStyle = `
+color: white;
+font-size: 20px;
+margin: 5px 0 0 0;
+padding: 5px;
+`
+
 const hrHorStyle = `
 border: 5px solid #8c8b8b;
 margin-top:15px;
@@ -66,6 +73,7 @@ margin: 10px 0 10px 0;
 padding: 5px;
 border-radius:5px;
 cursor: pointer;
+
 `
 
 const containerRow = `
@@ -76,4 +84,22 @@ flex-direction: row;
 const containerColumn = `
 display:flex;
 flex-direction:column;
+`
+
+const planetBoxStyle = `
+height:120px;
+width:120px;
+overflow:hidden;
+`
+
+const microButtonStyle =`
+color:white;
+border:solid 2px white;
+padding:5px;
+height:20px;
+width:20px;
+text-align:center;
+margin-left:5px;
+border-radius:5px;
+cursor:pointer;
 `
