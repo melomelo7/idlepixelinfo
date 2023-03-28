@@ -848,6 +848,7 @@ function buildPlanets(){
         cleanParent(rightBottom)
         for (i=0;i<itemsArray.length;i++){
             if(itemsArray[i].type==="ore"){
+    
                 let img = new Image()
                 img.src = itemsArray[i].img
                 img.style = microButtonStyle
