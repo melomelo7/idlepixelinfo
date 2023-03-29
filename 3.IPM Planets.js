@@ -792,17 +792,14 @@ function buildPlanets(){
 
     let rightTop = document.createElement("div")
     rightTop.style = containerRow
-//    thisContainer.setAttribute("id","right-top")
     right.appendChild(rightTop)
 
     let rightMiddle = document.createElement("div")
     rightMiddle.style = containerRow
-//    thisContainer.setAttribute("id","right-middle")
     right.appendChild(rightMiddle)
 
     let rightBottom = document.createElement("div")
     rightBottom.style = containerColumn
-//    thisContainer.setAttribute("id","right-bottom")
     right.appendChild(rightBottom)
 
     let myDiv = document.createElement("div")
@@ -825,11 +822,33 @@ function buildPlanets(){
         info.innerHTML = infoTitle
         cleanParent(rightMiddle) 
         cleanParent(rightBottom)
+        let lineCount = 0
+        let lineMax = 10
+
+        let table = document.createElement("table")
+        rightMiddle.appendChild(table)
+        let tr = document.createElement("tr")
+        table.appendChild(tr)
+        let td = document.createElement("td")
+        td.style = containerRow
+        tr.appendChild(td)
+
         for (i=0;i<=22;i++){
+            lineCount+=1
+
+            if( lineCount > 1 && (lineCount-1) % lineMax === 0) {
+                console.log("add line")
+                tr = document.createElement("tr")
+                table.appendChild(tr)
+                td = document.createElement("td")
+                td.style = containerRow
+                tr.appendChild(td)
+            }
+            
             let thisButton = document.createElement("div")
             thisButton.style = microButtonStyle
             thisButton.innerHTML = i
-            rightMiddle.appendChild(thisButton)
+            td.appendChild(thisButton)
             thisButton.addEventListener("click",(e)=>{
                 cleanParent(rightBottom)
                 let refId = Number(e.srcElement.innerHTML)
@@ -846,16 +865,31 @@ function buildPlanets(){
         info.innerHTML = infoTitle
         cleanParent(rightMiddle) 
         cleanParent(rightBottom)
+        lineCount = 0
+        lineMax = 9
+        table = document.createElement("table")
+        rightMiddle.appendChild(table)
+        tr = document.createElement("tr")
+        table.appendChild(tr)
+        td = document.createElement("td")
+        tr.appendChild(td)
+
         for (i=0;i<itemsArray.length;i++){
             if(itemsArray[i].type==="ore"){
-    
+                lineCount+=1
+                if( lineCount > 1 && (lineCount-1) % lineMax === 0) {
+                    tr = document.createElement("tr")
+                    table.appendChild(tr)
+                    td = document.createElement("td")
+                    tr.appendChild(td)
+                }
                 let img = new Image()
                 img.src = itemsArray[i].img
                 img.style = microButtonStyle
                 img.style.height = 30 + "px"
                 img.style.width = 30 + "px"
                 img.setAttribute("id",itemsArray[i].label)
-                rightMiddle.appendChild(img)
+                td.appendChild(img)
                 img.addEventListener("mouseover",(e)=>{info.innerHTML = e.srcElement.id })
                 img.addEventListener("click",(e)=>{
                     cleanParent(rightBottom)
@@ -889,7 +923,6 @@ function displayPlanets(rightBottom,listArray){
 
                 let img = new Image()
                 img.src = item.imgSrc
-//                img.style.clipPath = "inset(0px 110px 185px 50px)"
                 img.style.marginLeft = -50 + "px"
                 img.style.marginTop = 5 + "px"
                 thisBox.appendChild(img)
