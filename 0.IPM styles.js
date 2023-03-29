@@ -79,11 +79,13 @@ cursor: pointer;
 const containerRow = `
 display:flex;
 flex-direction: row;
+color:white;
 `
 
 const containerColumn = `
 display:flex;
 flex-direction:column;
+color:white;
 `
 
 const planetBoxStyle = `

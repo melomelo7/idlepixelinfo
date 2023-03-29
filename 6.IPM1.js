@@ -59,8 +59,8 @@ function clickPlanets(){
 function clickItems(){
     popKiller()
     cleanParent(right)
-//    buildItems()
-    construction()
+    buildItems()
+//    construction()
 }
 
 function clickProjects(){

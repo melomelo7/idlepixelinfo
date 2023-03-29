@@ -874,8 +874,8 @@ function buildPlanets(){
         td = document.createElement("td")
         tr.appendChild(td)
 
-        for (i=0;i<itemsArray.length;i++){
-            if(itemsArray[i].type==="ore"){
+        for (i=0;i<oresArray.length;i++){
+            if(oresArray[i].type==="ore"){
                 lineCount+=1
                 if( lineCount > 1 && (lineCount-1) % lineMax === 0) {
                     tr = document.createElement("tr")
@@ -884,11 +884,11 @@ function buildPlanets(){
                     tr.appendChild(td)
                 }
                 let img = new Image()
-                img.src = itemsArray[i].img
+                img.src = oresArray[i].img
                 img.style = microButtonStyle
                 img.style.height = 30 + "px"
                 img.style.width = 30 + "px"
-                img.setAttribute("id",itemsArray[i].label)
+                img.setAttribute("id",oresArray[i].label)
                 td.appendChild(img)
                 img.addEventListener("mouseover",(e)=>{info.innerHTML = e.srcElement.id })
                 img.addEventListener("click",(e)=>{
