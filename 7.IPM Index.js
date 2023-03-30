@@ -4,10 +4,10 @@ rooms unlock cost :
 3-6-12-21-35-56-87-133-200-298-439-642
 
 smelters unlock
-50K 500K 10M 5B
+50K 500K 10M 5B 100B 50T 1q 500q
 
 crafters unlock
-1M 100M 50B
+1M 100M 50B 1T? 500T 10q
 
 */
 
@@ -28,4 +28,5 @@ addLeftButton({label:"Station",clickFunction:clickStation})
 
 window.onload = firstContact()
 
-console.log("Last up 03/29 01:10")
+console.log("Last up 03/31 00:15")
+

@@ -90,6 +90,13 @@ function centerScreen(element){
 
 const cellSize = 35
 function buildProjectsGrid(whichGrid="",cellSize=0){
+
+    let tabInfos = document.createElement("div")
+    right.appendChild(tabInfos)
+    tabInfos.innerHTML = "Click a tile for more infos"
+    tabInfos.style = textStyle
+    tabInfos.style.fontSize = 18 + "px"
+
     let table = document.createElement("table")
 
     let cut = 5
@@ -213,8 +220,6 @@ function buildProjectsGrid(whichGrid="",cellSize=0){
             }
         table.rows[obj.rows-1].cells[obj.cell-1]
         .addEventListener("click",()=>{popKiller()})
-        table.rows[obj.rows-1].cells[obj.cell-1]
-        .addEventListener("mouseover",()=>{info.innerHTML=""})
     })
 
     

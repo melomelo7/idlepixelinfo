@@ -790,6 +790,15 @@ planetsArray.push(
 
 function buildPlanets(){
 
+    let textSize = 18
+    let tabInfos = document.createElement("div")
+    right.appendChild(tabInfos)
+    tabInfos.innerHTML = ""
+    tabInfos.style = textStyle
+    tabInfos.style.fontSize = textSize + "px"
+    tabInfos.style.height = textSize + "px"
+    tabInfos.style.marginLeft = textSize + "px"
+
     let rightTop = document.createElement("div")
     rightTop.style = containerRow
     right.appendChild(rightTop)
@@ -812,12 +821,17 @@ function buildPlanets(){
         cleanParent(rightMiddle) 
         cleanParent(rightBottom)
         displayPlanets(rightBottom,planetsArray)})
+    myDiv.addEventListener("mouseover",()=>{tabInfos.innerHTML = "Displays all 70 planets"})
+    myDiv.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
+
 
     myDiv = document.createElement("div")
     myDiv.style = closeButtonStyle
     myDiv.style.marginLeft = 10 + "px"
     myDiv.innerHTML = "Telescope"
     rightTop.appendChild(myDiv)
+    myDiv.addEventListener("mouseover",()=>{tabInfos.innerHTML = "Displays a 1 specific telescope of your choosing"})
+    myDiv.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
     myDiv.addEventListener("click",function(){
         info.innerHTML = infoTitle
         cleanParent(rightMiddle) 
@@ -837,7 +851,6 @@ function buildPlanets(){
             lineCount+=1
 
             if( lineCount > 1 && (lineCount-1) % lineMax === 0) {
-                console.log("add line")
                 tr = document.createElement("tr")
                 table.appendChild(tr)
                 td = document.createElement("td")
@@ -861,6 +874,8 @@ function buildPlanets(){
     myDiv.style.marginLeft = 10 + "px"
     myDiv.innerHTML = "Find Ore"
     rightTop.appendChild(myDiv)
+    myDiv.addEventListener("mouseover",()=>{tabInfos.innerHTML = "Pick 1 ore, see which planets provide it"})
+    myDiv.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
     myDiv.addEventListener("click",function(){
         info.innerHTML = infoTitle
         cleanParent(rightMiddle) 
@@ -890,7 +905,8 @@ function buildPlanets(){
                 img.style.width = 30 + "px"
                 img.setAttribute("id",oresArray[i].label)
                 td.appendChild(img)
-                img.addEventListener("mouseover",(e)=>{info.innerHTML = e.srcElement.id })
+                img.addEventListener("mouseover",(e)=>{tabInfos.innerHTML = e.srcElement.id })
+                img.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
                 img.addEventListener("click",(e)=>{
                     cleanParent(rightBottom)
                     let getItem = e.srcElement.id

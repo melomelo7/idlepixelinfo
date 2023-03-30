@@ -976,6 +976,16 @@ function buildItems(){
 
     let imgSize = 35
 
+    let textSize = 18
+    let tabInfos = document.createElement("div")
+    right.appendChild(tabInfos)
+    tabInfos.setAttribute("id","tabInfos")
+    tabInfos.innerHTML = "hover/click for details, Bars & Items with additional tool"
+    tabInfos.style = textStyle
+    tabInfos.style.fontSize = textSize + "px"
+    tabInfos.style.height = textSize + "px"
+    tabInfos.style.marginLeft = textSize + "px"
+
     let itemsContainer = document.createElement("div")
     itemsContainer.style = containerRow
     itemsContainer.style.textAlign = "center"
@@ -1004,6 +1014,10 @@ function buildItems(){
             itemDisplayTop.setAttribute("id","itemDisplayTop")
             itemDisplay.appendChild(itemDisplayTop)
 
+            let itemDisplayMiddle = document.createElement("div")
+            itemDisplayMiddle.setAttribute("id","itemDisplayMiddle")
+            itemDisplay.appendChild(itemDisplayMiddle)
+
             let itemDisplayBottom = document.createElement("div")
             itemDisplayBottom.setAttribute("id","itemDisplayBottom")
             itemDisplay.appendChild(itemDisplayBottom)
@@ -1025,7 +1039,7 @@ function buildItems(){
 }
 
 
-function buildColumns(arraySource,targetTable,itemDisplayTop,imgSize){
+function buildColumns(arraySource,targetTable,itemDisplayTop,itemDisplayMiddle,imgSize){
 
     let tr = document.createElement("tr")
     targetTable.appendChild(tr)
@@ -1072,8 +1086,11 @@ function buildColumns(arraySource,targetTable,itemDisplayTop,imgSize){
                     mydiv = document.createElement("div")
                     mydiv.style = textStyle
                     thisContainer.appendChild(mydiv)
-                    mydiv.innerHTML = "Found on Planet(s) : "
+                    mydiv.innerHTML = "Found on Planet(s) : <br>"
                     for (i=0;i<item.foundOnPlanets.length;i++){
+                        if (i===4 && item.foundOnPlanets.length > 4){
+                            mydiv.innerHTML += "<br>"    
+                        }
                         mydiv.innerHTML += item.foundOnPlanets[i] + " - "
                     }
                     mydiv.innerHTML = mydiv.innerHTML.slice(0,mydiv.innerHTML.length-2)
@@ -1100,7 +1117,7 @@ function buildColumns(arraySource,targetTable,itemDisplayTop,imgSize){
                     mydiv = document.createElement("div")
                     mydiv.style = textStyle
                     thisContainer.appendChild(mydiv)
-                    mydiv.innerHTML = "Required materials to smelt/craft : "
+                    mydiv.innerHTML = "Required materials to either <br> Smelt OR Craft : (base values)"
                     mydiv.style.borderBottom = "blue solid 3px"
 
                     for (i=0;i<item.ingredients.length;i++){
@@ -1132,7 +1149,47 @@ function buildColumns(arraySource,targetTable,itemDisplayTop,imgSize){
                 "Base Sell Value : $ "+item.baseSellValue.value + " " + item.baseSellValue.unit
         })
 
-
-
-
+        img.addEventListener("click",function(){setCrafting(item,tabInfos)})
 })}
+
+function setCrafting(item,tabInfos){
+    let itemDisplayMiddle = document.getElementById("itemDisplayMiddle")
+    cleanParent(itemDisplayMiddle)
+
+    if (item.type !== "ore"){
+
+        let text = item.type === "bar" ? "Smelt" : "Craft"
+
+        let thiscontainer = document.createElement("div")
+        itemDisplayMiddle.appendChild(thiscontainer)
+        thiscontainer.style = containerRow
+        thiscontainer.style.marginLeft = 30 + "px"
+
+            let myDiv = document.createElement("div")
+            thiscontainer.appendChild(myDiv)
+            myDiv.style = closeButtonStyle
+            myDiv.innerHTML = text + " " + item.label + " x "
+            myDiv.style.backgroundImage = "linear-gradient(#4C5B5C 90%,grey)"
+            myDiv.style.border = "white solid 3px"
+            myDiv.style.color = "black"
+            myDiv.addEventListener("click",function(e){startCrafting(e,item)})
+
+            let rect = myDiv.getBoundingClientRect()
+            let myInput = document.createElement("input")
+            thiscontainer.appendChild(myInput)
+            myInput.style = closeButtonStyle
+            let modif = 15
+            myInput.style.height = (rect.height -modif) + "px"
+            myInput.style.width = (rect.height *2)+ "px"
+            myInput.style.backgroundImage = "linear-gradient(#4C5B5C 90%,grey)"
+            myInput.style.border = "white solid 3px"
+            myInput.value = 1
+            myInput.style.color = "yellow"
+
+        }
+}
+
+function startCrafting(e,item){
+    let tabInfos = document.getElementById("tabInfos")
+    e.srcElement.innerHTML = "Under Construction ..."
+}
