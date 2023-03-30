@@ -1171,7 +1171,7 @@ function setCrafting(item,tabInfos){
             myDiv.innerHTML = text + " " + item.label + " x "
             myDiv.style.backgroundImage = "linear-gradient(#4C5B5C 90%,grey)"
             myDiv.style.border = "white solid 3px"
-            myDiv.style.color = "black"
+            myDiv.style.color = "yellow"
             myDiv.addEventListener("click",function(e){startCrafting(e,item)})
 
             let rect = myDiv.getBoundingClientRect()
