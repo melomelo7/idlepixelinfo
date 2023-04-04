@@ -1,4 +1,21 @@
 
+function formatKMBT(value){
+    let thisvalue = Number(value)
+
+    if (thisvalue >= 1000000000000)
+        {return (thisvalue / 1000000000000).toFixed(2) +" T"} 
+    else if(thisvalue >= 1000000000)
+        {return (thisvalue / 1000000000).toFixed(2) +" B"}
+    else if(thisvalue >= 1000000)
+        {return (thisvalue / 1000000).toFixed(2) +" M"}
+    else if(thisvalue >= 1000)
+        {return (thisvalue / 1000).toFixed(2) +" K"}
+    else
+        {return thisvalue}
+
+    }
+
+
 function cleanParent(parent){
     while(parent.children.length >0){
         parent.removeChild(parent.lastChild)
