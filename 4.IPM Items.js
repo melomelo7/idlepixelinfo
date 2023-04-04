@@ -894,7 +894,7 @@ new Item({
     label:"robot",
     type:"item",
     unlockCost:"15.00 T",
-    baseCraftTime:{hr:7,mn:5,sc:0},
+    baseCraftTime:{hr:7,mn:12,sc:0},
     ingredients:[
         {label:"scrith alloy",amount:300},
         {label:"accumulator",amount:90},
@@ -906,7 +906,7 @@ new Item({
     label:"fusion capsule",
     type:"item",
     unlockCost:"75.00 T",
-    baseCraftTime:{hr:7,mn:17,sc:0},
+    baseCraftTime:{hr:7,mn:30,sc:0},
     ingredients:[
         {label:"uru alloy",amount:200},
         {label:"vibranium alloy",amount:100},
@@ -919,7 +919,7 @@ new Item({
     label:"teleporter",
     type:"item",
     unlockCost:"500.00 T",
-    baseCraftTime:{hr:7,mn:30,sc:0},
+    baseCraftTime:{hr:8,mn:02,sc:0},
     ingredients:[
         {label:"navigation module",amount:250},
         {label:"gravity chamber",amount:1},
@@ -931,7 +931,7 @@ new Item({
     label:"fusion reactor",
     type:"item",
     unlockCost:"2.50 q",
-    baseCraftTime:{hr:8,mn:20,sc:0},
+    baseCraftTime:{hr:8,mn:36,sc:0},
     ingredients:[
         {label:"collider",amount:40},
         {label:"nuclear reactor",amount:50},
@@ -1069,6 +1069,7 @@ function buildColumns(arraySource,targetTable,itemDisplayTop,itemDisplayMiddle,i
             thisContainer.style = containerStyle
             thisContainer.style.textAlign = "left"
             thisContainer.style.marginLeft = 20 + "px"
+            thisContainer.style.width = 290 + "px"
             itemDisplayTop.appendChild(thisContainer)
 
                 img = new Image (40,40)
@@ -1185,11 +1186,193 @@ function setCrafting(item,tabInfos){
             myInput.style.border = "white solid 3px"
             myInput.value = 1
             myInput.style.color = "yellow"
+            myInput.setAttribute("id","craftQuantity")
 
         }
 }
 
-function startCrafting(e,item){
-    let tabInfos = document.getElementById("tabInfos")
-    e.srcElement.innerHTML = "Under Construction ..."
+function getItemsArray(label){
+    if (barsArray.findIndex(x=>x.label === label) !== -1)
+        {return barsArray}
+    else if (itemsArray.findIndex(x=>x.label === label) !== -1)
+        {return itemsArray}
+    else 
+        {return undefined}
+}
+
+
+class Links {constructor (father = undefined)
+    {this.father = father}
+    get kids(){
+        let thisArray = []
+        let targetArray = undefined
+        for (i=0;i<this.father.ingredients.length;i++){
+            console.log( this.father.ingredients[i].label )
+
+            targetArray = getItemsArray(this.father.ingredients[i].label)
+            if (targetArray) {
+                thisArray.push (targetArray[targetArray.findIndex(x=>x.label===this.father.ingredients[i].label)])
+            }
+        }
+        console.log(thisArray)
+        return thisArray
+    }
+
+}
+
+
+function fork(thisArray){
+
+    let mainArray = []
+    let subArray = []
+    let thisItem = undefined
+    let source = undefined
+    let subItem = undefined
+
+    for (i=0;i<thisArray.length;i++){
+
+        mainArray.push(thisArray[i])
+
+        thisItem = thisArray[i].item
+
+        for (j=0;j<thisItem.ingredients.length;j++){
+            
+            source = getItemsArray(thisItem.ingredients[j].label)
+
+            if (source){
+                subItem = source[source.findIndex(x=>x.label === thisItem.ingredients[j].label)]
+
+                subArray.push(
+                    {idx : thisArray[0].idx+1,
+                    father : thisArray[i].item,
+                    item : subItem, 
+                    quantity : Number(thisArray[i].quantity) * Number(thisItem.ingredients[j].amount)
+                    })}
+
+        }
+    }
+    return {mainArray : mainArray,subArray : subArray}
+}
+
+
+function startCrafting(e,item,type){
+
+    let craftQuantity = document.getElementById("craftQuantity")
+    let itemDisplayBottom = document.getElementById("itemDisplayBottom")
+
+    cleanParent(itemDisplayBottom)
+
+    if(!Number(craftQuantity.value)){ return }
+    
+    let row = 0
+    let cel = 0
+    let thisSet = undefined
+    let queue = []
+    let Idx = 1
+    let passArray = undefined
+    let myArray = []
+
+    let starterItem = {idx : Idx,father : undefined ,item : item, quantity : craftQuantity.value}
+
+    queue.push([starterItem])
+
+    while (queue.length > 0){
+        passArray = queue[0]
+        queue.shift()
+        thisSet = fork(passArray)
+        myArray.push(thisSet.mainArray)
+        if (thisSet.subArray.length>0){queue.push(thisSet.subArray)}
+    }
+
+    table = document.createElement("table")
+    itemDisplayBottom.appendChild(table)
+
+    for (i =0;i<myArray.length;i++){
+        tableAdd({table:table})
+        for(j=0;j<myArray[i].length;j++){
+            tableAdd({row:false, table:table})
+            row = table.rows.length-1
+            cel = table.rows[row].cells.length-1
+            
+            craftDiv(myArray[i][j],table,row,cel)
+        }
+    }
+
+}
+
+function tableAdd({row = true,table=undefined,}){
+    let size = 5
+    let thisItem = undefined
+    if (row) {
+        thisItem = document.createElement("tr")
+        table.appendChild(thisItem)
+        if (table.rows.length % 2 === 0){
+            thisItem.style.height = size + "px"
+            }
+    }
+    else {
+        thisItem = document.createElement("td")
+        table.rows[table.rows.length-1].appendChild(thisItem)
+        if(table.rows[table.rows.length-1].cells.length % 2 === 0){
+            thisItem.style.width = size + "px"
+            }}}
+
+
+function craftDiv(thisCraft,table,row,cel){
+
+    let thisContainer = document.createElement("div")
+    thisContainer.style = containerStyle
+        
+        let subContainer = document.createElement("div")
+        subContainer.style = containerRow
+        thisContainer.appendChild(subContainer)
+
+            let img = new Image (40,40)
+            img.src = "./IPM Components/" + thisCraft.item.label + ".jpg"
+            img.style = textStyle
+            subContainer.appendChild(img)
+
+            let thisItem = document.createElement("div")
+            thisItem.style = textStyle
+            subContainer.appendChild(thisItem)
+            thisItem.innerHTML = thisCraft.item.label + " x " + thisCraft.quantity
+
+        if (thisCraft.father){
+            subContainer = document.createElement("div")
+            subContainer.style = containerRow
+            thisContainer.appendChild(subContainer)
+
+                let thisItem = document.createElement("div")
+                thisItem.style = textStyle
+                subContainer.appendChild(thisItem)
+                thisItem.innerHTML = "(material for " + thisCraft.father.label + ")"
+        }
+
+        subContainer = document.createElement("div")
+        subContainer.style.borderBottom = "blue solid 3px"
+        thisContainer.appendChild(subContainer)        
+
+        for (k=0;k<thisCraft.item.ingredients.length;k++){
+            subContainer = document.createElement("div")
+            subContainer.style = containerRow
+            thisContainer.appendChild(subContainer)
+
+                img = new Image (40,40)
+                img.src = "./IPM Components/" + thisCraft.item.ingredients[k].label + ".jpg"
+                img.style = textStyle
+                subContainer.appendChild(img)
+
+                thisItem = document.createElement("div")
+                thisItem.style = textStyle
+                subContainer.appendChild(thisItem)
+                thisItem.innerHTML = thisCraft.item.ingredients[k].label + 
+                " " + (thisCraft.item.ingredients[k].amount * thisCraft.quantity)
+                
+        }
+
+    table.rows[row].cells[cel].appendChild(thisContainer)
+    table.rows[row].cells[cel].style.minWidth = 250+ "px"
+    table.rows[row].cells[cel].style.verticalAlign = "top"
+    table.style.marginLeft = 20 + "px"
+
 }
