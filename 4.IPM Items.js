@@ -980,11 +980,17 @@ function buildItems(){
     let tabInfos = document.createElement("div")
     right.appendChild(tabInfos)
     tabInfos.setAttribute("id","tabInfos")
-    tabInfos.innerHTML = "hover/click for details, Bars & Items with additional tool"
+    tabInfos.innerHTML = `
+    Depending used device hover is displaying infos as you move your mouse <br> 
+    OR a click is needed. When clicking on a Bar or Item the selection is set <br>
+    on the grey Button. Change the number if you want more and click to display <br>
+    the smelting/crafting steps ...`
+
     tabInfos.style = textStyle
     tabInfos.style.fontSize = textSize + "px"
     tabInfos.style.height = textSize + "px"
     tabInfos.style.marginLeft = textSize + "px"
+    tabInfos.style.marginBottom = 70 + "px"
 
     let itemsContainer = document.createElement("div")
     itemsContainer.style = containerRow
