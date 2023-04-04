@@ -1075,7 +1075,7 @@ function buildColumns(arraySource,targetTable,itemDisplayTop,itemDisplayMiddle,i
             thisContainer.style = containerStyle
             thisContainer.style.textAlign = "left"
             thisContainer.style.marginLeft = 20 + "px"
-            thisContainer.style.width = 290 + "px"
+            thisContainer.style.width = 300 + "px"
             itemDisplayTop.appendChild(thisContainer)
 
                 img = new Image (40,40)
@@ -1341,7 +1341,7 @@ function craftDiv(thisCraft,table,row,cel){
             let thisItem = document.createElement("div")
             thisItem.style = textStyle
             subContainer.appendChild(thisItem)
-            thisItem.innerHTML = thisCraft.item.label + " x " + thisCraft.quantity
+            thisItem.innerHTML = thisCraft.item.label + " x " + formatKMBT(thisCraft.quantity)
 
         if (thisCraft.father){
             subContainer = document.createElement("div")
@@ -1372,12 +1372,12 @@ function craftDiv(thisCraft,table,row,cel){
                 thisItem.style = textStyle
                 subContainer.appendChild(thisItem)
                 thisItem.innerHTML = thisCraft.item.ingredients[k].label + 
-                " " + (thisCraft.item.ingredients[k].amount * thisCraft.quantity)
+                " " + formatKMBT(thisCraft.item.ingredients[k].amount * thisCraft.quantity)
                 
         }
 
     table.rows[row].cells[cel].appendChild(thisContainer)
-    table.rows[row].cells[cel].style.minWidth = 250+ "px"
+    table.rows[row].cells[cel].style.minWidth = 300+ "px"
     table.rows[row].cells[cel].style.verticalAlign = "top"
     table.style.marginLeft = 20 + "px"
 
