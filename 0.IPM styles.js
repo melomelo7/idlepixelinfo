@@ -34,6 +34,16 @@ margin-right:0;
 width:20%;
 `
 
+const hrHorStyle2 = `
+border: 3px solid #8c8b8b;
+margin-left:140px;
+margin-top:0;
+margin-bottom:0;
+margin-right:0;
+width:10px;
+`
+
+
 const hrVerStyle = `
 border: 5px solid #8c8b8b;
 margin-top:0;
