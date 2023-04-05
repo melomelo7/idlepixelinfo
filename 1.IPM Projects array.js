@@ -162,7 +162,7 @@ projectCells.push( new projectCell({
     component1:{label:"iron ore",baseCost:"1.5k",costWithMaxLab:750},
     component2:{label:"copper bar",baseCost:3,costWithMaxLab:2},
     description:"extends vision to 3 more planets",
-    prerequisites:" - ",
+    prerequisites:"management",
     highestPlanetRequired:"2-Drasta"
 }))
 
