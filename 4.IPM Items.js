@@ -1442,11 +1442,22 @@ function startCrafting(e,item,type){
             thisContainer.appendChild(thisItem)
             thisItem.innerHTML = "(base value => minimum value)"        
     
+            let switchItem = ""
             for (i=0;i<filteredArray.length;i++){
+
+                
+
                 subContainer = document.createElement("div")
                 subContainer.style = containerRow
                 thisContainer.appendChild(subContainer)
     
+                if (switchItem === ""){switchItem = filteredArray[i].type }
+                if (switchItem !== filteredArray[i].type){
+                    switchItem = filteredArray[i].type
+                    subContainer.style.borderTop = "yellow solid 2px"
+                }
+
+
                     img = new Image (40,40)
                     img.src = "./IPM Components/" + filteredArray[i].label + ".jpg"
                     img.style = textStyle
