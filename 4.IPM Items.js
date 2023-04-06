@@ -1728,7 +1728,7 @@ function craftDiv(thisCraft,table,row,cel){
     table.rows[row].cells[cel].style.verticalAlign = "top"
     table.style.marginLeft = 20 + "px"
 
-    table.rows[row].cells[cel].style.border = "white solid 1px"
+//    table.rows[row].cells[cel].style.border = "white solid 1px"
     
     
 //   console.log(thisContainer.getBoundingClientRect())
