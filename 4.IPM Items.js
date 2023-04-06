@@ -1211,30 +1211,30 @@ function setCrafting(item,tabInfos){
             thisContainer.style.borderRadius = "5px"
             thisContainer.style.marginBottom = "10px"
 
-
                 let thisItem = document.createElement("div")
                 thisContainer.appendChild(thisItem)
-                thisItem.innerHTML = "Display : as Tree"
+                thisItem.innerHTML = "Display : as Components List"
                 thisItem.style = textStyle
 
                 let thisRadio = document.createElement("input")
                 thisContainer.appendChild(thisRadio)
                 thisRadio.type = "radio"
-                thisRadio.setAttribute("name","displayType")
                 thisRadio.name = "displayType"
-                thisRadio.value = "tree"
+                thisRadio.value = "list"
                 thisRadio.checked = true
 
                 thisItem = document.createElement("div")
                 thisContainer.appendChild(thisItem)
-                thisItem.innerHTML = "OR as Components List"
+                thisItem.innerHTML = "OR as Tree"
                 thisItem.style = textStyle
 
                 thisRadio = document.createElement("input")
                 thisContainer.appendChild(thisRadio)
                 thisRadio.type = "radio"
+                thisRadio.setAttribute("name","displayType")
                 thisRadio.name = "displayType"
-                thisRadio.value = "list"
+                thisRadio.value = "tree"
+
         }
 }
 
