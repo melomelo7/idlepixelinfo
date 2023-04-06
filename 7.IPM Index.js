@@ -28,5 +28,4 @@ addLeftButton({label:"Station",clickFunction:clickStation})
 
 window.onload = firstContact()
 
-console.log("Last up 03/31 00:15")
-
+console.log("Last up 04/07 00:40")

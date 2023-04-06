@@ -20,7 +20,7 @@ cursor: pointer;
 
 const textStyle = `
 color: white;
-font-size: 20px;
+font-size: 22;
 margin: 5px 0 0 0;
 padding: 5px;
 `
@@ -41,6 +41,24 @@ margin-top:0;
 margin-bottom:0;
 margin-right:0;
 width:10px;
+`
+
+const fillLeftHalf = `
+background-color: #8c8b8b;
+width:54%;
+height:0.5px;
+margin-left:140px;
+`
+
+const fillRightHalf =`
+background-color: #8c8b8b;
+width:52%;
+height:0.5px;
+`
+
+const fillMiddle =`
+background-color: #8c8b8b;
+height:0.5px;
 `
 
 

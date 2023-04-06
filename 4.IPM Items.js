@@ -239,7 +239,7 @@ new Item({
     unlockCost:"Free",
     baseCraftTime:{hr:0,mn:0,sc:20},
     ingredients:[
-        {label:"copper ore",amount:1000},
+        {label:"copper ore",amount:1000,min:400},
     ],
     baseSellValue: {value:1.45,unit:"K"},
 }),
@@ -250,7 +250,7 @@ new Item({
     unlockCost:"$ 3.00 K",
     baseCraftTime:{hr:0,mn:0,sc:30},
     ingredients:[
-        {label:"iron ore",amount:1000},
+        {label:"iron ore",amount:1000,min:400},
     ],
     baseSellValue: {value:3,unit:"K"},
 }),
@@ -261,7 +261,7 @@ new Item({
     unlockCost:"$ 9.00 K",
     baseCraftTime:{hr:0,mn:0,sc:40},
     ingredients:[
-        {label:"lead ore",amount:1000},
+        {label:"lead ore",amount:1000,min:400},
     ],
     baseSellValue: {value:6.1,unit:"K"},
 }),
@@ -272,7 +272,7 @@ new Item({
     unlockCost:"$ 25.00 K",
     baseCraftTime:{hr:0,mn:1,sc:0},
     ingredients:[
-        {label:"silica ore",amount:1000},
+        {label:"silica ore",amount:1000,min:400},
     ],
     baseSellValue: {value:12.5,unit:"K"},
 }),
@@ -283,7 +283,7 @@ new Item({
     unlockCost:"$ 75.00 K",
     baseCraftTime:{hr:0,mn:1,sc:20},
     ingredients:[
-        {label:"aluminium ore",amount:1000},
+        {label:"aluminium ore",amount:1000,min:400},
     ],
     baseSellValue: {value:27.6,unit:"K"},
 }),
@@ -294,7 +294,7 @@ new Item({
     unlockCost:"$ 225.00 K",
     baseCraftTime:{hr:0,mn:2,sc:0},
     ingredients:[
-        {label:"silver ore",amount:1000},
+        {label:"silver ore",amount:1000,min:400},
     ],
     baseSellValue: {value:60,unit:"K"},
 }),
@@ -305,7 +305,7 @@ new Item({
     unlockCost:"$ 500.00 K",
     baseCraftTime:{hr:0,mn:3,sc:0},
     ingredients:[
-        {label:"gold ore",amount:1000},
+        {label:"gold ore",amount:1000,min:400},
     ],
     baseSellValue: {value:120,unit:"K"},
 }),
@@ -316,8 +316,8 @@ new Item({
     unlockCost:"$ 1.00 M",
     baseCraftTime:{hr:0,mn:4,sc:0},
     ingredients:[
-        {label:"silver bar",amount:2},        
-        {label:"copper bar",amount:10},
+        {label:"silver bar",amount:2,min:1},  
+        {label:"copper bar",amount:10,min:4},
     ],
     baseSellValue: {value:234,unit:"K"},
 }),
@@ -328,8 +328,8 @@ new Item({
     unlockCost:"$ 2.00 M",
     baseCraftTime:{hr:0,mn:8,sc:0},
     ingredients:[
-        {label:"lead bar",amount:15},        
-        {label:"iron bar",amount:30},
+        {label:"lead bar",amount:15,min:6}, 
+        {label:"iron bar",amount:30,min:12},
     ],
     baseSellValue: {value:340,unit:"K"},
 }),
@@ -340,8 +340,8 @@ new Item({
     unlockCost:"$ 4.00 M",
     baseCraftTime:{hr:0,mn:10,sc:0},
     ingredients:[
-        {label:"gold bar",amount:2},        
-        {label:"platinum ore",amount:1000},
+        {label:"gold bar",amount:2,min:1},
+        {label:"platinum ore",amount:1000,min:400},
     ],
     baseSellValue: {value:780,unit:"K"},
 }),
@@ -352,8 +352,8 @@ new Item({
     unlockCost:"$ 8.00 M",
     baseCraftTime:{hr:0,mn:12,sc:0},
     ingredients:[
-        {label:"bronze bar",amount:2},        
-        {label:"titanium ore",amount:1000},
+        {label:"bronze bar",amount:2,min:1},
+        {label:"titanium ore",amount:1000,min:400},
     ],
     baseSellValue: {value:1.63,unit:"M"},
 }),
@@ -364,8 +364,8 @@ new Item({
     unlockCost:"$ 15.00 M",
     baseCraftTime:{hr:0,mn:14,sc:0},
     ingredients:[
-        {label:"steel bar",amount:2},        
-        {label:"iridium ore",amount:1000},
+        {label:"steel bar",amount:2,min:1},
+        {label:"iridium ore",amount:1000,min:400},
     ],
     baseSellValue: {value:3.11,unit:"M"},
 }),
@@ -376,8 +376,8 @@ new Item({
     unlockCost:"$ 30.00 M",
     baseCraftTime:{hr:0,mn:16,sc:0},
     ingredients:[
-        {label:"platinum bar",amount:2},        
-        {label:"palladium ore",amount:1000},
+        {label:"platinum bar",amount:2,min:1}, 
+        {label:"palladium ore",amount:1000,min:400},
     ],
     baseSellValue: {value:7,unit:"M"},
 }),
@@ -388,8 +388,8 @@ new Item({
     unlockCost:"$ 60.00 M",
     baseCraftTime:{hr:0,mn:18,sc:0},
     ingredients:[
-        {label:"titanium bar",amount:2},        
-        {label:"osmium ore",amount:1000},
+        {label:"titanium bar",amount:2,min:1},
+        {label:"osmium ore",amount:1000,min:400},
     ],
     baseSellValue: {value:14.5,unit:"M"},
 }),
@@ -400,8 +400,8 @@ new Item({
     unlockCost:"$ 120.00 M",
     baseCraftTime:{hr:0,mn:20,sc:0},
     ingredients:[
-        {label:"iridium bar",amount:2},        
-        {label:"rhodium ore",amount:1000},
+        {label:"iridium bar",amount:2,min:1}, 
+        {label:"rhodium ore",amount:1000,min:400},
     ],
     baseSellValue: {value:31,unit:"M"},
 }),
@@ -412,8 +412,8 @@ new Item({
     unlockCost:"$ 250.00 M",
     baseCraftTime:{hr:0,mn:24,sc:0},
     ingredients:[
-        {label:"palladium bar",amount:2},        
-        {label:"inerton ore",amount:1000},
+        {label:"palladium bar",amount:2,min:1},  
+        {label:"inerton ore",amount:1000,min:400},
     ],
     baseSellValue: {value:68,unit:"M"},
 }),
@@ -424,8 +424,8 @@ new Item({
     unlockCost:"$ 500.00 M",
     baseCraftTime:{hr:0,mn:28,sc:0},
     ingredients:[
-        {label:"osmium bar",amount:2},        
-        {label:"quadium ore",amount:1000},
+        {label:"osmium bar",amount:2,min:1},
+        {label:"quadium ore",amount:1000,min:400},
     ],
     baseSellValue: {value:152,unit:"M"},
 }),
@@ -436,8 +436,8 @@ new Item({
     unlockCost:"$ 1.00 B",
     baseCraftTime:{hr:0,mn:32,sc:0},
     ingredients:[
-        {label:"rhodium bar",amount:2},        
-        {label:"scrith ore",amount:1000},
+        {label:"rhodium bar",amount:2,min:1},
+        {label:"scrith ore",amount:1000,min:400},
     ],
     baseSellValue: {value:352,unit:"M"},
 }),
@@ -448,8 +448,8 @@ new Item({
     unlockCost:"$ 2.00 B",
     baseCraftTime:{hr:0,mn:36,sc:0},
     ingredients:[
-        {label:"inerton alloy",amount:2},        
-        {label:"uru ore",amount:1000},
+        {label:"inerton alloy",amount:2,min:1},   
+        {label:"uru ore",amount:1000,min:400},
     ],
     baseSellValue: {value:832,unit:"M"},
 }),
@@ -460,8 +460,8 @@ new Item({
     unlockCost:"$ 4.00 B",
     baseCraftTime:{hr:0,mn:40,sc:0},
     ingredients:[
-        {label:"quadium alloy",amount:2},        
-        {label:"vibranium ore",amount:1000},
+        {label:"quadium alloy",amount:2,min:1},      
+        {label:"vibranium ore",amount:1000,min:400},
     ],
     baseSellValue: {value:2.05,unit:"B"},
 }),
@@ -472,8 +472,8 @@ new Item({
     unlockCost:"$ 8.00 B",
     baseCraftTime:{hr:0,mn:44,sc:0},
     ingredients:[
-        {label:"scrith alloy",amount:2},        
-        {label:"aether ore",amount:1000},
+        {label:"scrith alloy",amount:2,min:1},
+        {label:"aether ore",amount:1000,min:400},
     ],
     baseSellValue: {value:5.12,unit:"B"},
 }),
@@ -484,8 +484,8 @@ new Item({
     unlockCost:"$ 16.00 B",
     baseCraftTime:{hr:0,mn:48,sc:0},
     ingredients:[
-        {label:"uru alloy",amount:2},        
-        {label:"viterium ore",amount:1000},
+        {label:"uru alloy",amount:2,min:1},
+        {label:"viterium ore",amount:1000,min:400},
     ],
     baseSellValue: {value:15.5,unit:"B"},
 }),
@@ -496,8 +496,8 @@ new Item({
     unlockCost:"$ 84.00 B",
     baseCraftTime:{hr:0,mn:55,sc:0},
     ingredients:[
-        {label:"viterium alloy",amount:5},        
-        {label:"xynium ore",amount:1500},
+        {label:"viterium alloy",amount:5,min:2},  
+        {label:"xynium ore",amount:1500,min:600},
     ],
     baseSellValue: {value:48,unit:"B"},
 }),
@@ -508,8 +508,8 @@ new Item({
     unlockCost:"$ 275.00 B",
     baseCraftTime:{hr:1,mn:2,sc:0},
     ingredients:[
-        {label:"aether alloy",amount:5},        
-        {label:"quolium ore",amount:1500},
+        {label:"aether alloy",amount:5,min:2},  
+        {label:"quolium ore",amount:1500,min:600},
     ],
     baseSellValue: {value:160,unit:"B"},
 }),
@@ -520,8 +520,8 @@ new Item({
     unlockCost:"$ 1.00 T",
     baseCraftTime:{hr:1,mn:9,sc:0},
     ingredients:[
-        {label:"viterium alloy",amount:5},        
-        {label:"luterium ore",amount:1500},
+        {label:"viterium alloy",amount:5,min:2},   
+        {label:"luterium ore",amount:1500,min:600},
     ],
     baseSellValue: {value:600,unit:"B"},
 }),
@@ -532,8 +532,8 @@ new Item({
     unlockCost:"$ 4.20 T",
     baseCraftTime:{hr:1,mn:16,sc:0},
     ingredients:[
-        {label:"xynium alloy",amount:5},        
-        {label:"wraith ore",amount:1500},
+        {label:"xynium alloy",amount:5,min:2},
+        {label:"wraith ore",amount:1500,min:600},
     ],
     baseSellValue: {value:2.4,unit:"T"},
 }),
@@ -568,7 +568,7 @@ new Item({
     unlockCost:"Free",
     baseCraftTime:{hr:0,mn:1,sc:0},
     ingredients:[
-        {label:"copper bar",amount:5},
+        {label:"copper bar",amount:5,min:2},
     ],
     baseSellValue: {value:10,unit:"K"},
 }),
@@ -579,7 +579,7 @@ new Item({
     unlockCost:"20.00 K",
     baseCraftTime:{hr:0,mn:2,sc:0},
     ingredients:[
-        {label:"iron bar",amount:5},
+        {label:"iron bar",amount:5,min:2},
     ],
     baseSellValue: {value:20,unit:"K"},
 }),
@@ -590,8 +590,8 @@ new Item({
     unlockCost:"50.00 K",
     baseCraftTime:{hr:0,mn:4,sc:0},
     ingredients:[
-        {label:"copper wire",amount:2},
-        {label:"copper bar",amount:10},
+        {label:"copper wire",amount:2,min:1},
+        {label:"copper bar",amount:10,min:4},
     ],
     baseSellValue: {value:70,unit:"K"},
 }),
@@ -602,8 +602,8 @@ new Item({
     unlockCost:"100.00 K",
     baseCraftTime:{hr:0,mn:8,sc:0},
     ingredients:[
-        {label:"iron nail",amount:2},
-        {label:"lead bar",amount:5},
+        {label:"iron nail",amount:2,min:1},
+        {label:"lead bar",amount:5,min:2},
     ],
     baseSellValue: {value:135,unit:"K"},
 }),
@@ -614,7 +614,7 @@ new Item({
     unlockCost:"200.00 K",
     baseCraftTime:{hr:0,mn:12,sc:0},
     ingredients:[
-        {label:"silicon bar",amount:10},
+        {label:"silicon bar",amount:10,min:4},
     ],
     baseSellValue: {value:220,unit:"K"},
 }),
@@ -625,9 +625,9 @@ new Item({
     unlockCost:"400.00 K",
     baseCraftTime:{hr:0,mn:20,sc:0},
     ingredients:[
-        {label:"silicon bar",amount:5},
-        {label:"aluminium bar",amount:5},
-        {label:"copper wire",amount:10},
+        {label:"silicon bar",amount:5,min:2},
+        {label:"aluminium bar",amount:5,min:2},
+        {label:"copper wire",amount:10,min:4},
     ],
     baseSellValue: {value:620,unit:"K"},
 }),
@@ -638,8 +638,8 @@ new Item({
     unlockCost:"1.00 M",
     baseCraftTime:{hr:0,mn:40,sc:0},
     ingredients:[
-        {label:"glass",amount:1},
-        {label:"silver bar",amount:5},
+        {label:"glass",amount:1,min:1},
+        {label:"silver bar",amount:5,min:2},
     ],
     baseSellValue: {value:1.1,unit:"M"},
 
@@ -651,9 +651,9 @@ new Item({
     unlockCost:"2.00 M",
     baseCraftTime:{hr:1,mn:0,sc:0},
     ingredients:[
-        {label:"gold bar",amount:5},
-        {label:"lens",amount:1},
-        {label:"iron bar",amount:10},
+        {label:"gold bar",amount:5,min:2},
+        {label:"lens",amount:1,min:1},
+        {label:"iron bar",amount:10,min:4},
     ],
     baseSellValue: {value:3.2,unit:"M"},
 }),
@@ -664,8 +664,8 @@ new Item({
     unlockCost:"5.00 M",
     baseCraftTime:{hr:1,mn:20,sc:0},
     ingredients:[
-        {label:"circuit",amount:5},
-        {label:"silver bar",amount:5},
+        {label:"circuit",amount:5,min:2},
+        {label:"silver bar",amount:5,min:2},
     ],
     baseSellValue: {value:7.6,unit:"M"},
 }),
@@ -676,8 +676,8 @@ new Item({
     unlockCost:"10.00 M",
     baseCraftTime:{hr:1,mn:40,sc:0},
     ingredients:[
-        {label:"circuit",amount:5},
-        {label:"glass",amount:10},
+        {label:"circuit",amount:5,min:2},
+        {label:"glass",amount:10,min:4},
     ],
     baseSellValue: {value:12.5,unit:"M"},
 }),
@@ -688,9 +688,9 @@ new Item({
     unlockCost:"20.00 M",
     baseCraftTime:{hr:2,mn:0,sc:0},
     ingredients:[
-        {label:"bronze bar",amount:5},
-        {label:"laser",amount:2},
-        {label:"lens",amount:5},
+        {label:"bronze bar",amount:5,min:2},
+        {label:"laser",amount:2,min:1},
+        {label:"lens",amount:5,min:2},
     ],
     baseSellValue: {value:31,unit:"M"},
 }),
@@ -701,8 +701,8 @@ new Item({
     unlockCost:"30.00 M",
     baseCraftTime:{hr:2,mn:30,sc:0},
     ingredients:[
-        {label:"steel bar",amount:20},
-        {label:"battery",amount:30},
+        {label:"steel bar",amount:20,min:8},
+        {label:"battery",amount:30,min:12},
     ],
     baseSellValue: {value:35,unit:"M"},
 }),
@@ -713,9 +713,9 @@ new Item({
     unlockCost:"50.00 M",
     baseCraftTime:{hr:3,mn:0,sc:0},
     ingredients:[
-        {label:"platinum bar",amount:5},
-        {label:"laser",amount:2},
-        {label:"glass",amount:5},
+        {label:"platinum bar",amount:5,min:2},
+        {label:"laser",amount:2,min:1},
+        {label:"glass",amount:5,min:2},
     ],
     baseSellValue: {value:71.5,unit:"M"},
 }),
@@ -726,8 +726,8 @@ new Item({
     unlockCost:"120.00 M",
     baseCraftTime:{hr:3,mn:30,sc:0},
     ingredients:[
-        {label:"basic computer",amount:5},
-        {label:"titanium bar",amount:5},
+        {label:"basic computer",amount:5,min:2},
+        {label:"titanium bar",amount:5,min:2},
     ],
     baseSellValue: {value:180,unit:"M"},
 }),
@@ -738,8 +738,8 @@ new Item({
     unlockCost:"250.00 M",
     baseCraftTime:{hr:3,mn:45,sc:0},
     ingredients:[
-        {label:"laser torch",amount:2},
-        {label:"thermal scanner",amount:1},
+        {label:"laser torch",amount:2,min:1},
+        {label:"thermal scanner",amount:1,min:1},
     ],
     baseSellValue: {value:1,unit:"B"},
 }),
@@ -750,8 +750,8 @@ new Item({
     unlockCost:"550.00 M",
     baseCraftTime:{hr:4,mn:10,sc:0},
     ingredients:[
-        {label:"iridium bar",amount:15},
-        {label:"laser torch",amount:5},
+        {label:"iridium bar",amount:15,min:6},
+        {label:"laser torch",amount:5,min:2},
     ],
     baseSellValue: {value:1.15,unit:"B"},
 }),
@@ -762,9 +762,9 @@ new Item({
     unlockCost:"1.50 B",
     baseCraftTime:{hr:4,mn:20,sc:0},
     ingredients:[
-        {label:"platinum bar",amount:75},
-        {label:"aluminium bar",amount:150},
-        {label:"titanium bar",amount:50},
+        {label:"platinum bar",amount:75,min:30},
+        {label:"aluminium bar",amount:150,min:60},
+        {label:"titanium bar",amount:50,min:20},
     ],
     baseSellValue: {value:1.45,unit:"B"},
 }),
@@ -775,8 +775,8 @@ new Item({
     unlockCost:"5.00 B",
     baseCraftTime:{hr:4,mn:40,sc:0},
     ingredients:[
-        {label:"lens",amount:20},
-        {label:"advanced computer",amount:1},
+        {label:"lens",amount:20,min:8},
+        {label:"advanced computer",amount:1,min:1},
     ],
     baseSellValue: {value:2.7,unit:"B"},
 }),
@@ -787,8 +787,8 @@ new Item({
     unlockCost:"17.50 B",
     baseCraftTime:{hr:5,mn:0,sc:0},
     ingredients:[
-        {label:"steel bar",amount:150},
-        {label:"palladium bar",amount:30},
+        {label:"steel bar",amount:150,min:60},
+        {label:"palladium bar",amount:30,min:12},
     ],
     baseSellValue: {value:3.4,unit:"B"},
 }),
@@ -799,8 +799,8 @@ new Item({
     unlockCost:"60.00 B",
     baseCraftTime:{hr:5,mn:20,sc:0},
     ingredients:[
-        {label:"bronze bar",amount:500},
-        {label:"hammer",amount:200},
+        {label:"bronze bar",amount:500,min:200},
+        {label:"hammer",amount:200,min:80},
     ],
     baseSellValue: {value:7,unit:"B"},
 }),
@@ -811,8 +811,8 @@ new Item({
     unlockCost:"100.00 B",
     baseCraftTime:{hr:5,mn:40,sc:0},
     ingredients:[
-        {label:"osmium bar",amount:20},
-        {label:"advanced battery",amount:3},
+        {label:"osmium bar",amount:20,min:8},
+        {label:"advanced battery",amount:3,min:1},
     ],
     baseSellValue: {value:12,unit:"B"},
 }),
@@ -823,8 +823,8 @@ new Item({
     unlockCost:"200.00 B",
     baseCraftTime:{hr:5,mn:50,sc:0},
     ingredients:[
-        {label:"rhodium bar",amount:5},
-        {label:"plasma torch",amount:1},
+        {label:"rhodium bar",amount:5,min:2},
+        {label:"plasma torch",amount:1,min:1},
     ],
     baseSellValue: {value:26,unit:"B"},
 }),
@@ -835,8 +835,8 @@ new Item({
     unlockCost:"500.00 B",
     baseCraftTime:{hr:6,mn:0,sc:0},
     ingredients:[
-        {label:"aluminium bar",amount:300},
-        {label:"motor",amount:1},
+        {label:"aluminium bar",amount:300,min:120},
+        {label:"motor",amount:1,min:1},
     ],
     baseSellValue: {value:140,unit:"B"},
 }),
@@ -847,9 +847,9 @@ new Item({
     unlockCost:"1.00 T",
     baseCraftTime:{hr:6,mn:10,sc:0},
     ingredients:[
-        {label:"satellite dish",amount:1},
-        {label:"solar panel",amount:25},
-        {label:"telescope",amount:1},
+        {label:"satellite dish",amount:1,min:1},
+        {label:"solar panel",amount:25,min:10},
+        {label:"telescope",amount:1,min:1},
     ],
     baseSellValue: {value:180,unit:"B"},
 }),
@@ -860,8 +860,8 @@ new Item({
     unlockCost:"2.00 T",
     baseCraftTime:{hr:6,mn:20,sc:0},
     ingredients:[
-        {label:"iridium bar",amount:300},
-        {label:"nuclear capsule",amount:1},
+        {label:"iridium bar",amount:300,min:120},
+        {label:"nuclear capsule",amount:1,min:1},
     ],
     baseSellValue: {value:1,unit:"T"},
 }),
@@ -872,8 +872,8 @@ new Item({
     unlockCost:"3.00 T",
     baseCraftTime:{hr:6,mn:25,sc:0},
     ingredients:[
-        {label:"inerton alloy",amount:500},
-        {label:"quadium alloy",amount:100},
+        {label:"inerton alloy",amount:500,min:200},
+        {label:"quadium alloy",amount:100,min:40},
     ],
     baseSellValue: {value:2,unit:"T"},
 }),
@@ -884,8 +884,8 @@ new Item({
     unlockCost:"6.00 T",
     baseCraftTime:{hr:6,mn:45,sc:0},
     ingredients:[
-        {label:"advanced computer",amount:60},
-        {label:"nuclear reactor",amount:1},
+        {label:"advanced computer",amount:60,min:24},
+        {label:"nuclear reactor",amount:1,min:1},
     ],
     baseSellValue: {value:15,unit:"T"},
 }),
@@ -896,8 +896,8 @@ new Item({
     unlockCost:"15.00 T",
     baseCraftTime:{hr:7,mn:12,sc:0},
     ingredients:[
-        {label:"scrith alloy",amount:300},
-        {label:"accumulator",amount:90},
+        {label:"scrith alloy",amount:300,min:120},
+        {label:"accumulator",amount:90,min:36},
     ],
     baseSellValue: {value:50,unit:"T"},
 }),
@@ -908,9 +908,9 @@ new Item({
     unlockCost:"75.00 T",
     baseCraftTime:{hr:7,mn:30,sc:0},
     ingredients:[
-        {label:"uru alloy",amount:200},
-        {label:"vibranium alloy",amount:100},
-        {label:"nuclear capsule",amount:100},
+        {label:"uru alloy",amount:200,min:80},
+        {label:"vibranium alloy",amount:100,min:40},
+        {label:"nuclear capsule",amount:100,min:40},
     ],
     baseSellValue: {value:240,unit:"T"},
 }),
@@ -921,8 +921,8 @@ new Item({
     unlockCost:"500.00 T",
     baseCraftTime:{hr:8,mn:02,sc:0},
     ingredients:[
-        {label:"navigation module",amount:250},
-        {label:"gravity chamber",amount:1},
+        {label:"navigation module",amount:250,min:100},
+        {label:"gravity chamber",amount:1,min:1},
     ],
     baseSellValue: {value:1.8,unit:"q"},
 }),
@@ -933,9 +933,9 @@ new Item({
     unlockCost:"2.50 q",
     baseCraftTime:{hr:8,mn:36,sc:0},
     ingredients:[
-        {label:"collider",amount:40},
-        {label:"nuclear reactor",amount:50},
-        {label:"fusion capsule",amount:1},
+        {label:"collider",amount:40,min:16},
+        {label:"nuclear reactor",amount:50,min:20},
+        {label:"fusion capsule",amount:1,min:1},
     ],
     baseSellValue: {value:40,unit:"q"},
 }),
@@ -946,9 +946,9 @@ new Item({
     unlockCost:"15.00 q",
     baseCraftTime:{hr:8,mn:58,sc:0},
     ingredients:[
-        {label:"space probe",amount:70},
-        {label:"satellite dish",amount:100},
-        {label:"teleporter",amount:3},
+        {label:"space probe",amount:70,min:28},
+        {label:"satellite dish",amount:100,min:40},
+        {label:"teleporter",amount:3,min:1},
     ],
     baseSellValue: {value:1,unit:"Q"},
 }),
@@ -1124,7 +1124,7 @@ function buildColumns(arraySource,targetTable,itemDisplayTop,itemDisplayMiddle,i
                     mydiv = document.createElement("div")
                     mydiv.style = textStyle
                     thisContainer.appendChild(mydiv)
-                    mydiv.innerHTML = "Required materials to either <br> Smelt OR Craft : (base values)"
+                    mydiv.innerHTML = "Required materials to either <br> Smelt OR Craft : <br>(base=> min. values)"
                     mydiv.style.borderBottom = "blue solid 3px"
 
                     for (i=0;i<item.ingredients.length;i++){
@@ -1141,7 +1141,8 @@ function buildColumns(arraySource,targetTable,itemDisplayTop,itemDisplayMiddle,i
                             mydiv = document.createElement("div")
                             mydiv.style = textStyle
                             thisDiv.appendChild(mydiv)
-                            mydiv.innerHTML = item.ingredients[i].amount + " " + item.ingredients[i].label
+                            mydiv.innerHTML = 
+                            item.ingredients[i].amount + " => " + item.ingredients[i].min + " " + item.ingredients[i].label
                     }
                     mydiv = document.createElement("div")
                     thisContainer.appendChild(mydiv)
@@ -1167,33 +1168,73 @@ function setCrafting(item,tabInfos){
 
         let text = item.type === "bar" ? "Smelt" : "Craft"
 
-        let thiscontainer = document.createElement("div")
-        itemDisplayMiddle.appendChild(thiscontainer)
-        thiscontainer.style = containerRow
-        thiscontainer.style.marginLeft = 30 + "px"
+        let topContainer = document.createElement("div")
+        itemDisplayMiddle.appendChild(topContainer)
+        topContainer.style = containerColumn
+        topContainer.style.marginLeft = 30 + "px"        
 
-            let myDiv = document.createElement("div")
-            thiscontainer.appendChild(myDiv)
-            myDiv.style = closeButtonStyle
-            myDiv.innerHTML = text + " " + item.label + " x "
-            myDiv.style.backgroundImage = "linear-gradient(#4C5B5C 90%,grey)"
-            myDiv.style.border = "white solid 3px"
-            myDiv.style.color = "yellow"
-            myDiv.addEventListener("click",function(e){startCrafting(e,item)})
+            let thisContainer = document.createElement("div")
+            topContainer.appendChild(thisContainer)
+            thisContainer.style = containerRow
 
-            let rect = myDiv.getBoundingClientRect()
-            let myInput = document.createElement("input")
-            thiscontainer.appendChild(myInput)
-            myInput.style = closeButtonStyle
-            let modif = 15
-            myInput.style.height = (rect.height -modif) + "px"
-            myInput.style.width = (rect.height *2)+ "px"
-            myInput.style.backgroundImage = "linear-gradient(#4C5B5C 90%,grey)"
-            myInput.style.border = "white solid 3px"
-            myInput.value = 1
-            myInput.style.color = "yellow"
-            myInput.setAttribute("id","craftQuantity")
+                let myDiv = document.createElement("div")
+                thisContainer.appendChild(myDiv)
+                myDiv.style = closeButtonStyle
+                myDiv.innerHTML = text + " " + item.label + " x "
+                myDiv.style.backgroundImage = "linear-gradient(#4C5B5C 90%,grey)"
+                myDiv.style.border = "white solid 3px"
+                myDiv.style.color = "yellow"
+                myDiv.addEventListener("click",function(e){startCrafting(e,item)})
+                let width1 = myDiv.getBoundingClientRect().width 
 
+                let rect = myDiv.getBoundingClientRect()
+                let myInput = document.createElement("input")
+                thisContainer.appendChild(myInput)
+                myInput.style = closeButtonStyle
+                let modif = 15
+                myInput.style.height = (rect.height -modif) + "px"
+                myInput.style.width = (rect.height *2)+ "px"
+                myInput.style.backgroundImage = "linear-gradient(#4C5B5C 90%,grey)"
+                myInput.style.border = "white solid 3px"
+                myInput.value = 1
+                myInput.style.color = "yellow"
+                myInput.setAttribute("id","craftQuantity")
+                let width2 = myInput.getBoundingClientRect().width
+
+            thisContainer = document.createElement("div")
+            topContainer.appendChild(thisContainer)
+            thisContainer.style = containerRow
+            thisContainer.style.backgroundImage = "linear-gradient(#4C5B5C 90%,grey)"
+            thisContainer.style.border = "white solid 3px"
+            thisContainer.style.color = "yellow"
+            thisContainer.style.width = 300 + "px"
+            thisContainer.style.borderRadius = "5px"
+            thisContainer.style.marginBottom = "10px"
+
+
+                let thisItem = document.createElement("div")
+                thisContainer.appendChild(thisItem)
+                thisItem.innerHTML = "Display : as Tree"
+                thisItem.style = textStyle
+
+                let thisRadio = document.createElement("input")
+                thisContainer.appendChild(thisRadio)
+                thisRadio.type = "radio"
+                thisRadio.setAttribute("name","displayType")
+                thisRadio.name = "displayType"
+                thisRadio.value = "tree"
+                thisRadio.checked = true
+
+                thisItem = document.createElement("div")
+                thisContainer.appendChild(thisItem)
+                thisItem.innerHTML = "OR as Short List"
+                thisItem.style = textStyle
+
+                thisRadio = document.createElement("input")
+                thisContainer.appendChild(thisRadio)
+                thisRadio.type = "radio"
+                thisRadio.name = "displayType"
+                thisRadio.value = "list"
         }
 }
 
@@ -1252,7 +1293,9 @@ function fork(thisArray){
                     {idx : thisArray[0].idx+1,
                     father : thisArray[i].item,
                     item : subItem, 
-                    quantity : Number(thisArray[i].quantity) * Number(thisItem.ingredients[j].amount)
+                    quantity : Number(thisArray[i].quantity) * Number(thisItem.ingredients[j].amount),
+                    min : Number(thisArray[i].quantity) * Number(thisItem.ingredients[j].min),
+                    position : undefined,
                     })}
 
         }
@@ -1277,8 +1320,11 @@ function startCrafting(e,item,type){
     let Idx = 1
     let passArray = undefined
     let myArray = []
+    let totalColumns = 0
+    let tempArray = []
+    let filteredArray = []
 
-    let starterItem = {idx : Idx,father : undefined ,item : item, quantity : craftQuantity.value}
+    let starterItem = {idx : Idx,father : undefined ,item : item, quantity : craftQuantity.value,position : undefined}
 
     queue.push([starterItem])
 
@@ -1290,17 +1336,294 @@ function startCrafting(e,item,type){
         if (thisSet.subArray.length>0){queue.push(thisSet.subArray)}
     }
 
-    table = document.createElement("table")
-    itemDisplayBottom.appendChild(table)
 
-    for (i =0;i<myArray.length;i++){
-        tableAdd({table:table})
-        for(j=0;j<myArray[i].length;j++){
-            tableAdd({row:false, table:table})
-            row = table.rows.length-1
-            cel = table.rows[row].cells.length-1
+    let displayChosen = undefined
+    let radios = document.getElementsByName("displayType")
+    for (i=0;i<radios.length;i++){
+        if (radios[i].checked){displayChosen = radios[i].value}    
+    }
+
+    if (displayChosen === "list"){
+        let myArray2 = myArray
+        let itemsList = []
+        let thisIndex = undefined
+        let thisLabel = undefined
+
+        for(i=1;i<myArray2.length;i++){
+            for(j=0;j<myArray2[i].length;j++){
+
+
+                if(itemsList.length === 0){
+                    itemsList.push({
+                        type : myArray2[i][j].item.type,
+                        label : myArray2[i][j].item.label,
+                        quantity : myArray2[i][j].quantity,
+                        min : myArray2[i][j].min
+                    })
+                } else {
+                    thisIndex = itemsList.findIndex(x=>x.label === myArray2[i][j].item.label )
+                    
+                    if (thisIndex === -1){
+                        itemsList.push({
+                            type : myArray2[i][j].item.type,
+                            label : myArray2[i][j].item.label,
+                            quantity : myArray2[i][j].quantity,
+                            min : myArray2[i][j].min
+                        })  
+                    } else {
+                        itemsList[thisIndex].quantity += myArray2[i][j].quantity
+                        itemsList[thisIndex].min += myArray2[i][j].min
+                    }
+                }
+
+                for (k=0;k<myArray2[i][j].item.ingredients.length;k++){
+                    thisLabel = myArray2[i][j].item.ingredients[k].label
+
+                    if (!getItemsArray(thisLabel)){
+                        thisIndex = itemsList.findIndex(x=>x.label === thisLabel)
+
+                        if (thisIndex === -1){
+                            itemsList.push({
+                                type : "ore",
+                                label : thisLabel,
+                                quantity : myArray2[i][j].item.ingredients[k].amount * myArray2[i][j].quantity,
+                                min : myArray2[i][j].item.ingredients[k].min * myArray2[i][j].min,
+                            })  
+                        } else {
+                            itemsList[thisIndex].quantity += myArray2[i][j].item.ingredients[k].amount * myArray2[i][j].quantity
+                            itemsList[thisIndex].min += myArray2[i][j].item.ingredients[k].min * myArray2[i][j].min
+                        }
+                    }
+                }
+                
+
+            }
+        }
+
+        tempArray = itemsList.filter(x=>x.type === "item")
+        for (i=0;i<tempArray.length;i++){
+            filteredArray.push(tempArray[i])
+        }
+        tempArray = itemsList.filter(x=>x.type === "bar")
+        for (i=0;i<tempArray.length;i++){
+            filteredArray.push(tempArray[i])
+        }
+        tempArray = itemsList.filter(x=>x.type === "ore")
+        for (i=0;i<tempArray.length;i++){
+            filteredArray.push(tempArray[i])
+        }
+
+        let thisContainer = document.createElement("div")
+        itemDisplayBottom.appendChild(thisContainer)
+        thisContainer.style = containerStyle
+        thisContainer.style.marginLeft = 20 + "px"
             
-            craftDiv(myArray[i][j],table,row,cel)
+            let subContainer = document.createElement("div")
+            subContainer.style = containerRow
+            subContainer.style.alignItems = "center"
+            thisContainer.appendChild(subContainer)
+    
+                let img = new Image (40,40)
+                img.src = "./IPM Components/" + myArray[0][0].item.label + ".jpg"
+                img.style = textStyle
+                subContainer.appendChild(img)
+    
+                let thisItem = document.createElement("div")
+                thisItem.style = textStyle
+                subContainer.appendChild(thisItem)
+                thisItem.innerHTML = myArray[0][0].item.label + " x " + formatKMBT(myArray[0][0].quantity)
+    
+            subContainer = document.createElement("div")
+            subContainer.style.borderBottom = "blue solid 3px"
+            thisContainer.appendChild(subContainer)        
+    
+            thisItem = document.createElement("div")
+            thisItem.style = textStyle
+            thisContainer.appendChild(thisItem)
+            thisItem.innerHTML = "(base value => minimum value)"        
+    
+            for (i=0;i<filteredArray.length;i++){
+                subContainer = document.createElement("div")
+                subContainer.style = containerRow
+                thisContainer.appendChild(subContainer)
+    
+                    img = new Image (40,40)
+                    img.src = "./IPM Components/" + filteredArray[i].label + ".jpg"
+                    img.style = textStyle
+                    subContainer.appendChild(img)
+    
+                    thisItem = document.createElement("div")
+                    thisItem.style = textStyle
+                    thisItem.style.textAlign = "left"
+                    subContainer.appendChild(thisItem)
+                    thisItem.innerHTML = filteredArray[i].label + 
+                    "<br> " + formatKMBT(filteredArray[i].quantity) +
+                    " => " + formatKMBT(filteredArray[i].min)
+            }
+        }
+    else {
+
+        table = document.createElement("table")
+        itemDisplayBottom.appendChild(table)
+
+        for (i=0;i<myArray.length;i++){
+            /*
+            if (i>0){
+
+                for (g=0;g<3;g++){
+                    tableAdd({table:table})
+
+                    totalColumns = 
+                    (myArray[i].length*2-1) > (myArray[i-1].length*2-1) ? 
+                    (myArray[i].length*2-1) : (myArray[i-1].length*2-1)
+
+                    for (h=0;h<totalColumns;h++){
+                        tableAdd({row:false, table:table})
+                        row = table.rows.length-1
+                        cel = table.rows[row].cells.length-1
+                        table.rows[row].cells[cel].style.height = 5 + "px"
+                        table.rows[row].cells[cel].setAttribute("id","R"+row+"|C"+cel)
+
+                    table.rows[row].cells[cel].addEventListener("click",(e)=>{info.innerHTML = e.srcElement.id})
+                    table.rows[row].cells[cel].style.border = "solid white 1px"
+                }}}
+            */
+
+            tableAdd({table:table})
+        
+            for(j=0;j<myArray[i].length;j++){
+
+                if (j>0){
+            /*
+                tableAdd({row:false, table:table})
+                row = table.rows.length-1
+                cel = table.rows[row].cells.length-1
+                table.rows[row].cells[cel].style.minWidth = 10 + "px"
+                table.rows[row].cells[cel].setAttribute("id","R"+row+"|C"+cel)
+
+            table.rows[row].cells[cel].addEventListener("click",(e)=>{info.innerHTML = e.srcElement.id})
+            table.rows[row].cells[cel].style.border = "solid white 1px"
+            */
+                }
+
+                tableAdd({row:false, table:table})
+                row = table.rows.length-1
+                cel = table.rows[row].cells.length-1
+                
+                table.rows[row].cells[cel].setAttribute("id","R"+row+"|C"+cel)
+                table.rows[row].cells[cel].addEventListener("click",(e)=>{info.innerHTML = e.srcElement.id})
+
+                myArray[i][j].position = table.rows[row].cells[cel].id
+                craftDiv(myArray[i][j],table,row,cel)
+            }
+        }
+
+        let childPosition = undefined
+        let childC = undefined
+        let fatherPosition = undefined
+        let fatherC = undefined
+        let Coords = undefined
+        let thisPosition = undefined
+        let hr = undefined
+        let fill = undefined
+
+        let newArray=[]
+
+        for (i=1;i<myArray.length;i++){
+            for(j=0;j<myArray[i].length;j++){
+    /*
+                childPosition = myArray[i][j].position
+                fatherPosition = myArray[i-1][ myArray[i-1].findIndex(x=> x.item.label===myArray[i][j].father.label)].position
+
+                childC = Number(childPosition.split("|")[1].slice(1))
+                fatherC = Number(fatherPosition.split("|")[1].slice(1))
+
+                console.log(childC)
+                console.log(fatherC)
+
+                if (childC === fatherC) {
+                    Coords = childPosition.split("|")
+                    thisPosition = "R"+(Number(Coords[0].slice(1))-1)+"|"+Coords[1]
+                    hr = document.createElement("hr")
+                    hr.style = hrHorStyle2
+                    document.getElementById(thisPosition).appendChild(hr)
+                }
+                else {
+                    Coords = childPosition.split("|")
+                    thisPosition = "R"+(Number(Coords[0].slice(1))-1)+"|"+Coords[1]
+                    fill = document.createElement("div")
+                    document.getElementById(thisPosition).appendChild(fill)
+
+                    fill.style = childC < fatherC ? fillLeftHalf : fillRightHalf
+
+                    Coords = fatherPosition.split("|")
+                    thisPosition = "R"+(Number(Coords[0].slice(1))+1)+"|"+Coords[1]
+                    fill = document.createElement("div")
+                    document.getElementById(thisPosition).appendChild(fill)
+
+                    fill.style = childC < fatherC ? fillRightHalf : fillLeftHalf 
+
+                    if ( childC < fatherC && fatherC-childC > 0){
+                        for(k=childC+1;k<fatherC;k++){
+                            thisPosition = "R"+k+"|"+Coords[1]
+                            fill = document.createElement("div")
+                            document.getElementById(thisPosition).appendChild(fill)
+                            fill.style = fillMiddle
+                        }
+                    }
+                    else if ( fatherC < childC && childC - fatherC > 0){
+                        for(k=fatherC+1;k<childC;k++){
+                            thisPosition = "R"+k+"|"+Coords[1]
+                            fill = document.createElement("div")
+                            document.getElementById(thisPosition).appendChild(fill)
+                            fill.style = fillMiddle
+                        }
+
+                    }
+
+                }
+
+    */
+
+
+    /*            
+                let fill = document.createElement("div")
+                table.rows[2].cells[0].appendChild(fill)
+                fill.style = fillLeftHalf
+
+                fill = document.createElement("div")
+                table.rows[2].cells[2].appendChild(fill)
+                fill.style = fillRightHalf
+
+                fill = document.createElement("div")
+                table.rows[2].cells[1].appendChild(fill)
+                fill.style = fillMiddle
+
+
+                childPosition = myArray[i][j].position
+                fatherPosition = myArray[i-1][ myArray[i-1].findIndex(x=> x.item.label===myArray[i][j].father.label)].position
+
+                Coords = childPosition.split("|")
+                thisPosition = "R"+ (Number(Coords[0].slice(1))-1)+"|"+Coords[1]
+
+                console.log(thisPosition)
+
+                hr = document.createElement("hr")
+                hr.style = hrHorStyle2
+                document.getElementById(thisPosition).appendChild(hr)
+
+                Coords = fatherPosition.split("|")
+                thisPosition = "R"+ (Number(Coords[0].slice(1))+1)+"|"+Coords[1]
+                
+                console.log(thisPosition)
+                
+                hr = document.createElement("hr")
+                hr.style = hrHorStyle2
+                cleanParent(document.getElementById(thisPosition))
+                document.getElementById(thisPosition).appendChild(hr)
+    */
+                
+            }
         }
     }
 
@@ -1328,9 +1651,11 @@ function craftDiv(thisCraft,table,row,cel){
 
     let thisContainer = document.createElement("div")
     thisContainer.style = containerStyle
+    thisContainer.style.height = 300 + "px"
         
         let subContainer = document.createElement("div")
         subContainer.style = containerRow
+        subContainer.style.alignItems = "center"
         thisContainer.appendChild(subContainer)
 
             let img = new Image (40,40)
@@ -1351,12 +1676,22 @@ function craftDiv(thisCraft,table,row,cel){
                 let thisItem = document.createElement("div")
                 thisItem.style = textStyle
                 subContainer.appendChild(thisItem)
-                thisItem.innerHTML = "(material for " + thisCraft.father.label + ")"
+                thisItem.innerHTML = "(materials for "
+                    let thisSpan = document.createElement("span")
+                    thisItem.appendChild(thisSpan)
+                    thisSpan.innerHTML = thisCraft.father.label
+                    thisSpan.style.color = "red"
+                thisItem.innerHTML += ")"
         }
 
         subContainer = document.createElement("div")
         subContainer.style.borderBottom = "blue solid 3px"
         thisContainer.appendChild(subContainer)        
+
+        thisItem = document.createElement("div")
+        thisItem.style = textStyle
+        thisContainer.appendChild(thisItem)
+        thisItem.innerHTML = "(base cost => minimum cost)"        
 
         for (k=0;k<thisCraft.item.ingredients.length;k++){
             subContainer = document.createElement("div")
@@ -1370,15 +1705,21 @@ function craftDiv(thisCraft,table,row,cel){
 
                 thisItem = document.createElement("div")
                 thisItem.style = textStyle
+                thisItem.style.textAlign = "left"
                 subContainer.appendChild(thisItem)
                 thisItem.innerHTML = thisCraft.item.ingredients[k].label + 
-                " " + formatKMBT(thisCraft.item.ingredients[k].amount * thisCraft.quantity)
-                
+                "<br> " + formatKMBT(thisCraft.item.ingredients[k].amount * thisCraft.quantity) +
+                " => " + formatKMBT(thisCraft.item.ingredients[k].min * thisCraft.quantity)
         }
 
     table.rows[row].cells[cel].appendChild(thisContainer)
     table.rows[row].cells[cel].style.minWidth = 300+ "px"
     table.rows[row].cells[cel].style.verticalAlign = "top"
     table.style.marginLeft = 20 + "px"
+
+    table.rows[row].cells[cel].style.border = "white solid 1px"
+    
+    
+//   console.log(thisContainer.getBoundingClientRect())
 
 }
