@@ -1207,7 +1207,7 @@ function setCrafting(item,tabInfos){
             thisContainer.style.backgroundImage = "linear-gradient(#4C5B5C 90%,grey)"
             thisContainer.style.border = "white solid 3px"
             thisContainer.style.color = "yellow"
-            thisContainer.style.width = 300 + "px"
+            thisContainer.style.width = 340 + "px"
             thisContainer.style.borderRadius = "5px"
             thisContainer.style.marginBottom = "10px"
 
@@ -1227,7 +1227,7 @@ function setCrafting(item,tabInfos){
 
                 thisItem = document.createElement("div")
                 thisContainer.appendChild(thisItem)
-                thisItem.innerHTML = "OR as Short List"
+                thisItem.innerHTML = "OR as Components List"
                 thisItem.style = textStyle
 
                 thisRadio = document.createElement("input")
