@@ -260,14 +260,14 @@ function displayRoom(e,rightBottom,width){
         rightBottom.appendChild(thisContainer)
         thisContainer.style = containerStyle
         thisContainer.style.marginLeft = 12 + "px"
-        thisContainer.style.width = 550 + "px"
+        thisContainer.style.width = 500 + "px"
 
                 let subContainer = document.createElement("div")
                 thisContainer.appendChild(subContainer)
                 subContainer.style = containerColumn
                 subContainer.style.marginLeft = "0"
 
-                        let img = new Image(550,157)
+                        let img = new Image(500,142)
                         img.src = "./IPM Components/" + e.srcElement.innerHTML + ".jpg"
                         subContainer.appendChild(img)
                 
