@@ -122,7 +122,7 @@ function buildRooms(){
     let textSize = 18
     let tabInfos = document.createElement("div")
     right.appendChild(tabInfos)
-    tabInfos.innerHTML = "Green lined Rooms are Max Level 11 "
+    tabInfos.innerHTML = "Rooms with a Green border are the ones with Max Level 11"
     tabInfos.style = textStyle
     tabInfos.style.fontSize = textSize + "px"
     tabInfos.style.height = textSize + "px"
