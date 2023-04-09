@@ -156,7 +156,10 @@ function buildProjectsGrid(whichGrid="",cellSize=0){
     right.appendChild(tabInfos)
     tabInfos.innerHTML = "Click a tile for more infos"
     tabInfos.style = textStyle
-    tabInfos.style.fontSize = 18 + "px"
+    tabInfos.style.fontSize = 20 + "px"
+    tabInfos.style.paddingLeft = 40 + "px"
+    tabInfos.style.color = "yellow"
+
 
     let table = document.createElement("table")
 
