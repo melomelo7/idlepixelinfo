@@ -815,6 +815,7 @@ function buildPlanets(){
     myDiv.style = closeButtonStyle
     myDiv.style.marginLeft = 10 + "px"
     myDiv.innerHTML = "Full List"
+    myDiv.setAttribute("id","planetFull")
     rightTop.appendChild(myDiv)
     myDiv.addEventListener("click",function(){
         info.innerHTML = infoTitle

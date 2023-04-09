@@ -109,7 +109,8 @@ function popKiller(){
 function clickPlanets(){
     popKiller()
     cleanParent(right)
-    buildPlanets()    
+    buildPlanets()
+    document.getElementById("planetFull").click()  
 }
 
 function clickItems(){
@@ -314,6 +315,7 @@ function clickCell2(e,obj,whichGrid){
     projectPop = document.createElement("div")
     projectPop.style = containerStyle
     projectPop.style.width = projectPopWidth + "px"
+    projectPop.style.opacity = 0.9
     body.appendChild(projectPop)
 
         let subContainer1 = document.createElement("div")
