@@ -984,7 +984,7 @@ function buildItems(){
     Depending used device hover is displaying infos as you move your mouse <br> 
     OR a click is needed. When clicking on a Bar or Item the selection is set <br>
     on the grey Button. Change the number if you want more and click to display <br>
-    the smelting/crafting steps ...`
+    the smelting/crafting Componenets List/Tree ...`
 
     tabInfos.style = textStyle
     tabInfos.style.fontSize = textSize + "px"
@@ -1124,7 +1124,7 @@ function buildColumns(arraySource,targetTable,itemDisplayTop,itemDisplayMiddle,i
                     mydiv = document.createElement("div")
                     mydiv.style = textStyle
                     thisContainer.appendChild(mydiv)
-                    mydiv.innerHTML = "Required materials to either <br> Smelt OR Craft : <br>(base=> min. values)"
+                    mydiv.innerHTML = "Required materials to Smelt/Craft :<br>(base => min. values)"
                     mydiv.style.borderBottom = "blue solid 3px"
 
                     for (i=0;i<item.ingredients.length;i++){
@@ -1152,6 +1152,7 @@ function buildColumns(arraySource,targetTable,itemDisplayTop,itemDisplayMiddle,i
                 mydiv = document.createElement("div")
                 mydiv.style = textStyle
                 thisContainer.appendChild(mydiv)
+                thisContainer.style.height = 400 + "px"
                 mydiv.innerHTML = item.baseSellValue.unit === "" ? 
                 "Base Sell Value : $ "+item.baseSellValue.value :
                 "Base Sell Value : $ "+item.baseSellValue.value + " " + item.baseSellValue.unit
@@ -1275,6 +1276,7 @@ function fork(thisArray){
     let thisItem = undefined
     let source = undefined
     let subItem = undefined
+    let thisValue = undefined
 
     for (i=0;i<thisArray.length;i++){
 
@@ -1283,18 +1285,33 @@ function fork(thisArray){
         thisItem = thisArray[i].item
 
         for (j=0;j<thisItem.ingredients.length;j++){
+/*
+            if(!thisArray[i].min)
+                {thisValue = Number(thisArray[i].quantity) * Number(thisItem.ingredients[j].min)}
+            else
+                {thisValue = Number(thisArray[i].min) * Number(thisItem.ingredients[j].min)}
+*/
+            thisValue = !thisArray[i].min ?
+            Number(thisArray[i].quantity) * Number(thisItem.ingredients[j].min) :
+            Number(thisArray[i].min) * Number(thisItem.ingredients[j].min)
             
             source = getItemsArray(thisItem.ingredients[j].label)
 
             if (source){
                 subItem = source[source.findIndex(x=>x.label === thisItem.ingredients[j].label)]
 
+                if(!thisArray[i].min){console.log(thisArray[i])}
+
                 subArray.push(
                     {idx : thisArray[0].idx+1,
                     father : thisArray[i].item,
                     item : subItem, 
                     quantity : Number(thisArray[i].quantity) * Number(thisItem.ingredients[j].amount),
-                    min : Number(thisArray[i].quantity) * Number(thisItem.ingredients[j].min),
+
+                    min : thisValue,
+
+//                    min : Number(thisArray[i].quantity) * Number(thisItem.ingredients[j].min),
+
                     position : undefined,
                     })}
 
@@ -1660,9 +1677,11 @@ function tableAdd({row = true,table=undefined,}){
 
 function craftDiv(thisCraft,table,row,cel){
 
+//console.log(thisCraft)
+
     let thisContainer = document.createElement("div")
     thisContainer.style = containerStyle
-    thisContainer.style.height = 300 + "px"
+    thisContainer.style.height = 360 + "px"
         
         let subContainer = document.createElement("div")
         subContainer.style = containerRow
@@ -1677,7 +1696,8 @@ function craftDiv(thisCraft,table,row,cel){
             let thisItem = document.createElement("div")
             thisItem.style = textStyle
             subContainer.appendChild(thisItem)
-            thisItem.innerHTML = thisCraft.item.label + " x " + formatKMBT(thisCraft.quantity)
+            thisItem.innerHTML = thisCraft.item.label + "<br> x " + formatKMBT(thisCraft.quantity)
+            if(thisCraft.min) {thisItem.innerHTML += " => " + formatKMBT(thisCraft.min)}
 
         if (thisCraft.father){
             subContainer = document.createElement("div")
@@ -1719,9 +1739,12 @@ function craftDiv(thisCraft,table,row,cel){
                 thisItem.style.textAlign = "left"
                 subContainer.appendChild(thisItem)
                 thisItem.innerHTML = thisCraft.item.ingredients[k].label + 
-                "<br> " + formatKMBT(thisCraft.item.ingredients[k].amount * thisCraft.quantity) +
-                " => " + formatKMBT(thisCraft.item.ingredients[k].min * thisCraft.quantity)
-        }
+                "<br> " + formatKMBT(thisCraft.item.ingredients[k].amount * thisCraft.quantity) + " => "
+                thisItem.innerHTML += thisCraft.min ?  
+                formatKMBT(thisCraft.item.ingredients[k].min * thisCraft.min) :
+                formatKMBT(thisCraft.item.ingredients[k].min)
+
+            }
 
     table.rows[row].cells[cel].appendChild(thisContainer)
     table.rows[row].cells[cel].style.minWidth = 300+ "px"
