@@ -798,6 +798,7 @@ function buildPlanets(){
     tabInfos.style.fontSize = textSize + "px"
     tabInfos.style.height = textSize + "px"
     tabInfos.style.marginLeft = textSize + "px"
+    tabInfos.style.color = "yellow"
 
     let rightTop = document.createElement("div")
     rightTop.style = containerRow

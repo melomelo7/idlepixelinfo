@@ -122,11 +122,12 @@ function buildRooms(){
     let textSize = 18
     let tabInfos = document.createElement("div")
     right.appendChild(tabInfos)
-    tabInfos.innerHTML = ""
+    tabInfos.innerHTML = "Green lined Rooms are Max Level 11 "
     tabInfos.style = textStyle
     tabInfos.style.fontSize = textSize + "px"
     tabInfos.style.height = textSize + "px"
     tabInfos.style.marginLeft = textSize + "px"
+    tabInfos.style.color="yellow"
 
     let rightTop = document.createElement("div")
     rightTop.style = containerRow
@@ -259,7 +260,7 @@ function displayRoom(e,rightBottom,width){
         rightBottom.appendChild(thisContainer)
         thisContainer.style = containerStyle
         thisContainer.style.marginLeft = 12 + "px"
-        thisContainer.style.width = 640 + "px"
+        thisContainer.style.width = 550 + "px"
 
                 let subContainer = document.createElement("div")
                 thisContainer.appendChild(subContainer)
