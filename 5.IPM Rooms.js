@@ -65,7 +65,7 @@ const Rooms = [
 
     {label : "Backup Generator",
      bonus : {label : "Increase Idle time (offline time you carry on cashing the Benefits) : +30mn each new lv",
-                base:30,start : 30, every : 30},
+                base:0,start : 30, every : 30},
      costs : [21,29,39,52,68,89,116,150,193,247,314,399,506,639,805,1012,1270,1590,1987,2480,3091,3846,
             4781,5934,7359,9115,11280,13946,17228,21264,64226,32321,39806,48992,60261,74077,91008,
             111750,137148,168234,206270,252790,309668,]},
@@ -250,8 +250,9 @@ function displayRoom(e,rightBottom,width){
                 row = table.rows.length-1
                 cel = table.rows[row].cells.length-1
                 table.rows[row].cells[cel].innerHTML =
-                "Level " + (i+2) + " : Cost " + thisItem.costs[i].toLocaleString() +
-                " --- Bonus " + thisBonus.toFixed(2)
+                "Level " + (i+2) + " : Cost " + thisItem.costs[i].toLocaleString() + " --- Bonus "
+                table.rows[row].cells[cel].innerHTML += 
+                thisBonus < 0 ? thisBonus.toFixed(2) + "%" : thisBonus.toFixed(2)
         }
 
         let thisContainer = document.createElement("div")
