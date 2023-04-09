@@ -991,6 +991,7 @@ function buildItems(){
     tabInfos.style.height = textSize + "px"
     tabInfos.style.marginLeft = textSize + "px"
     tabInfos.style.marginBottom = 70 + "px"
+    tabInfos.style.color = "yellow"
 
     let itemsContainer = document.createElement("div")
     itemsContainer.style = containerRow
@@ -1285,12 +1286,7 @@ function fork(thisArray){
         thisItem = thisArray[i].item
 
         for (j=0;j<thisItem.ingredients.length;j++){
-/*
-            if(!thisArray[i].min)
-                {thisValue = Number(thisArray[i].quantity) * Number(thisItem.ingredients[j].min)}
-            else
-                {thisValue = Number(thisArray[i].min) * Number(thisItem.ingredients[j].min)}
-*/
+
             thisValue = !thisArray[i].min ?
             Number(thisArray[i].quantity) * Number(thisItem.ingredients[j].min) :
             Number(thisArray[i].min) * Number(thisItem.ingredients[j].min)
@@ -1300,18 +1296,12 @@ function fork(thisArray){
             if (source){
                 subItem = source[source.findIndex(x=>x.label === thisItem.ingredients[j].label)]
 
-                if(!thisArray[i].min){console.log(thisArray[i])}
-
                 subArray.push(
                     {idx : thisArray[0].idx+1,
                     father : thisArray[i].item,
                     item : subItem, 
                     quantity : Number(thisArray[i].quantity) * Number(thisItem.ingredients[j].amount),
-
                     min : thisValue,
-
-//                    min : Number(thisArray[i].quantity) * Number(thisItem.ingredients[j].min),
-
                     position : undefined,
                     })}
 
@@ -1677,8 +1667,6 @@ function tableAdd({row = true,table=undefined,}){
 
 function craftDiv(thisCraft,table,row,cel){
 
-//console.log(thisCraft)
-
     let thisContainer = document.createElement("div")
     thisContainer.style = containerStyle
     thisContainer.style.height = 360 + "px"
@@ -1752,8 +1740,5 @@ function craftDiv(thisCraft,table,row,cel){
     table.style.marginLeft = 20 + "px"
 
 //    table.rows[row].cells[cel].style.border = "white solid 1px"
-    
-    
-//   console.log(thisContainer.getBoundingClientRect())
 
 }
