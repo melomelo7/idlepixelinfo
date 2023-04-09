@@ -1,4 +1,43 @@
 
+const smeltersArray = 
+["Free", "50.00 K","500.00 K","10.00 M","5.00 B",
+"100.00 B","50.00 T","1.00 q","500.00 q","10.00 Q"]
+
+const craftersArray =
+["Free","1.00 M","100.00 M","50.00 B","1.00 T",
+"500.00 T","10.00 q","5.00 Q","100.00 Q","50.00 s"]
+
+const challengeRewards = [
+    {target : "1.00 M",darkMatter:5,},
+    {target : "10.00 M",darkMatter:10,},
+    {target : "100.00 M",darkMatter:15,},
+    {target : "1.00 B",darkMatter:20,},
+    {target : "10.00 B",darkMatter:25,},
+    {target : "100.00 B",darkMatter:30,},
+    {target : "1.00 T",darkMatter:40,},
+    {target : "10.00 T",darkMatter:50,},
+    {target : "100.00 T",darkMatter:60,},
+    {target : "1.00 q",darkMatter:70,},
+    {target : "10.00 q",darkMatter:80,},
+    {target : "100.00 q",darkMatter:90,},
+    {target : "1.00 Q",darkMatter:100,},
+    {target : "10.00 Q",darkMatter:115,},
+    {target : "100.00 Q",darkMatter:130,},
+    {target : "1.00 s",darkMatter:145,},
+    {target : "10.00 s",darkMatter:160,},
+    {target : "100.00 s",darkMatter:180,},
+    {target : "1.00 S",darkMatter:200,},
+    {target : "10.00 S",darkMatter:200,},
+    {target : "100.00 S",darkMatter:200,},
+    {target : "1.00 O",darkMatter:200,},
+    {target : "10.00 O",darkMatter:200,},
+    {target : "100.00 O",darkMatter:200,},
+    {target : "1.00 N",darkMatter:200,},
+    {target : "10.00 N",darkMatter:200,},
+    {target : "100.00 N",darkMatter:200,},
+    {target : "1.00 D",darkMatter:200,},
+]
+
 function formatKMBT(value){
     let thisvalue = Number(value)
 
@@ -93,6 +132,11 @@ function clickStation(){
     buildProjectsGrid("station",cellSize)
     }
 
+function clickRooms(){
+    popKiller()
+    cleanParent(right)
+    buildRooms()
+    }
 
 
 function centerScreen(element){
