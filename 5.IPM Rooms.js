@@ -295,7 +295,7 @@ function displayRoom(e,rightBottom,width){
                         subContainer.appendChild(myDiv)
                         myDiv.style = closeButtonStyle
                         myDiv.style.marginLeft = 20 + "px"
-                        myDiv.innerHTML = "Display Cost per Level"
+                        myDiv.innerHTML = "Display Cost & Bonus per Level"
                         myDiv.style.width = myDiv.innerHTML.length * 10 + "px"
                         myDiv.addEventListener("click",()=>{
                                 table.style.display = 
