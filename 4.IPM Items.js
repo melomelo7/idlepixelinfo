@@ -31,6 +31,22 @@ class Item {
                 }}}
         return newArray}
 
+    get index(){
+        let addval = 0
+        let thisArray = undefined
+
+        if (this.type === "ore")
+            {thisArray = oresArray}
+        else if (this.type === "bar")
+            {thisArray = barsArray ; addval = 25}
+        else if (this.type === "item")
+            {thisArray = itemsArray ; addval = 51}
+
+        for(let bcl=0;bcl<thisArray.length;bcl++){
+            if(thisArray[bcl].label === this.label)
+                {return (addval + bcl +1)}
+            }}
+
 }
 
 
@@ -1272,6 +1288,8 @@ class Links {constructor (father = undefined)
 
 function fork(thisArray){
 
+loopfork+=1
+
     let mainArray = []
     let subArray = []
     let thisItem = undefined
@@ -1298,6 +1316,7 @@ function fork(thisArray){
 
                 subArray.push(
                     {idx : thisArray[0].idx+1,
+                    itemIdx : subItem.index,
                     father : thisArray[i].item,
                     item : subItem, 
                     quantity : Number(thisArray[i].quantity) * Number(thisItem.ingredients[j].amount),
@@ -1331,7 +1350,7 @@ function startCrafting(e,item,type){
     let tempArray = []
     let filteredArray = []
 
-    let starterItem = {idx : Idx,father : undefined ,item : item, quantity : craftQuantity.value,position : undefined}
+    let starterItem = {idx : Idx,itemIdx : item.index ,father : undefined ,item : item, quantity : craftQuantity.value,position : undefined}
 
     queue.push([starterItem])
 
@@ -1342,7 +1361,6 @@ function startCrafting(e,item,type){
         myArray.push(thisSet.mainArray)
         if (thisSet.subArray.length>0){queue.push(thisSet.subArray)}
     }
-
 
     let displayChosen = undefined
     let radios = document.getElementsByName("displayType")
@@ -1359,9 +1377,9 @@ function startCrafting(e,item,type){
         for(i=1;i<myArray2.length;i++){
             for(j=0;j<myArray2[i].length;j++){
 
-
                 if(itemsList.length === 0){
                     itemsList.push({
+                        index : myArray2[i][j].itemIdx, 
                         type : myArray2[i][j].item.type,
                         label : myArray2[i][j].item.label,
                         quantity : myArray2[i][j].quantity,
@@ -1369,9 +1387,10 @@ function startCrafting(e,item,type){
                     })
                 } else {
                     thisIndex = itemsList.findIndex(x=>x.label === myArray2[i][j].item.label )
-                    
+
                     if (thisIndex === -1){
                         itemsList.push({
+                            index : myArray2[i][j].itemIdx,
                             type : myArray2[i][j].item.type,
                             label : myArray2[i][j].item.label,
                             quantity : myArray2[i][j].quantity,
@@ -1391,6 +1410,7 @@ function startCrafting(e,item,type){
 
                         if (thisIndex === -1){
                             itemsList.push({
+                                index : oresArray[oresArray.findIndex(x=>x.label === thisLabel)].index,
                                 type : "ore",
                                 label : thisLabel,
                                 quantity : myArray2[i][j].item.ingredients[k].amount * myArray2[i][j].quantity,
@@ -1419,6 +1439,23 @@ function startCrafting(e,item,type){
         for (i=0;i<tempArray.length;i++){
             filteredArray.push(tempArray[i])
         }
+
+        let cpt = 0
+        tempArray =[]
+        while (filteredArray.length > 0){
+            let maxIdx = -1
+            let target = undefined
+            for (i=0;i<filteredArray.length;i++){
+                if(filteredArray[i].index > maxIdx) {maxIdx = filteredArray[i].index }
+            }
+            target = filteredArray.findIndex(x=>x.index === maxIdx)
+            tempArray.push(filteredArray[target])
+            filteredArray.splice(target,1)
+
+            cpt+=1
+            if (cpt > filteredArray.length + 200){break}
+        }
+        filteredArray = tempArray
 
         let thisContainer = document.createElement("div")
         itemDisplayBottom.appendChild(thisContainer)
