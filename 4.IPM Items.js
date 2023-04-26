@@ -1297,6 +1297,12 @@ loopfork+=1
     let subItem = undefined
     let thisValue = undefined
 
+    let displayChosen = undefined
+    let radios = document.getElementsByName("displayType")
+    for (i=0;i<radios.length;i++){
+        if (radios[i].checked){displayChosen = radios[i].value}    
+    }
+
     for (i=0;i<thisArray.length;i++){
 
         mainArray.push(thisArray[i])
@@ -1323,6 +1329,20 @@ loopfork+=1
                     min : thisValue,
                     position : undefined,
                     })}
+            
+            else {
+                if (displayChosen === "list"){
+                subItem = oresArray[oresArray.findIndex(x=>x.label === thisItem.ingredients[j].label)]
+                subArray.push(
+                    {idx : thisArray[0].idx+1,
+                    itemIdx : subItem.index,
+                    father : thisArray[i].item,
+                    item : subItem, 
+                    quantity : Number(thisArray[i].quantity) * Number(thisItem.ingredients[j].amount),
+                    min : thisValue,
+                    position : undefined,
+                    })}
+            }
 
         }
     }
@@ -1369,6 +1389,7 @@ function startCrafting(e,item,type){
     }
 
     if (displayChosen === "list"){
+
         let myArray2 = myArray
         let itemsList = []
         let thisIndex = undefined
@@ -1405,6 +1426,8 @@ function startCrafting(e,item,type){
                 for (k=0;k<myArray2[i][j].item.ingredients.length;k++){
                     thisLabel = myArray2[i][j].item.ingredients[k].label
 
+                    console.log(thisLabel)
+
                     if (!getItemsArray(thisLabel)){
                         thisIndex = itemsList.findIndex(x=>x.label === thisLabel)
 
@@ -1421,11 +1444,13 @@ function startCrafting(e,item,type){
                             itemsList[thisIndex].min += myArray2[i][j].item.ingredients[k].min * myArray2[i][j].min
                         }
                     }
+
                 }
                 
 
             }
         }
+
 
         tempArray = itemsList.filter(x=>x.type === "item")
         for (i=0;i<tempArray.length;i++){
