@@ -122,10 +122,15 @@ function buildRooms(){
     let textSize = 18
     let tabInfos = document.createElement("div")
     right.appendChild(tabInfos)
-    tabInfos.innerHTML = "Rooms with a Green border are the ones with Max Level 11"
+    tabInfos.innerHTML = "Rooms with a Green border are the ones with Max Level 11 <br>"
+    tabInfos.innerHTML += "Though rooms developpement paths are multiple depending each players settings, <br>"
+    tabInfos.innerHTML += "early on elder players will probably agree on these : <br>"
+    tabInfos.innerHTML += " - buy at least 1 lev of every new room as soon as possible (biggest boost at lv1) <br>"
+    tabInfos.innerHTML += " - try to complete low cap(11) rooms early : good boost at low cost <br>"
+    tabInfos.innerHTML += " - then its about balancing what you lack or aim for specific result ... "
     tabInfos.style = textStyle
     tabInfos.style.fontSize = textSize + "px"
-    tabInfos.style.height = textSize + "px"
+//    tabInfos.style.height = textSize + "px"
     tabInfos.style.marginLeft = textSize + "px"
     tabInfos.style.color="yellow"
 
