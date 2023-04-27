@@ -1804,3 +1804,207 @@ function craftDiv(thisCraft,table,row,cel){
 //    table.rows[row].cells[cel].style.border = "white solid 1px"
 
 }
+
+let processes = undefined
+
+function buildProcess(){
+    processes = 0
+    let textSize = 18
+    let tabInfos = document.createElement("div")
+    right.appendChild(tabInfos)
+    tabInfos.innerHTML = "This tab is dedicated to relatively young players wondering how long<br>"
+    tabInfos.innerHTML += "it will take them producing [X] copies of an [Y] item using [Z] crafter/smelter.<br>"
+    tabInfos.innerHTML += "Click on [New Process] to Add a crafting request, only the [name] field can <br>"
+    tabInfos.innerHTML += "receive TEXT, all others will require NUMBERS. Numbers that are not integers will <br>"
+    tabInfos.innerHTML += "not fit (ex : 0.5 .. 1.5 ..), no calculation. The Name is purely a reminder of what you do <br>"
+    tabInfos.innerHTML += "in case you add multiple [New Process] so you type in there whatever you like ..."
+    tabInfos.style = textStyle
+    tabInfos.style.fontSize = textSize + "px"
+    tabInfos.style.marginLeft = textSize + "px"
+    tabInfos.style.color="yellow"
+
+    let rightTop = document.createElement("div")
+    rightTop.style = containerRow
+    right.appendChild(rightTop)
+
+    let rightBottom = document.createElement("div")
+    rightBottom.style = containerColumn
+    rightBottom.style.marginLeft = 20 + "px"
+    right.appendChild(rightBottom)
+
+        thisItem = document.createElement("div")
+        thisItem.style = closeButtonStyle
+        thisItem.style.marginLeft = 40 + "px"
+        thisItem.innerHTML = "New Process"
+        rightTop.appendChild(thisItem)
+        thisItem.addEventListener("click",function(){clickNewProcess(rightBottom)})
+
+}
+
+function clickNewProcess(rightBottom){
+    processes += 1
+
+    thisContainer = document.createElement("div")
+    thisContainer.style = containerStyle
+    thisContainer.style.marginTop = 10 + "px"
+    thisContainer.style.width = 310 + "px"
+    rightBottom.appendChild(thisContainer)
+
+        subContainer = document.createElement("div")
+        subContainer.style = containerRow
+        subContainer.style.alignItems = "center"
+        thisContainer.appendChild(subContainer)
+
+            thisItem = document.createElement("div")
+            thisItem.style = textStyle
+            thisItem.innerHTML = "Name"
+            thisItem.style.marginRight = 10 + "px"
+            subContainer.appendChild(thisItem)
+
+            thisItem = document.createElement("input")
+            thisItem.setAttribute ("type","text")
+            thisItem.value = "New Process #" + processes
+            thisItem.style.marginLeft = 10 + "px"
+            thisItem.style.width = 220 + "px"
+            thisItem.style.height = 14 + "px"
+            thisItem.style.textAlign = "center"
+            thisItem.style.fontSize = 18 + "px"
+            subContainer.appendChild(thisItem)
+
+        subContainer = document.createElement("div")
+        subContainer.style = containerRow
+        subContainer.style.alignItems = "center"
+        thisContainer.appendChild(subContainer)
+
+            thisItem = document.createElement("div")
+            thisItem.style = textStyle
+            thisItem.innerHTML = "Time needed for 1 item <br> ( [Hrs] [Min] [Sec] )"
+            thisItem.style.marginRight = 18 + "px"
+            subContainer.appendChild(thisItem)
+
+            thisItem = document.createElement("input")
+            thisItem.setAttribute ("type","text")
+            thisItem.setAttribute ("maxlength",1)
+            thisItem.setAttribute ("id","hours#"+processes)
+            thisItem.value = 0
+            thisItem.style.width = 10 + "px"
+            thisItem.style.height = 14 + "px"
+            thisItem.style.textAlign = "center"
+            thisItem.style.marginLeft = 10 + "px"
+            thisItem.style.fontSize = 14 + "px"
+            thisItem.addEventListener("input",evalCraft)
+            subContainer.appendChild(thisItem)
+
+            thisItem = document.createElement("input")
+            thisItem.setAttribute ("type","text")
+            thisItem.setAttribute ("maxlength",2)
+            thisItem.setAttribute ("id","minutes#"+processes)
+            thisItem.value = 0
+            thisItem.style.width = 20 + "px"
+            thisItem.style.height = 14 + "px"
+            thisItem.style.textAlign = "center"
+            thisItem.style.marginLeft = 10 + "px"
+            thisItem.style.fontSize = 14 + "px"
+            thisItem.addEventListener("input",evalCraft)
+            subContainer.appendChild(thisItem)
+
+            thisItem = document.createElement("input")
+            thisItem.setAttribute ("type","text")
+            thisItem.setAttribute ("maxlength",2)
+            thisItem.setAttribute ("id","seconds#"+processes)
+            thisItem.value = 1
+            thisItem.style.width = 20 + "px"
+            thisItem.style.height = 14 + "px"
+            thisItem.style.textAlign = "center"
+            thisItem.style.marginLeft = 10 + "px"
+            thisItem.style.fontSize = 14 + "px"
+            thisItem.addEventListener("input",evalCraft)
+            subContainer.appendChild(thisItem)            
+
+        subContainer = document.createElement("div")
+        subContainer.style = containerRow
+        subContainer.style.alignItems = "center"
+        thisContainer.appendChild(subContainer)
+
+            thisItem = document.createElement("div")
+            thisItem.style = textStyle
+            thisItem.innerHTML = "How many units to craft/smelt ? : "
+            subContainer.appendChild(thisItem)
+
+            thisItem = document.createElement("input")
+            thisItem.setAttribute ("type","text")
+            thisItem.setAttribute ("maxlength",4)
+            thisItem.setAttribute ("id","copies#"+processes)
+            thisItem.value = 1
+            thisItem.style.width = 30 + "px"
+            thisItem.style.height = 14 + "px"
+            thisItem.style.textAlign = "center"
+            thisItem.style.marginLeft = 10 + "px"
+            thisItem.style.fontSize = 14 + "px"
+            thisItem.addEventListener("input",evalCraft)
+            subContainer.appendChild(thisItem)
+    
+        subContainer = document.createElement("div")
+        subContainer.style = containerRow
+        subContainer.style.alignItems = "center"
+        thisContainer.appendChild(subContainer)
+
+            thisItem = document.createElement("div")
+            thisItem.style = textStyle
+            thisItem.innerHTML = "How many crafters/smelters ? : "
+            thisItem.style.marginRight = 16 + "px"
+            subContainer.appendChild(thisItem)
+
+            thisItem = document.createElement("input")
+            thisItem.setAttribute ("type","text")
+            thisItem.setAttribute ("maxlength",2)
+            thisItem.setAttribute ("id","crafters#"+processes)
+            thisItem.value = 1
+            thisItem.style.width = 30 + "px"
+            thisItem.style.height = 14 + "px"
+            thisItem.style.textAlign = "center"
+            thisItem.style.marginLeft = 10 + "px"
+            thisItem.style.fontSize = 14 + "px"
+            thisItem.addEventListener("input",evalCraft)
+            subContainer.appendChild(thisItem)
+
+        thisItem = document.createElement("div")
+        thisItem.style = textStyle
+        thisItem.innerHTML = "Time Evaluation "
+        thisItem.setAttribute ("id","eval#"+processes)
+        thisContainer.appendChild(thisItem)
+
+
+}
+
+function evalCraft(e){
+    let processId = e.srcElement.id.split("#")[1] 
+    let thisHrs = document.getElementById("hours#"+processId).value
+    let thisMin = document.getElementById("minutes#"+processId).value
+    let thisSec = document.getElementById("seconds#"+processId).value
+    let thisCop = document.getElementById("copies#"+processId).value
+    let thisCra = document.getElementById("crafters#"+processId).value
+    let thisEva = document.getElementById("eval#"+processId)
+    let rounds = undefined
+    let subTotal = undefined
+    let total = undefined
+
+    if (isNaN(thisHrs) || isNaN(thisMin) || isNaN(thisSec)
+    || isNaN(thisCop) || isNaN(thisCra)){
+        thisEva.innerHTML = "Number Input Error"
+        }
+    else {
+        if (thisHrs !=="" && thisMin !=="" && thisSec !=="" &&
+        thisCop !=="" && thisCra !=="" ){
+            rounds = Math.ceil(Number(thisCop)/Number(thisCra))
+            subTotal = Number(thisHrs)*3600 + Number(thisMin)*60 + Number(thisSec)
+            total = subTotal*rounds
+            thisHrs = Math.floor(total/3600)
+            thisHrs = thisHrs < 10 ? "0" + thisHrs : thisHrs
+            thisMin = Math.floor(total / 60) % 60
+            thisMin = thisMin < 10 ? "0" + thisMin : thisMin
+            thisSec = Math.ceil(total % 60)
+            thisSec = thisSec < 10 ? "0" + thisSec : thisSec
+            thisEva.innerHTML = "Time Evaluation "
+            thisEva.innerHTML += thisHrs + ":" + thisMin + ":" + thisSec
+            }else{thisEva.innerHTML = "Time Evaluation "}}}

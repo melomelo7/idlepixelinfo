@@ -26,6 +26,7 @@ addLeftButton({label:"Items",clickFunction:clickItems})
 addLeftButton({label:"Projects",clickFunction:clickProjects})
 addLeftButton({label:"Station",clickFunction:clickStation})
 addLeftButton({label:"Rooms",clickFunction:clickRooms})
+addLeftButton({label:"Process",clickFunction:clickProcess})
 
 window.onload = firstContact()
 

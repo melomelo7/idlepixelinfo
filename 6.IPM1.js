@@ -139,6 +139,11 @@ function clickRooms(){
     buildRooms()
     }
 
+function clickProcess(){
+    popKiller()
+    cleanParent(right)
+    buildProcess()
+}
 
 function centerScreen(element){
     element.style.position = "absolute"
