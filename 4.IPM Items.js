@@ -1812,7 +1812,7 @@ function buildProcess(){
     let textSize = 18
     let tabInfos = document.createElement("div")
     right.appendChild(tabInfos)
-    tabInfos.innerHTML = "This tab is dedicated to relatively young players wondering how long<br>"
+    tabInfos.innerHTML = "This tab is dedicated to relatively New players wondering how long<br>"
     tabInfos.innerHTML += "it will take them producing [X] copies of an [Y] item using [Z] crafter/smelter.<br>"
     tabInfos.innerHTML += "Click on [New Process] to Add a crafting request, only the [name] field can <br>"
     tabInfos.innerHTML += "receive TEXT, all others will require NUMBERS. Numbers that are not integers will <br>"
