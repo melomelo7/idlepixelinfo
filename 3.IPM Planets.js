@@ -79,7 +79,7 @@ planetsArray.push(
         idNumber : 6,
         label:"Newton",
         ores:[
-            {label:"lead ore",yield:0},
+            {label:"lead ore",yield:100},
         ],
         unlockCost:"$ 9.00 K"
     }),
