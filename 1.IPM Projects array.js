@@ -976,7 +976,7 @@ projectCells.push( new projectCell({
     component1:{label:"collider",baseCost:1,costWithMaxLab:1},
     component2:{label:"gravity chamber",baseCost:8,costWithMaxLab:4},
     description:"allow discovery of debris fields providing valuable items",
-    comment:"(frequency fixed, roughly 22mn)",
+    comment:"[frequency fixed, roughly 22mn]",
     prerequisites:"advanced asteroid harvester",
     highestPlanetRequired:"40-Unicae"
 }))
@@ -1014,10 +1014,10 @@ projectCells.push( new projectCell({
     label:"asteroid auto miner",
     component1:{label:"advanced computer",baseCost:20,costWithMaxLab:10},
     component2:{label:"solar panel",baseCost:100,costWithMaxLab:50},
-    description:"automatically mine asteroids even when idle",
+    description:"automatically mine asteroids <br>(& debris) even when idle",
     comment:"(if debris unlocked will also work)",
     prerequisites:"asteroid harvester",
-    comment:"(asteroid base frequency 10mn)",
+    comment:"[asteroid base frequency 10mn]",
     highestPlanetRequired:"22-Zelene"
 }))
 
@@ -1026,7 +1026,7 @@ projectCells.push( new projectCell({
     component1:{label:"thermal scanner",baseCost:30,costWithMaxLab:15},
     component2:{label:"navigation module",baseCost:5,costWithMaxLab:2},
     description:"frequency of asteroids increased by 30%",
-    comment:"(new asteroid frequency 7mn)",
+    comment:"[new asteroid frequency 7mn]",
     prerequisites:"asteroid harvester",
     highestPlanetRequired:"19-Parnitha"
 }))
@@ -1035,7 +1035,7 @@ projectCells.push( new projectCell({
     label:"advanced asteroid scanner",
     component1:{label:"telescope",baseCost:150,costWithMaxLab:75},
     description:"frequency of asteroids increased by another 30%",
-    comment:"(new asteroid frequency 5mn)",
+    comment:"[new asteroid frequency 5mn]",
     prerequisites:"asteroid scanner",
     highestPlanetRequired:"22-Zelene"
 }))
