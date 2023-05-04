@@ -976,7 +976,7 @@ projectCells.push( new projectCell({
     component1:{label:"collider",baseCost:1,costWithMaxLab:1},
     component2:{label:"gravity chamber",baseCost:8,costWithMaxLab:4},
     description:"allow discovery of debris fields providing valuable items",
-    comment:"(frequency fixed, roughly 23mn)",
+    comment:"(frequency fixed, roughly 22mn)",
     prerequisites:"advanced asteroid harvester",
     highestPlanetRequired:"40-Unicae"
 }))
