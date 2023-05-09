@@ -118,7 +118,7 @@ const Rooms = [
 
 
 function buildRooms(){
-
+    let overall = 119809120
     let textSize = 18
     let tabInfos = document.createElement("div")
     right.appendChild(tabInfos)
@@ -128,6 +128,7 @@ function buildRooms(){
     tabInfos.innerHTML += " - buy at least 1 lev of every new room as soon as possible (biggest boost at lv1) <br>"
     tabInfos.innerHTML += " - try to complete low cap(11) rooms early : good boost at low cost <br>"
     tabInfos.innerHTML += " - then its about balancing what you lack or aim for specific result ... "
+    tabInfos.innerHTML += "<br><br> If you ever wonder how many credits in global you will spend on rooms :" + overall.toLocaleString()
     tabInfos.style = textStyle
     tabInfos.style.fontSize = textSize + "px"
 //    tabInfos.style.height = textSize + "px"
