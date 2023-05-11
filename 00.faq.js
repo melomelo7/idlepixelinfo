@@ -21,7 +21,7 @@ const faqsArray = [
             - selling galaxy<br>
             - closing/force-closing game<br>
             - REBOOT of device <br>
-            (recently rebooting my phone helped in other stuff than <br>
+            (recently rebooting my phone helped with other stuff than <br>
             gaming too)<br><br>
             No success so far ? then try phase 2 : check Reddit/Discord<br>
             for any advice<br><br>
