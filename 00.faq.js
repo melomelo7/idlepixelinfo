@@ -1,6 +1,7 @@
 const faqsArray = [
     {
     label : "Prestige and Galaxy Value in IPM ?",
+    icon : "",
     text : `Every run will(can) end when you reach 10 Millions. next prestige point will need<br>
             another 2+ Millions. Credits will be received in order to start building rooms<br>
             on your mothership. The galaxy value when selling is the sum of those : `,
@@ -9,6 +10,7 @@ const faqsArray = [
     },
     {
     label : "Game Issues",
+    icon : "",
     text : `When you encounter a problem with the game that no helper (Discord/Reddit)<br>
             was able to solve, contact support providing your Player ID (under settings)<br>
             also check settings > help ... providing screenshots and purchase receipt if needs be.<br><br>
@@ -19,11 +21,21 @@ const faqsArray = [
     },
     {
     label : "Asteroid | Debris Times",
+    icon : "",
     text : `To have these informations it will take a few more clicks :<br>
             Visit my other tab ⇒ "Projects" and click on projects shown here.<br>
             (with a purple border around)`,
     url : "",
     img : "asteroids times.jpg"
+    },
+    {
+    label : "Achievements",
+    icon : "achievements.jpg",
+    text : `Did any one finish all of them yet ?<br><br>
+            well both YES and NO could fit as veterans are there or soon to be<br><br>
+            **[Mothership rooms upgrades] in current game status is maxed at 6/8 stars**`,
+    url : "",
+    img : ""
     },
 ]
 
@@ -63,13 +75,24 @@ function faqButton(e,subContainerB){
 
     subContainerB.appendChild(thisContainer)
 
-        let thisItem = document.createElement("div")
+        if (thisElement.icon){
+            let subContainer = document.createElement("div")
+            thisContainer.appendChild(subContainer)
+            subContainer.style.marginTop = 20 + "px"
+            subContainer.style.textAlign = "center"
+
+                let thisItem = new Image()
+                thisItem.src = "./IPM Components/" + thisElement.icon
+                subContainer.appendChild(thisItem)            
+        }
+
+        thisItem = document.createElement("div")
         thisItem.style = textStyle
         thisItem.innerHTML = thisElement.text
         thisContainer.appendChild(thisItem)
 
         if (thisElement.url){
-            let subContainer = document.createElement("div")
+            subContainer = document.createElement("div")
             thisContainer.appendChild(subContainer)
             subContainer.style.marginTop = 20 + "px"
             subContainer.style.textAlign = "center"
