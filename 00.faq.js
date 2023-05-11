@@ -54,8 +54,8 @@ const faqsArray = [
             ② The below image explains where the chain of production<br>
             starts/ends. Logic says dont start the chain by the top<br>
             item but by the lowest ...<br><br>
-            example : lens require glass dont put lens in [1] and <br>
-            glass in [2]<br><br>
+            example : <br>
+            lens require glass dont put lens in [1] and glass in [2]<br><br>
             PS :<br>
             One last piece of info while we are here ... when smelters<br>
             get too fast the game wont do the math properly resulting<br>
