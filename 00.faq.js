@@ -35,7 +35,7 @@ const faqsArray = [
             well both YES and NO could fit as veterans are there or soon to be<br><br>
             **[Mothership rooms upgrades] in current game status is maxed at 6/8 stars**`,
     url : "",
-    img : ""
+    img : "achievements2.jpg"
     },
 ]
 
@@ -104,6 +104,7 @@ function faqButton(e,subContainerB){
         }
 
         if (thisElement.img){
+            console.log("in")
             subContainer = document.createElement("div")
             thisContainer.appendChild(subContainer)
             subContainer.style.marginTop = 20 + "px"
