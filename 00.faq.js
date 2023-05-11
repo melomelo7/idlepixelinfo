@@ -2,9 +2,10 @@ const faqsArray = [
     {
     label : "Prestige and Galaxy Value in IPM ?",
     icon : "",
-    text : `Every run will(can) end when you reach 10 Millions. Next prestige<br>
-            point will need another 2+ Millions. Credits will be received in<br>
-            order to start building rooms on your mothership.<br> 
+    text : `Every run will(can) end when you reach 10 Millions. <br>
+            Next prestige point will need another 2+ Millions.<br>
+            Credits will be received in order to start building<br>
+            rooms on your mothership.<br> 
             The galaxy value when selling is the sum of those : `,
     url : "",
     img : "gv.jpg"
@@ -39,7 +40,8 @@ const faqsArray = [
     label : "Asteroid | Debris Times",
     icon : "",
     text : `To have these informations it will take a few more clicks :<br>
-            Visit my other tab ⇒ "Projects" and click on projects shown here.<br>
+            Visit my other tab ⇒ "Projects"<br>
+            and click on projects shown here.<br>
             (with a purple border around)`,
     url : "",
     img : "asteroids times.jpg"
