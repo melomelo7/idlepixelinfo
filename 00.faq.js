@@ -37,6 +37,19 @@ const faqsArray = [
     url : "",
     img : "achievements2.jpg"
     },
+    {
+    label : "Avoid Crafting issues",
+    icon : "craft.jpg",
+    text : `① Above image(ingame help info) tells us idle/offline time will have severe cut<br>
+            in mining(ore collection) so it means in short if you dont have a stock of needed<br>
+            [whatever stuff] to perform your smelt/craft process chances are this will take<br>
+            down your process of crafting as the chain at some point wont be working as usual.<br><br>
+            ② The below image explains where the chain of production starts/ends.<br>
+            logic says dont start the chain by the top item but by the lowest ...<br><br>
+            example : lens require glass dont put lens in [1] and glass in [2]`,
+    url : "",
+    img : "craft2.jpg"
+    },
 ]
 
 function setFaq(){
