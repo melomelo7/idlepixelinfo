@@ -21,6 +21,7 @@ info.innerHTML = infoTitle
 
 let projectPop = undefined
 
+addLeftButton({label:"Faq",clickFunction:clickFaqs})
 addLeftButton({label:"Planets",clickFunction:clickPlanets})
 addLeftButton({label:"Items",clickFunction:clickItems})
 addLeftButton({label:"Projects",clickFunction:clickProjects})
@@ -30,6 +31,38 @@ addLeftButton({label:"Process",clickFunction:clickProcess})
 
 window.onload = firstContact()
 
-console.log("Last up 04/12 00:10")
+console.log("Last up 05/11 21:00")
 
 let loopfork = 0
+
+function myRound(val,multi){
+    let calc = val*multi
+    let res = undefined
+    let calc2 = calc - (calc % 1)
+    if (calc % 1 > 0.5) 
+        {res = 1}
+    else
+        {res = 0}
+
+
+    return calc + " > " + (calc2+res)
+}
+
+/*
+console.log(myRound(5,.9))
+console.log(myRound(3,.9))
+*/
+
+/*
+for (i=0;i<planetsArray.length;i++){
+    let vvv = 0
+    for (j=0;j<planetsArray[i].ores.length;j++){
+        vvv+= planetsArray[i].ores[j].yield
+    }
+
+    if (vvv !== 100) {console.log(planetsArray[i].label + " : " + vvv)}
+    
+
+}
+*/
+
