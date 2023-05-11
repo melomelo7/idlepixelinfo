@@ -106,6 +106,12 @@ function popKiller(){
     }
 
 
+function clickFaqs(){
+    popKiller()
+    cleanParent(right)
+    setFaq()
+}
+
 function clickPlanets(){
     popKiller()
     cleanParent(right)
