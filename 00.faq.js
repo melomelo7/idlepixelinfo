@@ -2,20 +2,23 @@ const faqsArray = [
     {
     label : "Prestige and Galaxy Value in IPM ?",
     icon : "",
-    text : `Every run will(can) end when you reach 10 Millions. next prestige point will need<br>
-            another 2+ Millions. Credits will be received in order to start building rooms<br>
-            on your mothership. The galaxy value when selling is the sum of those : `,
+    text : `Every run will(can) end when you reach 10 Millions. Next prestige<br>
+            point will need another 2+ Millions. Credits will be received in<br>
+            order to start building rooms on your mothership.<br> 
+            The galaxy value when selling is the sum of those : `,
     url : "",
     img : "gv.jpg"
     },
     {
     label : "Game Issues",
     icon : "",
-    text : `When you encounter a problem with the game that no helper (Discord/Reddit)<br>
-            was able to solve, contact support providing your Player ID (under settings)<br>
-            also check settings > help ... providing screenshots and purchase receipt if needs be.<br><br>
-            Before doing so, a slight issue can be fixed with, depending cases : selling galaxy,<br>
-            closing/force-closing game ... rare case scenario : REBOOT of device !`,
+    text : `When you encounter a problem with the game that no helper <br>
+            (Discord/Reddit) was able to solve, contact support providing<br>
+            your Player ID (under settings) also check settings > help ...<br>
+            providing screenshots and purchase receipt if needs be.<br><br>
+            Before doing so, a slight issue can be fixed with, depending cases :<br>
+            selling galaxy, closing/force-closing game ... rare case scenario :<br>
+            REBOOT of device !`,
     url : "support@techtreegames.com",
     img : ""
     },
@@ -32,26 +35,32 @@ const faqsArray = [
     label : "Achievements",
     icon : "achievements.jpg",
     text : `Did any one finish all of them yet ?<br><br>
-            well both YES and NO could fit as veterans are there or soon to be<br><br>
-            **[Mothership rooms upgrades] in current game status is maxed at 6/8 stars**`,
+            well both YES and NO could fit as veterans are there or <br>
+            soon to be<br><br>
+            **[Mothership rooms upgrades] in current game status <br>
+            is maxed at 6/8 stars**`,
     url : "",
     img : "achievements2.jpg"
     },
     {
     label : "Avoid Crafting issues",
     icon : "craft.jpg",
-    text : `① Above image(ingame help info) tells us idle/offline time will <br>
-            have severe cut in mining(ore collection) so it means in short if<br>
-            you dont have a stock of needed [whatever stuff] to perform your <br>
-            smelt/craft process, chances are this will take down your crafting<br>
-            as the chain at some point wont be working as usual.<br><br>
-            ② The below image explains where the chain of production starts/ends.<br>
-            logic says dont start the chain by the top item but by the lowest ...<br><br>
-            example : lens require glass dont put lens in [1] and glass in [2]<br><br>
+    text : `① Above image(ingame help info) tells us idle/offline<br>
+            time will have severe cut in mining(ore collection) so<br>
+            it means in short if you dont have a stock of needed<br>
+            [whatever stuff] to perform your smelt/craft process,<br>
+            chances are this will take down your crafting as the chain<br>
+            at some point wont be working as usual.<br><br>
+            ② The below image explains where the chain of production<br>
+            starts/ends. Logic says dont start the chain by the top<br>
+            item but by the lowest ...<br><br>
+            example : lens require glass dont put lens in [1] and <br>
+            glass in [2]<br><br>
             PS :<br>
-            One last piece of info while we are here ... when smelters get too <br>
-            fast the game wont do the math properly resulting in smelters too slow<br>
-            because too fast ... dont kick me, it wont change a thing `,
+            One last piece of info while we are here ... when smelters<br>
+            get too fast the game wont do the math properly resulting<br>
+            in smelters too slow because too fast ... <br>
+            dont kick me, it wont change a thing `,
     url : "",
     img : "craft2.jpg"
     },
