@@ -12,8 +12,8 @@ const faqsArray = [
     {
     label : "Game Issues",
     icon : "",
-    text : `Bugs were here before computers and games so no worries, you<br>
-            will get your cut in IPM. Just a couple, for extra fun ;-)<br><br>
+    text : `Bugs were here before computers and games so no worries,<br>
+            you will get your cut in IPM. Just a couple, for extra fun ;-)<br><br>
             ** side note here : not all bugs are being hunted some are just<br>
             considered "not current priority" ... ** <br><br>
             Phase 1 : try to remedy the bug yourself with any of these :<br>
@@ -21,11 +21,14 @@ const faqsArray = [
             - selling galaxy<br>
             - closing/force-closing game<br>
             - REBOOT of device <br>
-            (recently rebooting my phone helped in other stuff thangaming too)<br><br>
-            No success so far ? then try phase 2 : check Reddit/Discord for any advice<br><br>
-            Phase 3 when all hope is gone, Support shall save the day ! ... hopefully :<br>
-            Provide your Player ID (under settings) along with any screen shots<br>
-            and/or purchase receipt if needs be.<br><br>
+            (recently rebooting my phone helped in other stuff than <br>
+            gaming too)<br><br>
+            No success so far ? then try phase 2 : check Reddit/Discord<br>
+            for any advice<br><br>
+            Phase 3 when all hope is gone :<br>
+            Support shall save the day ! ... hopefully :<br>
+            Provide your Player ID (under settings) along with any screen<br>
+            shots and/or purchase receipt if needs be.<br><br>
             Support return may take up to 48h. Often will take less.<br>
             If no reply give it another day or 2 before sending a "reminder".
             `,
