@@ -24,7 +24,8 @@ const faqsArray = [
             - REBOOT of device <br>
             (recently rebooting my phone helped with other stuff than <br>
             gaming too)<br><br>
-            No success so far ? then try phase 2 : check Reddit/Discord<br>
+            No success so far ? then try phase 2 :<br>
+            check Reddit/Discord<br>
             for any advice<br><br>
             Phase 3 when all hope is gone :<br>
             Support shall save the day ! ... hopefully :<br>
