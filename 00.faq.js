@@ -8,7 +8,8 @@ const faqsArray = [
             rooms on your mothership.<br> 
             The galaxy value when selling is the sum of those : `,
     url : "",
-    img : "gv.jpg"
+    img : "gv.jpg",
+    thisFunction : undefined,
     },
     {
     label : "Game Issues",
@@ -35,7 +36,8 @@ const faqsArray = [
             If no reply give it another day or 2 before sending a "reminder".
             `,
     url : "support@techtreegames.com",
-    img : ""
+    img : "",
+    thisFunction : undefined,
     },
     {
     label : "Asteroid | Debris Times",
@@ -45,7 +47,8 @@ const faqsArray = [
             and click on projects shown here.<br>
             (with a purple border around)`,
     url : "",
-    img : "asteroids times.jpg"
+    img : "asteroids times.jpg",
+    thisFunction : undefined,
     },
     {
     label : "Achievements",
@@ -56,7 +59,8 @@ const faqsArray = [
             **[Mothership rooms upgrades] in current game status <br>
             is maxed at 6/8 stars**`,
     url : "",
-    img : "achievements2.jpg"
+    img : "achievements2.jpg",
+    thisFunction : undefined,
     },
     {
     label : "Avoid Crafting issues",
@@ -78,9 +82,24 @@ const faqsArray = [
             in smelters too slow because too fast ... <br>
             dont kick me, it wont change a thing `,
     url : "",
-    img : "craft2.jpg"
+    img : "craft2.jpg",
+    thisFunction : undefined,
     },
-
+    {
+    label : "Beacon",
+    icon : "beacon.jpg",
+    text : `Below showing Costs and benefits for a set of Planets.<br>
+            so roughly for a 1 Telescope. Even though it shows every<br>
+            type of bonus (mining/speed/cargo), usualy players focus<br>
+            on developping the mining only. Your free to set your own<br>
+            path if you feel other is more interesting for your own game.<br>
+            Also you could prioritize a particluar Set of Planets if<br>
+            they offer more valuable result for your settings ...<br>
+            (example : stars on ores provided by those planets ...)`,
+    url : "",
+    img : "beacon2.jpg",
+    thisFunction : setBeacon,
+    },
 ]
 
 function setFaq(){
@@ -119,13 +138,16 @@ function faqButton(e,subContainerB){
 
     subContainerB.appendChild(thisContainer)
 
+    let subContainer = undefined
+    let thisItem = undefined
+
         if (thisElement.icon){
-            let subContainer = document.createElement("div")
+            subContainer = document.createElement("div")
             thisContainer.appendChild(subContainer)
             subContainer.style.marginTop = 20 + "px"
             subContainer.style.textAlign = "center"
 
-                let thisItem = new Image()
+                thisItem = new Image()
                 thisItem.src = "./IPM Components/" + thisElement.icon
                 subContainer.appendChild(thisItem)            
         }
@@ -156,6 +178,41 @@ function faqButton(e,subContainerB){
                 thisItem = new Image()
                 thisItem.src = "./IPM Components/" + thisElement.img
                 subContainer.appendChild(thisItem)
-        }        
+        }
 
+        if (thisElement.thisFunction) {
+            thisElement.thisFunction(thisContainer)
+        }
+}
+
+function setBeacon(container){
+    let tokenCost = 
+        [4,8,12,16,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,140,150,175,200,225,250,300,350,400,500,600,700,800]
+
+    let beaconTable = document.createElement("table")
+    container.appendChild(beaconTable)
+    beaconTable.style.margin = "0 auto"
+        let newRow = document.createElement("tr")
+        beaconTable.appendChild(newRow)
+            AddCell(newRow).innerHTML = "Lv"
+            AddCell(newRow).innerHTML = "Token<br>Cost"
+            AddCell(newRow).innerHTML = "Mine"
+            AddCell(newRow).innerHTML = "Speed<br>Cargo"
+
+    for (i=0;i<tokenCost.length;i++){
+        newRow = document.createElement("tr")
+        beaconTable.appendChild(newRow)
+            AddCell(newRow).innerHTML = i+1
+            AddCell(newRow).innerHTML = tokenCost[i]
+            AddCell(newRow).innerHTML = (1 + (0.02*(i+1))).toFixed(2)
+            AddCell(newRow).innerHTML = (1 + (0.04*(i+1))).toFixed(2)
+    }
+}
+
+function AddCell(thisRow){
+    let thisCel = document.createElement("td")
+    thisCel.style = basicCellStyle
+    thisCel.style.minWidth = 60 + "px"
+    thisRow.appendChild(thisCel)
+    return thisCel
 }

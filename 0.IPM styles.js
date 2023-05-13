@@ -133,3 +133,10 @@ margin-left:5px;
 border-radius:5px;
 cursor:pointer;
 `
+
+const basicCellStyle = `
+color:white;
+border:solid 2px white;
+padding:5px;
+text-align:center;
+`
