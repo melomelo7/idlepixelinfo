@@ -91,11 +91,16 @@ const faqsArray = [
     text : `Below showing Costs and benefits for a set of Planets.<br>
             so roughly for a 1 Telescope. Even though it shows every<br>
             type of bonus (mining/speed/cargo), usualy players focus<br>
-            on developping the mining only. Your free to set your own<br>
+            on developping the MINING only. Your free to set your own<br>
             path if you feel other is more interesting for your own game.<br>
             Also you could prioritize a particluar Set of Planets if<br>
             they offer more valuable result for your settings ...<br>
-            (example : stars on ores provided by those planets ...)`,
+            (example : stars on ores provided by those planets ...)<br><br>
+            Costs here show the outcome sticking to a 1 type of bonus,<br>
+            while token per lev wont change, bonus will vary if you select<br>
+            more than 1 type of bonus. Base +0.2/mining & +0.4/others.<br><br>
+            YES after buying lv40 at 800 tokens you wont be able to<br>
+            upgrade any further this set of Planetes.`,
     url : "",
     img : "beacon2.jpg",
     thisFunction : setBeacon,
@@ -186,6 +191,7 @@ function faqButton(e,subContainerB){
 }
 
 function setBeacon(container){
+    let totalToken = 0
     let tokenCost = 
         [4,8,12,16,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,140,150,175,200,225,250,300,350,400,500,600,700,800]
 
@@ -200,6 +206,7 @@ function setBeacon(container){
             AddCell(newRow).innerHTML = "Speed<br>Cargo"
 
     for (i=0;i<tokenCost.length;i++){
+        totalToken += tokenCost[i]
         newRow = document.createElement("tr")
         beaconTable.appendChild(newRow)
             AddCell(newRow).innerHTML = i+1
@@ -207,6 +214,12 @@ function setBeacon(container){
             AddCell(newRow).innerHTML = (1 + (0.02*(i+1))).toFixed(2)
             AddCell(newRow).innerHTML = (1 + (0.04*(i+1))).toFixed(2)
     }
+
+    newRow = document.createElement("tr")
+    beaconTable.appendChild(newRow)
+        AddCell(newRow).innerHTML = "Total spent"
+        AddCell(newRow).innerHTML = totalToken.toLocaleString()
+
 }
 
 function AddCell(thisRow){
