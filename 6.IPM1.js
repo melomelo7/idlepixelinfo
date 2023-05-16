@@ -190,8 +190,8 @@ function buildProjectsGrid(whichGrid="",cellSize=0){
             refArray2 = projectsConnections
             break
         case "station":
-            maxRow = 30
-            maxCol = 21
+            maxRow = 49
+            maxCol = 19
             refArray1 = stationCells
             refArray2 = stationConnections
             break
@@ -453,7 +453,10 @@ function clickCell2(e,obj,whichGrid){
 
         if (whichGrid === "station"){
             let bonusPerLevel = document.createElement("div")
-            bonusPerLevel.innerHTML = "Bonus per Level + "+obj.bonusPerLevel
+            bonusPerLevel.innerHTML = 
+            obj.bonusPerLevel > 0 ? "Bonus per Level + "+obj.bonusPerLevel : "Bonus per Level " + obj.bonusPerLevel
+            bonusPerLevel.innerHTML = 
+            obj.percentage ? bonusPerLevel.innerHTML + "%" : bonusPerLevel.innerHTML
             bonusPerLevel.style.margin = "10px"
             projectPop.appendChild(bonusPerLevel)
 
@@ -482,6 +485,13 @@ function clickCell2(e,obj,whichGrid){
             totalCost.innerHTML = "Buy all for : "+obj.totalCost
             totalCost.style.margin = "10px"
             projectPop.appendChild(totalCost)
+
+            let totalBonus = document.createElement("div")
+            totalBonus.innerHTML = "Bonus at Max Level : " 
+            totalBonus.innerHTML += 
+            obj.percentage ? obj.totalBonus + "%" : "x" + (Number(obj.totalBonus) + 1)
+            totalBonus.style.margin = "10px"
+            projectPop.appendChild(totalBonus)
 
         }
 

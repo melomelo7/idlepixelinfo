@@ -5,7 +5,9 @@ class stationCell {
         cell=0,
         maxLevel=0,
         bonusPerLevel=0,
+        percentage=false,
         costs=[],
+        totalBonus,
         totalCost,
     })
 {
@@ -14,7 +16,9 @@ class stationCell {
     this.cell= stationArray[stationArray.findIndex(x=>x.label===this.label)].cell
     this.maxLevel= maxLevel
     this.bonusPerLevel= bonusPerLevel
+    this.percentage = percentage
     this.costs= costs
+    this.totalBonus = this.bonusPerLevel * this.maxLevel
     this.totalCost = this.costs.reduce(function(a,b){return a+b},0)
 }
 
@@ -98,6 +102,37 @@ stationArray.push(
     {label:"mining #1",rows:28,cell:11},
     {label:"mining #2",rows:26,cell:15},
 
+
+
+    {label:"planet upgrades price #1",rows:34,cell:5},
+    {label:"planet upgrades price #2",rows:34,cell:7},
+    {label:"colonization cost #2",rows:34,cell:15},
+    {label:"colonization cost #1",rows:34,cell:17},
+
+    {label:"credits #4",rows:37,cell:3},
+    {label:"planet upgrades price #3",rows:37,cell:7},
+    {label:"rovers scan time #1",rows:37,cell:11},
+    {label:"colonization cost #3",rows:37,cell:15},
+    {label:"managers #4",rows:37,cell:19},
+
+    {label:"managers #5",rows:40,cell:5},
+    {label:"planet upgrades price #4",rows:40,cell:7},
+    {label:"planet upgrades price #5",rows:40,cell:9},
+    {label:"rovers scan time #2",rows:40,cell:11},
+    {label:"colonization cost #5",rows:40,cell:13},
+    {label:"colonization cost #4",rows:40,cell:15},
+    {label:"credits #5",rows:40,cell:17},
+
+    {label:"credits #6",rows:43,cell:7},
+    {label:"managers #7",rows:43,cell:9},
+    {label:"rovers scan time #3",rows:43,cell:11},
+    {label:"credits #7",rows:43,cell:13},
+    {label:"managers #6",rows:43,cell:15},
+
+    {label:"managers #8",rows:46,cell:9},
+    {label:"credits #8",rows:46,cell:13},
+
+    {label:"cash windfall #1",rows:49,cell:11},
 )
 
 
@@ -341,7 +376,7 @@ new stationCell({
 new stationCell({
     label:"ship speed #3",
     maxLevel:30,
-    bonusPerLevel:0.3,
+    bonusPerLevel:0.03,
     costs:[15,15,15,15,15,15,15,16,16,16,16,16,16,
     17,17,17,17,17,17,18,18,18,18,18,19,19,19,19,19,20]}),
 
@@ -368,7 +403,7 @@ new stationCell({
 new stationCell({
     label:"cargo #3",
     maxLevel:30,
-    bonusPerLevel:0.3,
+    bonusPerLevel:0.03,
     costs:[15,15,15,15,15,15,15,16,16,16,16,16,16,
     17,17,17,17,17,17,18,18,18,18,18,19,19,19,19,19,20]}),
 
@@ -467,7 +502,7 @@ new stationCell({
 new stationCell({
     label:"mining #1",
     maxLevel:4,
-    bonusPerLevel:0.2,
+    bonusPerLevel:0.02,
     costs:[5,10,21,43]}),
 
 new stationCell({
@@ -476,6 +511,168 @@ new stationCell({
     bonusPerLevel:0.1,
     costs:[26,28,31,34,37,40,44,48,53,58,63,69,76,83,
     91,100,109,119,131,143,156,171,187,205,224]}),
+
+
+// before 120420 [+10]
+// after 
+
+new stationCell({
+    label:"planet upgrades price #1",
+    maxLevel:1,
+    bonusPerLevel:-0.5,
+    percentage:true,
+    costs:[150]}),
+    
+new stationCell({
+    label:"planet upgrades price #2",
+    maxLevel:2,
+    bonusPerLevel:-0.25,
+    percentage:true,
+    costs:[75,75]}),
+
+new stationCell({
+    label:"colonization cost #2",
+    maxLevel:2,
+    bonusPerLevel:-0.25,
+    percentage:true,
+    costs:[75,75]}),
+
+new stationCell({
+    label:"colonization cost #1",
+    maxLevel:1,
+    bonusPerLevel:-0.5,
+    percentage:true,
+    costs:[150]}),
+
+new stationCell({
+    label:"credits #4",
+    maxLevel:4,
+    bonusPerLevel:0.005,
+    costs:[30,39,53,70]}),
+    
+new stationCell({
+    label:"planet upgrades price #3",
+    maxLevel:3,
+    bonusPerLevel:-0.5,
+    percentage:true,
+    costs:[100,160,256]}),
+
+new stationCell({
+    label:"rovers scan time #1",
+    maxLevel:4,
+    bonusPerLevel:-0.25,
+    percentage:true,
+    costs:[40,55,78,109]}),
+    
+new stationCell({
+    label:"colonization cost #3",
+    maxLevel:3,
+    bonusPerLevel:-0.5,
+    percentage:true,
+    costs:[100,160,256]}),
+
+new stationCell({
+    label:"managers #4",
+    maxLevel:4,
+    bonusPerLevel:0.005,
+    costs:[30,39,53,70]}),
+
+new stationCell({
+    label:"managers #5",
+    maxLevel:6,
+    bonusPerLevel:0.005,
+    costs:[25,33,44,58,78,104]}),
+            
+new stationCell({
+    label:"planet upgrades price #4",
+    maxLevel:4,
+    bonusPerLevel:-0.5,
+    percentage:true,
+    costs:[150,157,165,173]}),
+
+new stationCell({
+    label:"planet upgrades price #5",
+    maxLevel:4,
+    bonusPerLevel:-0.75,
+    percentage:true,
+    costs:[230,241,253,266]}),
+
+new stationCell({
+    label:"rovers scan time #2",
+    maxLevel:8,
+    bonusPerLevel:-0.25,
+    percentage:true,
+    costs:[60,66,72,79,87,96,106,116]}),
+            
+new stationCell({
+    label:"colonization cost #5",
+    maxLevel:4,
+    bonusPerLevel:-0.75,
+    percentage:true,
+    costs:[230,241,253,266]}),
+    
+new stationCell({
+    label:"colonization cost #4",
+    maxLevel:4,
+    bonusPerLevel:-0.50,
+    percentage:true,
+    costs:[150,157,165,173]}),
+
+new stationCell({
+    label:"credits #5",
+    maxLevel:6,
+    bonusPerLevel:0.005,
+    costs:[25,33,44,58,78,104]}),
+            
+new stationCell({
+    label:"credits #6",
+    maxLevel:8,
+    bonusPerLevel:0.005,
+    costs:[20,26,35,47,62,83,110,147]}),
+
+new stationCell({
+    label:"managers #7",
+    maxLevel:1,
+    bonusPerLevel:0.06,
+    costs:[600]}),
+
+new stationCell({
+    label:"rovers scan time #3",
+    maxLevel:6,
+    bonusPerLevel:-0.75,
+    percentage:true,
+    costs:[250,250,250,250,250,250]}),
+        
+new stationCell({
+    label:"credits #7",
+    maxLevel:1,
+    bonusPerLevel:0.06,
+    costs:[600]}),
+    
+new stationCell({
+    label:"managers #6",
+    maxLevel:8,
+    bonusPerLevel:0.005,
+    costs:[20,26,35,47,62,83,110,147]}),
+
+new stationCell({
+    label:"managers #8",
+    maxLevel:10,
+    bonusPerLevel:0.005,
+    costs:[15,19,26,35,46,62,83,110,146,195]}),    
+
+new stationCell({
+    label:"credits #8",
+    maxLevel:10,
+    bonusPerLevel:0.005,
+    costs:[15,19,26,35,46,62,83,110,146,195]}),
+    
+new stationCell({
+    label:"cash windfall #1",
+    maxLevel:10,
+    bonusPerLevel:0.05,
+    costs:[25,36,53,78,115,168,247,362,531,779,]}),
+
 )
 
 
@@ -657,5 +854,107 @@ stationConnections.push(
     {rows:28,cell:14,dir:"sta"},
     {rows:28,cell:15,dir:"sta"},
 
+    {rows:29,cell:11,dir:"sta"},
+    {rows:30,cell:11,dir:"sta"},
+
+
+    {rows:31,cell:5,dir:"sta"},
+    {rows:31,cell:6,dir:"sta"},
+    {rows:31,cell:7,dir:"sta"},
+    {rows:31,cell:8,dir:"sta"},
+    {rows:31,cell:9,dir:"sta"},
+    {rows:31,cell:10,dir:"sta"},
+    {rows:31,cell:11,dir:"sta"},
+    {rows:31,cell:12,dir:"sta"},
+    {rows:31,cell:13,dir:"sta"},
+    {rows:31,cell:14,dir:"sta"},
+    {rows:31,cell:15,dir:"sta"},
+    {rows:31,cell:16,dir:"sta"},
+    {rows:31,cell:17,dir:"sta"},
+    
+    {rows:32,cell:5,dir:"sta"},
+    {rows:33,cell:5,dir:"sta"},
+    {rows:32,cell:17,dir:"sta"},
+    {rows:33,cell:17,dir:"sta"},
+
+    {rows:32,cell:11,dir:"sta"},
+    {rows:33,cell:11,dir:"sta"},
+
+    {rows:35,cell:5,dir:"sta"},
+    {rows:36,cell:5,dir:"sta"},
+    {rows:35,cell:17,dir:"sta"},
+    {rows:36,cell:17,dir:"sta"},
+
+    {rows:35,cell:7,dir:"sta"},
+    {rows:36,cell:7,dir:"sta"},
+    {rows:35,cell:15,dir:"sta"},
+    {rows:36,cell:15,dir:"sta"},
+
+    {rows:34,cell:8,dir:"sta"},
+    {rows:34,cell:9,dir:"sta"},
+    {rows:34,cell:10,dir:"sta"},
+    {rows:34,cell:11,dir:"sta"},
+    {rows:34,cell:12,dir:"sta"},
+    {rows:34,cell:13,dir:"sta"},
+    {rows:34,cell:14,dir:"sta"},
+
+    {rows:37,cell:4,dir:"sta"},
+    {rows:37,cell:5,dir:"sta"},
+    {rows:37,cell:6,dir:"sta"},
+
+    {rows:37,cell:16,dir:"sta"},
+    {rows:37,cell:17,dir:"sta"},
+    {rows:37,cell:18,dir:"sta"},
+
+    {rows:37,cell:8,dir:"sta"},
+    {rows:37,cell:9,dir:"sta"},
+    {rows:37,cell:10,dir:"sta"},
+
+    {rows:37,cell:12,dir:"sta"},
+    {rows:37,cell:13,dir:"sta"},
+    {rows:37,cell:14,dir:"sta"},
+
+    {rows:38,cell:5,dir:"sta"},
+    {rows:39,cell:5,dir:"sta"},
+
+    {rows:38,cell:7,dir:"sta"},
+    {rows:39,cell:7,dir:"sta"},
+
+    {rows:38,cell:15,dir:"sta"},
+    {rows:39,cell:15,dir:"sta"},
+
+    {rows:38,cell:17,dir:"sta"},
+    {rows:39,cell:17,dir:"sta"},
+
+    {rows:41,cell:7,dir:"sta"},
+    {rows:42,cell:7,dir:"sta"},
+
+    {rows:41,cell:9,dir:"sta"},
+    {rows:42,cell:9,dir:"sta"},
+
+    {rows:41,cell:13,dir:"sta"},
+    {rows:42,cell:13,dir:"sta"},
+
+    {rows:41,cell:15,dir:"sta"},
+    {rows:42,cell:15,dir:"sta"},
+
+    {rows:40,cell:8,dir:"sta"},
+    {rows:40,cell:10,dir:"sta"},
+    {rows:40,cell:12,dir:"sta"},
+    {rows:40,cell:14,dir:"sta"},
+
+    {rows:43,cell:10,dir:"sta"},
+    {rows:43,cell:12,dir:"sta"},
+
+    {rows:44,cell:9,dir:"sta"},
+    {rows:45,cell:9,dir:"sta"},
+    {rows:44,cell:13,dir:"sta"},
+    {rows:45,cell:13,dir:"sta"},
+
+    {rows:44,cell:11,dir:"sta"},
+    {rows:45,cell:11,dir:"sta"},
+    {rows:46,cell:11,dir:"sta"},
+    {rows:47,cell:11,dir:"sta"},
+    {rows:48,cell:11,dir:"sta"},
 )
 
