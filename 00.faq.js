@@ -1,7 +1,56 @@
 const faqsArray = [
     {
+    label : "About",
+    icon : "musashi.jpg",
+    text : `Why this page is even born ? Triggering of idea/creation<br>
+            was STATION infos publication getting late on the Discord.<br>
+            Still not released mid may 2023 ... <br><br>
+            The source/elements composing this page are a mix of these :<br>
+            - IPM Discord<br>
+            - Wiki (Fandom)<br>
+            - Self Digging<br><br>
+            Use of this page ? Very likely Young/New players, so as you<br>
+            progress, less and less ...<br>
+            This page is not replacing the mountain of advice helpers can<br>
+            provide especially on a CASE-BY-CASE scenario.<br><br>
+            Case by case is really what is important to grab here.<br>
+            Why ? Because IPM is a personal progression experience.<br><br>
+            We have all different agenda/available time, ideas ... budget<br>
+            What is true/good for a one player will vary for the next.<br>
+            So what player A is expecting from the game, how much time<br>
+            (and IF any budget) he is willing to spend will vary how<br>
+            the personal progression experience goes.<br><br>
+            Another word that comes to mind is PONDER. In many cases<br>
+            during progression you will be facing choices. Remain logic<br>
+            and you will probably get what fits better the situation. What<br>
+            Room to go for OR when to stop your Challenge are such and<br>
+            pondering return of choices are necessary. Take a few minutes<br>
+            even sleep on it if its buying a new ship, hell why not ...<br><br>
+            Keep in mind its a game, do not create unnecessary pressure.`,
+    url : "",
+    img : "",
+    thisFunction : undefined,
+    },
+    {
+    label : "Run Forrest ... Run !!",
+    icon : "run.jpg",
+    text : `Another dumb Faq ...<br><br>
+            How long should my run be ? another "case by case scenario"<br>
+            I will answer by this : I started with 1 week runs which<br>
+            turned into half weeks, 2 days, 1 day, ...<br><br>
+            You build the project tree on each run going slowly deeper,<br>
+            it takes time so enjoying the "fruits of the tree" before<br>
+            even considering selling should come to mind ...<br><br>
+            Anyways dont feel there is a set-in-stone rule here and run<br>
+            until you feel you've come to YOUR own milestone.<br>
+            Could be reaching X credits for a Y room purchase/upgrade ... `,
+    url : "",
+    img : "",
+    thisFunction : undefined,
+    },
+    {
     label : "Prestige and Galaxy Value in IPM ?",
-    icon : "",
+    icon : "cash windfall.jpg",
     text : `Every run will(can) end when you reach 10 Millions. <br>
             Next prestige point will need another 2+ Millions.<br>
             Credits will be received in order to start building<br>
@@ -13,7 +62,7 @@ const faqsArray = [
     },
     {
     label : "Game Issues",
-    icon : "",
+    icon : "bug.jpg",
     text : `Bugs were here before computers and games so no worries,<br>
             you will get your cut in IPM. Just a couple, for extra fun ;-)<br><br>
             ** side note here : not all bugs are being hunted some are just<br>
@@ -26,8 +75,7 @@ const faqsArray = [
             (recently rebooting my phone helped with other stuff than <br>
             gaming too)<br><br>
             No success so far ? then try phase 2 :<br>
-            check Reddit/Discord<br>
-            for any advice<br><br>
+            check Reddit / Discord for any advice<br><br>
             Phase 3 when all hope is gone :<br>
             Support shall save the day ! ... hopefully :<br>
             Provide your Player ID (under settings) along with any screen<br>
