@@ -43,7 +43,7 @@ const faqsArray = [
     label : "Asteroid | Debris Times",
     icon : "",
     text : `To have these informations it will take a few more clicks :<br>
-            Visit my other tab ⇒ "Projects"<br>
+            Visit my other tab ⇒ "Projects" (roughly to center-right area)<br>
             and click on projects shown here.<br>
             (with a purple border around)`,
     url : "",
