@@ -169,8 +169,8 @@ const faqsArray = [
             - Aurora Ship<br>
             - Enigma<br><br>
             Again no pressure, its a boost for you and a dev support<br>
-            contribution but is not an absolute need if your able to<br>
-            contain that mysterious impatience in you ... `,
+            contribution but its not an absolute need if your able to<br>
+            contain that mysterious impatience of yours ... `,
     url : "",
     img : "",
     thisFunction : setFleet,
