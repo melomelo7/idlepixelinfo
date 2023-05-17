@@ -170,7 +170,10 @@ const faqsArray = [
             - Enigma<br><br>
             Again no pressure, its a boost for you and a dev support<br>
             contribution but its not an absolute need if your able to<br>
-            contain that mysterious impatience of yours ... `,
+            contain that mysterious impatience of yours ... <br><br>
+            * Not a full list of all possible buys, check store for<br>
+            more and FYI the rotation basis will also include<br>
+            some Energy Cells(Station Currency) with Dark Matter.*`,
     url : "",
     img : "",
     thisFunction : setFleet,
@@ -311,11 +314,6 @@ function AddADiv(container){
 function setFleet(container){
 
     let location = "./IPM Components/"
-/*
-    let item = document.createElement("div")
-    item.style.textAlign = "center"
-    container.appendChild(item)
-*/
     let img = new Image()
     img.src = location + "daughtership.jpg"
     AddADiv(container).appendChild(img)
