@@ -153,6 +153,28 @@ const faqsArray = [
     img : "beacon2.jpg",
     thisFunction : setBeacon,
     },
+    {
+    label : "Expand Fleet (IRL Money)",
+    icon : "fleet.jpg",
+    text : `The always in store ships :<br>
+            (Some may show up after another is bought)<br>
+            - Daughtership<br>
+            - Eldership<br>
+            - Exodus<br><br>
+            And the Special ships on a rotation basis,<br>
+            showing every 1-2 month sometime less, 1 a time<br>
+            and available for purchase during a couple days :<br>
+            - Thunderhorse<br>
+            - Merchant Ship<br>
+            - Aurora Ship<br>
+            - Enigma<br><br>
+            Again no pressure, its a boost for you and a dev support<br>
+            contribution but is not an absolute need if your able to<br>
+            contain that mysterious impatience in you ... `,
+    url : "",
+    img : "",
+    thisFunction : setFleet,
+    },
 ]
 
 function setFaq(){
@@ -276,4 +298,52 @@ function AddCell(thisRow){
     thisCel.style.minWidth = 60 + "px"
     thisRow.appendChild(thisCel)
     return thisCel
+}
+
+function AddADiv(container){
+    let item = document.createElement("div")
+    item.style.textAlign = "center"
+    item.style.marginTop = 10 + "px"
+    container.appendChild(item)
+    return item
+}
+
+function setFleet(container){
+
+    let location = "./IPM Components/"
+/*
+    let item = document.createElement("div")
+    item.style.textAlign = "center"
+    container.appendChild(item)
+*/
+    let img = new Image()
+    img.src = location + "daughtership.jpg"
+    AddADiv(container).appendChild(img)
+
+    img = new Image()
+    img.src = location + "eldership.jpg"
+    AddADiv(container).appendChild(img)
+
+    img = new Image()
+    img.src = location + "exodus.jpg"
+    AddADiv(container).appendChild(img)
+
+    AddADiv(container).style.borderTop = "yellow solid 2px"
+
+    img = new Image()
+    img.src = location + "thunderhorse.jpg"
+    AddADiv(container).appendChild(img)
+
+    img = new Image()
+    img.src = location + "merchant ship.jpg"
+    AddADiv(container).appendChild(img)
+
+    img = new Image()
+    img.src = location + "aurora ship.jpg"
+    AddADiv(container).appendChild(img)
+
+    img = new Image()
+    img.src = location + "enigma.jpg"
+    AddADiv(container).appendChild(img)
+
 }
