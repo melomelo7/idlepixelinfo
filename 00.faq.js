@@ -178,6 +178,33 @@ const faqsArray = [
     img : "",
     thisFunction : setFleet,
     },
+    {
+    label : "Challenge",
+    icon : "challenge.jpg",
+    text : `After selling a couple galaxies you get acces to Challenges.<br>
+            A Challenge is a race to the highest galaxy value during 24h<br>
+            only for you. Its always starting from scratch so you must<br>
+            sell your galaxy cashing credits earned as usual.<br><br>
+            As a challenge is your own, you are free to do the full 24h<br>
+            or stop midway when you feel next tier is too far to reach.<br>
+            Important thing about stopping early is the moment you are out<br>
+            a timer will start for the next challenge to become available.<br><br>
+            A new Challenge shows after 3 days.<br><br>
+            To have stars on lowest possible items you should :<br> 
+            - end challenge without getting rewards<br>
+            - sell galaxy<br>
+            - click on challenge and get your rewards<br><br>
+            Below are rewards depending on galaxy value reached.<br>
+            Pay out is the farthest line reached, not the total of<br>
+            every line cleared.<br><br>
+            Reward cap is fixed at 1D. Higher galaxy value will change nothing<br>
+            and as you can see, you cannot earn more than 200 Dark Matter.
+            `,
+    url : "",
+    img : "challenge2.jpg",
+    thisFunction : setChallenge,
+    },
+    
 ]
 
 function setFaq(){
@@ -306,6 +333,7 @@ function AddCell(thisRow){
 function AddADiv(container){
     let item = document.createElement("div")
     item.style.textAlign = "center"
+    item.style.alignItems = "center"
     item.style.marginTop = 10 + "px"
     container.appendChild(item)
     return item
@@ -344,4 +372,59 @@ function setFleet(container){
     img.src = location + "enigma.jpg"
     AddADiv(container).appendChild(img)
 
+}
+
+function setChallenge(container){
+    const challenge = [
+        {value:"1M",dm:5},
+        {value:"10M",dm:10},
+        {value:"100M",dm:15},
+        {value:"1B",dm:20},
+        {value:"10B",dm:25},
+        {value:"100B",dm:30},
+        {value:"1T",dm:40},
+        {value:"10T",dm:50},
+        {value:"100T",dm:60},
+        {value:"1q",dm:70},
+        {value:"10q",dm:80},
+        {value:"100q",dm:90},
+        {value:"1Q",dm:100},
+        {value:"10Q",dm:115},
+        {value:"100Q",dm:130},
+        {value:"1s",dm:145},
+        {value:"10s",dm:160},
+        {value:"100s",dm:180},
+        {value:"1S",dm:200},
+        {value:"10S",dm:200},
+        {value:"100S",dm:200},
+        {value:"1O",dm:200},
+        {value:"10O",dm:200},
+        {value:"100O",dm:200},
+        {value:"1N",dm:200},
+        {value:"10N",dm:200},
+        {value:"100N",dm:200},
+        {value:"1D",dm:200},
+    ]
+
+    let table = document.createElement("table")
+    table.style.margin = "0 auto"
+    table.style.marginTop = 10 + "px"
+    container.appendChild(table)
+/*
+    let tr = document.createElement("tr")
+    table.appendChild(tr)
+        AddCell(tr).innerHTML = "Galaxy<br>Value"
+        AddCell(tr).innerHTML = "Rewarded<br>Stars"
+        AddCell(tr).innerHTML = "Dark<br>Matter"
+*/
+    for (i=0;i<challenge.length;i++){
+        let tr = document.createElement("tr")
+        table.appendChild(tr)
+            let td = AddCell(tr)
+            td.innerHTML = challenge[i].value
+            td.style.minWidth = 100 + "px"
+
+            AddCell(tr).innerHTML = i+1
+            AddCell(tr).innerHTML = challenge[i].dm
+    }
 }
