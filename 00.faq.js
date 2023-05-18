@@ -88,6 +88,29 @@ const faqsArray = [
     thisFunction : undefined,
     },
     {
+    label : "Avoid Crafting issues",
+    icon : "craft.jpg",
+    text : `① Above image(ingame help info) tells us idle/offline<br>
+            time will have severe cut in mining(ore collection) so<br>
+            it means in short if you dont have a stock of needed<br>
+            [whatever stuff] to perform your smelt/craft process,<br>
+            chances are this will take down your crafting as the chain<br>
+            at some point wont be working as usual.<br><br>
+            ② The below image explains where the chain of production<br>
+            starts/ends. Logic says dont start the chain by the top<br>
+            item but by the lowest ...<br><br>
+            example : <br>
+            lens require glass dont put lens in [1] and glass in [2]<br><br>
+            PS :<br>
+            One last piece of info while we are here ... when smelters<br>
+            get too fast the game wont do the math properly resulting<br>
+            in smelters too slow because too fast ... <br>
+            dont kick me, it wont change a thing `,
+    url : "",
+    img : "craft2.jpg",
+    thisFunction : undefined,
+    },
+    {
     label : "Asteroid | Debris Times",
     icon : "",
     text : `To have these informations it will take a few more clicks :<br>
@@ -111,27 +134,30 @@ const faqsArray = [
     thisFunction : undefined,
     },
     {
-    label : "Avoid Crafting issues",
-    icon : "craft.jpg",
-    text : `① Above image(ingame help info) tells us idle/offline<br>
-            time will have severe cut in mining(ore collection) so<br>
-            it means in short if you dont have a stock of needed<br>
-            [whatever stuff] to perform your smelt/craft process,<br>
-            chances are this will take down your crafting as the chain<br>
-            at some point wont be working as usual.<br><br>
-            ② The below image explains where the chain of production<br>
-            starts/ends. Logic says dont start the chain by the top<br>
-            item but by the lowest ...<br><br>
-            example : <br>
-            lens require glass dont put lens in [1] and glass in [2]<br><br>
-            PS :<br>
-            One last piece of info while we are here ... when smelters<br>
-            get too fast the game wont do the math properly resulting<br>
-            in smelters too slow because too fast ... <br>
-            dont kick me, it wont change a thing `,
+    label : "Challenge",
+    icon : "challenge.jpg",
+    text : `After selling a couple galaxies you get acces to Challenges.<br>
+            A Challenge is a race to the highest galaxy value during 24h<br>
+            only for you. Its always starting from scratch so you must<br>
+            sell your galaxy cashing credits earned as usual.<br><br>
+            As a challenge is your own, you are free to do the full 24h<br>
+            or stop midway when you feel next tier is too far to reach.<br>
+            Important thing about stopping early is the moment you are out<br>
+            a timer will start for the next challenge to become available.<br><br>
+            A new Challenge shows after 3 days.<br><br>
+            To have stars on lowest possible items you should :<br> 
+            - end challenge without getting rewards<br>
+            - sell galaxy<br>
+            - click on challenge and get your rewards<br><br>
+            Below are rewards depending on galaxy value reached.<br>
+            Pay out is the farthest line reached, not the total of<br>
+            every line cleared.<br><br>
+            Reward cap is fixed at 1D. Higher galaxy value will change nothing<br>
+            and as you can see, you cannot earn more than 200 Dark Matter.
+            `,
     url : "",
-    img : "craft2.jpg",
-    thisFunction : undefined,
+    img : "challenge2.jpg",
+    thisFunction : setChallenge,
     },
     {
     label : "Beacon",
@@ -177,32 +203,6 @@ const faqsArray = [
     url : "",
     img : "",
     thisFunction : setFleet,
-    },
-    {
-    label : "Challenge",
-    icon : "challenge.jpg",
-    text : `After selling a couple galaxies you get acces to Challenges.<br>
-            A Challenge is a race to the highest galaxy value during 24h<br>
-            only for you. Its always starting from scratch so you must<br>
-            sell your galaxy cashing credits earned as usual.<br><br>
-            As a challenge is your own, you are free to do the full 24h<br>
-            or stop midway when you feel next tier is too far to reach.<br>
-            Important thing about stopping early is the moment you are out<br>
-            a timer will start for the next challenge to become available.<br><br>
-            A new Challenge shows after 3 days.<br><br>
-            To have stars on lowest possible items you should :<br> 
-            - end challenge without getting rewards<br>
-            - sell galaxy<br>
-            - click on challenge and get your rewards<br><br>
-            Below are rewards depending on galaxy value reached.<br>
-            Pay out is the farthest line reached, not the total of<br>
-            every line cleared.<br><br>
-            Reward cap is fixed at 1D. Higher galaxy value will change nothing<br>
-            and as you can see, you cannot earn more than 200 Dark Matter.
-            `,
-    url : "",
-    img : "challenge2.jpg",
-    thisFunction : setChallenge,
     },
     
 ]
