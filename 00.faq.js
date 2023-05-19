@@ -47,7 +47,7 @@ const faqsArray = [
             You build the project tree on each run going slowly deeper,<br>
             it takes time so enjoying the "fruits of the tree" before<br>
             even considering selling should come to mind ...<br><br>
-            Anyways dont feel there is a set-in-stone rule here and run<br>
+            Anyways dont think there is a set-in-stone rule here and run<br>
             until you feel you've come to YOUR own milestone.<br>
             Could be reaching X credits for a Y room purchase/upgrade ... `,
     url : "",
