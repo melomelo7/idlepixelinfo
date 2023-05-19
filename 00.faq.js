@@ -30,7 +30,8 @@ const faqsArray = [
             (especially moneywise ...)<br><br>
             Its important to remember, its just a game, do not put<br>
             too much pressure on it.<br><br>
-            "Feel free to ignore all that, lol" (from Agent J kicking my butt atm)
+            "Feel free to ignore all that, lol"<br>
+            (from Agent J kicking my butt atm)
         `,
     url : "",
     img : "",
