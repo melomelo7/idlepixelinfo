@@ -38,6 +38,19 @@ const faqsArray = [
     thisFunction : undefined,
     },
     {
+    label : "Prestige and Galaxy Value in IPM ?",
+    icon : "cash windfall.jpg",
+    text : `Every run can be ended when you reach 10 Millions. <br>
+            (Next credit rewarded point being another 2+ Millions)<br><br>
+            So in order to "Prestige", you sell your current galaxy<br>
+            receiving in return Credits that can be spent to<br>
+            build/upgrade rooms on your mothership.<br><br>
+            The galaxy value when selling is the sum of those : `,
+    url : "",
+    img : "gv.jpg",
+    thisFunction : undefined,
+    },
+    {
     label : "Run Forrest ... Run !!",
     icon : "run.jpg",
     text : `Another dumb Faq ...<br><br>
@@ -52,18 +65,6 @@ const faqsArray = [
             Could be reaching X credits for a Y room purchase/upgrade ... `,
     url : "",
     img : "",
-    thisFunction : undefined,
-    },
-    {
-    label : "Prestige and Galaxy Value in IPM ?",
-    icon : "cash windfall.jpg",
-    text : `Every run will(can) end when you reach 10 Millions. <br>
-            Next prestige point will need another 2+ Millions.<br>
-            Credits will be received in order to start building<br>
-            rooms on your mothership.<br> 
-            The galaxy value when selling is the sum of those : `,
-    url : "",
-    img : "gv.jpg",
     thisFunction : undefined,
     },
     {
