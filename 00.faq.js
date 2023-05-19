@@ -2,31 +2,36 @@ const faqsArray = [
     {
     label : "About",
     icon : "musashi.jpg",
-    text : `Why this page is even born ? Triggering of idea/creation<br>
-            was STATION infos publication getting late on the Discord.<br>
-            Still not released mid may 2023 ... <br><br>
-            The source/elements composing this page are a mix of these :<br>
+    text : `
+            Why was this page even born ? It began while waiting for<br>
+            the official Space Station page to be released in the Discord<br>
+            Community, still on hold May 2023.<br><br>
+            Sources/elements of this page come from:<br>
             - IPM Discord<br>
-            - Wiki (Fandom)<br>
-            - Self Digging<br><br>
-            Use of this page ? Very likely Young/New players, so as you<br>
-            progress, less and less ...<br>
-            This page is not replacing the mountain of advice helpers can<br>
-            provide especially on a CASE-BY-CASE scenario.<br><br>
-            Case by case is really what is important to grab here.<br>
-            Why ? Because IPM is a personal progression experience.<br><br>
-            We have all different agenda/available time, ideas ... budget<br>
-            What is true/good for a one player will vary for the next.<br>
-            So what player A is expecting from the game, how much time<br>
-            (and IF any budget) he is willing to spend will vary how<br>
-            the personal progression experience goes.<br><br>
-            Another word that comes to mind is PONDER. In many cases<br>
-            during progression you will be facing choices. Remain logic<br>
-            and you will probably get what fits better the situation. What<br>
-            Room to go for OR when to stop your Challenge are such and<br>
-            pondering return of choices are necessary. Take a few minutes<br>
-            even sleep on it if its buying a new ship, hell why not ...<br><br>
-            Keep in mind its a game, do not create unnecessary pressure.`,
+            - Wiki Fandom<br>
+            - Self exploration<br><br>
+            Users of this page will primarily be early gamers who will<br>
+            benefit the most, as you progress though you will need it less.<br><br>
+            This page is not designed to replace the mountain of good<br>
+            advice you will receive from the members on Discord, who <br>
+            can tailor advice depending on where you are in your game.<br>
+            IPM is a personal progression experience. There are <br>
+            individual aspects to the game based on your own goals,<br>
+            how much time you have to play, advice given and any <br>
+            money you wish to invest in your game.<br><br>
+            Another word comes to mind, PONDER, in many cases as <br>
+            you improve, you will be faced with choices. Remain <br>
+            logical and if necessary seek advice from Discord or Reddit<br>
+            to find what best suits your progression.<br>
+            Examples include : which room to buy, when to finish a<br>
+            challenge, which upgrade gives biggest effect or even<br>
+            buying a ship.<br>
+            Take some time, even sleep on it before making a decision.<br>
+            (especially moneywise ...)<br><br>
+            Its important to remember, its just a game, do not put<br>
+            too much pressure on it.<br><br>
+            "Feel free to ignore all that, lol" (from Agent J kicking my butt atm)
+        `,
     url : "",
     img : "",
     thisFunction : undefined,
