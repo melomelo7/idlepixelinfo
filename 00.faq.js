@@ -502,7 +502,8 @@ function setTournament(container){
                 - Retire ? Sure why not ... whatever the reason,<br>
                 your position will remain, and if no other<br>
                 player is able to go past you during remaining<br>
-                time, reward will be yours at the end of timer.<br><br>
+                time, reward will be yours at the end of timer.<br>
+                Otherwise, new position's reward if any.<br><br>
                 - When is Tournament ? Depending on your geo<br>
                 location, it could be late on Friday or during Saturday.<br><br>
 
