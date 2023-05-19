@@ -160,6 +160,31 @@ const faqsArray = [
     thisFunction : setChallenge,
     },
     {
+    label : "Tournament",
+    icon : "tournament1.jpg",
+    text : `A dumb faq without a dumb chapter on tournaments ? ... no way !<br>
+            Both a blessing and a curse, here we go : Tournaments baby !<br><br>
+            Blessing ? well : bonus Stars, Dark Matter & Energy cells<br>
+            rewarded are a great boost for your evolution.<br><br>
+            Curse ? Thats not some you gonna get THAT easy ...<br>
+            How come ? To start with, you are not alone racing this time,<br>
+            unlike challenge its not you Vs you. And thats why it could<br>
+            very well turn bad ... or not. The group/bracket you join is<br>
+            supposed to be of somehow more/less about your settings/level<br>
+            This may be true in copper league, in Top league not anymore .<br>
+            In Copper : new players of mixed yet low levels ...<br>
+            In Platinum : all lucky ones, while not super high level to<br>
+            reach there mixed with the most evolved players.<br><br>
+            Long story short, Platinum is top shelf, dont expect to score good<br>
+            if you did not build up for some time in lower leagues.<br>
+            Even in non-Platinum sometimes you will encounter very strong<br>
+            players either fallen for whatever reason, or there on purpose.<br>
+            `,
+    url : "",
+    img : "",
+    thisFunction : setTournament,
+    },
+    {
     label : "Beacon",
     icon : "beacon.jpg",
     text : `Below showing Costs and benefits for a set of Planets.<br>
@@ -410,13 +435,6 @@ function setChallenge(container){
     table.style.margin = "0 auto"
     table.style.marginTop = 10 + "px"
     container.appendChild(table)
-/*
-    let tr = document.createElement("tr")
-    table.appendChild(tr)
-        AddCell(tr).innerHTML = "Galaxy<br>Value"
-        AddCell(tr).innerHTML = "Rewarded<br>Stars"
-        AddCell(tr).innerHTML = "Dark<br>Matter"
-*/
     for (i=0;i<challenge.length;i++){
         let tr = document.createElement("tr")
         table.appendChild(tr)
@@ -427,4 +445,147 @@ function setChallenge(container){
             AddCell(tr).innerHTML = i+1
             AddCell(tr).innerHTML = challenge[i].dm
     }
+}
+
+function setTournament(container){
+    let mainFrame = document.createElement("div")
+    container.appendChild(mainFrame)
+    mainFrame.style.border = "yellow 1px solid"
+    mainFrame.style.borderRadius = "10px"
+    mainFrame.style.marginTop = 20 + "px"
+    mainFrame.style.padding = 10 + "px"
+
+    let item = AddADiv(mainFrame)
+    item.innerHTML = "Infos & rewards"
+    item.style.fontSize = 22 + "px"
+    item.style.margin = "10px 0 10px 0"
+    item.style.borderBottom = "yellow solid 2px"
+
+    let img = undefined
+    let location = "./IPM Components/"
+
+    let table = document.createElement("table")
+    table.style.margin = "0 auto"
+    table.style.marginBottom = "10px"
+    mainFrame.appendChild(table)
+        let tr = document.createElement("tr")
+        table.appendChild(tr)
+            let td = AddCell(tr)
+            td.style = closeButtonStyle
+            td.innerHTML = "Infos"
+            td.addEventListener("click",()=>{
+                cleanParent(subFrame)
+                img = new Image()
+                img.src = location + "tournament2.jpg"
+                subFrame.appendChild(img)
+                img.style = `
+                display: block;
+                margin-left: auto;
+                margin-right: auto;`
+                subFrame.style.height = "630px"})
+
+            td = AddCell(tr)
+            td.style = closeButtonStyle
+            td.innerHTML = "[ *?!* ]"
+            td.addEventListener("click",()=>{
+                cleanParent(subFrame)
+                img = new Image()
+                img.src = location + "tournament3.jpg"
+                subFrame.appendChild(img)
+
+                item = AddADiv(subFrame)
+                item.style.textAlign = "left"
+                item.style.marginLeft = 40 + "px"
+                item.style.height = "550px"
+                item.style.overflowX = "hidden"
+                item.innerHTML = `
+                - Retire ? Sure why not ... whatever the reason,<br>
+                your position will remain, and if no other<br>
+                player is able to go past you during remaining<br>
+                time, reward will be yours at the end of timer.<br><br>
+                - When is Tournament ? Depending on your geo<br>
+                location, it could be late on Friday or during Saturday.<br><br>
+
+                - Hey I dont have the full 48h on my tournament !<br>
+                I joined a bracket with other players and only<br>
+                X hours remaining ... WHY !?!?<br>
+                Okay, a word of explanation ...<br>
+                When you click [Join], game starts looking for you,<br>
+                an open bracket with available seats ...<br>
+                If such is found you hop in, with timer left in this<br>
+                specific bracket. On the other hand, If none is found<br>
+                then a new bracket is open starting with you, with<br>
+                a full timer = 48h. Sometimes you are lucky to<br>
+                stay alone the whole tournament and cash #1 Price.<br><br>
+
+                - Not participating to the next Tournament ...<br>
+                As long as you dont [Join] you are off the grid.<br>
+                You dont get/lose anything, no demotion either.<br><br>
+
+                - Sometimes Tournament also get some weird bugs ...<br>
+                To have a "stable" tournament I recommend you<br>
+                to avoid transfering game between devices.<br>
+                Traveling sometime is a bug cause, especialy<br>
+                crossing time zones. When facing a big badabug,<br>
+                screen shots/Player ID ready ⇒ contact Support 
+                `
+                subFrame.style.height = "630px"})
+                
+            td = AddCell(tr)
+            td.style = closeButtonStyle
+            td.innerHTML = "Copper"
+            td.addEventListener("click",()=>{
+                cleanParent(subFrame)
+                img = new Image()
+                img.src = location + "tournament rewards1.jpg"
+                subFrame.appendChild(img)
+                img.style = `
+                display: block;
+                margin-left: auto;
+                margin-right: auto;`
+                subFrame.style.height = "630px"})
+            
+            td = AddCell(tr)
+            td.style = closeButtonStyle
+            td.innerHTML = "Silver"
+            td.addEventListener("click",()=>{
+                cleanParent(subFrame)
+                img = new Image()
+                img.src = location + "tournament rewards2.jpg"
+                subFrame.appendChild(img)
+                img.style = `
+                display: block;
+                margin-left: auto;
+                margin-right: auto;`
+                subFrame.style.height = "630px"})
+
+            td = AddCell(tr)
+            td.style = closeButtonStyle
+            td.innerHTML = "Gold"
+            td.addEventListener("click",()=>{
+                cleanParent(subFrame)
+                img = new Image()
+                img.src = location + "tournament rewards3.jpg"
+                subFrame.appendChild(img)
+                img.style = `
+                display: block;
+                margin-left: auto;
+                margin-right: auto;`
+                subFrame.style.height = "630px"})
+
+            td = AddCell(tr)
+            td.style = closeButtonStyle
+            td.innerHTML = "Platinum"
+            td.addEventListener("click",()=>{
+                cleanParent(subFrame)
+                img = new Image()
+                img.src = location + "tournament rewards4.jpg"
+                subFrame.appendChild(img)
+                img.style = `
+                display: block;
+                margin-left: auto;
+                margin-right: auto;`
+                subFrame.style.height = "630px"})
+
+    let subFrame = AddADiv(mainFrame)
 }
