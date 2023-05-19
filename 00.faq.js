@@ -145,10 +145,6 @@ const faqsArray = [
             Important thing about stopping early is the moment you are out<br>
             a timer will start for the next challenge to become available.<br><br>
             A new Challenge shows after 3 days.<br><br>
-            To have stars on lowest possible items you should :<br> 
-            - end challenge without getting rewards<br>
-            - sell galaxy<br>
-            - click on challenge and get your rewards<br><br>
             Below are rewards depending on galaxy value reached.<br>
             Pay out is the farthest line reached, not the total of<br>
             every line cleared.<br><br>
