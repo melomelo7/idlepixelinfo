@@ -170,7 +170,7 @@ function buildProjectsGrid(whichGrid="",cellSize=0){
     tabInfos.style = textStyle
     tabInfos.style.fontSize = 20 + "px"
     tabInfos.style.paddingLeft = 40 + "px"
-    tabInfos.style.color = "yellow"
+    tabInfos.style.color = "rgb(0,212,250)"
 
 
     let table = document.createElement("table")

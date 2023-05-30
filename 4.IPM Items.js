@@ -1007,7 +1007,7 @@ function buildItems(){
     tabInfos.style.height = textSize + "px"
     tabInfos.style.marginLeft = textSize + "px"
     tabInfos.style.marginBottom = 70 + "px"
-    tabInfos.style.color = "yellow"
+    tabInfos.style.color = "rgb(0,212,250)"
 
     let itemsContainer = document.createElement("div")
     itemsContainer.style = containerRow
@@ -1821,7 +1821,7 @@ function buildProcess(){
     tabInfos.style = textStyle
     tabInfos.style.fontSize = textSize + "px"
     tabInfos.style.marginLeft = textSize + "px"
-    tabInfos.style.color="yellow"
+    tabInfos.style.color="rgb(0,212,250)"
 
     let rightTop = document.createElement("div")
     rightTop.style = containerRow
