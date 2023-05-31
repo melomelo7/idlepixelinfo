@@ -1427,11 +1427,13 @@ function clickProjectsAreas(e){
     cleanParent(container)
     cleanParent(listFrame)
     container.style.marginLeft = 20 + "px"
+    container.style.width = 305 + "px"
     listFrame.style.marginLeft = 20 + "px"
     listFrame.style.border = "blue solid 2px"
     listFrame.style.borderRadius = 20 + "px"
     listFrame.style.padding = 10 + "px"
     listFrame.style.fontSize = 18 + "px"
+    listFrame.style.width = 505 + "px"
     let thisText = e.srcElement.innerHTML
     let thisArray = []
     let costs = []
@@ -1443,7 +1445,7 @@ function clickProjectsAreas(e){
     let projectIcon = ""
 
     for(i=0;i<projectCells.length;i++){
-        if( thisText === "Full List" || thisText === projectCells[i].area || projectCells[i].selected ){
+        if( thisText === "Full List" || thisText === projectCells[i].area || thisText === "Filtered Private List" && projectCells[i].selected ){
             thisArray.push(projectCells[i])
         }
     }
