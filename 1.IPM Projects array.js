@@ -1317,7 +1317,6 @@ function setProjects(){
     containerB.setAttribute("id","containerB")
         let leftPart = AddADiv(containerA)
             leftPart.innerHTML = "Display<br>as Tree"
-            leftPart.style.verticalAlign = "middle"
             leftPart.style = `
             border:white solid 2px;
             padding:10px;
@@ -1326,6 +1325,8 @@ function setProjects(){
             color:white;
             border-top-left-radius: 20px;
             border-bottom-left-radius: 20px;
+            display:flex;
+            align-items:center;
             `
             leftPart.setAttribute("id","toggletree")
             leftPart.addEventListener("click",function(){
@@ -1346,7 +1347,9 @@ function setProjects(){
             background-color:black;
             color:white;
             border-bottom-right-radius: 20px;
-            border-top-right-radius: 20px;        
+            border-top-right-radius: 20px;
+            display:flex;
+            align-items:center;
             `
             rightPart.setAttribute("id","togglelist")
             rightPart.addEventListener("click",function(){
