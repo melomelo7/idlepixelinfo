@@ -1317,6 +1317,7 @@ function setProjects(){
     containerB.setAttribute("id","containerB")
         let leftPart = AddADiv(containerA)
             leftPart.innerHTML = "Display<br>as Tree"
+            leftPart.style.verticalAlign = "middle"
             leftPart.style = `
             border:white solid 2px;
             padding:10px;
@@ -1356,9 +1357,7 @@ function setProjects(){
                 document.getElementById("togglelist").style.backgroundColor = "blue"
                 document.getElementById("toggletree").style.backgroundColor = "black"
                 setProjectsAreas(document.getElementById("containerB"))
-                console.log("ok")
                 document.getElementById("fullProjects").click()
-            
             })
 
         let projectsListsInfo = AddADiv(containerA)

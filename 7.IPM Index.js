@@ -31,7 +31,7 @@ addLeftButton({label:"Process",clickFunction:clickProcess})
 
 window.onload = firstContact()
 
-console.log("Last up 05/11 21:00")
+console.log("Last up 06/01 01:30")
 
 let loopfork = 0
 
@@ -65,4 +65,19 @@ for (i=0;i<planetsArray.length;i++){
 
 }
 */
+
+let ttlr1 = 0
+for (i=0;i<Rooms.length;i++){
+    for (j=0;j<Rooms[i].costs.length;j++){
+        ttlr1+=1
+    }
+}
+
+let ttlr2 = 0
+for (i=0;i<newRoom.length;i++){
+    ttlr2 += 1
+}
+
+console.log("Rooms : " + (ttlr1+ttlr2))
+
 
