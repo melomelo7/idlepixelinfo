@@ -38,20 +38,41 @@ const challengeRewards = [
     {target : "1.00 D",darkMatter:200,},
 ]
 
-function formatKMBT(value){
-    let thisvalue = Number(value)
+function formatKMBT(value,revert = false){
+    let thisValue = undefined
+//    let baseValue = undefined
+    let rep = undefined
 
-    if (thisvalue >= 1000000000000)
-        {return (thisvalue / 1000000000000).toFixed(2) +" T"} 
-    else if(thisvalue >= 1000000000)
-        {return (thisvalue / 1000000000).toFixed(2) +" B"}
-    else if(thisvalue >= 1000000)
-        {return (thisvalue / 1000000).toFixed(2) +" M"}
-    else if(thisvalue >= 1000)
-        {return (thisvalue / 1000).toFixed(2) +" K"}
-    else
-        {return thisvalue}
+    if (!revert){
+        thisValue = Number(value)
 
+        if (thisValue >= 1000000000000)
+            {rep = (thisValue / 1000000000000).toFixed(2) +" T"} 
+        else if(thisValue >= 1000000000)
+            {rep = (thisValue / 1000000000).toFixed(2) +" B"}
+        else if(thisValue >= 1000000)
+            {rep = (thisValue / 1000000).toFixed(2) +" M"}
+        else if(thisValue >= 1000)
+            {rep = (thisValue / 1000).toFixed(2) +" K"}
+        else
+            {rep = thisValue}
+    } else {
+        thisValue = value.toString()
+
+        if (thisValue.includes("K") || thisValue.includes("k") )
+            {rep = parseFloat(value).toFixed(2) * 1000}
+        else if (thisValue.includes("M") || thisValue.includes("m"))
+            {rep = parseFloat(value).toFixed(2) * 1000000}
+        else if (thisValue.includes("B") || thisValue.includes("b"))
+            {rep = parseFloat(value).toFixed(2) * 1000000000}
+        else if (thisValue.includes("T") || thisValue.includes("t"))
+            {rep = parseFloat(value).toFixed(2) * 1000000000000}
+        else {rep = value}
+
+        rep = Number(rep)
+        }
+
+        return rep
     }
 
 
@@ -129,7 +150,7 @@ function clickItems(){
 function clickProjects(){
     popKiller()
     cleanParent(right)
-    buildProjectsGrid("projects",cellSize)
+    setProjects()
     }
 
 
@@ -162,15 +183,16 @@ function centerScreen(element){
 
 
 const cellSize = 35
-function buildProjectsGrid(whichGrid="",cellSize=0){
+function buildProjectsGrid(whichGrid="",cellSize=0,globalContainer=right){
 
     let tabInfos = document.createElement("div")
-    right.appendChild(tabInfos)
+    globalContainer.appendChild(tabInfos)
     tabInfos.innerHTML = "Click a tile for more infos"
     tabInfos.style = textStyle
     tabInfos.style.fontSize = 20 + "px"
     tabInfos.style.paddingLeft = 40 + "px"
     tabInfos.style.color = "rgb(0,212,250)"
+    tabInfos.style.textAlign = "left"
 
 
     let table = document.createElement("table")
@@ -224,7 +246,7 @@ function buildProjectsGrid(whichGrid="",cellSize=0){
 //            cell.style.border = "solid 1px white"
         }}
 
-    right.appendChild(table)
+    globalContainer.appendChild(table)
 
     refArray1.forEach((obj)=>{
         let img = new Image(cellSize,cellSize)

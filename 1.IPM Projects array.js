@@ -1,6 +1,7 @@
 
 class projectCell {
     constructor({
+        area = "",
         label="",
         description="",
         rows=0,
@@ -11,8 +12,10 @@ class projectCell {
         comment="",
         prerequisites="",
         highestPlanetRequired="",
+        selected = false,
     })
 {
+    this.area = area
     this.label=label
     this.description = description
     this.rows= projectsArray[projectsArray.findIndex(x=>x.label===this.label)].rows
@@ -23,6 +26,7 @@ class projectCell {
     this.comment = comment
     this.prerequisites = prerequisites
     this.highestPlanetRequired = highestPlanetRequired
+    this.selected = selected
 }}
 
 
@@ -157,6 +161,7 @@ projectsArray.push({label:"advanced rover resupply",rows:5,cell:19})
 
 
 const projectCells = []
+
 projectCells.push( 
     
     new projectCell({
@@ -355,318 +360,8 @@ projectCells.push(
         component2:{label:"luterium alloy",baseCost:24,costWithMaxLab:12},
         description:"extends vision to 3 more planets",
         prerequisites:"telescope 21",
-        highestPlanetRequired:"64-Hecate"}),)
-
-
-projectCells.push( 
-
-    new projectCell({
-        area:"Management",
-        label:"superior leader",
-        component1:{label:"collider",baseCost:50,costWithMaxLab:25},
-        component2:{label:"gravity chamber",baseCost:20,costWithMaxLab:10},
-        component3:{label:"quolium alloy",baseCost:200,costWithMaxLab:100},
-        description:"all leader bonuses x4",
-        prerequisites:"senior leader",
-        highestPlanetRequired:"61-Bob"}),
-
-    new projectCell({
-        area:"Management",
-        label:"senior leader",
-        component1:{label:"robot",baseCost:10,costWithMaxLab:5},
-        description:"ability to elect a 2nd leader among 5+ stars managers",
-        prerequisites:"advanced leader",
-        highestPlanetRequired:"43-Daedalus"}),
-        
-    new projectCell({
-        area:"Management",
-        label:"advanced leader",
-        component1:{label:"motor",baseCost:10,costWithMaxLab:5},
-        component2:{label:"telescope",baseCost:10,costWithMaxLab:5},
-        component3:{label:"scrith alloy",baseCost:200,costWithMaxLab:100},
-        description:"all leader bonuses x3",
-        prerequisites:"leader",
-        highestPlanetRequired:"43-Daedalus"}),
-        
-    new projectCell({
-        area:"Management",
-        label:"leader",
-        component1:{label:"navigation module",baseCost:5,costWithMaxLab:2},
-        component2:{label:"rhodium bar",baseCost:60,costWithMaxLab:30},
-        description:"ability to elect a leader among managers.All leader bonuses x2",
-        prerequisites:"advanced manager training",
-        highestPlanetRequired:"34-Rupert"}),
-
-    new projectCell({
-        area:"Management",
-        label:"superior manager training",
-        component1:{label:"rhodium bar",baseCost:200,costWithMaxLab:100},
-        description:"all managers benefits x1.10",
-        prerequisites:"advanced manager training",
-        highestPlanetRequired:"34-Rupert"}),
-        
-    new projectCell({
-        area:"Management",
-        label:"superior specialist university",
-        component1:{label:"viterium alloy",baseCost:800,costWithMaxLab:400},
-        description:"all managers second benefits x1.05",
-        prerequisites:"advanced specialist university",
-        highestPlanetRequired:"55-Zumbia"}),
-
-    new projectCell({
-        area:"Management",
-        label:"advanced specialist university",
-        component1:{label:"accumulator",baseCost:2,costWithMaxLab:1},
-        component2:{label:"scrith alloy",baseCost:100,costWithMaxLab:50},
-        description:"all managers second benefits x1.05",
-        prerequisites:"specialist university",
-        highestPlanetRequired:"43-Daedalus"}),
-        
-    new projectCell({
-        area:"Management",
-        label:"specialist university",
-        component1:{label:"motor",baseCost:3,costWithMaxLab:2},
-        component2:{label:"inerton alloy",baseCost:300,costWithMaxLab:150},
-        description:"all managers second benefits x1.05",
-        prerequisites:"advanced manager training",
-        highestPlanetRequired:"37-Utritis"}),
-
-    new projectCell({
-        area:"Management",
-        label:"advanced manager training",
-        component1:{label:"advanced computer",baseCost:2,costWithMaxLab:1},
-        component2:{label:"advanced battery",baseCost:10,costWithMaxLab:5},
-        description:"all managers second benefits x1.10",
-        prerequisites:"manager training",
-        highestPlanetRequired:"22-Zelene"}),
-
-    new projectCell({
-        area:"Management",
-        label:"advanced contract manager",
-        component1:{label:"advanced computer",baseCost:10,costWithMaxLab:5},
-        component2:{label:"thermal scanner",baseCost:10,costWithMaxLab:5},
-        description:"increases manager slots by 1",
-        prerequisites:"contract manager",
-        highestPlanetRequired:"22-Zelene"}),
-
-    new projectCell({
-        area:"Management",
-        label:"contract manager",
-        component1:{label:"basic computer",baseCost:20,costWithMaxLab:10},
-        component2:{label:"circuit",baseCost:20,costWithMaxLab:10},
-        component3:{label:"titanium bar",baseCost:25,costWithMaxLab:12},
-        description:"increases manager slots by 1",
-        prerequisites:"manager training",
-        highestPlanetRequired:"22-Zelene"}),
-
-    new projectCell({
-        area:"Management",
-        label:"manager training",
-        component1:{label:"laser torch",baseCost:1,costWithMaxLab:1},
-        component2:{label:"steel bar",baseCost:50,costWithMaxLab:25},
-        description:"all managers benefits x1.10",
-        prerequisites:"telescope 6",
-        highestPlanetRequired:"12-Relic"}),
-
-    new projectCell({
-        area:"Management",
-        label:"management",
-        component1:{label:"copper ore",baseCost:400,costWithMaxLab:200},
-        component2:{label:"iron ore",baseCost:50,costWithMaxLab:25},
-        description:"hire and assign managers to planets",
-        prerequisites:" - ",
-        highestPlanetRequired:"2-Drasta"}),
-        
-
-
+        highestPlanetRequired:"64-Hecate"}),
         )
-
-
-projectCells.push( 
-    
-    new projectCell({
-        area:"Alchemy and Logistics",
-        label:"advanced ore targeting",
-        component1:{label:"basic computer",baseCost:100,costWithMaxLab:50},
-        component2:{label:"thermal scanner",baseCost:15,costWithMaxLab:8},
-        description:"prioritized ore on each planet receives +30% yield bonus",
-        comment:"(total will be 130%)",
-        prerequisites:"ore targeting",
-        highestPlanetRequired:"19-Parnitha"}),
-
-    new projectCell({
-        area:"Alchemy and Logistics",
-        label:"ore targeting",
-        component1:{label:"hammer",baseCost:100,costWithMaxLab:50},
-        component2:{label:"battery",baseCost:50,costWithMaxLab:25},
-        description:"prioritized ore on each planet receives +15% yield bonus",
-        comment:"(total will be 115%)",
-        prerequisites:"cargo logistics",
-        highestPlanetRequired:"4-Dolen"}),
-        
-    new projectCell({
-        area:"Alchemy and Logistics",
-        label:"cargo logistics",
-        component1:{label:"aluminium bar",baseCost:10,costWithMaxLab:5},
-        component2:{label:"circuit",baseCost:3,costWithMaxLab:2},
-        description:"ability to prioritize which ore to pick up first",
-        comment:"even if it isn't the most valuable",
-        prerequisites:"telescope 4",
-        highestPlanetRequired:"9-Yangtze"}),
-
-    new projectCell({
-        area:"Alchemy and Logistics",
-        label:"superior alchemy",
-        component1:{label:"palladium bar",baseCost:400,costWithMaxLab:200},
-        component2:{label:"osmium bar",baseCost:200,costWithMaxLab:100},
-        component3:{label:"advanced computer",baseCost:5,costWithMaxLab:2},
-        description:"convert an ore on a planet to an ore worth 3 levels higher ",
-        prerequisites:"advanced alchemy",
-        highestPlanetRequired:"31-Vular"}),
-                    
-    new projectCell({
-        area:"Alchemy and Logistics",
-        label:"advanced alchemy",
-        component1:{label:"silver ore",baseCost:"50k",costWithMaxLab:"25k"},
-        component2:{label:"basic computer",baseCost:6,costWithMaxLab:3},
-        component3:{label:"titanium ore",baseCost:"25k",costWithMaxLab:"12.5k"},
-        description:"convert an ore on a planet to an ore worth 2 levels higher ",
-        prerequisites:"alchemy",
-        highestPlanetRequired:"22-Zelene"}),
-
-    new projectCell({
-        area:"Alchemy and Logistics",
-        label:"alchemy",
-        component1:{label:"gold bar",baseCost:50,costWithMaxLab:25},
-        component2:{label:"lens",baseCost:6,costWithMaxLab:3},
-        description:"convert an ore on a planet to an ore worth 1 levels higher ",
-        prerequisites:"cargo logistics",
-        highestPlanetRequired:"14-Batalla"}),
-                    
-    new projectCell({
-        area:"Alchemy and Logistics",
-        label:"bottleneck optimizations",
-        component1:{label:"titanium bar",baseCost:5,costWithMaxLab:2},
-        component2:{label:"platinum bar",baseCost:25,costWithMaxLab:12},
-        component3:{label:"steel bar",baseCost:50,costWithMaxLab:25},
-        description:"adds visual clue to planet upgrades to show what",
-        comment:"upgrade is bottlenecking production",
-        prerequisites:"resource details",
-        highestPlanetRequired:"22-Zelene"}),
-
-    new projectCell({
-        area:"Alchemy and Logistics",
-        label:"resource details",
-        component1:{label:"battery",baseCost:3,costWithMaxLab:2},
-        description:"adds a detail panel with resource stats",
-        comment:"accessed from resource panel",
-        prerequisites:"telescope 2",
-        highestPlanetRequired:"1-Balor"}),
-                    
-    new projectCell({
-        area:"Alchemy and Logistics",
-        label:"beacon",
-        component1:{label:"iron bar",baseCost:15,costWithMaxLab:8},
-        description:"constructs a beacon providing bonuses to planet clusters",
-        prerequisites:"telescope 1",
-        highestPlanetRequired:"2-Drasta"}),
-
-    new projectCell({
-        area:"Alchemy and Logistics",
-        label:"superior thrusters",
-        component1:{label:"advanced battery",baseCost:4,costWithMaxLab:2},
-        description:"all ship speed x1.25",
-        prerequisites:"superior mining",
-        highestPlanetRequired:"4-Dholen"}),
-
-    new projectCell({
-        area:"Alchemy and Logistics",
-        label:"advanced thrusters",
-        component1:{label:"glass",baseCost:2,costWithMaxLab:1},
-        component2:{label:"gold bar",baseCost:10,costWithMaxLab:5},
-        description:"all ship speed x1.25",
-        prerequisites:"advanced mining",
-        highestPlanetRequired:"14-Batalla"}),
-        
-    new projectCell({
-        area:"Alchemy and Logistics",
-        label:"superior mining",
-        component1:{label:"laser torch",baseCost:10,costWithMaxLab:5},
-        component2:{label:"platinum bar",baseCost:25,costWithMaxLab:12},
-        description:"all planet mine rates x1.25",
-        prerequisites:"advanced thrusters OR advanced cargo handling",
-        highestPlanetRequired:"19-Parnitha"}),
-        
-    new projectCell({
-        area:"Alchemy and Logistics",
-        label:"superior cargo handling",
-        component1:{label:"titanium bar",baseCost:50,costWithMaxLab:25},
-        description:"all ship cargo x1.25",
-        prerequisites:"superior mining",
-        highestPlanetRequired:"22-Zelene"}),
-        
-    new projectCell({
-        area:"Alchemy and Logistics",
-        label:"advanced cargo handling",
-        component1:{label:"hammer",baseCost:5,costWithMaxLab:2},
-        component2:{label:"silver bar",baseCost:25,costWithMaxLab:12},
-        description:"all ship cargo x1.25",
-        prerequisites:"advanced mining",
-        highestPlanetRequired:"12-Relic"}),
-        
-    new projectCell({
-        area:"Alchemy and Logistics",
-        label:"advanced mining",
-        component1:{label:"battery",baseCost:5,costWithMaxLab:2},
-        component2:{label:"aluminium bar",baseCost:20,costWithMaxLab:10},
-        description:"all planet mine rates x1.25",
-        prerequisites:"rover",
-        highestPlanetRequired:"9-Yangtze"}),      
-    
-        )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-projectCells.push( new projectCell({
-    label:"rover",
-    component1:{label:"copper wire",baseCost:10,costWithMaxLab:5},
-    description:"ability to scan planets for valuable items",
-    comment:"(unlock access to rover[s])",
-    prerequisites:"asteroid miner",
-    highestPlanetRequired:"1-Balor"
-}))
-
-projectCells.push( new projectCell({
-    label:"asteroid miner",
-    component1:{label:"copper ore",baseCost:400,costWithMaxLab:200},
-    component2:{label:"iron ore",baseCost:100,costWithMaxLab:50},
-    description:"ability to mine asteroids for ore",
-    prerequisites:" - ",
-    highestPlanetRequired:"2-Drasta"
-}))
-
-
-
-
-
-
-
-
-
 
 projectCells.push( 
 
@@ -698,16 +393,6 @@ projectCells.push(
         
     new projectCell({
         area:"Production",
-        label:"superior furnace",
-        component1:{label:"iridium bar",baseCost:5,costWithMaxLab:2},
-        component2:{label:"titanium bar",baseCost:20,costWithMaxLab:10},
-        component3:{label:"platinum bar",baseCost:50,costWithMaxLab:25},
-        description:"all smelters speed x1.20",
-        prerequisites:"smelting efficiency OR advanced alloy value",
-        highestPlanetRequired:"25-Osun"}),
-
-    new projectCell({
-        area:"Production",
         label:"advanced alloy value",
         component1:{label:"circuit",baseCost:3,costWithMaxLab:2},
         component2:{label:"silver bar",baseCost:10,costWithMaxLab:5},
@@ -723,6 +408,17 @@ projectCells.push(
         description:"a x1.20 increase to all alloys value",
         prerequisites:"advanced alloy value",
         highestPlanetRequired:"17-Castellus"}),
+    
+    new projectCell({
+        area:"Production",
+        label:"superior furnace",
+        component1:{label:"iridium bar",baseCost:5,costWithMaxLab:2},
+        component2:{label:"titanium bar",baseCost:20,costWithMaxLab:10},
+        component3:{label:"platinum bar",baseCost:50,costWithMaxLab:25},
+        description:"all smelters speed x1.20",
+        prerequisites:"smelting efficiency OR advanced alloy value",
+        highestPlanetRequired:"25-Osun"}),
+
 
     new projectCell({
         area:"Production",
@@ -817,17 +513,7 @@ projectCells.push(
         description:"decreases ingredients required by 20% for all crafters",
         prerequisites:"advanced crafter",
         highestPlanetRequired:"9-Yangtze"}),
-                
-    new projectCell({
-        area:"Production",
-        label:"superior crafting",
-        component1:{label:"thermal scanner",baseCost:2,costWithMaxLab:1},
-        component2:{label:"advanced battery",baseCost:10,costWithMaxLab:5},
-        component3:{label:"laser torch",baseCost:20,costWithMaxLab:10},
-        description:"all crafters speed x1.20",
-        prerequisites:"crafting efficiency OR advanced item value",
-        highestPlanetRequired:"19-Parnitha"}),
-
+              
     new projectCell({
         area:"Production",
         label:"advanced item value",
@@ -845,6 +531,16 @@ projectCells.push(
         description:"a x1.20 increase to all items value",
         prerequisites:"advanced item value",
         highestPlanetRequired:"28-Tikkun"}),
+            
+    new projectCell({
+        area:"Production",
+        label:"superior crafting",
+        component1:{label:"thermal scanner",baseCost:2,costWithMaxLab:1},
+        component2:{label:"advanced battery",baseCost:10,costWithMaxLab:5},
+        component3:{label:"laser torch",baseCost:20,costWithMaxLab:10},
+        description:"all crafters speed x1.20",
+        prerequisites:"crafting efficiency OR advanced item value",
+        highestPlanetRequired:"19-Parnitha"}),
         
     new projectCell({
         area:"Production",
@@ -854,17 +550,505 @@ projectCells.push(
         description:"a 10% chance to craft double of an item",
         prerequisites:"advanced item value",
         highestPlanetRequired:"22-Zelene"}),
-    
     )
 
 
+projectCells.push( 
+
+    new projectCell({
+        area:"Alchemy and Logistics",
+        label:"advanced mining",
+        component1:{label:"battery",baseCost:5,costWithMaxLab:2},
+        component2:{label:"aluminium bar",baseCost:20,costWithMaxLab:10},
+        description:"all planet mine rates x1.25",
+        prerequisites:"rover",
+        highestPlanetRequired:"9-Yangtze"}),      
+
+    new projectCell({
+        area:"Alchemy and Logistics",
+        label:"advanced thrusters",
+        component1:{label:"glass",baseCost:2,costWithMaxLab:1},
+        component2:{label:"gold bar",baseCost:10,costWithMaxLab:5},
+        description:"all ship speed x1.25",
+        prerequisites:"advanced mining",
+        highestPlanetRequired:"14-Batalla"}),
+    
+    new projectCell({
+        area:"Alchemy and Logistics",
+        label:"advanced cargo handling",
+        component1:{label:"hammer",baseCost:5,costWithMaxLab:2},
+        component2:{label:"silver bar",baseCost:25,costWithMaxLab:12},
+        description:"all ship cargo x1.25",
+        prerequisites:"advanced mining",
+        highestPlanetRequired:"12-Relic"}),
+    
+    new projectCell({
+        area:"Alchemy and Logistics",
+        label:"superior mining",
+        component1:{label:"laser torch",baseCost:10,costWithMaxLab:5},
+        component2:{label:"platinum bar",baseCost:25,costWithMaxLab:12},
+        description:"all planet mine rates x1.25",
+        prerequisites:"advanced thrusters OR advanced cargo handling",
+        highestPlanetRequired:"19-Parnitha"}),
+    
+    new projectCell({
+        area:"Alchemy and Logistics",
+        label:"superior thrusters",
+        component1:{label:"advanced battery",baseCost:4,costWithMaxLab:2},
+        description:"all ship speed x1.25",
+        prerequisites:"superior mining",
+        highestPlanetRequired:"4-Dholen"}),
+
+    new projectCell({
+        area:"Alchemy and Logistics",
+        label:"superior cargo handling",
+        component1:{label:"titanium bar",baseCost:50,costWithMaxLab:25},
+        description:"all ship cargo x1.25",
+        prerequisites:"superior mining",
+        highestPlanetRequired:"22-Zelene"}),
+
+    new projectCell({
+        area:"Alchemy and Logistics",
+        label:"beacon",
+        component1:{label:"iron bar",baseCost:15,costWithMaxLab:8},
+        description:"constructs a beacon providing bonuses to planet clusters",
+        prerequisites:"telescope 1",
+        highestPlanetRequired:"2-Drasta"}),
+        
+    new projectCell({
+        area:"Alchemy and Logistics",
+        label:"resource details",
+        component1:{label:"battery",baseCost:3,costWithMaxLab:2},
+        description:"adds a detail panel with resource stats",
+        comment:"accessed from resource panel",
+        prerequisites:"telescope 2",
+        highestPlanetRequired:"1-Balor"}),
+    
+    new projectCell({
+        area:"Alchemy and Logistics",
+        label:"bottleneck optimizations",
+        component1:{label:"titanium bar",baseCost:5,costWithMaxLab:2},
+        component2:{label:"platinum bar",baseCost:25,costWithMaxLab:12},
+        component3:{label:"steel bar",baseCost:50,costWithMaxLab:25},
+        description:"adds visual clue to planet upgrades to show what",
+        comment:"upgrade is bottlenecking production",
+        prerequisites:"resource details",
+        highestPlanetRequired:"22-Zelene"}),
+    
+    new projectCell({
+        area:"Alchemy and Logistics",
+        label:"alchemy",
+        component1:{label:"gold bar",baseCost:50,costWithMaxLab:25},
+        component2:{label:"lens",baseCost:6,costWithMaxLab:3},
+        description:"convert an ore on a planet to an ore worth 1 levels higher ",
+        prerequisites:"cargo logistics",
+        highestPlanetRequired:"14-Batalla"}),
+    
+    new projectCell({
+        area:"Alchemy and Logistics",
+        label:"advanced alchemy",
+        component1:{label:"silver ore",baseCost:"50k",costWithMaxLab:"25k"},
+        component2:{label:"basic computer",baseCost:6,costWithMaxLab:3},
+        component3:{label:"titanium ore",baseCost:"25k",costWithMaxLab:"12.5k"},
+        description:"convert an ore on a planet to an ore worth 2 levels higher ",
+        prerequisites:"alchemy",
+        highestPlanetRequired:"22-Zelene"}),
+    
+    new projectCell({
+        area:"Alchemy and Logistics",
+        label:"superior alchemy",
+        component1:{label:"palladium bar",baseCost:400,costWithMaxLab:200},
+        component2:{label:"osmium bar",baseCost:200,costWithMaxLab:100},
+        component3:{label:"advanced computer",baseCost:5,costWithMaxLab:2},
+        description:"convert an ore on a planet to an ore worth 3 levels higher ",
+        prerequisites:"advanced alchemy",
+        highestPlanetRequired:"31-Vular"}),
+    
+    new projectCell({
+        area:"Alchemy and Logistics",
+        label:"cargo logistics",
+        component1:{label:"aluminium bar",baseCost:10,costWithMaxLab:5},
+        component2:{label:"circuit",baseCost:3,costWithMaxLab:2},
+        description:"ability to prioritize which ore to pick up first",
+        comment:"even if it isn't the most valuable",
+        prerequisites:"telescope 4",
+        highestPlanetRequired:"9-Yangtze"}),
+    
+    new projectCell({
+        area:"Alchemy and Logistics",
+        label:"ore targeting",
+        component1:{label:"hammer",baseCost:100,costWithMaxLab:50},
+        component2:{label:"battery",baseCost:50,costWithMaxLab:25},
+        description:"prioritized ore on each planet receives +15% yield bonus",
+        comment:"(total will be 115%)",
+        prerequisites:"cargo logistics",
+        highestPlanetRequired:"4-Dolen"}),
+    
+    new projectCell({
+        area:"Alchemy and Logistics",
+        label:"advanced ore targeting",
+        component1:{label:"basic computer",baseCost:100,costWithMaxLab:50},
+        component2:{label:"thermal scanner",baseCost:15,costWithMaxLab:8},
+        description:"prioritized ore on each planet receives +30% yield bonus",
+        comment:"(total will be 130%)",
+        prerequisites:"ore targeting",
+        highestPlanetRequired:"19-Parnitha"}),
+    
+        )
 
 
+projectCells.push( 
+
+    new projectCell({
+        area:"Management",
+        label:"management",
+        component1:{label:"copper ore",baseCost:400,costWithMaxLab:200},
+        component2:{label:"iron ore",baseCost:50,costWithMaxLab:25},
+        description:"hire and assign managers to planets",
+        prerequisites:" - ",
+        highestPlanetRequired:"2-Drasta"}),
+
+    new projectCell({
+        area:"Management",
+        label:"manager training",
+        component1:{label:"laser torch",baseCost:1,costWithMaxLab:1},
+        component2:{label:"steel bar",baseCost:50,costWithMaxLab:25},
+        description:"all managers benefits x1.10",
+        prerequisites:"telescope 6",
+        highestPlanetRequired:"12-Relic"}),
+    
+    new projectCell({
+        area:"Management",
+        label:"contract manager",
+        component1:{label:"basic computer",baseCost:20,costWithMaxLab:10},
+        component2:{label:"circuit",baseCost:20,costWithMaxLab:10},
+        component3:{label:"titanium bar",baseCost:25,costWithMaxLab:12},
+        description:"increases manager slots by 1",
+        prerequisites:"manager training",
+        highestPlanetRequired:"22-Zelene"}),
+    
+    new projectCell({
+        area:"Management",
+        label:"advanced contract manager",
+        component1:{label:"advanced computer",baseCost:10,costWithMaxLab:5},
+        component2:{label:"thermal scanner",baseCost:10,costWithMaxLab:5},
+        description:"increases manager slots by 1",
+        prerequisites:"contract manager",
+        highestPlanetRequired:"22-Zelene"}),
+    
+    new projectCell({
+        area:"Management",
+        label:"advanced manager training",
+        component1:{label:"advanced computer",baseCost:2,costWithMaxLab:1},
+        component2:{label:"advanced battery",baseCost:10,costWithMaxLab:5},
+        description:"all managers second benefits x1.10",
+        prerequisites:"manager training",
+        highestPlanetRequired:"22-Zelene"}),
+    
+    new projectCell({
+        area:"Management",
+        label:"specialist university",
+        component1:{label:"motor",baseCost:3,costWithMaxLab:2},
+        component2:{label:"inerton alloy",baseCost:300,costWithMaxLab:150},
+        description:"all managers second benefits x1.05",
+        prerequisites:"advanced manager training",
+        highestPlanetRequired:"37-Utritis"}),
+    
+    new projectCell({
+        area:"Management",
+        label:"advanced specialist university",
+        component1:{label:"accumulator",baseCost:2,costWithMaxLab:1},
+        component2:{label:"scrith alloy",baseCost:100,costWithMaxLab:50},
+        description:"all managers second benefits x1.05",
+        prerequisites:"specialist university",
+        highestPlanetRequired:"43-Daedalus"}),
+    
+    new projectCell({
+        area:"Management",
+        label:"superior specialist university",
+        component1:{label:"viterium alloy",baseCost:800,costWithMaxLab:400},
+        description:"all managers second benefits x1.05",
+        prerequisites:"advanced specialist university",
+        highestPlanetRequired:"55-Zumbia"}),
+    
+    new projectCell({
+        area:"Management",
+        label:"superior manager training",
+        component1:{label:"rhodium bar",baseCost:200,costWithMaxLab:100},
+        description:"all managers benefits x1.10",
+        prerequisites:"advanced manager training",
+        highestPlanetRequired:"34-Rupert"}),
+    
+    new projectCell({
+        area:"Management",
+        label:"leader",
+        component1:{label:"navigation module",baseCost:5,costWithMaxLab:2},
+        component2:{label:"rhodium bar",baseCost:60,costWithMaxLab:30},
+        description:"ability to elect a leader among managers.All leader bonuses x2",
+        prerequisites:"advanced manager training",
+        highestPlanetRequired:"34-Rupert"}),
+    
+    new projectCell({
+        area:"Management",
+        label:"advanced leader",
+        component1:{label:"motor",baseCost:10,costWithMaxLab:5},
+        component2:{label:"telescope",baseCost:10,costWithMaxLab:5},
+        component3:{label:"scrith alloy",baseCost:200,costWithMaxLab:100},
+        description:"all leader bonuses x3",
+        prerequisites:"leader",
+        highestPlanetRequired:"43-Daedalus"}),
+    
+    new projectCell({
+        area:"Management",
+        label:"senior leader",
+        component1:{label:"robot",baseCost:10,costWithMaxLab:5},
+        description:"ability to elect a 2nd leader among 5+ stars managers",
+        prerequisites:"advanced leader",
+        highestPlanetRequired:"43-Daedalus"}),
+    
+    new projectCell({
+        area:"Management",
+        label:"superior leader",
+        component1:{label:"collider",baseCost:50,costWithMaxLab:25},
+        component2:{label:"gravity chamber",baseCost:20,costWithMaxLab:10},
+        component3:{label:"quolium alloy",baseCost:200,costWithMaxLab:100},
+        description:"all leader bonuses x4",
+        prerequisites:"senior leader",
+        highestPlanetRequired:"61-Bob"}),
+
+        )
 
 
+projectCells.push( 
 
+    new projectCell({
+        area:"Rover, Asteroids and Marketing ",
+        label:"rover",
+        component1:{label:"copper wire",baseCost:10,costWithMaxLab:5},
+        description:"ability to scan planets for valuable items",
+        comment:"(unlock access to rover[s])",
+        prerequisites:"asteroid miner",
+        highestPlanetRequired:"1-Balor"}),
+        
+    new projectCell({
+        area:"Rover, Asteroids and Marketing ",
+        label:"rover advanced logistics",
+        component1:{label:"bronze bar",baseCost:20,costWithMaxLab:10},
+        component2:{label:"battery",baseCost:20,costWithMaxLab:10},
+        component3:{label:"lens",baseCost:10,costWithMaxLab:5},
+        description:"unlocks an additional mission choice for new scans",
+        prerequisites:"telescope 5",
+        highestPlanetRequired:"12-Relic"}),
 
+    new projectCell({
+        area:"Rover, Asteroids and Marketing ",
+        label:"rover resupply",
+        component1:{label:"solar panel",baseCost:1,costWithMaxLab:1},
+        component2:{label:"laser torch",baseCost:1,costWithMaxLab:1},
+        component3:{label:"platinum bar",baseCost:6,costWithMaxLab:3},
+        description:"planet being scanned by a rover receive a x2.5 bonus",
+        comment:"(mine, speed and cargo)",
+        prerequisites:"rover advanced logistics",
+        highestPlanetRequired:"19-Parnitha"}),
 
+    new projectCell({
+        area:"Rover, Asteroids and Marketing ",
+        label:"advanced rover resupply",
+        component1:{label:"advanced battery",baseCost:10,costWithMaxLab:5},
+        component2:{label:"plasma torch",baseCost:6,costWithMaxLab:3},
+        component3:{label:"rhodium bar",baseCost:25,costWithMaxLab:12},
+        description:"planet being scanned by a rover receive a x5 bonus",
+        comment:"(instead of a x2.5)",
+        prerequisites:"rover resupply",
+        highestPlanetRequired:"34-Rupert"}),
+
+    new projectCell({
+        area:"Rover, Asteroids and Marketing ",
+        label:"rover scanning module",
+        component1:{label:"aluminium bar",baseCost:100,costWithMaxLab:50},
+        component2:{label:"basic computer",baseCost:1,costWithMaxLab:1},
+        description:"+5% chance of rovers finding all rewards",
+        prerequisites:"rover advanced logistics",
+        highestPlanetRequired:"12-Relic"}),
+
+    new projectCell({
+        area:"Rover, Asteroids and Marketing ",
+        label:"asteroid miner",
+        component1:{label:"copper ore",baseCost:400,costWithMaxLab:200},
+        component2:{label:"iron ore",baseCost:100,costWithMaxLab:50},
+        description:"ability to mine asteroids for ore",
+        prerequisites:" - ",
+        highestPlanetRequired:"2-Drasta"}),
+
+    new projectCell({
+        area:"Rover, Asteroids and Marketing ",
+        label:"asteroid refined drilling",
+        component1:{label:"silicon bar",baseCost:40,costWithMaxLab:20},
+        component2:{label:"lead bar",baseCost:80,costWithMaxLab:40},
+        description:"10% of an asteroid containing 20x normal value worth of alloy",
+        prerequisites:"telescope 3",
+        highestPlanetRequired:"7-Widow"}),
+
+    new projectCell({
+        area:"Rover, Asteroids and Marketing ",
+        label:"asteroid harvester",
+        component1:{label:"iron bar",baseCost:400,costWithMaxLab:200},
+        component2:{label:"circuit",baseCost:5,costWithMaxLab:2},
+        description:"all asteroid value x1.3",
+        prerequisites:"asteroid refined drilling",
+        highestPlanetRequired:"9-Yangtze"}),
+
+    new projectCell({
+        area:"Rover, Asteroids and Marketing ",
+        label:"advanced asteroid harvester",
+        component1:{label:"space probe",baseCost:1,costWithMaxLab:1},
+        component2:{label:"plasma torch",baseCost:50,costWithMaxLab:25},
+        description:"all asteroid value x1.3",
+        comment:"(multiplicative with asteroid harvester)",
+        prerequisites:"asteroid harvester",
+        highestPlanetRequired:"28-Tikkun"}),
+
+    new projectCell({
+        area:"Rover, Asteroids and Marketing ",
+        label:"superior asteroid harvester",
+        component1:{label:"nuclear reactor",baseCost:10,costWithMaxLab:5},
+        component2:{label:"scrith alloy",baseCost:300,costWithMaxLab:150},
+        component3:{label:"inerton alloy",baseCost:600,costWithMaxLab:300},
+        description:"all asteroid value x1.3",
+        comment:"(multiplicative with both other harvester upgrades)",
+        prerequisites:"advanced asteroid harvester",
+        highestPlanetRequired:"43-Daedalus"}),
+
+    new projectCell({
+        area:"Rover, Asteroids and Marketing ",
+        label:"debris scanner",
+        component1:{label:"collider",baseCost:1,costWithMaxLab:1},
+        component2:{label:"gravity chamber",baseCost:8,costWithMaxLab:4},
+        description:"allow discovery of debris fields providing valuable items",
+        comment:"[frequency fixed, roughly 22mn]",
+        prerequisites:"advanced asteroid harvester",
+        highestPlanetRequired:"40-Unicae"}),
+
+    new projectCell({
+        area:"Rover, Asteroids and Marketing ",
+        label:"debris harvester",
+        component1:{label:"uru alloy",baseCost:250,costWithMaxLab:125},
+        component2:{label:"quadium alloy",baseCost:"1.2k",costWithMaxLab:600},
+        description:"all debris value x1.3",
+        prerequisites:"debris scanner",
+        highestPlanetRequired:"46-Sotomi"}),
+
+    new projectCell({
+        area:"Rover, Asteroids and Marketing ",
+        label:"advanced debris harvester",
+        component1:{label:"vibranium alloy",baseCost:250,costWithMaxLab:125},
+        component2:{label:"scrith alloy",baseCost:"1.2k",costWithMaxLab:600},
+        description:"all debris value x1.3",
+        comment:"(multiplicative with previous upgrade)",
+        prerequisites:"debris harvester",
+        highestPlanetRequired:"49-Arabis"}),
+
+    new projectCell({
+        area:"Rover, Asteroids and Marketing ",
+        label:"superior debris harvester",
+        component1:{label:"viterium alloy",baseCost:300,costWithMaxLab:150},
+        component2:{label:"aether alloy",baseCost:"1.4k",costWithMaxLab:700},
+        description:"all debris value x1.3",
+        comment:"(multiplicative with previous upgrade)",
+        prerequisites:"advanced debris harvester",
+        highestPlanetRequired:"55-Zumbia"}),
+
+    new projectCell({
+        area:"Rover, Asteroids and Marketing ",
+        label:"asteroid auto miner",
+        component1:{label:"advanced computer",baseCost:20,costWithMaxLab:10},
+        component2:{label:"solar panel",baseCost:100,costWithMaxLab:50},
+        description:"automatically mine asteroids <br>(& debris) even when idle",
+        comment:"(if debris unlocked will also work)",
+        prerequisites:"asteroid harvester",
+        comment:"[asteroid base frequency 10mn]",
+        highestPlanetRequired:"22-Zelene"}),
+
+    new projectCell({
+        area:"Rover, Asteroids and Marketing ",
+        label:"asteroid scanner",
+        component1:{label:"thermal scanner",baseCost:30,costWithMaxLab:15},
+        component2:{label:"navigation module",baseCost:5,costWithMaxLab:2},
+        description:"frequency of asteroids increased by 30%",
+        comment:"[new asteroid frequency 7mn]",
+        prerequisites:"asteroid harvester",
+        highestPlanetRequired:"19-Parnitha"}),
+
+    new projectCell({
+        area:"Rover, Asteroids and Marketing ",
+        label:"advanced asteroid scanner",
+        component1:{label:"telescope",baseCost:150,costWithMaxLab:75},
+        description:"frequency of asteroids increased by another 30%",
+        comment:"[new asteroid frequency 5mn]",
+        prerequisites:"asteroid scanner",
+        highestPlanetRequired:"22-Zelene"}),
+
+    new projectCell({
+        area:"Rover, Asteroids and Marketing ",
+        label:"market insight",
+        component1:{label:"silver bar",baseCost:20,costWithMaxLab:10},
+        component2:{label:"hammer",baseCost:10,costWithMaxLab:5},
+        description:"ability to forecast upcoming market changes",
+        prerequisites:"telescope 4",
+        highestPlanetRequired:"12-Relic"}),
+
+    new projectCell({
+        area:"Rover, Asteroids and Marketing ",
+        label:"inside trader",
+        component1:{label:"steel bar",baseCost:25,costWithMaxLab:12},
+        component2:{label:"lens",baseCost:10,costWithMaxLab:5},
+        description:"a +15% chance of positive market fluctuations",
+        comment:"(on all future changes)",
+        prerequisites:"market insight",
+        highestPlanetRequired:"12-Relic"}),
+
+    new projectCell({
+        area:"Rover, Asteroids and Marketing ",
+        label:"market manipulation",
+        component1:{label:"gold bar",baseCost:"15k",costWithMaxLab:"7.5k"},
+        component2:{label:"diamond",baseCost:"30k",costWithMaxLab:"15k"},
+        component3:{label:"basic computer",baseCost:10,costWithMaxLab:5},
+        description:"chance of a 4x positive market",
+        prerequisites:"inside trader",
+        highestPlanetRequired:"17-Castellus"}),
+
+    new projectCell({
+        area:"Rover, Asteroids and Marketing ",
+        label:"advanced market manipulation",
+        component1:{label:"telescope",baseCost:5,costWithMaxLab:2},
+        component2:{label:"advanced computer",baseCost:10,costWithMaxLab:5},
+        component3:{label:"quadium alloy",baseCost:100,costWithMaxLab:50},
+        description:"chance of a 5x positive market",
+        prerequisites:"market manipulation",
+        highestPlanetRequired:"40-Unicae"}),
+
+    new projectCell({
+        area:"Rover, Asteroids and Marketing ",
+        label:"market accelerator",
+        component1:{label:"motor",baseCost:1,costWithMaxLab:1},
+        component2:{label:"iridium bar",baseCost:400,costWithMaxLab:200},
+        description:"ability to replace the current market with the following one",
+        comment:"(cool down 8H)",
+        prerequisites:"inside trader",
+        highestPlanetRequired:"25-Osun"}),
+
+    new projectCell({
+        area:"Rover, Asteroids and Marketing ",
+        label:"advanced market accelerator",
+        component1:{label:"gravity chamber",baseCost:1,costWithMaxLab:1},
+        component2:{label:"inerton alloy",baseCost:115,costWithMaxLab:58},
+        description:"ability to replace the current market with the following one again",
+        comment:"(cool down 8H)",
+        prerequisites:"market accelerator",
+        highestPlanetRequired:"37-Utritis"}),
+  
+)
+    
 
 projectCells.push( 
 
@@ -985,228 +1169,6 @@ projectCells.push(
         highestPlanetRequired:"28-Tikkun"}),
     
 )
-
-
-projectCells.push( 
-
-    new projectCell({
-        area:"Asteroids, Rover & Marketing ",
-        label:"asteroid refined drilling",
-        component1:{label:"silicon bar",baseCost:40,costWithMaxLab:20},
-        component2:{label:"lead bar",baseCost:80,costWithMaxLab:40},
-        description:"10% of an asteroid containing 20x normal value worth of alloy",
-        prerequisites:"telescope 3",
-        highestPlanetRequired:"7-Widow"}),
-
-    new projectCell({
-        area:"Asteroids, Rover & Marketing ",
-        label:"asteroid harvester",
-        component1:{label:"iron bar",baseCost:400,costWithMaxLab:200},
-        component2:{label:"circuit",baseCost:5,costWithMaxLab:2},
-        description:"all asteroid value x1.3",
-        prerequisites:"asteroid refined drilling",
-        highestPlanetRequired:"9-Yangtze"}),
-
-    new projectCell({
-        area:"Asteroids, Rover & Marketing ",
-        label:"advanced asteroid harvester",
-        component1:{label:"space probe",baseCost:1,costWithMaxLab:1},
-        component2:{label:"plasma torch",baseCost:50,costWithMaxLab:25},
-        description:"all asteroid value x1.3",
-        comment:"(multiplicative with asteroid harvester)",
-        prerequisites:"asteroid harvester",
-        highestPlanetRequired:"28-Tikkun"}),
-
-    new projectCell({
-        area:"Asteroids, Rover & Marketing ",
-        label:"superior asteroid harvester",
-        component1:{label:"nuclear reactor",baseCost:10,costWithMaxLab:5},
-        component2:{label:"scrith alloy",baseCost:300,costWithMaxLab:150},
-        component3:{label:"inerton alloy",baseCost:600,costWithMaxLab:300},
-        description:"all asteroid value x1.3",
-        comment:"(multiplicative with both other harvester upgrades)",
-        prerequisites:"advanced asteroid harvester",
-        highestPlanetRequired:"43-Daedalus"}),
-
-    new projectCell({
-        area:"Asteroids, Rover & Marketing ",
-        label:"debris scanner",
-        component1:{label:"collider",baseCost:1,costWithMaxLab:1},
-        component2:{label:"gravity chamber",baseCost:8,costWithMaxLab:4},
-        description:"allow discovery of debris fields providing valuable items",
-        comment:"[frequency fixed, roughly 22mn]",
-        prerequisites:"advanced asteroid harvester",
-        highestPlanetRequired:"40-Unicae"}),
-
-    new projectCell({
-        area:"Asteroids, Rover & Marketing ",
-        label:"debris harvester",
-        component1:{label:"uru alloy",baseCost:250,costWithMaxLab:125},
-        component2:{label:"quadium alloy",baseCost:"1.2k",costWithMaxLab:600},
-        description:"all debris value x1.3",
-        prerequisites:"debris scanner",
-        highestPlanetRequired:"46-Sotomi"}),
-
-    new projectCell({
-        area:"Asteroids, Rover & Marketing ",
-        label:"advanced debris harvester",
-        component1:{label:"vibranium alloy",baseCost:250,costWithMaxLab:125},
-        component2:{label:"scrith alloy",baseCost:"1.2k",costWithMaxLab:600},
-        description:"all debris value x1.3",
-        comment:"(multiplicative with previous upgrade)",
-        prerequisites:"debris harvester",
-        highestPlanetRequired:"49-Arabis"}),
-
-    new projectCell({
-        area:"Asteroids, Rover & Marketing ",
-        label:"superior debris harvester",
-        component1:{label:"viterium alloy",baseCost:300,costWithMaxLab:150},
-        component2:{label:"aether alloy",baseCost:"1.4k",costWithMaxLab:700},
-        description:"all debris value x1.3",
-        comment:"(multiplicative with previous upgrade)",
-        prerequisites:"advanced debris harvester",
-        highestPlanetRequired:"55-Zumbia"}),
-
-    new projectCell({
-        area:"Asteroids, Rover & Marketing ",
-        label:"asteroid auto miner",
-        component1:{label:"advanced computer",baseCost:20,costWithMaxLab:10},
-        component2:{label:"solar panel",baseCost:100,costWithMaxLab:50},
-        description:"automatically mine asteroids <br>(& debris) even when idle",
-        comment:"(if debris unlocked will also work)",
-        prerequisites:"asteroid harvester",
-        comment:"[asteroid base frequency 10mn]",
-        highestPlanetRequired:"22-Zelene"}),
-
-    new projectCell({
-        area:"Asteroids, Rover & Marketing ",
-        label:"asteroid scanner",
-        component1:{label:"thermal scanner",baseCost:30,costWithMaxLab:15},
-        component2:{label:"navigation module",baseCost:5,costWithMaxLab:2},
-        description:"frequency of asteroids increased by 30%",
-        comment:"[new asteroid frequency 7mn]",
-        prerequisites:"asteroid harvester",
-        highestPlanetRequired:"19-Parnitha"}),
-
-    new projectCell({
-        area:"Asteroids, Rover & Marketing ",
-        label:"advanced asteroid scanner",
-        component1:{label:"telescope",baseCost:150,costWithMaxLab:75},
-        description:"frequency of asteroids increased by another 30%",
-        comment:"[new asteroid frequency 5mn]",
-        prerequisites:"asteroid scanner",
-        highestPlanetRequired:"22-Zelene"}),
-
-    new projectCell({
-        area:"Asteroids, Rover & Marketing ",
-        label:"market insight",
-        component1:{label:"silver bar",baseCost:20,costWithMaxLab:10},
-        component2:{label:"hammer",baseCost:10,costWithMaxLab:5},
-        description:"ability to forecast upcoming market changes",
-        prerequisites:"telescope 4",
-        highestPlanetRequired:"12-Relic"}),
-
-    new projectCell({
-        area:"Asteroids, Rover & Marketing ",
-        label:"inside trader",
-        component1:{label:"steel bar",baseCost:25,costWithMaxLab:12},
-        component2:{label:"lens",baseCost:10,costWithMaxLab:5},
-        description:"a +15% chance of positive market fluctuations",
-        comment:"(on all future changes)",
-        prerequisites:"market insight",
-        highestPlanetRequired:"12-Relic"}),
-
-    new projectCell({
-        area:"Asteroids, Rover & Marketing ",
-        label:"market manipulation",
-        component1:{label:"gold bar",baseCost:"15k",costWithMaxLab:"7.5k"},
-        component2:{label:"diamond",baseCost:"30k",costWithMaxLab:"15k"},
-        component3:{label:"basic computer",baseCost:10,costWithMaxLab:5},
-        description:"chance of a 4x positive market",
-        prerequisites:"inside trader",
-        highestPlanetRequired:"17-Castellus"}),
-
-    new projectCell({
-        area:"Asteroids, Rover & Marketing ",
-        label:"advanced market manipulation",
-        component1:{label:"telescope",baseCost:5,costWithMaxLab:2},
-        component2:{label:"advanced computer",baseCost:10,costWithMaxLab:5},
-        component3:{label:"quadium alloy",baseCost:100,costWithMaxLab:50},
-        description:"chance of a 5x positive market",
-        prerequisites:"market manipulation",
-        highestPlanetRequired:"40-Unicae"}),
-
-    new projectCell({
-        area:"Asteroids, Rover & Marketing ",
-        label:"rover advanced logistics",
-        component1:{label:"bronze bar",baseCost:20,costWithMaxLab:10},
-        component2:{label:"battery",baseCost:20,costWithMaxLab:10},
-        component3:{label:"lens",baseCost:10,costWithMaxLab:5},
-        description:"unlocks an additional mission choice for new scans",
-        prerequisites:"telescope 5",
-        highestPlanetRequired:"12-Relic"}),
-
-    new projectCell({
-        area:"Asteroids, Rover & Marketing ",
-        label:"rover resupply",
-        component1:{label:"solar panel",baseCost:1,costWithMaxLab:1},
-        component2:{label:"laser torch",baseCost:1,costWithMaxLab:1},
-        component3:{label:"platinum bar",baseCost:6,costWithMaxLab:3},
-        description:"planet being scanned by a rover receive a x2.5 bonus",
-        comment:"(mine, speed and cargo)",
-        prerequisites:"rover advanced logistics",
-        highestPlanetRequired:"19-Parnitha"}),
-
-    new projectCell({
-        area:"Asteroids, Rover & Marketing ",
-        label:"advanced rover resupply",
-        component1:{label:"advanced battery",baseCost:10,costWithMaxLab:5},
-        component2:{label:"plasma torch",baseCost:6,costWithMaxLab:3},
-        component3:{label:"rhodium bar",baseCost:25,costWithMaxLab:12},
-        description:"planet being scanned by a rover receive a x5 bonus",
-        comment:"(instead of a x2.5)",
-        prerequisites:"rover resupply",
-        highestPlanetRequired:"34-Rupert"}),
-
-    new projectCell({
-        area:"Asteroids, Rover & Marketing ",
-        label:"rover scanning module",
-        component1:{label:"aluminium bar",baseCost:100,costWithMaxLab:50},
-        component2:{label:"basic computer",baseCost:1,costWithMaxLab:1},
-        description:"+5% chance of rovers finding all rewards",
-        prerequisites:"rover advanced logistics",
-        highestPlanetRequired:"12-Relic"}),
-
-    new projectCell({
-        area:"Asteroids, Rover & Marketing ",
-        label:"market accelerator",
-        component1:{label:"motor",baseCost:1,costWithMaxLab:1},
-        component2:{label:"iridium bar",baseCost:400,costWithMaxLab:200},
-        description:"ability to replace the current market with the following one",
-        comment:"(cool down 8H)",
-        prerequisites:"inside trader",
-        highestPlanetRequired:"25-Osun"}),
-
-    new projectCell({
-        area:"Asteroids, Rover & Marketing ",
-        label:"advanced market accelerator",
-        component1:{label:"gravity chamber",baseCost:1,costWithMaxLab:1},
-        component2:{label:"inerton alloy",baseCost:115,costWithMaxLab:58},
-        description:"ability to replace the current market with the following one again",
-        comment:"(cool down 8H)",
-        prerequisites:"market accelerator",
-        highestPlanetRequired:"37-Utritis"}),
-
-
-
-)
-
-
-
-
-
-
-
 
 const projectsConnections = []
 
@@ -1344,3 +1306,394 @@ projectsConnections.push(
 {rows:24,cell:10,dir:"dia"},
 {rows:26,cell:10,dir:"dia"},
 {rows:26,cell:8,dir:"dia"}, )
+
+
+function setProjects(){
+    
+    let containerA = AddADiv(right)
+    containerA.style = containerRow
+    containerA.style.paddingLeft = 20 + "px"
+    let containerB = AddADiv(right)
+    containerB.setAttribute("id","containerB")
+        let leftPart = AddADiv(containerA)
+            leftPart.innerHTML = "Tree Display"
+            leftPart.style = `
+            border:white solid 2px;
+            padding:10px;
+            cursor:pointer;
+            background-color:blue;
+            color:white;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            `
+            leftPart.setAttribute("id","toggletree")
+            leftPart.addEventListener("click",function(){
+                cleanParent( document.getElementById("containerB") )
+                document.getElementById("togglelist").style.backgroundColor = "black"
+                document.getElementById("toggletree").style.backgroundColor = "blue" 
+                containerB.style = containerColumn
+                buildProjectsGrid("projects",cellSize,containerB)
+            })
+
+        let rightPart = AddADiv(containerA)
+            rightPart.innerHTML = "List Display"
+            rightPart.style = `
+            border:white solid 2px;
+            padding:10px;
+            cursor:pointer;
+            background-color:black;
+            color:white;
+            border-bottom-right-radius: 20px;
+            border-top-right-radius: 20px;        
+            `
+            rightPart.setAttribute("id","togglelist")
+            rightPart.addEventListener("click",function(){
+                cleanParent( document.getElementById("containerB") )
+                document.getElementById("togglelist").style.backgroundColor = "blue"
+                document.getElementById("toggletree").style.backgroundColor = "black"
+                setProjectsAreas(document.getElementById("containerB"))
+            })
+
+        
+
+}
+
+function setProjectsAreas(container){
+
+    let item = undefined
+
+    container.style = containerRow
+    let containerB1 = AddADiv(container)
+    containerB1.style.marginLeft = 10 + "px"
+    let containerB2 = AddADiv(container)
+    containerB2.setAttribute("id","containerB2")
+    let containerB3 = AddADiv(container)
+    containerB3.setAttribute("id","containerB3")
+
+    let areas = []
+    let found = false
+
+    item = AddADiv(containerB1)
+    item.style = closeButtonStyle
+    item.style.fontSize = 18 + "px"
+    item.innerHTML = "Full List"
+    item.addEventListener("click",clickProjectsAreas)
+
+    
+    for(i=0;i<projectCells.length;i++){
+        found = false
+        for(j=0;j<areas.length;j++){
+            if(areas[j] === projectCells[i].area){found = true}
+        }
+        if(!found){
+            areas.push(projectCells[i].area)
+            item = AddADiv(containerB1)
+            item.style = closeButtonStyle
+            item.style.fontSize = 18 + "px"
+            item.innerHTML = projectCells[i].area
+            item.addEventListener("click",clickProjectsAreas)
+            }
+    }
+
+    item = AddADiv(containerB1)
+    item.style = closeButtonStyle
+    item.style.color = "yellow"
+    item.style.backgroundColor = "#BB482E"
+    item.style.fontSize = 18 + "px"
+    item.innerHTML = "Filtered Private List"
+    item.addEventListener("click",clickProjectsAreas)
+
+}
+
+
+function clickProjectsAreas(e){
+    let container = document.getElementById("containerB2")
+    let listFrame = document.getElementById("containerB3")
+    cleanParent(container)
+    cleanParent(listFrame)
+    container.style.marginLeft = 20 + "px"
+    listFrame.style.marginLeft = 20 + "px"
+    listFrame.style.border = "blue solid 2px"
+    listFrame.style.borderRadius = 20 + "px"
+    listFrame.style.padding = 10 + "px"
+    listFrame.style.fontSize = 18 + "px"
+    let thisText = e.srcElement.innerHTML
+    let thisArray = []
+    let costs = []
+    let thisIdx = 0
+    let subContainer = undefined
+    let item = undefined
+    let img = undefined
+    let focusElement = undefined
+    let projectIcon = ""
+
+    for(i=0;i<projectCells.length;i++){
+        if( thisText === "Full List" || thisText === projectCells[i].area || projectCells[i].selected ){
+            thisArray.push(projectCells[i])
+        }
+    }
+
+
+    for (i=0;i<thisArray.length;i++){
+
+        thisIdx = costs.findIndex(x=> x.label === thisArray[i].component1.label)
+        if (thisIdx === -1)
+            {costs.push({
+            idx : getItemIdx(thisArray[i].component1.label),
+            label : thisArray[i].component1.label,
+            baseCost : formatKMBT(thisArray[i].component1.baseCost,true),
+            minCost : formatKMBT(thisArray[i].component1.costWithMaxLab,true),
+            })}
+        else 
+            {costs[thisIdx].baseCost += formatKMBT(thisArray[i].component1.baseCost,true)
+             costs[thisIdx].minCost += formatKMBT(thisArray[i].component1.costWithMaxLab,true)
+            }
+
+             
+        if(thisArray[i].component2.label !== ""){
+            thisIdx = costs.findIndex(x=> x.label === thisArray[i].component2.label)
+            if (thisIdx === -1)
+                {costs.push({
+                idx : getItemIdx(thisArray[i].component2.label),
+                label : thisArray[i].component2.label,
+                baseCost : formatKMBT(thisArray[i].component2.baseCost,true),
+                minCost : formatKMBT(thisArray[i].component2.costWithMaxLab,true),
+                })}
+            else 
+                {costs[thisIdx].baseCost += formatKMBT(thisArray[i].component2.baseCost,true)
+                 costs[thisIdx].minCost += formatKMBT(thisArray[i].component2.costWithMaxLab,true)
+            }}
+
+        if(thisArray[i].component3.label !== ""){
+            thisIdx = costs.findIndex(x=> x.label === thisArray[i].component3.label)
+            if (thisIdx === -1)
+                {costs.push({
+                idx : getItemIdx(thisArray[i].component3.label),
+                label : thisArray[i].component3.label,
+                baseCost : formatKMBT(thisArray[i].component3.baseCost,true),
+                minCost : formatKMBT(thisArray[i].component3.costWithMaxLab,true),
+                })}
+            else 
+                {costs[thisIdx].baseCost += formatKMBT(thisArray[i].component3.baseCost,true)
+                 costs[thisIdx].minCost += formatKMBT(thisArray[i].component3.costWithMaxLab,true)
+            }}
+
+
+    }
+
+    costs = sortArrayByObjectIdx(costs)
+    let costFrame = AddADiv(container)
+    costFrame.style = containerColumn
+    costFrame.style.fontSize = 18 + "px"
+    costFrame.style.border = "blue solid 2px"
+    costFrame.style.borderRadius = 20 + "px"
+    costFrame.style.padding = 10 + "px"
+        item = AddADiv(costFrame)
+        item.innerHTML = `
+        Global Costs for this List<br>
+        *excluding crafting Subs<br>
+        ( base costs ⇒ <br>
+        costs with max lab )<br>
+        `
+        
+        item = AddADiv(costFrame)
+        item.style.borderBottom = "solid yellow 2px"
+        item.style.margin = "10px 0 10px 0"
+    for (i=0;i<costs.length;i++){
+        subContainer = AddADiv(costFrame)
+        subContainer.style = containerRow
+            img = new Image()
+            img.src = "./IPM Components/" + costs[i].label + ".jpg"
+            subContainer.appendChild(img)
+
+            item = AddADiv(subContainer)
+            item.style.marginLeft = 10 + "px"
+            item.innerHTML = costs[i].baseCost.toLocaleString() + " ⇒ " + costs[i].minCost.toLocaleString()
+
+            item = AddADiv(subContainer)
+            item.style.marginLeft = 10 + "px"
+            item.innerHTML = costs[i].label
+        }
+
+
+    item = AddADiv(listFrame)
+    item.innerHTML = thisText + " (" + thisArray.length + ")"
+
+    for(i=0;i<thisArray.length;i++){
+        item = AddADiv(listFrame)
+        item.style.borderTop = "solid blue 2px"
+        item.style.margin = "10px 0 10px 0"
+    
+        item = AddADiv(listFrame)
+        item.style = closeButtonStyle
+        if(!thisArray[i].selected){
+            item.style.color = "white"
+            item.style.backgroundColor = "black"
+        } else {
+            item.style.color = "yellow"
+            item.style.backgroundColor = "#BB482E"
+        }
+        item.innerHTML = thisArray[i].label
+        item.addEventListener("click",(e)=>{
+            focusElement = projectCells.findIndex(x=> x.label === e.srcElement.innerHTML )
+            focusElement = projectCells[focusElement]
+            if(!focusElement.selected){
+                    e.srcElement.style.color = "yellow"
+                    e.srcElement.style.backgroundColor = "#BB482E"
+                    focusElement.selected = true
+                } else {
+                    e.srcElement.style.color = "white"
+                    e.srcElement.style.backgroundColor = "black"
+                    focusElement.selected = false
+                }})
+
+        subContainer = AddADiv(listFrame)
+        subContainer.style = containerRow
+        subContainer.style.justifyContent = "center"
+
+            if(thisArray[i].label.includes("telescope")){
+                let thisNumber = Number(thisArray[i].label.replace("telescope",""))
+                console.log(thisNumber)
+                if(thisNumber < 9) {projectIcon = "./IPM Projects/telescope1.jpg"}
+                else if(thisNumber > 8 && thisNumber < 13 ) {projectIcon = "./IPM Projects/telescope2.jpg"}
+                else {projectIcon = "./IPM Projects/telescope3.jpg"}
+            } else {
+                projectIcon = "./IPM Projects/" + thisArray[i].label + ".jpg"
+            }
+
+            img = new Image()
+            if(thisArray[i].label.includes("telescope")){
+                img.style.marginLeft = "0"
+            } else {
+                img.style.marginLeft = -40 + "px"
+            }
+            
+            img.src= projectIcon
+            subContainer.appendChild(img)
+
+            item = AddADiv(subContainer)
+            item.style = textStyle
+            item.style.marginLeft = 40 + "px"
+            item.innerHTML = "Member of List : " + thisArray[i].area
+                
+        item = AddADiv(listFrame)
+        item.style = textStyle
+        item.innerHTML = "Description :<br>" + thisArray[i].description
+
+        if(thisArray[i].comment){
+            item = AddADiv(listFrame)
+            item.style = textStyle
+            item.innerHTML = thisArray[i].comment
+        }
+
+        item = AddADiv(listFrame)
+        item.style = textStyle
+        item.innerHTML = "Prerequisites : " + thisArray[i].prerequisites
+
+        item = AddADiv(listFrame)
+        item.style = textStyle
+        item.innerHTML = "Highest planet required : " + thisArray[i].highestPlanetRequired
+
+        item = AddADiv(listFrame)
+        item.style = textStyle
+        item.style.borderBottom = "yellow solid 2px"
+        item.innerHTML = "Base cost ⇒ cost with max lv Lab"
+
+        subContainer = AddADiv(listFrame)
+        subContainer.style = containerRow
+        subContainer.style.marginTop = 10 + "px"
+        subContainer.style.marginLeft = 40 + "px"
+            img = new Image()
+            img.src = "./IPM Components/" + thisArray[i].component1.label + ".jpg"
+            subContainer.appendChild(img)
+
+            item = AddADiv(subContainer)
+            item.style.marginLeft = 10 + "px"
+            item.innerHTML = thisArray[i].component1.baseCost.toLocaleString() + " ⇒ " + thisArray[i].component1.costWithMaxLab.toLocaleString()
+
+            item = AddADiv(subContainer)
+            item.style.marginLeft = 10 + "px"
+            item.innerHTML = thisArray[i].component1.label
+
+        if (thisArray[i].component2.label){
+            subContainer = AddADiv(listFrame)
+            subContainer.style = containerRow
+            subContainer.style.marginTop = 10 + "px"
+            subContainer.style.marginLeft = 40 + "px"
+                img = new Image()
+                img.src = "./IPM Components/" + thisArray[i].component2.label + ".jpg"
+                subContainer.appendChild(img)
+    
+                item = AddADiv(subContainer)
+                item.style.marginLeft = 10 + "px"
+                item.innerHTML = thisArray[i].component2.baseCost.toLocaleString() + " ⇒ " + thisArray[i].component2.costWithMaxLab.toLocaleString()
+    
+                item = AddADiv(subContainer)
+                item.style.marginLeft = 10 + "px"
+                item.innerHTML = thisArray[i].component2.label
+            }
+
+        if (thisArray[i].component3.label){
+            subContainer = AddADiv(listFrame)
+            subContainer.style = containerRow
+            subContainer.style.marginTop = 10 + "px"
+            subContainer.style.marginLeft = 40 + "px"
+                img = new Image()
+                img.src = "./IPM Components/" + thisArray[i].component3.label + ".jpg"
+                subContainer.appendChild(img)
+    
+                item = AddADiv(subContainer)
+                item.style.marginLeft = 10 + "px"
+                item.innerHTML = thisArray[i].component3.baseCost.toLocaleString() + " ⇒ " + thisArray[i].component3.costWithMaxLab.toLocaleString()
+    
+                item = AddADiv(subContainer)
+                item.style.marginLeft = 10 + "px"
+                item.innerHTML = thisArray[i].component3.label
+            }
+
+    }
+
+}
+
+function getItemIdx(itemLabel){
+    let res = -1
+    let ItmIdx = undefined
+    let AddIdx = 0
+    ItmIdx = oresArray.findIndex(x=> x.label === itemLabel)
+
+    if(ItmIdx === -1){
+        AddIdx += oresArray.length
+        ItmIdx = barsArray.findIndex(x=> x.label === itemLabel)
+    }
+
+    if(ItmIdx === -1){
+        AddIdx += barsArray.length
+        ItmIdx = itemsArray.findIndex(x=> x.label === itemLabel)
+    }
+    return (ItmIdx + AddIdx + 1)
+}
+
+function sortArrayByObjectIdx(myArray,ascending = true){
+    let thisArray = []
+    let val = undefined
+    let pass = 0
+
+    while(myArray.length > 0){
+        if (ascending) {val = 1000}
+        else {val = 0 }
+
+        for (bcl = 0;bcl<myArray.length;bcl++){
+            if(ascending){
+                if( val > myArray[bcl].idx )
+                    {val = myArray[bcl].idx ; pass = bcl} 
+                }
+            else {
+                if( val < myArray[bcl].idx )
+                    {val = myArray[bcl].idx ; pass = bcl} 
+            }}
+        
+        thisArray.push(myArray[pass])
+        myArray.splice(pass,1)
+    }
+    return thisArray
+}
