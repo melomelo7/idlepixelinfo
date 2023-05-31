@@ -1316,7 +1316,7 @@ function setProjects(){
     let containerB = AddADiv(right)
     containerB.setAttribute("id","containerB")
         let leftPart = AddADiv(containerA)
-            leftPart.innerHTML = "Tree Display"
+            leftPart.innerHTML = "Display<br>as Tree"
             leftPart.style = `
             border:white solid 2px;
             padding:10px;
@@ -1328,6 +1328,7 @@ function setProjects(){
             `
             leftPart.setAttribute("id","toggletree")
             leftPart.addEventListener("click",function(){
+                projectsListsInfo.innerHTML = ""
                 cleanParent( document.getElementById("containerB") )
                 document.getElementById("togglelist").style.backgroundColor = "black"
                 document.getElementById("toggletree").style.backgroundColor = "blue" 
@@ -1336,7 +1337,7 @@ function setProjects(){
             })
 
         let rightPart = AddADiv(containerA)
-            rightPart.innerHTML = "List Display"
+            rightPart.innerHTML = "Display<br>as List"
             rightPart.style = `
             border:white solid 2px;
             padding:10px;
@@ -1348,13 +1349,25 @@ function setProjects(){
             `
             rightPart.setAttribute("id","togglelist")
             rightPart.addEventListener("click",function(){
+                projectsListsInfo.innerHTML = 
+                `Project Tree as Full List or Filtered ... Special tool here being a Private List you may customize by <br>
+                 clicking on Projects Titles. From whatever list you may Add/Remove and Filter the new batch again.`
                 cleanParent( document.getElementById("containerB") )
                 document.getElementById("togglelist").style.backgroundColor = "blue"
                 document.getElementById("toggletree").style.backgroundColor = "black"
                 setProjectsAreas(document.getElementById("containerB"))
+                console.log("ok")
+                document.getElementById("fullProjects").click()
+            
             })
 
-        
+        let projectsListsInfo = AddADiv(containerA)
+        projectsListsInfo.style.marginLeft = 20 + "px"
+        projectsListsInfo.style.color = "rgb(0,212,250)"
+        projectsListsInfo.style.fontSize = 18 + "px"
+
+
+    buildProjectsGrid("projects",cellSize,containerB)
 
 }
 
@@ -1378,7 +1391,7 @@ function setProjectsAreas(container){
     item.style.fontSize = 18 + "px"
     item.innerHTML = "Full List"
     item.addEventListener("click",clickProjectsAreas)
-
+    item.setAttribute("id","fullProjects")
     
     for(i=0;i<projectCells.length;i++){
         found = false
@@ -1553,7 +1566,6 @@ function clickProjectsAreas(e){
 
             if(thisArray[i].label.includes("telescope")){
                 let thisNumber = Number(thisArray[i].label.replace("telescope",""))
-                console.log(thisNumber)
                 if(thisNumber < 9) {projectIcon = "./IPM Projects/telescope1.jpg"}
                 else if(thisNumber > 8 && thisNumber < 13 ) {projectIcon = "./IPM Projects/telescope2.jpg"}
                 else {projectIcon = "./IPM Projects/telescope3.jpg"}
@@ -1565,7 +1577,7 @@ function clickProjectsAreas(e){
             if(thisArray[i].label.includes("telescope")){
                 img.style.marginLeft = "0"
             } else {
-                img.style.marginLeft = -40 + "px"
+                img.style.marginLeft = -20 + "px"
             }
             
             img.src= projectIcon
