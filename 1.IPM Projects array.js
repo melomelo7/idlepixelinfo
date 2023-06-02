@@ -1594,7 +1594,7 @@ function clickProjectsAreas(e){
                 
         item = AddADiv(listFrame)
         item.style = textStyle
-        item.innerHTML = "Description :<br>" + thisArray[i].description
+        item.innerHTML = "Description : " + thisArray[i].description
 
         if(thisArray[i].comment){
             item = AddADiv(listFrame)
@@ -1619,7 +1619,8 @@ function clickProjectsAreas(e){
         subContainer.style = containerRow
         subContainer.style.marginTop = 10 + "px"
         subContainer.style.marginLeft = 40 + "px"
-            img = new Image()
+        subContainer.style.marginLeft = 140 + "px"
+        img = new Image()
             img.src = "./IPM Components/" + thisArray[i].component1.label + ".jpg"
             subContainer.appendChild(img)
 
@@ -1636,6 +1637,7 @@ function clickProjectsAreas(e){
             subContainer.style = containerRow
             subContainer.style.marginTop = 10 + "px"
             subContainer.style.marginLeft = 40 + "px"
+            subContainer.style.marginLeft = 140 + "px"
                 img = new Image()
                 img.src = "./IPM Components/" + thisArray[i].component2.label + ".jpg"
                 subContainer.appendChild(img)
@@ -1654,6 +1656,7 @@ function clickProjectsAreas(e){
             subContainer.style = containerRow
             subContainer.style.marginTop = 10 + "px"
             subContainer.style.marginLeft = 40 + "px"
+            subContainer.style.marginLeft = 140 + "px"
                 img = new Image()
                 img.src = "./IPM Components/" + thisArray[i].component3.label + ".jpg"
                 subContainer.appendChild(img)
