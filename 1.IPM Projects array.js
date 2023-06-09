@@ -1506,9 +1506,7 @@ function clickProjectsAreas(e){
         item = AddADiv(costFrame)
         item.innerHTML = `
         Global Costs for this List<br>
-        *excluding crafting Subs<br>
-        ( base costs ⇒ <br>
-        costs with max lab )<br>
+        ( base costs ⇒ costs with max lab )<br>
         `
         
         subContainer = AddADiv(costFrame)
@@ -1789,7 +1787,6 @@ function clickProjectsAreas(e){
 }
 
 
-let originzs = 0
 function ProjectsFork(thisArray){
     let mainArray = []
     let subArray = []
