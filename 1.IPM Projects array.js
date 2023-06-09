@@ -1354,8 +1354,9 @@ function setProjects(){
             rightPart.setAttribute("id","togglelist")
             rightPart.addEventListener("click",function(){
                 projectsListsInfo.innerHTML = 
-                `Project Tree as Full List or Filtered ... Special tool here being a Private List you may customize by <br>
-                 clicking on Projects Titles. From whatever list you may Add/Remove and Filter the new batch again.`
+                `Project Tree as Full List or Filtered ... Special tool here being<br>
+                 a Private List you may customize by clicking on Projects Titles.<br>
+                 From whatever list you may Add/Remove and Filter the new batch again.`
                 cleanParent( document.getElementById("containerB") )
                 document.getElementById("togglelist").style.backgroundColor = "blue"
                 document.getElementById("toggletree").style.backgroundColor = "black"
