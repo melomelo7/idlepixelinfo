@@ -31,7 +31,7 @@ addLeftButton({label:"Process",clickFunction:clickProcess})
 
 window.onload = firstContact()
 
-console.log("Last up 06/09 22:20")
+console.log("Last up 06/09 22:40")
 
 let loopfork = 0
 

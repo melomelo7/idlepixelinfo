@@ -1506,8 +1506,8 @@ function clickProjectsAreas(e){
         item = AddADiv(costFrame)
         item.innerHTML = `
         Global Costs for this List<br>
-        [Full costs ⇒ All rooms discounted costs]<br>
-        (Laboratory, Underforge, Dorms)
+        [Full costs ⇒ Rooms/Projects reduced costs]<br>
+        (Lab, Underforge, Dorms,2x Efficiencies)
         `
         
         subContainer = AddADiv(costFrame)
