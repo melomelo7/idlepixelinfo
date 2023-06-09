@@ -49,6 +49,21 @@ class Item {
 
 }
 
+function getItem(itemName){
+    let lookForId = undefined
+    lookForId = oresArray.findIndex(x=>x.label === itemName)
+    if(lookForId !== -1)
+        {return oresArray[lookForId]}
+    else {
+        lookForId = barsArray.findIndex(x=>x.label === itemName)
+        if(lookForId !== -1)
+            {return barsArray[lookForId]}
+        else{
+            lookForId = itemsArray.findIndex(x=>x.label === itemName)
+            return itemsArray[lookForId]
+        }
+    }}
+
 
 const oresArray = []
 const barsArray = []
@@ -1370,7 +1385,14 @@ function startCrafting(e,item,type){
     let tempArray = []
     let filteredArray = []
 
-    let starterItem = {idx : Idx,itemIdx : item.index ,father : undefined ,item : item, quantity : craftQuantity.value,position : undefined}
+    let starterItem = {
+        idx : Idx,
+        itemIdx : item.index ,
+        father : undefined ,
+        item : item, 
+        quantity : craftQuantity.value,
+        position : undefined}
+
 
     queue.push([starterItem])
 
@@ -1426,7 +1448,6 @@ function startCrafting(e,item,type){
                 for (k=0;k<myArray2[i][j].item.ingredients.length;k++){
                     thisLabel = myArray2[i][j].item.ingredients[k].label
 
-                    console.log(thisLabel)
 
                     if (!getItemsArray(thisLabel)){
                         thisIndex = itemsList.findIndex(x=>x.label === thisLabel)
