@@ -1371,6 +1371,7 @@ function setProjects(){
 
     buildProjectsGrid("projects",cellSize,containerB)
 
+
 }
 
 function setProjectsAreas(container){
@@ -1427,7 +1428,7 @@ function clickProjectsAreas(e){
     cleanParent(container)
     cleanParent(listFrame)
     container.style.marginLeft = 20 + "px"
-    container.style.width = 305 + "px"
+    container.style.width = 360 + "px"
     listFrame.style.marginLeft = 20 + "px"
     listFrame.style.border = "blue solid 2px"
     listFrame.style.borderRadius = 20 + "px"
@@ -1443,13 +1444,13 @@ function clickProjectsAreas(e){
     let img = undefined
     let focusElement = undefined
     let projectIcon = ""
+    let starterItem = undefined
 
     for(i=0;i<projectCells.length;i++){
         if( thisText === "Full List" || thisText === projectCells[i].area || thisText === "Filtered Private List" && projectCells[i].selected ){
             thisArray.push(projectCells[i])
         }
     }
-
 
     for (i=0;i<thisArray.length;i++){
 
@@ -1465,7 +1466,6 @@ function clickProjectsAreas(e){
             {costs[thisIdx].baseCost += formatKMBT(thisArray[i].component1.baseCost,true)
              costs[thisIdx].minCost += formatKMBT(thisArray[i].component1.costWithMaxLab,true)
             }
-
              
         if(thisArray[i].component2.label !== ""){
             thisIdx = costs.findIndex(x=> x.label === thisArray[i].component2.label)
@@ -1494,8 +1494,6 @@ function clickProjectsAreas(e){
                 {costs[thisIdx].baseCost += formatKMBT(thisArray[i].component3.baseCost,true)
                  costs[thisIdx].minCost += formatKMBT(thisArray[i].component3.costWithMaxLab,true)
             }}
-
-
     }
 
     costs = sortArrayByObjectIdx(costs)
@@ -1513,11 +1511,57 @@ function clickProjectsAreas(e){
         costs with max lab )<br>
         `
         
+        subContainer = AddADiv(costFrame)
+        subContainer.style = containerColumn
+        subContainer.style.marginTop = 20 + "px"
+            item = AddADiv(subContainer)
+            item.setAttribute("id","projectsRawCosts")
+            item.innerHTML = "Raw Projects Cots"
+            item.style = `
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            border: white solid 2px;
+            cursor: pointer;
+            min-height: 40px;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            background-color: blue;
+            `
+            item.addEventListener("click",(e)=>{
+                e.srcElement.style.backgroundColor = "blue"
+                document.getElementById("projectsAsComponents").style.backgroundColor = "black"
+                subCostFrameA.style.display = "block"
+                subCostFrameB.style.display = "none"
+            })
+
+            item = AddADiv(subContainer)
+            item.setAttribute("id","projectsAsComponents")
+            item.innerHTML = "Projects Costs as<br>Crafting Components"
+            item.style = `
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            border: white solid 2px;
+            cursor: pointer;
+            background-color: black;
+            `
+            item.addEventListener("click",(e)=>{
+                e.srcElement.style.backgroundColor = "blue"
+                document.getElementById("projectsRawCosts").style.backgroundColor = "black"
+                subCostFrameB.style.display = "block"
+                subCostFrameA.style.display = "none"
+            })
+
+
         item = AddADiv(costFrame)
         item.style.borderBottom = "solid yellow 2px"
         item.style.margin = "10px 0 10px 0"
+
+    let subCostFrameA = AddADiv(costFrame)
+    let subCostFrameB = AddADiv(costFrame)
+
     for (i=0;i<costs.length;i++){
-        subContainer = AddADiv(costFrame)
+        subContainer = AddADiv(subCostFrameA)
         subContainer.style = containerRow
             img = new Image()
             img.src = "./IPM Components/" + costs[i].label + ".jpg"
@@ -1525,11 +1569,81 @@ function clickProjectsAreas(e){
 
             item = AddADiv(subContainer)
             item.style.marginLeft = 10 + "px"
-            item.innerHTML = costs[i].baseCost.toLocaleString() + " ⇒ " + costs[i].minCost.toLocaleString()
-
+            item.innerHTML = formatKMBT(costs[i].baseCost) + " ⇒ " + formatKMBT(costs[i].minCost)
             item = AddADiv(subContainer)
             item.style.marginLeft = 10 + "px"
             item.innerHTML = costs[i].label
+        }
+
+    let costComponents = []
+    let componentsFlow = []
+    let queue = []
+    let thisSet = []
+
+    costs = sortArrayByObjectIdx(costs,false)
+    for (i=0;i<costs.length;i++){
+        let focusElement = costs[i]
+        if(focusElement.idx < 26){
+            let thisIdx = costComponents.findIndex(x=>x.label === focusElement.label)
+            if(thisIdx === -1) 
+                {costComponents.push(focusElement)}
+            else {
+                costComponents[thisIdx].baseCost += focusElement.baseCost
+                costComponents[thisIdx].minCost += focusElement.minCost
+                }
+        } else {
+            starterItem = {
+                idx:1,
+                itemIdx:focusElement.idx,
+                label:focusElement.label, 
+                father:undefined,
+                origin:true,
+                item:getItem(focusElement.label),
+                quantityMax:focusElement.baseCost,
+                quantityMin:focusElement.minCost,
+                }
+            queue.push([starterItem])
+            while(queue.length > 0){
+                thisSet = ProjectsFork(queue[0])
+                queue.shift()
+                componentsFlow.push(thisSet.mainArray)
+                if(thisSet.subArray.length>0)
+                    {queue.push(thisSet.subArray)}
+            }
+        }
+    }
+
+    document.getElementById("projectsRawCosts").click()
+
+    componentsFlow = switchComponentsFlow(componentsFlow)
+
+    for(i=0;i<componentsFlow.length;i++){
+        let focusElement = componentsFlow[i]
+        let thisIdx = costComponents.findIndex(x=>x.label === focusElement.label)
+        if(thisIdx === -1) 
+            {costComponents.push(focusElement)}
+        else {
+            costComponents[thisIdx].baseCost += focusElement.baseCost
+            costComponents[thisIdx].minCost += focusElement.minCost
+            }
+
+    }
+
+    costComponents = sortArrayByObjectIdx(costComponents)
+
+    for (i=0;i<costComponents.length;i++){
+        subContainer = AddADiv(subCostFrameB)
+        subContainer.style = containerRow
+            img = new Image()
+            img.src = "./IPM Components/" + costComponents[i].label + ".jpg"
+            subContainer.appendChild(img)
+
+            item = AddADiv(subContainer)
+            item.style.marginLeft = 10 + "px"
+            item.innerHTML = formatKMBT(costComponents[i].baseCost) + " ⇒ " + formatKMBT(costComponents[i].minCost)
+            item = AddADiv(subContainer)
+            item.style.marginLeft = 10 + "px"
+            item.innerHTML = costComponents[i].label
         }
 
 
@@ -1674,6 +1788,65 @@ function clickProjectsAreas(e){
 
 }
 
+
+let originzs = 0
+function ProjectsFork(thisArray){
+    let mainArray = []
+    let subArray = []
+    let thisItem = undefined
+    let subItem = undefined
+
+    for (bcl1=0;bcl1<thisArray.length;bcl1++){
+        if(!thisArray[bcl1].origin){mainArray.push(thisArray[bcl1])}
+        thisItem = thisArray[bcl1].item
+        for (bcl2=0;bcl2<thisItem.ingredients.length;bcl2++){
+            subItem = getItem(thisItem.ingredients[bcl2].label)
+            subArray.push(
+                {idx : thisArray[0].idx+1,
+                itemIdx : subItem.index,
+                label : subItem.label,
+                father : thisArray[bcl1].item,
+                item : subItem, 
+                quantityMax : Number(thisArray[bcl1].quantityMax) * Number(thisItem.ingredients[bcl2].amount),
+                quantityMin : Number(thisArray[bcl1].quantityMin) * Number(thisItem.ingredients[bcl2].min),
+                })
+        }
+    }
+    return {mainArray : mainArray,subArray : subArray}
+}
+
+function switchComponentsFlow(thisArray){
+    let newFlow = []
+    let flowIdx = -1
+    let focusItem = undefined
+
+    for (bcl1=1;bcl1<thisArray.length;bcl1++){
+        for (bcl2=0;bcl2<thisArray[bcl1].length;bcl2++){
+            focusItem = thisArray[bcl1][bcl2]
+            flowIdx = newFlow.findIndex(x=>x.label === focusItem.label)
+
+            if (flowIdx === -1){
+                newFlow.push({
+                    idx : focusItem.itemIdx,
+                    label : focusItem.label,
+                    baseCost : focusItem.quantityMax,
+                    minCost : focusItem.quantityMin,})
+            } else {
+                newFlow[flowIdx].baseCost += focusItem.quantityMax
+                newFlow[flowIdx].minCost += focusItem.quantityMin
+            }}}
+
+    return newFlow
+}
+
+
+
+
+
+
+
+
+
 function getItemIdx(itemLabel){
     let res = -1
     let ItmIdx = undefined
@@ -1695,22 +1868,22 @@ function getItemIdx(itemLabel){
 function sortArrayByObjectIdx(myArray,ascending = true){
     let thisArray = []
     let val = undefined
-    let pass = 0
+    let pass = undefined
 
     while(myArray.length > 0){
         if (ascending) {val = 1000}
         else {val = 0 }
 
-        for (bcl = 0;bcl<myArray.length;bcl++){
+        for (let idxx = 0;idxx<myArray.length;idxx++){
             if(ascending){
-                if( val > myArray[bcl].idx )
-                    {val = myArray[bcl].idx ; pass = bcl} 
+                if( val > myArray[idxx].idx )
+                    {val = myArray[idxx].idx ; pass = idxx} 
                 }
             else {
-                if( val < myArray[bcl].idx )
-                    {val = myArray[bcl].idx ; pass = bcl} 
+                if( val < myArray[idxx].idx )
+                    {val = myArray[idxx].idx ; pass = idxx} 
             }}
-        
+
         thisArray.push(myArray[pass])
         myArray.splice(pass,1)
     }
