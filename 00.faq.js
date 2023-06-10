@@ -102,7 +102,9 @@ const faqsArray = [
             it means in short if you dont have a stock of needed<br>
             [whatever stuff] to perform your smelt/craft process,<br>
             chances are this will take down your crafting as the chain<br>
-            at some point wont be working as usual.<br><br>
+            at some point wont be working as usual.<br>
+            * Idle mining is down to roughly ~20% regular income *<br>
+            ** [TIME WARP] booster = idle time btw ... **<br><br>
             ② The below image explains where the chain of production<br>
             starts/ends. Logic says dont start the chain by the top<br>
             item but by the lowest ...<br><br>
