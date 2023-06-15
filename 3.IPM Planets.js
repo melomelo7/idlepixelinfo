@@ -920,7 +920,7 @@ function buildPlanets(){
 
     myDiv = AddADiv(rightTop)
     myDiv.style = closeButtonStyle
-    myDiv.style.marginLeft = 20 + "px"
+    myDiv.style.marginLeft = 10 + "px"
     myDiv.innerHTML = "Find Planet"
     myDiv.addEventListener("mouseover",()=>{tabInfos.innerHTML = "Input Planet's name to find it"})
     myDiv.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
