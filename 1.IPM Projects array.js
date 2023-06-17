@@ -1418,6 +1418,7 @@ function setProjectsAreas(container){
     item.style.backgroundColor = "#BB482E"
     item.style.fontSize = 18 + "px"
     item.innerHTML = "Filtered Private List"
+    item.setAttribute("id","projectsPrivateList")
     item.addEventListener("click",clickProjectsAreas)
 
 }
@@ -1448,7 +1449,7 @@ function clickProjectsAreas(e){
     let starterItem = undefined
 
     for(i=0;i<projectCells.length;i++){
-        if( thisText === "Full List" || thisText === projectCells[i].area || thisText === "Filtered Private List" && projectCells[i].selected ){
+        if( thisText === "Full List" || thisText === projectCells[i].area || thisText.includes("Filtered Private List") && projectCells[i].selected ){
             thisArray.push(projectCells[i])
         }
     }
@@ -1648,7 +1649,8 @@ function clickProjectsAreas(e){
 
 
     item = AddADiv(listFrame)
-    item.innerHTML = thisText + " (" + thisArray.length + ")"
+    item.setAttribute("id","projectsChosenList")
+    item.innerHTML = thisText // + " (" + thisArray.length + ")"
 
     for(i=0;i<thisArray.length;i++){
         item = AddADiv(listFrame)
@@ -1676,7 +1678,14 @@ function clickProjectsAreas(e){
                     e.srcElement.style.color = "white"
                     e.srcElement.style.backgroundColor = "black"
                     focusElement.selected = false
-                }})
+                }
+            let chosen = document.getElementById("projectsPrivateList") 
+            chosen.innerHTML = "Filtered Private List (" + projectCells.filter(x=>x.selected).length + ")"
+            chosen = document.getElementById("projectsChosenList")
+            if (chosen.innerHTML.includes("Filtered Private List")){
+                chosen.innerHTML = "Filtered Private List (" + projectCells.filter(x=>x.selected).length + ")"
+            }
+            })
 
         subContainer = AddADiv(listFrame)
         subContainer.style = containerRow
