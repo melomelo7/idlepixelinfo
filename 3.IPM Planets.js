@@ -17,14 +17,6 @@ class Planet {
     }
 }
 
-function getPrivatePlanets(){
-    let cpt = 0
-    for(bcl=0;bcl<planetsArray.length;bcl++){
-        if(planetsArray[bcl].selected){cpt++}
-    }
-    return cpt
-}
-
 planetsArray = []
 
 planetsArray.push(
@@ -1005,7 +997,7 @@ function displayPlanets(rightBottom,listArray){
             else
                 {thisItem.style.border = ""}
             thisElement = document.getElementById("privatePlanets")
-            thisElement.innerHTML = "Private List (" + getPrivatePlanets() + ")"
+            thisElement.innerHTML = "Private List (" + planetsArray.filter(x=>x.selected).length + ")"
 
             let thisBox = document.createElement("div")
             thisBox.style = planetBoxStyle
@@ -1026,7 +1018,7 @@ function displayPlanets(rightBottom,listArray){
                         item.selected = true
                         thisElement.style.border = "solid 2px #BB482E"}
                     thisElement = document.getElementById("privatePlanets")
-                    thisElement.innerHTML = "Private List (" + getPrivatePlanets() + ")"
+                    thisElement.innerHTML = "Private List (" + planetsArray.filter(x=>x.selected).length + ")"
                     })
 
             let thisContainer2 = document.createElement("div")
