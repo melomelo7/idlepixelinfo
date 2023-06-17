@@ -131,9 +131,10 @@ const faqsArray = [
             planets to have the best possible Quality [A] / [D].<br>
             Other modifiers to the Quality :<br>
             - Projects : related to [A] / [D]<br>
-            - Merchant Ship<br>
             - Room : Belt Studies <br>
-            - Rover : Resupply(1~2) Projects done ⇒ temporary boost<br><br>  
+            - Rover : Resupply(1~2) Projects done ⇒ temporary boost<br>
+            - Merchant Ship<br><br>
+
             Times :<br>  
             To have these informations it will take a few more clicks :<br>
             Visit my other tab ⇒ "Projects" (roughly to center-right area)<br>
