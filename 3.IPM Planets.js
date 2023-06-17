@@ -978,7 +978,8 @@ function buildPlanets(){
         let thisElement = AddADiv(rightMiddle)
         thisElement.style.margin = "0 0 10px 20px"
         thisElement.style.fontSize = 20 + "px"
-        thisElement.innerHTML = "( you may click on planets from any list : Full,Telescope or Finds )"
+        thisElement.innerHTML = `( you may click on planets from any list : Full,Telescope or Finds )<br>
+        ** Hint : this Private List might help you chose Rover mission **`
     })
 
     }
