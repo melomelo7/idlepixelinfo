@@ -5,7 +5,7 @@ html,body{
 a {
     text-decoration: none;
     color: black;
-    background: linear-gradient(yellow, white);
+    background: linear-gradient(rgb(0,212,250), grey);
     border-radius: 20px;
     padding: 0 5px 0 5px;
 }
