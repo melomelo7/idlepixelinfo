@@ -132,7 +132,8 @@ const faqsArray = [
             Other modifiers to the Quality :<br>
             - Projects : related to [A] / [D]<br>
             - Merchant Ship<br>
-            - Room : Belt Studies <br><br>
+            - Room : Belt Studies <br>
+            - Rover : Resupply(1~2) Projects done ⇒ temporary boost<br><br>  
             Times :<br>  
             To have these informations it will take a few more clicks :<br>
             Visit my other tab ⇒ "Projects" (roughly to center-right area)<br>
