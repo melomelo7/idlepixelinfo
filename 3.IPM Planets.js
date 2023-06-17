@@ -5,6 +5,7 @@ class Planet {
         label="",
         ores=[],
         unlockCost="",
+        selected = false,
     }){
         this.telescope = telescope
         this.idNumber = idNumber
@@ -12,7 +13,16 @@ class Planet {
         this.ores = ores
         this.unlockCost = unlockCost
         this.imgSrc = "./IPM Planets/"+this.idNumber+".jpg"
+        this.selected = selected
     }
+}
+
+function getPrivatePlanets(){
+    let cpt = 0
+    for(bcl=0;bcl<planetsArray.length;bcl++){
+        if(planetsArray[bcl].selected){cpt++}
+    }
+    return cpt
 }
 
 planetsArray = []
@@ -796,7 +806,7 @@ function buildPlanets(){
     tabInfos.innerHTML = ""
     tabInfos.style = textStyle
     tabInfos.style.fontSize = textSize + "px"
-    tabInfos.style.height = textSize + "px"
+    tabInfos.style.height = textSize *2 + "px"
     tabInfos.style.marginLeft = textSize + "px"
     tabInfos.style.color = "rgb(0,212,250)"
 
@@ -949,9 +959,33 @@ function buildPlanets(){
                 displayPlanets(rightBottom,newArray)
             })})
 
+    myDiv = AddADiv(rightTop)
+    myDiv.style = closeButtonStyle
+    myDiv.style.marginLeft = 10 + "px"
+    myDiv.style.backgroundColor = "#BB482E"
+    myDiv.style.color ="yellow"
+    myDiv.innerHTML = "Private List"
+    myDiv.setAttribute("id","privatePlanets")
+    myDiv.addEventListener("mouseover",()=>{tabInfos.innerHTML = 
+        `Click on a Planet Image to Add/Remove it from YOUR list<br>
+         then click on the Private List to filter your own selection`})
+    myDiv.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
+    myDiv.addEventListener("click",function(){
+        info.innerHTML = infoTitle
+        cleanParent(rightMiddle) 
+        cleanParent(rightBottom)
+        displayPlanets(rightBottom,planetsArray.filter(x=>x.selected))
+        let thisElement = AddADiv(rightMiddle)
+        thisElement.style.margin = "0 0 10px 20px"
+        thisElement.style.fontSize = 20 + "px"
+        thisElement.innerHTML = "( you may click on planets from any list : Full,Telescope or Finds )"
+    })
+
     }
 
+
 function displayPlanets(rightBottom,listArray){
+    let thisElement = []
     listArray.forEach(item => {
         let thisContainer = document.createElement("div")
         thisContainer.style = containerRow
@@ -964,6 +998,13 @@ function displayPlanets(rightBottom,listArray){
             thisItem.style.margin = "0 10px 0 10px"
             thisItem.innerHTML = item.idNumber
             thisContainer.appendChild(thisItem)
+            thisItem.setAttribute("id","PIN"+item.idNumber)
+            if (item.selected)
+                {thisItem.style.border = "solid 2px #BB482E"}
+            else
+                {thisItem.style.border = ""}
+            thisElement = document.getElementById("privatePlanets")
+            thisElement.innerHTML = "Private List (" + getPrivatePlanets() + ")"
 
             let thisBox = document.createElement("div")
             thisBox.style = planetBoxStyle
@@ -974,6 +1015,18 @@ function displayPlanets(rightBottom,listArray){
                 img.style.marginLeft = -50 + "px"
                 img.style.marginTop = 5 + "px"
                 thisBox.appendChild(img)
+                img.style.cursor = "pointer"
+                img.addEventListener("click",()=>{
+                    thisElement = document.getElementById("PIN"+item.idNumber)
+                    if (item.selected){
+                        item.selected = false
+                        thisElement.style.border = ""}
+                    else {
+                        item.selected = true
+                        thisElement.style.border = "solid 2px #BB482E"}
+                    thisElement = document.getElementById("privatePlanets")
+                    thisElement.innerHTML = "Private List (" + getPrivatePlanets() + ")"
+                    })
 
             let thisContainer2 = document.createElement("div")
             thisContainer2.style = containerColumn
