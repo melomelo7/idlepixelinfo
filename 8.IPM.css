@@ -2,6 +2,14 @@ html,body{
     height: 100%;
 }
 
+a {
+    text-decoration: none;
+    color: black;
+    background: linear-gradient(yellow, white);
+    border-radius: 20px;
+    padding: 0 5px 0 5px;
+}
+
 body {
     background-color: black;
     margin: 0;
@@ -34,6 +42,9 @@ body {
     height: 30px;
     width: 100%;
     background-color: black;
+    align-items: stretch;
+    background: linear-gradient(to left);
+    background: linear-gradient(to right,black 50%, grey 50%);
 }
 
 #global {
@@ -47,6 +58,7 @@ body {
     background-color: black;
     height: 100%;
     width: 90px;
+
 }
 
 #right {

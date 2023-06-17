@@ -82,7 +82,8 @@ const faqsArray = [
             (recently rebooting my phone helped with other stuff than <br>
             gaming too)<br><br>
             No success so far ? then try phase 2 :<br>
-            check Reddit / Discord for any advice<br><br>
+            check <a href="https://www.reddit.com/r/IdlePlanetMiner/" target="_blank">Reddit</a> / 
+            <a href="https://discord.gg/r4X3ktZ" target="_blank">Discord</a> for any advice<br><br>
             Phase 3 when all hope is gone :<br>
             Support shall save the day ! ... hopefully :<br>
             Provide your Player ID (under settings) along with any screen<br>
