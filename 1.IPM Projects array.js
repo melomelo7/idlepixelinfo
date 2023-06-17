@@ -1684,8 +1684,9 @@ function clickProjectsAreas(e){
             chosen = document.getElementById("projectsChosenList")
             if (chosen.innerHTML.includes("Filtered Private List")){
                 chosen.innerHTML = "Filtered Private List (" + projectCells.filter(x=>x.selected).length + ")"
-            }
-            })
+                chosen = document.getElementById("projectsPrivateList")
+                chosen.click()
+            }})
 
         subContainer = AddADiv(listFrame)
         subContainer.style = containerRow
