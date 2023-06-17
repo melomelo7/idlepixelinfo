@@ -121,9 +121,20 @@ const faqsArray = [
     thisFunction : undefined,
     },
     {
-    label : "Asteroid | Debris Times",
+    label : "Asteroid | Debris",
     icon : "",
-    text : `To have these informations it will take a few more clicks :<br>
+    text : `Quality output of an [A]steroid/[D]ebris is random by<br>
+            type ( type = what {item} pops out of it )<br>
+            but value is changing depending on ore extracted *AND*<br>
+            brought back to the mothership. Meaning always collect<br>
+            100% mined production especially from higher unlocked<br>
+            planets to have the best possible Quality [A] / [D].<br>
+            Other modifiers to the Quality :<br>
+            - Projects : related to [A] / [D]<br>
+            - Merchant Ship<br>
+            - Room : Belt Studies <br><br>
+            Times :<br>  
+            To have these informations it will take a few more clicks :<br>
             Visit my other tab ⇒ "Projects" (roughly to center-right area)<br>
             and click on projects shown here.<br>
             (with a purple border around)`,
