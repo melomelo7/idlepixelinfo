@@ -808,6 +808,7 @@ function buildPlanets(){
 
     let rightMiddle = document.createElement("div")
     rightMiddle.style = containerRow
+    rightMiddle.setAttribute("id","rightMiddle")
     right.appendChild(rightMiddle)
 
     let rightBottom = document.createElement("div")
@@ -1019,6 +1020,7 @@ function displayPlanets(rightBottom,listArray){
                         thisElement.style.border = "solid 2px #BB482E"}
                     thisElement = document.getElementById("privatePlanets")
                     thisElement.innerHTML = "Private List (" + planetsArray.filter(x=>x.selected).length + ")"
+                    if(rightMiddle.innerHTML.includes("Hint")) {document.getElementById("privatePlanets").click()}
                     })
 
             let thisContainer2 = document.createElement("div")
