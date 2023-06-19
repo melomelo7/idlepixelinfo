@@ -128,8 +128,9 @@ const faqsArray = [
             type ( type = what {item} pops out of it )<br>
             but value is changing depending on ore extracted *AND*<br>
             brought back to the mothership. Meaning always collect<br>
-            100% mined production especially from higher unlocked<br>
-            planets to have the best possible Quality [A] / [D].<br>
+            as close as possible to 100% mined production especially<br>
+            from higher unlocked planets to have the best possible<br>
+            Quality [A] / [D].<br><br>
             Other modifiers to the Quality :<br>
             - Projects : related to [A] / [D]<br>
             - Room : Belt Studies <br>
