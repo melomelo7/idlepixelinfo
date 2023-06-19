@@ -124,7 +124,7 @@ const faqsArray = [
     {
     label : "Asteroid | Debris",
     icon : "",
-    text : `Quality output of an [A]steroid/[D]ebris is random by<br>
+    text : `Quality output of an [A]steroid / [D]ebris is random by<br>
             type ( type = what {item} pops out of it )<br>
             but value is changing depending on ore extracted *AND*<br>
             brought back to the mothership. Meaning always collect<br>
