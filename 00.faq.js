@@ -122,6 +122,19 @@ const faqsArray = [
     thisFunction : undefined,
     },
     {
+    label : "Managers",
+    icon : "manager1.jpg",
+    text : `Managers or the art of making your game never<br>
+            like it was before ...<br><br>
+            They will at low level care only for their own butts<br>
+            and once they reach level 3 are suddenly feeling<br>
+            lonely and decide to expand the love with others.<br>
+            `,
+    url : "",
+    img : "",
+    thisFunction : setManagers,
+    },
+    {
     label : "Asteroid | Debris",
     icon : "",
     text : `Quality output of an [A]steroid / [D]ebris is random by<br>
@@ -389,6 +402,14 @@ function AddADiv(container){
     return item
 }
 
+function AddImg(container,path){
+    let img = new Image()
+    img.src = path
+    img.style.margin = "10px 0 10px 0"
+    container.appendChild(img)
+    return img
+}
+
 function setFleet(container){
 
     let location = "./IPM Components/"
@@ -615,3 +636,114 @@ function setTournament(container){
 
     let subFrame = AddADiv(mainFrame)
 }
+
+function setManagers(container){
+    let thisElement = undefined
+    let thisContainer = undefined
+    let thisImg = undefined
+    let location = "./IPM Components/"
+    let myItm = undefined
+
+    thisElement = AddADiv(container)
+    thisElement.style = closeButtonStyle
+    thisElement.innerHTML = "Recruit"
+    thisElement.addEventListener("click",()=>{
+        myItm = document.getElementById("managerTab")
+        myItm.style.display = "none"        
+        myItm = document.getElementById("recruit")
+        if(myItm.style.display === "none")
+            {myItm.style.display = "block"}
+        else
+            {myItm.style.display = "none"}
+    })
+
+    thisElement = AddADiv(container)
+    thisElement.style = closeButtonStyle
+    thisElement.innerHTML = "Manager Tab"
+    thisElement.addEventListener("click",()=>{
+        myItm = document.getElementById("recruit")
+        myItm.style.display = "none"
+        myItm = document.getElementById("managerTab")
+        if(myItm.style.display === "none")
+            {myItm.style.display = "block"}
+        else
+            {myItm.style.display = "none"}
+    })
+
+    thisContainer = AddADiv(container)
+    thisContainer.setAttribute("id","recruit")
+    thisContainer.style.border = "solid blue 2px"
+    thisContainer.style.padding = "5px"
+    thisContainer.style.borderRadius = "10px"
+    thisContainer.style.display = "none"
+        thisElement = AddADiv(thisContainer)
+        thisElement.style = textStyle
+        thisElement.innerHTML = "Hire a Manager with a random star level 1~3"
+        thisImg = AddImg(thisContainer,location+"manager2.jpg")
+
+        thisElement = AddADiv(thisContainer)
+        thisElement.style = textStyle
+        thisElement.innerHTML = "Hire a Manager with a random star level 3~4"
+        thisImg = AddImg(thisContainer,location+"manager3.jpg")
+
+        thisElement = AddADiv(thisContainer)
+        thisElement.style = textStyle
+        thisElement.innerHTML = "Hire a Manager with a random star level 4~5"
+        thisImg = AddImg(thisContainer,location+"manager4.jpg")
+
+        thisElement = AddADiv(thisContainer)
+        thisElement.style = textStyle
+        thisElement.innerHTML = "Button will show Dark Matter cost OR<br>how many free pulls you own (Rover reward)"
+        thisImg = AddImg(thisContainer,location+"manager5.jpg")
+
+        thisElement = AddADiv(thisContainer)
+        thisElement.style = textStyle
+        thisElement.innerHTML = "You can even check the odds of stars quality<br>if you click on [( i ) Odds] down the page"
+        thisImg = AddImg(thisContainer,location+"manager6.jpg")
+
+    thisContainer = AddADiv(container)
+    thisContainer.setAttribute("id","managerTab")
+    thisContainer.style.border = "solid blue 2px"
+    thisContainer.style.padding = "5px"
+    thisContainer.style.borderRadius = "10px"
+    thisContainer.style.display = "none"
+    thisImg = AddImg(thisContainer,location+"manager7.jpg")
+        thisElement = AddADiv(thisContainer)
+        thisElement.style.textAlign = "left"
+        thisElement.style.marginLeft = 10 + "px"
+        thisElement.innerHTML = `
+        This Tab is where you manage your flock ...<br><br>
+        The top line help you select managers by filtering<br>
+        also it shows under [actions] > [stats] some<br>
+        interesting details about your mangers bonuses.<br>
+        ... and how many are idle / total of managers.<br><br>
+        When you cant find some managers they are either<br>
+        working on a planet or hidden by a filter.<br><br><br>
+        Tap and hold to access a manger details.<br>
+        `
+        thisImg = AddImg(thisContainer,location+"manager8.jpg")
+        thisElement = AddADiv(thisContainer)
+        thisElement.style.textAlign = "left"
+        thisElement.style.marginLeft = 10 + "px"
+        thisElement.innerHTML = `
+        Promotion is burning 3 other managers with the same<br>
+        star level to add 1 star on this selected manager.<br><br>
+        The [Discard] will remove this manager from the game<br>
+        which is a waste as it can be used for promoting others.<br><br>
+        Tap the (i) for yet another details if you want.<br><br>
+        And under the manager stars you get to see the skills.<br>
+        - Line 1 bonus applied to himself only<br>
+        - Line 2 bonus that will be shared with other managers<br>
+        having that same skill (for 3 stars managers and above)<br>
+        `
+        thisElement = AddADiv(thisContainer)
+        thisElement.style = textStyle
+        thisElement.innerHTML = `
+        
+        `    
+
+
+
+
+
+    }
