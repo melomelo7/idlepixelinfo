@@ -128,7 +128,13 @@ const faqsArray = [
             like it was before ...<br><br>
             They will at low level care only for their own butts<br>
             and once they reach level 3 are suddenly feeling<br>
-            lonely and decide to expand the love with others.<br>
+            lonely and decide to expand the love with others.<br><br>
+            A manager 1st skill is any of those :<br>
+            - Mining / Speed / Cargo<br>
+            A manager 2nd skill is any of those :<br>
+            - Mining / Speed / Cargo / Smelting / Crafting<br><br>
+            ** Random get on hire and random get when <br>
+            upgrading from a manager 2 stars ⇒ 3 stars **
             `,
     url : "",
     img : "",
@@ -668,6 +674,8 @@ function setManagers(container){
             {myItm.style.display = "block"}
         else
             {myItm.style.display = "none"}
+
+            console.log(thisContainer.getBoundingClientRect())
     })
 
     thisContainer = AddADiv(container)
@@ -676,6 +684,7 @@ function setManagers(container){
     thisContainer.style.padding = "5px"
     thisContainer.style.borderRadius = "10px"
     thisContainer.style.display = "none"
+    thisContainer.style.width = 425 + "px"
         thisElement = AddADiv(thisContainer)
         thisElement.style = textStyle
         thisElement.innerHTML = "Hire a Manager with a random star level 1~3"
@@ -707,6 +716,7 @@ function setManagers(container){
     thisContainer.style.padding = "5px"
     thisContainer.style.borderRadius = "10px"
     thisContainer.style.display = "none"
+    thisContainer.style.width = 425 + "px"
     thisImg = AddImg(thisContainer,location+"manager7.jpg")
         thisElement = AddADiv(thisContainer)
         thisElement.style.textAlign = "left"
@@ -741,7 +751,6 @@ function setManagers(container){
         thisElement.innerHTML = `
         
         `    
-
 
 
 
