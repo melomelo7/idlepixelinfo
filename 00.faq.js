@@ -130,7 +130,11 @@ const faqsArray = [
             brought back to the mothership. Meaning always collect<br>
             as close as possible to 100% mined production especially<br>
             from higher unlocked planets to have the best possible<br>
-            Quality [A] / [D].<br><br>
+            Quality [A] / [D].<br>
+            Maybe dont rely completely on the colored dots from<br>
+            the Project [Bottleneck Optimizations] and monitor<br>
+            a little further the levelling of Speed/Cargo to extract<br>
+            higher bits at once.<br><br>
             Other modifiers to the Quality :<br>
             - Projects : related to [A] / [D]<br>
             - Room : Belt Studies <br>
