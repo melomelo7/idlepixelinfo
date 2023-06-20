@@ -741,7 +741,7 @@ function setManagers(container){
         star level to add 1 star on this selected manager.<br><br>
         The [Discard] will remove this manager from the game<br>
         which is a waste as it can be used for promoting others.<br><br>
-        Tap the (i) for yet another details if you want.<br><br>
+        Tap the ( i ) for yet another details if you want.<br><br>
         And under the manager stars you get to see the skills.<br>
         - Line 1 bonus applied to himself only<br>
         - Line 2 bonus that will be shared with other managers<br>
