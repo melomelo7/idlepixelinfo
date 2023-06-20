@@ -37,6 +37,7 @@ const faqsArray = [
     img : "",
     thisFunction : undefined,
     },
+
     {
     label : "Prestige and Galaxy Value in IPM ?",
     icon : "cash windfall.jpg",
@@ -725,7 +726,7 @@ function setManagers(container){
         This Tab is where you manage your flock ...<br><br>
         The top line help you select managers by filtering<br>
         also it shows under [actions] > [stats] some<br>
-        interesting details about your mangers bonuses.<br>
+        interesting details about your managers bonuses.<br>
         ... and how many are idle / total of managers.<br><br>
         When you cant find some managers they are either<br>
         working on a planet or hidden by a filter.<br><br><br>
