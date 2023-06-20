@@ -184,10 +184,22 @@ const faqsArray = [
     {
     label : "Ark(ing)",
     icon : "ark1.jpg",
-    text : `
-    `,
+    text : `Above Icon is the Ark reward or simply put free cash income.<br><br>
+            Free is relative to you either use IRL money for the forever<br>
+            freedom of Arking (Shop) or the happiness of Adds Watching<br><br>
+            The table below just says "keep your cash high for a higher<br>
+            Ark reward value".<br><br>
+            Usualy this happens when you reach the best item you are able<br>
+            to craft, all gets very slow and you think about selling galaxy.<br><br>
+            That last item sold being the fuel to have a high cash relative<br>
+            to your Galaxy Value you then wait more arks to grind deeper ...<br><br>
+            An Ark does not have a set Timer to pop again so you might be<br>
+            waiting like 6 to 10 (or even more) minutes for the next one.<br><br>
+            * Sidenote : it may happen that game gets weird lags sometimes<br>
+            and Arks tends to take more time, so just reboot to refresh *
+            `,
     url : "",
-    img : "",
+    img : "ark2.jpg",
     thisFunction : undefined,
     },
     {
