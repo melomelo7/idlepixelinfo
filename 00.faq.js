@@ -735,7 +735,7 @@ function setManagers(container){
         thisElement.style.marginLeft = 10 + "px"
         thisElement.innerHTML = `
         ***<br><br>
-        [!] Tap and hold a manager to access his details.[!]<br>
+        [!] Tap and hold a manager to access his details [!]<br>
         `
         thisImg = AddImg(thisContainer,location+"manager8.jpg")
         thisElement = AddADiv(thisContainer)
