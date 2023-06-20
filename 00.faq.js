@@ -37,7 +37,6 @@ const faqsArray = [
     img : "",
     thisFunction : undefined,
     },
-
     {
     label : "Prestige and Galaxy Value in IPM ?",
     icon : "cash windfall.jpg",
@@ -183,6 +182,15 @@ const faqsArray = [
     thisFunction : undefined,
     },
     {
+    label : "Ark(ing)",
+    icon : "ark1.jpg",
+    text : `
+    `,
+    url : "",
+    img : "",
+    thisFunction : undefined,
+    },
+    {
     label : "Challenge",
     icon : "challenge.jpg",
     text : `After selling a couple galaxies you get acces to Challenges.<br>
@@ -193,7 +201,9 @@ const faqsArray = [
             or stop midway when you feel next tier is too far to reach.<br>
             Important thing about stopping early is the moment you are out<br>
             a timer will start for the next challenge to become available.<br><br>
-            A new Challenge shows after 3 days.<br><br>
+            A new Challenge shows after 3 days.<br>
+            For an accurate start day/time info, visit your<br>
+            [Stats] > [Legacy] >  [Next Challenge]<br><br>
             Below are rewards depending on galaxy value reached.<br>
             Pay out is the farthest line reached, not the total of<br>
             every line cleared.<br><br>
