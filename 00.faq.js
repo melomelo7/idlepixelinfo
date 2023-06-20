@@ -730,13 +730,14 @@ function setManagers(container){
         ... and how many are idle / total of managers.<br><br>
         When you cant find some managers they are either<br>
         working on a planet or hidden by a filter.<br><br><br>
-        Tap and hold to access a manger details.<br>
+        [!] Tap and hold to access a manger details.[!]<br>
         `
         thisImg = AddImg(thisContainer,location+"manager8.jpg")
         thisElement = AddADiv(thisContainer)
         thisElement.style.textAlign = "left"
         thisElement.style.marginLeft = 10 + "px"
         thisElement.innerHTML = `
+        You may modify their name (on the left)<br><br>
         Promotion is burning 3 other managers with the same<br>
         star level to add 1 star on this selected manager.<br><br>
         The [Discard] will remove this manager from the game<br>
