@@ -133,7 +133,7 @@ const faqsArray = [
             A manager 1st skill is any of those :<br>
             - Mining / Speed / Cargo<br>
             A manager 2nd skill is any of those :<br>
-            - Mining / Speed / Cargo / Smelting / Crafting<br><br>
+            - Mining / Speed / Cargo / Smelting / Crafting<br>
             ** Random get on hire and random get when <br>
             upgrading from a manager 2 stars ⇒ 3 stars **
             `,
