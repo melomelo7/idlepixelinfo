@@ -29,8 +29,15 @@ function setMenu(){
 function clickLog(){
     cleanParent(content)
     let txt = ""
+    let thisItm = undefined
     for(bcl=0;bcl<playerLogs.length;bcl++){
         txt += "<br>" + playerLogs[bcl].text
     }
     addDiv(content).innerHTML = txt
+    thisItm = addDiv(content)
+    thisItm.style = buttonStyle
+    thisItm.innerHTML = "Start"
+    thisItm.style.margin = "30px 0 10px 10px" 
+    thisItm.style.width = "300px"
+
 }
