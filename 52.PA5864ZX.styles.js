@@ -1,4 +1,5 @@
 
+
 const grandContainerStyle = `
 color: white;
 font-size : 20px;
@@ -6,16 +7,17 @@ heigt : 100%;
 width : 100%;
 `
 
+const bordersColor = "blue"
 const leftWidth = 150
 const leftPadding = 10
 const leftMenuStyle = `
 position: fixed;
 padding: `+(leftPadding*2)+`px `+leftPadding+`px 0 `+leftPadding+`px;
 background-color: black;
-height: 99%;
+height: calc(100% - 25px);
 width: `+leftWidth+`px;
 border-radius: 20px;
-border: solid 2px white;
+border: solid 2px `+bordersColor+`;
 `
 
 const topLeft = 2 + leftWidth + (leftPadding*2)
@@ -24,9 +26,22 @@ position:fixed;
 margin: 0 0 0 `+ (topLeft+5) +`px;
 background-color: black;
 height: 100px;
-width:calc(100% - `+(topLeft+14)+`px);
+width:calc(99% - `+(topLeft+22)+`px);
 border-radius: 20px;
-border: solid 2px white;
+border: solid 2px `+bordersColor+`;
+padding:5px 5px 5px 10px;
+overflow-x: hidden;
+`
+
+const contentStyle = `
+position:fixed;
+margin: 115px 0 0 `+ (topLeft+5) +`px;
+background-color: black;
+width:calc(99% - `+(topLeft+22)+`px);
+border-radius: 20px;
+border: solid 2px `+bordersColor+`;
+padding:5px 5px 5px 10px;
+overflow-x: hidden;
 `
 
 const buttonStyle = `

@@ -1,44 +1,36 @@
 
-const grandContainer = addDiv(body)
-grandContainer.style = grandContainerStyle
-    const left = addDiv(grandContainer)
-    left.style = leftMenuStyle
-
-    const right = addDiv(grandContainer)
-    right.style = containerColumn
 
 
-
-    const topMenu = addDiv(right)
-    topMenu.style = topMenuStyle
-
-    const content = addDiv(right)
-    content.style = `
-    width:200px;
-    height:1000px;
-    background-color:red;
-    `
-    content.style.marginLeft = (topLeft + 10) + "px"
-    content.style.marginTop = 113 + "px"
-    
 
 
 function setPage(){
-    let myItm = undefined
 
-    myItm = addDiv(left)
-    myItm.style = buttonStyle
-    myItm.innerHTML = "History"
+    menuButtons.push(new menuButton("Logs",clickLog))
 
+    setMenu()
 
-    for(i=0;i<100;i++){
-        topMenu.innerHTML+="bobrobobob"
-        content.innerHTML+="bobrobobob"
-    }
+    playerLogs.push(allLogs.filter(x=>x.label === "Start")[0])
 
-    topMenu.style.overflowX = "hidden"
-
-    console.log(topMenu.getBoundingClientRect())
 
 }
 
+function setMenu(){
+    let thisItm = undefined
+    for(i=0;i<menuButtons.length;i++){
+        thisItm = addDiv(left)
+        thisItm.style = buttonStyle
+        thisItm.innerHTML = menuButtons[i].label
+        thisItm.addEventListener("click",menuButtons[i].clickFunction)
+        thisItm.setAttribute("id","menuButton"+i)
+    }
+
+}
+
+function clickLog(){
+    cleanParent(content)
+    let txt = ""
+    for(bcl=0;bcl<playerLogs.length;bcl++){
+        txt += "<br>" + playerLogs[bcl].text
+    }
+    addDiv(content).innerHTML = txt
+}
