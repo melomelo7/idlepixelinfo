@@ -128,8 +128,8 @@ allLogs.push(
     rescue or in the event of a planet discovery, you closed<br>
     your eyes.<br><br>
     4661.12.25<br>
-    The SERC was able to locate a close enough unknown planet<br>
-    to try a landing.<br><br>
+    The SERC was able to locate a close enough unknown<br>
+    planet to try a landing.<br><br>
     4661.12.26<br>
     Landing was successfull on the new planet, almost without<br>
     any damages. Current problem : even being close to full<br>
