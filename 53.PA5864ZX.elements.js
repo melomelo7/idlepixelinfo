@@ -111,26 +111,29 @@ allLogs.push(
     - Material => "green"<br>
     - Crew => "orange" (captain light fever)<br><br>
     4661.12.02<br>
-    approaching the Dark Rift a rain of Meteor was spot incoming.<br>
-    Deluca tried his best to avoid collision, unfortunately too<br>
-    many Meteors were impossible to avoid completely.<br>
-    The ship suffered high damages, multiple fires started and the<br>
-    very security of the crew was threaten.<br>
-    Oscar uploaded its full Databank in the [S]urvival [E]mergency<br>
-    [R]ooms [C]omputers and managed to set the evacuation sequence<br>
-    for both rooms of Roger & Deluca.<br><br>
+    approaching the Dark Rift a rain of Meteor was<br>
+    spot incoming. Deluca tried his best to avoid<br>
+    collision, unfortunately too many Meteors were<br>
+    impossible to avoid completely.<br>
+    The ship suffered high damages, multiple fires<br>
+    started and the very security of the crew was<br>
+    threaten. Oscar uploaded its full Databank in the<br>
+    [S]urvival [E]mergency [R]ooms [C]omputers and<br>
+    managed to set the evacuation sequence for both<br>
+    rooms of Roger & Deluca.<br><br>
     4661.12.05<br>
-    3 days now that the SER is derivating in space, all communications<br>
-    lost. The SERC simulation conclusion being "deep sleep" as the best<br>
-    option, hoping for a rescue or in the event of a planet discovery,<br>
-    you closed your eyes.<br><br>
+    3 days now that the SER is derivating in space, all<br>
+    communications lost. The SERC simulation conclusion<br>
+    being "deep sleep" as the best option, hoping for a<br>
+    rescue or in the event of a planet discovery, you closed<br>
+    your eyes.<br><br>
     4661.12.25<br>
-    The SERC was able to locate a close enough unknown planet to try a<br>
-    landing.<br><br>
+    The SERC was able to locate a close enough unknown planet<br>
+    to try a landing.<br><br>
     4661.12.26<br>
-    Landing was successfull on the new planet, almost without any damages.<br>
-    Current problem : even being close to full capacity, resources wont<br>
-    last long...<br>
+    Landing was successfull on the new planet, almost without<br>
+    any damages. Current problem : even being close to full<br>
+    capacity, resources wont last long...<br>
 
 
 
