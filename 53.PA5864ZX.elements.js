@@ -131,9 +131,9 @@ allLogs.push(
     The SERC was able to locate a close enough unknown<br>
     planet to try a landing.<br><br>
     4661.12.26<br>
-    Landing was successfull on the new planet, almost without<br>
-    any damages. Current problem : even being close to full<br>
-    capacity, resources wont last long...<br>
+    Landing was successfull on the new planet, almost<br>
+    without any damages. Current problem : even being<br>
+    close to full capacity, resources wont last long...<br>
 
 
 
