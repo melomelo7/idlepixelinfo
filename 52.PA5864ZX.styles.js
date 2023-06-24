@@ -1,7 +1,7 @@
 
 const grandContainerStyle = `
 color: white;
-font-size : 14px;
+font-size : 20px;
 heigt : 100%;
 width : 100%;
 `
