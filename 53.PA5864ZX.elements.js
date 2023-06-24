@@ -107,7 +107,9 @@ allLogs.push(
     ETA : 5 years 3~4 monthes<br><br>
     4657.06.19<br>
     Discovery PA5864ZX : launched at 07:50<br>
-    Status => Material : "green" - Crew : "orange" (captain light fever)<br><br>
+    Status :<br> 
+    - Material => "green"<br>
+    - Crew => "orange" (captain light fever)<br><br>
     4661.12.02<br>
     approaching the Dark Rift a rain of Meteor was spot incoming.<br>
     Deluca tried his best to avoid collision, unfortunately too<br>
