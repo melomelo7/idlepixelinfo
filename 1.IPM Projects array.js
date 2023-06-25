@@ -1650,6 +1650,8 @@ function clickProjectsAreas(e){
 
     item = AddADiv(listFrame)
     item.setAttribute("id","projectsChosenList")
+
+    if(!thisText.includes("(")) {thisText += " (" + thisArray.length + ")"}
     item.innerHTML = thisText // + " (" + thisArray.length + ")"
 
     for(i=0;i<thisArray.length;i++){

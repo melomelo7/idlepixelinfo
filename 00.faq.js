@@ -698,7 +698,6 @@ function setManagers(container){
         else
             {myItm.style.display = "none"}
 
-            console.log(thisContainer.getBoundingClientRect())
     })
 
     thisContainer = AddADiv(container)
