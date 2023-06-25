@@ -30,6 +30,8 @@ width:calc(99% - `+(topLeft+22)+`px);
 border-radius: 20px;
 border: solid 2px `+bordersColor+`;
 padding:5px 5px 5px 10px;
+display:flex;
+flex-direction:row;
 `
 
 const contentStyle = `
@@ -52,9 +54,25 @@ border-radius:5px;
 cursor: pointer;
 `
 
-const containerRow = `
+const borderedContainerRow = `
 display:flex;
 flex-direction: row;
+background-color:black;
+border-radius: 20px;
+border: solid 2px `+bordersColor+`;
+`
+
+const borderedContainerColumn = `
+display:flex;
+flex-direction:column;
+background-color:black;
+border-radius: 20px;
+border: solid 2px `+bordersColor+`;
+`
+
+const containerRow = `
+display:flex;
+flex-direction:row;
 `
 
 const containerColumn = `

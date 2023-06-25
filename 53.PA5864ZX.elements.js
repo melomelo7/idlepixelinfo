@@ -1,6 +1,7 @@
 const body = document.querySelector("body")
 
 let thisItm = undefined
+let logTop = undefined
 
 const grandContainer = addDiv(body)
 grandContainer.style = grandContainerStyle
@@ -12,13 +13,23 @@ grandContainer.style = grandContainerStyle
 
         const topMenu = addDiv(right)
         topMenu.style = topMenuStyle
+            const topMenuLeft = addDiv(topMenu)
+            topMenuLeft.style = borderedContainerColumn
+            topMenuLeft.style.height = 90 + "px"
+            topMenuLeft.style.width = 200 + "px"
+            topMenuLeft.style.margin ="3px 10px 3px 0"
 
-
+            thisItm = topMenuLeft.getBoundingClientRect().width
+            const topMenuRight = addDiv(topMenu)
+            topMenuRight.style = borderedContainerColumn
+            topMenuRight.style.height = 90 + "px"
+            topMenuRight.style.width = "calc(100% - " + (thisItm + 20) + "px)"
+            topMenuRight.style.margin ="3px 0 3px 0"
+            
         const content = addDiv(right)
         content.style = contentStyle
-        content.style.height = 
-        `calc(100% - `+(topMenu.getBoundingClientRect().height+15)+`px)`
-
+        thisItm = topMenu.getBoundingClientRect().height
+        content.style.height = "calc(100% - " + (thisItm + 15) + "px)"
 
 function cleanParent(parent){
     while(parent.children.length >0){
@@ -26,22 +37,22 @@ function cleanParent(parent){
     }}
 
 function addDiv(parent){
-    thisItm = document.createElement("div")
-    parent.appendChild(thisItm)
-    return thisItm
+    let ObjX = document.createElement("div")
+    parent.appendChild(ObjX)
+    return ObjX
 }
 
 function addImg(parent,ImgSource=""){
-    thisItm = new Image()
-    thisItm.src = ImgSource
-    parent.appendChild(thisItm)
-    return thisItm
+    let ObjX = new Image()
+    ObjX.src = ImgSource
+    parent.appendChild(ObjX)
+    return ObjX
 }
 
 function dayLight(hour=0){
     if(!isNaN(hour) && hour > -1 && hour < 24 ){
-        thisItm = dayProgress.filter(x=> x.hour === hour)[0]
-        return "rgb(" + thisItm.R + "," + thisItm.G + "," + thisItm.B + ")"
+        let ObjX = dayProgress.filter(x=> x.hour === hour)[0]
+        return "rgb(" + ObjX.R + "," + ObjX.G + "," + ObjX.B + ")"
         }}
 
 

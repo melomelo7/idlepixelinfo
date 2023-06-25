@@ -2,22 +2,24 @@
 
 
 
-
 function setPage(){
+    cleanParent(content)
 
-    menuButtons.push(new menuButton("Logs",clickLog))
+    if(menuButtons.length === 0){
+        playerLogs.push(allLogs.filter(x=>x.label === "Start")[0])
+        logTop = true
+        menuButtons.push(new menuButton("Logs", function (){clickLog(logTop)}))
+    }
 
     setMenu()
-
-    playerLogs.push(allLogs.filter(x=>x.label === "Start")[0])
-
-
 }
 
 function setMenu(){
+    cleanParent(left)
     for(i=0;i<menuButtons.length;i++){
         thisItm = addDiv(left)
         thisItm.style = buttonStyle
+        thisItm.style.marginBottom = 10 + "px"
         thisItm.innerHTML = menuButtons[i].label
         thisItm.addEventListener("click",menuButtons[i].clickFunction)
         thisItm.setAttribute("id","menuButton"+i)
@@ -25,7 +27,7 @@ function setMenu(){
 
 }
 
-function clickLog(){
+function clickLog(top){
     cleanParent(content)
 
     let txt = ""
@@ -34,16 +36,25 @@ function clickLog(){
     }
     thisItm = addDiv(content)
     thisItm.innerHTML = txt
-//    thisItm.scrollTop = thisItm.scrollHeight
-    console.log(content.scrollHeight)
-
-
 
     thisItm = addDiv(content)
     thisItm.style = buttonStyle
-    thisItm.innerHTML = "Close Logs And Start"
+    thisItm.innerHTML = "Close Logs"
     thisItm.style.margin = "30px 0 10px 10px" 
-    thisItm.style.width = "300px"
+    thisItm.style.width = "200px"
+    thisItm.addEventListener("click",()=>{
+            if(menuButtons.length === 1)
+                {logTop = false ; menuButtons.push(new menuButton("SERC",clickSERC))}
+            setPage()
+        })
 
-    content.scrollTop = 0
+    if (top)
+        {content.scrollTop = 0}
+    else
+        {content.scrollTop = content.scrollHeight}
+    
+}
+
+function clickSERC(){
+    console.log("SERC")
 }
