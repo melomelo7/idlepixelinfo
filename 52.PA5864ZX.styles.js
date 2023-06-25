@@ -30,7 +30,6 @@ width:calc(99% - `+(topLeft+22)+`px);
 border-radius: 20px;
 border: solid 2px `+bordersColor+`;
 padding:5px 5px 5px 10px;
-overflow-x: hidden;
 `
 
 const contentStyle = `

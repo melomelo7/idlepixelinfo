@@ -1,5 +1,7 @@
 const body = document.querySelector("body")
 
+let thisItm = undefined
+
 const grandContainer = addDiv(body)
 grandContainer.style = grandContainerStyle
     const left = addDiv(grandContainer)
@@ -10,6 +12,7 @@ grandContainer.style = grandContainerStyle
 
         const topMenu = addDiv(right)
         topMenu.style = topMenuStyle
+
 
         const content = addDiv(right)
         content.style = contentStyle
@@ -23,22 +26,22 @@ function cleanParent(parent){
     }}
 
 function addDiv(parent){
-    let thisElement = document.createElement("div")
-    parent.appendChild(thisElement)
-    return thisElement
+    thisItm = document.createElement("div")
+    parent.appendChild(thisItm)
+    return thisItm
 }
 
 function addImg(parent,ImgSource=""){
-    let thisElement = new Image()
-    thisElement.src = ImgSource
-    parent.appendChild(thisElement)
-    return thisElement
+    thisItm = new Image()
+    thisItm.src = ImgSource
+    parent.appendChild(thisItm)
+    return thisItm
 }
 
 function dayLight(hour=0){
     if(!isNaN(hour) && hour > -1 && hour < 24 ){
-        let myItm = dayProgress.filter(x=> x.hour === hour)[0]
-        return "rgb(" + myItm.R + "," + myItm.G + "," + myItm.B + ")"
+        thisItm = dayProgress.filter(x=> x.hour === hour)[0]
+        return "rgb(" + thisItm.R + "," + thisItm.G + "," + thisItm.B + ")"
         }}
 
 
@@ -111,7 +114,7 @@ allLogs.push(
     - Material => "green"<br>
     - Crew => "orange" (captain light fever)<br><br>
     4661.12.02<br>
-    approaching the Dark Rift a rain of Meteor was<br>
+    approaching the Dark Rift, a rain of Meteor was<br>
     spot incoming. Deluca tried his best to avoid<br>
     collision, unfortunately too many Meteors were<br>
     impossible to avoid completely.<br>

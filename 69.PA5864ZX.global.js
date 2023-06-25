@@ -15,7 +15,6 @@ function setPage(){
 }
 
 function setMenu(){
-    let thisItm = undefined
     for(i=0;i<menuButtons.length;i++){
         thisItm = addDiv(left)
         thisItm.style = buttonStyle
@@ -28,16 +27,23 @@ function setMenu(){
 
 function clickLog(){
     cleanParent(content)
+
     let txt = ""
-    let thisItm = undefined
     for(bcl=0;bcl<playerLogs.length;bcl++){
         txt += "<br>" + playerLogs[bcl].text
     }
-    addDiv(content).innerHTML = txt
+    thisItm = addDiv(content)
+    thisItm.innerHTML = txt
+//    thisItm.scrollTop = thisItm.scrollHeight
+    console.log(content.scrollHeight)
+
+
+
     thisItm = addDiv(content)
     thisItm.style = buttonStyle
-    thisItm.innerHTML = "Start"
+    thisItm.innerHTML = "Close Logs And Start"
     thisItm.style.margin = "30px 0 10px 10px" 
     thisItm.style.width = "300px"
 
+    content.scrollTop = 0
 }
