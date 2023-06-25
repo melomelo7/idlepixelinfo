@@ -158,8 +158,8 @@ const faqsArray = [
             - Projects : related to [A] / [D]<br>
             - Room : Belt Studies <br>
             - Rover : Resupply(1~2) Projects done ⇒ temporary boost<br>
+            - Station : Asteroid Nodes<br>
             - Merchant Ship<br><br>
-
             Times :<br>  
             To have these informations it will take a few more clicks :<br>
             Visit my other tab ⇒ "Projects" (roughly to center-right area)<br>
