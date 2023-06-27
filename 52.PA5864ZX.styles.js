@@ -80,3 +80,15 @@ const containerColumn = `
 display:flex;
 flex-direction:column;
 `
+
+const runTimeBtn = `
+width: 100px;
+background-color: green;
+border-radius: 20px;
+border:solid 2px rgb(55, 146, 182) ;
+color: black;
+display: flex;
+justify-content: center;
+align-items: center;
+cursor:pointer;
+`

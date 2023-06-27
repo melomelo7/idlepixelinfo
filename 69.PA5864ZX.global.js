@@ -56,5 +56,71 @@ function clickLog(top){
 }
 
 function clickSERC(){
-    console.log("SERC")
+    displayTime()
+    displayTopmenu()
+}
+
+function displayTime(){
+    let current = playerDetails.Time
+    thisTime = current.hour < 10 ? "0" + current.hour : current.hour
+    let thisWidth = "calc(" + (topMenuLeft.getBoundingClientRect().width - 40) + "px)"
+    cleanParent(topMenuLeft)
+    thisItm = addDiv(topMenuLeft)
+    thisItm.style = borderedContainerRow
+    thisItm.style.width = thisWidth
+    thisItm.style.padding = "3px"
+    thisItm.style.margin = "10px 0 4px 0"
+    thisItm.style.justifyContent = "center"
+    thisItm.innerHTML = current.year + "." + current.month + "." + current.day
+
+    let thisContainer = addDiv(topMenuLeft)
+    thisContainer.style = borderedContainerRow
+    thisContainer.style.margin = "6px 0 0 0"
+    thisContainer.style.width = thisWidth
+
+        thisItm = addDiv(thisContainer)
+        thisItm.innerHTML = thisTime + ":00"
+        thisItm.style.padding = "0 10px 0 10px"
+        thisItm.setAttribute("id","timeDisplay")
+
+        thisWidth = 
+            thisContainer.getBoundingClientRect().width - 
+            thisItm.getBoundingClientRect().width
+        thisItm = addDiv(thisContainer)
+        thisItm.style.display = "block"
+        thisItm.style.width = thisWidth + "px"
+        thisItm.style.borderTopRightRadius = "20px"
+        thisItm.style.borderBottomRightRadius = "20px"
+        thisItm.style.backgroundColor = dayLight(current.hour)
+        thisItm.setAttribute("id","lightDisplay")
+}
+
+function displayTopmenu(){
+    cleanParent(topMenuRight)
+    thisItm = addDiv(topMenuRight)
+    thisItm.style = runTimeBtn
+    thisItm.innerHTML = "Run<br>Time"
+    thisItm.addEventListener("click",()=>{
+        playerDetails.Time.hour += playerDetails.runTimeChunk
+        if (playerDetails.Time.hour > 23){
+            playerDetails.Time.hour = 0
+            playerDetails.Time.day += 1
+            if(playerDetails.Time.day > 30){
+                playerDetails.Time.day = 1
+                playerDetails.Time.month += 1
+                if(playerDetails.Time.month > 12){
+                    playerDetails.Time.month = 1
+                    playerDetails.Time.year += 1
+                }
+            }
+        }
+
+        displayTime()
+    })
+
+    thisItm = addDiv(topMenuRight)
+    thisItm.innerHTML = SERCtalk.filter(x=>x.id === playerDetails.SERCchat)[0].text
+    thisItm.style.fontSize = 18 + "px"
+    thisItm.style.margin = "10px 0 0 20px"
+    thisItm.style.overflowX = "hidden"
 }

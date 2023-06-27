@@ -18,10 +18,11 @@ grandContainer.style = grandContainerStyle
             topMenuLeft.style.height = 90 + "px"
             topMenuLeft.style.width = 200 + "px"
             topMenuLeft.style.margin ="3px 10px 3px 0"
+            topMenuLeft.style.alignItems = "center"
 
             thisItm = topMenuLeft.getBoundingClientRect().width
             const topMenuRight = addDiv(topMenu)
-            topMenuRight.style = borderedContainerColumn
+            topMenuRight.style = borderedContainerRow
             topMenuRight.style.height = 90 + "px"
             topMenuRight.style.width = "calc(100% - " + (thisItm + 20) + "px)"
             topMenuRight.style.margin ="3px 0 3px 0"
@@ -29,7 +30,18 @@ grandContainer.style = grandContainerStyle
         const content = addDiv(right)
         content.style = contentStyle
         thisItm = topMenu.getBoundingClientRect().height
-        content.style.height = "calc(100% - " + (thisItm + 15) + "px)"
+        content.style.height = "calc(99% - " + (thisItm + 15) + "px)"
+
+let playerDetails = {
+    Name : "Skit Roger",
+    Health : {now:60,max:60},
+    Time : {year:4661,month:12,day:27,hour:7},
+    SERCchat : 1,
+    runTimeChunk : 1,
+
+}
+
+
 
 function cleanParent(parent){
     while(parent.children.length >0){
@@ -104,7 +116,7 @@ const menuButtons = []
 
 const allLogs = []
 const playerLogs = []
-
+const SERCtalk = []
 allLogs.push(
     {label:"Start",text:`
     4657.06.18<br>
@@ -148,10 +160,22 @@ allLogs.push(
     Landing was successfull on the new planet, almost<br>
     without any damages. Current problem : even being<br>
     close to full capacity, resources wont last long...<br>
-
-
-
-
-
     `}
+)
+
+SERCtalk.push(
+    {id:2,
+        text : `
+        Hello skit,
+        As you just woke up from a deep sleep, your body<br>
+        is still very weak, you should just spend some<br>
+        time recovering some VIGOR today.
+        `},
+    {id:1,
+    text : `
+    Hello ` + playerDetails.Name + `,<br>
+    As you just woke up from a deep sleep, your body<br>
+    is still very weak, you should just spend some<br>
+    time recovering your VIGOR for now.
+    `},
 )
