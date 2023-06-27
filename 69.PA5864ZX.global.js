@@ -91,9 +91,16 @@ function displayTime(){
         thisItm.style.width = thisWidth + "px"
         thisItm.style.borderTopRightRadius = "20px"
         thisItm.style.borderBottomRightRadius = "20px"
-        thisItm.style.backgroundColor = dayLight(current.hour)
+        let part1 = dayLight(current.hour)
+        let part2 = current.hour === 23 ? dayLight(0) : dayLight(current.hour +1)
+//        thisItm.style.backgroundColor = dayLight(current.hour)
+console.log("linear-gradient(" + part1 + "," + part2 + ")")
+        thisItm.style.backgroundImage = "linear-gradient(to right," + part1 + "," + part2 + ")"
         thisItm.setAttribute("id","lightDisplay")
 }
+
+//background-color: rgb(0,76,78);
+
 
 function displayTopmenu(){
     cleanParent(topMenuRight)
