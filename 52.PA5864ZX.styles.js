@@ -14,18 +14,19 @@ const leftMenuStyle = `
 position: fixed;
 padding: `+(leftPadding*2)+`px `+leftPadding+`px 0 `+leftPadding+`px;
 background-color: black;
-height: calc(100% - 25px);
+height: calc(99% - 25px);
 width: `+leftWidth+`px;
 border-radius: 20px;
 border: solid 2px `+bordersColor+`;
 `
 
 const topLeft = 2 + leftWidth + (leftPadding*2)
+const topMenuHeight = 100
 const topMenuStyle = `
 position:fixed;
 margin: 0 0 0 `+ (topLeft+5) +`px;
 background-color: black;
-height: 100px;
+height: ` + topMenuHeight + `px;
 width:calc(99% - `+(topLeft+22)+`px);
 border-radius: 20px;
 border: solid 2px `+bordersColor+`;
