@@ -925,7 +925,7 @@ function buildPlanets(){
     myDiv.style = closeButtonStyle
     myDiv.style.marginLeft = 10 + "px"
     myDiv.innerHTML = "Find Planet"
-    myDiv.addEventListener("mouseover",()=>{tabInfos.innerHTML = "Input Planet's name to find it"})
+    myDiv.addEventListener("mouseover",()=>{tabInfos.innerHTML = "Input Planet's name/id to find it"})
     myDiv.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
     myDiv.addEventListener("click",function(){
         info.innerHTML = infoTitle
@@ -938,7 +938,7 @@ function buildPlanets(){
             myDiv = AddADiv(thisContainer)
             myDiv.style.margin = "0 10px 0 10px"
             myDiv.style.fontSize = 20 + "px"
-            myDiv.innerHTML = "Planet name ?"
+            myDiv.innerHTML = "Planet name/id ?"
             myDiv = document.createElement("input")
             thisContainer.appendChild(myDiv)
             myDiv.addEventListener("input",(e)=>{
@@ -946,8 +946,11 @@ function buildPlanets(){
                 let newArray = []
                 let myText = e.srcElement.value.toUpperCase()
                 for(i=0;i<planetsArray.length;i++){
-                    let myText2 = planetsArray[i].label.slice(0,myText.length).toUpperCase()
-                    if(myText === myText2 && myText.length > 0){newArray.push(planetsArray[i])}
+                    if(isNaN(myText))
+                        {let myText2 = planetsArray[i].label.slice(0,myText.length).toUpperCase()
+                         if(myText === myText2 && myText.length > 0){newArray.push(planetsArray[i])}}
+                    else
+                        {if(Number(myText) === planetsArray[i].idNumber && myText.length > 0){newArray.push(planetsArray[i])}}
                     }
                 displayPlanets(rightBottom,newArray)
             })})
