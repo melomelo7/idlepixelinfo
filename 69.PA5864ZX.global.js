@@ -3,12 +3,12 @@
 
 
 function setPage(){
-    cleanParent(content)
+//    cleanParent(content)
 
     if(menuButtons.length === 0){
-        playerLogs.push(allLogs.filter(x=>x.label === "Start")[0])
+        playerDetails.Logs.push(allLogs.filter(x=>x.label === "Start")[0])
         logTop = true
-        menuButtons.push(new menuButton("Logs", function (){clickLog(logTop)}))
+        menuButtons.push(new menuButton("Logs", function (e){clickLog(e,logTop)}))
     }
 
     setMenu()
@@ -25,14 +25,29 @@ function setMenu(){
         thisItm.setAttribute("id","menuButton"+i)
     }
 
+    if(playerDetails.LastButton !=="none"){clickLeftMenu(playerDetails.LastButton)}
+
 }
 
-function clickLog(top){
+function clickLeftMenu(id){
+    playerDetails.LastButton = id
+    let thisArray = left.querySelectorAll("div")
+    for (bcl=0;bcl<thisArray.length;bcl++){
+        if(id === thisArray[bcl].id)
+            {thisArray[bcl].style.backgroundColor = "grey"}
+        else
+            {thisArray[bcl].style.backgroundColor = "black"}
+    }
+}
+
+function clickLog(e,top){
     cleanParent(content)
 
+    clickLeftMenu(e.srcElement.id)
+
     let txt = ""
-    for(bcl=0;bcl<playerLogs.length;bcl++){
-        txt += "<br>" + playerLogs[bcl].text
+    for(bcl=0;bcl<playerDetails.Logs.length;bcl++){
+        txt += "<br>" + playerDetails.Logs[bcl].text
     }
     thisItm = addDiv(content)
     thisItm.innerHTML = txt
@@ -45,6 +60,8 @@ function clickLog(top){
     thisItm.addEventListener("click",()=>{
             if(menuButtons.length === 1)
                 {logTop = false ; menuButtons.push(new menuButton("SERC",clickSERC))}
+            clickLeftMenu("")
+            cleanParent(content)
             setPage()
         })
 
@@ -55,7 +72,9 @@ function clickLog(top){
     
 }
 
-function clickSERC(){
+function clickSERC(e){
+    clickLeftMenu(e.srcElement.id)
+    cleanParent(content)
     displayTime()
     displayTopmenu()
 }
@@ -102,7 +121,10 @@ function displayTopmenu(){
     runner.style.visibility = "visible"
 
     thisItm = addDiv(topMenuRight)
-    thisItm.innerHTML = SERCtalk.filter(x=>x.id === playerDetails.SERCchat)[0].text
+    let thisText = SERCtalk.filter(x=>x.id === playerDetails.SERCchat)[0].text
+    thisText = thisText.includes("$name$") ? 
+    thisText.replace("$name$",playerDetails.Name) : thisText
+    thisItm.innerHTML = thisText
     thisItm.style = `
     font-size: 18px;
     margin: 10px 0 10px 20px;
@@ -110,4 +132,42 @@ function displayTopmenu(){
     width: 60%;
     `
     
+}
+
+function clickSelf(e){
+    cleanParent(content)
+    clickLeftMenu(e.srcElement.id)
+    let thisContainer = addDiv(content)
+    thisContainer.style = `
+    border: solid 2px yellow;
+    margin: 10px 20px 0 20px;
+    padding : 10px;
+    border-radius: 20px;
+    display:flex;
+    flex-direction:column;
+    `
+        let thisContainer2 = addDiv(thisContainer)
+        thisContainer2.style = containerRow
+        thisContainer2.style.marginTop = 10 + "px"
+            thisItm = addDiv(thisContainer2)
+            thisItm.innerHTML = "Name : "
+
+            thisItm = addInput(thisContainer2)
+            thisItm.value = playerDetails.Name
+            thisItm.style.marginLeft = 10 + "px"
+            thisItm.addEventListener("input",(e)=>{
+                if (e.srcElement.value !== ""){
+                    playerDetails.Name = e.srcElement.value
+                    displayTopmenu()
+                }})
+
+        thisItm = addDiv(thisContainer)
+        thisItm.style.marginTop = 10 + "px"
+        thisItm.innerHTML = "Health : " 
+        + playerDetails.Health.now + " / " + playerDetails.Health.max
+
+        thisItm = addDiv(thisContainer)
+        thisItm.style.marginTop = 10 + "px"
+        thisItm.innerHTML = "Vigor : " 
+        + playerDetails.Vigor.now + " / " + playerDetails.Vigor.max        
 }

@@ -18,6 +18,9 @@ grandContainer.style = grandContainerStyle
             runner.style.visibility = "hidden"
             runner.innerHTML = "Run<br>Time"
             runner.addEventListener("click",()=>{
+                playerDetails.Vigor.now = 
+                (playerDetails.Vigor.now + 1) > playerDetails.Vigor.max ?
+                playerDetails.Vigor.max : playerDetails.Vigor.now + 1
                 playerDetails.Time.hour += playerDetails.runTimeChunk
                 if (playerDetails.Time.hour > 23){
                     playerDetails.Time.hour = 0
@@ -32,6 +35,14 @@ grandContainer.style = grandContainerStyle
                     }
                 }
                 displayTime()
+                checkQueue()
+
+                if(menuButtons.length === 2)
+                {menuButtons.push(new menuButton("Self",clickSelf))}
+            setPage()
+            let TpBtn = document.getElementById(playerDetails.LastButton)
+            if(TpBtn.innerHTML === "Self"){TpBtn.click()}
+
             })
 
             const topMenuLeft = addDiv(topMenu)
@@ -55,14 +66,15 @@ grandContainer.style = grandContainerStyle
 
 let playerDetails = {
     Name : "Skit Roger",
-    Health : {now:60,max:60},
+    Name:"Skit Roger", 
+    Health : {now:100,max:100},
+    Vigor : {now:1,max:50},
     Time : {year:4661,month:12,day:27,hour:7},
     SERCchat : 1,
     runTimeChunk : 1,
-
+    Logs:[],
+    LastButton:"none",
 }
-
-
 
 function cleanParent(parent){
     while(parent.children.length >0){
@@ -82,6 +94,13 @@ function addImg(parent,ImgSource=""){
     return ObjX
 }
 
+function addInput(parent,type = "none"){
+    let ObjX = document.createElement("input")
+    if(type !=="none"){ObjX.setAttribute("type",type)}
+    parent.appendChild(ObjX)
+    return ObjX
+}
+
 function dayLight(hour=0){
     if(!isNaN(hour) && hour > -1 && hour < 24 ){
         let hour1 = hour === 0 ? 23 : hour -1
@@ -93,6 +112,9 @@ function dayLight(hour=0){
         return "linear-gradient(to right," + part1 + "," + part2 + ")"
         }}
 
+function checkQueue(){
+
+}
 
 class dayHour{
     constructor(hour,R,G,B,energyIncome){
@@ -139,10 +161,9 @@ class menuButton{
     }}
 
 const menuButtons = []
-
 const allLogs = []
-const playerLogs = []
 const SERCtalk = []
+
 allLogs.push(
     {label:"Start",text:`
     4657.06.18<br>
@@ -190,16 +211,9 @@ allLogs.push(
 )
 
 SERCtalk.push(
-    {id:2,
-        text : `
-        Hello skit,
-        As you just woke up from a deep sleep, your body<br>
-        is still very weak, you should just spend some<br>
-        time recovering some VIGOR today.
-        `},
     {id:1,
     text : `
-    Hello ` + playerDetails.Name + `,<br>
+    Hello $name$,<br>
     As you just woke up from a deep sleep, your body<br>
     is still very weak, you should just spend some<br>
     time recovering your VIGOR for now.
