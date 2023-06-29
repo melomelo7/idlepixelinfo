@@ -31,7 +31,9 @@ const faqsArray = [
             Its important to remember, its just a game, do not put<br>
             too much pressure on it.<br><br>
             "Feel free to ignore all that, lol"<br>
-            (from Agent J kicking my butt atm)
+            (from Agent J kicking my butt atm)<br><br>
+            If any comments or new ideas, you can Private Message me<br>
+            on the Discord : @Shadow7
         `,
     url : "",
     img : "",
