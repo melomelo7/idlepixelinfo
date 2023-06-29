@@ -91,43 +91,23 @@ function displayTime(){
         thisItm.style.width = thisWidth + "px"
         thisItm.style.borderTopRightRadius = "20px"
         thisItm.style.borderBottomRightRadius = "20px"
-        let part1 = dayLight(current.hour)
-        let part2 = current.hour === 23 ? dayLight(0) : dayLight(current.hour +1)
-//        thisItm.style.backgroundColor = dayLight(current.hour)
-console.log("linear-gradient(" + part1 + "," + part2 + ")")
-        thisItm.style.backgroundImage = "linear-gradient(to right," + part1 + "," + part2 + ")"
+        thisItm.style.backgroundImage = dayLight(current.hour)
         thisItm.setAttribute("id","lightDisplay")
 }
-
-//background-color: rgb(0,76,78);
 
 
 function displayTopmenu(){
     cleanParent(topMenuRight)
-    thisItm = addDiv(topMenuRight)
-    thisItm.style = runTimeBtn
-    thisItm.innerHTML = "Run<br>Time"
-    thisItm.addEventListener("click",()=>{
-        playerDetails.Time.hour += playerDetails.runTimeChunk
-        if (playerDetails.Time.hour > 23){
-            playerDetails.Time.hour = 0
-            playerDetails.Time.day += 1
-            if(playerDetails.Time.day > 30){
-                playerDetails.Time.day = 1
-                playerDetails.Time.month += 1
-                if(playerDetails.Time.month > 12){
-                    playerDetails.Time.month = 1
-                    playerDetails.Time.year += 1
-                }
-            }
-        }
 
-        displayTime()
-    })
+    runner.style.visibility = "visible"
 
     thisItm = addDiv(topMenuRight)
     thisItm.innerHTML = SERCtalk.filter(x=>x.id === playerDetails.SERCchat)[0].text
-    thisItm.style.fontSize = 18 + "px"
-    thisItm.style.margin = "10px 0 0 20px"
-    thisItm.style.overflowX = "hidden"
+    thisItm.style = `
+    font-size: 18px;
+    margin: 10px 0 10px 20px;
+    overflow-x: hidden;
+    width: 60%;
+    `
+    
 }

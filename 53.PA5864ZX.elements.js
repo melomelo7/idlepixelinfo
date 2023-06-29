@@ -13,18 +13,39 @@ grandContainer.style = grandContainerStyle
 
         const topMenu = addDiv(right)
         topMenu.style = topMenuStyle
+            const runner = addDiv(topMenu)
+            runner.style = runTimeBtn
+            runner.style.visibility = "hidden"
+            runner.innerHTML = "Run<br>Time"
+            runner.addEventListener("click",()=>{
+                playerDetails.Time.hour += playerDetails.runTimeChunk
+                if (playerDetails.Time.hour > 23){
+                    playerDetails.Time.hour = 0
+                    playerDetails.Time.day += 1
+                    if(playerDetails.Time.day > 30){
+                        playerDetails.Time.day = 1
+                        playerDetails.Time.month += 1
+                        if(playerDetails.Time.month > 12){
+                            playerDetails.Time.month = 1
+                            playerDetails.Time.year += 1
+                        }
+                    }
+                }
+                displayTime()
+            })
+
             const topMenuLeft = addDiv(topMenu)
             topMenuLeft.style = borderedContainerColumn
             topMenuLeft.style.height = 90 + "px"
             topMenuLeft.style.width = 200 + "px"
-            topMenuLeft.style.margin ="3px 10px 3px 0"
+            topMenuLeft.style.margin ="3px 10px 3px 10px"
             topMenuLeft.style.alignItems = "center"
 
-            thisItm = topMenuLeft.getBoundingClientRect().width
+            thisItm = topMenuLeft.getBoundingClientRect().width + runner.getBoundingClientRect().width
             const topMenuRight = addDiv(topMenu)
             topMenuRight.style = borderedContainerRow
             topMenuRight.style.height = 90 + "px"
-            topMenuRight.style.width = "calc(100% - " + (thisItm + 20) + "px)"
+            topMenuRight.style.width = "calc(100% - " + (thisItm + 30) + "px)"
             topMenuRight.style.margin ="3px 0 3px 0"
             
         const content = addDiv(right)
@@ -63,8 +84,13 @@ function addImg(parent,ImgSource=""){
 
 function dayLight(hour=0){
     if(!isNaN(hour) && hour > -1 && hour < 24 ){
-        let ObjX = dayProgress.filter(x=> x.hour === hour)[0]
-        return "rgb(" + ObjX.R + "," + ObjX.G + "," + ObjX.B + ")"
+        let hour1 = hour === 0 ? 23 : hour -1
+        let hour2 = hour// + 1 > 23 ? 1 : hour + 1
+        let ObjX1 = dayProgress.filter(x=> x.hour === hour1)[0]
+        let ObjX2 = dayProgress.filter(x=> x.hour === hour2)[0]
+        let part1 = "rgb(" + ObjX1.R + "," + ObjX1.G + "," + ObjX1.B + ")"
+        let part2 = "rgb(" + ObjX2.R + "," + ObjX2.G + "," + ObjX2.B + ")"
+        return "linear-gradient(to right," + part1 + "," + part2 + ")"
         }}
 
 

@@ -82,11 +82,13 @@ flex-direction:column;
 `
 
 const runTimeBtn = `
-width: 100px;
+height:90px;
+width: 60px;
+color: white;
+margin-top:3px;
 background-color: green;
 border-radius: 20px;
 border:solid 2px rgb(55, 146, 182) ;
-color: black;
 display: flex;
 justify-content: center;
 align-items: center;
