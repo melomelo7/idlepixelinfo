@@ -603,6 +603,7 @@ function setTournament(container){
                 - Sometimes Tournament also get some weird bugs ...<br>
                 To have a "stable" tournament I recommend you<br>
                 to avoid transfering game between devices.<br>
+                (Only [Save] is available during a tourney anyways)<br>
                 Traveling sometime is a bug cause, especialy<br>
                 crossing time zones. When facing a big badabug,<br>
                 screen shots/Player ID ready ⇒ contact Support 
