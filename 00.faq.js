@@ -113,16 +113,19 @@ const faqsArray = [
             starts/ends. Logic says dont start the chain by the top<br>
             item but by the lowest ...<br><br>
             example : <br>
-            lens require glass dont put lens in [1] and glass in [2]<br><br>
-            PS :<br>
-            One last piece of info while we are here ... when smelters<br>
-            get too fast the game wont do the math properly resulting<br>
-            in smelters too slow because too fast ... <br>
-            dont kick me, it wont change a thing `,
+            lens require glass dont put lens in [1] and glass in [2]
+            `,
     url : "",
     img : "craft2.jpg",
     thisFunction : undefined,
     },
+/*
+    <br><br>PS :<br>
+    One last piece of info while we are here ... when smelters<br>
+    get too fast the game wont do the math properly resulting<br>
+    in smelters too slow because too fast ... <br>
+    dont kick me, it wont change a thing `
+*/
     {
     label : "Managers",
     icon : "manager1.jpg",
