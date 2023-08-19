@@ -208,6 +208,23 @@ const faqsArray = [
     thisFunction : undefined,
     },
     {
+    label : "Stars",
+    icon : "star.jpg",
+    text : `Always wanted to make more money out of your resources ?<br><br>
+            Stars will help you do so. For each star you get a +20% base value.<br><br>
+            So reaching 5 stars, a resource value is x2, at 10 stars x3 ....<br><br>
+            Boost is always added to the "base value", so the power of stars will<br>
+            have a different impact as you keep earning more.<br><br><br>
+            Sources of stars :<br>
+            - Challenge reward<br>
+            - Tournament reward<br>
+            - Rover Missions reward<br><br><br>
+            You do not have control on stars, they are allocated at random.`,
+    url : "",
+    img : "star.jpg",
+    thisFunction : undefined,
+    },
+    {
     label : "Challenge",
     icon : "challenge.jpg",
     text : `After selling a couple galaxies you get acces to Challenges.<br>
