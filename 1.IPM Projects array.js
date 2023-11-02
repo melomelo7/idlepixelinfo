@@ -885,7 +885,7 @@ projectCells.push(
         label:"asteroid refined drilling",
         component1:{label:"silicon bar",baseCost:40,costWithMaxLab:20},
         component2:{label:"lead bar",baseCost:80,costWithMaxLab:40},
-        description:"10% of an asteroid containing 20x normal value worth of alloy",
+        description:"10% chance of an asteroid containing 20x normal value worth of alloy",
         prerequisites:"telescope 3",
         highestPlanetRequired:"7-Widow"}),
 
@@ -1650,9 +1650,8 @@ function clickProjectsAreas(e){
 
     item = AddADiv(listFrame)
     item.setAttribute("id","projectsChosenList")
-
     if(!thisText.includes("(")) {thisText += " (" + thisArray.length + ")"}
-    item.innerHTML = thisText // + " (" + thisArray.length + ")"
+    item.innerHTML = thisText
 
     for(i=0;i<thisArray.length;i++){
         item = AddADiv(listFrame)
