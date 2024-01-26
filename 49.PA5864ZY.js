@@ -231,7 +231,6 @@ addEle({dad:body,setClass:"tab",setID:"cont2",display:"none",width:"fit-content"
                 let thisGRP = document.getElementsByName("quizz2")
                 let mdt = new Date
                 thisGRP.forEach((x)=>{if(x.checked){
-                    console.log(x.value)
                     if(mdt.getDate() === Number(x.value)){
                         getID("cont2").style.display = "none"
                         getID("cont3").style.display = "flex"
