@@ -527,7 +527,7 @@ new Item({
     unlockCost:"$ 84.00 B",
     baseCraftTime:{hr:0,mn:55,sc:0},
     ingredients:[
-        {label:"viterium alloy",amount:5,min:2},  
+        {label:"vibranium alloy",amount:5,min:2},  
         {label:"xynium ore",amount:1500,min:600},
     ],
     baseSellValue: {value:48,unit:"B"},
