@@ -167,7 +167,7 @@ addEle({dad:body,setClass:"tab",setID:"cont1"})
             radX++
            // console.log(refArr[idx])
             addEle({dad:getID("cont1L"+i),what:"radio",isInput:true,setVal:refArr[idx],setName:"quizz1",
-            setID:"radioQ1-"+radX ,setFunc:()=>{
+            setID:"radioQ1-"+radX,display:"none",setFunc:()=>{
                 let thisGRP = document.getElementsByName("quizz1")
                 thisGRP.forEach((x)=>{if(x.checked){
                     let thisItm = myArr.filter(y=>y.label === x.value)[0]
@@ -177,7 +177,7 @@ addEle({dad:body,setClass:"tab",setID:"cont1"})
                         case 0 :
                             refV = mdt.getDay()
                             if(thisItm.value === refV)
-                                {getID("info").innerHTML = "当たり、クイズ2：数字で言うと？"
+                                {getID("info").innerHTML = "当たり、クイズ2：本を数字で言うと？"
                                 getID("cont1").style.display = "none"
                                 getID("cont2").style.display = "flex"
                                 miss = 0}
@@ -188,7 +188,7 @@ addEle({dad:body,setClass:"tab",setID:"cont1"})
                         case 1 :
                             refV = mdt.getDay() === 0 ? 6 : mdt.getDay() -1
                             if(thisItm.value === refV)
-                                {getID("info").innerHTML = "当たり、クイズ2：数字で言うと？"
+                                {getID("info").innerHTML = "当たり、クイズ2：本を数字で言うと？"
                                 getID("cont1").style.display = "none"
                                 getID("cont2").style.display = "flex"
                                 miss = 0}
@@ -199,7 +199,7 @@ addEle({dad:body,setClass:"tab",setID:"cont1"})
                         case 2 :
                             refV = mdt.getDay() === 6 ? 0 : mdt.getDay() +1
                             if(thisItm.value === refV)
-                                {getID("info").innerHTML = "当たり、クイズ2：数字で言うと？"
+                                {getID("info").innerHTML = "当たり、クイズ2：本を数字で言うと？"
                                 getID("cont1").style.display = "none"
                                 getID("cont2").style.display = "flex"
                                 miss = 0}
@@ -209,7 +209,8 @@ addEle({dad:body,setClass:"tab",setID:"cont1"})
                     }
                 }})
             }})
-            addEle({dad:getID("cont1L"+i),text:refArr[idx],setID:"radioQ1L-"+radX,setFunc:(e)=>{
+            addEle({dad:getID("cont1L"+i),text:refArr[idx],setID:"radioQ1L-"+radX,border:"solid 2px blue",
+            padding:"5px",radius:"5px",setFunc:(e)=>{
                 getID("radioQ1-"+e.srcElement.id.split("-")[1]).click()
             }})
             idx++
@@ -227,7 +228,7 @@ addEle({dad:body,setClass:"tab",setID:"cont2",display:"none",width:"fit-content"
             idx++
             radX++
             addEle({dad:getID("cont2L"+i),what:"radio",isInput:true,setVal:idx,setName:"quizz2",
-            setID:"radioQ2-"+radX ,setFunc:()=>{
+            setID:"radioQ2-"+radX ,display:"none",setFunc:()=>{
                 let thisGRP = document.getElementsByName("quizz2")
                 let mdt = new Date
                 thisGRP.forEach((x)=>{if(x.checked){
@@ -245,7 +246,7 @@ addEle({dad:body,setClass:"tab",setID:"cont2",display:"none",width:"fit-content"
                 }})
             }})
             addEle({dad:getID("cont2L"+i),setID:"radioQ2L-"+radX ,text: idx < 10 ? "0"+idx : idx,
-            setFunc:(e)=>{
+            border:"solid 2px blue",padding:"5px",radius:"5px",setFunc:(e)=>{
                 getID("radioQ2-"+e.srcElement.id.split("-")[1]).click()
             }})
         }
