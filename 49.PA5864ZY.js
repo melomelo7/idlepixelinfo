@@ -232,6 +232,7 @@ addEle({dad:body,setClass:"tab",setID:"cont2",display:"none",width:"fit-content"
                 let mdt = new Date
                 thisGRP.forEach((x)=>{if(x.checked){
                     if(mdt.getDate() === Number(x.value)){
+                        getID("info").style.display = "none"
                         getID("cont2").style.display = "none"
                         getID("cont3").style.display = "flex"
                     } else {
