@@ -158,14 +158,16 @@ while(tpArr.length > 0){
 
 let idx=0
 let miss=0
+let radX = 0
 addEle({dad:body,text:"クイズ1：本は？",margin:"10px",setID:"info"})
 addEle({dad:body,setClass:"tab",setID:"cont1"})
     for(i=0;i<4;i++){
         addEle({dad:getID("cont1"),setClass:"contRow",setID:"cont1L"+i})
         for(j=0;j<4;j++){
+            radX++
            // console.log(refArr[idx])
             addEle({dad:getID("cont1L"+i),what:"radio",isInput:true,setVal:refArr[idx],setName:"quizz1",
-            setFunc:()=>{
+            setID:"radioQ1-"+radX ,setFunc:()=>{
                 let thisGRP = document.getElementsByName("quizz1")
                 thisGRP.forEach((x)=>{if(x.checked){
                     let thisItm = myArr.filter(y=>y.label === x.value)[0]
@@ -207,24 +209,29 @@ addEle({dad:body,setClass:"tab",setID:"cont1"})
                     }
                 }})
             }})
-            addEle({dad:getID("cont1L"+i),text:refArr[idx]})
+            addEle({dad:getID("cont1L"+i),text:refArr[idx],setID:"radioQ1L-"+radX,setFunc:(e)=>{
+                getID("radioQ1-"+e.srcElement.id.split("-")[1]).click()
+            }})
             idx++
         }
     }
 
 
 idx = 0
+radX = 0
 addEle({dad:body,setClass:"tab",setID:"cont2",display:"none",width:"fit-content"})
 //getID("cont2").style.flexWrap = "wrap"
     for(let i=0;i<5;i++){
         addEle({dad:getID("cont2"),setClass:"contRow",setID:"cont2L"+i})
         for(let j=0;j<10;j++){
             idx++
+            radX++
             addEle({dad:getID("cont2L"+i),what:"radio",isInput:true,setVal:idx,setName:"quizz2",
-            setFunc:()=>{
+            setID:"radioQ2-"+radX ,setFunc:()=>{
                 let thisGRP = document.getElementsByName("quizz2")
                 let mdt = new Date
                 thisGRP.forEach((x)=>{if(x.checked){
+                    console.log(x.value)
                     if(mdt.getDate() === Number(x.value)){
                         getID("cont2").style.display = "none"
                         getID("cont3").style.display = "flex"
@@ -237,7 +244,10 @@ addEle({dad:body,setClass:"tab",setID:"cont2",display:"none",width:"fit-content"
                     }
                 }})
             }})
-            addEle({dad:getID("cont2L"+i),text: idx < 10 ? "0"+idx : idx})            
+            addEle({dad:getID("cont2L"+i),setID:"radioQ2L-"+radX ,text: idx < 10 ? "0"+idx : idx,
+            setFunc:(e)=>{
+                getID("radioQ2-"+e.srcElement.id.split("-")[1]).click()
+            }})
         }
     }
 
