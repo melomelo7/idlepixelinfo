@@ -213,20 +213,34 @@ addEle({dad:body,setClass:"tab",setID:"cont1"})
     }
 
 
-addEle({dad:body,setClass:"tab",setID:"cont2",display:"none",flDir:"row",width:"400px"})
-getID("cont2").style.flexWrap = "wrap"
-    for(i=0;i<50;i++){
-        addEle({dad:getID("cont2"),what:"radio",isInput:true,setVal:(i+1),setName:"quizz2",
+idx = 0
+addEle({dad:body,setClass:"tab",setID:"cont2",display:"none",width:"fit-content"})
+//getID("cont2").style.flexWrap = "wrap"
+    for(let i=0;i<5;i++){
+        addEle({dad:getID("cont2"),setClass:"contRow",setID:"cont2L"+i})
+        for(let j=0;j<10;j++){
+            idx++
+            addEle({dad:getID("cont2L"+i),what:"radio",isInput:true,setVal:idx,setName:"quizz2",
             setFunc:()=>{
                 let thisGRP = document.getElementsByName("quizz2")
+                let mdt = new Date
                 thisGRP.forEach((x)=>{if(x.checked){
-                    console.log(x.value)
+                    if(mdt.getDate() === Number(x.value)){
+                        getID("cont2").style.display = "none"
+                        getID("cont3").style.display = "flex"
+                    } else {
+                        miss++
+                        getID("info").innerHTML = "違います ... ミス："+miss
+                        if(miss > 2){
+                            getID("cont2").style.display = "none"
+                        }
+                    }
                 }})
             }})
-        addEle({dad:getID("cont2"),text:(i+1)})
+            addEle({dad:getID("cont2L"+i),text: idx < 10 ? "0"+idx : idx})            
+        }
     }
 
 
 
-
-
+addEle({dad:body,setClass:"tab",setID:"cont3",display:"none",width:"fit-content",text:"当たり　！！ クイズ　完成　おめでとう"})
