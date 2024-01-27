@@ -246,7 +246,7 @@ addEle({dad:body,setClass:"tab",setID:"cont2",display:"none",width:"fit-content"
                     if(mdt.getDate() === Number(x.value)){
                         getID("info").innerHTML = "当たり　！！ クイズ　完成　おめでとう"
                         getID("cont2").style.display = "none"
-                        getID("cont3").style.display = "flex"
+                        //getID("cont3").style.display = "flex"
                     } else {
                         miss++
                         getID("info").innerHTML = "違います、クイズ終了 ... ミス："+miss
@@ -266,6 +266,7 @@ addEle({dad:body,setClass:"tab",setID:"cont2",display:"none",width:"fit-content"
 
 let kani = [ {label:myArr[11].label,base:[{val:800,unit:"g"},]} , {label:myArr[15].label,base:[{val:975,unit:"cc"},]} , {label:"ソース",base:[{val:360,unit:"cc"},{val:410,unit:"g"}]} , {label:"ミックス",base:[{val:90,unit:"g"},]} , ]
 addEle({dad:body,setClass:"tab",setID:"cont3",display:"none",width:"fit-content",})
+/*
     addEle({dad:getID("cont3"),setClass:"tab",setID:"cont4",width:"fit-content",})
         addEle({dad:getID("cont4"),setClass:"clickBtn",setID:"",text:"カニクリームコロッケ",
         setFunc:()=>{getID("cont5").style.display = getID("cont5").style.display==="none"?"flex":"none";getID("info").style.display="none"}})
@@ -300,3 +301,5 @@ function setK(e){
             txt = txt.slice(0,txt.length-3)
             addEle({dad:cont,text:txt})
         })}}
+
+*/
