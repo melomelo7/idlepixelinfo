@@ -23,3 +23,21 @@ body {
     display: flex;
     flex-direction:row;
 }
+
+.contCol {
+    display: flex;
+    flex-direction: column;
+}
+
+.clickBtn {
+    background-color: darkblue;
+    color: beige;
+    border: solid black 2px;
+    padding: 3px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    height: fit-content;
+    width: fit-content;
+    text-align: center;
+    margin: 5px 0;
+}
