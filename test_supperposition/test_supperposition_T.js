@@ -98,7 +98,8 @@ function setHomeStorage(){
                 txt += thisEl.isFilled.value===0 ? "" : " + " + (thisEl.isFilled.value * thisEl.isFilled.unitLoad).toFixed(2) +
                 " ("+thisEl.isFilled.value+" "+thisEl.isFilled.label+")"
                 addEle({dad:getID("storageFrB_cont"),text:txt})
-
+let ttt = 1
+getID("info").innerHTML = ttt
                 let setArrow = true
                 if(thisEl.canBring==="empty" && thisEl.isFilled.value > 0){setArrow = false}
                 if(setArrow){
