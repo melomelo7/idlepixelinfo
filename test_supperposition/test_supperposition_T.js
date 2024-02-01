@@ -103,7 +103,7 @@ function setHomeStorage(){
                 if(thisEl.canBring==="empty" && thisEl.isFilled.value > 0){setArrow = false}
                 if(setArrow){
                     addEle({dad:getID("storageFrB_cont"),setClass:"tab",setID:"storageTransferFr",width:"fit-content",height:"fit-content"})
-                        addEle({dad:"storageTransferFr",setClass:"contRow",setID:"storageTransferFrL1",})
+                        addEle({dad:"storageTransferFr",setClass:"contRow",setID:"storageTransferFrL1",text:"ok"})
                         
                             addEle({dad:getID("storageTransferFrL1"),setClass:"clickBtn",text:"Send to Inventory",backC:colors.green})
 
