@@ -77,6 +77,10 @@ function setHomeStorage(){
     addEle({dad:getID("storageFrA"),text:spit("homeStorageInfo"),margin:"10px 0 10px 10px"})
     let idx = 0
     player.houseStorage.items.forEach((itm)=>{
+        
+let ttt = 1
+getID("info").innerHTML = ttt
+        
         idx++
         addEle({dad:getID("storageFrA"),setClass:"clickBtn",text:idx+" : "+itm.label,minWidth:"180px",backC:colors.silver,
         textC:colors.black,margin:"0",textA:"left",paddingL:"10px",setFunc:(e)=>{
@@ -98,8 +102,9 @@ function setHomeStorage(){
                 txt += thisEl.isFilled.value===0 ? "" : " + " + (thisEl.isFilled.value * thisEl.isFilled.unitLoad).toFixed(2) +
                 " ("+thisEl.isFilled.value+" "+thisEl.isFilled.label+")"
                 addEle({dad:getID("storageFrB_cont"),text:txt})
-let ttt = 1
-getID("info").innerHTML = ttt
+
+
+
                 let setArrow = true
                 if(thisEl.canBring==="empty" && thisEl.isFilled.value > 0){setArrow = false}
                 if(setArrow){
