@@ -78,7 +78,7 @@ function setHomeStorage(){
     let idx = 0
     player.houseStorage.items.forEach((itm)=>{
         
-let ttt = 3
+let ttt = 4
 getID("info").innerHTML = ttt
         
         idx++
@@ -112,6 +112,10 @@ getID("info").innerHTML = ttt
                         addEle({dad:getID("storageTransferFr"),setClass:"contRow",setID:"storageTransferFrL1",text:"ok"})
                         
                             addEle({dad:getID("storageTransferFrL1"),setClass:"clickBtn",text:"Send to Inventory",backC:colors.green})
+                            
+                            addEle({dad:getID("storageTransferFrL1"),what:"radio",isInput:true,setName:"transferRadio",setVal:"x1"})
+                            
+                            
 
                 }
 
