@@ -71,12 +71,21 @@ function setInventory(which){
     let inv_Fr = undefined
     let inv_Ar = undefined
     let topTxt = ""
+    let trBtnText = ""
 
     switch(which){
         case "Home" : 
-            inv_Fr = getID("storageFrame") ; inv_Ar = player.houseStorage.items ; topTxt = spit("homeStorageInfo") ; break
+            inv_Fr = getID("storageFrame")
+            inv_Ar = player.houseStorage.items
+            topTxt = spit("homeStorageInfo")
+            trBtnText = "Send to Inventory"
+            break
         case "Inventory" : 
-            inv_Fr = undefined ; inv_Ar = undefined ; break
+            inv_Fr = undefined
+            inv_Ar = undefined
+            topTxt = undefined
+            trBtnText = "Send to Home Storage"
+            break
     }
 
     cleanParent(inv_Fr)
@@ -156,7 +165,7 @@ function setInventory(which){
                 if(thisEl.canBring==="empty" && thisEl.isFilled.value > 0){setArrow = false}
                 if(setArrow){
                     let contFr = addEle({dad:getID("inv_ForkB_Fr"),setClass:"contCol",height:"30px"})
-                        addEle({dad:contFr,setClass:"clickBtn",text:"Send to Inventory",backC:colors.green,marginT:"5px",
+                        addEle({dad:contFr,setClass:"clickBtn",text:trBtnText,backC:colors.green,marginT:"5px",
                         minWidth:"150px",setID:"storageTransferBtn",setFunc:(e)=>{
                             let qtItem = !e.srcElement.innerHTML.includes(" : ") ? 1 : Number(e.srcElement.innerHTML.split(" : ")[1])
                             let freeLoad = which === "Home" ? spit("availableLoad","Inventory") : spit("availableLoad")
