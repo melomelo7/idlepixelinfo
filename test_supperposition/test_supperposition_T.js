@@ -168,9 +168,11 @@ function setInventory(which){
                         addEle({dad:contFr,setClass:"clickBtn",text:trBtnText,backC:colors.green,marginT:"5px",
                         minWidth:"150px",setID:"storageTransferBtn",setFunc:(e)=>{
                             let qtItem = !e.srcElement.innerHTML.includes(" : ") ? 1 : Number(e.srcElement.innerHTML.split(" : ")[1])
+                            let refTxtItem = getID("inv_Selected").innerHTML
                             let freeLoad = which === "Home" ? spit("availableLoad","Inventory") : spit("availableLoad")
-                            txt = getID("inv_Selected").innerHTML.split(" : ")[1]
-                            let needLoad = spit("itemLoad",inv_Ar.filter(x=>x.label===txt)[0])
+                            txt = refTxtItem.split(" : ")[1]
+                            let needLoad = 
+                            spit("itemLoad",inv_Ar.filter(x=>x.label===refTxtItem.split(" : ")[1])][0])
                             if((needLoad*qtItem)<freeLoad){
                                 txt = "Transfering "+qtItem+"x "+getID("inv_Selected").innerHTML.split(" : ")[1]+
                                 ", Load " + (needLoad*qtItem) + "/" + freeLoad 
