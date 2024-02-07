@@ -66,90 +66,182 @@ inv.push("c")
     console.log(player.inventory)
 }
 
-function setHomeStorage(){
-    cleanParent(getID("storageFrame"))
+function setInventory(which){
+
+    let inv_Fr = undefined
+    let inv_Ar = undefined
+    let topTxt = ""
+
+    switch(which){
+        case "Home" : 
+            inv_Fr = getID("storageFrame") ; inv_Ar = player.houseStorage.items ; topTxt = spit("homeStorageInfo") ; break
+        case "Inventory" : 
+            inv_Fr = undefined ; inv_Ar = undefined ; break
+    }
+
+    cleanParent(inv_Fr)
+
+    addEle({dad:inv_Fr,setClass:"contRow",setID:"inv_Fork"})
+        addEle({dad:getID("inv_Fork"),setClass:"contCol",setID:"inv_ForkA",}) // storageFrA
+        addEle({dad:getID("inv_Fork"),setClass:"contCol",setID:"inv_ForkB",marginL:"10px"}) // storageFrB
     
-    addEle({dad:getID("storageFrame"),setClass:"contRow",setID:"storageFrameFork"})
-        addEle({dad:getID("storageFrameFork"),setClass:"contCol",setID:"storageFrA",})
-        addEle({dad:getID("storageFrameFork"),setClass:"contCol",setID:"storageFrB",marginL:"10px"})
+        addEle({dad:getID("inv_ForkA"),text:topTxt,margin:"10px 0 10px 10px"}) //
+        let idx = 0
+        inv_Ar.forEach((itm)=>{
+            idx++
+            addEle({dad:getID("inv_ForkA"),setClass:"clickBtn",text:idx+" : "+itm.label,minWidth:"180px",backC:colors.silver,
+            textC:colors.black,margin:"0",textA:"left",paddingL:"10px",setFunc:(e)=>{
+                cleanParent(getID("inv_ForkB"))
+                thisEl = inv_Ar[(e.srcElement.innerHTML.split(" : ")[0]-1)]
+
+                addEle({dad:getID("inv_ForkB"),setClass:"tab",setID:"inv_ForkB_Fr"}) // storageFrB_cont
+
+                let tipBox = addEle({dad:getID("inv_ForkB_Fr"),text:"iteminfo",display:"none",backC:colors.darkkhaki})
 
 
-    addEle({dad:getID("storageFrA"),text:spit("homeStorageInfo"),margin:"10px 0 10px 10px"})
-    let idx = 0
-    player.houseStorage.items.forEach((itm)=>{
-        
-let ttt = 4
-getID("info").innerHTML = ttt
-        
-        idx++
-        addEle({dad:getID("storageFrA"),setClass:"clickBtn",text:idx+" : "+itm.label,minWidth:"180px",backC:colors.silver,
-        textC:colors.black,margin:"0",textA:"left",paddingL:"10px",setFunc:(e)=>{
-            cleanParent(getID("storageFrB"))
-            thisEl = player.houseStorage.items[(e.srcElement.innerHTML.split(" : ")[0]-1)]
-            addEle({dad:getID("storageFrB"),setClass:"tab",setID:"storageFrB_cont"})
-            
-                addEle({dad:getID("storageFrB_cont"),setClass:"contRow",setID:"storageTitle",alignItems:"center"})
-                
-                    addEle({dad:getID("storageTitle"),setID:"storageSelected",text:e.srcElement.innerHTML})
-                    
-                    addEle({dad:getID("storageTitle"),setClass:"clickBtn",backC:colors.black,textC:colors.darkkhaki,text:"?",
-                    setID:"storageTipToggle",display:"none",marginL:"10px",setFunc:()=>{
-                    getID("storageSelectedTip").style.display = getID("storageSelectedTip").style.display==="none"?"block":"none"}})
-                if(thisEl.tip!==""){getID("storageTipToggle").style.display="block"
-                addEle({dad:getID("storageFrB_cont"),setID:"storageSelectedTip",text:thisEl.tip,display:"none",backC:colors.darkkhaki})}
-                console.log(thisEl)
-                txt = "Durability:"+thisEl.durability+"<br>(item break when durability reach 0)<br>Item Load:"+thisEl.baseLoad.toFixed(2)
-                txt += thisEl.isFilled.value===0 ? "" : " + " + (thisEl.isFilled.value * thisEl.isFilled.unitLoad).toFixed(2) +
-                " ("+thisEl.isFilled.value+" "+thisEl.isFilled.label+")"
-                addEle({dad:getID("storageFrB_cont"),text:txt})
+                thisCont = addEle({dad:getID("inv_ForkB_Fr"),setClass:"contRow",alignItems:"center",minHeight:"22px"})
 
+                    addEle({dad:thisCont,setID:"inv_Selected",text:e.srcElement.innerHTML}) // storageSelected
 
+                    if(thisEl.tip!==""){addEle({dad:thisCont,setClass:"help",text:"?",marginL:"10px",setFunc:()=>{
+                        tipBox.innerHTML = thisEl.tip ; tipBox.style.display = tipBox.style.display==="block"?"none":"block" }}) }
+                addEle({dad:getID("inv_ForkB_Fr"),setClass:"line"})
+
+                if(which==="Home" || which==="Inventory"){
+                    thisCont = addEle({dad:getID("inv_ForkB_Fr"),setClass:"contRow",alignItems:"center",})
+                        txt = "Change order, now "+ getID("inv_Selected").innerHTML.split(":")[0] + " set to"
+                        addEle({dad:thisCont,text:txt,marginR:"5px"})
+                        addEle({dad:thisCont,what:"input",isInput:true,width:"25px",textA:"center",setID:"inv_pos_val",
+                        setVal:e.srcElement.innerHTML.split(":")[0],setFunc:()=>{
+                            if(isNaN(getID("inv_pos_val").value))
+                                {getID("inv_pos_val").value = 1}
+                            else if (Number(getID("inv_pos_val").value)<1)
+                                {getID("inv_pos_val").value = 1}
+                            else if (Number(getID("inv_pos_val").value) > inv_Ar.length)
+                                {getID("inv_pos_val").value = inv_Ar.length} 
+                        }})
+                        addEle({dad:thisCont,setClass:"help",text:"\u21E7",setID:"arrUp"+i,textC:colors.yellow,
+                        setFunc:(e)=>{ getID("inv_pos_val").value = (Number(getID("inv_pos_val").value) -1) < 1 ? 1 : 
+                        (Number(getID("inv_pos_val").value) -1) }})
+                        addEle({dad:thisCont,setClass:"help",text:"\u21E9",setID:"arrUp"+i,textC:colors.yellow,margin:"0",
+                        setFunc:()=>{getID("inv_pos_val").value = (Number(getID("inv_pos_val").value) +1) > inv_Ar.length ? 
+                        inv_Ar.length : (Number(getID("inv_pos_val").value) +1) }})
+                        addEle({dad:thisCont,setClass:"help",text:"ok",setID:"arrUp"+i,textC:colors.yellow,margin:"0",
+                        height:"20px",setFunc:()=>{ let newVal = Number(getID("inv_pos_val").value)-1
+                            let oldVal = Number(getID("inv_Selected").innerHTML.split(":")[0]) -1
+                            if(oldVal !== newVal){inv_Ar.splice(newVal,0,inv_Ar.splice(oldVal,1)[0]) ; setInventory(which)}  }})
+                }
+
+                let thisDetails = thisEl.toDisplay.filter(x=>x.for===which)[0].details
+                thisDetails.forEach((detail)=>{
+                    switch(detail){
+                        case "Quantity" :
+                            addEle({dad:getID("inv_ForkB_Fr"),text:"Quantity : "+thisEl.canStack.quantity}) ; break
+                        case "Durability" :
+                        thisCont = addEle({dad:getID("inv_ForkB_Fr"),setClass:"contRow",alignItems:"center"})
+                            addEle({dad:thisCont,text:"Durability : "+thisEl.durability})
+                            addEle({dad:thisCont,setClass:"help",text:"?",marginL:"10px",setFunc:()=>{
+                                tipBox.innerHTML = "Durability drop each use<br>Item break when reaching 0"
+                                tipBox.style.display = tipBox.style.display==="block"?"none":"block" }})
+                            break
+                        case "Load" : 
+                            txt = "Load : " + spit("itemLoad",thisEl).toFixed(2)
+                            txt += thisEl.isFilled.value > 0 ? spit("itemLoad_Details",thisEl) : ""
+                            addEle({dad:getID("inv_ForkB_Fr"),text:txt}) ; break
+                        default : console.log("unknown item detail ...")
+                    }
+                })
 
                 let setArrow = true
                 if(thisEl.canBring==="empty" && thisEl.isFilled.value > 0){setArrow = false}
                 if(setArrow){
-                    addEle({dad:getID("storageFrB_cont"),setClass:"tab",setID:"storageTransferFr",width:"fit-content",height:"fit-content"})
-                        addEle({dad:getID("storageTransferFr"),setClass:"contRow",setID:"storageTransferFrL1",text:"ok"})
-                        
-                            addEle({dad:getID("storageTransferFrL1"),setClass:"clickBtn",text:"Send to Inventory",backC:colors.green})
-                            
-                            addEle({dad:getID("storageTransferFrL1"),what:"radio",isInput:true,setName:"transferRadio",setVal:"x1"})
-                            
-                            
+                    let contFr = addEle({dad:getID("inv_ForkB_Fr"),setClass:"contCol",height:"30px"})
+                        addEle({dad:contFr,setClass:"clickBtn",text:"Send to Inventory",backC:colors.green,marginT:"5px",
+                        minWidth:"150px",setID:"storageTransferBtn",setFunc:(e)=>{
+                            let qtItem = !e.srcElement.innerHTML.includes(" : ") ? 1 : Number(e.srcElement.innerHTML.split(" : ")[1])
+                            let freeLoad = which === "Home" ? spit("availableLoad","Inventory") : spit("availableLoad")
+                            txt = getID("inv_Selected").innerHTML.split(" : ")[1]
+                            let needLoad = spit("itemLoad",inv_Ar.filter(x=>x.label===txt)[0])
+                            if((needLoad*qtItem)<freeLoad){
+                                txt = "Transfering "+qtItem+"x "+getID("inv_Selected").innerHTML.split(" : ")[1]+
+                                ", Load " + (needLoad*qtItem) + "/" + freeLoad 
+                               getID("info").innerHTML = txt
+                            } else {
+                                txt = "Cannot transfer "+qtItem+"x "+getID("inv_Selected").innerHTML.split(" : ")[1]+
+                                 ", needed Load " + (needLoad*qtItem) + "/" + freeLoad 
+                                getID("info").innerHTML = txt
+                            }
+                            console.log("n:"+(needLoad*qtItem) + " <?> f:"+freeLoad)
 
+                        }})
+
+                        thisCont = addEle({dad:contFr,setClass:"contRow",alignItems:"center"})
+                        addEle({dad:thisCont,what:"range",isInput:true,setID:"transferRange",min:1,
+                        max:thisEl.canStack.quantity,marginT:"10px",width:"95px",marginT:"-1px",setFunc:()=>{
+                            getID("storageTransferBtn").innerHTML = "Send to Inventory : "+getID("transferRange").value }})
+                        if(thisEl.canStack.quantity > 1){getID("transferRange").value = 1 ; contFr.style.height = "65px"
+                        getID("storageTransferBtn").innerHTML = "Send to Inventory : "+getID("transferRange").value}
+
+                        addEle({dad:thisCont,setClass:"clickBtn",text:"-",minWidth:"15px",radiusTR:"0",
+                        radiusBR:"0",backC:colors.royalblue,margin:"0",marginL:"5px",setFunc:modTransferRange})
+
+                        addEle({dad:thisCont,setClass:"clickBtn",text:"+",minWidth:"15px",radiusTL:"0",
+                        radiusBL:"0",backC:colors.royalblue,margin:"0",setFunc:modTransferRange})
                 }
 
 
-        }})
 
-        /*
 
-        if(itm.canBring==="empty" && itm.isFilled.value > 0){setArrow = false}
+            }})
+        })
 
-        addEle({dad:getID("storageFrameA"),setClass:"contRow",setID:"StorageItmFr"+idx,border:"solid red 2px",
-        
-        
-        
-        minHeight:"28px",alignItems :"center"})
-            txt = itm.canStack.quantity > 1 ? itm.label + " (" + itm.canStack.quantity+")" : itm.label 
-            addEle({dad:getID("StorageItmFr"+idx),setID:"StorageItm"+idx,text:txt,minWidth:"160px"})
-            if(setArrow){
-                addEle({dad:getID("StorageItmFr"+idx),setClass:"clickBtn",setID:"StorageItmSendBtn"+idx,text:"=> I "
-                ,setFunc:(e)=>{
-                    thisIdx = e.srcElement.id.split("StorageItmSendBtn")[1]
-                    txt = getID("StorageItm"+thisIdx).innerHTML 
-                    thisEl = player.houseStorage.items.filter(x=>x.label === txt)[0]
-                    thisIdx = player.houseStorage.items.findIndex(x=>x.label===txt)
-                }})
-            }
-            */
+    /*
             
 
+            let actionPool = thisEl.destinationAction
+            
+            if(actionPool.length > 0){
+                addEle({dad:getID("storageFrB_cont"),setClass:"line"})
+                let contFr = addEle({dad:getID("storageFrB_cont"),setClass:"contCol"})
+                for(i=0;i<actionPool.length;i++){
 
-    })
-        
+                    addEle({dad:contFr,text:actionPool[i].label})
+                }
+            }
+    
+    
+    */
 
 }
+
+function modTransferRange(e){
+    let myRg = getID("transferRange")
+    let myBt = getID("storageTransferBtn")
+    let myTx = "Send to Inventory : "
+    switch(e.srcElement.innerHTML)
+        {case "-" : myRg.value = (myRg.value - 1) === 0 ? 1 : myRg.value - 1 ; myBt.innerHTML = myTx + myRg.value ; break
+        case "+" : myRg.value = (myRg.value + 1) > myRg.max ? myRg.max : myRg.value + 1 ; myBt.innerHTML = myTx + myRg.value ; break}
+    }
+
+/*
+function transferRadioGrp(){
+    console.log(getID("storageTransferFr").getBoundingClientRect().height)
+    let thisGRP = document.getElementsByName("transferRadio")
+    thisGRP.forEach((x)=>{if(x.checked){
+        let thisBtn = getID("storageTransferBtn")
+        switch(x.value){
+            case "1" : getID("storageTransferFr").style.height = "50px" ; thisBtn.innerHTML = "Send to Inventory : 1" ; break
+            case "Customize" : 
+                getID("storageTransferFr").style.height = "80px" 
+                thisBtn.innerHTML = "Send to Inventory : 1" 
+                getID("transferRange").value = 1
+                break
+            case "All" : getID("storageTransferFr").style.height = "50px" ; thisBtn.innerHTML = "Send to Inventory : " +
+                player.houseStorage.items[(getID("storageSelected").innerHTML.split(" : ")[0]-1)].canStack.quantity ; break
+        }
+    }})
+}
+*/
 
 function setActionTab(){
 
@@ -164,7 +256,7 @@ function setActionTab(){
             addEle({dad:getID("homeStorageCont"),setClass:"clickBtn",text:"Home Storage",backC:colors.chocolate,
             setFunc:()=>{
                 getID("storageFrame").style.display = getID("storageFrame").style.display === "none" ? "flex" : "none"
-                setHomeStorage()
+                setInventory("Home")
             }})
         addEle({dad:getID("homeStorageCont"),setClass:"tab",display:"none",setID:"storageFrame",})
     }

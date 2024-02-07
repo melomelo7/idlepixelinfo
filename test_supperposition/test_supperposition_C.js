@@ -14,15 +14,20 @@ function spit(label,param=undefined){
         case "destCityObj" : return player.destinations.city.filter(x=>x.label===param)[0] ; break
         case "statusObj" : return player.status.filter(x=>x.label===param)[0] ; break
         case "actionsObj" : return player.actions.filter(x=>x.label===param)[0] ; break
-        case "inventoryObj" : return player.bagInventory.filter(x=>x.label===param)[0] ; break
+        case "inventoryObj" : return player.inventory.filter(x=>x.label===param)[0] ; break
         case "itemsObj" : return items.filter(x=>x.label===param)[0] ; break
         case "missionsObj" : return missions.filter(x=>x.label===param)[0] ; break
         case "rawLoad" : return spit("statusObj","Strength : ").value*2 ; break
         case "bagValue": return spit("statusObj","Bag Space : ").lvl*spit("statusObj","Bag Space : ").mult.space ; break        
         case "maxLoad" : return (spit("rawLoad") + spit("bagValue")).toFixed(2) ; break
-        case "inventoryLoad" : return "Inventory Load : " + spit("currentLoad","bagInventory") + 
+        case "availableLoad" : 
+            let myVal1 = undefined
+            let myVal2 = undefined
+            if(param === "Inventory"){myVal1 = spit("currentLoad","Inventory") ; myVal2 = spit("maxLoad")}
+            else {myVal1 = spit("currentLoad") ; myVal2 = player.houseStorage.maxLoad}
+            return  Number(myVal2) - Number(myVal1) ; break
+        case "inventoryLoad" : return "Inventory Load : " + spit("currentLoad","Inventory") + 
                                 "/" + spit("maxLoad") ; break
-                                
         case "actionsToMax" : return player.preferences.filter(x=>x.label==="actionsToMax")[0] ; break
         case "currentAction" : return player.actions.filter(x=>x.label === param)[0] ; break
         case "currentPreference" : return player.preferences.filter(x=>x.label === param)[0].setTo ; break
@@ -49,11 +54,14 @@ function spit(label,param=undefined){
             val1 = param.baseLoad
             if(param.isFilled.value > 0){val1 += (param.isFilled.value * param.isFilled.unitLoad)}
             return val1 ; break
+        case "itemLoad_Details" :
+            if(param.isFilled.value > 0){return " (base "+param.baseLoad.toFixed(2)+" + "+
+                param.isFilled.value+" "+param.isFilled.label+")"} ; break
         case "currentLoad" :
             let myTtl = 0
             let refInv = undefined
-            if(param === "bagInventory")
-                {refInv = player.bagInventory}
+            if(param === "Inventory")
+                {refInv = player.inventory}
             else{refInv = player.houseStorage.items}
             refInv.forEach((x)=>{myTtl += spit("itemLoad",x)})
             return myTtl.toFixed(2) ; break
@@ -82,6 +90,8 @@ function addEle({
     disabled = false,
     setName = "",
     setVal = "",
+    min = "",
+    max = "",
     setFunc = undefined,
     textC = "",
     backC = "",
@@ -133,10 +143,15 @@ function addEle({
 
     if(setVal!==""){thisObj.setAttribute("value",setVal)}
 
+    if(min!==""){thisObj.min = min}
+    if(max!==""){thisObj.max = max}
+
     if(setFunc){
         switch(what){
             case "div" : thisObj.addEventListener("click",setFunc) ; break
-            case "radio" : thisObj.addEventListener("change",setFunc) ; break
+            case "radio" : case "range" : thisObj.addEventListener("change",setFunc) ; break
+            case "input" : thisObj.addEventListener("input",setFunc) ; break
+
             default : console.log("missing correct addeventlistener here")
             } 
         }
@@ -222,7 +237,8 @@ let btnTxt={
 
 let colors = {gray:"gray",brown:"brown",green:"green",black:"black",lime:"lime",
 darkslategrey:"darkslategrey",olive:"olive",chocolate:"chocolate",white:"white",
-teal:"teal",red:"red",silver:"silver",darkkhaki:"darkkhaki"}
+teal:"teal",red:"red",silver:"silver",darkkhaki:"darkkhaki",dodgerblue:"dodgerblue",
+royalblue:"royalblue",yellow:"yellow"}
 
 
 let player = {
@@ -302,7 +318,7 @@ let player = {
         setTo:""
         }
     ],
-    bagInventory:[],
+    inventory:[],
     houseStorage:{maxLoad:200,items:[],},
     misc:[{label:"start",value:true},],
     missions:{rank:0,label:"Current Mission : ",current:"None",nowOnBtn:btnTxt.doWhat,},
@@ -313,6 +329,7 @@ class Item {
     constructor({
         label="",
         tip="",
+        toDisplay=[],
         canBring="always",
         canStack={value:false,quantity:0},
         durability=1,
@@ -325,6 +342,7 @@ class Item {
     }){
         this.label=label
         this.tip=tip
+        this.toDisplay=toDisplay
         this.canBring=canBring
         this.canStack=canStack
         this.durability=durability
@@ -360,8 +378,9 @@ items.push(
     new Item({
         label:"Small Water Tank",
         tip:"-You can drink from it<br>-Fill items like Pouch<br>-When empty can be moved<br>-Refill it when needed.",
+        toDisplay:[{for:"Home",details:["Quantity","Durability","Load"]}],
         canBring:"empty",
-        canStack:{value:false,quantity:0},
+        canStack:{value:false,quantity:1},
         durability:500,
         baseLoad:20,
         isFilled:{value:50,cap:50,unitLoad:0.1,label:"Water"},
@@ -377,8 +396,9 @@ items.push(
     ,
     new Item({
         label:"Small Water Pouch",
+        toDisplay:[{for:"Home",details:["Quantity","Durability","Load"]}],
         canBring:"always",
-        canStack:{value:false,quantity:0},
+        canStack:{value:false,quantity:1},
         durability:100,
         baseLoad:0.2,
         isFilled:{value:0,cap:25,unitLoad:0.1,label:"Water"},
@@ -394,8 +414,9 @@ items.push(
     ,
     new Item({
         label:"Small Food Container",
+        toDisplay:[{for:"Home",details:["Quantity","Durability","Load"]}],
         canBring:"empty",
-        canStack:{value:false,quantity:0},
+        canStack:{value:false,quantity:1},
         durability:500,
         baseLoad:30,
         isFilled:{value:80,cap:80,unitLoad:0.2,label:"Food"},
@@ -412,8 +433,9 @@ items.push(
     new Item({
         label:"Small Food Pack",
         tip:"Used to take out food, need to be refilled.",
+        toDisplay:[{for:"Home",details:["Quantity","Durability","Load"]}],
         canBring:"always",
-        canStack:{value:false,quantity:0},
+        canStack:{value:false,quantity:1},
         durability:100,
         baseLoad:0.2,
         isFilled:{value:0,cap:25,unitLoad:0.2,label:"Food"},
@@ -430,6 +452,7 @@ items.push(
     new Item({
         label:"Small Health Potion",
         tip:"Will refill your Health +10 (cannot refill more than cap)",
+        toDisplay:[{for:"Home",details:["Quantity","Durability","Load"]}],
         canBring:"always",
         canStack:{value:true,quantity:1},
         durability:1,
@@ -445,6 +468,7 @@ items.push(
     ,
     new Item({
         label:"Flower",
+        toDisplay:[{for:"Home",details:["Quantity","Durability","Load"]}],
         canBring:"always",
         canStack:{value:true,quantity:1},
         durability:1,

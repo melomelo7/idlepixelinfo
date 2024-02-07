@@ -1,0 +1,119 @@
+
+html,body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    background-color: gray;
+}
+
+footer {
+    height: 0;
+}
+
+.contCol {
+    display: flex;
+    flex-direction: column;
+}
+
+.contRow {
+    display: flex;
+    flex-direction:row;
+}
+
+#global {
+    height: 100%;
+    width: 100%;
+}
+
+#global, #main, #content {
+    height: 100%;
+    width: 100%;
+}
+
+.info {
+    border: solid black 2px;
+    min-height: 20px;
+    width: 97.5%;
+    border: black solid 2px;
+    padding-left: 5px;
+    margin: 5px 5px 0 5px;
+}
+
+.leftMenu {
+    height: 100%;
+    width: 100px;
+    padding: 0px 5px 0 10px;
+    border-right: solid black 2px;
+    display: flex;
+    flex-direction: column;
+}
+
+.tab {
+    display: flex;
+    flex-direction: column;
+    border: solid black 2px;
+    border-radius: 5px;
+    padding: 5px;
+    width: 96.5%;
+    margin: 5px 0 0 5px;
+    overflow-x: hidden;
+}
+
+.clickBtn {
+    background-color: darkblue;
+    color: beige;
+    border: solid black 2px;
+    padding: 3px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    height: fit-content;
+    width: fit-content;
+    text-align: center;
+    margin: 5px 0;
+}
+
+.clickBtn:hover {
+    color: red;
+}
+
+.help {
+    background-color: black;
+    color: green;
+    margin-left: 5px;
+    cursor: pointer;
+    text-align: center;
+    min-width: 18px;
+    border: solid 2px green;
+    border-radius: 5px;
+}
+
+.fakeInput {
+    font-weight: bold;
+    background-color:rgb(38, 109, 107) ;
+    margin: 5px 10px;
+    padding: 5px 20px;
+    border-radius: 5px;
+    min-height: 18px;
+}
+
+.progressBox {
+    height: 14px;
+    width: 50px;
+    background-color: black;
+    border-radius: 5px;
+    border: solid brown 1px;
+    margin-right: 10px;
+    padding: 1px;
+}
+
+.progressInt {
+    background-color: green;
+    height: 100%;
+}
+
+.line {
+    height: 2px;
+    width: 104%;
+    border: double 2px black;
+    margin: 5px 0 5px -6px;
+}
