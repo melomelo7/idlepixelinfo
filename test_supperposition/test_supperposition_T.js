@@ -181,6 +181,7 @@ function setInventory(which){
 
                                 refItem.canStack.quantity -= qtItem 
                                 if(refItem.canStack.quantity === 0){inv_Ar.splice(refIdx,1)}
+                                getID("menuInventory").style.display = "block"
                                 setInventory(which)
                             } else {
                                 getID("info").innerHTML = "Cannot transfer " + qtItem + "x " + refItem.label + 
