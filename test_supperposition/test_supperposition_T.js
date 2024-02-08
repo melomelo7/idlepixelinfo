@@ -176,7 +176,8 @@ function setInventory(which){
                                 txt = "Transfering "+qtItem+"x "+refTxtItem.split(" : ")[1]+
                                 ", Load " + (needLoad*qtItem) + "/" + freeLoad 
                                getID("info").innerHTML = txt
-                            
+                            let refItem = inv_Ar[Number(refTxtItem.split(" : ")[0])]
+                            getID("info").innerHTML = refItem.label
                             
                             } else {
                                 txt = "Cannot transfer "+qtItem+"x "+refTxtItem.split(" : ")[1]+
