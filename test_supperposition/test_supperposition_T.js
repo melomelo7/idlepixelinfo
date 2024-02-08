@@ -163,26 +163,30 @@ function setInventory(which){
                             let qtItem = !e.srcElement.innerHTML.includes(" : ") ? 1 : Number(e.srcElement.innerHTML.split(" : ")[1])
                             let freeLoad = which === "Home" ? spit("availableLoad","Inventory") : spit("availableLoad")
                             let needLoad = spit("itemLoad",refItem)
-                            let itmCopy = undefined
+                            let itmCopy = JSON.parse(JSON.stringify(inv_Ar.splice(refIdx,1)[0]))
+                            itmCopy.canStack.quantity = qtItem
+                            inv_Ar.splice(refIdx,0,refItem)
+                            
                             if((needLoad*qtItem)<freeLoad){ 
+                                
                                 getID("info").innerHTML = "Transfering " + qtItem + "x " + refItem.label +
                                 ", Load " + (needLoad*qtItem) + "/" + freeLoad
-                                itmCopy = JSON.parse(JSON.stringify(inv_Ar.splice(refIdx,1)[0]))
+                                
                                 if(qtItem > 1 || refItem.canStack.value === true ){
                                     let getIdx = player.inventory.findIndex(x=>x.label === refItem.label)
                                     if(getIdx !==-1)
                                         {player.inventory[getIdx].canStack.quantity += qtItem}
-                                    else {
-                                        if(qtItem > 1){itmCopy.canStack.quantity+= (qtItem-1)}
-                                        player.inventory.push(itmCopy)
-                                    }
+                                    else {player.inventory.push(itmCopy)}
                                 } else {player.inventory.push(itmCopy)}
-                                refItem.canStack.quantity--
+
+                                refItem.canStack.quantity -= qtItem 
                                 if(refItem.canStack.quantity === 0){inv_Ar.splice(refIdx,1)}
+                                setInventory(which)
                             } else {
                                 getID("info").innerHTML = "Cannot transfer " + qtItem + "x " + refItem.label + 
                                 ", needed Load " + (needLoad*qtItem) + "/" + freeLoad 
                             }
+                            
 //                            console.log("n:"+(needLoad*qtItem) + " <?> f:"+freeLoad)
                             console.log(inv_Ar)
                             console.log(player.inventory)
