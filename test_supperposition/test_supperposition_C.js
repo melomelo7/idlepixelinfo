@@ -51,7 +51,7 @@ function spit(label,param=undefined){
                     default : console.log("unknown actionmax type") 
                 }} break
         case "itemLoad" :
-            val1 = param.baseLoad
+            val1 = (param.baseLoad * param.canStack.quantity)
             if(param.isFilled.value > 0){val1 += (param.isFilled.value * param.isFilled.unitLoad)}
             return val1 ; break
         case "itemLoad_Details" :
