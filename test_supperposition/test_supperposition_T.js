@@ -173,11 +173,11 @@ function setInventory(which){
                             let needLoad = 
                             spit("itemLoad",inv_Ar.filter(x=>x.label===refTxtItem.split(" : ")[1])[0])
                             if((needLoad*qtItem)<freeLoad){
-                                txt = "Transfering "+qtItem+"x "+getID("inv_Selected").innerHTML.split(" : ")[1]+
+                                txt = "Transfering "+qtItem+"x "+refTxtItem.split(" : ")[1]+
                                 ", Load " + (needLoad*qtItem) + "/" + freeLoad 
                                getID("info").innerHTML = txt
                             } else {
-                                txt = "Cannot transfer "+qtItem+"x "+getID("inv_Selected").innerHTML.split(" : ")[1]+
+                                txt = "Cannot transfer "+qtItem+"x "+refTxtItem.split(" : ")[1]+
                                  ", needed Load " + (needLoad*qtItem) + "/" + freeLoad 
                                 getID("info").innerHTML = txt
                             }
