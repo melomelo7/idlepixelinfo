@@ -74,9 +74,12 @@ function setInventory(which){
 
     switch(which){
         case "Home" : 
-            inv_Fr = getID("storageFrame") ; inv_Ar = player.houseStorage.items ; topTxt = spit("homeStorageInfo") ; break
+            inv_Fr = getID("storageFrame") ; 
+            inv_Ar = player.houseStorage.items ; 
+            topTxt = spit("homeStorageInfo") ; 
+            break
         case "Inventory" : 
-            inv_Fr = undefined ; inv_Ar = undefined ; break
+            inv_Fr = getID("tabInventory") ; inv_Ar = player.inventory ; break
     }
 
     cleanParent(inv_Fr)
