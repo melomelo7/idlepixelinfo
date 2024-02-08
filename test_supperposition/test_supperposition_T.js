@@ -71,21 +71,12 @@ function setInventory(which){
     let inv_Fr = undefined
     let inv_Ar = undefined
     let topTxt = ""
-    let trBtnText = ""
 
     switch(which){
         case "Home" : 
-            inv_Fr = getID("storageFrame")
-            inv_Ar = player.houseStorage.items
-            topTxt = spit("homeStorageInfo")
-            trBtnText = "Send to Inventory"
-            break
+            inv_Fr = getID("storageFrame") ; inv_Ar = player.houseStorage.items ; topTxt = spit("homeStorageInfo") ; break
         case "Inventory" : 
-            inv_Fr = undefined
-            inv_Ar = undefined
-            topTxt = undefined
-            trBtnText = "Send to Home Storage"
-            break
+            inv_Fr = undefined ; inv_Ar = undefined ; break
     }
 
     cleanParent(inv_Fr)
@@ -165,26 +156,36 @@ function setInventory(which){
                 if(thisEl.canBring==="empty" && thisEl.isFilled.value > 0){setArrow = false}
                 if(setArrow){
                     let contFr = addEle({dad:getID("inv_ForkB_Fr"),setClass:"contCol",height:"30px"})
-                        addEle({dad:contFr,setClass:"clickBtn",text:trBtnText,backC:colors.green,marginT:"5px",
+                        addEle({dad:contFr,setClass:"clickBtn",text:"Send to Inventory",backC:colors.green,marginT:"5px",
                         minWidth:"150px",setID:"storageTransferBtn",setFunc:(e)=>{
+                            let refIdx = Number(getID("inv_Selected").innerHTML.split(" : ")[0])-1
+                            let refItem = inv_Ar[refIdx]
                             let qtItem = !e.srcElement.innerHTML.includes(" : ") ? 1 : Number(e.srcElement.innerHTML.split(" : ")[1])
-                            let refTxtItem = getID("inv_Selected").innerHTML
                             let freeLoad = which === "Home" ? spit("availableLoad","Inventory") : spit("availableLoad")
-                            let needLoad = 
-                            spit("itemLoad",inv_Ar.filter(x=>x.label===refTxtItem.split(" : ")[1])[0])
-                            if((needLoad*qtItem)<freeLoad){
-                                txt = "Transfering "+qtItem+"x "+refTxtItem.split(" : ")[1]+
-                                ", Load " + (needLoad*qtItem) + "/" + freeLoad 
-                               getID("info").innerHTML = txt
-                            let refItem = inv_Ar[Number(refTxtItem.split(" : ")[0])]
-                            getID("info").innerHTML = refItem.label
-                            
+                            let needLoad = spit("itemLoad",refItem)
+                            let itmCopy = undefined
+                            if((needLoad*qtItem)<freeLoad){ 
+                                getID("info").innerHTML = "Transfering " + qtItem + "x " + refItem.label +
+                                ", Load " + (needLoad*qtItem) + "/" + freeLoad
+                                itmCopy = JSON.parse(JSON.stringify(inv_Ar.splice(refIdx,1)[0]))
+                                if(qtItem > 1 || refItem.canStack.value === true ){
+                                    let getIdx = player.inventory.findIndex(x=>x.label === refItem.label)
+                                    if(getIdx !==-1)
+                                        {player.inventory[getIdx].canStack.quantity += qtItem}
+                                    else {
+                                        if(qtItem > 1){itmCopy.canStack.quantity+= (qtItem-1)}
+                                        player.inventory.push(itmCopy)
+                                    }
+                                } else {player.inventory.push(itmCopy)}
+                                refItem.canStack.quantity--
+                                if(refItem.canStack.quantity === 0){inv_Ar.splice(refIdx,1)}
                             } else {
-                                txt = "Cannot transfer "+qtItem+"x "+refTxtItem.split(" : ")[1]+
-                                 ", needed Load " + (needLoad*qtItem) + "/" + freeLoad 
-                                getID("info").innerHTML = txt
+                                getID("info").innerHTML = "Cannot transfer " + qtItem + "x " + refItem.label + 
+                                ", needed Load " + (needLoad*qtItem) + "/" + freeLoad 
                             }
-                            console.log("n:"+(needLoad*qtItem) + " <?> f:"+freeLoad)
+//                            console.log("n:"+(needLoad*qtItem) + " <?> f:"+freeLoad)
+                            console.log(inv_Ar)
+                            console.log(player.inventory)
 
                         }})
 
