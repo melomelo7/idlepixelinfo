@@ -176,6 +176,8 @@ function setInventory(which){
                                 txt = "Transfering "+qtItem+"x "+refTxtItem.split(" : ")[1]+
                                 ", Load " + (needLoad*qtItem) + "/" + freeLoad 
                                getID("info").innerHTML = txt
+                            
+                            
                             } else {
                                 txt = "Cannot transfer "+qtItem+"x "+refTxtItem.split(" : ")[1]+
                                  ", needed Load " + (needLoad*qtItem) + "/" + freeLoad 
