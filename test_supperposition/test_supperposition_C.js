@@ -65,10 +65,17 @@ function spit(label,param=undefined){
             else{refInv = player.houseStorage.items}
             refInv.forEach((x)=>{myTtl += spit("itemLoad",x)})
             return myTtl.toFixed(2) ; break
-        case "homeStorageInfo" :
-            return player.houseStorage.items.length + " Item(s) listed in Storage.<br>Home Storage Load : " 
-            +spit("currentLoad") + "/" + player.houseStorage.maxLoad.toFixed(2)+"<br>"+
-            "(Carry)" + spit("inventoryLoad"); break
+        case "inventoryInfo" :
+            switch(param){
+               case "Home Storage" :
+                   return player.houseStorage.items.length + " Item(s) listed in Storage.<br>Home Storage Load : " 
+                   +spit("currentLoad") + "/" + player.houseStorage.maxLoad.toFixed(2)+"<br>"+
+                   "(Carry)" + spit("inventoryLoad");
+                   break
+            }
+             
+            break
+            
         case "fromGrp_X_elemContaining_Y" :
             let thisEl = undefinede
             let thisGrp = document.getElementsByName(param[0])
