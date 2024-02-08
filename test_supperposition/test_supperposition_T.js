@@ -76,7 +76,7 @@ function setInventory(which){
         case "Home" : 
             inv_Fr = getID("storageFrame") ; 
             inv_Ar = player.houseStorage.items ; 
-            topTxt = spit("homeStorageInfo") ; 
+            topTxt = spit("inventoryInfo","Home Storage") ; 
             break
         case "Inventory" : 
             inv_Fr = getID("tabInventory") ; inv_Ar = player.inventory ; break
