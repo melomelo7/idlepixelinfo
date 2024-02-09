@@ -72,6 +72,10 @@ function spit(label,param=undefined){
                    +spit("currentLoad") + "/" + player.houseStorage.maxLoad.toFixed(2)+"<br>"+
                    "(Carry)" + spit("inventoryLoad");
                    break
+               case "Inventory" :
+                   return player.inventory.length + " Item(s) listed in Inventory" +
+                   "(Carry)" + spit("inventoryLoad")
+                   break
             }
              
             break
