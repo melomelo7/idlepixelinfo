@@ -145,7 +145,7 @@ function clickMenuBtn(e){
             break
         case "Inventory":
             if(thisTab.style.display === "none")
-                {setInventory("Inventory") ; thisTab.style.display = "flex"}
+                {setTabToggle("tabInventory") ; setInventory("Inventory") ; thisTab.style.display = "flex"}
             else 
                 {thisTab.style.display = "none"}
             break
