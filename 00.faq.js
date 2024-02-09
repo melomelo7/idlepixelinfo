@@ -64,7 +64,7 @@ const faqsArray = [
             it takes time so enjoying the "fruits of the tree" before<br>
             even considering selling should come to mind ...<br><br>
             Anyways dont think there is a set-in-stone rule here and run<br>
-            until you feel you've come to YOUR own milestone.<br>
+            until you feel you"ve come to YOUR own milestone.<br>
             Could be reaching X credits for a Y room purchase/upgrade ... `,
     url : "",
     img : "",
@@ -600,7 +600,7 @@ function setTournament(container){
                 your position will remain, and if no other<br>
                 player is able to go past you during remaining<br>
                 time, reward will be yours at the end of timer.<br>
-                Otherwise, new position's reward if any.<br><br>
+                Otherwise, new position"s reward if any.<br><br>
                 - When is Tournament ? Depending on your geo<br>
                 location, it could be late on Friday or during Saturday.<br><br>
 
@@ -795,7 +795,10 @@ function setManagers(container){
         And under the manager stars you get to see the skills.<br>
         - Line 1 bonus applied to himself only<br>
         - Line 2 bonus that will be shared with other managers<br>
-        having that same skill (for 3 stars managers and above)<br>
+        having that same skill (for 3 stars managers and above)<br><br>
+
+        The Best manager you can reach is a 7 star that will be<br>
+        displayed as a 6-RED-Stars instead of 7 stars.
         `
         thisElement = AddADiv(thisContainer)
         thisElement.style = textStyle
