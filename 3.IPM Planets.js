@@ -58,8 +58,8 @@ planetsArray.push(
         idNumber : 4,
         label:"Dholen",
         ores:[
-            {label:"iron ore",yield:80},
-            {label:"lead ore",yield:20}
+            {label:"copper ore",yield:80},
+            {label:"iron ore",yield:20}
         ],
         unlockCost:"$ 1.25 K"
     }),
@@ -815,7 +815,25 @@ function buildPlanets(){
     rightBottom.style = containerColumn
     right.appendChild(rightBottom)
 
+
+
     let myDiv = document.createElement("div")
+    myDiv.style = closeButtonStyle
+    myDiv.style.marginLeft = 10 + "px"
+    myDiv.style.backgroundColor = "darkgreen"
+    myDiv.innerHTML = "Look:Old"
+    myDiv.setAttribute("id","relook")
+    rightTop.appendChild(myDiv)
+    myDiv.addEventListener("click",function(){
+        info.innerHTML = infoTitle
+        document.getElementById("relook").innerHTML = 
+        document.getElementById("relook").innerHTML === "Look:Old" ?
+        "Look:New" : "Look:Old"
+    })
+    myDiv.addEventListener("mouseover",()=>{tabInfos.innerHTML = "Toggle Graphics old => New"})
+    myDiv.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
+
+    myDiv = document.createElement("div")
     myDiv.style = closeButtonStyle
     myDiv.style.marginLeft = 10 + "px"
     myDiv.innerHTML = "Full List"
@@ -984,7 +1002,7 @@ function buildPlanets(){
 function displayPlanets(rightBottom,listArray){
     let thisElement = []
     listArray.forEach(item => {
-        let thisContainer = document.createElement("div")
+        thisContainer = document.createElement("div")
         thisContainer.style = containerRow
         thisContainer.style.borderTop = "blue solid 3px"
         thisContainer.style.alignItems = "center"
@@ -1006,11 +1024,9 @@ function displayPlanets(rightBottom,listArray){
             let thisBox = document.createElement("div")
             thisBox.style = planetBoxStyle
             thisContainer.appendChild(thisBox)
-
                 let img = new Image()
-                img.src = item.imgSrc
-                img.style.marginLeft = -50 + "px"
-                img.style.marginTop = 5 + "px"
+                img.src = document.getElementById("relook").innerHTML.split(":")[1] === "Old" ? 
+                item.imgSrc : item.imgSrc.split(".jpg")[0]+"n.jpg"
                 thisBox.appendChild(img)
                 img.style.cursor = "pointer"
                 img.addEventListener("click",()=>{
