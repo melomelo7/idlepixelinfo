@@ -20,7 +20,7 @@ const infoTitle = "Idle Planet Miner Infos"
 info.innerHTML = infoTitle
 
 let projectPop = undefined
-let gameLook = "Old"
+let gameLook = "New"
 
 addLeftButton({label:"Look",clickFunction:clickLook})
 addLeftButton({label:"Faq",clickFunction:clickFaqs})
