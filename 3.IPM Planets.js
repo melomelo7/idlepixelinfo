@@ -815,7 +815,7 @@ function buildPlanets(){
     rightBottom.style = containerColumn
     right.appendChild(rightBottom)
 
-    
+
     myDiv = document.createElement("div")
     myDiv.style = closeButtonStyle
     myDiv.style.marginLeft = 10 + "px"
@@ -905,7 +905,7 @@ function buildPlanets(){
                     tr.appendChild(td)
                 }
                 let img = new Image()
-                img.src = oresArray[i].img
+                img.src = gameLook === "Old" ? oresArray[i].img : oresArray[i].img.split(".jpg")[0]+"n.jpg"
                 img.style = microButtonStyle
                 img.style.height = 30 + "px"
                 img.style.width = 30 + "px"
