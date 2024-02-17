@@ -815,24 +815,7 @@ function buildPlanets(){
     rightBottom.style = containerColumn
     right.appendChild(rightBottom)
 
-
-
-    let myDiv = document.createElement("div")
-    myDiv.style = closeButtonStyle
-    myDiv.style.marginLeft = 10 + "px"
-    myDiv.style.backgroundColor = "darkgreen"
-    myDiv.innerHTML = "Look:Old"
-    myDiv.setAttribute("id","relook")
-    rightTop.appendChild(myDiv)
-    myDiv.addEventListener("click",function(){
-        info.innerHTML = infoTitle
-        document.getElementById("relook").innerHTML = 
-        document.getElementById("relook").innerHTML === "Look:Old" ?
-        "Look:New" : "Look:Old"
-    })
-    myDiv.addEventListener("mouseover",()=>{tabInfos.innerHTML = "Toggle Graphics old => New"})
-    myDiv.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
-
+    
     myDiv = document.createElement("div")
     myDiv.style = closeButtonStyle
     myDiv.style.marginLeft = 10 + "px"
@@ -1025,7 +1008,7 @@ function displayPlanets(rightBottom,listArray){
             thisBox.style = planetBoxStyle
             thisContainer.appendChild(thisBox)
                 let img = new Image()
-                img.src = document.getElementById("relook").innerHTML.split(":")[1] === "Old" ? 
+                img.src = gameLook === "Old" ?
                 item.imgSrc : item.imgSrc.split(".jpg")[0]+"n.jpg"
                 thisBox.appendChild(img)
                 img.style.cursor = "pointer"
@@ -1074,7 +1057,10 @@ function displayPlanets(rightBottom,listArray){
                     thisContainer3.appendChild(subContainer)
 
                         img = new Image(30,30)
-                        img.src = "./IPM Components/"+item.ores[i].label+".jpg"
+                        img.src = gameLook === "Old" ?
+                        "./IPM Components/"+item.ores[i].label+".jpg" :
+                        "./IPM Components/"+item.ores[i].label+"n.jpg"
+//                        img.src = "./IPM Components/"+item.ores[i].label+".jpg"
                         img.style.marginRight = 10 + "px"
                         subContainer.appendChild(img)
 

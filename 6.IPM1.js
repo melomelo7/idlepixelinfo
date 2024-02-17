@@ -1,4 +1,10 @@
 
+const credits = [
+    {val:10,unit:"M",credits:10},
+
+    {val:0,unit:"",credits:0},
+]
+
 const smeltersArray = 
 ["Free", "50.00 K","500.00 K","10.00 M","5.00 B",
 "100.00 B","50.00 T","1.00 q","500.00 q","10.00 Q"]
@@ -171,6 +177,24 @@ function clickProcess(){
     cleanParent(right)
     buildProcess()
 }
+
+function clickLook(){
+    popKiller()
+    cleanParent(right)
+    buildLook()
+}
+
+function buildLook(){
+    let myCont = document.createElement("div")
+    myCont.style = containerRow
+    right.appendChild(myCont)
+        let myEl = document.createElement("div")
+        myCont.appendChild(myEl)
+        myEl.innerHTML = "Toggle the game Graphics here, now set to : " + gameLook
+        myEl.style = closeButtonStyle
+        myEl.addEventListener("click",(e)=>{
+            gameLook = e.srcElement.innerHTML.split(" : ")[1] === "Old" ? "New" : "Old"
+            e.srcElement.innerHTML = e.srcElement.innerHTML.split(" : ")[0] + " : " +gameLook }) }
 
 function centerScreen(element){
     element.style.position = "absolute"
@@ -427,7 +451,8 @@ function clickCell2(e,obj,whichGrid){
                 img = new Image()
                 img.height = 40
                 img.width = 40
-                img.src = "./IPM Components/"+obj.component1.label+".jpg"
+                img.src = gameLook === "Old" ? "./IPM Components/"+obj.component1.label+".jpg" :
+                "./IPM Components/"+obj.component1.label+"n.jpg"
                 subContainer3 .appendChild(img)
 
                 text = document.createElement("div")
@@ -444,7 +469,8 @@ function clickCell2(e,obj,whichGrid){
                 img = new Image()
                 img.height = 40
                 img.width = 40
-                img.src = "./IPM Components/"+obj.component2.label+".jpg"
+                img.src = gameLook === "Old" ? "./IPM Components/"+obj.component2.label+".jpg" :
+                "./IPM Components/"+obj.component2.label+"n.jpg"
                 subContainer4 .appendChild(img)
 
                 text = document.createElement("div")
@@ -462,7 +488,8 @@ function clickCell2(e,obj,whichGrid){
                 img = new Image()
                 img.height = 40
                 img.width = 40
-                img.src = "./IPM Components/"+obj.component3.label+".jpg"
+                img.src = gameLook === "Old" ? "./IPM Components/"+obj.component3.label+".jpg" :
+                "./IPM Components/"+obj.component3.label+"n.jpg"
                 subContainer5.appendChild(img)
 
                 text = document.createElement("div")

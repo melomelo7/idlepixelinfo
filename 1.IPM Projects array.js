@@ -1565,7 +1565,8 @@ function clickProjectsAreas(e){
         subContainer = AddADiv(subCostFrameA)
         subContainer.style = containerRow
             img = new Image()
-            img.src = "./IPM Components/" + costs[i].label + ".jpg"
+            img.src = gameLook === "Old" ? "./IPM Components/" + costs[i].label + ".jpg" :
+            "./IPM Components/" + costs[i].label + "n.jpg"
             subContainer.appendChild(img)
 
             item = AddADiv(subContainer)
@@ -1636,7 +1637,8 @@ function clickProjectsAreas(e){
         subContainer = AddADiv(subCostFrameB)
         subContainer.style = containerRow
             img = new Image()
-            img.src = "./IPM Components/" + costComponents[i].label + ".jpg"
+            img.src = gameLook === "Old" ? "./IPM Components/" + costComponents[i].label + ".jpg" :
+            "./IPM Components/" + costComponents[i].label + "n.jpg"
             subContainer.appendChild(img)
 
             item = AddADiv(subContainer)
@@ -1746,7 +1748,8 @@ function clickProjectsAreas(e){
         subContainer.style.marginLeft = 40 + "px"
         subContainer.style.marginLeft = 140 + "px"
         img = new Image()
-            img.src = "./IPM Components/" + thisArray[i].component1.label + ".jpg"
+            img.src = gameLook === "Old" ? "./IPM Components/" + thisArray[i].component1.label + ".jpg" :
+            "./IPM Components/" + thisArray[i].component1.label + "n.jpg"
             subContainer.appendChild(img)
 
             item = AddADiv(subContainer)
@@ -1764,7 +1767,8 @@ function clickProjectsAreas(e){
             subContainer.style.marginLeft = 40 + "px"
             subContainer.style.marginLeft = 140 + "px"
                 img = new Image()
-                img.src = "./IPM Components/" + thisArray[i].component2.label + ".jpg"
+                img.src = gameLook === "Old" ? "./IPM Components/" + thisArray[i].component2.label + ".jpg" :
+                "./IPM Components/" + thisArray[i].component2.label + "n.jpg"
                 subContainer.appendChild(img)
     
                 item = AddADiv(subContainer)
@@ -1783,7 +1787,8 @@ function clickProjectsAreas(e){
             subContainer.style.marginLeft = 40 + "px"
             subContainer.style.marginLeft = 140 + "px"
                 img = new Image()
-                img.src = "./IPM Components/" + thisArray[i].component3.label + ".jpg"
+                img.src = gameLook === "Old" ? "./IPM Components/" + thisArray[i].component3.label + ".jpg" :
+                "./IPM Components/" + thisArray[i].component3.label + "n.jpg"
                 subContainer.appendChild(img)
     
                 item = AddADiv(subContainer)

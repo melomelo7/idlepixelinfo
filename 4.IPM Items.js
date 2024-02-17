@@ -1089,7 +1089,8 @@ function buildColumns(arraySource,targetTable,itemDisplayTop,itemDisplayMiddle,i
         td = document.createElement("td")
         tr.appendChild(td)
         let img = new Image(imgSize,imgSize)
-        img.src = item.img
+        img.src = gameLook === "Old" ? item.img :
+        item.img.split(".jpg")[0]+"n.jpg"
         img.style.display = "block"
         img.style.border = "white 2px solid"
         td.appendChild(img)
@@ -1111,7 +1112,8 @@ function buildColumns(arraySource,targetTable,itemDisplayTop,itemDisplayMiddle,i
             itemDisplayTop.appendChild(thisContainer)
 
                 img = new Image (40,40)
-                img.src = item.img
+                img.src = gameLook === "Old" ? item.img :
+                item.img.split(".jpg")[0]+"n.jpg"
                 img.style.display = "block"
                 img.style = textStyle
                 thisContainer.appendChild(img)
@@ -1166,7 +1168,8 @@ function buildColumns(arraySource,targetTable,itemDisplayTop,itemDisplayMiddle,i
                         thisDiv.style = containerRow
 
                             img = new Image(30,30)
-                            img.src = "./IPM Components/"+item.ingredients[i].label+".jpg"
+                            img.src = gameLook === "Old" ? "./IPM Components/"+item.ingredients[i].label+".jpg" :
+                            "./IPM Components/"+item.ingredients[i].label+"n.jpg"
                             img.style = textStyle
                             thisDiv.appendChild(img)
 
@@ -1514,7 +1517,8 @@ function startCrafting(e,item,type){
             thisContainer.appendChild(subContainer)
     
                 let img = new Image (40,40)
-                img.src = "./IPM Components/" + myArray[0][0].item.label + ".jpg"
+                img.src = gameLook === "Old" ? "./IPM Components/" + myArray[0][0].item.label + ".jpg" :
+                "./IPM Components/" + myArray[0][0].item.label + "n.jpg"
                 img.style = textStyle
                 subContainer.appendChild(img)
     
@@ -1547,9 +1551,9 @@ function startCrafting(e,item,type){
                     subContainer.style.borderTop = "yellow solid 2px"
                 }
 
-
                     img = new Image (40,40)
-                    img.src = "./IPM Components/" + filteredArray[i].label + ".jpg"
+                    img.src = gameLook === "Old" ? "./IPM Components/" + filteredArray[i].label + ".jpg" :
+                    "./IPM Components/" + filteredArray[i].label + "n.jpg"
                     img.style = textStyle
                     subContainer.appendChild(img)
     
@@ -1760,7 +1764,8 @@ function craftDiv(thisCraft,table,row,cel){
         thisContainer.appendChild(subContainer)
 
             let img = new Image (40,40)
-            img.src = "./IPM Components/" + thisCraft.item.label + ".jpg"
+            img.src = gameLook === "Old" ? "./IPM Components/" + thisCraft.item.label + ".jpg" :
+            "./IPM Components/" + thisCraft.item.label + "n.jpg"
             img.style = textStyle
             subContainer.appendChild(img)
 
@@ -1801,7 +1806,8 @@ function craftDiv(thisCraft,table,row,cel){
             thisContainer.appendChild(subContainer)
 
                 img = new Image (40,40)
-                img.src = "./IPM Components/" + thisCraft.item.ingredients[k].label + ".jpg"
+                img.src = gameLook === "Old" ? "./IPM Components/" + thisCraft.item.ingredients[k].label + ".jpg" :
+                "./IPM Components/" + thisCraft.item.ingredients[k].label + "n.jpg"
                 img.style = textStyle
                 subContainer.appendChild(img)
 

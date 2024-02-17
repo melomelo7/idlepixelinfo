@@ -462,39 +462,17 @@ function AddImg(container,path){
 }
 
 function setFleet(container){
-
     let location = "./IPM Components/"
-    let img = new Image()
-    img.src = location + "daughtership.jpg"
-    AddADiv(container).appendChild(img)
-
-    img = new Image()
-    img.src = location + "eldership.jpg"
-    AddADiv(container).appendChild(img)
-
-    img = new Image()
-    img.src = location + "exodus.jpg"
-    AddADiv(container).appendChild(img)
+    let ships = ["daughtership","eldership","exodus","thunderhorse","merchant ship","aurora ship","enigma"]
+    for(let i = 0;i<3;i++){ let img = new Image() ; let ship = ships[i]
+        img.src = gameLook === "Old" ? location + ship + ".jpg" : location + ship + "n.jpg"
+        AddADiv(container).appendChild(img) }
 
     AddADiv(container).style.borderTop = "yellow solid 2px"
 
-    img = new Image()
-    img.src = location + "thunderhorse.jpg"
-    AddADiv(container).appendChild(img)
-
-    img = new Image()
-    img.src = location + "merchant ship.jpg"
-    AddADiv(container).appendChild(img)
-
-    img = new Image()
-    img.src = location + "aurora ship.jpg"
-    AddADiv(container).appendChild(img)
-
-    img = new Image()
-    img.src = location + "enigma.jpg"
-    AddADiv(container).appendChild(img)
-
-}
+    for(let i = 3;i<ships.length;i++){ let img = new Image() ; let ship = ships[i]
+        img.src = gameLook === "Old" ? location + ship + ".jpg" : location + ship + "n.jpg"
+        AddADiv(container).appendChild(img) } }
 
 function setChallenge(container){
     const challenge = [
