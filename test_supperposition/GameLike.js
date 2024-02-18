@@ -52,6 +52,11 @@ function setLayer(){
             addEle({dad:line,what:"td",setID:i+":"+j,border:"solid red 2px"})
         }
     }
+    
+    myLayer.build.forEach((build)=>{
+        menu.innerHTML = build.tile
+    })
+    
 }
 
 setLayer()
