@@ -58,6 +58,9 @@ function setLayer(){
         build.ranges.forEach((range)=>{
             if(range.includes("~")){
                 let Rstart = range.split("~")[0]
+                let RsP1 = Rstart.split(":")[0]
+                let RsP2 = Rstart.split(":")[1]
+                
                 let Rend = range.split("~")[1]
             } else {
                 ...
