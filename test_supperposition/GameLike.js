@@ -56,7 +56,11 @@ function setLayer(){
     myLayer.build.forEach((build)=>{
         menu.innerHTML = build.tile
         build.ranges.forEach((range)=>{
-            
+            if(range.includes("~")){
+                ...
+            } else {
+                ...
+            }
             
          })
             
