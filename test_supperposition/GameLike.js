@@ -57,7 +57,8 @@ function setLayer(){
         menu.innerHTML = build.tile
         build.ranges.forEach((range)=>{
             if(range.includes("~")){
-                ...
+                let Rstart = range.split("~")[0]
+                let Rend = range.split("~")[1]
             } else {
                 ...
             }
