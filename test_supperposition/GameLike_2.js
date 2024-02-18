@@ -1,0 +1,11 @@
+const layers = [
+
+{label:"home",backC:"grey",rows:10,cols:14,build:[
+    {tile:"brick",type:"wall",code:"0x1F9F1",cells:["1:1~1:14","2:1~9:1","10:1~10:14"]},
+//    {tile:"",type:undefined,code:undefined,cells:[]},
+]},
+
+
+]
+
+//     {tile:"",type:undefined,code:undefined,cells:[]}
