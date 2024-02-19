@@ -62,6 +62,16 @@ function setLayer(){
                 let RsP2 = Rstart.split(":")[1]
                 
                 let Rend = range.split("~")[1]
+                let ReP1 = Rend.split(":")[0]
+                let ReP2 = Rend.split(":")[1]
+                
+                if(RsP1 === ReP1){// line
+                
+                } 
+                else if(RsP2 === ReP2){// column
+                    
+                } else { console.log("unknown range")}
+                
             } else {
                 ...
             }
