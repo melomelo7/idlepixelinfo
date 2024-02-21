@@ -57,16 +57,16 @@ function setLayer(){
         menu.innerHTML = build.tile
         build.ranges.forEach((range)=>{
             if(range.includes("~")){
-                let Rstart = range.split("~")[0]
-                let RsP1 = Rstart.split(":")[0]
-                let RsP2 = Rstart.split(":")[1]
+                let RsP1 = range.split("~")[0].split(":")[0]
+                let RsP2 = range.split("~")[0].split(":")[1]
                 
-                let Rend = range.split("~")[1]
-                let ReP1 = Rend.split(":")[0]
-                let ReP2 = Rend.split(":")[1]
+                let ReP1 = range.split("~")[1].split(":")[0]
+                let ReP2 = range.split("~")[1].split(":")[1]
                 
                 if(RsP1 === ReP1){// line
-                
+                    for(let i=RsP2;i<=ReP2;i++){
+                        getID(RsP1+":"+i).innerHTML = emC()
+                        }
                 } 
                 else if(RsP2 === ReP2){// column
                     
