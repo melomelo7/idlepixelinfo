@@ -3,28 +3,31 @@ function setTabToggle(tabLabel){
     cleanParent(getID(tabLabel))
     addEle({dad:getID(tabLabel),text:tabLabel.split("tab")[1],setClass:"clickBtn",setFunc:redimTab,
     backC:player.destinations.menu.filter(x=>x.label === tabLabel.split("tab")[1])[0].color,}).click()
+    addEle({dad:getID(tabLabel),setClass:"contCol",setID:tabLabel+"Frame",marginL:"5px"})
+    console.log(tabLabel+"Frame")
 }
 
 function setStatusTab(){
     setTabToggle("tabStatus")
     thisIdx = 0
+    let tabFr = getID("tabStatusFrame")
     player.status.forEach((x)=>{
         thisIdx++
-        addEle({dad:getID("tabStatus"),setID:"status"+thisIdx,setName:"statusGrp",
+        addEle({dad:tabFr,setID:"status"+thisIdx,setName:"statusGrp",
         text:x.cap === undefined ? x.label + x.value : x.label + x.value + "/" + x.cap})
     })
-    addEle({dad:getID("tabStatus"),setID:"status"+(thisIdx+=1),setName:"statusGrp",text: spit("inventoryLoad")+ " (cap = Strength*2 + Bag Space)"})
+    addEle({dad:tabFr,setID:"status"+(thisIdx+=1),setName:"statusGrp",text: spit("inventoryLoad")+ " (cap = Strength*2 + Bag Space)"})
 
-    addEle({dad:getID("tabStatus"),setID:"status"+(thisIdx+=1),setName:"statusGrp",
+    addEle({dad:tabFr,setID:"status"+(thisIdx+=1),setName:"statusGrp",
     text: player.missions.label + player.missions.current})
 
 //    txt = player.missions.btnTxt[0]
     txt = player.missions.nowOnBtn
-    addEle({dad:getID("tabStatus"),text:txt,setClass:"clickBtn",setID:"missionBtn",backC:colors.darkslategrey,setFunc:viewMissions})
-    addEle({dad:getID("tabStatus"),setClass:"tab",setID:"missionDetails",display:"none",width:"fit-content"})
+    addEle({dad:tabFr,text:txt,setClass:"clickBtn",setID:"missionBtn",backC:colors.darkslategrey,setFunc:viewMissions})
+    addEle({dad:tabFr,setClass:"tab",setID:"missionDetails",display:"none",width:"fit-content"})
 
-    addEle({dad:getID("tabStatus"),text:btnTxt.preferences,setClass:"clickBtn",setID:"preferencesBtn",backC:colors.darkslategrey,setFunc:setPreferences})
-    addEle({dad:getID("tabStatus"),setClass:"tab",setID:"preferencesDetails",display:"none",width:"fit-content"})    
+    addEle({dad:tabFr,text:btnTxt.preferences,setClass:"clickBtn",setID:"preferencesBtn",backC:colors.darkslategrey,setFunc:setPreferences})
+    addEle({dad:tabFr,setClass:"tab",setID:"preferencesDetails",display:"none",width:"fit-content"})    
 }
 
 function setPreferences(){
@@ -68,6 +71,8 @@ inv.push("c")
 
 function setInventory(which){
 
+    if(which==="Inventory"){setTabToggle("tab"+which)}
+
     let inv_Fr = undefined
     let inv_Ar = undefined
     let topTxt = ""
@@ -79,10 +84,16 @@ function setInventory(which){
             topTxt = spit("inventoryInfo","Home Storage") ; 
             break
         case "Inventory" : 
-            inv_Fr = getID("tabInventory") ; inv_Ar = player.inventory ; break
+            inv_Fr = getID("tabInventoryFrame") ; 
+            inv_Ar = player.inventory ; 
+            break
     }
 
     cleanParent(inv_Fr)
+
+    console.log(which)
+    console.log(inv_Fr)
+    console.log(inv_Fr.style.display)
 
     addEle({dad:inv_Fr,setClass:"contRow",setID:"inv_Fork"})
         addEle({dad:getID("inv_Fork"),setClass:"contCol",setID:"inv_ForkA",}) // storageFrA
@@ -192,8 +203,8 @@ function setInventory(which){
                             }
                             
 //                            console.log("n:"+(needLoad*qtItem) + " <?> f:"+freeLoad)
-                            console.log(inv_Ar)
-                            console.log(player.inventory)
+                           // console.log(inv_Ar)
+                           // console.log(player.inventory)
 
                         }})
 
@@ -274,14 +285,16 @@ function setActionTab(){
     thisTab.style.display = thisTab.style.display === "none" ? "flex" : "none"
 
     if(thisTab.id.includes("Home")){
-        addEle({dad:thisTab,setClass:"tab",setID:"homeStorageCont"})
-            addEle({dad:getID("homeStorageCont"),setClass:"clickBtn",text:"Home Storage",backC:colors.chocolate,
+        thisCont = addEle({dad:getID("tabHomeFrame"),setClass:"contCol"})
+            addEle({dad:thisCont,setClass:"clickBtn",text:"Home Storage",backC:colors.chocolate,
             setFunc:()=>{
-                getID("storageFrame").style.display = getID("storageFrame").style.display === "none" ? "flex" : "none"
+                getID("storageFrame").style.display=getID("storageFrame").style.display==="none" ? "flex" : "none"
                 setInventory("Home")
-            }})
-        addEle({dad:getID("homeStorageCont"),setClass:"tab",display:"none",setID:"storageFrame",})
-    }
+                }})
+            addEle({dad:thisCont,setClass:"tab",display:"none",setID:"storageFrame",})
+        }
+        
+        
 
     
 
