@@ -69,6 +69,11 @@ function setLayer(){
                         }
                 } 
                 else if(RsP2 === ReP2){// column
+
+                    for(let i=RsP1;i<=ReP1;i++){
+                        getID(i+":"+RsP2).innerHTML = emC(layer.code)
+                        }
+
                     
                 } else { console.log("unknown range")}
                 
