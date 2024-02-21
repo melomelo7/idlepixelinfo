@@ -65,7 +65,7 @@ function setLayer(){
                 
                 if(RsP1 === ReP1){// line
                     for(let i=RsP2;i<=ReP2;i++){
-                        getID(RsP1+":"+i).innerHTML = emC()
+                        getID(RsP1+":"+i).innerHTML = emC(layer.code)
                         }
                 } 
                 else if(RsP2 === ReP2){// column
@@ -73,7 +73,7 @@ function setLayer(){
                 } else { console.log("unknown range")}
                 
             } else {
-                ...
+                //...
             }
             
          })
