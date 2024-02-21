@@ -45,7 +45,7 @@ function setLayer(){
     let tileS = 30
     myLayer = layers.filter(x=>x.label = player.location.layer)[0]
     let layerT = addEle({dad:screen,what:"table",width:(myLayer.cols*tileS)+"px",
-    height:(myLayer.rows*tileS)+"px",backC:myLayer.backC})
+    height:(myLayer.rows*tileS)+"px",backC:myLayer.backC,tableLayout:"fixed"})
     for(let i=0;i<myLayer.rows;i++){
         let line = addEle({dad:layerT,what:"tr"})
         for(let j=0;j<myLayer.cols;j++){
