@@ -58,6 +58,7 @@ function addEle({
     flDir = "",
     justifyC = "",
     cursor = "",
+    tableLayout = "",
     log = false}){
 
     let thisObj = undefined
@@ -147,6 +148,8 @@ function addEle({
     if(justifyC !== ""){thisObj.style.justifyContent = justifyC}
 
     if(cursor !== ""){thisObj.style.cursor = cursor}
+
+    if(tableLayout !== ""){thisObj.style.tableLayout = tableLayout}
 
     if(log){
         console.log(setVal)
