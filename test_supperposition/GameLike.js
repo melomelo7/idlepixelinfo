@@ -5,11 +5,12 @@ const body = document.querySelector("body")
 const menu = addEle({dad:body,minWidth:"100px",borderR:"solid blue 2px"})
 const mainFrame = addEle({dad:body,backC:"green",width:"100%",setClass:"contCol"})
     let BottomHeight = 130
+    let cellSize = 40
     const displayFr = addEle({dad:mainFrame,text:"A",height:"calc(100% - "+BottomHeight+"px)",setClass:"contCol"})
-        const screen = addEle({dad:displayFr,height:270+"px",width:270+"px",border:"white solid 2px",
-        margin:"5px",radius:"5px",backC:"black",overflow:"hidden"})
+        const screen = addEle({dad:displayFr,height:(cellSize*9+72)+"px",width:(cellSize*9+72)+"px",
+        border:"white solid 2px",margin:"5px",radius:"5px",backC:"black",overflow:"hidden"})
     const actionFr = addEle({dad:mainFrame,backC:"black",height:BottomHeight+"px",setClass:"contRow"})
-        let cellSize = 40
+        
         const dirPad = addEle({dad:actionFr,what:"table",margin:"5px",
         height:(cellSize*3)+"px",width:(cellSize*3)+"px"})
         for(let i=1;i<4;i++){
@@ -42,49 +43,53 @@ function dirPadClick(thisID){
 }
 
 function setLayer(){
-    let tileS = 30
+    let myArr = []
+    let tileS = 40
     myLayer = layers.filter(x=>x.label = player.location.layer)[0]
-    let layerT = addEle({dad:screen,what:"table",width:(myLayer.cols*tileS)+"px",
+    let layerT = addEle({dad:screen,what:"table",width:(myLayer.cols*tileS)+"px", // screen
     height:(myLayer.rows*tileS)+"px",backC:myLayer.backC,tableLayout:"fixed"})
-    for(let i=0;i<myLayer.rows;i++){
-        let line = addEle({dad:layerT,what:"tr"})
-        for(let j=0;j<myLayer.cols;j++){
-            addEle({dad:line,what:"td",setID:i+":"+j,border:"solid red 2px"})
+    for(let i=1;i<=myLayer.rows;i++){
+        let line = addEle({dad:layerT,what:"tr",})
+        for(let j=1;j<=myLayer.cols;j++){
+            addEle({dad:line,what:"td",setID:i+":"+j,border:"solid red 2px",setClass:"screenTile"})
+            myArr.push(i+":"+j)
         }
     }
-    
-    myLayer.builds.forEach((build)=>{
-        menu.innerHTML = "13:55"
+
+    myLayer.build.forEach((build)=>{
+        menu.innerHTML = build.tile
+        myArr = []
         build.ranges.forEach((range)=>{
             if(range.includes("~")){
-                let RsP1 = range.split("~")[0].split(":")[0]
-                let RsP2 = range.split("~")[0].split(":")[1]
-                
-                let ReP1 = range.split("~")[1].split(":")[0]
-                let ReP2 = range.split("~")[1].split(":")[1]
-                
+                let RsP1 = Number(range.split("~")[0].split(":")[0])
+                let RsP2 = Number(range.split("~")[0].split(":")[1])
+                let ReP1 = Number(range.split("~")[1].split(":")[0])
+                let ReP2 = Number(range.split("~")[1].split(":")[1])
                 if(RsP1 === ReP1){// line
                     for(let i=RsP2;i<=ReP2;i++){
-                        getID(RsP1+":"+i).innerHTML = emC(build.code)
-                        }
+                        let myCell = getID(RsP1+":"+i)
+                        myCell.innerHTML = emC(build.code)
+                        myArr.push(RsP1+":"+i)
+
+                    }
                 } 
                 else if(RsP2 === ReP2){// column
-
                     for(let i=RsP1;i<=ReP1;i++){
-                        getID(i+":"+RsP2).innerHTML = emC(build.code)
-                        }
-
-                    
+                        myArr.push(i+":"+RsP2)
+                        
+                    }
                 } else { console.log("unknown range")}
                 
             } else {
-                //...
+                console.log("simple : "+range)
             }
             
          })
             
     })
-    
+
+
+
 }
 
 setLayer()

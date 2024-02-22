@@ -44,6 +44,14 @@ footer {
     cursor: pointer;
 }
 
+.screenTile{
+    vertical-align: center;
+    text-align: center;
+    font-size: 29px;
+    height: 40px;
+    width: 40px;
+}
+
 .info {
     border: solid black 2px;
     min-height: 20px;

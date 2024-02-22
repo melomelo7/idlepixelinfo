@@ -149,7 +149,7 @@ function addEle({
 
     if(cursor !== ""){thisObj.style.cursor = cursor}
 
-    if(tableLayout !== ""){thisObj.style.tableLayout = tableLayout}
+    if(tableLayout!==""){thisObj.style.tableLayout = tableLayout}
 
     if(log){
         console.log(setVal)
