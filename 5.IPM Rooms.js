@@ -1,3 +1,14 @@
+
+/* 
+rooms from start
+=================
+
+Engineering <> Forge
+Forge => Engineering <> Aeronotical
+Forge => Engineering => Aeronotical <> Astronomy
+Forge => Engineering => Astronomy => Aeronotical <> Packaging
+
+*/
 const newRoom = [3,6,12,21,35,56,87,133,200,298,439,642,934,1351,1946,2932,4402,6586]
 
 const Rooms = [
@@ -127,7 +138,8 @@ function buildRooms(){
     tabInfos.innerHTML += "early on elder players will probably agree on these : <br>"
     tabInfos.innerHTML += " - buy at least 1 lev of every new room as soon as possible (biggest boost at lv1) <br>"
     tabInfos.innerHTML += " - try to complete low cap(11) rooms early : good boost at low cost <br>"
-    tabInfos.innerHTML += " - then its about balancing what you lack or aim for specific result .... "
+    tabInfos.innerHTML += " - then its about balancing what you lack or aim for specific result ....<br>"
+    tabInfos.innerHTML += "** Robotics lv3-4 will also open up missions with better payout **"
     tabInfos.innerHTML += "<br><br> If you ever wonder how many credits in global you will spend on rooms :" + overall.toLocaleString()
     tabInfos.style = textStyle
     tabInfos.style.fontSize = textSize + "px"
