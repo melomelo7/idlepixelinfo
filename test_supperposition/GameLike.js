@@ -54,7 +54,7 @@ function setLayer(){
     }
     
     myLayer.builds.forEach((build)=>{
-        menu.innerHTML = "13:19"
+        menu.innerHTML = "13:55"
         build.ranges.forEach((range)=>{
             if(range.includes("~")){
                 let RsP1 = range.split("~")[0].split(":")[0]
@@ -65,13 +65,13 @@ function setLayer(){
                 
                 if(RsP1 === ReP1){// line
                     for(let i=RsP2;i<=ReP2;i++){
-                        getID(RsP1+":"+i).innerHTML = emC(myLayer.code)
+                        getID(RsP1+":"+i).innerHTML = emC(build.code)
                         }
                 } 
                 else if(RsP2 === ReP2){// column
 
                     for(let i=RsP1;i<=ReP1;i++){
-                        getID(i+":"+RsP2).innerHTML = emC(myLayer.code)
+                        getID(i+":"+RsP2).innerHTML = emC(build.code)
                         }
 
                     
