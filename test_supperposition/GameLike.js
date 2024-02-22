@@ -65,13 +65,13 @@ function setLayer(){
                 
                 if(RsP1 === ReP1){// line
                     for(let i=RsP2;i<=ReP2;i++){
-                        getID(RsP1+":"+i).innerHTML = emC(layer.code)
+                        getID(RsP1+":"+i).innerHTML = emC(myLayer.code)
                         }
                 } 
                 else if(RsP2 === ReP2){// column
 
                     for(let i=RsP1;i<=ReP1;i++){
-                        getID(i+":"+RsP2).innerHTML = emC(layer.code)
+                        getID(i+":"+RsP2).innerHTML = emC(myLayer.code)
                         }
 
                     
