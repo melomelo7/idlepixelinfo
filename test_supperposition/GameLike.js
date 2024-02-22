@@ -54,7 +54,7 @@ function setLayer(){
     }
     
     myLayer.builds.forEach((build)=>{
-        menu.innerHTML = build.tile
+        menu.innerHTML = "13:19"
         build.ranges.forEach((range)=>{
             if(range.includes("~")){
                 let RsP1 = range.split("~")[0].split(":")[0]
