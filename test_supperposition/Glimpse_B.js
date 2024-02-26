@@ -1,12 +1,14 @@
+
 itemList = [
-{label:"Smallfolk",time:{base:1200,discount:0},cost:[],lock:[]},
-{label:"Grains",time:{base:1200,discount:0},cost:[],lock:[]},
-{label:"Wood",time:{base:1200,discount:0},cost:[],lock:[]},
-{label:"Stone",time:{base:1200,discount:0},cost:[],lock:[]},
-{label:"Fish",time:{base:1200,discount:0},cost:[],lock:[]},
-{label:"Horse",time:{base:1200,discount:0},cost:[],lock:[]},
-{label:"Iron",time:{base:1200,discount:0},cost:[],lock:[]},
-{label:"Fur",time:{base:1200,discount:0},cost:[],lock:[]},
-{label:"Ore",time:{base:1200,discount:0},cost:[],lock:[]},
-{label:"Cloth",time:{base:1200,discount:0},cost:[],lock:[]},
-]
+    {label:"Smallfolk",sell:0,buy:0,time:{base:1200,discount:0},cost:[],lock:[]},
+    {label:"Grains",sell:200,buy:800,time:{base:1200,discount:0},cost:[],lock:[]},
+    {label:"Wood",sell:200,buy:800,time:{base:1200,discount:0},cost:[],lock:[]},
+    {label:"Stone",sell:200,buy:800,time:{base:1200,discount:0},cost:[],lock:[]},
+    {label:"Fish",sell:200,buy:800,time:{base:1200,discount:0},cost:[],lock:[]},
+    {label:"Horse",sell:200,buy:800,time:{base:1200,discount:0},cost:[],lock:[]},
+    {label:"Iron",sell:200,buy:800,time:{base:1200,discount:0},cost:[],lock:[]},
+    {label:"Fur",sell:200,buy:800,time:{base:1200,discount:0},cost:[],lock:[]},
+    {label:"Ore",sell:200,buy:800,time:{base:1200,discount:0},cost:[],lock:[]},
+    {label:"Cloth",sell:200,buy:800,time:{base:1200,discount:0},cost:[],lock:[]},
+    ]
+

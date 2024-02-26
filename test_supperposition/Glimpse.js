@@ -1,9 +1,14 @@
 
 const body = document.querySelector("body")
+const path1 = "./imgs/"
+const path2 = ".jpg"
+
+// "./IPM Planets/"+this.idNumber+".jpg"
 
 let myEl = undefined
 let txt = ""
 let player = {
+    coins:{silver:200,gold:0},
     inventory:[],
 }
 
@@ -12,39 +17,68 @@ let thisCont = addEle({dad:body,setClass:"contRow",width:"100%"})
     let content = addEle({dad:thisCont,setClass:"contCol",width:"100%"})
         let info = addEle({dad:content,setClass:"info"})
 
-const menuBtns = ["Locations"]
+const menuBtns = [
+    {label:"Inventory",setFunc:setInventory},
+    {label:"Locations",setFunc:undefined},
+]
 
 const locations = [
-    {label:"Village Center",locked:false,
-    cost:[],
+    {label:"Village Center",
+    locked:{status:false,cost:[],},
     generate:{label:"",rate:0},
     products:["Stone","Horse","Iron","Fish","Fur","Smallfolk","Ore",
     "Wood","Cloth","Grains",],
     upgrades:[]},
-    {label:"Counting House",locked:true,
-    cost:[{label:"Stone",quantity:5},{label:"Wood",quantity:5}],
-    generate:{label:"",rate:0},
+    {label:"Counting House",
+    locked:{status:true,cost:[{label:"Stone",quantity:5},{label:"Wood",quantity:5}],},
+    generate:{label:"Silver Coins",rate:200,seconds:3600},
     products:[],
     upgrades:[]},
 ]
 
 function setMenuBtns(){
     menuBtns.forEach((btn)=>{
-        addEle({dad:menu,setClass:"menuBtn",text:btn,setFunc:toggleMenus})
-        addEle({dad:content,setClass:"mainTab",setID:"tab"+btn,text:btn,display:"none"})
+        txt = btn.label
+        addEle({dad:menu,setClass:"menuBtn",text:txt,setFunc:(e)=>{
+            toggleMenus(e)
+            myEl = menuBtns.filter(x=>x.label===e.srcElement.innerHTML)[0]
+            if(myEl.setFunc !==undefined){myEl.setFunc()}
+        }})
+        addEle({dad:content,setClass:"mainTab",setID:"tab"+txt,text:txt,display:"none"})
     })
 }
 
 function toggleMenus(e){
-    let myBt = e.srcElement
-    myEl = getID("tab"+myBt.innerHTML)
-    switch(myEl.style.display){
-        case "none" : myEl.style.display = "flex" ; myBt.style.color = "red" ; break
-        case "flex" : myEl.style.display = "none" ; myBt.style.color = "#C0AE77" ; break
-    }}
+    let grp = menu.children
+    for(let i=0;i<grp.length;i++){
+        myEl = getID("tab"+grp[i].innerHTML)
+        if(grp[i].innerHTML===e.srcElement.innerHTML){
+            myEl.style.display = "flex"
+            grp[i].style.color = "lime"
+            console.log("selected "+menu.children[i].innerHTML)
+        } else {
+            myEl.style.display = "none"
+            grp[i].style.color = "#C0AE77" 
+            console.log("NOT selected "+menu.children[i].innerHTML)
+        }
+    }
+}
 
 setMenuBtns()
 setLocations()
+
+function setInventory(){
+    let myTab = getID("tabInventory")
+    cleanParent(myTab)
+    myEl = getInventoryObj("Gold Coins")
+    if(myEl){addDisplayLine(myTab,myEl)}
+    myEl = getInventoryObj("Silver Coins")
+    if(myEl){addDisplayLine(myTab,myEl)}
+
+    let myArr = player.inventory.filter(x=> 
+    x.label !== "Gold Coins" && x.label !== "Silver Coins" && x.quantity > 0)
+    for(let i=0;i<myArr.length;i++) {addDisplayLine(myTab,myArr[i],true)}
+}
 
 function setLocations(){
     let myCont = addEle({dad:getID("tabLocations"),setClass:"contCol"})
@@ -52,8 +86,8 @@ function setLocations(){
         addEle({dad:myCont,setClass:"subTab",setID:"loc_content",text:"Click a Location"})
         locations.forEach((loc)=>{
             myEl = addEle({dad:getID("loc_fr"),setClass:"clickBtn",text:loc.label,
-            setFunc:(e)=>{fillLocation(e.srcElement.innerHTML)},backC:loc.locked})
-            if(loc.locked===true){myEl.style.backgroundColor="black"}
+            setFunc:(e)=>{fillLocation(e.srcElement.innerHTML)},backC:"#583E31"})
+            if(loc.locked.status ===true){myEl.style.backgroundColor="black"}
         })
 }
 
@@ -63,10 +97,10 @@ function fillLocation(lbl){
     let myCont = getID("loc_content")
     myCont.innerHTML = ""
     cleanParent(myCont)
-    if(myEl.locked === true){
+    if(myEl.locked.status === true){
         let ownCost = true
         txt = "This location is locked now, to unlock it you need :<br>"
-        myEl.cost.forEach((cost)=>{
+        myEl.locked.cost.forEach((cost)=>{
             txt += '<span style="color:'
             switch(checkOwned(cost.label,cost.quantity)){
                 case true : 
@@ -80,9 +114,9 @@ function fillLocation(lbl){
             addEle({dad:subCont,text:txt})
         if(ownCost === true){
             addEle({dad:myCont,setClass:"clickBtn",text:"Unlock",setFunc:()=>{
-                myEl.cost.forEach((cost)=>{
+                myEl.locked.cost.forEach((cost)=>{
                     switchInvItem({label:cost.label,quantity:cost.quantity,putIn:false})})
-                    myEl.locked = false
+                    myEl.locked.status = false
                     for(let i=0;i<getID("loc_fr").children.length;i++){
                         if(getID("loc_fr").children[i].innerHTML===lbl)
                             {getID("loc_fr").children[i].style.backgroundColor = "#583E31"}}
@@ -92,7 +126,10 @@ function fillLocation(lbl){
     }
 }
 
+switchInvItem({label:"Silver Coins",quantity:1000200})
 switchInvItem({label:"Stone",quantity:10})
 switchInvItem({label:"Wood",quantity:10})
 
 console.log(player.inventory)
+
+sellBuyItem("Fish",5,false)

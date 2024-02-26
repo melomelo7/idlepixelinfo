@@ -209,3 +209,51 @@ function switchInvItem({label="",quantity=0,putIn=true}){
         if(player.inventory[myIdx].quantity < 0){player.inventory[myIdx].quantity = 0}
     }
 }
+
+function sellBuyItem(itmLabel,quantity=1,sell=true){
+    if (sell){
+        player.inventory.filter(x=>x.label===itmLabel)[0].quantity -= quantity
+        player.inventory.filter(x=>x.label==="Silver Coins")[0].quantity =
+        player.inventory.filter(x=>x.label==="Silver Coins")[0].quantity +
+        (itemList.filter(x=>x.label===itmLabel)[0].sell * quantity)
+    } else {
+        player.inventory.filter(x=>x.label==="Silver Coins")[0].quantity =
+        player.inventory.filter(x=>x.label==="Silver Coins")[0].quantity -
+        (itemList.filter(x=>x.label===itmLabel)[0].sell * quantity)
+        myEl = player.inventory.filter(x=>x.label===itmLabel)
+        if(myEl.length ===0){
+            switchInvItem({label:itmLabel,quantity:quantity})
+        } else {
+            myEl[0].quantity += quantity
+        }
+    }
+}
+
+function addDisplayLine(parentFr,itm,sell=false){
+    let myCont = addEle({dad:parentFr,setClass:"contRow",alignItems:"center"})
+        let img = new Image(50,50)
+        img.src = path1+itm.label+path2
+        myCont.appendChild(img)
+        addEle({dad:myCont,text:itm.label,marginL:"10px",minWidth:"100px",textA:"center"})//border:"red solid 2px"
+        addEle({dad:myCont,text:itm.quantity.toLocaleString(),marginL:"10px",minWidth:"50px"})
+        if(sell){
+            let thisEl = itemList.filter(x=>x.label===itm.label)[0]
+            if(thisEl.sell > 0){
+                let myIdx = player.inventory.findIndex(x=>x.label===itm.label)
+                txt = 'Sell : 1 "' +itm.label+ '" for ' + thisEl.sell + ' Silver Coins'
+                addEle({dad:myCont,setClass:"clickBtn",text:txt,marginL:"20px",
+                setID:"sellBtn"+myIdx,setFunc:(e)=>{
+                    txt = e.srcElement.innerHTML.split('"')[1]
+                    let Qt = Number(e.srcElement.innerHTML.split(" : ")[1].split(' "')[0])
+                    sellBuyItem(txt,Qt)
+                    setInventory()
+                }})
+                addEle({dad:myCont,what:"range",isInput:true,min:1,max:itm.quantity,
+                setVal:1,setID:"sellBtnRng"+myIdx,marginL:"10px",width:"100px",setFunc:(e)=>{
+                     txt = 'Sell : '+e.srcElement.value+' "' +itm.label+ '" for ' + 
+                     (thisEl.sell*e.srcElement.value).toLocaleString() + ' Silver Coins'
+                     getID("sellBtn"+e.srcElement.id.split("sellBtnRng")[1]).innerHTML = txt
+                }})
+            }
+        }
+}
