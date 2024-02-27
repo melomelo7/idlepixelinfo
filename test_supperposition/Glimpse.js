@@ -13,7 +13,7 @@ let player = {
 }
 
 if(player.start){
-    switchInvItem("Silver Coins",800)
+    switchInvItem("Silver Coins",1000)
     }
 
 let thisCont = addEle({dad:body,setClass:"contRow",width:"100%"})
@@ -28,7 +28,7 @@ const menuBtns = [
 
 const locations = [
     {label:"Village Center",
-    locked:{status:true,cost:[{label:"Stone",quantity:5}],},
+    locked:{status:true,cost:[{label:"Silver Coins",quantity:200}],},
     generate:{label:"",rate:0},
     products:["Stone","Horse","Iron","Fish","Fur","Smallfolk","Ore",
     "Wood","Cloth","Grains",],
