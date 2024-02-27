@@ -8,9 +8,13 @@ const path2 = ".jpg"
 let myEl = undefined
 let txt = ""
 let player = {
-    coins:{silver:200,gold:0},
+    start:true,
     inventory:[],
 }
+
+if(player.start){
+    
+    }
 
 let thisCont = addEle({dad:body,setClass:"contRow",width:"100%"})
     let menu = addEle({dad:thisCont,setClass:"leftMenu"})
