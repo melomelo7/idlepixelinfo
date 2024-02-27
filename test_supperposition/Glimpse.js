@@ -13,7 +13,7 @@ let player = {
 }
 
 if(player.start){
-    
+    switchInvItem("Silver Coins",800)
     }
 
 let thisCont = addEle({dad:body,setClass:"contRow",width:"100%"})
