@@ -13,6 +13,7 @@ let player = {
 }
 
 if(player.start){
+    player.start = false
     switchInvItem("Silver Coins",1000)
     }
 
