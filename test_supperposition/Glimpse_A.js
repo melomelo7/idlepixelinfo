@@ -217,9 +217,15 @@ function sellBuyItem(itmLabel,quantity=1,sell=true){
         player.inventory.filter(x=>x.label==="Silver Coins")[0].quantity +
         (itemList.filter(x=>x.label===itmLabel)[0].sell * quantity)
     } else {
-        player.inventory.filter(x=>x.label==="Silver Coins")[0].quantity =
-        player.inventory.filter(x=>x.label==="Silver Coins")[0].quantity -
-        (itemList.filter(x=>x.label===itmLabel)[0].sell * quantity)
+        let myItm = player.inventory.filter(x=>x.label==="Silver Coins")[0]
+        let srcItm = itemList.filter(x=>x.label===itmLabel)[0]
+        
+        info.innerHTML = checkOwned("Silver Coins",(srcItm.sell * quantity))
+        
+        
+        myItm.quantity = myItm.quantity - (srcItm.sell * quantity)
+        // player.inventory.filter(x=>x.label==="Silver Coins")[0].quantity -
+      //(itemList.filter(x=>x.label===itmLabel)[0].sell * quantity)
         myEl = player.inventory.filter(x=>x.label===itmLabel)
         if(myEl.length ===0){
             switchInvItem({label:itmLabel,quantity:quantity})
