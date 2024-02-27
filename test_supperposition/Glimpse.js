@@ -28,7 +28,7 @@ const menuBtns = [
 
 const locations = [
     {label:"Village Center",
-    locked:{status:false,cost:[],},
+    locked:{status:true,cost:[{label:"Stone",quantity:5}],},
     generate:{label:"",rate:0},
     products:["Stone","Horse","Iron","Fish","Fur","Smallfolk","Ore",
     "Wood","Cloth","Grains",],
