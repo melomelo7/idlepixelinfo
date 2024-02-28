@@ -3,24 +3,29 @@ const body = document.querySelector("body")
 const path1 = "./imgs/"
 const path2 = ".jpg"
 
-// "./IPM Planets/"+this.idNumber+".jpg"
+let thisCont = addEle({dad:body,setClass:"contRow",width:"100%"})
+    let menu = addEle({dad:thisCont,setClass:"leftMenu"})
+    let content = addEle({dad:thisCont,setClass:"contCol",width:"100%"})
+        let infoFr = addEle({dad:content,setClass:"info"})
+            addEle({dad:infoFr,what:"img",imgSize:60,imgSrc:"advisor"})
+            let info = addEle({dad:infoFr,marginL:"10px"})
 
 let myEl = undefined
 let txt = ""
 let player = {
     start:true,
+    workers:[{label:"Workers",quantity:0,free:0}],
     inventory:[],
+    loop:{id:undefined,queue:[]},
 }
 
 if(player.start){
+    switchInvItem({label:"Silver Coins",quantity:500})
+    info.innerHTML = `Gooday my Lord,<br>My advice for now is to try 
+    restoring as many locations<br>as possible, hire workers ... 
+    and adventurers : for quests.`
     player.start = false
-    switchInvItem("Silver Coins",1000)
-    }
-
-let thisCont = addEle({dad:body,setClass:"contRow",width:"100%"})
-    let menu = addEle({dad:thisCont,setClass:"leftMenu"})
-    let content = addEle({dad:thisCont,setClass:"contCol",width:"100%"})
-        let info = addEle({dad:content,setClass:"info"})
+}
 
 const menuBtns = [
     {label:"Inventory",setFunc:setInventory},
@@ -31,13 +36,13 @@ const locations = [
     {label:"Village Center",
     locked:{status:true,cost:[{label:"Silver Coins",quantity:200}],},
     generate:{label:"",rate:0},
-    products:["Stone","Horse","Iron","Fish","Fur","Smallfolk","Ore",
-    "Wood","Cloth","Grains",],
+    resources:["Workers","Grains","Wood","Stone","Fish","Horse",
+    "Iron","Fur","Ore","Cloth",],
     upgrades:[]},
     {label:"Counting House",
     locked:{status:true,cost:[{label:"Stone",quantity:5},{label:"Wood",quantity:5}],},
     generate:{label:"Silver Coins",rate:200,seconds:3600},
-    products:[],
+    resources:[],
     upgrades:[]},
 ]
 
@@ -60,11 +65,9 @@ function toggleMenus(e){
         if(grp[i].innerHTML===e.srcElement.innerHTML){
             myEl.style.display = "flex"
             grp[i].style.color = "lime"
-            console.log("selected "+menu.children[i].innerHTML)
         } else {
             myEl.style.display = "none"
             grp[i].style.color = "#C0AE77" 
-            console.log("NOT selected "+menu.children[i].innerHTML)
         }
     }
 }
@@ -97,7 +100,6 @@ function setLocations(){
 }
 
 function fillLocation(lbl){
-    console.log("run")
     myEl = locations.filter(loc=>loc.label===lbl)[0]
     let myCont = getID("loc_content")
     myCont.innerHTML = ""
@@ -127,14 +129,27 @@ function fillLocation(lbl){
                             {getID("loc_fr").children[i].style.backgroundColor = "#583E31"}}
                 fillLocation(lbl)  }}) }
     } else {
-        myCont.innerHTML = "all good"
+        info.innerHTML = ""
+
+        let thisCont = addEle({dad:myCont,setClass:"contCol"})
+            if(myEl.generate.label!==""){
+                // location generates X resource
+            }
+            if(myEl.resources.length>0){
+                info.innerHTML = "resources : " + myEl.resources.length
+                addEle({dad:thisCont,setClass:"clickBtn",text:"Resources",setFunc:()=>{
+                getID("resourcesFr").style.display = getID("resourcesFr").style.display
+                === "none" ? "flex" : "none" }})
+                addEle({dad:thisCont,setClass:"subTab",display:"none",setID:"resourcesFr"})
+                    let thisEl = player.workers.filter(x=>x.label==="Workers") 
+                    txt = thisEl.label + " : " + (thisEl.quantity-thisEl.used) + 
+                    addEle({dad:getID("resourcesFr"),text:spit("Workers"),marginB:"10px"})
+                myEl.resources.forEach((res)=>{addResourceLine(getID("resourcesFr"),res)})
+            }
+            if(myEl.upgrades.length>0){
+                info.innerHTML += " upgrades : " + myEl.upgrades.length
+            }
+
     }
 }
 
-switchInvItem({label:"Silver Coins",quantity:1000200})
-switchInvItem({label:"Stone",quantity:10})
-switchInvItem({label:"Wood",quantity:10})
-
-console.log(player.inventory)
-
-sellBuyItem("Fish",5,false)

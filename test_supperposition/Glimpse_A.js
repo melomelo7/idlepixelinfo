@@ -60,12 +60,20 @@ function addEle({
     justifyC = "",
     cursor = "",
     tableLayout = "",
+    imgSize = "",
+    imgSrc = "",
     log = false}){
 
     let thisObj = undefined
 
     if(!isInput){
-        thisObj = document.createElement(what)
+        if(what==="img" || what==="image"){
+            if(imgSize===""){thisObj = new Image()}
+            else{thisObj = new Image(imgSize,imgSize)}
+            thisObj.src = path1 + imgSrc + path2
+            }
+        else
+            {thisObj = document.createElement(what)}
     } else {
         thisObj = document.createElement("input"); thisObj.setAttribute("type",what)
     }
@@ -217,15 +225,9 @@ function sellBuyItem(itmLabel,quantity=1,sell=true){
         player.inventory.filter(x=>x.label==="Silver Coins")[0].quantity +
         (itemList.filter(x=>x.label===itmLabel)[0].sell * quantity)
     } else {
-        let myItm = player.inventory.filter(x=>x.label==="Silver Coins")[0]
-        let srcItm = itemList.filter(x=>x.label===itmLabel)[0]
-        
-        info.innerHTML = checkOwned("Silver Coins",(srcItm.sell * quantity))
-        
-        
-        myItm.quantity = myItm.quantity - (srcItm.sell * quantity)
-        // player.inventory.filter(x=>x.label==="Silver Coins")[0].quantity -
-      //(itemList.filter(x=>x.label===itmLabel)[0].sell * quantity)
+        player.inventory.filter(x=>x.label==="Silver Coins")[0].quantity =
+        player.inventory.filter(x=>x.label==="Silver Coins")[0].quantity -
+        (itemList.filter(x=>x.label===itmLabel)[0].sell * quantity)
         myEl = player.inventory.filter(x=>x.label===itmLabel)
         if(myEl.length ===0){
             switchInvItem({label:itmLabel,quantity:quantity})
@@ -237,9 +239,7 @@ function sellBuyItem(itmLabel,quantity=1,sell=true){
 
 function addDisplayLine(parentFr,itm,sell=false){
     let myCont = addEle({dad:parentFr,setClass:"contRow",alignItems:"center"})
-        let img = new Image(50,50)
-        img.src = path1+itm.label+path2
-        myCont.appendChild(img)
+        addEle({dad:myCont,what:"img",imgSize:50,imgSrc:itm.label})
         addEle({dad:myCont,text:itm.label,marginL:"10px",minWidth:"100px",textA:"center"})//border:"red solid 2px"
         addEle({dad:myCont,text:itm.quantity.toLocaleString(),marginL:"10px",minWidth:"50px"})
         if(sell){
@@ -262,4 +262,52 @@ function addDisplayLine(parentFr,itm,sell=false){
                 }})
             }
         }
+}
+
+function addResourceLine(parentFr,itm){
+    let thisItm = itemList.filter(x=>x.label=itm)[0]
+    console.log(thisItm)
+    let myCont = addEle({dad:parentFr,setClass:"contRow",alignItems:"center",
+    borderB:"white solid 1px",borderT:"white solid 1px"})
+        addEle({dad:myCont,what:"img",imgSize:50,imgSrc:itm})
+        addEle({dad:myCont,text:itm,margin:"0 10px",minWidth:"50px",textA:"center"})
+        let subC = addEle({dad:myCont,setClass:"contCol2"})
+        txt = "Costs:<br>"
+        thisItm.cost.forEach((cost)=>{
+            txt += '<span style="color:'
+            switch(checkOwned(cost.label,cost.quantity)){
+                case true : 
+                    txt+='lime">' + cost.quantity + "x " + cost.label ; break
+                case false : ownCost = false 
+                    txt+='red">' + cost.quantity + "x " + cost.label ; break
+            }
+            txt += "</span><br>"
+        })
+            addEle({dad:subC,text:txt})
+
+}
+
+function displaySeconds(sec=0,asClock=true){
+    let hh = Math.floor(sec/3600)
+    let mm = Math.floor((sec % 3600)/60)
+    let ss = Math.ceil(sec % 60)
+
+    if(hh>0){txt = hh+"Hr"}
+    if(mm>0){txt += mn+"Mn"}
+    txt += ss + "Sec"
+
+    hh = hh < 10 ? "0" + hh : hh
+    mm = mm < 10 ? "0" + mm : mm
+    ss = ss < 10 ? "0" + ss : ss
+
+    if(asClock){return hh + ":" + mm + ":" + ss}
+    else {return txt}
+}
+
+function spit(what){
+    switch(what){
+        case "Workers": 
+        let thisEl = player.workers.filter(x=>x.label==="Workers")[0]
+        return thisEl.label + " : " + thisEl.free + "/" + thisEl.quantity ; break
+    }
 }

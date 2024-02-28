@@ -1,6 +1,6 @@
 
 itemList = [
-    {label:"Smallfolk",sell:0,buy:0,time:{base:1200,discount:0},cost:[],lock:[]},
+    {label:"Workers",sell:0,buy:300,time:{base:300,discount:0},cost:[{label:"Silver Coins",quantity:300}],lock:[]},
     {label:"Grains",sell:200,buy:800,time:{base:1200,discount:0},cost:[],lock:[]},
     {label:"Wood",sell:200,buy:800,time:{base:1200,discount:0},cost:[],lock:[]},
     {label:"Stone",sell:200,buy:800,time:{base:1200,discount:0},cost:[],lock:[]},
