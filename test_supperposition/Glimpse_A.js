@@ -271,7 +271,7 @@ function addResourceLine(parentFr,itm){
     borderB:"white solid 1px",borderT:"white solid 1px"})
         addEle({dad:myCont,what:"img",imgSize:50,imgSrc:itm})
         addEle({dad:myCont,text:itm,margin:"0 10px",minWidth:"50px",textA:"center"})
-        let subC = addEle({dad:myCont,setClass:"contCol2"})
+        let subC = addEle({dad:myCont,setClass:"contCol"})
         txt = "Costs:<br>"
         thisItm.cost.forEach((cost)=>{
             txt += '<span style="color:'
