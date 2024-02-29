@@ -14,7 +14,7 @@ let myEl = undefined
 let txt = ""
 let player = {
     start:true,
-    workers:[{label:"Workers",quantity:0,free:0}],
+    workers:[{label:"Workers",quantity:0,free:0,set:[],  }],
     inventory:[],
     loop:{id:undefined,queue:[]},
 }
