@@ -287,7 +287,7 @@ function addResourceLine(parentFr,itm,idx){
                 val = player.workers.filter(x=>x.label==="Workers")[0].free
                 addEle({dad:subC,what:"range",isInput:true,min:0,max:val,setVal:0,setName:"locResRanges",
                 setID:"locResRng"+idx,setFunc:()=>{
-
+let workGrp = player.workers.filter(w=>)
                 }})
         }
 }
