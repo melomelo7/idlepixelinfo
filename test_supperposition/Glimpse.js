@@ -141,10 +141,10 @@ function fillLocation(lbl){
                 getID("resourcesFr").style.display = getID("resourcesFr").style.display
                 === "none" ? "flex" : "none" }})
                 addEle({dad:thisCont,setClass:"subTab",display:"none",setID:"resourcesFr"})
-                    let thisEl = player.workers.filter(x=>x.label==="Workers") 
-                    txt = thisEl.label + " : " + (thisEl.quantity-thisEl.used) + 
                     addEle({dad:getID("resourcesFr"),text:spit("Workers"),marginB:"10px"})
-                myEl.resources.forEach((res)=>{addResourceLine(getID("resourcesFr"),res)})
+                for(let i=0;i<myEl.resources.length;i++){
+                    addResourceLine(getID("resourcesFr"),myEl.resources[i],i)
+                }
             }
             if(myEl.upgrades.length>0){
                 info.innerHTML += " upgrades : " + myEl.upgrades.length

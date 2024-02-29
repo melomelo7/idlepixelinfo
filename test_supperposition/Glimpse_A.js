@@ -264,27 +264,32 @@ function addDisplayLine(parentFr,itm,sell=false){
         }
 }
 
-function addResourceLine(parentFr,itm){
-    let thisItm = itemList.filter(x=>x.label=itm)[0]
+function addResourceLine(parentFr,itm,idx){
+    let thisItm = itemList.filter(x=>x.label===itm)[0]
     console.log(thisItm)
     let myCont = addEle({dad:parentFr,setClass:"contRow",alignItems:"center",
     borderB:"white solid 1px",borderT:"white solid 1px"})
         addEle({dad:myCont,what:"img",imgSize:50,imgSrc:itm})
         addEle({dad:myCont,text:itm,margin:"0 10px",minWidth:"50px",textA:"center"})
-        let subC = addEle({dad:myCont,setClass:"contCol"})
         txt = "Costs:<br>"
         thisItm.cost.forEach((cost)=>{
-            txt += '<span style="color:'
-            switch(checkOwned(cost.label,cost.quantity)){
-                case true : 
-                    txt+='lime">' + cost.quantity + "x " + cost.label ; break
-                case false : ownCost = false 
-                    txt+='red">' + cost.quantity + "x " + cost.label ; break
-            }
-            txt += "</span><br>"
+            let myCol = ""
+            if(checkOwned(cost.label,cost.quantity)){myCol = "lime"}
+            else {myCol = "red" ; ownCost = false}
+            txt += '<span style="color:'+myCol+'">'+ cost.label + " " + cost.quantity + "</span><br>"
         })
-            addEle({dad:subC,text:txt})
+        addEle({dad:myCont,text:txt,minWidth:"140px"})
+        let val = thisItm.time.base * ((100-thisItm.time.discount)/100)
+        addEle({dad:myCont,margin:"0 10px",text:"Time : " + displaySeconds(val)})
+        if(thisItm.label!=="Workers"){
+            let subC = addEle({dad:myCont,setClass:"contCol"})
+                addEle({dad:subC,text:"Workers : 0",setName:"locResWorkers",setID:"locResWks"})
+                val = player.workers.filter(x=>x.label==="Workers")[0].free
+                addEle({dad:subC,what:"range",isInput:true,min:0,max:val,setVal:0,setName:"locResRanges",
+                setID:"locResRng"+idx,setFunc:()=>{
 
+                }})
+        }
 }
 
 function displaySeconds(sec=0,asClock=true){
@@ -293,7 +298,7 @@ function displaySeconds(sec=0,asClock=true){
     let ss = Math.ceil(sec % 60)
 
     if(hh>0){txt = hh+"Hr"}
-    if(mm>0){txt += mn+"Mn"}
+    if(mm>0){txt += mm+"Mn"}
     txt += ss + "Sec"
 
     hh = hh < 10 ? "0" + hh : hh
