@@ -31,6 +31,7 @@ player.workers[0].sets.push(
     new workSet("Village Center","Fish",2),
 )
 
+let version = "4.2.   7-27"
 
 //console.log(spit({label:"workersRes",resource:"Fish"}))
 //console.log(upgrades[1])
@@ -41,6 +42,7 @@ if(player.start){
     restoring as many locations<br>as possible, hire workers ... 
     and adventurers : for quests.`
     player.start = false
+    info.innerHTML = version
 }
 
 const menuBtns = [
