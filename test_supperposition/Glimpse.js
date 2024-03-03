@@ -2,7 +2,8 @@
 const body = document.querySelector("body")
 const path1 = "./imgs/"
 const path2 = ".jpg"
-
+const workerDiscount = 60
+const subLocations = ["Common Pasture","Mill","Storehouse","Tannery","Bakery","Brewhouse"]
 let thisCont = addEle({dad:body,setClass:"contRow",width:"100%"})
     let menu = addEle({dad:thisCont,setClass:"leftMenu"})
     let content = addEle({dad:thisCont,setClass:"contCol",width:"100%"})
@@ -14,10 +15,25 @@ let myEl = undefined
 let txt = ""
 let player = {
     start:true,
-    workers:[{label:"Workers",quantity:0,free:0,set:[],  }],
+    workers:[], // {label:"Workers",quantity:0,sets:[]}
     inventory:[],
+    bonuses:[],
+    subLocations:[],
     loop:{id:undefined,queue:[]},
 }
+player.workers.push(new worker("Workers",0))
+
+
+
+player.workers[0].quantity = 10
+player.workers[0].sets.push(
+    new workSet("Village Center","Grains",3),
+    new workSet("Village Center","Fish",2),
+)
+
+
+//console.log(spit({label:"workersRes",resource:"Fish"}))
+//console.log(upgrades[1])
 
 if(player.start){
     switchInvItem({label:"Silver Coins",quantity:500})
@@ -34,14 +50,14 @@ const menuBtns = [
 
 const locations = [
     {label:"Village Center",
-    locked:{status:true,cost:[{label:"Silver Coins",quantity:200}],},
+    locked:{status:true,cost:["Silver Coins:200",],},
     generate:{label:"",rate:0},
     resources:["Workers","Grains","Wood","Stone","Fish","Horse",
     "Iron","Fur","Ore","Cloth",],
-    upgrades:[]},
+    upgrades:["Common Pasture","Mill","Storehouse","Tannery","Bakery","Brewhouse"]},
     {label:"Counting House",
-    locked:{status:true,cost:[{label:"Stone",quantity:5},{label:"Wood",quantity:5}],},
-    generate:{label:"Silver Coins",rate:200,seconds:3600},
+    locked:{status:true,cost:["Stone:5","Wood:5"],},
+    generate:["Silver Coins:200:3600"],
     resources:[],
     upgrades:[]},
 ]
@@ -90,7 +106,7 @@ function setInventory(){
 
 function setLocations(){
     let myCont = addEle({dad:getID("tabLocations"),setClass:"contCol"})
-        addEle({dad:myCont,setClass:"contRow",flWrap:"wrap",setID:"loc_fr",border:"red solid 2px"})
+        addEle({dad:myCont,setClass:"contRow",flWrap:"wrap",setID:"loc_fr",}) // border:"red solid 2px"
         addEle({dad:myCont,setClass:"subTab",setID:"loc_content",text:"Click a Location"})
         locations.forEach((loc)=>{
             myEl = addEle({dad:getID("loc_fr"),setClass:"clickBtn",text:loc.label,
@@ -108,21 +124,21 @@ function fillLocation(lbl){
         let ownCost = true
         txt = "This location is locked now, to unlock it you need :<br>"
         myEl.locked.cost.forEach((cost)=>{
+            console.log(cost)
             txt += '<span style="color:'
-            switch(checkOwned(cost.label,cost.quantity)){
-                case true : 
-                    txt+='lime">' + cost.quantity + "x " + cost.label ; break
-                case false : ownCost = false 
-                    txt+='red">' + cost.quantity + "x " + cost.label ; break
+            let myCol = ""
+            switch(checkOwned(cost)){
+                case true : myCol = "lime" ; break
+                case false : myCol = "red" ; ownCost = false ; break
             }
-            txt += "</span> "
+            txt+= myCol + '">' + cost.split(":")[1] + "x " + cost.split(":")[0] + "</span> "
         })
         let subCont = addEle({dad:myCont,setClass:"contRow"})
             addEle({dad:subCont,text:txt})
         if(ownCost === true){
             addEle({dad:myCont,setClass:"clickBtn",text:"Unlock",setFunc:()=>{
                 myEl.locked.cost.forEach((cost)=>{
-                    switchInvItem({label:cost.label,quantity:cost.quantity,putIn:false})})
+                    switchInvItem({label:cost.split(":")[0],quantity:cost.split(":")[1],putIn:false})})
                     myEl.locked.status = false
                     for(let i=0;i<getID("loc_fr").children.length;i++){
                         if(getID("loc_fr").children[i].innerHTML===lbl)
@@ -130,20 +146,22 @@ function fillLocation(lbl){
                 fillLocation(lbl)  }}) }
     } else {
         info.innerHTML = ""
-
+        addEle({dad:myCont,text:myEl.label,setID:"locationRef"})
         let thisCont = addEle({dad:myCont,setClass:"contCol"})
             if(myEl.generate.label!==""){
                 // location generates X resource
             }
             if(myEl.resources.length>0){
                 info.innerHTML = "resources : " + myEl.resources.length
-                addEle({dad:thisCont,setClass:"clickBtn",text:"Resources",setFunc:()=>{
+                addEle({dad:thisCont,setClass:"clickBtn",text:"Resources",setID:"resBtn",setFunc:()=>{
                 getID("resourcesFr").style.display = getID("resourcesFr").style.display
                 === "none" ? "flex" : "none" }})
                 addEle({dad:thisCont,setClass:"subTab",display:"none",setID:"resourcesFr"})
-                    addEle({dad:getID("resourcesFr"),text:spit("Workers"),marginB:"10px"})
+                    addEle({dad:getID("resourcesFr"),text:spit({label:"workersDisp"}),marginB:"10px",setID:"workersDisplay"})
+//                    console.log(lbl)
                 for(let i=0;i<myEl.resources.length;i++){
-                    addResourceLine(getID("resourcesFr"),myEl.resources[i],i)
+                    
+                    addResourceLine(getID("resourcesFr"),myEl.resources[i],i,myEl.label)
                 }
             }
             if(myEl.upgrades.length>0){

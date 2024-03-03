@@ -1,3 +1,23 @@
+class item {constructor(label="",quantity=0)
+    {this.label=label,this.quantity=quantity}
+}
+
+class worker {constructor(label="",quantity=0,sets=[])
+{this.label=label,this.quantity=quantity,this.sets=sets}
+}
+
+class workSet {constructor(location="",resource="",quantity=0)
+    {this.location=location,this.resource=resource,this.quantity=quantity}
+}
+
+class bonus {constructor(type="",source="",location="",target="",bonus="",permanent=false)
+{this.type=type,this.source=source,this.location=location,this.target=target,this.bonus=bonus,this.permanent=permanent}
+}
+
+class clock {constructor(location="",resource="",btnID="",progressID="",time=0)
+    {this.location=location,this.resource=resource,this.btnID=btnID,this.progressID=progressID,this.time=time}
+}
+
 function cleanParent(parent){
     while(parent.children.length >0){
         parent.removeChild(parent.lastChild)
@@ -191,19 +211,16 @@ function getInventoryObj(label){
     else {return player.inventory[myIdx]} 
 }
 
-function checkOwned(label,quantity){
+function checkOwned(cost){
+    let lbl = cost.split(":")[0]
+    let qt = cost.split(":")[0]
     let thisEl = undefined
-    thisEl = undefined
-    thisEl = getInventoryObj(label)
+    thisEl = getInventoryObj(lbl)
     let owned = true
     if(thisEl !==undefined){
-        if(thisEl.quantity < quantity){owned = false}
+        if(thisEl.quantity < qt){owned = false}
     } else {owned = false}
     return owned
-}
-
-class item {constructor(label="",quantity=0)
-    {this.label=label,this.quantity=quantity}
 }
 
 function switchInvItem({label="",quantity=0,putIn=true}){
@@ -264,32 +281,76 @@ function addDisplayLine(parentFr,itm,sell=false){
         }
 }
 
-function addResourceLine(parentFr,itm,idx){
+function addResourceLine(parentFr,itm,idx,location){
     let thisItm = itemList.filter(x=>x.label===itm)[0]
-    console.log(thisItm)
     let myCont = addEle({dad:parentFr,setClass:"contRow",alignItems:"center",
     borderB:"white solid 1px",borderT:"white solid 1px"})
         addEle({dad:myCont,what:"img",imgSize:50,imgSrc:itm})
-        addEle({dad:myCont,text:itm,margin:"0 10px",minWidth:"50px",textA:"center"})
+        addEle({dad:myCont,text:itm,margin:"0 10px",minWidth:"50px",textA:"center",setID:"resourceRef"+idx})
         txt = "Costs:<br>"
         thisItm.cost.forEach((cost)=>{
             let myCol = ""
-            if(checkOwned(cost.label,cost.quantity)){myCol = "lime"}
+            if(checkOwned(cost)){myCol = "lime"}
             else {myCol = "red" ; ownCost = false}
-            txt += '<span style="color:'+myCol+'">'+ cost.label + " " + cost.quantity + "</span><br>"
+            txt += '<span style="color:'+myCol+'">'+ cost.split(":")[0] + " " + cost.split(":")[1] + "</span><br>"
         })
         addEle({dad:myCont,text:txt,minWidth:"140px"})
-        let val = thisItm.time.base * ((100-thisItm.time.discount)/100)
-        addEle({dad:myCont,margin:"0 10px",text:"Time : " + displaySeconds(val)})
+        let workers = player.workers.filter(x=>x.label==="Workers")[0]
+        let employed = workers.sets.filter(set=>set.location===location && set.resource===itm)
+        employed = employed.length === 0 ? 0 : employed[0].quantity
+        let employedCutTime = employed - 1 > 0 ? (employed - 1) * workerDiscount : 0
+        let val = (thisItm.time.base * ((100-thisItm.time.discount)/100)) - (employedCutTime)
+        addEle({dad:myCont,margin:"0 10px",text:"Time :<br>" + displaySeconds(val),setID:"locResTime"+idx})
         if(thisItm.label!=="Workers"){
-            let subC = addEle({dad:myCont,setClass:"contCol"})
-                addEle({dad:subC,text:"Workers : 0",setName:"locResWorkers",setID:"locResWks"})
-                val = player.workers.filter(x=>x.label==="Workers")[0].free
-                addEle({dad:subC,what:"range",isInput:true,min:0,max:val,setVal:0,setName:"locResRanges",
-                setID:"locResRng"+idx,setFunc:()=>{
-let workGrp = player.workers.filter(w=>)
+            let subC = addEle({dad:myCont,setClass:"contCol",marginR:"10px"})
+                addEle({dad:subC,text:"Workers : " + employed,setName:"locResWorkers",setID:"locResWks"})
+                let ttl = 0 ; workers.sets.forEach((set)=>{ttl+=set.quantity})
+                let free = workers.quantity-ttl
+                addEle({dad:subC,what:"range",isInput:true,min:0,max:(employed+free),setVal:employed,setName:"locResRanges",
+                setID:"locResRng"+idx,setFunc:(e)=>{
+                    let thisIdx = e.srcElement.id.split("locResRng")[1]
+                    let workers = player.workers.filter(x=>x.label==="Workers")[0]
+                    let refSet = workers.sets.findIndex(set=>set.location === getID("locationRef").innerHTML &&
+                    set.resource===getID("resourceRef"+thisIdx).innerHTML)
+                    if(e.srcElement.value < 1){
+                        if(refSet >= 0){workers.sets.splice(refSet,1)}
+                    } else {
+                        if(refSet >= 0){workers.sets[refSet].quantity = Number(e.srcElement.value)}
+                        else {workers.sets.push(new workSet(getID("locationRef").innerHTML,
+                        getID("resourceRef"+thisIdx).innerHTML,Number(e.srcElement.value)))}
+                    }
+                    fillLocation(getID("locationRef").innerHTML)
+                    getID("resBtn").click()
                 }})
         }
+        subC = addEle({dad:myCont,setClass:"contCol"})
+            txt = ""
+            if(itm === "Workers"){txt = "Hire"}
+            else if(employed > 0){txt = "Produce"}
+            addEle({dad:subC,setClass:"clickBtn",text:txt,setID:"locResProdBtn"+idx,minHeight:18+"px",minWidth:60+"px",
+            setFunc:(e)=>{
+                let thisIdx = e.srcElement.id.split("locResProdBtn")[1]
+                switch(e.srcElement.innerHTML){
+                    case "Hire" : case "Produce" : info.innerHTML = "launch"
+                        player.loop.queue.push(new clock(getID("locationRef").innerHTML,
+                        getID("resourceRef"+thisIdx).innerHTML,getID("locResProdBtn"+idx).id,
+                        getID("locResProdProg"+idx).id,time)) /// time !!!
+
+                        let test = getID("bob")
+                        console.log(test)
+
+                        break
+                    case "" : info.innerHTML = "Assign some workers for Production"
+                        break
+                    case "Complete" : info.innerHTML = "Collect Production"
+                        break
+                    default : info.innerHTML = "check clock"
+
+                }
+                console.log(e.srcElement.getBoundingClientRect().height)
+            }})
+            let prodProg = addEle({dad:subC,setClass:"progressBox"})
+                addEle({dad:prodProg,setClass:"progressInt",setID:"locResProdProg"+idx})
 }
 
 function displaySeconds(sec=0,asClock=true){
@@ -309,10 +370,18 @@ function displaySeconds(sec=0,asClock=true){
     else {return txt}
 }
 
-function spit(what){
-    switch(what){
-        case "Workers": 
-        let thisEl = player.workers.filter(x=>x.label==="Workers")[0]
-        return thisEl.label + " : " + thisEl.free + "/" + thisEl.quantity ; break
+function spit({label="",location="Village Center",resource="",workerType="Workers"}){
+    let workers = player.workers.filter(x=>x.label===workerType)[0]
+    let ttl = 0
+    let mySel = undefined
+    switch(label){
+        case "workersAll" : workers.sets.forEach((set)=>{ttl+=set.quantity}) ; return ttl ; break
+        case "workersFree" : return (workers.quantity - spit({label:"workersAll"})) ; break        
+        case "workersDisp": 
+            return workers.label + " : " + spit({label:"workersFree"}) + "/" + workers.quantity ; break
+        case "workersRes" : 
+            mySel = workers.sets.filter(w=>w.location===location && w.resource===resource)
+            return mySel.length === 0 ? 0 : mySel[0].quantity ; break
+
     }
 }

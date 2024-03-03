@@ -90,6 +90,23 @@ footer {
 }
 .clickBtn:hover {color: red;}
 
+.progressBox {
+    height: 5px;
+    width: 70px;
+    background-color: black;
+    border-radius: 2px;
+    border: solid brown 1px;
+    margin: 0 0 5px 5px;
+}
+
+.progressInt {
+    background-color: green;
+    height: 100%;
+    width: 50%;
+}
+
+
+
 
 
 
@@ -115,20 +132,7 @@ footer {
     min-height: 18px;
 }
 
-.progressBox {
-    height: 14px;
-    width: 50px;
-    background-color: black;
-    border-radius: 5px;
-    border: solid brown 1px;
-    margin-right: 10px;
-    padding: 1px;
-}
 
-.progressInt {
-    background-color: green;
-    height: 100%;
-}
 
 .line {
     height: 2px;
