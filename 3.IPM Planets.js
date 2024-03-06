@@ -58,8 +58,8 @@ planetsArray.push(
         idNumber : 4,
         label:"Dholen",
         ores:[
-            {label:"copper ore",yield:80},
-            {label:"iron ore",yield:20}
+            {label:"iron ore",yield:80},
+            {label:"l ore",yield:20}
         ],
         unlockCost:"$ 1.25 K"
     }),
