@@ -47,8 +47,8 @@ planetsArray.push(
         idNumber : 3,
         label:"Anadius",
         ores:[
-            {label:"copper ore",yield:80},
-            {label:"iron ore",yield:20}
+            {label:"copper ore",yield:50},
+            {label:"iron ore",yield:50}
         ],
         unlockCost:"$ 500"
     }),
