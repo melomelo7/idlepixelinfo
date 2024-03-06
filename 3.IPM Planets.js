@@ -59,7 +59,7 @@ planetsArray.push(
         label:"Dholen",
         ores:[
             {label:"iron ore",yield:80},
-            {label:"l ore",yield:20}
+            {label:"lead ore",yield:20}
         ],
         unlockCost:"$ 1.25 K"
     }),
