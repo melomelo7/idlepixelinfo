@@ -66,7 +66,10 @@ const faqsArray = [
             Anyways dont think there is a set-in-stone rule here and run<br>
             until you feel you"ve come to YOUR own milestone.<br>
             Could be reaching X credits for a Y room purchase/upgrade ...<br><br>
-             `,
+            Now if you want a starting "milestone", selling becomes<br>
+            available upon reaching 10M and at~12.5M you can fetch 1 more<br>
+            credit for a little extra time. Keep this as your first milestone
+            until you figure out the next.`,
     url : "",
     img : "",
     thisFunction : undefined,
