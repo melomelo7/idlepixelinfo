@@ -65,7 +65,8 @@ const faqsArray = [
             even considering selling should come to mind ...<br><br>
             Anyways dont think there is a set-in-stone rule here and run<br>
             until you feel you"ve come to YOUR own milestone.<br>
-            Could be reaching X credits for a Y room purchase/upgrade ... `,
+            Could be reaching X credits for a Y room purchase/upgrade ...<br><br>
+             `,
     url : "",
     img : "",
     thisFunction : undefined,
