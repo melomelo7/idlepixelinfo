@@ -1,0 +1,146 @@
+
+html,body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+body {
+    background-color: black;
+    color: beige;
+    display: flex;
+    flex-direction: row;
+}
+
+footer {
+    height: 0;
+}
+
+.contCol {
+    display: flex;
+    flex-direction: column;
+}
+
+.contRow {
+    display: flex;
+    flex-direction:row;
+}
+
+.clickBtn {
+    background-color: #583E31;
+    color: #C0AE77;
+    border: solid beige 2px;
+    padding: 3px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    height: fit-content;
+    width: fit-content;
+    margin: 5px;
+}
+.clickBtn:hover {color: red;}
+
+
+
+
+
+.leftMenu {
+    height: 100%;
+    width: 200px;
+    border-right: solid beige 2px;
+
+
+}
+
+.menuBtn {
+    background-color: #583E31;
+    color: #C0AE77;
+    border: solid beige 2px;
+    padding: 3px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    margin: 10px 0 0 0;
+}
+
+.info {
+    border-bottom: solid beige 2px;
+    min-height: 80px;
+    max-height: 80px;
+    width: 100%;
+    padding: 10px;
+    overflow: scroll;
+
+border-radius: 5px;
+    
+}
+
+.mainTab,.subTab {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+    overflow-x: hidden;
+}
+.mainTab{
+    width: 100%;
+    border: solid blue 2px;
+}
+.subTab{
+    width: fit-content;
+    height: fit-content;
+    border: solid #583E31 2px;
+}
+
+
+.progressBox {
+    height: 5px;
+    width: 70px;
+    background-color: black;
+    border-radius: 2px;
+    border: solid brown 1px;
+    margin: 0 0 5px 5px;
+}
+
+.progressInt {
+    background-color: green;
+    height: 100%;
+    width: 50%;
+}
+
+
+
+
+
+
+
+
+.help {
+    background-color: black;
+    color: green;
+    margin-left: 5px;
+    cursor: pointer;
+    text-align: center;
+    min-width: 18px;
+    border: solid 2px green;
+    border-radius: 5px;
+}
+
+.fakeInput {
+    font-weight: bold;
+    background-color:rgb(38, 109, 107) ;
+    margin: 5px 10px;
+    padding: 5px 20px;
+    border-radius: 5px;
+    min-height: 18px;
+}
+
+
+
+.line {
+    height: 2px;
+    width: 104%;
+    border: double 2px black;
+    margin: 5px 0 5px -6px;
+}
