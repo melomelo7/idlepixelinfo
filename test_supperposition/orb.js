@@ -5,6 +5,11 @@ const spanQuestion = `<span style="background-color:green;color:yellow;margin-le
 font-size:12px;border: solid 1px red;padding:0 4px;border-radius:5px;">?</span>`
 
 let player = {
+    tempIDs:{
+        grimoire:undefined,
+        lyxes:undefined,
+        crafting:undefined,
+        },
     start:true,
     resources:[
         {label:"Essence",locked:false,quantity:0,cap:1,auto:0,rank:0,click:0.05,},
