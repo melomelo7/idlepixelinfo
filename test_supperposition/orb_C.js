@@ -22,8 +22,13 @@ function setTabLyxes(keyWord){
     
     
     txt = "" ; srcObj.skills.forEach(sk => { 
-        txt+= sk + "<br>"
-    })
+        addEle({dad:getID("lyxesForkA"),setClass:"clickBtn",text:sk,minWidth:"100px",
+            setFunc:()=>{
+                
+            },  
+        })
+        
+        
     addEle({dad:getID("lyxesForkA"),text:txt})
 
     addEle({dad:getID("lyxesForkB"),text:"Lyx List :",marginB:"10px",textA:"center"})
