@@ -46,9 +46,12 @@ function setLyxDetails(lyxNm){
             if(checkDupLyx(getID("inputLyxName").value.toLowerCase())===true){
                 getID("lyxesInfo").innerHTML = "The new name cannot be the name of another Lyx"
             } else {
-//                txt = 1
-                getID("lyxesInfo").innerHTML = getID("lyxOldName").innerHTML.split(" : ")[1] +
+                txt = getID("lyxOldName").innerHTML.split(" : ")[1] +
                 " will now change name for " + getID("inputLyxName").value
+                
+                getID("lyxesInfo").innerHTML = txt
+                info.innerHTML = txt
+                
                 getPlObj("Lyxes").lyx.filter(lx=>lx.name === getID("lyxOldName")
                 .innerHTML.split(" : ")[1])[0].name = getID("inputLyxName").value
                 setTabLyxes("Lyxes")
