@@ -1,7 +1,7 @@
 
 class Lyx{
-    constructor({name=undefined,belly=0,skill1=undefined,skill2=undefined,skill3=undefined,job=undefined})
-    {this.name=name,this.belly=belly,this.skill1=skill1,this.skill2=skill2,this.skill3=skill3,this.job=job}
+    constructor({name=undefined,health={current:100,cap:100},job=undefined,skills=[]})
+    {this.name=name,this.health=health,this.job=job,this.skills=skills}
 }
 
 function setTabGrimoire(keyWord){
@@ -64,11 +64,8 @@ function grimoirePage(pgIdx){
     let ownCost = undefined
 
     if(myPg.locked){
-        txt = "Page " + myPg.idx + " is locked, unlock Cost :<br>"
-        myPg.unlock.forEach(cst=>{ ownCost = checkCost(cst.label,cst.quantity,false)
-            let myCol = ownCost===true ? "lime" : "red"
-            txt +=`<span style="color:`+myCol+`;">`+cst.quantity.toFixed(2)+" "+cst.label+"</span><br>" })
-        addEle({dad:getID("grimoireForkB"),text:txt})
+        txt = "Page " + myPg.idx + " is locked, unlock " + dispSpanCost(myPg.unlock,false)
+            addEle({dad:getID("grimoireForkB"),text:txt})
         ownCost = true
         myPg.unlock.forEach(cst=>{if(checkCost(cst.label,cst.quantity,false)===false){ownCost=false}})
         if(ownCost){ player.focusID = undefined
@@ -80,12 +77,26 @@ function grimoirePage(pgIdx){
                 myPg.locked = false ; getID("grimoirePage"+myPg.idx).style.backgroundColor = "#583E31"
                 grimoirePage(thisPg) }})  } else {player.focusID = "grimoirePage"+pgIdx}
     } else {
+        ownCost = true
         myPg.content.forEach(ct=>{
-            addEle({dad:getID("grimoireForkB"),text:ct.title + spanQuestion,marginL:"10px",
-            cursor:"pointer",setFunc:()=>{
-            getID(ct.textID).style.display=getID("lyxCh1").style.display==="none"?"block":"none"}})
-            addEle({dad:getID("grimoireForkB"),text:ct.text,setID:ct.textID,display:"none"})
-            addEle({dad:getID("grimoireForkB"),setClass:"clickBtn",text:ct.btnTxt,marginT:"10px",
+            if(ct.visible!==true){return}
+            let thisCont = getID("grimoireForkB")
+            addEle({dad:thisCont,text: ct.toggleID==="" ? ct.title : ct.title + spanQuestion,
+            margin:"10px 0 0 10px",cursor: ct.toggleID===""?"":"pointer", setID: ct.toggleID===""?"":ct.toggleID,
+            setFunc: ct.toggleID==="" ? undefined : (e)=>{ let obj = getID(e.srcElement.id+"A")
+            obj.style.display = obj.style.display==="none"?"block":"none"}})
+
+            if(ct.toggleID!==""){addEle({dad:thisCont,text:ct.toggledText,setID:ct.toggledTextID,display:"none"})}
+
+            if(ct.altID!==""){addEle({dad:thisCont,text:ct.altText,setID:ct.altID,display:ct.altBought?"block":"none"})}
+
+            ct.costs.forEach(cst=>{if(checkCost(cst.label,cst.quantity,false)===false){ownCost=false}})
+            player.focusID = ownCost === true ? undefined : "grimoirePage"+ct.refPg
+            if(ct.altText==="" ||(ct.altText!=="" && ct.altBought===false))
+                {addEle({dad:thisCont,text:dispSpanCost(ct.costs)})}
+
+            txt = ct.altText === "" || (ct.altText !== "" && ct.altBought === false) ? "block" : "none"
+            addEle({dad:thisCont,setClass:"clickBtn",text:ct.btnTxt,marginT:"10px",display:txt,
             setFunc:(e)=>{grimoireBtn(e.srcElement.innerHTML)}})
         })
     }
@@ -93,25 +104,73 @@ function grimoirePage(pgIdx){
 }
 
 function grimoireBtn(btnText){
-    let ownCost = undefined
-    if(btnText.includes("Free a Lyx")){
-        ownCost = checkCost("Crystals",1)
-        if(ownCost){
+
+    let srcObj = undefined
+    player.tabs.forEach(tab=>{
+        if(tab.pages){
+            tab.pages.forEach(pg=>{
+                if(pg.content){
+                    pg.content.forEach(ctnt=>{
+                        if(ctnt.btnTxt===btnText){srcObj = ctnt}  })  }  })  }  })
+
+
+
+    let ownCost = true
+    srcObj.costs.forEach(cst=>{if(checkCost(cst.label,cst.quantity,false)===false){ownCost=false}})
+
+    if(ownCost){
+        info.innerHTML = ""
+        srcObj.costs.forEach(cst=>{checkCost(cst.label,cst.quantity)})
+        pageItmUnlocks(srcObj.unlock)
+        if(btnText.includes("Free a Lyx")){
             if(getPlObj("Lyxes").quantity === 0){
                 getPlObj("Lyxes").locked = false
-                getPlObj("Lyxes",1).visible = true
-                info.innerHTML = `"Lyxes ? That will add some spice, for sure ..."`
-                setTimeout(()=>{tabsBtnFr.children[1].style.display="block"},2000)
+                info.innerHTML = `
+                "Lyxes ? That will add some spice, for sure"<br>
+                 The Lyxes tab is now unlocked ...`
             }
             getPlObj("Essence").click = spit({text:"clickPower"})
-            //checkCost("Lyxes",1,false,true)
             spawnLyx()
-        } else {
-            info.innerHTML = "No Magic Crystals to break now"
         }
+        else if(btnText.includes("Understand Lyx needs") || btnText.includes("Food Problem") ||
+        btnText.includes("Water Problem") || btnText.includes("Housing Problem") ||
+        btnText.includes("Wood Problem") || btnText.includes("Stone Problem")
+        )
+        {srcObj.altBought = true}
 
+    } else {
+        info.innerHTML = dispSpanCost(srcObj.costs)
     }
 
+
+    getID("grimoirePage"+srcObj.refPg).click()
+
+
+}
+
+function pageItmUnlocks(unlocks){
+    let pgIdx = undefined
+    let ctIdx = undefined
+    unlocks.forEach(itm=>{
+        switch(itm.split("|")[0]){
+            case "page content" :
+                pgIdx = Number(itm.split("|")[1].split(":")[1])
+                ctIdx = Number(itm.split("|")[2].split(":")[1])
+                getPlObj("Grimoire",1).pages.filter(pg=>pg.idx===pgIdx)[0]
+                .content.filter(ct=>ct.idx===ctIdx)[0].visible = true
+                break
+            case "new job" :
+                getPlObj("Lyxes").skills.push(itm.split("|")[1])
+                break
+            case "unlock tab" :
+                getPlObj(itm.split("|")[1],1).visible = true
+                for(let i=0;i<tabsBtnFr.children.length;i++){
+                    if(tabsBtnFr.children[i].innerHTML===itm.split("|")[1]){
+                        setTimeout(()=>{tabsBtnFr.children[i].style.display = "block"},2000) } }
+                break
+            default : info.innerHTML = "Unknown page element Unlock " + itm.split("|")[0]
+        }
+    })
 }
 
 function actionBtns(e){
@@ -194,7 +253,6 @@ function spawnLyx(){
     getPlObj("Lyxes").lyx.push(new Lyx({name:naming()}))
     getPlObj("Lyxes").quantity = getPlObj("Lyxes").lyx.length
     dispStats()
-    console.log(getPlObj("Lyxes").lyx)
 }
 
 function naming(){
@@ -209,5 +267,13 @@ function naming(){
 
     binary.forEach(lt=>{ myName += lt === 0 ? 
     part1[Math.floor(Math.random()*part1.length)]:part2[Math.floor(Math.random()*part2.length)] })
+
+    if(checkDupLyx(myName)){naming()}
     return myName
+}
+
+function checkDupLyx(thisName){
+    let dupe = false
+    if(getPlObj("Lyxes").lyx.findIndex(itm=>itm.name===thisName) > -1){dupe = true}
+    return dupe
 }

@@ -307,6 +307,13 @@ function spit({text="",args=[]}){
             crystalV = 0.1 * getPlObj("Crystals").quantity
             return Number((crystalV+srcObj.baseCap).toFixed(2))
             break
+        case "lyxesSumup" :
+            srcObj = getPlObj("Lyxes")
+            txt = "Total : " + srcObj.quantity +" -- "
+            txt+= "Employed : " + srcObj.lyx.filter(lx=>lx.job!==undefined).length + " -- "
+            txt+= "Free : " + (srcObj.quantity - srcObj.lyx.filter(lx=>lx.job!==undefined).length)
+            return txt
+            break
         default : console.log("code missing")
     }
 }
