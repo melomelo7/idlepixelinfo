@@ -209,9 +209,17 @@ function centerScreen(element){
 const cellSize = 35
 function buildProjectsGrid(whichGrid="",cellSize=0,globalContainer=right){
 
+    let curStat = "(jan.2024)"
+    let curVal = "50k"
+    let topText = "Click a tile for more infos"
+    topText += whichGrid !== "station" ? "" : 
+    `<br>*For your information, current `+curStat+`
+     <br>station will require more than `+curVal+` energy
+     <br>cells to be fully upgraded*`
+    
     let tabInfos = document.createElement("div")
     globalContainer.appendChild(tabInfos)
-    tabInfos.innerHTML = "Click a tile for more infos"
+    tabInfos.innerHTML = topText
     tabInfos.style = textStyle
     tabInfos.style.fontSize = 20 + "px"
     tabInfos.style.paddingLeft = 40 + "px"
