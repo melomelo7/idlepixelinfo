@@ -252,6 +252,7 @@ fluidColor="white",clickFunc=undefined}){
     return thisCont
 }
 
+
 function setOrbF(value){orbF.style.top = (100-value) + "%"}
 function setOrbT(text){orbT.innerHTML = text}
 

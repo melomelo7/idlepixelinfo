@@ -6,39 +6,53 @@ function setTabLyxes(keyWord){
     let srcObj = getPlObj("Lyxes")
 
     addEle({dad:myTab,setClass:"contCol",setID:"lyxesTop",margin:"10px 0"})
+        addEle({dad:getID("lyxesTop"),text:spit({text:"lyxesSumup"}),setID:"lyxesSumup"})
+        addEle({dad:getID("lyxesTop"),setID:"lyxesInfo",marginT:"5px",textC:"lime",minHeight:"18px"})
 
     addEle({dad:myTab,setClass:"contRow",setID:"lyxesFork",})
-        addEle({dad:getID("lyxesFork"),setClass:"contCol",setID:"lyxesForkA",padding:"0 5px",border:"red solid 1px"})
-        addEle({dad:getID("lyxesFork"),setClass:"contCol",setID:"lyxesForkB",padding:"0 5px",margin:"0 10px",border:"red solid 1px"})
-        addEle({dad:getID("lyxesFork"),setClass:"contCol",setID:"lyxesForkC",padding:"0 5px",border:"red solid 1px"})
+        addEle({dad:getID("lyxesFork"),setClass:"contCol",setID:"lyxesForkA",
+        padding:"0 5px",text:"Skills/Jobs :",textA:"center",border:"red solid 1px"})
 
-//    txt = "Total : " + srcObj.quantity +" -- "
-//    txt+= "Employed : " + srcObj.lyx.filter(lx=>lx.job!==undefined).length + " -- "
-//    txt+= "Free : " + (srcObj.quantity - srcObj.lyx.filter(lx=>lx.job!==undefined).length)
-    addEle({dad:getID("lyxesTop"),text:spit({text:"lyxesSumup"}),setID:"lyxesSumup"})
-    addEle({dad:getID("lyxesTop"),setID:"lyxesInfo"})
+        addEle({dad:getID("lyxesFork"),setClass:"contCol",setID:"lyxesForkB",
+        padding:"0 5px",margin:"0 10px",text:"Lyx List :",textA:"center",border:"red solid 1px"})
 
-    addEle({dad:getID("lyxesForkA"),text:"Skills/Jobs :",marginB:"10px",textA:"center"})
-    
-    
-    txt = "" ; srcObj.skills.forEach(sk => { 
-        addEle({dad:getID("lyxesForkA"),setClass:"clickBtn",text:sk,minWidth:"100px",
-            setFunc:()=>{
-                
-            },  
-        })
-        
-        
-    addEle({dad:getID("lyxesForkA"),text:txt})
+        addEle({dad:getID("lyxesFork"),setClass:"contCol",setID:"lyxesForkC",
+        padding:"0 5px",text:"Lyx Details :",border:"red solid 1px"})
 
-    addEle({dad:getID("lyxesForkB"),text:"Lyx List :",marginB:"10px",textA:"center"})
-    srcObj.lyx.forEach(lx =>{ addEle({dad:getID("lyxesForkB"),setClass:"clickBtn",
+    srcObj.skills.forEach(sk => { 
+        addEle({dad:getID("lyxesForkA"),setClass:"clickBtn",text:sk,setFunc:(e)=>{
+            switch(getComputedStyle(e.srcElement).backgroundColor){
+                case "rgb(88, 62, 49)" : getID("lyxesInfo").innerHTML = 
+                    skills.filter(sk=>sk.label = e.srcElement.innerHTML)[0].tip
+                    break
+                case "rgb(0, 128, 0)" :
+                    txt = getID("lyxOldName").innerHTML.split(" : ")[1]
+                    let thisLyx = getPlObj("Lyxes").lyx.filter(lx=>lx.name===txt)[0]
+                    thisLyx.job = e.srcElement.innerHTML
+
+                    // add queue element to time loop //
+
+                    for(let i=0;i<getID("lyxesForkA").children.length;i++)
+                        {getID("lyxesForkA").children[i].style.backgroundColor = "rgb(88, 62, 49)"}
+
+
+                    player.focusID = "lyx:" + getID("lyxOldName").innerHTML.split(" : ")[1]
+                    setTabLyxes("Lyxes")
+
+                    break
+                default : console.log("skill button function broken")
+            }
+        }})      
+    })
+    if(srcObj.skills.length > 0){getID("lyxesForkA").children[0].style.marginTop = "10px"}
+
+
+    srcObj.lyx.forEach(lx =>{ addEle({dad:getID("lyxesForkB"),setClass:"clickBtn",setID:"lyx:"+lx.name,
     text:lx.name,minWidth:"100px",setFunc:(e)=>{setLyxDetails(e.srcElement.innerHTML)}}) })
+    getID("lyxesForkB").children[0].style.marginTop = "10px"
 
-    addEle({dad:getID("lyxesForkC"),text:"Lyx Details :",marginB:"10px",textA:"center"})
-
-//    console.log(main)
- //   console.log(srcObj)
+    if(player.focusID!==undefined){getID(player.focusID).click() ; player.focusID = undefined}
+    if(player.focusTxt!==undefined){getID("lyxesInfo").innerHTML=player.focusTxt  ; player.focusTxt = undefined}
 }
 
 
@@ -47,19 +61,17 @@ function setLyxDetails(lyxNm){
     let myCont = getID("lyxesForkC")
     cleanParent(myCont)
     let srcObj = getPlObj("Lyxes").lyx.filter(lx=>lx.name===lyxNm)[0]
-    addEle({dad:myCont,text:"Lyx Details :",marginB:"10px",textA:"center"})
+    getID("lyxesInfo").innerHTML = ""
 
-    addEle({dad:myCont,text:"Current Name : "+srcObj.name,setID:"lyxOldName"})
+    addEle({dad:myCont,text:"Current Name : "+srcObj.name,margin:"10px 0 0 5px",setID:"lyxOldName"})
     let subCont = addEle({dad:myCont,setClass:"contRow",alignItems:"center"})
         addEle({dad:subCont,setClass:"clickBtn",text:"Change Name",setFunc:()=>{
             if(checkDupLyx(getID("inputLyxName").value.toLowerCase())===true){
                 getID("lyxesInfo").innerHTML = "The new name cannot be the name of another Lyx"
             } else {
-                txt = getID("lyxOldName").innerHTML.split(" : ")[1] +
-                " will now change name for " + getID("inputLyxName").value
-                
-                getID("lyxesInfo").innerHTML = txt
-                info.innerHTML = txt
+                player.focusTxt = getID("lyxOldName").innerHTML.split(" : ")[1] + 
+                " changed name for " + getID("inputLyxName").value
+                player.focusID = "lyx:" + getID("inputLyxName").value
                 
                 getPlObj("Lyxes").lyx.filter(lx=>lx.name === getID("lyxOldName")
                 .innerHTML.split(" : ")[1])[0].name = getID("inputLyxName").value
@@ -69,6 +81,41 @@ function setLyxDetails(lyxNm){
         addEle({dad:subCont,what:"input",isInput:true,width:"100px",marginR:"10px",
         setVal:srcObj.name,setID:"inputLyxName",height:"12px"})
 
+    txt = srcObj.job === undefined ? "- none -" : srcObj.job
+    addEle({dad:myCont,text:"Current Job : " + txt,margin:"10px 0 0 5px",setID:"lyxJob"})
+    subCont = addEle({dad:myCont,setClass:"contRow",alignItems:"center"})
+        txt = srcObj.job === undefined ? "Set Job" : "Fire"
+        let btCol = srcObj.job === undefined ? "green" : "firebrick"
+        addEle({dad:subCont,setClass:"clickBtn",text:txt,backC:btCol,setFunc:(e)=>{
+            switch(e.srcElement.innerHTML){
+                case "Set Job" :
+                    getID("lyxesInfo").innerHTML="Click on a job in the List"
+                    for(let i=0;i<getID("lyxesForkA").children.length;i++)
+                        {getID("lyxesForkA").children[i].style.backgroundColor = "green"}
+                    break
+                case "Fire" :
+                    txt = getID("lyxOldName").innerHTML.split(" : ")[1]
+                    let thisLyx = getPlObj("Lyxes").lyx.filter(lx=>lx.name===txt)[0]
+                    thisLyx.job = undefined
+                    // remove from time loop //
+                    player.focusID = "lyx:" + getID("lyxOldName").innerHTML.split(" : ")[1]
+                    setTabLyxes("Lyxes")
+                    break
+                default :
+            }
+        }})
+
+        txt = srcObj.job !== undefined && srcObj.skills.length < getPlObj("Lyxes").skillCap &&
+        srcObj.skills.filter(sk=>sk.label===srcObj.job).length === 0 ? "block" : "none"
+        addEle({dad:subCont,setClass:"clickBtn",text:"Set Job as Skill",backC:"blue",display:txt,setFunc:(e)=>{
+            txt = getID("lyxOldName").innerHTML.split(" : ")[1]
+            let thisLyx = getPlObj("Lyxes").lyx.filter(lx=>lx.name===txt)[0]
+            thisLyx.skills.push({label:getID("lyxJob").innerHTML.split(" : ")[1],prgress:0,next:100}) 
+            player.focusID = "lyx:" + getID("lyxOldName").innerHTML.split(" : ")[1]
+            setTabLyxes("Lyxes")
+            }})
+
+console.log(getPlObj("Lyxes").lyx)
 
     //    console.log(e.srcElement.innerHTML)
 }

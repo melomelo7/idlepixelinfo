@@ -5,11 +5,6 @@ const spanQuestion = `<span style="background-color:green;color:yellow;margin-le
 font-size:12px;border: solid 1px red;padding:0 4px;border-radius:5px;">?</span>`
 
 let player = {
-    tempIDs:{
-        grimoire:undefined,
-        lyxes:undefined,
-        crafting:undefined,
-        },
     start:true,
     resources:[
         {label:"Essence",locked:false,quantity:0,cap:1,auto:0,rank:0,click:0.05,},
@@ -17,7 +12,7 @@ let player = {
         {label:"Mana",locked:true,quantity:0,baseCap:0,cap:0,auto:0},
         {label:"Knowledge",locked:true,quantity:0,cap:undefined,auto:0.2,
         costs:[{label:"Essence",quantity:0.5}],payout:[{label:"Knowledge",quantity:0.2}],},
-        {label:"Lyxes",locked:true,quantity:0,cap:undefined,lyx:[],skills:[],skillCap:1}
+        {label:"Lyxes",locked:true,quantity:0,cap:undefined,lyx:[],skills:[],skillCap:2}
     ],
     tabs:[
         {label:"Grimoire",backC:"purple",textC:"",visible:false,
@@ -98,12 +93,20 @@ let player = {
         },
 
 
-        {label:"Lyxes",backC:"coral",textC:"black",visible:false},
+        {label:"Lyxes",backC:"coral",textC:"black",visible:false,skillTip:true},
         {label:"Crafting",backC:"brown",textC:"black",visible:false},
     ],
     loop:{id:undefined,queue:[],},
     focusID:undefined,
+    focusTxt:undefined,
 }
+
+skills = [
+    {label:"Farmer",tip:"Farmer : Collect Food"},
+    {label:"Water Carrier",tip:"Water Carrier : Collect Water"},
+    {label:"Lumberjack",tip:"Lumberjack : Collect Raw Wood"},
+    {label:"Miner",tip:"Miner : Collect Raw Stone"},
+]
 
 let orbSpells =[
     {label:"lok zo",text:"lok zo (Expand) Essence Cost : "},
@@ -175,7 +178,6 @@ if (player.start){
     when you grab it, you hear a whispering : "I have been expecting you.<br>
     Rub me and say the words [lok nir]" ... Curious you decide to try ...`
 }
-
 
 
 function setTab(lbl){
