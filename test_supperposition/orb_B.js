@@ -1,7 +1,8 @@
 
 class Lyx{
-    constructor({name=undefined,health={current:100,cap:100},job=undefined,skills=[]})
-    {this.name=name,this.health=health,this.job=job,this.skills=skills}
+    constructor({
+        name=undefined,homeless=true,health={label:"Hp:",current:100,cap:100},job=undefined,skills=[]})
+    {this.name=name,this.homeless=homeless,this.health=health,this.job=job,this.skills=skills}
 }
 
 function setTabGrimoire(keyWord){
@@ -39,7 +40,41 @@ function setTabGrimoire(keyWord){
             let myCol = idx === -1 ? "purple" : "blue"
             txt = idx === -1 ? "Study" : "Stop"
             addEle({dad:cont,text:txt,setClass:"clickBtn",backC:myCol,setID:"studyBtn",
-            minWidth:"100px",setFunc:actionBtns})
+//            minWidth:"100px",setFunc:actionBtns})
+            minWidth:"100px",setFunc:(e)=>{
+                let myBt = e.srcElement
+                switch(myBt.innerHTML){
+                    
+                    case "Study" :
+                        lockOrb()
+                        myBt.innerHTML = "Stop"
+                        myBt.style.backgroundColor = "blue"
+                        player.loop.queue.push({
+                            callBtnID:myBt.id,
+                            type:"study",
+                            costs:getPlObj("Knowledge").costs,
+                            payout:getPlObj("Knowledge").payout,
+                            orbLocker:true
+                        })
+                        if(player.loop.id===undefined){player.loop.id = setInterval(queueManager,1000)}
+                        break
+                    case "Stop" :
+                        myBt.innerHTML = "Study"
+                        myBt.style.backgroundColor = "purple"
+                        let thisIdx = player.loop.queue.findIndex(itm=>itm.type==="study")
+                        player.loop.queue.splice(thisIdx,1)
+                        if(player.loop.queue.filter(itm=>itm.orbLocker).length===0){lockOrb(false)}
+                        break
+                }
+
+
+
+console.log(player.loop.queue)
+
+
+
+
+            }})
 
         let fork = addEle({dad:myTab,setClass:"contRow",marginT:"10px"})
             let forkA = addEle({dad:fork,setClass:"contCol",setID:"grimoireForkA"})
@@ -223,29 +258,62 @@ function action({lbl="",srcBtnID=undefined,type="",run=true}){
 
 let cpt = 0
 function queueManager(){
-    let looper = player.loop
     let ownCost = undefined
     cpt++
 
-    for(let i=0;i<looper.queue.length;i++){
-        ownCost = true
-        looper.queue[i].costs.forEach(cst=>{if(checkCost(cst.label,cst.quantity,false)===false){ownCost=false}})
+    player.loop.queue.forEach(itm=>{
+        switch(itm.type){
+            case "study" :
+                ownCost = true
+                itm.costs.forEach(cst=>{if(checkCost(cst.label,cst.quantity,false)===false){ownCost=false}})
+                if(ownCost){
+                    itm.costs.forEach(cst=>{checkCost(cst.label,cst.quantity)})
+                    itm.payout.forEach(pay=>{checkCost(pay.label,pay.quantity,false,true)})
+                    upOrb(false)
+                    if(player.focusID!==undefined){getID(player.focusID).click()}
+                } else { getID(itm.callBtnID).click() }
+                break
+            case "lyxJob" : console.log("time loop queue : lyx job to do !")
+                let thisLyx = getPlObj("Lyxes").lyx.filter(lx=>lx.name===itm.lyxName)[0]
+//                console.log(itm)
+  //              console.log(thisLyx)
 
-        if(ownCost){
-            looper.queue[i].costs.forEach(cst=>{checkCost(cst.label,cst.quantity)})
-            looper.queue[i].payout.forEach(pay=>{checkCost(pay.label,pay.quantity,false,true)})
-            getID(looper.queue[i].srcElID).style.backgroundColor = "blue"
-            getID(looper.queue[i].srcElID).innerHTML = "Stop"
-            if(looper.queue[i].costs.filter(x=>x.label==="Essence").length > 0){upOrb(false)}
-            if(player.focusID!==undefined){getID(player.focusID).click()}
-        } else {
-            action({lbl:looper.queue[i].label,run:false})
+                itm.payout.forEach(pay=>{
+                    getPlObj(pay.label).locked = false
+                    checkCost(pay.label,pay.quantity,false,true)
+                    txt = thisLyx.name + "earns " + pay.quantity + " " + pay.label
+                    console.log(txt)
+                })
+
+                itm.costs.forEach(cst=>{
+
+                    txt = thisLyx.name + "pays " + cst.quantity + " " + cst.label
+                    console.log(txt)
+
+                    ownCost = checkCost(cst.label,cst.quantity)
+                    if(ownCost===false){
+                        thisLyx.health.current = (thisLyx.health.current-1) < 0 ? 0 : thisLyx.health.current -1
+                        if(player.activeTab==="Lyxes"){
+                            getID("lyx:"+itm.lyxName).innerHTML = itm.lyxName + "<br>" +
+                            thisLyx.health.label + thisLyx.health.current + "/" + thisLyx.health.cap
+                        }
+                    }
+                    
+                })
+
+                if(thisLyx.homeless){
+                    thisLyx.health.current = (thisLyx.health.current-1) < 0 ? 0 : thisLyx.health.current -1
+                }
+
+                break
+            default : console.log("Unknown time loop queue item type : "+itm.type)
         }
-    }
+    })
 
-    if(looper.queue.length===0){ clearInterval(looper.id) ; looper.id = undefined }
+    if(player.loop.queue.length===0){ clearInterval(player.loop.id) ; player.loop.id = undefined }
 
-   // console.log(cpt)
+  //  console.log(cpt)
+  //  console.log("queue "+player.loop.queue.length)
 }
 
 

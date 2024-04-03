@@ -12,8 +12,15 @@ let player = {
         {label:"Mana",locked:true,quantity:0,baseCap:0,cap:0,auto:0},
         {label:"Knowledge",locked:true,quantity:0,cap:undefined,auto:0.2,
         costs:[{label:"Essence",quantity:0.5}],payout:[{label:"Knowledge",quantity:0.2}],},
-        {label:"Lyxes",locked:true,quantity:0,cap:undefined,lyx:[],skills:[],skillCap:2}
+        {label:"Lyxes",locked:true,quantity:0,cap:undefined,lyx:[],skills:[],skillCap:2,
+        jobCosts:[{label:"Food",quantity:0.2},{label:"Water",quantity:0.2},]},
+        {label:"Food",locked:true,quantity:0,cap:undefined},
+        {label:"Water",locked:true,quantity:0,cap:undefined},
+        {label:"Raw Wood",locked:true,quantity:0,cap:undefined},
+        {label:"Raw Stone",locked:true,quantity:0,cap:undefined},
+
     ],
+    activeTab:undefined,
     tabs:[
         {label:"Grimoire",backC:"purple",textC:"",visible:false,
         seal:{locked:true,costs:[{label:"Mana",quantity:1}],text:
@@ -102,10 +109,10 @@ let player = {
 }
 
 skills = [
-    {label:"Farmer",tip:"Farmer : Collect Food"},
-    {label:"Water Carrier",tip:"Water Carrier : Collect Water"},
-    {label:"Lumberjack",tip:"Lumberjack : Collect Raw Wood"},
-    {label:"Miner",tip:"Miner : Collect Raw Stone"},
+    {label:"Farmer",tip:"Farmer : Collect Food",payout:[{label:"Food",quantity:0.5}]},
+    {label:"Water Carrier",tip:"Water Carrier : Collect Water",payout:[{label:"Water",quantity:0.5}]},
+    {label:"Lumberjack",tip:"Lumberjack : Collect Raw Wood",payout:[{label:"Raw Wood",quantity:0.5}]},
+    {label:"Miner",tip:"Miner : Collect Raw Stone",payout:[{label:"Raw Stone",quantity:0.5}]},
 ]
 
 let orbSpells =[
@@ -184,6 +191,7 @@ function setTab(lbl){
     let myTab = getID("tab"+lbl)
     cleanParent(myTab)
     player.focusID = undefined
+    player.activeTab = lbl
     switch(lbl){
         case "Grimoire" : setTabGrimoire("Grimoire") ; break
         case "Lyxes" : setTabLyxes("Lyxes") ; break
@@ -200,7 +208,8 @@ function dispSpanCost(costs=[],asLine=true){
         let part = asLine === true ? ", " : "<br>" 
         msg = "Cost :" ; msg+= asLine === true ? " " : "<br>"
         costs.forEach(cst=>{let thisCol = checkCost(cst.label,cst.quantity,false) === true ? "lime" : "red"
-            msg+=`<span style="color:`+thisCol+`;">`+cst.quantity.toFixed(2)+" "+cst.label+"</span>"+part})
+            msg+= spanText(thisCol,cst.quantity.toFixed(2)+" "+cst.label) +part})
         msg = msg.slice(0,msg.length-part.length)
     } return msg }
 
+function spanText(spanColor,spanTxt){return `<span style="color:`+spanColor+`;">`+spanTxt+"</span>"}

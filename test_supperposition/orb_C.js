@@ -20,7 +20,7 @@ function setTabLyxes(keyWord){
         padding:"0 5px",text:"Lyx Details :",border:"red solid 1px"})
 
     srcObj.skills.forEach(sk => { 
-        addEle({dad:getID("lyxesForkA"),setClass:"clickBtn",text:sk,setFunc:(e)=>{
+        addEle({dad:getID("lyxesForkA"),setClass:"clickBtn",text:sk,minWidth:"100px",setFunc:(e)=>{
             switch(getComputedStyle(e.srcElement).backgroundColor){
                 case "rgb(88, 62, 49)" : getID("lyxesInfo").innerHTML = 
                     skills.filter(sk=>sk.label = e.srcElement.innerHTML)[0].tip
@@ -31,6 +31,22 @@ function setTabLyxes(keyWord){
                     thisLyx.job = e.srcElement.innerHTML
 
                     // add queue element to time loop //
+
+                    getID("lyxesSumup").innerHTML = spit({text:"lyxesSumup"})
+
+                    player.loop.queue.push({
+                        type:"lyxJob",
+                        lyxName:getID("lyxOldName").innerHTML.split(" : ")[1] ,
+                        costs:getPlObj("Lyxes").jobCosts,
+                        payout:skills.filter(skl=>skl.label===e.srcElement.innerHTML)[0].payout,
+                    })
+
+
+                    if(player.loop.id===undefined){player.loop.id = setInterval(queueManager,5000)}
+
+// console.log(player.loop.queue)
+
+
 
                     for(let i=0;i<getID("lyxesForkA").children.length;i++)
                         {getID("lyxesForkA").children[i].style.backgroundColor = "rgb(88, 62, 49)"}
@@ -47,8 +63,10 @@ function setTabLyxes(keyWord){
     if(srcObj.skills.length > 0){getID("lyxesForkA").children[0].style.marginTop = "10px"}
 
 
-    srcObj.lyx.forEach(lx =>{ addEle({dad:getID("lyxesForkB"),setClass:"clickBtn",setID:"lyx:"+lx.name,
-    text:lx.name,minWidth:"100px",setFunc:(e)=>{setLyxDetails(e.srcElement.innerHTML)}}) })
+    srcObj.lyx.forEach(lx =>{  // console.log(lx) ; 
+        txt = lx.name + "<br>" + lx.health.label + lx.health.current + "/" + lx.health.cap
+        addEle({dad:getID("lyxesForkB"),setClass:"clickBtn",setID:"lyx:"+lx.name,
+    text:txt,minWidth:"100px",setFunc:(e)=>{setLyxDetails(e.srcElement.id.split(":")[1])}}) })
     getID("lyxesForkB").children[0].style.marginTop = "10px"
 
     if(player.focusID!==undefined){getID(player.focusID).click() ; player.focusID = undefined}
@@ -115,7 +133,8 @@ function setLyxDetails(lyxNm){
             setTabLyxes("Lyxes")
             }})
 
-console.log(getPlObj("Lyxes").lyx)
+//console.log(getPlObj("Lyxes").lyx)
 
     //    console.log(e.srcElement.innerHTML)
 }
+
