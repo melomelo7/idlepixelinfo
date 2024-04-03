@@ -278,7 +278,10 @@ function queueManager(){
 //                console.log(itm)
   //              console.log(thisLyx)
 
+            info.innerHTML=""
+
                 itm.payout.forEach(pay=>{
+            info.innerHTML+= thisLyx.name + "pay " +pay.quantity + " " + pay.label
                     getPlObj(pay.label).locked = false
                     checkCost(pay.label,pay.quantity,false,true)
                     txt = thisLyx.name + "earns " + pay.quantity + " " + pay.label
