@@ -34,11 +34,17 @@ function setTabLyxes(keyWord){
 
                     getID("lyxesSumup").innerHTML = spit({text:"lyxesSumup"})
 
+                    let paySrc = skills.filter(skl=>skl.label===e.srcElement.innerHTML)[0].payout
+                    let thisPriority = paySrc.filter(pay=>pay.label==="Food" || 
+                    pay.label==="Water").length > 0 ? 1 : 2
+
                     player.loop.queue.push({
                         type:"lyxJob",
                         lyxName:getID("lyxOldName").innerHTML.split(" : ")[1] ,
+                        payFront:true,
+                        priority:thisPriority,
                         costs:getPlObj("Lyxes").jobCosts,
-                        payout:skills.filter(skl=>skl.label===e.srcElement.innerHTML)[0].payout,
+                        payout:paySrc,
                     })
 
 

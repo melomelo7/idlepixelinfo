@@ -52,6 +52,8 @@ function setTabGrimoire(keyWord){
                         player.loop.queue.push({
                             callBtnID:myBt.id,
                             type:"study",
+                            payFront:false,
+                            priority:2,
                             costs:getPlObj("Knowledge").costs,
                             payout:getPlObj("Knowledge").payout,
                             orbLocker:true
@@ -261,6 +263,8 @@ function queueManager(){
     let ownCost = undefined
     cpt++
 
+console.log(player.loop.queue)
+
     player.loop.queue.forEach(itm=>{
         switch(itm.type){
             case "study" :
@@ -273,25 +277,22 @@ function queueManager(){
                     if(player.focusID!==undefined){getID(player.focusID).click()}
                 } else { getID(itm.callBtnID).click() }
                 break
-            case "lyxJob" : console.log("time loop queue : lyx job to do !")
+            case "lyxJob" : // console.log("time loop queue : lyx job to do !")
                 let thisLyx = getPlObj("Lyxes").lyx.filter(lx=>lx.name===itm.lyxName)[0]
 //                console.log(itm)
   //              console.log(thisLyx)
 
-            info.innerHTML=""
-
                 itm.payout.forEach(pay=>{
-            info.innerHTML+= thisLyx.name + "pay " +pay.quantity + " " + pay.label
                     getPlObj(pay.label).locked = false
                     checkCost(pay.label,pay.quantity,false,true)
-                    txt = thisLyx.name + "earns " + pay.quantity + " " + pay.label
-                    console.log(txt)
+ //                   txt = thisLyx.name + "earns " + pay.quantity + " " + pay.label
+   //                 console.log(txt)
                 })
 
                 itm.costs.forEach(cst=>{
 
-                    txt = thisLyx.name + "pays " + cst.quantity + " " + cst.label
-                    console.log(txt)
+//                    txt = thisLyx.name + "pays " + cst.quantity + " " + cst.label
+  //                  console.log(txt)
 
                     ownCost = checkCost(cst.label,cst.quantity)
                     if(ownCost===false){
