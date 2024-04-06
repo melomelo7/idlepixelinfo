@@ -61,6 +61,8 @@ body {
 
 }
 
+
+
 #right {
     padding: 10px;
     margin-left: 100px;
@@ -70,4 +72,14 @@ body {
     background-color: blue;
     height: auto;
     width: auto;
+}
+
+.contRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.contCol {
+    display: flex;
+    flex-direction:column;
 }
