@@ -850,8 +850,6 @@ function setCredits(container){
     for(let i=0;i<creditsArray.length;i++){
         myL = addEle({dad:myT,what:"tr"})
             let thisTxt = creditsArray[i].magnitude
-            console.log(thisTxt)
-            console.log(thisTxt.slice(0,1))
             thisTxt = spanText("lime",thisTxt.slice(0,1)) + thisTxt.slice(1)
             addEle({dad:myL,what:"td",text:thisTxt,border:"solid 2px blue",
             radius:"5px",textA:"center"})

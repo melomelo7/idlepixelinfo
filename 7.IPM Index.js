@@ -4,7 +4,8 @@ const info = document.querySelector("#info")
 const left = document.querySelector("#left")
 const right = document.querySelector("#right")
 
-const infoTitle = "Idle Planet Miner Infos" 
+const lastUp = "Last up 2024/04/06 13:15"
+const infoTitle = "Idle Planet Miner Infos " +lastUp
 info.innerHTML = infoTitle
 
 let projectPop = undefined
@@ -21,6 +22,6 @@ addLeftButton({label:"Process",clickFunction:clickProcess})
 
 window.onload = firstContact()
 
-console.log("Last up 2024/04/06 13:00")
+console.log(lastUp)
 
 let loopfork = 0
