@@ -839,17 +839,17 @@ function setCredits(container){
 
     let myT = addEle({dad:myCont,what:"table"})
     let myL = addEle({dad:myT,what:"tr"})
-        addEle({dad:myL,what:"td",text: spanText("lime","(M)") + "agnitudes:",border:"solid 2px blue",radius:"5px",
+        addEle({dad:myL,what:"td",text: spanText("lime","(Ma)") + "gnitudes:",border:"solid 2px blue",radius:"5px",
         minWidth:"100px",textA:"center",rowSpan:2})
 
         addEle({dad:myL,what:"td",text:"Credits for:",border:"solid 2px blue",radius:"5px",
         colSpan:3,textA:"center"})
         myL = addEle({dad:myT,what:"tr"})
-        addEle({dad:myL,what:"td",text:"1 "+ spanText("lime","(M)"),border:"solid 2px blue",
+        addEle({dad:myL,what:"td",text:"1 "+ spanText("lime","(Ma)"),border:"solid 2px blue",
         radius:"5px",textA:"center"})
-        addEle({dad:myL,what:"td",text:"10 "+ spanText("lime","(M)"),border:"solid 2px blue",
+        addEle({dad:myL,what:"td",text:"10 "+ spanText("lime","(Ma)"),border:"solid 2px blue",
         radius:"5px",textA:"center"})
-        addEle({dad:myL,what:"td",text:"100 "+ spanText("lime","(M)"),border:"solid 2px blue",
+        addEle({dad:myL,what:"td",text:"100 "+ spanText("lime","(Ma)"),border:"solid 2px blue",
         radius:"5px",textA:"center"})
         
     for(let i=0;i<creditsArray.length;i++){
@@ -862,6 +862,6 @@ function setCredits(container){
                 addEle({dad:myL,what:"td",text:creditsArray[i].credits[j],textA:"center",
                 border:"solid 2px blue",radius:"5px",minWidth:"50px",}) } } 
     addEle({dad:myCont,text:`Confusing ? Exemple ...<br>- Line [5] : `+spanText("lime","Q")+`
-    <br>- Column [2] : 10 `+spanText("lime","(M)")+`<br> will read 10 `+spanText("lime","Q")+`
+    <br>- Column [2] : 10 `+spanText("lime","(Ma)")+`<br> will read 10 `+spanText("lime","Q")+`
     for 930 credits`,margin:"20px",padding:"10px 10px 10px 60px",border:"solid 2px lime",radius:"10px",})
 }
