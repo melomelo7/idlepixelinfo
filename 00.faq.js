@@ -116,7 +116,8 @@ const faqsArray = [
             There is a cap as to how much base credits<br>
             a single galaxy sale would reward, upon reaching<br>
             e109 you will get to the max credits possible.<br><br>
-            Should you need more credits infos the Discord<br>
+            Should you need more credits infos the 
+            <a href="https://discord.gg/r4X3ktZ" target="_blank">Discord</a><br>
             community has a bot you can use made by Tanktalus.<br>
             (on discord use the bot under the section :<br>
             "a-vacuum-in-space-and-time"<br> to avoid spamming chats)`,
