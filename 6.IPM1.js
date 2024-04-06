@@ -1,8 +1,15 @@
 
-const credits = [
-    {val:10,unit:"M",credits:10},
-
-    {val:0,unit:"",credits:0},
+const creditsArray = [
+    {magnitude:"M ( e7~8)",credits:[0,10,30]},
+    {magnitude:"B ( e9~11)",credits:[59,101,152]},
+    {magnitude:"T (e12~14)",credits:[213,280,367]},
+    {magnitude:"q (e15~17)",credits:[459,551,674]},
+    {magnitude:"Q (e18~20)",credits:[790,930,1075]},
+    {magnitude:"s (e21~23)",credits:[1230,1393,1567]},
+    {magnitude:"S (e24~26)",credits:[1753,1947,2154]},
+    {magnitude:"O (e27~29)",credits:[2370,2595,2831]},
+    {magnitude:"N (e30~32)",credits:[3079,3335,3603]},
+    {magnitude:"D (e33~35)",credits:[3881,4168,4466]},
 ]
 
 const smeltersArray = 
@@ -216,7 +223,7 @@ function buildProjectsGrid(whichGrid="",cellSize=0,globalContainer=right){
     `<br>*For your information, current `+curStat+`
      <br>station will require more than `+curVal+` energy
      <br>cells to be fully upgraded*`
-    
+
     let tabInfos = document.createElement("div")
     globalContainer.appendChild(tabInfos)
     tabInfos.innerHTML = topText

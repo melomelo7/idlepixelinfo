@@ -40,6 +40,34 @@ const faqsArray = [
     thisFunction : undefined,
     },
     {
+    label : "Game Issues",
+    icon : "bug.jpg",
+    text : `Bugs were here before computers and games so no worries,<br>
+            you will get your cut in IPM. Just a couple, for extra fun ;-)<br><br>
+            ** side note here : not all bugs are being hunted some are just<br>
+            considered "not current priority" ... ** <br><br>
+            Phase 1 : try to remedy the bug yourself with any of these :<br>
+            (- [read settings > help] at some point is good)<br>
+            - selling galaxy<br>
+            - closing/force-closing game<br>
+            - REBOOT of device <br>
+            (recently rebooting my phone helped with other stuff than <br>
+            gaming too)<br><br>
+            No success so far ? then try phase 2 :<br>
+            check <a href="https://www.reddit.com/r/IdlePlanetMiner/" target="_blank">Reddit</a> / 
+            <a href="https://discord.gg/r4X3ktZ" target="_blank">Discord</a> for any advice<br><br>
+            Phase 3 when all hope is gone :<br>
+            Support shall save the day ! ... hopefully :<br>
+            Provide your Player ID (under settings) along with any screen<br>
+            shots and/or purchase receipt if needs be.<br><br>
+            Support return may take up to 48h. Often will take less.<br>
+            If no reply give it another day or 2 before sending a "reminder".
+            `,
+    url : "support@techtreegames.com",
+    img : "",
+    thisFunction : undefined,
+    },
+    {
     label : "Prestige and Galaxy Value in IPM ?",
     icon : "cash windfall.jpg",
     text : `Every run can be ended when you reach 10 Millions. <br>
@@ -75,32 +103,22 @@ const faqsArray = [
     thisFunction : undefined,
     },
     {
-    label : "Game Issues",
-    icon : "bug.jpg",
-    text : `Bugs were here before computers and games so no worries,<br>
-            you will get your cut in IPM. Just a couple, for extra fun ;-)<br><br>
-            ** side note here : not all bugs are being hunted some are just<br>
-            considered "not current priority" ... ** <br><br>
-            Phase 1 : try to remedy the bug yourself with any of these :<br>
-            (- [read settings > help] at some point is good)<br>
-            - selling galaxy<br>
-            - closing/force-closing game<br>
-            - REBOOT of device <br>
-            (recently rebooting my phone helped with other stuff than <br>
-            gaming too)<br><br>
-            No success so far ? then try phase 2 :<br>
-            check <a href="https://www.reddit.com/r/IdlePlanetMiner/" target="_blank">Reddit</a> / 
-            <a href="https://discord.gg/r4X3ktZ" target="_blank">Discord</a> for any advice<br><br>
-            Phase 3 when all hope is gone :<br>
-            Support shall save the day ! ... hopefully :<br>
-            Provide your Player ID (under settings) along with any screen<br>
-            shots and/or purchase receipt if needs be.<br><br>
-            Support return may take up to 48h. Often will take less.<br>
-            If no reply give it another day or 2 before sending a "reminder".
-            `,
-    url : "support@techtreegames.com",
-    img : "",
-    thisFunction : undefined,
+    label : "Credits [10.00 M ~ 100.00 D]",
+    icon : "credits2.jpg",
+    text : `Those values may or not be very accurate,<br>
+            its just to have an idea of what to expect<br>
+            when selling your galaxy. Of course the<br>
+            galaxy value is not locked at 100.00 D you<br>
+            can run much much farther.<br><br>
+            Values here are only BASE CREDITS. Will be<br>
+            added bonuses: [Room]: Lounge, [Space station]:<br>
+            tiles ... and the [Ship]: Exodus.<br><br>
+            There is a cap as to how much base credits<br>
+            a single galaxy sale would reward, upon reaching<br>
+            e109 you will get to the max credits possible.`,
+    url : "",
+    img : "credits2.jpg",
+    thisFunction : setCredits,
     },
     {
     label : "Avoid Crafting issues",
@@ -123,13 +141,16 @@ const faqsArray = [
     img : "craft2.jpg",
     thisFunction : undefined,
     },
-/*
-    <br><br>PS :<br>
-    One last piece of info while we are here ... when smelters<br>
-    get too fast the game wont do the math properly resulting<br>
-    in smelters too slow because too fast ... <br>
-    dont kick me, it wont change a thing `
-*/
+    {
+    label : "Crafters/Smelters costs",
+    icon : "smelterCrafter.jpg",
+    text : `Below image(bottom tile on Projects tree/tab)<br>
+            is the tile you want to unlock, in order to cut<br>
+            remaining Crafters/Smelters prices by 50%.`,
+    url : "",
+    img : "preferred vendor.jpg",
+    thisFunction : setCrafters,
+    },
     {
     label : "Managers",
     icon : "manager1.jpg",
@@ -784,11 +805,60 @@ function setManagers(container){
         `
         thisElement = AddADiv(thisContainer)
         thisElement.style = textStyle
-        thisElement.innerHTML = `
-        
-        `    
+        thisElement.innerHTML = ""
+}
 
 
+function setCrafters(container){
+    let myCont = addEle({dad:container,setClass:"contRow",justifyC:"space-around",marginT:"50px"})
+        let forkA = addEle({dad:myCont,setClass:"contCol",textA:"center"})
+            addEle({dad:forkA,text:"Smelters"})
+        let forkB = addEle({dad:myCont,setClass:"contCol",textA:"center"})
+            addEle({dad:forkB,text:"Crafters"})
+    smeltCraftTable(forkA,smeltersArray)
+    smeltCraftTable(forkB,craftersArray)
+}
 
-
+function smeltCraftTable(container,array){
+    let myT = addEle({dad:container,what:"table"})
+    let myL = addEle({dad:myT,what:"tr"})
+    for(let i=0;i<array.length;i++){
+        addEle({dad:myL,what:"td",text:array[i],border:"solid 2px blue",radius:"5px"})
+        if(i % 2!==0){myL = addEle({dad:myT,what:"tr"})}
     }
+}
+
+
+function setCredits(container){
+    let myCont = addEle({dad:container,setClass:"contCol",marginT:"20px"})
+
+    let myT = addEle({dad:myCont,what:"table"})
+    let myL = addEle({dad:myT,what:"tr"})
+        addEle({dad:myL,what:"td",text: spanText("lime","(M)") + "agnitudes:",border:"solid 2px blue",radius:"5px",
+        minWidth:"100px",textA:"center",rowSpan:2})
+
+        addEle({dad:myL,what:"td",text:"Credits for:",border:"solid 2px blue",radius:"5px",
+        colSpan:3,textA:"center"})
+        myL = addEle({dad:myT,what:"tr"})
+        addEle({dad:myL,what:"td",text:"1 "+ spanText("lime","(M)"),border:"solid 2px blue",
+        radius:"5px",textA:"center"})
+        addEle({dad:myL,what:"td",text:"10 "+ spanText("lime","(M)"),border:"solid 2px blue",
+        radius:"5px",textA:"center"})
+        addEle({dad:myL,what:"td",text:"100 "+ spanText("lime","(M)"),border:"solid 2px blue",
+        radius:"5px",textA:"center"})
+        
+    for(let i=0;i<creditsArray.length;i++){
+        myL = addEle({dad:myT,what:"tr"})
+            let thisTxt = creditsArray[i].magnitude
+            console.log(thisTxt)
+            console.log(thisTxt.slice(0,1))
+            thisTxt = spanText("lime",thisTxt.slice(0,1)) + thisTxt.slice(1)
+            addEle({dad:myL,what:"td",text:thisTxt,border:"solid 2px blue",
+            radius:"5px",textA:"center"})
+            for(let j=0;j<creditsArray[i].credits.length;j++){
+                addEle({dad:myL,what:"td",text:creditsArray[i].credits[j],textA:"center",
+                border:"solid 2px blue",radius:"5px",minWidth:"50px",}) } } 
+    addEle({dad:myCont,text:`Confusing ? Exemple ...<br>- Line [5] : `+spanText("lime","Q")+`
+    <br>- Column [2] : 10 `+spanText("lime","(M)")+`<br> will read 10 `+spanText("lime","Q")+`
+    for 930 credits`,margin:"20px",padding:"10px 10px 10px 60px",border:"solid 2px lime",radius:"10px",})
+}
