@@ -115,7 +115,11 @@ const faqsArray = [
             tiles ... and the [Ship]: Exodus.<br><br>
             There is a cap as to how much base credits<br>
             a single galaxy sale would reward, upon reaching<br>
-            e109 you will get to the max credits possible.`,
+            e109 you will get to the max credits possible.<br><br>
+            Should you need more credits infos the Discord<br>
+            community has a bot you can use made by Tanktalus.<br>
+            (on discord use the bot under the section :<br>
+            "a-vacuum-in-space-and-time"<br> to avoid spamming chats)`,
     url : "",
     img : "credits2.jpg",
     thisFunction : setCredits,
