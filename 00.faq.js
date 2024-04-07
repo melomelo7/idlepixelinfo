@@ -69,7 +69,7 @@ const faqsArray = [
     },
     {
     label : "Prestige and Galaxy Value in IPM ?",
-    icon : "cash windfall.jpg",
+    icon : "credits2.jpg",
     text : `Every run can be ended when you reach 10 Millions. <br>
             (Next credit rewarded point being another ~2.5+ Millions)<br><br>
             So in order to "Prestige", you sell your current galaxy<br>
@@ -99,6 +99,19 @@ const faqsArray = [
             milestone until you figure out the next.`,
     url : "",
     img : "",
+    thisFunction : undefined,
+    },
+    {
+    label : "Early Unlocks",
+    icon:"cash windfall.jpg",
+    text :  `Roughly selling your galaxy ~10 times early on<br>will unlock 
+            things you will use forever :<br><br>
+            - Access to Challenges,Tournaments ...<br><br>
+            - Resources auto-sell mechanics <br>(which after 4th sale turns % based)<br><br>
+            - Planet upgrade batches x1 ... x5 ... x10<br><br><br>
+            All the more reasons to sell often for a full experience of the game.`,
+    url : "",
+    img : "construction.jpg",
     thisFunction : undefined,
     },
     {
