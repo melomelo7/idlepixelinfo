@@ -183,10 +183,10 @@ player.tabs.forEach((tab)=>{
 if (player.start){
     player.start = false
     let srcObj = getPlObj("Essence")
-    srcObj.rank = 0 ; srcObj.click = 100 ; srcObj.quantity = 0 ; srcObj.cap = 1
+    srcObj.rank = 0 ; srcObj.click = 0.05 ; srcObj.quantity = 0 ; srcObj.cap = 1
 
-    getPlObj("Mana").quantity = 1
-    getPlObj("Knowledge").quantity = 100
+//    getPlObj("Mana").quantity = 1
+//    getPlObj("Knowledge").quantity = 100
 
     info.innerHTML = `You found an old crystal ball in the Attic.<br>
     when you grab it, you hear a whispering : "I have been expecting you.<br>
