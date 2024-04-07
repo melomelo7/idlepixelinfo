@@ -309,10 +309,13 @@ function spit({text="",args=[]}){
             return Number((crystalV+srcObj.baseCap).toFixed(2))
             break
         case "lyxesSumup" :
+            let dead = 0
             srcObj = getPlObj("Lyxes")
             txt = "Total : " + srcObj.quantity +" -- "
             txt+= "Employed : " + srcObj.lyx.filter(lx=>lx.job!==undefined).length + " -- "
-            txt+= "Free : " + (srcObj.quantity - srcObj.lyx.filter(lx=>lx.job!==undefined).length)
+            dead = srcObj.lyx.filter(lx=>lx.health.current===0).length
+            if(dead > 0){txt+= "Dead : " + dead + " -- "}
+            txt+= "Free : " + (srcObj.quantity - dead - srcObj.lyx.filter(lx=>lx.job!==undefined).length)
             return txt
             break
         default : console.log("code missing")
@@ -487,31 +490,22 @@ function dispStats(){
     stats.innerHTML = txt
 }
 
-/*
-function manaBtn(e){
-    let btTxt = e.srcElement.innerHTML.toLowerCase()
-    if(btTxt.includes("unlock")){
-        let res = btTxt.split(" =&gt; ")[1].split(" : ")[0]
-        let rVal = btTxt.split(" =&gt; ")[1].split(" : ")[1]
-        console.log("find " + res + " " + rVal + " " + checkCost(res,rVal))
-        if(checkCost(res,rVal,true)){
-            
-        }
 
-    } else {
-
-    }
-}
-*/
-
-
-
-function checkCost(cLbl="",cVal=0,pay=true,earn=false){
+function checkCost(cLbl="",cVal=0,pay=true,earn=false,upStats=true,ripOff=false){
     let srcObj = getPlObj(cLbl) ; let good = false
     if(earn===false){
-        if(Number(srcObj.quantity.toFixed(2))>= cVal){good = true}
-        if(good && pay){srcObj.quantity = Number((srcObj.quantity-cVal).toFixed(2)) ; dispStats()}
+        if(Number(srcObj.quantity.toFixed(2))>= cVal || ripOff===true){good = true}
+        if(good && pay){
+            if(Number(srcObj.quantity.toFixed(2)) < cVal){good=false}
+            srcObj.quantity = Number((srcObj.quantity-cVal).toFixed(2)) > 0 ?
+            Number((srcObj.quantity-cVal).toFixed(2)) : 0
+            if(upStats){dispStats()}
+        }
         if(good && pay && cLbl==="Essence"){upOrb(false)}
-    } else {srcObj.quantity = Number((srcObj.quantity+cVal).toFixed(2)) ; srcObj.locked=false ; dispStats()}
+    } else {
+        srcObj.quantity = Number((srcObj.quantity+cVal).toFixed(2))
+        srcObj.locked=false
+        if(upStats){dispStats()}
+    }
     return good
 }

@@ -72,7 +72,7 @@ footer {
     overflow: scroll;
 }
 
-.mainTab,.subTab {
+.mainTab,.subTab,.crafter {
     display: flex;
     flex-direction: column;
     border-radius: 5px;
@@ -104,9 +104,14 @@ footer {
     background-color: green;
     height: 100%;
     width: 50%;
+    color: rgb(88, 62, 49);
 }
 
-
+.crafter {
+    min-width: 200px;
+    min-height: 200px;
+    background-color: rgb(59, 59, 97);
+}
 
 
 

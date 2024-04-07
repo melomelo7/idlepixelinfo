@@ -14,12 +14,14 @@ let player = {
         costs:[{label:"Essence",quantity:0.5}],payout:[{label:"Knowledge",quantity:0.2}],},
         {label:"Lyxes",locked:true,quantity:0,cap:undefined,lyx:[],skills:[],skillCap:2,
         jobCosts:[{label:"Food",quantity:0.2},{label:"Water",quantity:0.2},]},
+        {label:"Hut",locked:true,quantity:0,cap:undefined},
         {label:"Food",locked:true,quantity:0,cap:undefined},
         {label:"Water",locked:true,quantity:0,cap:undefined},
         {label:"Raw Wood",locked:true,quantity:0,cap:undefined},
         {label:"Raw Stone",locked:true,quantity:0,cap:undefined},
 
     ],
+    blueprints:[],
     activeTab:undefined,
     tabs:[
         {label:"Grimoire",backC:"purple",textC:"",visible:false,
@@ -73,7 +75,7 @@ let player = {
                 toggledText:"",altID:"lyxCh2B",altText:`
                 A Basic house will require both Wood + Stone<br>
                 You have unlocked access to the Crafting tab`,
-                altBought:false,unlock:["unlock tab|Crafting",
+                altBought:false,unlock:["unlock tab|Crafting","unlock blueprint|hut",
                 "page content|page:1|content:6","page content|page:1|content:7"],
                 btnTxt:"Housing Problem",
                 costs:[{label:"Essence",quantity:5},{label:"Knowledge",quantity:5}],},
@@ -109,10 +111,15 @@ let player = {
 }
 
 skills = [
-    {label:"Farmer",tip:"Farmer : Collect Food",payout:[{label:"Food",quantity:0.5}]},
-    {label:"Water Carrier",tip:"Water Carrier : Collect Water",payout:[{label:"Water",quantity:0.5}]},
-    {label:"Lumberjack",tip:"Lumberjack : Collect Raw Wood",payout:[{label:"Raw Wood",quantity:0.5}]},
-    {label:"Miner",tip:"Miner : Collect Raw Stone",payout:[{label:"Raw Stone",quantity:0.5}]},
+    {label:"Farmer",priority:1,tip:"Farmer : Collect Food",payout:[{label:"Food",quantity:0.5}]},
+    {label:"Water Carrier",priority:1,tip:"Water Carrier : Collect Water",payout:[{label:"Water",quantity:0.5}]},
+    {label:"Lumberjack",priority:2,tip:"Lumberjack : Collect Raw Wood",payout:[{label:"Raw Wood",quantity:0.5}]},
+    {label:"Miner",priority:2,tip:"Miner : Collect Raw Stone",payout:[{label:"Raw Stone",quantity:0.5}]},
+]
+
+blueprints = [
+    {label:"Hut",time:120,locked:true,unlock:[{label:"Knowledge",quantity:20}],craftCost:
+    [{label:"Raw Wood",quantity:10},{label:"Raw Stone",quantity:10}]}
 ]
 
 let orbSpells =[
@@ -195,6 +202,7 @@ function setTab(lbl){
     switch(lbl){
         case "Grimoire" : setTabGrimoire("Grimoire") ; break
         case "Lyxes" : setTabLyxes("Lyxes") ; break
+        case "Crafting" : setTabCrafting("Crafting") ; break
         default : console.log("set tab : Missing code for "+lbl)
     }
     

@@ -36,15 +36,13 @@ function setTabGrimoire(keyWord){
             srcObj.costs.forEach(cst=>{ txt += cst.quantity.toFixed(2) + " " + cst.label + " " })
             addEle({dad:cont,text:txt})
 
-            let idx = player.loop.queue.findIndex(x=>x.label==="Knowledge")
+            let idx = player.loop.queue.findIndex(x=>x.type==="study")
             let myCol = idx === -1 ? "purple" : "blue"
             txt = idx === -1 ? "Study" : "Stop"
             addEle({dad:cont,text:txt,setClass:"clickBtn",backC:myCol,setID:"studyBtn",
-//            minWidth:"100px",setFunc:actionBtns})
             minWidth:"100px",setFunc:(e)=>{
                 let myBt = e.srcElement
                 switch(myBt.innerHTML){
-                    
                     case "Study" :
                         lockOrb()
                         myBt.innerHTML = "Stop"
@@ -71,7 +69,7 @@ function setTabGrimoire(keyWord){
 
 
 
-console.log(player.loop.queue)
+//console.log(player.loop.queue)
 
 
 
@@ -205,11 +203,17 @@ function pageItmUnlocks(unlocks){
                     if(tabsBtnFr.children[i].innerHTML===itm.split("|")[1]){
                         setTimeout(()=>{tabsBtnFr.children[i].style.display = "block"},2000) } }
                 break
+            case "unlock blueprint" :
+                console.log(itm)
+                console.log(itm.split("|")[1])
+                player.blueprints.push(itm.split("|")[1])                 
+                break
             default : info.innerHTML = "Unknown page element Unlock " + itm.split("|")[0]
         }
     })
 }
 
+/*
 function actionBtns(e){
 
     let btFocus = e.srcElement.id.split("Btn")[0].toLowerCase()
@@ -255,16 +259,76 @@ function action({lbl="",srcBtnID=undefined,type="",run=true}){
         if(looper.queue.filter(itm=>itm.isAction).length===0){lockOrb(false)}
     }
 }
-
+*/
 
 
 let cpt = 0
 function queueManager(){
-    let ownCost = undefined
     cpt++
+    let queue = player.loop.queue
+    let ownCost = undefined
 
-console.log(player.loop.queue)
 
+    let payFrontArr = queue.filter(itm=>itm.payFront===true).sort((a,b)=>a.priority - b.priority)
+    let othersArr = queue.filter(itm=>itm.payFront!==true)
+
+
+
+    payFrontArr.forEach(itm=>{ itm.payout.forEach(pay=>{
+        getPlObj(pay.label).locked = false
+        checkCost(pay.label,pay.quantity,false,true)
+    }) })
+
+    payFrontArr.forEach(itm=>{
+        let thisLyx = undefined
+        if(itm.type==="lyxJob"){thisLyx = getPlObj("Lyxes").lyx.filter(lx=>lx.name===itm.lyxName)[0]}
+        itm.costs.forEach(cst=>{
+            let ownCost = checkCost(cst.label,cst.quantity,true,false,true,true)
+            if(ownCost===false && thisLyx!==undefined){thisLyx.health.current--}
+        }) 
+
+        if(thisLyx!==undefined){
+            if(thisLyx.homeless){thisLyx.health.current--}
+            
+            if(thisLyx.health.current < 1){
+                thisLyx.health.current = 0
+                thisLyx.job = undefined
+                let thisIdx = queue.findIndex(itm=>itm.type==="lyxJob" && itm.lyxName===thisLyx.name)
+                queue.splice(thisIdx,1)
+                if(player.activeTab==="Lyxes"){
+                    getID("lyx:"+thisLyx.name).click()
+                    getID("lyxesSumup").innerHTML = spit({text:"lyxesSumup"})
+                }
+            }
+            if(player.activeTab==="Lyxes"){
+                getID("lyx:" + thisLyx.name).innerHTML = thisLyx.name + "<br>" +
+                thisLyx.health.label + thisLyx.health.current + "/" + thisLyx.health.cap
+                if(thisLyx.health.current===0){getID("lyx:" + thisLyx.name).style.backgroundColor="crimson"}
+            }
+        }
+
+    })
+    
+
+    othersArr.forEach(itm=>{
+        switch(itm.type){
+            case "study" :
+                ownCost = true
+                itm.costs.forEach(cst=>{if(checkCost(cst.label,cst.quantity,false)===false){ownCost=false}})
+                if(ownCost){
+                    itm.costs.forEach(cst=>{checkCost(cst.label,cst.quantity)})
+                    itm.payout.forEach(pay=>{checkCost(pay.label,pay.quantity,false,true)})
+                    upOrb(false)
+                    if(player.focusID!==undefined){getID(player.focusID).click()}
+                } else { getID(itm.callBtnID).click() }
+                break
+
+            default : info.innerHTML = "Unknown type > time queue loop/others : " + itm.type
+        }
+    })
+
+
+/*
     player.loop.queue.forEach(itm=>{
         switch(itm.type){
             case "study" :
@@ -277,22 +341,16 @@ console.log(player.loop.queue)
                     if(player.focusID!==undefined){getID(player.focusID).click()}
                 } else { getID(itm.callBtnID).click() }
                 break
-            case "lyxJob" : // console.log("time loop queue : lyx job to do !")
+            case "lyxJob" :
                 let thisLyx = getPlObj("Lyxes").lyx.filter(lx=>lx.name===itm.lyxName)[0]
-//                console.log(itm)
-  //              console.log(thisLyx)
 
                 itm.payout.forEach(pay=>{
                     getPlObj(pay.label).locked = false
                     checkCost(pay.label,pay.quantity,false,true)
- //                   txt = thisLyx.name + "earns " + pay.quantity + " " + pay.label
-   //                 console.log(txt)
                 })
 
                 itm.costs.forEach(cst=>{
 
-//                    txt = thisLyx.name + "pays " + cst.quantity + " " + cst.label
-  //                  console.log(txt)
 
                     ownCost = checkCost(cst.label,cst.quantity)
                     if(ownCost===false){
@@ -314,10 +372,14 @@ console.log(player.loop.queue)
         }
     })
 
+
+    */
+
     if(player.loop.queue.length===0){ clearInterval(player.loop.id) ; player.loop.id = undefined }
 
-  //  console.log(cpt)
-  //  console.log("queue "+player.loop.queue.length)
+
+   console.log("Remaining queue items " + player.loop.queue.length)
+
 }
 
 
