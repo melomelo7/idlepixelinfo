@@ -75,7 +75,9 @@ const faqsArray = [
             So in order to "Prestige", you sell your current galaxy<br>
             receiving in return Credits that can be spent to<br>
             build/upgrade rooms on your mothership.<br><br>
-            The `+ spanText("lime","Galaxy Value") +` when selling is the sum of what you lose :`,
+            The `+ spanText("lime","Galaxy Value") +` when selling is the sum
+             of what you lose :<br>(sidenote : bought Ships follow you
+            in every new galaxy)`,
     url : "",
     img : "gv.jpg",
     thisFunction : undefined,
