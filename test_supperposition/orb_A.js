@@ -1,3 +1,4 @@
+/*
 class item {constructor(label="",quantity=0)
     {this.label=label,this.quantity=quantity}
 }
@@ -18,6 +19,8 @@ class clock {constructor(location="",resource="",btnID="",progressID="",time=0)
     {this.location=location,this.resource=resource,this.btnID=btnID,this.progressID=progressID,this.time=time}
 }
 
+*/
+
 function cleanParent(parent){
     while(parent.children.length >0){
         parent.removeChild(parent.lastChild)
@@ -25,7 +28,7 @@ function cleanParent(parent){
 
 function getID(id){return document.getElementById(id)}
 
-function emC(code){return String.fromCodePoint(code)}
+//function emC(code){return String.fromCodePoint(code)}
 
 function addEle({
     addToTop = false,
@@ -284,6 +287,20 @@ function getRes(lbl){
 }
 */
 
+function startLooper(){
+    if(player.loop.id===undefined){player.loop.id = setInterval(queueManager,looperSpeed)}
+}
+
+function secondsToClock(seconds){
+    let hr = Math.floor(seconds/3600)
+    hr = hr < 10 ? "0"+hr : hr
+    let mn = Math.floor((seconds % 3600)/60)
+    mn = mn < 10 ? "0"+mn : mn
+    let sc = seconds % 60
+    sc = sc < 10 ? "0"+sc : sc
+    return hr + ":" + mn + ":" + sc
+}
+
 function getPlObj(lbl="",idx=0, myArr=[player.resources,player.tabs]){
     let obj = myArr[idx]
     for(let i=0;i<obj.length;i++){if(obj[i].label===lbl){return obj[i]}}
@@ -352,6 +369,7 @@ function upOrb(addVal = true){
 function clickOrb(){
 
     if(orbLock){return}
+    if(timeFreeze){console.log("freeze");return}
 
     let srcObj = getPlObj("Essence")
     switch(srcObj.rank){

@@ -56,7 +56,8 @@ function setTabGrimoire(keyWord){
                             payout:getPlObj("Knowledge").payout,
                             orbLocker:true
                         })
-                        if(player.loop.id===undefined){player.loop.id = setInterval(queueManager,1000)}
+                        startLooper()
+//                        if(player.loop.id===undefined){player.loop.id = setInterval(queueManager,1000)}
                         break
                     case "Stop" :
                         myBt.innerHTML = "Study"
@@ -322,7 +323,17 @@ function queueManager(){
                     if(player.focusID!==undefined){getID(player.focusID).click()}
                 } else { getID(itm.callBtnID).click() }
                 break
-
+            case "timer" :
+                itm.progress++
+                getID(itm.displayID).innerHTML = itm.displayText + secondsToClock(itm.seconds-itm.progress)
+                if(itm.progress>=itm.seconds){
+                    let idx = player.loop.queue.findIndex(qi=>qi.timerID===itm.timerID)
+                    player.loop.queue.splice(idx,1)
+                    timeFreeze = false
+                    itm.srcBluePrint.locked = false
+                    setTimeout(()=>{getID(itm.finishBtnID).click()},1000)
+                }
+                break
             default : info.innerHTML = "Unknown type > time queue loop/others : " + itm.type
         }
     })
@@ -379,6 +390,8 @@ function queueManager(){
 
 
    console.log("Remaining queue items " + player.loop.queue.length)
+    console.log(player.loop.queue)
+
 
 }
 

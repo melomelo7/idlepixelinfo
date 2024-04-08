@@ -3,6 +3,9 @@ const path1 = "./imgs/"
 const path2 = ".jpg"
 const spanQuestion = `<span style="background-color:green;color:yellow;margin-left:5px;
 font-size:12px;border: solid 1px red;padding:0 4px;border-radius:5px;">?</span>`
+let timeFreeze = false
+
+const looperSpeed = 1000
 
 let player = {
     start:true,
@@ -21,7 +24,6 @@ let player = {
         {label:"Raw Stone",locked:true,quantity:0,cap:undefined},
 
     ],
-    blueprints:[],
     activeTab:undefined,
     tabs:[
         {label:"Grimoire",backC:"purple",textC:"",visible:false,
@@ -103,7 +105,14 @@ let player = {
 
 
         {label:"Lyxes",backC:"coral",textC:"black",visible:false,skillTip:true},
-        {label:"Crafting",backC:"brown",textC:"black",visible:false},
+        {label:"Crafting",backC:"brown",textC:"black",visible:true},
+    ],
+    blueprints:[],
+    crafters:[
+        {label:"Crafter 1",locked:false,crafting:"",unlock:[]},
+        {label:"Crafter 2",locked:true,crafting:"",unlock:[{label:"Raw Wood",quantity:100},{label:"Raw Stone",quantity:100}]},
+        {label:"Crafter 3",locked:true,crafting:"",unlock:[{label:"Raw Wood",quantity:1000},{label:"Raw Stone",quantity:1000}]},
+        {label:"Crafter 4",locked:true,crafting:"",unlock:[{label:"Raw Wood",quantity:10000},{label:"Raw Stone",quantity:10000}]},
     ],
     loop:{id:undefined,queue:[],},
     focusID:undefined,
@@ -118,8 +127,8 @@ skills = [
 ]
 
 blueprints = [
-    {label:"Hut",time:120,locked:true,unlock:[{label:"Knowledge",quantity:20}],craftCost:
-    [{label:"Raw Wood",quantity:10},{label:"Raw Stone",quantity:10}]}
+    {label:"Hut",time:120,locked:true,unlock:[{label:"Knowledge",quantity:20}],unlockTime:30,
+    craftCost:[{label:"Raw Wood",quantity:10},{label:"Raw Stone",quantity:10}]}
 ]
 
 let orbSpells =[
@@ -168,6 +177,9 @@ player.tabs.forEach((tab)=>{
     addEle({dad:tabsBtnFr,setClass:"clickBtn",text:tab.label,backC:tab.backC,
     textC:tab.textC === "" ? "#C0AE77" : tab.textC,
     display: tab.visible===true ? "block" : "none" ,minWidth:"100px",setFunc:(e)=>{
+
+        if(timeFreeze){console.log("freeze");return}
+
         info.innerHTML = ""
         for(let i=0;i<subTabs.children.length;i++){
             let obj = subTabs.children[i]
@@ -175,7 +187,7 @@ player.tabs.forEach((tab)=>{
                 {obj.style.display = "none"}
             else
             {obj.style.display = obj.style.display === "none" ? "flex" : "none"
-             if(obj.style.display === "flex"){setTab(e.srcElement.innerHTML)} } } }})
+             if(obj.style.display === "flex" && timeFreeze===false){setTab(e.srcElement.innerHTML)} } } }})
     addEle({dad:subTabs,setClass:"mainTab",text:tab.label,setID:"tab"+tab.label,display:"none"})
 })
 
@@ -183,10 +195,14 @@ player.tabs.forEach((tab)=>{
 if (player.start){
     player.start = false
     let srcObj = getPlObj("Essence")
-    srcObj.rank = 0 ; srcObj.click = 0.05 ; srcObj.quantity = 0 ; srcObj.cap = 1
+    srcObj.rank = 0 ; srcObj.click = 100 ; srcObj.quantity = 0 ; srcObj.cap = 1
 
-//    getPlObj("Mana").quantity = 1
-//    getPlObj("Knowledge").quantity = 100
+    getPlObj("Mana").quantity = 1
+    getPlObj("Knowledge").quantity = 100
+
+    getPlObj("Raw Wood").quantity = 100
+    getPlObj("Raw Stone").quantity = 100
+    player.blueprints.push("Hut")
 
     info.innerHTML = `You found an old crystal ball in the Attic.<br>
     when you grab it, you hear a whispering : "I have been expecting you.<br>
@@ -221,3 +237,8 @@ function dispSpanCost(costs=[],asLine=true){
     } return msg }
 
 function spanText(spanColor,spanTxt){return `<span style="color:`+spanColor+`;">`+spanTxt+"</span>"}
+
+let thisVal = 5656
+console.log(thisVal)
+console.log(secondsToClock(thisVal))
+

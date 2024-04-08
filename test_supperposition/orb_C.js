@@ -46,7 +46,8 @@ function setTabLyxes(keyWord){
                         payout:mySkill.payout,
                     })
 
-                    if(player.loop.id===undefined){player.loop.id = setInterval(queueManager,1000)}
+                    startLooper()
+//                    if(player.loop.id===undefined){player.loop.id = setInterval(queueManager,1000)}
 
                     for(let i=0;i<getID("lyxesForkA").children.length;i++)
                         {getID("lyxesForkA").children[i].style.backgroundColor = "rgb(88, 62, 49)"}
