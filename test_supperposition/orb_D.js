@@ -5,6 +5,18 @@ function setTabCrafting(keyWord){
     
     addEle({dad:myTab,setID:"craftingInfo",borderB:"solid 2px beige",minHeight:"100px",marginT:"5px",text:
     "*!* After starting a Craft you can stop/cancel but costs are lost *!*"})
+    
+    txt = "Add a crafter<br>"
+    let myVal1 = 1
+    let myVal2 = 1
+    for(let i=0;i< player.crafters2.quantity+1;i++){
+        myVal1 *= 10
+        myVal2 *= 10
+        }
+    addEle({dad:myTab,setClass:"clickBtn",
+            text:txt,setFunc:addCrafter})
+
+
 
     let myCont = addEle({dad:myTab,setClass:"contRow",marginT:"20px"})
         addEle({dad:myCont,setClass:"contCol",setID:"craftingForkA"})
