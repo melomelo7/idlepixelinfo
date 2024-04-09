@@ -390,7 +390,7 @@ function queueManager(){
 
 
    console.log("Remaining queue items " + player.loop.queue.length)
-    console.log(player.loop.queue)
+ //   console.log(player.loop.queue)
 
 
 }

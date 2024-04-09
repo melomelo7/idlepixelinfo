@@ -44,7 +44,7 @@ function displayCrafter(crafterID){
             txt = thisCrafter.label + " "
             txt += isUsed ? spanText("purple","Used") : spanText("lime","Available")
             addEle({dad:myCont,text:txt})
-            addEle({dad:myCont,setClass:"mainTab",setID:"craftingRecipe",marginT:"20px"})
+            addEle({dad:myCont,setClass:"mainTab",setID:"craftingRecipe",marginT:"20px",width:"fit-content"})
                 addEle({dad:getID("craftingRecipe"),text:"Pick a recipe to craft"})
 
             cleanParent(getID("craftingForkC"))
@@ -53,24 +53,24 @@ function displayCrafter(crafterID){
                 addEle({dad:getID("craftingForkC"),setClass:"clickBtn",text:bp,minWidth:"100px",
                 setID:"recipe:"+bp, setFunc:(e)=>{
                     if(timeFreeze){console.log("freeze");return}
-console.log(e.srcElement.id)
+
                     let myCont = getID("craftingRecipe") 
                     cleanParent(myCont)
                     srcObj = blueprints.filter(bp=>bp.label===e.srcElement.innerHTML)[0]
                     if(srcObj.locked){
-                        txt = "Need to study this Recipe<br>" + dispSpanCost(srcObj.unlock,false) 
+                        txt = "Need to study this Recipe<br><br>" + dispSpanCost(srcObj.unlock,false) 
                         addEle({dad:myCont,text:txt})
-                        addEle({dad:myCont,text:"Time " + secondsToClock(srcObj.unlockTime),setID:"studyRecipeTimer"})
+                        addEle({dad:myCont,text:"Time " + secondsToClock(srcObj.unlockTime),setID:"studyRecipeTimer",margin:"10px 0"})
                         let ownCost = true
                         srcObj.unlock.forEach(cst=>{if(checkCost(cst.label,cst.quantity,false)===false){ownCost=false}})
                         if(ownCost){
-                            addEle({dad:myCont,setClass:"clickBtn",text:"Study "+srcObj.label,setFunc:(e)=>{
+                            addEle({dad:myCont,setClass:"clickBtn",text:"Study "+srcObj.label,minWidth:"160px",
+                            setFunc:(e)=>{
                                 if(timeFreeze){console.log("freeze");return}
 
                                 timeFreeze=true
                                 srcObj = blueprints.filter(bp=>bp.label===e.srcElement.innerHTML.split("Study ")[1])[0]
                                 srcObj.unlock.forEach(cst=>checkCost(cst.label,cst.quantity))
-
                                 
                                 player.loop.queue.push({
                                     type:"timer",
@@ -84,18 +84,36 @@ console.log(e.srcElement.id)
                                 })
 
                                 startLooper()
-
-//                                console.log(srcObj)
-
-
                             }})
                         }
-                        info.innerHTML = "study !"
                     } else {
+
+                        addEle({dad:myCont,text:srcObj.label,setID:"recipeLabel",marginB:"10px"})
+
+                        addEle({dad:myCont,text:dispSpanCost(srcObj.craftCost,false)})
+                        let ownCost = true
+                        srcObj.craftCost.forEach(cst=>{if(checkCost(cst.label,cst.quantity,false)===false){ownCost=false}})
+                        if(ownCost){
+                            srcObj.craftCost.forEach(cst=>checkCost(cst.label,cst.quantity))
+                            addEle({dad:myCont,setClass:"clickBtn",text:"Craft "+srcObj.label,minWidth:"160px",
+                            marginT:"20px",setFunc:(e)=>{
+                                info.innerHTML = e.srcElement.innerHTML
+                            }})
+                        }
+
                         info.innerHTML = "no study ! xD"
+
+                        console.log(srcObj.label)
+
+
+
+
+
+
+                        
                     }
 
-                    console.log(srcObj)
+                    
             }})  })
             if(player.blueprints.length > 0){getID("craftingForkC").children[0].style.marginTop = "20px"}
             

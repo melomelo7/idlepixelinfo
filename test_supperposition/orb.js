@@ -238,7 +238,4 @@ function dispSpanCost(costs=[],asLine=true){
 
 function spanText(spanColor,spanTxt){return `<span style="color:`+spanColor+`;">`+spanTxt+"</span>"}
 
-let thisVal = 5656
-console.log(thisVal)
-console.log(secondsToClock(thisVal))
 
