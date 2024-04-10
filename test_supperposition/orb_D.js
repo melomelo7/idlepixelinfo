@@ -7,12 +7,16 @@ function setTabCrafting(keyWord){
     "*!* After starting a Craft you can stop/cancel but costs are lost *!*"})
     
     txt = "Add a crafter<br>"
-    let myVal1 = 1
-    let myVal2 = 1
-    for(let i=0;i< player.crafters2.quantity+1;i++){
-        myVal1 *= 10
-        myVal2 *= 10
-        }
+    let myVal1 = player.crafters2.costs[0].quantity
+    let myVal2 = player.crafters2.costs[1].quantity
+    if(player.crafters2.quantity>0){
+        for(let i=0;i< player.crafters2.quantity+1;i++){
+            myVal1 *= 10
+            myVal2 *= 10
+            }
+    }
+    
+    txt = ""
     addEle({dad:myTab,setClass:"clickBtn",
             text:txt,setFunc:addCrafter})
 
