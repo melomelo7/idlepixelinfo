@@ -114,6 +114,7 @@ let player = {
         {label:"Crafter 3",locked:true,crafting:"",unlock:[{label:"Raw Wood",quantity:1000},{label:"Raw Stone",quantity:1000}]},
         {label:"Crafter 4",locked:true,crafting:"",unlock:[{label:"Raw Wood",quantity:10000},{label:"Raw Stone",quantity:10000}]},
     ],
+
     crafting:{
         quantity:0,
         baseCost:
@@ -124,6 +125,8 @@ let player = {
         crafters:[
             ],
     },
+
+
     loop:{id:undefined,queue:[],},
     focusID:undefined,
     focusTxt:undefined,
@@ -248,4 +251,6 @@ function dispSpanCost(costs=[],asLine=true){
 
 function spanText(spanColor,spanTxt){return `<span style="color:`+spanColor+`;">`+spanTxt+"</span>"}
 
-
+player.crafting.quantity = 1
+let mya = crafterCost()
+console.log("Add a crafter<br>" + dispSpanCost(crafterCost()))

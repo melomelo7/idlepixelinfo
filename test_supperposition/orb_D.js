@@ -1,24 +1,38 @@
 
+function crafterCost(multi=10){
+    let outuptArr = []
+
+    for(let i=0;i<player.crafting.baseCost.length;i++){
+        outuptArr.push({label:player.crafting.baseCost[i].label,quantity:player.crafting.baseCost[i].quantity})
+    }
+
+    if(player.crafting.quantity>0){
+        for(let i=0;i<player.crafting.baseCost.length;i++){
+            let myVal = player.crafting.baseCost[i].quantity
+
+            for(let j=0;j<player.crafting.quantity;j++){
+                myVal *= multi
+                }
+            outuptArr[i].quantity = myVal
+    }}
+    return outuptArr
+}
+
 function setTabCrafting(keyWord){
     let myTab = getID("tab"+keyWord)
     cleanParent(myTab)
     
     addEle({dad:myTab,setID:"craftingInfo",borderB:"solid 2px beige",minHeight:"100px",marginT:"5px",text:
     "*!* After starting a Craft you can stop/cancel but costs are lost *!*"})
-    
-    txt = "Add a crafter<br>"
-    let myVal1 = player.crafters2.costs[0].quantity
-    let myVal2 = player.crafters2.costs[1].quantity
-    if(player.crafters2.quantity>0){
-        for(let i=0;i< player.crafters2.quantity+1;i++){
-            myVal1 *= 10
-            myVal2 *= 10
-            }
-    }
-    
-    txt = ""
-    addEle({dad:myTab,setClass:"clickBtn",
-            text:txt,setFunc:addCrafter})
+
+    txt = "Add a crafter<br>" + dispSpanCost(crafterCost())
+
+    addEle({dad:myTab,text:txt})
+
+//    addEle({dad:myTab,setClass:"clickBtn",
+  //          text:txt,setFunc:addCrafter})
+
+
 
 
 
