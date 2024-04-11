@@ -63,9 +63,15 @@ console.log(player.crafting)
             addEle({dad:subCont,text:thisCrafter.label + " " + spanText("lime","Available")})
 
             if(thisCrafter.workerName==="" && player.crafting.lyxJob===true){
-                txt = "Set a Lyx to work on this crafter<br>(automation: cost will include Lyx needs)"
-                addEle({dad:subCont,setClass:"clickBtn",text:txt,setFunc:()=>{
+                txt = "Assign a Lyx to work on this crafter<br>(automation: cost will include Lyx needs)"
+                addEle({dad:subCont,text:txt})
+                txt = thisCrafter.label + ": " + "Assign a Lyx"
+                addEle({dad:subCont,setClass:"clickBtn",text:txt,setFunc:(e)=>{
                     console.log("set maLyx")
+                    cleanParent(getID("craftingForkC"))
+                    let myCont = getID("craftingForkC")
+                    txt = e.srcElement.innerHTML.split(":")[0]
+                    addEle({dad:myCont,text:"Available Lyxes for: " + txt})
                 }})
             }
     
