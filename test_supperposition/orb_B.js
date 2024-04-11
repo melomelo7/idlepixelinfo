@@ -170,7 +170,8 @@ function grimoireBtn(btnText){
         }
         else if(btnText.includes("Understand Lyx needs") || btnText.includes("Food Problem") ||
         btnText.includes("Water Problem") || btnText.includes("Housing Problem") ||
-        btnText.includes("Wood Problem") || btnText.includes("Stone Problem")
+        btnText.includes("Wood Problem") || btnText.includes("Stone Problem") || 
+        btnText.includes("help Crafting")
         )
         {srcObj.altBought = true}
 
@@ -205,9 +206,9 @@ function pageItmUnlocks(unlocks){
                         setTimeout(()=>{tabsBtnFr.children[i].style.display = "block"},2000) } }
                 break
             case "unlock blueprint" :
-                console.log(itm)
-                console.log(itm.split("|")[1])
                 player.blueprints.push(itm.split("|")[1])                 
+                break
+            case "crafting" : player.crafting.lyxJob = true
                 break
             default : info.innerHTML = "Unknown page element Unlock " + itm.split("|")[0]
         }

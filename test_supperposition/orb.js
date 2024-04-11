@@ -78,11 +78,20 @@ let player = {
                 A Basic house will require both Wood + Stone<br>
                 You have unlocked access to the Crafting tab`,
                 altBought:false,unlock:["unlock tab|Crafting","unlock blueprint|hut",
-                "page content|page:1|content:6","page content|page:1|content:7"],
+                "page content|page:1|content:6","page content|page:1|content:7",
+                "page content|page:1|content:8"],
                 btnTxt:"Housing Problem",
                 costs:[{label:"Essence",quantity:5},{label:"Knowledge",quantity:5}],},
 
                 {idx:6,visible:false,refPg:1,
+                title:"Lyxes - chapter 2 : Crafting ?",toggleID:"",toggledTextID:"",
+                toggledText:"",altID:"lyxCh2B",altText:`
+                New Job/Skill unlocked for Lyxes : Craftman<br>( on Crafting tab only)`,
+                altBought:false,unlock:["crafting|lyxJob=true"],
+                btnTxt:"help Crafting",
+                costs:[{label:"Essence",quantity:5},{label:"Knowledge",quantity:5}],},                
+
+                {idx:7,visible:false,refPg:1,
                 title:"Lyxes - chapter 2 : Wood",toggleID:"",toggledTextID:"",
                 toggledText:"",altID:"lyxCh2B",altText:`
                 New Job/Skill unlocked for Lyxes : Lumberjack`,
@@ -90,7 +99,7 @@ let player = {
                 btnTxt:"Wood Problem",
                 costs:[{label:"Essence",quantity:2},{label:"Knowledge",quantity:2}],},
                 
-                {idx:7,visible:false,refPg:1,
+                {idx:8,visible:false,refPg:1,
                 title:"Lyxes - chapter 2 : Stone",toggleID:"",toggledTextID:"",
                 toggledText:"",altID:"lyxCh2B",altText:`
                 New Job/Skill unlocked for Lyxes : Miner`,
@@ -116,14 +125,12 @@ let player = {
     ],
 
     crafting:{
-        quantity:0,
-        baseCost:
-            [
+        lyxJob:false,
+        baseCost:[
              {label:"Raw Wood",quantity:1},
              {label:"Raw Stone",quantity:1}
             ],
-        crafters:[
-            ],
+        crafters:[],
     },
 
 
@@ -214,7 +221,9 @@ if (player.start){
     getPlObj("Knowledge").quantity = 100
 
     getPlObj("Raw Wood").quantity = 100
+    getPlObj("Raw Wood").locked = false
     getPlObj("Raw Stone").quantity = 100
+    getPlObj("Raw Stone").locked= false
     player.blueprints.push("Hut")
 
     info.innerHTML = `You found an old crystal ball in the Attic.<br>
@@ -251,6 +260,3 @@ function dispSpanCost(costs=[],asLine=true){
 
 function spanText(spanColor,spanTxt){return `<span style="color:`+spanColor+`;">`+spanTxt+"</span>"}
 
-player.crafting.quantity = 1
-let mya = crafterCost()
-console.log("Add a crafter<br>" + dispSpanCost(crafterCost()))
