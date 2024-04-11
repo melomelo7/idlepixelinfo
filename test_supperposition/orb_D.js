@@ -75,18 +75,21 @@ console.log(player.crafting)
                 }})
             }
     
-            addEle({dad:subCont,text:"Pick a recipe to craft"})
-
-
-
-
-        cleanParent(getID("craftingForkC"))
-        getID("craftingForkC").innerHTML = "Recipes"
-        player.blueprints.forEach(bp=>{
-            addEle({dad:getID("craftingForkC"),setClass:"clickBtn",text:bp,minWidth:"100px",
-            setID:"recipe:"+bp, setFunc:clickOnRecipe})  })
+            addEle({dad:subCont,text:"Pick a recipe to craft",setClass:"clickBtn",
+            setFunc:()=>{
+                cleanParent(getID("craftingForkC"))
+                getID("craftingForkC").innerHTML = "Recipes"
+                player.blueprints.forEach(bp=>{
+                addEle({dad:getID("craftingForkC"),setClass:"clickBtn",text:bp,
+                minWidth:"100px",setID:"recipe:"+bp, setFunc:clickOnRecipe})  })
 
         if(player.blueprints.length > 0){getID("craftingForkC").children[0].style.marginTop = "20px"}
+                }})
+
+
+
+
+        
         
     } else {
         txt = thisCrafter.label + " " + spanText("purple","Used")
