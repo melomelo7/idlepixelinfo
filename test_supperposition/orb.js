@@ -225,6 +225,8 @@ if (player.start){
     getPlObj("Raw Stone").quantity = 100
     getPlObj("Raw Stone").locked= false
     player.blueprints.push("Hut")
+    
+    player.crafting.lyxJob = true
 
     info.innerHTML = `You found an old crystal ball in the Attic.<br>
     when you grab it, you hear a whispering : "I have been expecting you.<br>
