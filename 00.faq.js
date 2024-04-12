@@ -254,7 +254,8 @@ const faqsArray = [
     {
     label : "Stars",
     icon : "star.jpg",
-    text : `Always wanted to make more money out of your resources ?<br><br>
+    text : `(Also called Badges ... dont ask me why)<br>
+            Always wanted to make more money out of your resources ?<br><br>
             Stars will help you do so. For each star you get a +20% base value.<br><br>
             So reaching 5 stars, a resource value is x2, at 10 stars x3 ....<br><br>
             Boost is always added to the "base value", so the power of stars will<br>
@@ -263,7 +264,16 @@ const faqsArray = [
             - Challenge reward<br>
             - Tournament reward<br>
             - Rover Missions reward<br><br><br>
-            You do not have control on stars, they are allocated at random.`,
+            You do not have control on stars, they are allocated at random.<br><br>
+            Partialy true as stars range from your day1 in the game unlocks<br>
+            until present day of play. In short the deeper you go unlocking new<br>
+            stuff the more the stars will spread into as many items.<br><br>`
+            + spanText("lime","Keep fewer unlocks will concentrate stars on basic items.") + `<br>` 
+            + spanText("lime","Earning faster credits to expand for new players.") + `<br><br>
+            This could be another "milestone" : I will unlock deeper when I reach<br>
+            X stars on item(s) Y & Z ... 
+            
+            `,
     url : "",
     img : "star.jpg",
     thisFunction : undefined,
