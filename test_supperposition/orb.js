@@ -5,7 +5,7 @@ const spanQuestion = `<span style="background-color:green;color:yellow;margin-le
 font-size:12px;border: solid 1px red;padding:0 4px;border-radius:5px;">?</span>`
 let timeFreeze = false
 
-const looperSpeed = 1000
+const looperSpeed = 250
 
 let player = {
     start:true,
@@ -113,7 +113,7 @@ let player = {
         },
 
 
-        {label:"Lyxes",backC:"coral",textC:"black",visible:false,skillTip:true},
+        {label:"Lyxes",backC:"coral",textC:"black",visible:true,skillTip:true},
         {label:"Crafting",backC:"brown",textC:"black",visible:true},
     ],
     blueprints:[],
@@ -225,8 +225,8 @@ if (player.start){
     getPlObj("Raw Stone").quantity = 100
     getPlObj("Raw Stone").locked= false
     player.blueprints.push("Hut")
-    
-    player.crafting.lyxJob = true
+    spawnLyx()
+//    getPlObj("Lyxes",1).visible = true
 
     info.innerHTML = `You found an old crystal ball in the Attic.<br>
     when you grab it, you hear a whispering : "I have been expecting you.<br>
@@ -262,3 +262,4 @@ function dispSpanCost(costs=[],asLine=true){
 
 function spanText(spanColor,spanTxt){return `<span style="color:`+spanColor+`;">`+spanTxt+"</span>"}
 
+player.crafting.lyxJob = true

@@ -21,11 +21,13 @@ function setTabCrafting(keyWord){
     addEle({dad:myTab,setID:"craftingInfo",borderB:"solid 2px beige",minHeight:"100px",marginT:"5px",text:
     "*!* After starting a Craft you can stop/cancel but costs are lost *!*"})
 
-    addEle({dad:myTab,text:"Add a crafter<br>" + dispSpanCost(crafterCost())})
+addEle({dad:myTab,setClass:"clickBtn",text:"show lyxes",setFunc:()=>{console.log(getPlObj("Lyxes").lyx)}})
+
+    addEle({dad:myTab,text:"Add a crafter, " + dispSpanCost(crafterCost())})
     let ownCost = true
     crafterCost().forEach(cst=>{if(checkCost(cst.label,cst.quantity,false)===false){ownCost=false}})
     if(ownCost){
-        addEle({dad:myTab,setClass:"clickBtn",text:"Add a crafter",setFunc:()=>{
+        addEle({dad:myTab,setClass:"clickBtn",text:"Add a crafter",minWidth:"200px",setFunc:()=>{
             crafterCost().forEach(cst=>checkCost(cst.label,cst.quantity))
             let srcObj = player.crafting
             txt = "Crafter " + (srcObj.crafters.length +1)
@@ -50,46 +52,65 @@ function displayCrafter(crafterID){
     if(timeFreeze){console.log("freeze");return}
 
     let thisCrafter = player.crafting.crafters.filter(cr=>cr.label==="Crafter "+crafterID.slice(crafterID.length-1))[0]
-    let myCont = getID("craftingForkB") 
-    cleanParent(myCont)
+    cleanParent(getID("craftingForkB"))
+    cleanParent(getID("craftingForkC"))
 
+//console.log(crafterID)
+//console.log(thisCrafter)
+//console.log(player.crafting)
 
-console.log(thisCrafter)
-console.log(player.crafting)
-
+    let myCont = getID("craftingForkB")
     if(thisCrafter.nowCrafting===""){
 
-        let subCont = addEle({dad:myCont,setClass:"mainTab",setID:"craftingRecipe",marginT:"20px",width:"fit-content"})
-            addEle({dad:subCont,text:thisCrafter.label + " " + spanText("lime","Available")})
+        let subCont = addEle({dad:myCont,setClass:"mainTab",setID:"craftingRecipe",width:"fit-content",
+        alignItems:"center"})
+            addEle({dad:subCont,text:thisCrafter.label + " " + spanText("lime","Available"),marginB:"10px"})
 
             if(thisCrafter.workerName==="" && player.crafting.lyxJob===true){
-                txt = "Assign a Lyx to work on this crafter<br>(automation: cost will include Lyx needs)"
-                addEle({dad:subCont,text:txt})
-                txt = thisCrafter.label + ": " + "Assign a Lyx"
-                addEle({dad:subCont,setClass:"clickBtn",text:txt,setFunc:(e)=>{
-                    console.log("set maLyx")
-                    cleanParent(getID("craftingForkC"))
-                    let myCont = getID("craftingForkC")
-                    txt = e.srcElement.innerHTML.split(":")[0]
-                    addEle({dad:myCont,text:"Available Lyxes for: " + txt})
+                let subCont2 = addEle({dad:subCont,setClass:"subTab"})
+                    txt = "Assign a Lyx to work on this crafter<br>(automation: cost will include Lyx needs)"
+                    addEle({dad:subCont2,text:txt})
+                    txt = thisCrafter.label + " : Assign Lyx"
+                    addEle({dad:subCont2,setClass:"clickBtn",text:txt,minWidth:"240px",setFunc:(e)=>{
+                        let thisCont = getID("craftingForkC")
+                        cleanParent(thisCont)
+                        txt = e.srcElement.innerHTML.split(" : ")[0] + " : Lyxes Available" 
+                        addEle({dad:thisCont,text:txt,setID:"lyxAssign"})
+//                        console.log(getPlObj("Lyxes").lyx)
+                        getPlObj("Lyxes").lyx.filter(lx=>lx.job===undefined).forEach(itm=>{
+                            addEle({dad:thisCont,setClass:"clickBtn",text:itm.name,minWidth:"100px",setFunc:(e)=>{
+                                txt = getID("lyxAssign").innerHTML.split(" : ")[0]
+                                player.crafting.crafters.filter(cr=>cr.label===txt)[0].workerName = e.srcElement.innerHTML
+                                getPlObj("Lyxes").lyx.filter(lx=>lx.name===e.srcElement.innerHTML)[0].job = "Craftman"
+
+                                displayCrafter(txt)
+//                                console.log(getPlObj("Lyxes").lyx.filter(lx=>lx.name===e.srcElement.innerHTML)[0])
+                            }})
+                        })
+//                        console.log("set maLyx => "+e.srcElement.innerHTML)
+                    }})
+            }
+            else if(thisCrafter.workerName!==""){
+                let subCont2 = addEle({dad:subCont,setClass:"subTab",text:"Lyx working here : " + thisCrafter.workerName})
+                txt = thisCrafter.label + " : remove working Lyx"
+                addEle({dad:subCont2,setClass:"clickBtn",text:txt,setFunc:(e)=>{ 
+                    txt = e.srcElement.innerHTML.split(" : ")[0]
+                    player.crafting.crafters.filter(cr=>cr.label===txt)[0].workerName = ""
+                    displayCrafter(txt)
                 }})
             }
     
-            addEle({dad:subCont,text:"Pick a recipe to craft",setClass:"clickBtn",
-            setFunc:()=>{
-                cleanParent(getID("craftingForkC"))
-                getID("craftingForkC").innerHTML = "Recipes"
+            addEle({dad:subCont,setClass:"clickBtn",text:"Pick a recipe to craft",minWidth:"240px",marginL:"0",setFunc:()=>{
+                let thisCont = getID("craftingForkC") 
+                cleanParent(thisCont)
+                thisCont.innerHTML = "Recipes :"
                 player.blueprints.forEach(bp=>{
-                addEle({dad:getID("craftingForkC"),setClass:"clickBtn",text:bp,
-                minWidth:"100px",setID:"recipe:"+bp, setFunc:clickOnRecipe})  })
-
-        if(player.blueprints.length > 0){getID("craftingForkC").children[0].style.marginTop = "20px"}
-                }})
-
+                    addEle({dad:thisCont,setClass:"clickBtn",text:bp,minWidth:"100px",
+                    setID:"recipe:"+bp, setFunc:clickOnRecipe})  })
+                    if(player.blueprints.length > 0){getID("craftingForkC").children[0].style.marginTop = "20px"}
+            }})
 
 
-
-        
         
     } else {
         txt = thisCrafter.label + " " + spanText("purple","Used")
@@ -120,6 +141,7 @@ function clickOnRecipe(e){
                 
                 player.loop.queue.push({
                     type:"timer",
+                    lyxSkill:false,
                     progress:0,
                     seconds:srcObj.unlockTime,
                     timerID:"unlockBP"+srcObj.label,

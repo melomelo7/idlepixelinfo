@@ -81,6 +81,7 @@ function setLyxDetails(lyxNm){
     cleanParent(myCont)
     let srcObj = getPlObj("Lyxes").lyx.filter(lx=>lx.name===lyxNm)[0]
     getID("lyxesInfo").innerHTML = ""
+    getPlObj("Lyxes").quantity = getPlObj("Lyxes").lyx.length
 
     addEle({dad:myCont,text:"Current Name : "+srcObj.name,margin:"10px 0 0 5px",setID:"lyxOldName"})
     let subCont = addEle({dad:myCont,setClass:"contRow",alignItems:"center"})
@@ -109,6 +110,8 @@ function setLyxDetails(lyxNm){
         if(srcObj.health.current < 1){btCol = "black"}
         addEle({dad:subCont,setClass:"clickBtn",text:txt,backC:btCol,setFunc:(e)=>{
             txt = e.srcElement.innerHTML.includes("Bury") ? "Bury" : e.srcElement.innerHTML
+            let thisLyx = undefined
+            let thisIdx = undefined
             switch(txt){
                 case "Set Job" :
                     getID("lyxesInfo").innerHTML="Click on a job in the List"
@@ -117,15 +120,25 @@ function setLyxDetails(lyxNm){
                     break
                 case "Fire" :
                     txt = getID("lyxOldName").innerHTML.split(" : ")[1]
-                    let thisLyx = getPlObj("Lyxes").lyx.filter(lx=>lx.name===txt)[0]
-                    thisLyx.job = undefined
-                    let thisIdx = player.loop.queue.findIndex(itm=>itm.type==="lyxJob" && itm.lyxName===thisLyx.name)
-                    player.loop.queue.splice(thisIdx,1)
-                    player.focusID = "lyx:" + getID("lyxOldName").innerHTML.split(" : ")[1]
-                    setTabLyxes("Lyxes")
+                    thisLyx = getPlObj("Lyxes").lyx.filter(lx=>lx.name===txt)[0]
+                    if(thisLyx.job === "Craftman"){
+                        getID("lyxesInfo").innerHTML="A Craftman is Hired/Fired in the Crafting Tab"
+                    } else {
+                        thisLyx.job = undefined
+                        thisIdx = player.loop.queue.findIndex(itm=>itm.type==="lyxJob" && itm.lyxName===thisLyx.name)
+                        player.loop.queue.splice(thisIdx,1)
+                        player.focusID = "lyx:" + getID("lyxOldName").innerHTML.split(" : ")[1]
+                        setTabLyxes("Lyxes")
+                    }
                     break
                 case "Bury" :
-                    info.innerHTML = "kill !"+e.srcElement.innerHTML.split("Bury ")[1]
+                    console.log()
+                    txt = getID("lyxOldName").innerHTML.split(" : ")[1]
+                    thisLyx = getPlObj("Lyxes").lyx.filter(lx=>lx.name===txt)[0]
+                    thisIdx = getPlObj("Lyxes").lyx.findIndex(itm=>itm.name===thisLyx.name)
+                    player.focusTxt = "Rest in peace " + thisLyx.name + " ..."
+                    getPlObj("Lyxes").lyx.splice(thisIdx,1)
+                    setTabLyxes("Lyxes")
                     break
                 default : info.innerHTML = "unknown" + e.srcElement.innerHTML
             }

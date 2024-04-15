@@ -50,6 +50,7 @@ function setTabGrimoire(keyWord){
                         player.loop.queue.push({
                             callBtnID:myBt.id,
                             type:"study",
+                            lyxSkill:false,
                             payFront:false,
                             priority:2,
                             costs:getPlObj("Knowledge").costs,
@@ -159,7 +160,7 @@ function grimoireBtn(btnText){
         srcObj.costs.forEach(cst=>{checkCost(cst.label,cst.quantity)})
         pageItmUnlocks(srcObj.unlock)
         if(btnText.includes("Free a Lyx")){
-            if(getPlObj("Lyxes").quantity === 0){
+            if(getPlObj("Lyxes").locked === true){
                 getPlObj("Lyxes").locked = false
                 info.innerHTML = `
                 "Lyxes ? That will add some spice, for sure"<br>
@@ -269,7 +270,7 @@ function queueManager(){
     cpt++
     let queue = player.loop.queue
     let ownCost = undefined
-
+    let thisLyx = undefined
 
     let payFrontArr = queue.filter(itm=>itm.payFront===true).sort((a,b)=>a.priority - b.priority)
     let othersArr = queue.filter(itm=>itm.payFront!==true)
@@ -282,7 +283,7 @@ function queueManager(){
     }) })
 
     payFrontArr.forEach(itm=>{
-        let thisLyx = undefined
+        
         if(itm.type==="lyxJob"){thisLyx = getPlObj("Lyxes").lyx.filter(lx=>lx.name===itm.lyxName)[0]}
         itm.costs.forEach(cst=>{
             let ownCost = checkCost(cst.label,cst.quantity,true,false,true,true)
