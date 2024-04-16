@@ -216,53 +216,7 @@ function pageItmUnlocks(unlocks){
     })
 }
 
-/*
-function actionBtns(e){
 
-    let btFocus = e.srcElement.id.split("Btn")[0].toLowerCase()
-    let focus = ""
-    let type = ""
-    info.innerHTML = ""
-    switch(btFocus){
-        case "study":focus = "Knowledge" ; type = "loop" ;break
-
-        default : info.innerHTML = "Unknown Action" 
-    }
-    
-    if(e.srcElement.innerHTML!=="Stop")
-        {action({lbl:focus,srcBtnID:e.srcElement.id,type:type})}
-    else
-        {action({lbl:focus,run:false})}
-}
-
-
-function action({lbl="",srcBtnID=undefined,type="",run=true}){
-    let looper = undefined
-    if(run){
-        lockOrb()
-        let srcObj = getPlObj(lbl)
-        looper = player.loop
-        looper.queue.push(new queueItm({
-            label:srcObj.label,
-            type:type,
-            srcElID:srcBtnID,
-            srcElTxt: getID(srcBtnID).innerHTML,
-            srcElCol:getID(srcBtnID).style.backgroundColor,
-            costs:srcObj.costs,
-            payout:srcObj.payout,
-        }))
-        if(looper.id===undefined){looper.id = setInterval(queueManager,1000)}
-    } else {
-        looper = player.loop
-        let idx = looper.queue.findIndex(x=>x.label===lbl)
-        let itm = looper.queue[idx]
-        getID(itm.srcElID).style.backgroundColor = itm.srcElCol
-        getID(itm.srcElID).innerHTML = itm.srcElTxt
-        looper.queue.splice(idx,1)
-        if(looper.queue.filter(itm=>itm.isAction).length===0){lockOrb(false)}
-    }
-}
-*/
 
 
 let cpt = 0
@@ -271,23 +225,30 @@ function queueManager(){
     let queue = player.loop.queue
     let ownCost = undefined
     let thisLyx = undefined
+    let thisIdx = undefined
 
     let payFrontArr = queue.filter(itm=>itm.payFront===true).sort((a,b)=>a.priority - b.priority)
     let othersArr = queue.filter(itm=>itm.payFront!==true)
 
-    let skillArr = queue.filter(
-        itm=>itm.type.includes("lyx") ||
-        itm.type.includes("Lyx")
-        )
+    let skillsArr = queue.filter(itm=>itm.type.includes("lyx") || itm.type.includes("Lyx"))
+
 
     payFrontArr.forEach(itm=>{ itm.payout.forEach(pay=>{
         getPlObj(pay.label).locked = false
-        checkCost(pay.label,pay.quantity,false,true)
+        if(itm.type.includes("lyx") || itm.type.includes("Lyx")){
+            thisLyx = getPlObj("Lyxes").lyx.filter(lx=>lx.name===itm.lyxName)[0]
+            thisIdx = thisLyx.skills.findIndex(sk=>sk.label===thisLyx.job)
+            if(thisIdx > -1)
+                 {checkCost(pay.label,(pay.quantity*(thisLyx.skills[thisIdx].level+1)),false,true)}
+            else {checkCost(pay.label,pay.quantity,false,true)}
+        } 
+        else {checkCost(pay.label,pay.quantity,false,true)}
     }) })
 
     payFrontArr.forEach(itm=>{
         
-        if(itm.type==="lyxJob"){thisLyx = getPlObj("Lyxes").lyx.filter(lx=>lx.name===itm.lyxName)[0]}
+        if(itm.type.includes("lyx") || itm.type.includes("Lyx"))
+            {thisLyx = getPlObj("Lyxes").lyx.filter(lx=>lx.name===itm.lyxName)[0]}
         itm.costs.forEach(cst=>{
             let ownCost = checkCost(cst.label,cst.quantity,true,false,true,true)
             if(ownCost===false && thisLyx!==undefined){thisLyx.health.current--}
@@ -343,67 +304,17 @@ function queueManager(){
         }
     })
 
-    skillArr.forEach(itm=>
+
+    skillsArr.forEach(itm=>{
         thisLyx = getPlObj("Lyxes").lyx.filter(lx=>lx.name===itm.lyxName)[0]
-        itm.payout.forEach(pay=>
-            thisLyx.skills.forEach(sk=>
-                if(sk.label===pay.label){
-                    sk.progress += .5
-                    if(sk.progress>=sk.next){
-                        
-                        }
-                    }
-                )
-            )
-    
-    )
-
-/*
-    player.loop.queue.forEach(itm=>{
-        switch(itm.type){
-            case "study" :
-                ownCost = true
-                itm.costs.forEach(cst=>{if(checkCost(cst.label,cst.quantity,false)===false){ownCost=false}})
-                if(ownCost){
-                    itm.costs.forEach(cst=>{checkCost(cst.label,cst.quantity)})
-                    itm.payout.forEach(pay=>{checkCost(pay.label,pay.quantity,false,true)})
-                    upOrb(false)
-                    if(player.focusID!==undefined){getID(player.focusID).click()}
-                } else { getID(itm.callBtnID).click() }
-                break
-            case "lyxJob" :
-                let thisLyx = getPlObj("Lyxes").lyx.filter(lx=>lx.name===itm.lyxName)[0]
-
-                itm.payout.forEach(pay=>{
-                    getPlObj(pay.label).locked = false
-                    checkCost(pay.label,pay.quantity,false,true)
-                })
-
-                itm.costs.forEach(cst=>{
-
-
-                    ownCost = checkCost(cst.label,cst.quantity)
-                    if(ownCost===false){
-                        thisLyx.health.current = (thisLyx.health.current-1) < 0 ? 0 : thisLyx.health.current -1
-                        if(player.activeTab==="Lyxes"){
-                            getID("lyx:"+itm.lyxName).innerHTML = itm.lyxName + "<br>" +
-                            thisLyx.health.label + thisLyx.health.current + "/" + thisLyx.health.cap
-                        }
-                    }
-                    
-                })
-
-                if(thisLyx.homeless){
-                    thisLyx.health.current = (thisLyx.health.current-1) < 0 ? 0 : thisLyx.health.current -1
-                }
-
-                break
-            default : console.log("Unknown time loop queue item type : "+itm.type)
-        }
+        thisLyx.skills.forEach(sk=>{
+            if(sk.label===thisLyx.job){
+                sk.progress += 20
+                if(sk.progress>=sk.next){sk.next *= 10;sk.level += 1}
+            }
+        })
     })
 
-
-    */
 
     if(player.loop.queue.length===0){ clearInterval(player.loop.id) ; player.loop.id = undefined }
 

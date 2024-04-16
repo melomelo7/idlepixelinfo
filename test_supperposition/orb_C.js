@@ -39,15 +39,14 @@ function setTabLyxes(keyWord){
 
                     player.loop.queue.push({
                         type:"lyxJob",
+                        lyxSkill:true,
                         lyxName:getID("lyxOldName").innerHTML.split(" : ")[1] ,
                         payFront:true,
                         priority:mySkill.priority,
                         costs:getPlObj("Lyxes").jobCosts,
                         payout:mySkill.payout,
                     })
-
                     startLooper()
-//                    if(player.loop.id===undefined){player.loop.id = setInterval(queueManager,1000)}
 
                     for(let i=0;i<getID("lyxesForkA").children.length;i++)
                         {getID("lyxesForkA").children[i].style.backgroundColor = "rgb(88, 62, 49)"}
@@ -68,7 +67,8 @@ function setTabLyxes(keyWord){
         let myCol = lx.health.current > 0 ? "#583E31" : "crimson"
         addEle({dad:getID("lyxesForkB"),setClass:"clickBtn",setID:"lyx:"+lx.name,backC:myCol,
     text:txt,minWidth:"100px",setFunc:(e)=>{setLyxDetails(e.srcElement.id.split(":")[1])}}) })
-    getID("lyxesForkB").children[0].style.marginTop = "10px"
+    if(getID("lyxesForkB").children.length > 0){getID("lyxesForkB").children[0].style.marginTop = "10px"}
+    
 
     if(player.focusID!==undefined){getID(player.focusID).click() ; player.focusID = undefined}
     if(player.focusTxt!==undefined){getID("lyxesInfo").innerHTML=player.focusTxt  ; player.focusTxt = undefined}
@@ -132,12 +132,12 @@ function setLyxDetails(lyxNm){
                     }
                     break
                 case "Bury" :
-                    console.log()
                     txt = getID("lyxOldName").innerHTML.split(" : ")[1]
                     thisLyx = getPlObj("Lyxes").lyx.filter(lx=>lx.name===txt)[0]
                     thisIdx = getPlObj("Lyxes").lyx.findIndex(itm=>itm.name===thisLyx.name)
                     player.focusTxt = "Rest in peace " + thisLyx.name + " ..."
                     getPlObj("Lyxes").lyx.splice(thisIdx,1)
+                    getPlObj("Lyxes").quantity = getPlObj("Lyxes").lyx.length
                     setTabLyxes("Lyxes")
                     break
                 default : info.innerHTML = "unknown" + e.srcElement.innerHTML
@@ -150,7 +150,8 @@ function setLyxDetails(lyxNm){
         addEle({dad:subCont,setClass:"clickBtn",text:"Set Job as Skill",backC:"blue",display:txt,setFunc:(e)=>{
             txt = getID("lyxOldName").innerHTML.split(" : ")[1]
             let thisLyx = getPlObj("Lyxes").lyx.filter(lx=>lx.name===txt)[0]
-            thisLyx.skills.push({label:getID("lyxJob").innerHTML.split(" : ")[1],prgress:0,next:100}) 
+            thisLyx.skills.push(
+                {label:getID("lyxJob").innerHTML.split(" : ")[1],level:0,progress:0,next:100}) 
             player.focusID = "lyx:" + getID("lyxOldName").innerHTML.split(" : ")[1]
             setTabLyxes("Lyxes")
             }})

@@ -5,7 +5,7 @@ const spanQuestion = `<span style="background-color:green;color:yellow;margin-le
 font-size:12px;border: solid 1px red;padding:0 4px;border-radius:5px;">?</span>`
 let timeFreeze = false
 
-const looperSpeed = 250
+const looperSpeed = 200
 
 let player = {
     start:true,
@@ -179,7 +179,7 @@ let thisCont = addEle({dad:body,setClass:"contRow",width:"100%"})
 
                 let orbWord = addEle({dad:orbFr,what:"input",isInput:true,setFunc:sayWord,
                 backC:"grey", paddingL:"5px",height:"20px",width:"100px",
-                border:"blue solid 3px",radius:"5px",marginL:"5px",display:"none"})
+                border:"blue solid 3px",radius:"5px",marginL:"5px",visibility:"hidden"})
 
             let orbSpellsFr = addEle({dad:orbTab,setClass:"contCol",marginL:"10px",
             maxHeight:"100px",overflow:"auto",minWidth:"300px",})

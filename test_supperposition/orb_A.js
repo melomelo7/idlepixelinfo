@@ -259,7 +259,7 @@ fluidColor="white",clickFunc=undefined}){
 function setOrbF(value){orbF.style.top = (100-value) + "%"}
 function setOrbT(text){orbT.innerHTML = text}
 
-function seeOrbWord(see=true){let myVal = see ? "block" : "none" ; orbWord.style.display = myVal ; orbWord.value = ""}
+function seeOrbWord(see=true){let myVal = see ? "visible" : "hidden" ; orbWord.style.visibility = myVal ; orbWord.value = ""}
 
 function lockOrb(doIt=true){
     orbLock = doIt
@@ -275,17 +275,6 @@ function getSpell(text){
     for(let i=0;i<orbSpells.length;i++){if(orbSpells[i].label===text){return orbSpells[i]}}
 }
 
-/*
-function getRes(res){
-    let obj = player.resources
-    for(let i=0;i<obj.length;i++){if(obj[i].label===res){return obj[i]}}
-}
-
-function getRes(lbl){
-    let obj = player.tabs
-    for(let i=0;i<obj.length;i++){if(obj[i].label===res){return obj[i]}}
-}
-*/
 
 function startLooper(){
     if(player.loop.id===undefined){player.loop.id = setInterval(queueManager,looperSpeed)}
@@ -339,18 +328,13 @@ function spit({text="",args=[]}){
     }
 }
 
-
+/*
 class queueItm {
     constructor({label="",type="",timer=undefined,srcElID="",
         srcElTxt="",srcElCol="",costs=[],payout=[],isAction=true})
         {this.label=label,this.type=type,this.timer=timer,
         this.srcElID=srcElID,this.srcElTxt=srcElTxt,this.srcElCol=srcElCol,
         this.costs=costs,this.payout=payout,this.isAction=isAction}
-}
-
-/*
-class clock {constructor(location="",resource="",btnID="",progressID="",time=0)
-    {this.location=location,this.resource=resource,this.btnID=btnID,this.progressID=progressID,this.time=time}
 }
 */
 
