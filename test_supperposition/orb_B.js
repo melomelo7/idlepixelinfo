@@ -345,7 +345,10 @@ function queueManager(){
 
     skillArr.forEach(itm=>
         thisLyx = getPlObj("Lyxes").lyx.filter(lx=>lx.name===itm.lyxName)[0]
-        
+        itm.payout.forEach(pay=>
+            
+            
+            )
     
     )
 
