@@ -275,7 +275,10 @@ function queueManager(){
     let payFrontArr = queue.filter(itm=>itm.payFront===true).sort((a,b)=>a.priority - b.priority)
     let othersArr = queue.filter(itm=>itm.payFront!==true)
 
-
+    let skillArr = queue.filter(
+        itm=>itm.type.includes("lyx") ||
+        itm.type.includes("Lyx")
+        )
 
     payFrontArr.forEach(itm=>{ itm.payout.forEach(pay=>{
         getPlObj(pay.label).locked = false
@@ -340,6 +343,11 @@ function queueManager(){
         }
     })
 
+    skillArr.forEach(itm=>
+        thisLyx = getPlObj("Lyxes").lyx.filter(lx=>lx.name===itm.lyxName)[0]
+        
+    
+    )
 
 /*
     player.loop.queue.forEach(itm=>{
