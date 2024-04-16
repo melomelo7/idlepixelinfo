@@ -272,7 +272,6 @@ const faqsArray = [
             + spanText("lime","Earning faster credits to expand for new players.") + `<br><br>
             This could be another "milestone" : I will unlock deeper when I reach<br>
             X stars on item(s) Y & Z ... 
-            
             `,
     url : "",
     img : "star.jpg",
@@ -321,7 +320,23 @@ const faqsArray = [
             Long story short, Platinum is top shelf, dont expect to score good<br>
             if you did not build up for some time in lower leagues.<br>
             Even in non-Platinum sometimes you will encounter very strong<br>
-            players either fallen for whatever reason, or there on purpose.<br>
+            players either fallen for whatever reason, or there on purpose.<br><br>
+            Out of curiosity, a `+spanText("lime","little experiment")+` : 
+            See what a `+spanText("lime","Copper Tournament")+`<br>
+            would be like `+spanText("lime","mid April 2024")+` ... Any Sand(or Douche)-baggers ?<br>
+            Yep there was 1 ... more a big Douche than a regular Sand-bagger<br>
+            went to [ab] magnitude ... while the 2nd was only a [T] magnitude ...<br>
+            Very likely a cheater else how to explain the waste of more than 10K DM...<br>
+            Anyways this particular tournament would pay reaching these :<br><br>
+            - Rank [`+spanText("lime","1")+`] sorry we have our "friend" here so let's skip<br>
+            - Rank [`+spanText("lime","2")+`] sitting at `+spanText("lime","11 T")+`<br>
+            - Rank `+spanText("lime","3~5")+` reach `+spanText("lime","30~50 B")+`<br>
+            - Rank `+spanText("lime","6~10")+` reach `+spanText("lime","13~29 B")+`<br>
+            - Rank `+spanText("lime","11~20")+` reach `+spanText("lime","4~12 B")+`<br>
+            - Rank `+spanText("lime","21~30")+` reach `+spanText("lime","1.5~3.5 B")+`<br>
+            - Rank `+spanText("lime","31~40")+` reach `+spanText("lime","860 M~1.5 B")+`<br>
+            - Rank `+spanText("lime","41~50")+` reach `+spanText("lime","450 M~830 M")+`<br>
+            - Rank `+spanText("lime","51~75")+` reach `+spanText("lime","74 M~400 M")+`<br>
             `,
     url : "",
     img : "",
