@@ -347,10 +347,13 @@ function queueManager(){
         thisLyx = getPlObj("Lyxes").lyx.filter(lx=>lx.name===itm.lyxName)[0]
         itm.payout.forEach(pay=>
             thisLyx.skills.forEach(sk=>
-                
-                
+                if(sk.label===pay.label){
+                    sk.progress += .5
+                    if(sk.progress>=sk.next){
+                        
+                        }
+                    }
                 )
-            
             )
     
     )
