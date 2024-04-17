@@ -511,15 +511,16 @@ function displayPg(e){
     addEle({dad:myCont,backC:"yellow",fontS:"30px",text:srcObj.title,
     textA:"center",margin:"10px",padding:"10px",radius:"5px",fontB:"bold"})
 
-    if(srcObj.subTitle!==""){ addEle({dad:myCont,fontS:"22px",text:srcObj.subTitle,
-        textA:"center",margin:"0",padding:"10px",radius:"5px",fontB:"bold"})}
+    if(srcObj.subTitle!==""){ 
+        addEle({dad:myCont,fontS:"22px",text:srcObj.subTitle,margin:"0 10px 10px 10px",
+        padding:"10px", textA:"center",backC:"beige",radius:"5px",fontB:"bold"})}
 
     if(srcObj.content2===""){
         mc = srcObj.contentBC === "" ? "beige" : srcObj.contentBC
         addEle({dad:myCont,margin:"0 10px 10px 10px",padding:"10px",border:"red solid 2px",
         radius:"5px",fontB:"bold",backC:mc,text:srcObj.content,fontS:"20px",width:"fit-content"})
     } else {
-        let subCont = addEle({dad:myCont,setClass:"contRow"})
+        let subCont = addEle({dad:myCont,setClass:"contRow",justifyC:"center"})
         mc = srcObj.contentBC === "" ? "beige" : srcObj.contentBC
         addEle({dad:subCont,margin:"0 10px 10px 10px",padding:"10px",border:"red solid 2px",
         radius:"5px",fontB:"bold",backC:"beige",text:srcObj.content,fontS:"20px",width:"fit-content"})
