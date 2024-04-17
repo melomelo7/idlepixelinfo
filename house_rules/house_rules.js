@@ -207,7 +207,7 @@ const frame = addEle({dad:body,setClass:"contRow",height:"100%"})
     const menu = addEle({dad:frame,setClass:"leftMenu"})
     const content = addEle({dad:frame,setClass:"contCol"})
     
-let BtS = 220
+let BtS = 240
     
 addEle({dad:menu,setClass:"clickBtn",text:"ホーム",minWidth:BtS+"px",setFunc:()=>{
     cleanParent(content)
