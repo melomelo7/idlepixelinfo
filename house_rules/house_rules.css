@@ -22,7 +22,7 @@ body {
 
 .leftMenu {
     height: 100%;
-    width: 250px;
+    width: 300px;
     border-right: solid red 2px;
     display: flex;
     flex-direction: column;
@@ -39,5 +39,5 @@ body {
     height: fit-content;
     width: fit-content;
     margin: 5px;
-    font-size: 18px;
+    font-size: 20px;
 }
