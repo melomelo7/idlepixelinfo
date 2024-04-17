@@ -5,7 +5,7 @@ const spanQuestion = `<span style="background-color:green;color:yellow;margin-le
 font-size:12px;border: solid 1px red;padding:0 4px;border-radius:5px;">?</span>`
 let timeFreeze = false
 
-const looperSpeed = 200
+const looperSpeed = 1000
 
 let player = {
     start:true,
@@ -231,6 +231,7 @@ if (player.start){
     info.innerHTML = `You found an old crystal ball in the Attic.<br>
     when you grab it, you hear a whispering : "I have been expecting you.<br>
     Rub me and say the words [lok nir]" ... Curious you decide to try ...`
+
 }
 
 
@@ -262,4 +263,3 @@ function dispSpanCost(costs=[],asLine=true){
 
 function spanText(spanColor,spanTxt){return `<span style="color:`+spanColor+`;">`+spanTxt+"</span>"}
 
-player.crafting.lyxJob = true

@@ -18,6 +18,7 @@ function setTabCrafting(keyWord){
     let myTab = getID("tab"+keyWord)
     cleanParent(myTab)
     
+
     addEle({dad:myTab,setID:"craftingInfo",borderB:"solid 2px beige",minHeight:"100px",marginT:"5px",text:
     "*!* After starting a Craft you can stop/cancel but costs are lost *!*"})
 
