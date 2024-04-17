@@ -193,14 +193,6 @@ function addEle({
     return thisObj
 }
 
-/*
-const body = document.querySelector("body")
-  const frame = addEle({dad:body,setClass:"contRow",height:"100%"})
-    const menu = addEle({dad:frame,setClass:"leftMenu"})
-    const main = addEle({dad:frame,setClass:"contCol",alignItems:"center",height:"100%"})
-      addEle({dad:main,what:"img",imgSrc:"house_rules.jpg",imgSize:490})
-      const content = addEle({dad:main,setClass:"contCol"})
-*/
 
 const body = document.querySelector("body")
 const frame = addEle({dad:body,setClass:"contRow",height:"100%"})
