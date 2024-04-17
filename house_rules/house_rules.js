@@ -348,9 +348,9 @@ const pages = [
     contentBC:"",
     content:`
     ✖　正しくない　✖<br><br>
-    ■お味の方はいかがでしたか？​<br>
-    ■～でよろしかったでしょうか​<br>
-    ■～円からお預かり致します​<br><br>
+    ■お味の`+spanText("red","方は")+`いかがでしたか？​<br>
+    ■～でよろし`+spanText("red","かった")+`でしょうか​<br>
+    ■～円`+spanText("red","から")+`お預かり致します​<br><br>
     ■すみません​<br>
     ■客／お客さん<br>
     ■（料理名）になります​<br>
@@ -366,7 +366,7 @@ const pages = [
     ■お客様はこちらを注文されました​<br>
     （注文間違いの際の対応）​
     `,
-    content2BC:"dodgerblue",
+    content2BC:"coral",//"dodgerblue",
     content2:`
     〇　正しい　〇<br><br>
     ■お味はいかがでしたか？<br> 
@@ -415,7 +415,7 @@ const pages = [
     content:`
     <span style="background-color:yellow;font-size:22px;">&nbsp;&nbsp;&nbsp;&nbsp;勤務中&nbsp;&nbsp;&nbsp;&nbsp;</span><br>
     ・身だしなみ、姿勢を正し`+spanText("red","お客様最優先")+`で行動します​<br>
-    &nbsp;&nbsp;&nbsp;優先順位　①お客様　②料理　③作業​<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;優先順位　①お客様　②料理　③作業​<br>
     ・陽気なイタリア人は`+spanText("red","いつも笑顔で元気")+`です。是非、全力で真似しましょう。​<br>
     ・トイレなどで`+spanText("red","持ち場を離れる際は必ず責任者に報告し許可を得て")+`下さい。​<br>
     ・勤務中の`+spanText("red","私用電話、携帯電話（所持する場合は電源OFF）は禁止")+`です。<br>
