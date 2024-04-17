@@ -495,12 +495,6 @@ const pages = [
 pages.forEach(itm=>{addEle({dad:menu,setClass:"clickBtn",text:itm.title,minWidth:BtS+"px",setFunc:displayPg})}) 
 menu.children[0].style.marginTop = "20px"
 
-addEle({dad:menu,text:"♦ ♦ ♦",fontS:"20px"})
-addEle({dad:menu,setClass:"clickBtn",text:"バックの白・黒切り替え",minWidth:BtS+"px",setFunc:()=>{
-    body.style.backgroundColor =
-    body.style.backgroundColor === "" || body.style.backgroundColor === "white" ?
-    "black" : "white"
-}})
 
 function displayPg(e){
     cleanParent(content)
