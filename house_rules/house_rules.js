@@ -486,7 +486,7 @@ const pages = [
 
 pages.forEach(itm=>{addEle({dad:menu,setClass:"clickBtn",text:itm.title,minWidth:BtS+"px",setFunc:displayPg})}) 
 menu.children[0].style.marginTop = "20px"
-
+menu.children[0].click()
 
 function displayPg(e){
     cleanParent(content)
