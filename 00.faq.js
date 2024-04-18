@@ -98,7 +98,9 @@ const faqsArray = [
             Now if you want a starting "milestone", selling becomes<br>
             available upon reaching 10M and at~12.5M you can fetch 1<br>
             more credit for a little extra time. Keep this as your first<br>
-            milestone until you figure out the next.`,
+            milestone until you figure out the next.<br><br>
+            `+ spanText("lime",'* Make sure you read the faq : "Stars" *') +`
+            `,
     url : "",
     img : "",
     thisFunction : undefined,
