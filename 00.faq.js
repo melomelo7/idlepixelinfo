@@ -480,7 +480,7 @@ function starPool(container){
         padding:"10px",alignItems:"center",marginT:"30px"})
         txt = "From what I've seen, the current "+ spanText("lime","basic/minimal star pool") +" contains :"
         addEle({dad:mycont,text:txt})
-        txt = `- 6 basic ores (Copper ~ Aluminium)<br>- 6 basic bars/alloys 
+        txt = `- 5 basic ores (Copper ~ Aluminium)<br>- 5 basic bars/alloys 
         (Copper ~ Aluminium)<br>- 5 basic items (Copper Wire ~ Glass)`
         addEle({dad:mycont,text:txt,textC:"lime"})
 }
