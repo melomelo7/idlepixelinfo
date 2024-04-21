@@ -276,8 +276,8 @@ const faqsArray = [
             X stars on item(s) Y & Z ... 
             `,
     url : "",
-    img : "star.jpg",
-    thisFunction : undefined,
+    img : "",
+    thisFunction : starPool,
     },
     {
     label : "Challenge",
@@ -473,6 +473,16 @@ function faqButton(e,subContainerB){
         if (thisElement.thisFunction) {
             thisElement.thisFunction(thisContainer)
         }
+}
+
+function starPool(container){
+    let mycont = addEle({dad:container,setClass:"contCol",border:"solid blue 2px",radius:"10px",
+        padding:"10px",alignItems:"center",marginT:"30px"})
+        txt = "From what I've seen, the current "+ spanText("lime","basic/minimal star pool") +" contains :"
+        addEle({dad:mycont,text:txt})
+        txt = `- 6 basic ores (Copper ~ Aluminium)<br>- 6 basic bars/alloys 
+        (Copper ~ Aluminium)<br>- 5 basic items (Copper Wire ~ Glass)`
+        addEle({dad:mycont,text:txt,textC:"lime"})
 }
 
 function setBeacon(container){
