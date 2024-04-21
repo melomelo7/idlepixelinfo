@@ -478,7 +478,7 @@ function faqButton(e,subContainerB){
 function starPool(container){
     let mycont = addEle({dad:container,setClass:"contCol",border:"solid blue 2px",radius:"10px",
         padding:"10px",alignItems:"center",marginT:"30px"})
-        txt = "From what I've seen, the current "+ spanText("lime","basic/minimal star pool") +" contains :"
+        txt = "From what I've seen, the current "+ spanText("lime","starting/minimal star pool") +" contains :"
         addEle({dad:mycont,text:txt})
         txt = `- 5 basic ores (Copper ~ Aluminium)<br>- 5 basic bars/alloys 
         (Copper ~ Aluminium)<br>- 5 basic items (Copper Wire ~ Glass)`
