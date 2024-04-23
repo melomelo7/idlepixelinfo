@@ -903,7 +903,7 @@ function buildPlanets(){
             }
         }
     }})    
-    thisBt.addEventListener("mouseover",()=>{tabInfos.innerHTML = "Pick 1 ore, see which planets provide it (result best => worst planet)"})
+    thisBt.addEventListener("mouseover",()=>{tabInfos.innerHTML = "Pick 1 ore, see which planets provide it (result by % yield)"})
     thisBt.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
 
 
