@@ -791,9 +791,7 @@ planetsArray.push(
 )
 
 function buildPlanets(){
-
     let textSize = 18
-
     let tabInfos = addEle({dad:right,setClass:"texting",fontS:textSize+"px",
     height:textSize *2 + "px",marginL:textSize+"px",textC:"rgb(0,212,250)"})
 
@@ -933,34 +931,20 @@ function buildPlanets(){
     thisBt.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
 
 
-
-
-
-
-
-    myDiv = AddADiv(rightTop)
-    myDiv.style = closeButtonStyle
-    myDiv.style.marginLeft = 10 + "px"
-    myDiv.style.backgroundColor = "#BB482E"
-    myDiv.style.color ="yellow"
-    myDiv.innerHTML = "Private List"
-    myDiv.setAttribute("id","privatePlanets")
-    myDiv.addEventListener("mouseover",()=>{tabInfos.innerHTML = 
-        `Click on a Planet Image to Add/Remove it from YOUR list<br>
-         then click on the Private List to filter your own selection`})
-    myDiv.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
-    myDiv.addEventListener("click",function(){
+    thisBt = addEle({dad:rightTop,setClass:"button1",marginL:"10px",text:"Private List",backC:"#BB482E",textC:"yellow",
+    setID:"privatePlanets",setFunc:()=>{
         info.innerHTML = infoTitle
         cleanParent(rightMiddle) 
         cleanParent(rightBottom)
         displayPlanets(rightBottom,planetsArray.filter(x=>x.selected))
-        let thisElement = AddADiv(rightMiddle)
-        thisElement.style.margin = "0 0 10px 20px"
-        thisElement.style.fontSize = 20 + "px"
-        thisElement.innerHTML = `( you may click on planets from any list : Full,Telescope or Finds )<br>
+        txt = `( you may click on planets from any list : Full,Telescope or Finds )<br>
         ** Hint : this Private List might help you chose Rover mission **`
-    })
-
+        addEle({dad:rightMiddle,margin:"0 0 10px 20px",fontS:"20px",text:txt})
+    }})
+    thisBt.addEventListener("mouseover",()=>{tabInfos.innerHTML = 
+        `Click on a Planet Image to Add/Remove it from YOUR list<br>
+         then click on the Private List to filter your own selection`})
+    thisBt.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
     }
 
 
