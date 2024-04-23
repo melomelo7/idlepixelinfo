@@ -57,6 +57,7 @@ function addEle({
     tableLayout = "",
     imgSize = "",
     imgSrc = "",
+    imgFullSrc = "",
     position = "",
     top = "",
     zIdx = "",
@@ -71,7 +72,9 @@ function addEle({
         if(what==="img" || what==="image"){
             if(imgSize===""){thisObj = new Image()}
             else{thisObj = new Image(imgSize,imgSize)}
-            thisObj.src = path1 + imgSrc + path2
+            if(imgFullSrc!=="")
+                {thisObj.src = imgFullSrc}
+            else{thisObj.src = path1 + imgSrc + path2}
             }
         else
             {thisObj = document.createElement(what)}
@@ -97,7 +100,7 @@ function addEle({
             case "div" : case "td" : thisObj.addEventListener("click",setFunc) ; break
             case "radio" : case "range" : case "checkbox" : thisObj.addEventListener("change",setFunc) ; break
             case "input" : thisObj.addEventListener("input",setFunc) ; break
-
+            case "img" : thisObj.addEventListener("click",setFunc) ; break
             default : console.log("missing correct addeventlistener here")
             } 
         }
@@ -196,3 +199,5 @@ function addEle({
 }
 
 function spanText(spanColor,spanTxt){return `<span style="color:`+spanColor+`;">`+spanTxt+"</span>"}
+
+function getID(id){return document.getElementById(id)}

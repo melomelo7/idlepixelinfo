@@ -793,156 +793,132 @@ planetsArray.push(
 function buildPlanets(){
 
     let textSize = 18
-    let tabInfos = document.createElement("div")
-    right.appendChild(tabInfos)
-    tabInfos.innerHTML = ""
-    tabInfos.style = textStyle
-    tabInfos.style.fontSize = textSize + "px"
-    tabInfos.style.height = textSize *2 + "px"
-    tabInfos.style.marginLeft = textSize + "px"
-    tabInfos.style.color = "rgb(0,212,250)"
 
-    let rightTop = document.createElement("div")
-    rightTop.style = containerRow
-    right.appendChild(rightTop)
+    let tabInfos = addEle({dad:right,setClass:"texting",fontS:textSize+"px",
+    height:textSize *2 + "px",marginL:textSize+"px",textC:"rgb(0,212,250)"})
 
-    let rightMiddle = document.createElement("div")
-    rightMiddle.style = containerRow
-    rightMiddle.setAttribute("id","rightMiddle")
-    right.appendChild(rightMiddle)
-
-    let rightBottom = document.createElement("div")
-    rightBottom.style = containerColumn
-    right.appendChild(rightBottom)
+    let rightTop = addEle({dad:right,setClass:"contRow_W"})
+    let rightMiddle = addEle({dad:right,setClass:"contRow_W",setID:"rightMiddle"})
+    let rightBottom = addEle({dad:right,setClass:"contCol_W"})
 
 
-    myDiv = document.createElement("div")
-    myDiv.style = closeButtonStyle
-    myDiv.style.marginLeft = 10 + "px"
-    myDiv.innerHTML = "Full List"
-    myDiv.setAttribute("id","planetFull")
-    rightTop.appendChild(myDiv)
-    myDiv.addEventListener("click",function(){
+    let thisBt = addEle({dad:rightTop,setClass:"button1",marginL:"10px",text:"Full List",
+    setID:"planetFull",setFunc:()=>{
         info.innerHTML = infoTitle
         cleanParent(rightMiddle) 
         cleanParent(rightBottom)
-        displayPlanets(rightBottom,planetsArray)})
-    myDiv.addEventListener("mouseover",()=>{tabInfos.innerHTML = "Displays all 70 planets"})
-    myDiv.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
+        displayPlanets(rightBottom,planetsArray)
+    }})
+    thisBt.addEventListener("mouseover",()=>{tabInfos.innerHTML = "Displays all 70 planets"})
+    thisBt.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
 
 
-    myDiv = document.createElement("div")
-    myDiv.style = closeButtonStyle
-    myDiv.style.marginLeft = 10 + "px"
-    myDiv.innerHTML = "Telescope"
-    rightTop.appendChild(myDiv)
-    myDiv.addEventListener("mouseover",()=>{tabInfos.innerHTML = "Displays a 1 specific telescope of your choosing"})
-    myDiv.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
-    myDiv.addEventListener("click",function(){
+    thisBt = addEle({dad:rightTop,setClass:"button1",marginL:"10px",text:"Telescope",
+    setID:"planetFull",setFunc:()=>{
         info.innerHTML = infoTitle
         cleanParent(rightMiddle) 
         cleanParent(rightBottom)
         let lineCount = 0
         let lineMax = 10
 
-        let table = document.createElement("table")
-        rightMiddle.appendChild(table)
-        let tr = document.createElement("tr")
-        table.appendChild(tr)
-        let td = document.createElement("td")
-        td.style = containerRow
-        tr.appendChild(td)
+        let table = addEle({dad:rightMiddle,what:"table"})
+            let tr = addEle({dad:table,what:"tr"})
+                let td = addEle({dad:tr,what:"td",setClass:"contRow_W"})
 
         for (i=0;i<=22;i++){
             lineCount+=1
-
-            if( lineCount > 1 && (lineCount-1) % lineMax === 0) {
-                tr = document.createElement("tr")
-                table.appendChild(tr)
-                td = document.createElement("td")
-                td.style = containerRow
-                tr.appendChild(td)
+            if(lineCount > 1 && (lineCount-1) % lineMax === 0) {
+                tr = addEle({dad:table,what:"tr"})
+                td = addEle({dad:tr,what:"td",setClass:"contRow_W"})
             }
-            
-            let thisButton = document.createElement("div")
-            thisButton.style = microButtonStyle
-            thisButton.innerHTML = i
-            td.appendChild(thisButton)
-            thisButton.addEventListener("click",(e)=>{
-                cleanParent(rightBottom)
-                let refId = Number(e.srcElement.innerHTML)
-                displayPlanets(rightBottom,planetsArray.filter(x=>x.telescope === refId))
-                })
-        }})
 
-    myDiv = document.createElement("div")
-    myDiv.style = closeButtonStyle
-    myDiv.style.marginLeft = 10 + "px"
-    myDiv.innerHTML = "Find Ore"
-    rightTop.appendChild(myDiv)
-    myDiv.addEventListener("mouseover",()=>{tabInfos.innerHTML = "Pick 1 ore, see which planets provide it"})
-    myDiv.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
-    myDiv.addEventListener("click",function(){
+            addEle({dad:td,setClass:"button2",text:i,setFunc:(e)=>{
+                cleanParent(rightBottom) ; let refId = Number(e.srcElement.innerHTML)
+                displayPlanets(rightBottom,planetsArray.filter(x=>x.telescope === refId))  }})
+        }
+    }})
+    thisBt.addEventListener("mouseover",()=>{tabInfos.innerHTML = "Displays a 1 specific telescope of your choosing"})
+    thisBt.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
+
+
+    thisBt = addEle({dad:rightTop,setClass:"button1",marginL:"10px",text:"Find Ore",
+    setID:"planetFull",setFunc:()=>{
+
         info.innerHTML = infoTitle
         cleanParent(rightMiddle) 
         cleanParent(rightBottom)
         lineCount = 0
         lineMax = 9
-        table = document.createElement("table")
-        rightMiddle.appendChild(table)
-        tr = document.createElement("tr")
-        table.appendChild(tr)
-        td = document.createElement("td")
-        tr.appendChild(td)
+
+        let subCont = addEle({dad:rightMiddle,setClass:"contCol"})
+            let subCont2 = addEle({dad:subCont,setClass:"contRow",margin:"0 0 10px 10px",border:"solid white 2px",
+                radius:"5px",padding:"5px",justifyC:"center"})
+                addEle({dad:subCont2,text:"Yield :",marginR:"10px"})
+                addEle({dad:subCont2,what:"radio",isInput:true,setName:"findOreRadio",setVal:"best => worst",setFunc:()=>{
+                    console.log("yesyes1")
+                    if(getID("seekOreSelection").innerHTML !=="- none -"){getID(getID("seekOreSelection").innerHTML).click()}
+                }})
+                addEle({dad:subCont2,text:"best => worst"})
+                addEle({dad:subCont2,what:"radio",isInput:true,setName:"findOreRadio",setVal:"worst => best",marginL:"40px",
+                setFunc:()=>{
+                    console.log("yesyes2")
+                    if(getID("seekOreSelection").innerHTML !=="- none -"){getID(getID("seekOreSelection").innerHTML).click()}
+                    // oresArray[i].label
+                }})
+                addEle({dad:subCont2,text:"worst => best"})
+                addEle({dad:subCont2,text:"Ore Selected : ",margin:"0 20px"})
+                addEle({dad:subCont2,text:"- none -",setID:"seekOreSelection",textC:"lime",marginR:"10px"})
+                subCont2.children[1].click()
+
+            let table = addEle({dad:subCont,what:"table"})
+                let tr = addEle({dad:table,what:"tr"})
+                    let td = addEle({dad:tr,what:"td"})
 
         for (i=0;i<oresArray.length;i++){
             if(oresArray[i].type==="ore"){
                 lineCount+=1
                 if( lineCount > 1 && (lineCount-1) % lineMax === 0) {
-                    tr = document.createElement("tr")
-                    table.appendChild(tr)
-                    td = document.createElement("td")
-                    tr.appendChild(td)
+                    tr = addEle({dad:table,what:"tr"})
+                    td = addEle({dad:tr,what:"td"})
                 }
-                let img = new Image()
-                img.src = gameLook === "Old" ? oresArray[i].img : oresArray[i].img.split(".jpg")[0]+"n.jpg"
-                img.style = microButtonStyle
-                img.style.height = 30 + "px"
-                img.style.width = 30 + "px"
-                img.setAttribute("id",oresArray[i].label)
-                td.appendChild(img)
-                img.addEventListener("mouseover",(e)=>{tabInfos.innerHTML = e.srcElement.id })
-                img.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
-                img.addEventListener("click",(e)=>{
-                    cleanParent(rightBottom)
-                    let getItem = e.srcElement.id
-                    let newArray = 
-                        planetsArray.filter(x=>x.ores.some(function(x){return x.label===getItem}))
-                    displayPlanets(rightBottom,newArray)
-                })}
-            }})
+//                console.log(oresArray[i].label)
+                let thisImgSrc = gameLook === "Old" ? oresArray[i].img : oresArray[i].img.split(".jpg")[0]+"n.jpg"
+                let thisImg = addEle({dad:td,what:"img",imgSize:"30px",imgFullSrc:thisImgSrc,setClass:"button2",
+                    setID:oresArray[i].label,setFunc:(e)=>{
+                        cleanParent(rightBottom)
+                        let getItem = e.srcElement.id
+                        let newArray = planetsArray.filter(x=>x.ores.some(function(x){return x.label===getItem}))
+                        getID("seekOreSelection").innerHTML = getItem
 
-    myDiv = AddADiv(rightTop)
-    myDiv.style = closeButtonStyle
-    myDiv.style.marginLeft = 10 + "px"
-    myDiv.innerHTML = "Find Planet"
-    myDiv.addEventListener("mouseover",()=>{tabInfos.innerHTML = "Input Planet's name/id to find it"})
-    myDiv.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
-    myDiv.addEventListener("click",function(){
+                        document.getElementsByName("findOreRadio").forEach(el=>{
+                            if(el.checked===true){
+                                if(el.value==="best => worst"){
+                                    newArray.sort((a,b)=> b.ores.filter(x=>x.label===getItem)[0].yield - a.ores.filter(x=>x.label===getItem)[0].yield)
+                                } else {
+                                    newArray.sort((a,b)=> a.ores.filter(x=>x.label===getItem)[0].yield - b.ores.filter(x=>x.label===getItem)[0].yield)
+                                } } })
+
+                        displayPlanets(rightBottom,newArray)
+                    }
+                })
+                thisImg.addEventListener("mouseover",(e)=>{tabInfos.innerHTML = e.srcElement.id })
+                thisImg.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
+            }
+        }
+    }})    
+    thisBt.addEventListener("mouseover",()=>{tabInfos.innerHTML = "Pick 1 ore, see which planets provide it (result best => worst planet)"})
+    thisBt.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
+
+
+    thisBt = addEle({dad:rightTop,setClass:"button1",marginL:"10px",text:"Find Planet",setFunc:()=>{
         info.innerHTML = infoTitle
         cleanParent(rightMiddle) 
         cleanParent(rightBottom)
-        let thisContainer = AddADiv(rightMiddle)
-        thisContainer.style = containerRow
-        thisContainer.style.margin = "10px 0 20px 20px"
-        thisContainer.style.alignItems = "center"
-            myDiv = AddADiv(thisContainer)
-            myDiv.style.margin = "0 10px 0 10px"
-            myDiv.style.fontSize = 20 + "px"
-            myDiv.innerHTML = "Planet name/id ?"
-            myDiv = document.createElement("input")
-            thisContainer.appendChild(myDiv)
-            myDiv.addEventListener("input",(e)=>{
+
+        let thisContainer = addEle({dad:rightMiddle,setClass:"contRow_W",margin:"10px 0 20px 20px",alignItems:"center"})
+
+            addEle({dad:thisContainer,margin:"0 10px",fontS:"20px",text:"Planet name / id# (1~70) ?"})
+            addEle({dad:thisContainer,what:"input",isInput:true,setFunc:(e)=>{
                 cleanParent(rightBottom)
                 let newArray = []
                 let myText = e.srcElement.value.toUpperCase()
@@ -954,7 +930,16 @@ function buildPlanets(){
                         {if(Number(myText) === planetsArray[i].idNumber && myText.length > 0){newArray.push(planetsArray[i])}}
                     }
                 displayPlanets(rightBottom,newArray)
-            })})
+            }})
+    }})
+    thisBt.addEventListener("mouseover",()=>{tabInfos.innerHTML = "Input Planet's name/id to find it"})
+    thisBt.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
+
+
+
+
+
+
 
     myDiv = AddADiv(rightTop)
     myDiv.style = closeButtonStyle
