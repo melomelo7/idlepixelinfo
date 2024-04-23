@@ -58,6 +58,7 @@ function addEle({
     imgSize = "",
     imgSrc = "",
     imgFullSrc = "",
+    radioCol = "",
     position = "",
     top = "",
     zIdx = "",
@@ -81,6 +82,8 @@ function addEle({
     } else {
         thisObj = document.createElement("input"); thisObj.setAttribute("type",what)
     }
+
+    if(radioCol!==""){thisObj.style.accentColor = radioCol}
 
     if(text!==""){thisObj.innerHTML = text}
 

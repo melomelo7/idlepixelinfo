@@ -854,13 +854,13 @@ function buildPlanets(){
             let subCont2 = addEle({dad:subCont,setClass:"contRow",margin:"0 0 10px 10px",border:"solid white 2px",
                 radius:"5px",padding:"5px",justifyC:"center"})
                 addEle({dad:subCont2,text:"Yield :",marginR:"10px"})
-                addEle({dad:subCont2,what:"radio",isInput:true,setName:"findOreRadio",setVal:"best => worst",setFunc:()=>{
+                addEle({dad:subCont2,what:"radio",isInput:true,setName:"findOreRadio",setVal:"best => worst",radioCol:"lime",
+                setFunc:()=>{
                     if(getID("seekOreSelection").innerHTML !=="- none -"){getID(getID("seekOreSelection").innerHTML).click()}
                 }})
                 addEle({dad:subCont2,text:"best => worst"})
                 addEle({dad:subCont2,what:"radio",isInput:true,setName:"findOreRadio",setVal:"worst => best",marginL:"40px",
-                setFunc:()=>{
-                    console.log("yesyes2")
+                radioCol:"lime",setFunc:()=>{
                     if(getID("seekOreSelection").innerHTML !=="- none -"){getID(getID("seekOreSelection").innerHTML).click()}
                 }})
                 addEle({dad:subCont2,text:"worst => best"})
