@@ -855,7 +855,6 @@ function buildPlanets(){
                 radius:"5px",padding:"5px",justifyC:"center"})
                 addEle({dad:subCont2,text:"Yield :",marginR:"10px"})
                 addEle({dad:subCont2,what:"radio",isInput:true,setName:"findOreRadio",setVal:"best => worst",setFunc:()=>{
-                    console.log("yesyes1")
                     if(getID("seekOreSelection").innerHTML !=="- none -"){getID(getID("seekOreSelection").innerHTML).click()}
                 }})
                 addEle({dad:subCont2,text:"best => worst"})
@@ -863,7 +862,6 @@ function buildPlanets(){
                 setFunc:()=>{
                     console.log("yesyes2")
                     if(getID("seekOreSelection").innerHTML !=="- none -"){getID(getID("seekOreSelection").innerHTML).click()}
-                    // oresArray[i].label
                 }})
                 addEle({dad:subCont2,text:"worst => best"})
                 addEle({dad:subCont2,text:"Ore Selected : ",margin:"0 20px"})
@@ -881,7 +879,6 @@ function buildPlanets(){
                     tr = addEle({dad:table,what:"tr"})
                     td = addEle({dad:tr,what:"td"})
                 }
-//                console.log(oresArray[i].label)
                 let thisImgSrc = gameLook === "Old" ? oresArray[i].img : oresArray[i].img.split(".jpg")[0]+"n.jpg"
                 let thisImg = addEle({dad:td,what:"img",imgSize:"30px",imgFullSrc:thisImgSrc,setClass:"button2",
                     setID:oresArray[i].label,setFunc:(e)=>{
