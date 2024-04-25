@@ -885,8 +885,105 @@ function smeltCraftTable(container,array){
 }
 
 
+let credits101 = [{credits:10,gv:"10",mag:"M"},{credits:11,gv:"12.51",mag:"M"},{credits:12,gv:"17.51",mag:"M"},
+                {credits:13,gv:"22.51",mag:"M"},{credits:14,gv:"27.51",mag:"M"},{credits:15,gv:"32.51",mag:"M"},
+                {credits:16,gv:"37.51",mag:"M"},{credits:17,gv:"42.51",mag:"M"},{credits:18,gv:"47.51",mag:"M"},
+                {credits:19,gv:"52.51",mag:"M"},{credits:20,gv:"57.51",mag:"M"},{credits:21,gv:"62.51",mag:"M"},
+                {credits:22,gv:"67.51",mag:"M"},{credits:23,gv:"72.51",mag:"M"},{credits:24,gv:"77.51",mag:"M"},
+                {credits:25,gv:"82.51",mag:"M"},{credits:26,gv:"87.51",mag:"M"},{credits:27,gv:"92.51",mag:"M"},
+                {credits:28,gv:"97.51",mag:"M"},{credits:29,gv:"NA",mag:""},{credits:30,gv:"100",mag:"M"},
+                {credits:31,gv:"117",mag:"M"},{credits:32,gv:"150",mag:"M"},{credits:33,gv:"183.5",mag:"M"},
+                {credits:34,gv:"217",mag:"M"},{credits:35,gv:"250",mag:"M"},{credits:36,gv:"283.5",mag:"M"},
+                {credits:37,gv:"317",mag:"M"},{credits:38,gv:"350",mag:"M"},{credits:39,gv:"383.5",mag:"M"},
+                {credits:40,gv:"417",mag:"M"},{credits:41,gv:"450",mag:"M"},{credits:42,gv:"483.5",mag:"M"},
+                {credits:43,gv:"517",mag:"M"},{credits:44,gv:"550",mag:"M"},{credits:45,gv:"583.5",mag:"M"},
+                {credits:46,gv:"617",mag:"M"},{credits:47,gv:"650",mag:"M"},{credits:48,gv:"683.5",mag:"M"},
+                {credits:49,gv:"717",mag:"M"},{credits:50,gv:"750",mag:"M"},{credits:51,gv:"783.5",mag:"M"},
+                {credits:52,gv:"817",mag:"M"},{credits:53,gv:"850",mag:"M"},{credits:54,gv:"883.5",mag:"M"},
+                {credits:55,gv:"917",mag:"M"},{credits:56,gv:"950",mag:"M"},{credits:57,gv:"984",mag:"M"},
+                {credits:58,gv:"NA",mag:""},{credits:59,gv:"NA",mag:""},{credits:60,gv:"1",mag:"B"},
+                {credits:61,gv:"1.13",mag:"B"},{credits:62,gv:"1.37",mag:"B"},{credits:63,gv:"1.61",mag:"B"},
+                {credits:64,gv:"1.86",mag:"B"},{credits:65,gv:"2.11",mag:"B"},{credits:66,gv:"2.35",mag:"B"},
+                {credits:67,gv:"2.59",mag:"B"},{credits:68,gv:"2.84",mag:"B"},{credits:69,gv:"3.08",mag:"B"},
+                {credits:70,gv:"3.33",mag:"B"},{credits:71,gv:"3.56",mag:"B"},{credits:72,gv:"3.81",mag:"B"},
+                {credits:73,gv:"4.06",mag:"B"},{credits:74,gv:"4.3",mag:"B"},{credits:75,gv:"4.54",mag:"B"},
+                {credits:76,gv:"4.79",mag:"B"},{credits:77,gv:"5.03",mag:"B"},{credits:78,gv:"5.28",mag:"B"},
+                {credits:79,gv:"5.52",mag:"B"},{credits:80,gv:"5.76",mag:"B"},{credits:81,gv:"6.01",mag:"B"},
+                {credits:82,gv:"6.25",mag:"B"},{credits:83,gv:"6.49",mag:"B"},{credits:84,gv:"6.74",mag:"B"},
+                {credits:85,gv:"6.98",mag:"B"},{credits:86,gv:"7.23",mag:"B"},{credits:87,gv:"7.48",mag:"B"},
+                {credits:88,gv:"7.73",mag:"B"},{credits:89,gv:"7.96",mag:"B"},{credits:90,gv:"8.2",mag:"B"},
+                {credits:91,gv:"8.44",mag:"B"},{credits:92,gv:"8.69",mag:"B"},{credits:93,gv:"8.94",mag:"B"},
+                {credits:94,gv:"9.18",mag:"B"},{credits:95,gv:"9.42",mag:"B"},{credits:96,gv:"9.67",mag:"B"},
+                {credits:97,gv:"9.91",mag:"B"},{credits:98,gv:"NA",mag:""},{credits:99,gv:"NA",mag:""},
+                {credits:100,gv:"NA",mag:""},{credits:101,gv:"10",mag:"B"},]
+
 function setCredits(container){
-    let myCont = addEle({dad:container,setClass:"contCol",marginT:"20px"})
+
+
+let ipmmc1 = `
+The ` + spanText("lime","IPM - M") + `oral ` + spanText("lime","C") + `ontract :<br>
+Sell galaxy > Base Reward > [ i ]<br>`
+
+let ipmmc2 = `
+... Is the override when the<br>
+next credit reward is evaluated.<br>
+( picture it as the ring of power in<br>
+LOTR : ruling them all, if you'd like )<br><br>
+
+In short every ` + spanText("fuchsia","X") + ` increment a 1 credit<br>
+Is added to the base value until this<br>
+calculation breaks because you<br>
+reached the ` + spanText("lime","IPM - MC") + ` ranged value ` + spanText("fuchsia","Y") + `.<br><br>
+
+As a result(1) : you can get a few more<br>
+bucks for your time when crossing<br>
+a shown range in IPM - MC.<br><br>
+
+This is confirmed  when for exemple :<br>
+- 1) your base reward credit shows 28<br>
+- 2) ... you are waiting for the 29th to be added<br>
+- 3) ... and Suddenly it jumps from 28 to 30<br><br>
+
+As a result(2) : This tool will return `+ spanText("fuchsia","NA") +`<br>
+( as in `+ spanText("fuchsia","N") +`ot `+ spanText("fuchsia","A") +`vailable ) if you input 29 or<br>
+a similar value that wont be incremented.<br>
+`
+
+    let subCont1 = addEle({dad:container,setClass:"contRow"})
+        addEle({dad:subCont1,text:"10 to 101 credits",setClass:"button1",width:"85%",backC:"slateblue",textC:"black",setFunc:()=>{
+            getID("targetCreditFr").style.display = getID("targetCreditFr").style.display==="none"?"flex":"none"
+        }})
+        
+        addEle({dad:subCont1,setClass:"button1",border:"slateblue solid 2px",text:"[ i ]",minWidth:"20px",setFunc:()=>{
+            getID("credits10101infos").style.display = getID("credits10101infos").style.display==="none"?"flex":"none"
+        }})
+
+    let subCont2 = addEle({dad:container,setClass:"contRow",border:"slateblue solid 2px",radius:"5px",
+        setID:"targetCreditFr",display:"none",padding:"10px",marginB:"10px"})
+            addEle({dad:subCont2,text:"Target Credits (10~101) :"})
+            addEle({dad:subCont2,what:"input",isInput:true,setVal:0,width:"30px",textA:"center",margin:"0 10px",setFunc:(e)=>{
+                let thisIdx = credits101.findIndex(itm=>itm.credits===Number(e.srcElement.value))
+                let baseTxt = "=> GV : "
+                if(thisIdx>-1){
+                    baseTxt += credits101[thisIdx].gv === "NA" ?
+                    spanText("fuchsia","NA") : credits101[thisIdx].gv + " " + credits101[thisIdx].mag
+                    getID("credits101").innerHTML =  baseTxt
+                } else {
+                    getID("credits101").innerHTML =  baseTxt + spanText("fuchsia","NA")
+                }
+                
+            }})
+            addEle({dad:subCont2,setID:"credits101",text:"=> GV : "+spanText("fuchsia","NA")})
+    
+    let subCont3 = addEle({dad:container,setClass:"contCol",border:"slateblue solid 2px",radius:"5px",
+    setID:"credits10101infos",padding:"20px 25px",display:"none"})
+        addEle({dad:subCont3,text:ipmmc1})
+        addEle({dad:subCont3,margin:"10px 0",what:"img",imgSize:200,
+        imgFullSrc:"./IPM Components/ipmmc.jpg",radius:"10px"})
+        addEle({dad:subCont3,text:ipmmc2})
+
+
+    myCont = addEle({dad:container,setClass:"contCol",marginT:"20px"})
 
     let myT = addEle({dad:myCont,what:"table"})
     let myL = addEle({dad:myT,what:"tr"})
