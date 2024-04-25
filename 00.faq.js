@@ -119,7 +119,7 @@ const faqsArray = [
     thisFunction : undefined,
     },
     {
-    label : "Credits [10.00 M ~ 100.00 D]",
+    label : "Credits",
     icon : "credits2.jpg",
     text : `Those values may or not be very accurate,<br>
             its just to have an idea of what to expect<br>
