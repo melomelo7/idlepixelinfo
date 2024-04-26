@@ -934,10 +934,10 @@ next credit reward is evaluated.<br>
 ( picture it as the ring of power in<br>
 LOTR : ruling them all, if you'd like )<br><br>
 
-In short every ` + spanText("fuchsia","X") + ` increment a 1 credit<br>
+In short every ` + spanText("fuchsia","X increment") + `  a 1 credit<br>
 Is added to the base value until this<br>
 calculation breaks because you<br>
-reached the ` + spanText("lime","IPM - MC") + ` ranged value ` + spanText("fuchsia","Y") + `.<br><br>
+reached the ` + spanText("lime","IPM - MC") + `  ` + spanText("fuchsia","ranged value Y") + `.<br><br>
 
 As a result(1) : you can get a few more<br>
 bucks for your time when crossing<br>
