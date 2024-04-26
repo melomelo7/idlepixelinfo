@@ -169,7 +169,7 @@ const faqsArray = [
             is the tile you want to unlock, in order to cut<br>
             remaining Crafters/Smelters prices by 50%.`,
     url : "",
-    img : "preferred vendor.jpg",
+    img : "",
     thisFunction : setCrafters,
     },
     {
@@ -866,7 +866,10 @@ function setManagers(container){
 
 
 function setCrafters(container){
-    let myCont = addEle({dad:container,setClass:"contRow",justifyC:"space-around",marginT:"50px"})
+    let btImg = addEle({dad:container,setClass:"contRow",justifyC:"center"})
+        addEle({dad:btImg,what:"img",imgSize:80,padding:"5px",border:"red solid 2px",
+        radius:"5px", imgFullSrc:"./IPM Components/preferred vendor.jpg",marginT:"30px"})
+    let myCont = addEle({dad:container,setClass:"contRow",justifyC:"space-around",marginT:"30px"})
         let forkA = addEle({dad:myCont,setClass:"contCol",textA:"center"})
             addEle({dad:forkA,text:"Smelters"})
         let forkB = addEle({dad:myCont,setClass:"contCol",textA:"center"})
@@ -876,10 +879,11 @@ function setCrafters(container){
 }
 
 function smeltCraftTable(container,array){
-    let myT = addEle({dad:container,what:"table"})
+    let myT = addEle({dad:container,what:"table",border:"red solid 2px",margin:"0 5px",radius:"5px"})
     let myL = addEle({dad:myT,what:"tr"})
     for(let i=0;i<array.length;i++){
-        addEle({dad:myL,what:"td",text:array[i],border:"solid 2px blue",radius:"5px"})
+        addEle({dad:myL,what:"td",text:array[i],border:"solid 2px blue",radius:"5px",padding:"5px",
+        backC:i===0 ? "green":""})
         if(i % 2!==0){myL = addEle({dad:myT,what:"tr"})}
     }
 }
