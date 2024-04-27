@@ -1154,8 +1154,8 @@ projectCells.push(
         label:"terraforming",
         component1:{label:"diamond",baseCost:"20k",costWithMaxLab:"10k"},
         component2:{label:"thermal scanner",baseCost:10,costWithMaxLab:5},
-        description:"pick any unlocked planet and increase its colonization",
-        comment:"level by 2 instantly",
+        description:"pick any unlocked planet and increase <br>its colonization level by 2 instantly",
+        comment:spanText("crimson","**1x Planet <=> 1x Terraforming**"),
         prerequisites:"colonization advanced efficiency",
         highestPlanetRequired:"19-Parnitha"}),
 
@@ -1163,8 +1163,8 @@ projectCells.push(
         area:"Colonization",
         label:"advanced terraforming",
         component1:{label:"satellite dish",baseCost:10,costWithMaxLab:5},
-        description:"pick any unlocked planet and increase its colonization",
-        comment:"level by 3 instantly",
+        description:"pick any unlocked planet and increase <br>its colonization level by 3 instantly",
+        comment:spanText("crimson","**1x Planet <=> 1x Terraforming**"),
         prerequisites:"terraforming",
         highestPlanetRequired:"28-Tikkun"}),
     
