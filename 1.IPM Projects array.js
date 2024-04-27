@@ -435,7 +435,7 @@ projectCells.push(
         component1:{label:"iron nail",baseCost:200,costWithMaxLab:100},
         component2:{label:"hammer",baseCost:75,costWithMaxLab:38},
         component3:{label:"circuit",baseCost:40,costWithMaxLab:20},
-        description:"price for building new smelters & crafters reduced by 50%",
+        description:"price for building remaining smelters<br> & crafters reduced by 50%",
         prerequisites:"superior furnace",
         highestPlanetRequired:"9-Yangtze"}),
 
@@ -640,7 +640,7 @@ projectCells.push(
         label:"alchemy",
         component1:{label:"gold bar",baseCost:50,costWithMaxLab:25},
         component2:{label:"lens",baseCost:6,costWithMaxLab:3},
-        description:"convert an ore on a planet to an ore worth 1 levels higher ",
+        description:"convert an ore on a planet to an ore worth 1 level higher<br>"+ spanText("crimson","**1x Planet <=> 1x Alchemy**"),
         prerequisites:"cargo logistics",
         highestPlanetRequired:"14-Batalla"}),
     
@@ -650,7 +650,7 @@ projectCells.push(
         component1:{label:"silver ore",baseCost:"50k",costWithMaxLab:"25k"},
         component2:{label:"basic computer",baseCost:6,costWithMaxLab:3},
         component3:{label:"titanium ore",baseCost:"25k",costWithMaxLab:"12.5k"},
-        description:"convert an ore on a planet to an ore worth 2 levels higher ",
+        description:"convert an ore on a planet to an ore worth 2 levels higher<br>"+ spanText("crimson","**1x Planet <=> 1x Alchemy**"),
         prerequisites:"alchemy",
         highestPlanetRequired:"22-Zelene"}),
     
@@ -660,7 +660,7 @@ projectCells.push(
         component1:{label:"palladium bar",baseCost:400,costWithMaxLab:200},
         component2:{label:"osmium bar",baseCost:200,costWithMaxLab:100},
         component3:{label:"advanced computer",baseCost:5,costWithMaxLab:2},
-        description:"convert an ore on a planet to an ore worth 3 levels higher ",
+        description:"convert an ore on a planet to an ore worth 3 levels higher<br>"+ spanText("crimson","**1x Planet <=> 1x Alchemy**"),
         prerequisites:"advanced alchemy",
         highestPlanetRequired:"31-Vular"}),
     
@@ -876,7 +876,7 @@ projectCells.push(
         label:"asteroid miner",
         component1:{label:"copper ore",baseCost:400,costWithMaxLab:200},
         component2:{label:"iron ore",baseCost:100,costWithMaxLab:50},
-        description:"ability to mine asteroids for ore",
+        description:"ability to mine asteroids for ore<br>"+ spanText("lime","Frequency : 10mn"),
         prerequisites:" - ",
         highestPlanetRequired:"2-Drasta"}),
 
@@ -966,7 +966,7 @@ projectCells.push(
         description:"automatically mine asteroids <br>(& debris) even when idle",
         comment:"(if debris unlocked will also work)",
         prerequisites:"asteroid harvester",
-        comment:"[asteroid base frequency 10mn]",
+        comment:"[asteroid base "+spanText("lime","frequency 10mn")+"]",
         highestPlanetRequired:"22-Zelene"}),
 
     new projectCell({
@@ -975,7 +975,7 @@ projectCells.push(
         component1:{label:"thermal scanner",baseCost:30,costWithMaxLab:15},
         component2:{label:"navigation module",baseCost:5,costWithMaxLab:2},
         description:"frequency of asteroids increased by 30%",
-        comment:"[new asteroid frequency 7mn]",
+        comment:"["+spanText("lime","new")+" asteroid "+spanText("lime","frequency 7mn")+"]",
         prerequisites:"asteroid harvester",
         highestPlanetRequired:"19-Parnitha"}),
 
@@ -984,7 +984,7 @@ projectCells.push(
         label:"advanced asteroid scanner",
         component1:{label:"telescope",baseCost:150,costWithMaxLab:75},
         description:"frequency of asteroids increased by another 30%",
-        comment:"[new asteroid frequency 5mn]",
+        comment:"["+spanText("lime","new")+" asteroid "+spanText("lime","frequency 5mn")+"]",
         prerequisites:"asteroid scanner",
         highestPlanetRequired:"22-Zelene"}),
 
