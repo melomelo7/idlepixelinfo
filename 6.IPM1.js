@@ -1,7 +1,7 @@
 
 const creditsArray = [
     {magnitude:"M ( e7~8)",credits:[0,10,30]},
-    {magnitude:"B ( e9~11)",credits:[59,101,152]},
+    {magnitude:"B ( e9~11)",credits:[60,101,152]},
     {magnitude:"T (e12~14)",credits:[213,280,367]},
     {magnitude:"q (e15~17)",credits:[459,551,674]},
     {magnitude:"Q (e18~20)",credits:[790,930,1075]},
