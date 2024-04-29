@@ -4,7 +4,7 @@ const info = document.querySelector("#info")
 const left = document.querySelector("#left")
 const right = document.querySelector("#right")
 
-const lastUp = "(Last up 2024/04/25 18:30)"
+const lastUp = "(Last up 2024/04/30 23:00) *new expensive item*"
 const infoTitle = "Idle Planet Miner Infos " +lastUp
 info.innerHTML = infoTitle
 

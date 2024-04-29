@@ -984,6 +984,18 @@ new Item({
     baseSellValue: {value:1,unit:"Q"},
 }),
 
+new Item({
+    label:"advanced robot",
+    type:"item",
+    unlockCost:"142.00 q",
+    baseCraftTime:{hr:17,mn:15,sc:24},
+    ingredients:[
+        {label:"robot",amount:160,min:80},
+        {label:"fusion reactor",amount:5,min:2},
+    ],
+    baseSellValue: {value:29.5,unit:"Q"},
+}),
+
 )
 
 /*
