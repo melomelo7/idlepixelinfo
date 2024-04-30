@@ -949,93 +949,36 @@ function buildPlanets(){
 
 
 function displayPlanets(rightBottom,listArray){
-    let thisElement = []
     listArray.forEach(item => {
-        thisContainer = document.createElement("div")
-        thisContainer.style = containerRow
-        thisContainer.style.borderTop = "blue solid 3px"
-        thisContainer.style.alignItems = "center"
-        rightBottom.appendChild(thisContainer)
+        let thisContainer = addEle({dad:rightBottom,setClass:"contRow_W",borderT:"blue solid 3px",alignItems:"center"})        
+            addEle({dad:thisContainer,setClass:"texting",margin:"0 10px 0 10px",text:item.idNumber,
+            setID:"PIN"+item.idNumber,border:item.selected ? "solid 2px #BB482E":""})
 
-            let thisItem = document.createElement("div")
-            thisItem.style = textStyle
-            thisItem.style.margin = "0 10px 0 10px"
-            thisItem.innerHTML = item.idNumber
-            thisContainer.appendChild(thisItem)
-            thisItem.setAttribute("id","PIN"+item.idNumber)
-            if (item.selected)
-                {thisItem.style.border = "solid 2px #BB482E"}
-            else
-                {thisItem.style.border = ""}
-            thisElement = document.getElementById("privatePlanets")
-            thisElement.innerHTML = "Private List (" + planetsArray.filter(x=>x.selected).length + ")"
+            getID("privatePlanets").innerHTML = "Private List (" + planetsArray.filter(x=>x.selected).length + ")"
 
-            let thisBox = document.createElement("div")
-            thisBox.style = planetBoxStyle
-            thisContainer.appendChild(thisBox)
-                let img = new Image()
-                img.src = gameLook === "Old" ?
-                item.imgSrc : item.imgSrc.split(".jpg")[0]+"n.jpg"
-                thisBox.appendChild(img)
-                img.style.cursor = "pointer"
-                img.addEventListener("click",()=>{
-                    thisElement = document.getElementById("PIN"+item.idNumber)
-                    if (item.selected){
-                        item.selected = false
-                        thisElement.style.border = ""}
-                    else {
-                        item.selected = true
-                        thisElement.style.border = "solid 2px #BB482E"}
-                    thisElement = document.getElementById("privatePlanets")
-                    thisElement.innerHTML = "Private List (" + planetsArray.filter(x=>x.selected).length + ")"
-                    if(rightMiddle.innerHTML.includes("Hint")) {document.getElementById("privatePlanets").click()}
-                    })
+            let thisBox = addEle({dad:thisContainer,setClass:"planetBoxStyle"})
+                addEle({dad:thisBox,what:"img",cursor:"pointer",imgFullSrc:gameLook === "Old" ? item.imgSrc : 
+                item.imgSrc.split(".jpg")[0]+"n.jpg",setFunc:()=>{
+                    if (item.selected){item.selected = false ; getID("PIN"+item.idNumber).style.border = ""}
+                    else { item.selected = true ; getID("PIN"+item.idNumber).style.border = "solid 2px #BB482E"}
 
-            let thisContainer2 = document.createElement("div")
-            thisContainer2.style = containerColumn
-            thisContainer2.style.margin = "0 20px 0 20px"
-            thisContainer.appendChild(thisContainer2)
+                    getID("privatePlanets").innerHTML = "Private List (" + planetsArray.filter(x=>x.selected).length + ")"
+                    if(rightMiddle.innerHTML.includes("Hint")) {getID("privatePlanets").click()}
+                } })
 
-                thisItem = document.createElement("div")
-                thisItem.style = textStyle
-                thisItem.innerHTML = "Name : " + item.label
-                thisContainer2.appendChild(thisItem)
+            let thisContainer2 = addEle({dad:thisContainer,setClass:"contCol_W",margin:"0 20px"})        
+                addEle({dad:thisContainer2,setClass:"texting",text:"Name : " + item.label})
+                addEle({dad:thisContainer2,setClass:"texting",text:"Telescope : " + item.telescope})
+                addEle({dad:thisContainer2,setClass:"texting",text:"Unlock Cost : " + item.unlockCost})
 
-                thisItem = document.createElement("div")
-                thisItem.style = textStyle
-                thisItem.innerHTML = "Telescope : " + item.telescope
-                thisContainer2.appendChild(thisItem)
+            let thisContainer3 = addEle({dad:thisContainer,setClass:"contCol_W"})
+            for (i=0;i<item.ores.length;i++){
+                let subContainer = addEle({dad:thisContainer3,setClass:"contRow_W",alignItems:"center"})
+                    addEle({dad:subContainer,imgSize:30,marginR:"10px",imgFullSrc:gameLook === "Old"?
+                    "./IPM Components/"+item.ores[i].label+".jpg" : "./IPM Components/"+item.ores[i].label+"n.jpg"})
 
-                thisItem = document.createElement("div")
-                thisItem.style = textStyle
-                thisItem.innerHTML = "Unlock Cost : " + item.unlockCost
-                thisContainer2.appendChild(thisItem)
-
-            let thisContainer3 = document.createElement("div")
-            thisContainer3.style = containerColumn
-            thisContainer.appendChild(thisContainer3)
-
-                for (i=0;i<item.ores.length;i++){
-
-                    let subContainer = document.createElement("div")
-                    subContainer.style = containerRow
-                    subContainer.style.alignItems = "center"
-                    thisContainer3.appendChild(subContainer)
-
-                        img = new Image(30,30)
-                        img.src = gameLook === "Old" ?
-                        "./IPM Components/"+item.ores[i].label+".jpg" :
-                        "./IPM Components/"+item.ores[i].label+"n.jpg"
-//                        img.src = "./IPM Components/"+item.ores[i].label+".jpg"
-                        img.style.marginRight = 10 + "px"
-                        subContainer.appendChild(img)
-
-                        thisItem = document.createElement("div")
-                        thisItem.style = textStyle
-                        thisItem.style.marginTop = -1 + "px"
-                        thisItem.innerHTML =
-                        item.ores[i].label + " " + item.ores[i].yield + "%"
-                        subContainer.appendChild(thisItem)
-                }
-            })
+                    addEle({dad:subContainer,setClass:"texting",marginT:"-1px",
+                    text:item.ores[i].label + " " + item.ores[i].yield + "%"})
+            }
+        })
     }
