@@ -4,9 +4,10 @@ const info = document.querySelector("#info")
 const left = document.querySelector("#left")
 const right = document.querySelector("#right")
 
-const lastUp = "(Last up 2024/04/30 23:00) *new expensive item*"
+const lastUp = "(Last up 2024/04/30 19:30) *new expensive item*"
 const infoTitle = "Idle Planet Miner Infos " +lastUp
 info.innerHTML = infoTitle
+info.style.width = "100%"
 
 let projectPop = undefined
 let gameLook = "New"
