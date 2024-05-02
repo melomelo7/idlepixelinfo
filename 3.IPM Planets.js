@@ -974,7 +974,7 @@ function displayPlanets(rightBottom,listArray){
             let thisContainer3 = addEle({dad:thisContainer,setClass:"contCol_W"})
             for (i=0;i<item.ores.length;i++){
                 let subContainer = addEle({dad:thisContainer3,setClass:"contRow_W",alignItems:"center"})
-                    addEle({dad:subContainer,imgSize:30,marginR:"10px",imgFullSrc:gameLook === "Old"?
+                    addEle({dad:subContainer,what:"img",imgSize:30,marginR:"10px",imgFullSrc:gameLook === "Old"?
                     "./IPM Components/"+item.ores[i].label+".jpg" : "./IPM Components/"+item.ores[i].label+"n.jpg"})
 
                     addEle({dad:subContainer,setClass:"texting",marginT:"-1px",
