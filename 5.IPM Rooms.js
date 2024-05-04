@@ -249,7 +249,7 @@ function displayRoom(e,rightBottom){
 
         subC = addEle({dad:frTop,setClass:"contRow_W",justifyC:"center"})
         addEle({dad:subC,setClass:"button1",width:"80%",text:`Display Cost & Bonus per Level<br>
-        `+ spanText("rgb(0,212,250)","Click a line to Add/Remove if from Shopping"),
+        `+ spanText("rgb(0,212,250)","Click a line to Add/Remove it from Shopping"),
         setID:"roomDisplayLv",setFunc:()=>{
             getID("roomLv").style.display = getID("roomLv").style.display ==="none" ? "flex" : "none"
         }})
