@@ -1,4 +1,4 @@
-
+console.log("test1")
 const body = document.querySelector("body")
 
 const menu = addEle({dad:body,setClass:"menu"})
