@@ -140,7 +140,9 @@ function buildRooms(){
     - try to complete low cap(11) rooms early : good boost at low cost <br>
     - then its about balancing what you lack or aim for specific result ....<br>
     ** Robotics lv4+ will also open up missions with better payout **
-    <br><br> If you ever wonder how many credits in global you will spend on rooms :` + overall.toLocaleString()
+    <br><br> If you ever wonder how many credits in global you will spend on rooms :` 
+    + overall.toLocaleString()+"<br><br>"+spanText("greenyellow",`New mini tool to budget your next
+    big credit spending : Shopping list.<br>Click a Room > Display details > click lines ... easy !`)
 
     let tabInfos = addEle({dad:right,setClass:"texting",fontS:"18px",marginL:"20px",
     textC:"rgb(0,212,250)",text:roomsInfo})
