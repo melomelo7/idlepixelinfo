@@ -194,7 +194,7 @@ function displayRoom(e,rightBottom){
         let refNm = e.srcElement.innerHTML
         let refR = Rooms.filter(rm=>rm.label===refNm)[0]
 
-        let mainFr = addEle({dad:rightBottom,setClass:"contCol_W",border:"solid blue 3px",justifyC:"center",
+        let mainFr = addEle({dad:rightBottom,setClass:"contCol_W",border:"solid blue 3px",justifyC:"center",marginL:"20px",
         radius:"30px",padding:"30px 10px 30px 10px",alignItems:"center",textA:"center",width:"500px",fontS:"18px"})        
             let frTop = addEle({dad:mainFr,setClass:"contCol_W"})
             let frBtm = addEle({dad:mainFr,setClass:"contCol_W",setID:"roomLv",display:"none"})
