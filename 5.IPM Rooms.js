@@ -48,22 +48,22 @@ const Rooms = [
             124449,152894,187740,230408,282633,554454,679499,832389,1019251,1247593,]},
 
     {label : "Astronomy",
-     bonus : {label : "Decrease costs on all planets(Mining,Speed,Cargo) : start -10% then -4% each new lv",
+     bonus : {label : "Decrease costs on all planets (Mining,Speed,Cargo) :<br>start -10% then -4% each new lv",
                 base:0,start : -10, every : -4},
      costs : [26,46,74,111,160,224,307,414,522,729,]},
 
     {label : "Laboratory",
-     bonus : {label : "Decrease materials needed to unlock projects : start -10% then -4% each new lv",
+     bonus : {label : "Decrease materials needed to unlock projects :<br>start -10% then -4% each new lv",
                 base:0,start : -10, every : -4},
      costs : [26,46,74,111,160,224,307,414,522,729,]},
  
     {label : "Terrarium",
-     bonus : {label : "Decrease materials needed for colonizing : start -10% then -4% each new lv",
+     bonus : {label : "Decrease materials needed for colonizing :<br> start -10% then -4% each new lv",
                 base:0,start : -10, every : -4},
      costs : [18,25,34,46,62,82,107,139,180,231,]},
 
     {label : "Lounge",
-     bonus : { label : "Rate of Rewarded Credits per Galaxy Sale Increased : start +0.15 then +0.05 each new lv",
+     bonus : { label : "Rate of Rewarded Credits per Galaxy Sale Increased :<br>start +0.15 then +0.05 each new lv",
                 base:1,start : 0.15, every : 0.05},
      costs : [8,12,18,25,34,46,62,82,107,139,180,231,296,377,479,607,767,966,1215,1524,1908,2385,2976,
             3709,4616,5737,7121,8830,10938,13536,16736,20673,25517,31471,38786,47768,70549,86776,
@@ -75,19 +75,19 @@ const Rooms = [
      costs : [53,75,103,139,185,244,319,415,537,690,]},
 
     {label : "Backup Generator",
-     bonus : {label : "Increase Idle time (offline time you carry on cashing the Benefits) : +30mn each new lv",
+     bonus : {label : "Increase Idle time : +30mn each new lv<br>(offline time you carry on cashing the Benefits)",
                 base:0,start : 30, every : 30},
      costs : [21,29,39,52,68,89,116,150,193,247,314,399,506,639,805,1012,1270,1590,1987,2480,3091,3846,
             4781,5934,7359,9115,11280,13946,17228,21264,64226,32321,39806,48992,60261,74077,91008,
             111750,137148,168234,206270,252790,309668,]},
 
     {label: "Underforge",
-    bonus : {label : "Decrease materials needed for Smelting(bar/alloys) : start -10% then -4% each new lv",
+    bonus : {label : "Decrease materials needed for Smelting(bar/alloys) :<br>start -10% then -4% each new lv",
                 base:0,start : -10, every : -4},
     costs : [18,25,34,46,62,82,107,139,180,231,]},
 
     {label : "Dorms",
-     bonus : {label : "Decrease materials needed for Crafting(items) : start -10% then -4% each new lv",
+     bonus : {label : "Decrease materials needed for Crafting(items) :<br>start -10% then -4% each new lv",
                 base:0,start : -10, every : -4},
      costs : [21,29,39,52,68,89,116,150,193,247,]},
 
@@ -131,196 +131,204 @@ const Rooms = [
 function buildRooms(){
     let overall = 119809120
     let textSize = 18
-    let tabInfos = document.createElement("div")
-    right.appendChild(tabInfos)
-    tabInfos.innerHTML = "Rooms with a Green border are the ones with Max Level 11 <br>"
-    tabInfos.innerHTML += "Though rooms developpement paths are multiple depending each players settings, <br>"
-    tabInfos.innerHTML += "early on elder players will probably agree on these : <br>"
-    tabInfos.innerHTML += " - buy at least 1 lev of every new room as soon as possible (biggest boost at lv1) <br>"
-    tabInfos.innerHTML += " - try to complete low cap(11) rooms early : good boost at low cost <br>"
-    tabInfos.innerHTML += " - then its about balancing what you lack or aim for specific result ....<br>"
-    tabInfos.innerHTML += "** Robotics lv4+ will also open up missions with better payout **"
-    tabInfos.innerHTML += "<br><br> If you ever wonder how many credits in global you will spend on rooms :" + overall.toLocaleString()
-    tabInfos.style = textStyle
-    tabInfos.style.fontSize = textSize + "px"
-//    tabInfos.style.height = textSize + "px"
-    tabInfos.style.marginLeft = textSize + "px"
-    tabInfos.style.color="rgb(0,212,250)"
+  
+    let roomsInfo = `
+    Rooms with a Green border are the ones with Max Level 11 <br>
+    Though rooms developpement paths are multiple depending each players settings, <br>
+    early on elder players will probably agree on these : <br>
+    - buy at least 1 lev of every new room as soon as possible (biggest boost at lv1) <br>
+    - try to complete low cap(11) rooms early : good boost at low cost <br>
+    - then its about balancing what you lack or aim for specific result ....<br>
+    ** Robotics lv4+ will also open up missions with better payout **
+    <br><br> If you ever wonder how many credits in global you will spend on rooms :` + overall.toLocaleString()
 
-    let rightTop = document.createElement("div")
-    rightTop.style = containerRow
-    right.appendChild(rightTop)
+    let tabInfos = addEle({dad:right,setClass:"texting",fontS:"18px",marginL:"20px",
+    textC:"rgb(0,212,250)",text:roomsInfo})
 
-    let rightMiddle = document.createElement("div")
-    rightMiddle.style = containerRow
-    right.appendChild(rightMiddle)
+    let rightTop = addEle({dad:right,setClass:"contRow_W"})
+    let rightMiddle = addEle({dad:right,setClass:"contCol_W"})
+    let rightBottom1 = addEle({dad:right,setClass:"contCol_W"})
+    let rightBottom2 = addEle({dad:right,setClass:"contRow_W"})
+        let  rightBottom2A = addEle({dad:rightBottom2,setClass:"contCol_W"})
+        let  rightBottom2B = addEle({dad:rightBottom2,setClass:"contCol_W",setID:"roomShoppingFr"})
 
-    let rightBottom1 = document.createElement("div")
-    rightBottom1.style = containerColumn
-    right.appendChild(rightBottom1)
-
-    let rightBottom2 = document.createElement("div")
-    rightBottom2.style = containerColumn
-    right.appendChild(rightBottom2)
-
-    let table = document.createElement("table")
-    table.style.width = 640 + "px"
-    rightMiddle.appendChild(table)
-    rightMiddle.style = containerColumn
-
-    tableAdd({table:table})
+    let tB = addEle({dad:rightMiddle,what:"table",width:"640px"})
+        let tR = addEle({dad:tB,what:"tr"})
 
     for (i=0;i<Rooms.length;i++){
-        if(i % 4 === 0){tableAdd({table:table})}
-        tableAdd({table:table,row:false})
+        if(i % 4 === 0){tR = addEle({dad:tB,what:"tr"})}
+        let tC = addEle({dad:tR,what:"td"})
+            let myC = Rooms[i].costs.length === 10 ? "green" : "blue"
+            addEle({dad:tC,setClass:"button1",marginL:"10px",text:Rooms[i].label,
+            width:"160px",border:"solid 3px "+myC,setName:"roomSelectBtns",setFunc:(e)=>{
+            displayRoom(e,rightBottom2A)}})
 
-        let myDiv = document.createElement("div")
-        myDiv.style = closeButtonStyle
-        myDiv.style.marginLeft = 10 + "px"
-        myDiv.innerHTML = Rooms[i].label
-        myDiv.style.width = 160 + "px"
-
-        if (Rooms[i].costs.length === 10){
-                myDiv.style.borderColor = "green"                
-        }
-        
-        let row = table.rows.length-1
-        let cel = table.rows[row].cells.length-1
-        table.rows[row].cells[cel].appendChild(myDiv)
-
-        myDiv.addEventListener("click",function(e){displayRoom(e,rightBottom2,table.getBoundingClientRect().width)})
-        
         if (i===Rooms.length-1){
-                tableAdd({table:table,row:false})
-                myDiv = document.createElement("div")
-                myDiv.style = closeButtonStyle
-                myDiv.style.marginLeft = 10 + "px"
-                myDiv.innerHTML = "cost [ New Room ]"
-                myDiv.style.width = 160 + "px"
-                myDiv.style.borderColor = "blueviolet"
-                row = table.rows.length-1
-                cel = table.rows[row].cells.length-1
-                table.rows[row].cells[cel].appendChild(myDiv)
+            tC = addEle({dad:tR,what:"td"})
+            addEle({dad:tC,setClass:"button1",marginL:"10px",text:"cost [ New Room ]",
+            width:"160px",border:"solid 3px blueviolet",setFunc:()=>{
+            rightBottom1.style.display = rightBottom1.style.display === "none" ? "block" : "none" }})
 
-                myDiv.addEventListener("click",()=>{
-                        rightBottom1.style.display = 
-                        rightBottom1.style.display === "none" ? "block" : "none"
-                })
+            tC = addEle({dad:tR,what:"td"})
+            let myTxt = "Shopping (" + roomShopping.length + ")"
+            addEle({dad:tC,setClass:"button1",marginL:"10px",text:myTxt,backC:"#BB482E",setID:"roomShoppingBtn",
+            textC:"yellow",width:"160px",border:"solid 3px blue",setFunc:checkRoomShopping})
         }
-    } 
+    }
 
-    table = document.createElement("table")
-    tableAdd({table:table})
+    tB = addEle({dad:rightBottom1,what:"table",margin:"0 0 20px 20px"})
     for (i=0;i<newRoom.length;i++){
-        tableAdd({table:table,row:false})
-
-        row = table.rows.length-1
-        cel = table.rows[row].cells.length-1
-
-        thisContainer = document.createElement("div")
-        thisContainer.style = containerColumn
-        table.rows[row].cells[cel].appendChild(thisContainer)
-
-                myDiv = document.createElement("div")
-                thisContainer.appendChild(myDiv)
-                myDiv.innerHTML = "#" + (i+1)
-                myDiv.style.borderBottom = "dotted white 2px"
-
-                myDiv = document.createElement("div")
-                thisContainer.appendChild(myDiv)
-                myDiv.innerHTML = newRoom[i].toLocaleString()
-                
-        table.rows[row].cells[cel].style.minWidth = 40 + "px"
-        table.rows[row].cells[cel].style.textAlign = "center"
-        table.rows[row].cells[cel].style.border = "solid blueviolet 2px"
-
-        if (i===9){tableAdd({table:table})}
-        }
-
-        
-
-    table.style.margin = "0 0 20px 20px"
-    rightBottom1.appendChild(table)
+            if(i===0 || i===9){tR = addEle({dad:tB,what:"tr"})}
+            tC = addEle({dad:tR,what:"td",minWidth:"50px",border:"solid 2px blueviolet",textA:"center"})
+            let thisC = addEle({dad:tC,setClass:"contCol_W"})
+                addEle({dad:thisC,text:"# " + (i+1),borderB:"dotted white 2px"})
+                addEle({dad:thisC,text:newRoom[i].toLocaleString()})
+    }
     rightBottom1.style.display = "none"
-
 }
 
-function displayRoom(e,rightBottom,width){
 
+
+function displayRoom(e,rightBottom){
         cleanParent(rightBottom)
+        let refNm = e.srcElement.innerHTML
+        let refR = Rooms.filter(rm=>rm.label===refNm)[0]
 
-        let thisItem = Rooms[Rooms.findIndex(x=>x.label === e.srcElement.innerHTML)]
+        let mainFr = addEle({dad:rightBottom,setClass:"contCol_W",border:"solid blue 3px",justifyC:"center",
+        radius:"30px",padding:"30px 10px 30px 10px",alignItems:"center",textA:"center",width:"500px",fontS:"18px"})        
+            let frTop = addEle({dad:mainFr,setClass:"contCol_W"})
+            let frBtm = addEle({dad:mainFr,setClass:"contCol_W",setID:"roomLv",display:"none"})
 
+        addEle({dad:frTop,what:"img",img2Sizes:"500:142",imgFullSrc:"./IPM Components/" + refNm + ".jpg"})
+
+        let subC = addEle({dad:frTop,setClass:"contRow_W",justifyC:"center"})
+        addEle({dad:subC,width:"fit-content",borderB:"yellow solid 3px",
+        margin:"20px 0",text:refR.label+", Max Lv " + (refR.costs.length+1)})
+
+        addEle({dad:frTop,text:refR.bonus.label})
+
+        addEle({dad:frBtm,text:refR.label,border:"teal solid 2px",backC:"black",fontS:"18px",
+        padding:"5px",borderB:"none",radiusTL:"20px",radiusTR:"20px",margin:"20px 0 -3px 0",setID:"refRoom"})
+
+        let thisBonus = refR.bonus.base + refR.bonus.start
+        let fullBonus = refR.bonus.base + refR.bonus.start
         let fullCost = 0
-        let fullBonus = thisItem.bonus.base + thisItem.bonus.start
-        let table = document.createElement("table")
-        table.style.display = "none"
-        table.style.marginLeft = 50 + "px"
-        let row = 0
-        let cel = 0
-        let thisBonus = thisItem.bonus.base + thisItem.bonus.start
 
-        for (i=0;i<thisItem.costs.length;i++){
-                thisBonus+= thisItem.bonus.every
-                fullBonus += thisItem.bonus.every
-                fullCost += thisItem.costs[i]
-                tableAdd({table:table})
-                tableAdd({table:table,row:false})
-                row = table.rows.length-1
-                cel = table.rows[row].cells.length-1
-                table.rows[row].cells[cel].innerHTML =
-                "Level " + (i+2) + " : Cost " + thisItem.costs[i].toLocaleString() + " --- Bonus "
-                table.rows[row].cells[cel].innerHTML += 
-                thisBonus < 0 ? thisBonus.toFixed(2) + "%" : thisBonus.toFixed(2)
+        let tB = addEle({dad:frBtm,what:"table",setID:"roomTable"})
+        for (i=0;i<refR.costs.length;i++){
+            thisBonus += refR.bonus.every
+            fullBonus += refR.bonus.every
+            fullCost += refR.costs[i]
+            let myC = "teal"
+            let myBC = ""
+            tR = addEle({dad:tB,what:"tr"})
+
+                if(roomShopping.length>0){
+                    let thisIdx = roomShopping.findIndex(rs=>rs.label===refR.label && rs.level===i)
+                    if(thisIdx>-1){myBC = "teal"}
+                }
+
+                addEle({dad:tR,padding:"5px",border:"solid 2px "+myC,what:"td",cursor:"pointer",backC:myBC,
+                minWidth:"60px",text:"Level : " + (i+2),setID:refR.label+":"+i,setFunc:(e)=>{addRoomShopping(e)}})
+
+                addEle({dad:tR,padding:"5px",border:"solid 2px "+myC,what:"td",cursor:"pointer",backC:myBC,
+                text:"Cost " + refR.costs[i].toLocaleString(),setID:refR.label+":"+i,setFunc:(e)=>{addRoomShopping(e)}})
+                
+                let thisTxt = "Bonus "
+                thisTxt += thisBonus < 0 ? thisBonus.toFixed(2) + "%" : thisBonus.toFixed(2)
+                addEle({dad:tR,padding:"5px",border:"solid 2px "+myC,what:"td",text:thisTxt,backC:myBC,
+                cursor:"pointer",setID:refR.label+":"+i,setFunc:(e)=>{addRoomShopping(e)}})
         }
 
-        let thisContainer = document.createElement("div")
-        rightBottom.appendChild(thisContainer)
-        thisContainer.style = containerStyle
-        thisContainer.style.marginLeft = 12 + "px"
-        thisContainer.style.width = 500 + "px"
+        addEle({dad:frTop,margin:"10px 0",text:"Total Cost to reach Max Level : " + fullCost.toLocaleString()})
 
-                let subContainer = document.createElement("div")
-                thisContainer.appendChild(subContainer)
-                subContainer.style = containerColumn
-                subContainer.style.marginLeft = "0"
+        let thisTxt = "Bonus total at Max Level : "
+        thisTxt += fullBonus.toFixed(2) < 0 ?
+        fullBonus.toFixed(2) + "%" : fullBonus.toFixed(2) 
+        addEle({dad:frTop,text:thisTxt})
 
-                        let img = new Image(500,142)
-                        img.src = "./IPM Components/" + e.srcElement.innerHTML + ".jpg"
-                        subContainer.appendChild(img)
-                
-                        let myDiv = document.createElement("div")
-                        subContainer.appendChild(myDiv)
-                        myDiv.style = textStyle
-                        myDiv.style.borderBottom = "yellow 3px solid"
-                        myDiv.style.marginLeft = 10 + "px"
-                        myDiv.innerHTML = thisItem.label + ", Max Lv " + (thisItem.costs.length +1)
-                        myDiv.style.width = myDiv.innerHTML.length *9 + "px" 
+        subC = addEle({dad:frTop,setClass:"contRow_W",justifyC:"center"})
+        addEle({dad:subC,setClass:"button1",width:"80%",text:`Display Cost & Bonus per Level<br>
+        `+ spanText("rgb(0,212,250)","Click a line to Add/Remove if from Shopping"),
+        setID:"roomDisplayLv",setFunc:()=>{
+            getID("roomLv").style.display = getID("roomLv").style.display ==="none" ? "flex" : "none"
+        }})
+}
 
-                        myDiv = document.createElement("div")
-                        subContainer.appendChild(myDiv)
-                        myDiv.style = textStyle
-                        myDiv.style.marginLeft = 10 + "px"
-                        myDiv.innerHTML = thisItem.bonus.label + "<br>"
+let roomShopping = []
+function addRoomShopping(e){
+    let refNm = e.srcElement.id.split(":")[0]
+    let refR = Rooms.filter(rm=>rm.label===refNm)[0]
+    let refLv = Number(e.srcElement.id.split(":")[1])
 
-                        myDiv.innerHTML += "Total Cost to reach Max Level : " + fullCost.toLocaleString() + "<br>"
+    let thisIdx = roomShopping.findIndex(itm=>itm.label===refNm && itm.level===refLv)
+    
+    if(thisIdx < 0){
+        roomShopping.push({label:refNm,level:Number(refLv),cost:refR.costs[refLv]})
+        getID("roomTable").rows[refLv].cells[0].style.backgroundColor = "teal"
+        getID("roomTable").rows[refLv].cells[1].style.backgroundColor = "teal"
+        getID("roomTable").rows[refLv].cells[2].style.backgroundColor = "teal"
+    } else {
+        roomShopping.splice(thisIdx,1)
+        getID("roomTable").rows[refLv].cells[0].style.backgroundColor = ""
+        getID("roomTable").rows[refLv].cells[1].style.backgroundColor = ""
+        getID("roomTable").rows[refLv].cells[2].style.backgroundColor = ""
+    }
 
-                        myDiv.innerHTML += "Bonus total at Max Level : "
-                        myDiv.innerHTML += fullBonus.toFixed(2) < 0 ?
-                        fullBonus.toFixed(2) + "%" : fullBonus.toFixed(2) 
+    getID("roomShoppingBtn").innerHTML = "Shopping (" + roomShopping.length + ")"
+    getID("roomShoppingBtn").click()
+}
 
-                        myDiv = document.createElement("div")
-                        subContainer.appendChild(myDiv)
-                        myDiv.style = closeButtonStyle
-                        myDiv.style.marginLeft = 20 + "px"
-                        myDiv.innerHTML = "Display Cost & Bonus per Level"
-                        myDiv.style.width = myDiv.innerHTML.length * 10 + "px"
-                        myDiv.addEventListener("click",()=>{
-                                table.style.display = 
-                                table.style.display === "none" ? "block" : "none"
-                        })
+function checkRoomShopping(){
+    cleanParent(getID("roomShoppingFr"))
+    if(roomShopping.length===0){return}
 
-                        thisContainer.appendChild(table)
+    let myRoomShopping = addEle({dad:getID("roomShoppingFr"),setClass:"contCol_W",
+    border:"3px solid blue",padding:"30px 10px",radius:"30px",fontS:"18px"})
 
+    addEle({dad:myRoomShopping,textC:"rgb(0,212,250)",text:"*Click a line to remove it*",
+    margin:"10px 0",textA:"center"})
 
+    let tempo = [] ; let newArr = []
+    Rooms.forEach(rm=>{
+        tempo = roomShopping.filter(rs=>rs.label===rm.label).sort((a,b)=>a.level-b.level)
+        tempo.forEach(itm=>newArr.push(itm))
+    })
+
+    let roomCost = 0
+    let tB = addEle({dad:myRoomShopping,what:"table"})
+    for(let i=0;i<newArr.length;i++){
+        let itm = newArr[i] ; roomCost+= itm.cost
+        let tR = addEle({dad:tB,what:"tr"})
+            addEle({dad:tR,what:"td",textA:"right",text:itm.label+" Lv"+(itm.level+2),//,minWidth:"150px"
+            setID:itm.label+":"+(itm.level+2),cursor:"pointer",padding:"5px 0",setFunc:(e)=>{
+                let myNm = e.srcElement.id.split(":")[0]
+                let myLv = Number(e.srcElement.id.split(":")[1])-2
+                let thisIdx = roomShopping.findIndex(itm=>itm.label===myNm && itm.level===myLv)
+                roomShopping.splice(thisIdx,1)
+                let grp = document.getElementsByName("roomSelectBtns")
+                for(i=0;i<grp.length;i++){
+                    if(grp[i].innerHTML===getID("refRoom").innerHTML){grp[i].click()}
+                }
+                getID("roomDisplayLv").click()
+                checkRoomShopping()
+            }})
+            addEle({dad:tR,what:"td",textA:"right",minWidth:"100px",text:itm.cost.toLocaleString(),
+            setID:itm.label+":"+(itm.level+2),paddingR:"10px",cursor:"pointer",setFunc:(e)=>{
+                let myNm = e.srcElement.id.split(":")[0]
+                let myLv = Number(e.srcElement.id.split(":")[1])-2
+                let thisIdx = roomShopping.findIndex(itm=>itm.label===myNm && itm.level===myLv)
+                roomShopping.splice(thisIdx,1)
+                let grp = document.getElementsByName("roomSelectBtns")
+                for(i=0;i<grp.length;i++){
+                    if(grp[i].innerHTML===getID("refRoom").innerHTML){grp[i].click()}
+                }
+                getID("roomDisplayLv").click()
+                checkRoomShopping()
+            }})
+    }
+    addEle({dad:myRoomShopping,paddingR:"10px",text:"Total : "+roomCost.toLocaleString(),
+    marginT:"20px",textA:"right"})
+
+    getID("roomShoppingBtn").innerHTML = "Shopping (" + roomShopping.length + ")"
 }

@@ -797,7 +797,7 @@ function buildPlanets(){
 
     let rightTop = addEle({dad:right,setClass:"contRow_W"})
     let rightMiddle = addEle({dad:right,setClass:"contRow_W",setID:"rightMiddle"})
-    let rightBottom = addEle({dad:right,setClass:"contCol_W"})
+    let rightBottom = addEle({dad:right,setClass:"contCol_W",width:"fit-content"})
 
 
     let thisBt = addEle({dad:rightTop,setClass:"button1",marginL:"10px",text:"Full List",

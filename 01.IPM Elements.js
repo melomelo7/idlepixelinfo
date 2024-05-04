@@ -56,6 +56,7 @@ function addEle({
     cursor = "",
     tableLayout = "",
     imgSize = "",
+    img2Sizes = "",
     imgSrc = "",
     imgFullSrc = "",
     radioCol = "",
@@ -65,22 +66,31 @@ function addEle({
     userSelect = "",
     colSpan = "",
     rowSpan = "",
+    url = "",
     log = false}){
 
     let thisObj = undefined
 
     if(!isInput){
         if(what==="img" || what==="image"){
-            if(imgSize===""){thisObj = new Image()}
-            else{thisObj = new Image(imgSize,imgSize)}
-            if(imgFullSrc!=="")
-                {thisObj.src = imgFullSrc}
+            if(img2Sizes!==""){thisObj = 
+                new Image(Number(img2Sizes.split(":")[0]),Number(img2Sizes.split(":")[1]))}
+            else if(imgSize!==""){thisObj = new Image(imgSize,imgSize)}
+            else{thisObj = new Image()}
+            
+            if(imgFullSrc!==""){thisObj.src = imgFullSrc}
             else{thisObj.src = path1 + imgSrc + path2}
             }
         else
             {thisObj = document.createElement(what)}
     } else {
         thisObj = document.createElement("input"); thisObj.setAttribute("type",what)
+    }
+
+    if(url!==""){
+        thisObj = document.createElement("a")
+        thisObj.setAttribute("href","mailto:"+url)
+        thisObj.innerHTML = url
     }
 
     if(radioCol!==""){thisObj.style.accentColor = radioCol}
@@ -204,3 +214,6 @@ function addEle({
 function spanText(spanColor,spanTxt){return `<span style="color:`+spanColor+`;">`+spanTxt+"</span>"}
 
 function getID(id){return document.getElementById(id)}
+
+function cleanParent(parent){while(parent.children.length >0){parent.removeChild(parent.lastChild)}}
+

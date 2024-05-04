@@ -243,7 +243,7 @@ const faqsArray = [
             Usualy this happens when you reach the best item you are able<br>
             to craft, all gets very slow and you think about selling galaxy.<br><br>
             That last item sold being the fuel to have a high cash relative<br>
-            to your Galaxy Value you then wait more arks to grind deeper ...<br><br>
+            to your `+spanText("lime","Galaxy Value")+` you then wait more arks to grind deeper ...<br><br>
             An Ark does not have a set Timer to pop again so you might be<br>
             waiting like 6 to 10 (or even more) minutes for the next one.<br><br>
             * Sidenote : it may happen that game gets weird lags sometimes<br>
@@ -251,7 +251,7 @@ const faqsArray = [
             `,
     url : "",
     img : "ark2.jpg",
-    thisFunction : undefined,
+    thisFunction : showGal100,
     },
     {
     label : "Stars",
@@ -393,86 +393,41 @@ const faqsArray = [
 ]
 
 function setFaq(){
-
-    let thisContainer = document.createElement("div")
-    thisContainer.style = containerRow
-    thisContainer.style.margin = "10px 0 0 20px"
-    right.appendChild(thisContainer)
-
-        let subContainerA = document.createElement("div")
-        subContainerA.style = containerColumn
-        thisContainer.appendChild(subContainerA)
-
-        let subContainerB = document.createElement("div")
-        subContainerB.style = containerColumn
-        thisContainer.appendChild(subContainerB)
-
-    for(i=0;i<faqsArray.length;i++){
-        let btnContainer = document.createElement("div")
-        btnContainer.style = closeButtonStyle
-        btnContainer.style.padding = "10px"
-        subContainerA.appendChild(btnContainer)
-        btnContainer.innerHTML = faqsArray[i].label
-        btnContainer.addEventListener("click",function(e){faqButton(e,subContainerB)})
-    }
-}
+    let fork = addEle({dad:right,setClass:"contRow",margin:"-10px 0 0 20px"})
+        let forkA = addEle({dad:fork,setClass:"contCol_W"})
+        let forkB = addEle({dad:fork,setClass:"contCol_W"})
+    for(i=0;i<faqsArray.length;i++)
+        {addEle({dad:forkA,setClass:"button1",padding:"10px",
+        text:faqsArray[i].label,setFunc:(e)=>{faqButton(e,forkB)}}) }  }
 
 function faqButton(e,subContainerB){
-
     cleanParent(subContainerB)
-    let thisElement = faqsArray[faqsArray.findIndex(x=>x.label === e.srcElement.innerHTML)]
+    let reFaq = faqsArray.filter(fq=>fq.label===e.srcElement.innerHTML)[0]
 
-    let thisContainer = document.createElement("div")
-    thisContainer.style = containerStyle
-    thisContainer.style.margin = "10px 0 0 20px"
+    let thisContainer = addEle({dad:subContainerB,padding:"15px",border:"blue solid 3px",
+    radius:"30px",backG:'url("./IPM Components/bg.jpg")',fontS:"18px",margin:"10px 0 0 20px",
+    display:"flex",flDir:"column",alignItems:"center"})
+        if (reFaq.icon){addEle({dad:thisContainer,what:"img",imgFullSrc:"./IPM Components/" + reFaq.icon})}
 
-    subContainerB.appendChild(thisContainer)
+        addEle({dad:thisContainer,setClass:"texting",text:reFaq.text})
 
-    let subContainer = undefined
-    let thisItem = undefined
+        if (reFaq.url){addEle({dad:thisContainer,url:reFaq.url})}
 
-        if (thisElement.icon){
-            subContainer = document.createElement("div")
-            thisContainer.appendChild(subContainer)
-            subContainer.style.marginTop = 20 + "px"
-            subContainer.style.textAlign = "center"
+        if (reFaq.img){addEle({dad:thisContainer,what:"img",imgFullSrc:"./IPM Components/" 
+        + reFaq.img,margin:"20px 0"})}
 
-                thisItem = new Image()
-                thisItem.src = "./IPM Components/" + thisElement.icon
-                subContainer.appendChild(thisItem)            
-        }
+        if(reFaq.thisFunction){reFaq.thisFunction(thisContainer)}
+}
 
-        thisItem = document.createElement("div")
-        thisItem.style = textStyle
-        thisItem.innerHTML = thisElement.text
-        thisContainer.appendChild(thisItem)
-
-        if (thisElement.url){
-            subContainer = document.createElement("div")
-            thisContainer.appendChild(subContainer)
-            subContainer.style.marginTop = 20 + "px"
-            subContainer.style.textAlign = "center"
-
-                thisItem = document.createElement("a")
-                thisItem.setAttribute("href","mailto:"+thisElement.url)
-                subContainer.appendChild(thisItem)
-                thisItem.innerHTML = thisElement.url
-        }
-
-        if (thisElement.img){
-            subContainer = document.createElement("div")
-            thisContainer.appendChild(subContainer)
-            subContainer.style.marginTop = 20 + "px"
-            subContainer.style.textAlign = "center"
-
-                thisItem = new Image()
-                thisItem.src = "./IPM Components/" + thisElement.img
-                subContainer.appendChild(thisItem)
-        }
-
-        if (thisElement.thisFunction) {
-            thisElement.thisFunction(thisContainer)
-        }
+function showGal100(container){
+    let subC = addEle({dad:container,setClass:"contCol",textA:"center",alignItems:"center"})
+        addEle({dad:subC,text:spanText("lime","Example of a GV ~100%"),margin:"40px 0 0 0",
+        border:"solid 2px green",padding:"20px 108px 20px 109px",radiusTL:"30px",
+        radiusTR:"30px",borderB:"none",backC:"black"})
+        addEle({dad:subC,what:"img",imgFullSrc:"./IPM Components/gal100.jpg",imgSize:400,
+        border:"solid 2px green",borderT:"none",borderB:"none"})//solid 2px black
+        addEle({dad:subC,what:"img",imgFullSrc:"./IPM Components/gal100_2.jpg",imgSize:400,
+        border:"solid 2px green",radiusBL:"30px",radiusBR:"30px",borderT:"none"})//"solid 2px black"
 }
 
 function starPool(container){
@@ -490,33 +445,28 @@ function setBeacon(container){
     let tokenCost = 
         [4,8,12,16,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,140,150,175,200,225,250,300,350,400,500,600,700,800]
 
-    let beaconTable = document.createElement("table")
-    container.appendChild(beaconTable)
-    beaconTable.style.margin = "0 auto"
-        let newRow = document.createElement("tr")
-        beaconTable.appendChild(newRow)
-            AddCell(newRow).innerHTML = "Lv"
-            AddCell(newRow).innerHTML = "Token<br>Cost"
-            AddCell(newRow).innerHTML = "Mine"
-            AddCell(newRow).innerHTML = "Speed<br>Cargo"
+    let myC = "darkgreen"
+    let bT = addEle({dad:container,what:"table",margin:"0 auto",marginT:"-20px"})
+    let bR = addEle({dad:bT,what:"tr"})
+        addEle({dad:bR,what:"td",textA:"center",minWidth:"90px",border:"solid 2px "+myC,text:"Lv"})
+        addEle({dad:bR,what:"td",textA:"center",minWidth:"60px",border:"solid 2px "+myC,text:"Token<br>Cost"})
+        addEle({dad:bR,what:"td",textA:"center",minWidth:"60px",border:"solid 2px "+myC,text:"Mine"})
+        addEle({dad:bR,what:"td",textA:"center",minWidth:"60px",border:"solid 2px "+myC,text:"Speed<br>Cargo"})
 
     for (i=0;i<tokenCost.length;i++){
         totalToken += tokenCost[i]
-        newRow = document.createElement("tr")
-        beaconTable.appendChild(newRow)
-            AddCell(newRow).innerHTML = i+1
-            AddCell(newRow).innerHTML = tokenCost[i]
-            AddCell(newRow).innerHTML = (1 + (0.02*(i+1))).toFixed(2)
-            AddCell(newRow).innerHTML = (1 + (0.04*(i+1))).toFixed(2)
-    }
+        bR = addEle({dad:bT,what:"tr"})
+            addEle({dad:bR,what:"td",textA:"center",border:"solid 2px "+myC,text:(i+1)})
+            addEle({dad:bR,what:"td",textA:"center",border:"solid 2px "+myC,text:tokenCost[i]})
+            addEle({dad:bR,what:"td",textA:"center",border:"solid 2px "+myC,text:(1 + (0.02*(i+1))).toFixed(2)})
+            addEle({dad:bR,what:"td",textA:"center",border:"solid 2px "+myC,text:(1 + (0.04*(i+1))).toFixed(2)}) }
 
-    newRow = document.createElement("tr")
-    beaconTable.appendChild(newRow)
-        AddCell(newRow).innerHTML = "Total spent"
-        AddCell(newRow).innerHTML = totalToken.toLocaleString()
-
+    bR = addEle({dad:bT,what:"tr"})
+        addEle({dad:bR,what:"td",textA:"center",border:"solid 2px "+myC,text:"Total spent"})
+        addEle({dad:bR,what:"td",textA:"center",border:"solid 2px "+myC,text:totalToken.toLocaleString()})
 }
 
+/*
 function AddCell(thisRow){
     let thisCel = document.createElement("td")
     thisCel.style = basicCellStyle
@@ -524,6 +474,7 @@ function AddCell(thisRow){
     thisRow.appendChild(thisCel)
     return thisCel
 }
+*/
 
 function AddADiv(container){
     let item = document.createElement("div")
@@ -534,6 +485,7 @@ function AddADiv(container){
     return item
 }
 
+/*
 function AddImg(container,path){
     let img = new Image()
     img.src = path
@@ -541,19 +493,26 @@ function AddImg(container,path){
     container.appendChild(img)
     return img
 }
+*/
 
 function setFleet(container){
     let location = "./IPM Components/"
     let ships = ["daughtership","eldership","exodus","thunderhorse","merchant ship","aurora ship","enigma"]
-    for(let i = 0;i<3;i++){ let img = new Image() ; let ship = ships[i]
-        img.src = gameLook === "Old" ? location + ship + ".jpg" : location + ship + "n.jpg"
-        AddADiv(container).appendChild(img) }
+    let subC = addEle({dad:container,setClass:"contCol",marginT:"20px"})
+    for(let i = 0;i<3;i++){
+        addEle({dad:subC,what:"img",imgFullSrc:gameLook === "Old" ? 
+        location + ships[i] + ".jpg" : location + ships[i] + "n.jpg",
+        margin:"5px",border:"solid 2px yellow",radius:"30px"})
+    }
 
-    AddADiv(container).style.borderTop = "yellow solid 2px"
+    addEle({dad:subC,border:"yellow solid 2px",margin:"50px 0"})
 
-    for(let i = 3;i<ships.length;i++){ let img = new Image() ; let ship = ships[i]
-        img.src = gameLook === "Old" ? location + ship + ".jpg" : location + ship + "n.jpg"
-        AddADiv(container).appendChild(img) } }
+    for(let i = 3;i<ships.length;i++){ 
+        addEle({dad:subC,what:"img",imgFullSrc:gameLook === "Old" ? 
+        location + ships[i] + ".jpg" : location + ships[i] + "n.jpg",
+        margin:"5px",border:"solid 2px yellow",radius:"30px"})
+    } 
+}
 
 function setChallenge(container){
     const challenge = [
@@ -587,74 +546,40 @@ function setChallenge(container){
         {value:"1D",dm:200},
     ]
 
-    let table = document.createElement("table")
-    table.style.margin = "0 auto"
-    table.style.marginTop = 10 + "px"
-    container.appendChild(table)
+    let table = addEle({dad:container,what:"table",margin:"0 auto",marginT:"-20px"})
     for (i=0;i<challenge.length;i++){
-        let tr = document.createElement("tr")
-        table.appendChild(tr)
-            let td = AddCell(tr)
-            td.innerHTML = challenge[i].value
-            td.style.minWidth = 100 + "px"
-
-            AddCell(tr).innerHTML = i+1
-            AddCell(tr).innerHTML = challenge[i].dm
+        let tr = addEle({dad:table,what:"tr"})
+            addEle({dad:tr,what:"td",text:challenge[i].value,minWidth:"70px",border:"solid 2px teal",
+            textA:"left",paddingL:"30px"})
+            addEle({dad:tr,what:"td",text:i+1,minWidth:"65px",border:"solid 2px teal",textA:"center"})
+            addEle({dad:tr,what:"td",text:challenge[i].dm,minWidth:"65px",border:"solid 2px teal",textA:"center"})
     }
 }
 
 function setTournament(container){
-    let mainFrame = document.createElement("div")
-    container.appendChild(mainFrame)
-    mainFrame.style.border = "yellow 1px solid"
-    mainFrame.style.borderRadius = "10px"
-    mainFrame.style.marginTop = 20 + "px"
-    mainFrame.style.padding = 10 + "px"
-
-    let item = AddADiv(mainFrame)
-    item.innerHTML = "Infos & rewards"
-    item.style.fontSize = 22 + "px"
-    item.style.margin = "10px 0 10px 0"
-    item.style.borderBottom = "yellow solid 2px"
-
-    let img = undefined
+    let mainFrame = addEle({dad:container,border:"yellow 1px solid",radius:"10px",marginT:"20px",padding:"10px"})
     let location = "./IPM Components/"
 
-    let table = document.createElement("table")
-    table.style.margin = "0 auto"
-    table.style.marginBottom = "10px"
-    mainFrame.appendChild(table)
-        let tr = document.createElement("tr")
-        table.appendChild(tr)
-            let td = AddCell(tr)
-            td.style = closeButtonStyle
-            td.innerHTML = "Infos"
-            td.addEventListener("click",()=>{
-                cleanParent(subFrame)
-                img = new Image()
-                img.src = location + "tournament2.jpg"
-                subFrame.appendChild(img)
-                img.style = `
-                display: block;
-                margin-left: auto;
-                margin-right: auto;`
-                subFrame.style.height = "630px"})
+    addEle({dad:mainFrame,fontS:"22px",margin:"10px 0",borderB:"yellow solid 2px",text:"Infos & rewards",textA:"center"})
+        let table = addEle({dad:mainFrame,what:"table",margin:"0 auto",marginB:"10px"})
+            let tr = addEle({dad:table,what:"tr"})
 
-            td = AddCell(tr)
-            td.style = closeButtonStyle
-            td.innerHTML = "[ *?!* ]"
-            td.addEventListener("click",()=>{
+            let td = addEle({dad:tr,what:"td",setClass:"button1",minWidth:"60px",text:"Infos",
+            setFunc:()=>{
                 cleanParent(subFrame)
-                img = new Image()
-                img.src = location + "tournament3.jpg"
-                subFrame.appendChild(img)
+                addEle({dad:subFrame,what:"img",imgFullSrc:location + "tournament2.jpg",
+                display:"block",marginL:"auto",marginR:"auto"})
+                subFrame.style.height = "630px" }})
 
-                item = AddADiv(subFrame)
-                item.style.textAlign = "left"
-                item.style.marginLeft = 40 + "px"
-                item.style.height = "550px"
-                item.style.overflowX = "hidden"
-                item.innerHTML = `
+            td = addEle({dad:tr,what:"td",setClass:"button1",minWidth:"60px",text:"[ *?!* ]",
+            setFunc:()=>{
+
+                cleanParent(subFrame)
+                let subC = addEle({dad:subFrame,setClass:"contRow",justifyC:"center"})
+                addEle({dad:subC,what:"img",imgFullSrc:location + "tournament3.jpg",marginB:"10px"})
+
+                addEle({dad:subFrame,textA:"left",marginL:"40px",height:"550px",overflowX:"hidden",
+                text:`
                 - Retire ? Sure why not ... whatever the reason,<br>
                 your position will remain, and if no other<br>
                 player is able to go past you during remaining<br>
@@ -686,146 +611,88 @@ function setTournament(container){
                 Traveling sometime is a bug cause, especialy<br>
                 crossing time zones. When facing a big badabug,<br>
                 screen shots/Player ID ready ⇒ contact Support 
-                `
-                subFrame.style.height = "630px"})
-                
-            td = AddCell(tr)
-            td.style = closeButtonStyle
-            td.innerHTML = "Copper"
-            td.addEventListener("click",()=>{
-                cleanParent(subFrame)
-                img = new Image()
-                img.src = location + "tournament rewards1.jpg"
-                subFrame.appendChild(img)
-                img.style = `
-                display: block;
-                margin-left: auto;
-                margin-right: auto;`
-                subFrame.style.height = "630px"})
-            
-            td = AddCell(tr)
-            td.style = closeButtonStyle
-            td.innerHTML = "Silver"
-            td.addEventListener("click",()=>{
-                cleanParent(subFrame)
-                img = new Image()
-                img.src = location + "tournament rewards2.jpg"
-                subFrame.appendChild(img)
-                img.style = `
-                display: block;
-                margin-left: auto;
-                margin-right: auto;`
-                subFrame.style.height = "630px"})
+                `})
+                subFrame.style.height = "630px"
+            }})
 
-            td = AddCell(tr)
-            td.style = closeButtonStyle
-            td.innerHTML = "Gold"
-            td.addEventListener("click",()=>{
+            td = addEle({dad:tr,what:"td",setClass:"button1",minWidth:"60px",text:"Copper",
+            setFunc:()=>{
                 cleanParent(subFrame)
-                img = new Image()
-                img.src = location + "tournament rewards3.jpg"
-                subFrame.appendChild(img)
-                img.style = `
-                display: block;
-                margin-left: auto;
-                margin-right: auto;`
-                subFrame.style.height = "630px"})
-
-            td = AddCell(tr)
-            td.style = closeButtonStyle
-            td.innerHTML = "Platinum"
-            td.addEventListener("click",()=>{
+                addEle({dad:subFrame,what:"img",imgFullSrc:location + "tournament rewards1.jpg",
+                display:"block",marginL:"auto",marginR:"auto"})
+                addEle({dad:subFrame,text:"Rank 25 and better get promoted to the next league",
+                textA:"center",marginT:"20px",textC:"deepskyblue"})
+                subFrame.style.height = "630px"
+            }})
+            td = addEle({dad:tr,what:"td",setClass:"button1",minWidth:"60px",text:"Silver",
+            setFunc:()=>{
                 cleanParent(subFrame)
-                img = new Image()
-                img.src = location + "tournament rewards4.jpg"
-                subFrame.appendChild(img)
-                img.style = `
-                display: block;
-                margin-left: auto;
-                margin-right: auto;`
-                subFrame.style.height = "630px"})
+                addEle({dad:subFrame,what:"img",imgFullSrc:location + "tournament rewards2.jpg",
+                display:"block",marginL:"auto",marginR:"auto"})
+                addEle({dad:subFrame,text:`Rank 25 and better get promoted to the next league<br>
+                <br>Rank 75 and worse get demoted`,textA:"center",marginT:"20px",textC:"deepskyblue"})
+                subFrame.style.height = "630px"
+            }})
+            td = addEle({dad:tr,what:"td",setClass:"button1",minWidth:"60px",text:"Gold",
+            setFunc:()=>{
+                cleanParent(subFrame)
+                addEle({dad:subFrame,what:"img",imgFullSrc:location + "tournament rewards3.jpg",
+                display:"block",marginL:"auto",marginR:"auto"})
+                addEle({dad:subFrame,text:`Rank 10 and better get promoted to the next league<br>
+                <br>Rank 30 and worse get demoted`,textA:"center",marginT:"20px",textC:"deepskyblue"})
+                subFrame.style.height = "630px"
+            }})
+            td = addEle({dad:tr,what:"td",setClass:"button1",minWidth:"60px",text:"Platinum",
+            setFunc:()=>{
+                cleanParent(subFrame)
+                addEle({dad:subFrame,what:"img",imgFullSrc:location + "tournament rewards4.jpg",
+                display:"block",marginL:"auto",marginR:"auto"})
+                addEle({dad:subFrame,text:"Rank 22 and worse get demoted",
+                textA:"center",marginT:"20px",textC:"deepskyblue"})
 
-    let subFrame = AddADiv(mainFrame)
+                subFrame.style.height = "630px"
+            }})
+    let subFrame = addEle({dad:mainFrame})
 }
 
 function setManagers(container){
-    let thisElement = undefined
-    let thisContainer = undefined
-    let thisImg = undefined
     let location = "./IPM Components/"
-    let myItm = undefined
 
-    thisElement = AddADiv(container)
-    thisElement.style = closeButtonStyle
-    thisElement.innerHTML = "Recruit"
-    thisElement.addEventListener("click",()=>{
-        myItm = document.getElementById("managerTab")
-        myItm.style.display = "none"        
-        myItm = document.getElementById("recruit")
-        if(myItm.style.display === "none")
-            {myItm.style.display = "block"}
-        else
-            {myItm.style.display = "none"}
-    })
+    addEle({dad:container,setClass:"button1",text:"Recruit",width:"90%",setFunc:()=>{
+        getID("managerTab").style.display = "none"
+        getID("recruit").style.display = getID("recruit").style.display === "none" ? "block" : "none"
+    }})
 
-    thisElement = AddADiv(container)
-    thisElement.style = closeButtonStyle
-    thisElement.innerHTML = "Manager Tab"
-    thisElement.addEventListener("click",()=>{
-        myItm = document.getElementById("recruit")
-        myItm.style.display = "none"
-        myItm = document.getElementById("managerTab")
-        if(myItm.style.display === "none")
-            {myItm.style.display = "block"}
-        else
-            {myItm.style.display = "none"}
+    addEle({dad:container,setClass:"button1",text:"Manager Tab",width:"90%",setFunc:()=>{
+        getID("recruit").style.display = "none"
+        getID("managerTab").style.display = getID("managerTab").style.display === "none" ? "block" : "none"
+    }})
 
-    })
+    addEle({dad:container,border:"solid blue 2px",radius:"10px",padding:"5px",
+    display:"none",minWidth:"425px",setID:"recruit",textA:"center"})
 
-    thisContainer = AddADiv(container)
-    thisContainer.setAttribute("id","recruit")
-    thisContainer.style.border = "solid blue 2px"
-    thisContainer.style.padding = "5px"
-    thisContainer.style.borderRadius = "10px"
-    thisContainer.style.display = "none"
-    thisContainer.style.width = 425 + "px"
-        thisElement = AddADiv(thisContainer)
-        thisElement.style = textStyle
-        thisElement.innerHTML = "Hire a Manager with a random star level 1~3"
-        thisImg = AddImg(thisContainer,location+"manager2.jpg")
+        addEle({dad:getID("recruit"),setClass:"texting",text:"Hire a Manager with a random star level 1~3"})
+        addEle({dad:getID("recruit"),what:"img",margin:"10px 0",imgFullSrc:location + "manager2.jpg"})
 
-        thisElement = AddADiv(thisContainer)
-        thisElement.style = textStyle
-        thisElement.innerHTML = "Hire a Manager with a random star level 3~4"
-        thisImg = AddImg(thisContainer,location+"manager3.jpg")
+        addEle({dad:getID("recruit"),setClass:"texting",text:"Hire a Manager with a random star level 3~4"})
+        addEle({dad:getID("recruit"),what:"img",margin:"10px 0",imgFullSrc:location + "manager3.jpg"})
 
-        thisElement = AddADiv(thisContainer)
-        thisElement.style = textStyle
-        thisElement.innerHTML = "Hire a Manager with a random star level 4~5"
-        thisImg = AddImg(thisContainer,location+"manager4.jpg")
+        addEle({dad:getID("recruit"),setClass:"texting",text:"Hire a Manager with a random star level 4~5"})
+        addEle({dad:getID("recruit"),what:"img",margin:"10px 0",imgFullSrc:location + "manager4.jpg"})
 
-        thisElement = AddADiv(thisContainer)
-        thisElement.style = textStyle
-        thisElement.innerHTML = "Button will show Dark Matter cost OR<br>how many free pulls you own (Rover reward)"
-        thisImg = AddImg(thisContainer,location+"manager5.jpg")
+        addEle({dad:getID("recruit"),setClass:"texting",text:`Button will show Dark Matter cost OR<br>
+        how many free pulls you own (Rover reward)`})
+        addEle({dad:getID("recruit"),what:"img",margin:"10px 0",imgFullSrc:location + "manager5.jpg"})
 
-        thisElement = AddADiv(thisContainer)
-        thisElement.style = textStyle
-        thisElement.innerHTML = "You can even check the odds of stars quality<br>if you click on [( i ) Odds] down the page"
-        thisImg = AddImg(thisContainer,location+"manager6.jpg")
+        addEle({dad:getID("recruit"),setClass:"texting",text:`You can even check the odds of stars quality<br>
+        if you click on [( i ) Odds] down the page`})
+        addEle({dad:getID("recruit"),what:"img",margin:"10px 0",imgFullSrc:location + "manager6.jpg"})
 
-    thisContainer = AddADiv(container)
-    thisContainer.setAttribute("id","managerTab")
-    thisContainer.style.border = "solid blue 2px"
-    thisContainer.style.padding = "5px"
-    thisContainer.style.borderRadius = "10px"
-    thisContainer.style.display = "none"
-    thisContainer.style.width = 425 + "px"
-    thisImg = AddImg(thisContainer,location+"manager7.jpg")
-        thisElement = AddADiv(thisContainer)
-        thisElement.style.textAlign = "left"
-        thisElement.style.marginLeft = 10 + "px"
-        thisElement.innerHTML = `
+    addEle({dad:container,border:"solid blue 2px",radius:"10px",padding:"5px",
+    display:"none",minWidth:"425px",setID:"managerTab",textA:"center"})
+        addEle({dad:getID("managerTab"),what:"img",margin:"10px 0",imgFullSrc:location + "manager7.jpg"})
+
+        let managerTxt = `
         This Tab is where you manage your flock ...<br><br>
         The top line help you select managers by filtering<br>
         also it shows under [actions] > [stats] some<br>
@@ -834,17 +701,13 @@ function setManagers(container){
         When you cant find some managers they are either<br>
         working on a planet or hidden by a filter.<br><br>
         `
-        thisElement = AddADiv(thisContainer)
-        thisElement.style.marginLeft = 10 + "px"
-        thisElement.innerHTML = `
-        ***<br><br>
-        [!] Tap and hold a manager to access his details [!]<br>
-        `
-        thisImg = AddImg(thisContainer,location+"manager8.jpg")
-        thisElement = AddADiv(thisContainer)
-        thisElement.style.textAlign = "left"
-        thisElement.style.marginLeft = 10 + "px"
-        thisElement.innerHTML = `
+        addEle({dad:getID("managerTab"),textA:"left",marginL:"10px",text:managerTxt})
+
+        managerTxt = "***<br><br>[!] Tap and hold a manager to access his details [!]<br>"
+        addEle({dad:getID("managerTab"),marginL:"10px",text:managerTxt})
+        addEle({dad:getID("managerTab"),what:"img",margin:"10px 0",imgFullSrc:location + "manager8.jpg"})
+
+        managerTxt = `
         You may modify their name (on the left)<br><br>
         Promote : will burn 3 other managers with the same<br>
         star level to add 1 star on this selected manager.<br><br>
@@ -859,9 +722,7 @@ function setManagers(container){
         The Best manager you can reach is a 7 star that will be<br>
         displayed as a 6-RED-Stars instead of 7 stars.
         `
-        thisElement = AddADiv(thisContainer)
-        thisElement.style = textStyle
-        thisElement.innerHTML = ""
+        addEle({dad:getID("managerTab"),textA:"left",margin:"0 0 20px 10px",text:managerTxt})
 }
 
 
@@ -953,7 +814,7 @@ As a result(2) : This tool will return `+ spanText("fuchsia","NA") +`<br>
 a similar value that wont be incremented.<br>
 `
 
-    let subCont1 = addEle({dad:container,setClass:"contRow"})
+    let subCont1 = addEle({dad:container,setClass:"contRow",width:"100%"})
         addEle({dad:subCont1,text:"10 to 101 credits",setClass:"button1",width:"85%",backC:"slateblue",textC:"black",setFunc:()=>{
             getID("targetCreditFr").style.display = getID("targetCreditFr").style.display==="none"?"flex":"none"
         }})

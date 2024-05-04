@@ -83,46 +83,19 @@ function formatKMBT(value,revert = false){
         else {rep = value}
 
         rep = Number(rep)
-        }
-
-        return rep
     }
-
-
-function cleanParent(parent){
-    while(parent.children.length >0){
-        parent.removeChild(parent.lastChild)
-    }}
-
+        return rep
+}
 
 function firstContact(){
     let thisText = `Welcome to IPM Infos, 
     if you cant see any text, <br><br> 
     try zooming the top left corner ..." <br><br>
-    (this message will auto-destroy in 3...2...1...)
-    `
-    let msg = document.createElement("Div")
-    msg.innerHTML = thisText
-    msg.style = containerStyle
-    body.appendChild(msg)
-    centerScreen(msg)
-    setTimeout(()=>{body.removeChild(msg)},3000)
+    (this message will auto-destroy in 3...2...1...) `
+    let thisMsg = addEle({dad:body,border:"blue solid 2px",radius:"30px",text:thisText,padding:"20px"})
+    centerScreen(thisMsg)
+    setTimeout(()=>{body.removeChild(thisMsg)},3000)
 }
-
-
-function addLeftButton({label="",clickFunction=undefined,parent=left}){
-    const thisItem = document.createElement("div")
-    thisItem.style = h1StyleA
-    thisItem.style.cursor = "pointer"
-    thisItem.innerHTML = label
-    thisItem.addEventListener("click",clickFunction)
-    thisItem.addEventListener("mouseover", ()=>{
-        thisItem.style = h1StyleB })
-    thisItem.addEventListener("mouseout",()=>{
-        thisItem.style = h1StyleA })
-    parent.appendChild(thisItem)
-}
-
 
 function construction(){
     info.innerHTML = "Under Construction !!!"
@@ -139,7 +112,6 @@ function popKiller(){
     if(projectPop) {body.removeChild(projectPop);projectPop = undefined}
     }
 
-
 function clickFaqs(){
     popKiller()
     cleanParent(right)
@@ -150,7 +122,7 @@ function clickPlanets(){
     popKiller()
     cleanParent(right)
     buildPlanets()
-    document.getElementById("planetFull").click()  
+    getID("planetFull").click()  
 }
 
 function clickItems(){
@@ -192,16 +164,10 @@ function clickLook(){
 }
 
 function buildLook(){
-    let myCont = document.createElement("div")
-    myCont.style = containerRow
-    right.appendChild(myCont)
-        let myEl = document.createElement("div")
-        myCont.appendChild(myEl)
-        myEl.innerHTML = "Toggle the game Graphics here, now set to : " + gameLook
-        myEl.style = closeButtonStyle
-        myEl.addEventListener("click",(e)=>{
-            gameLook = e.srcElement.innerHTML.split(" : ")[1] === "Old" ? "New" : "Old"
-            e.srcElement.innerHTML = e.srcElement.innerHTML.split(" : ")[0] + " : " +gameLook }) }
+    addEle({dad:right,setClass:"button1",text:"Toggle the game Graphics here, now set to : " + gameLook,margin:"0 10px",
+    width:"fit-content",setFunc:(e)=>{gameLook = e.srcElement.innerHTML.split(" : ")[1] === "Old" ? "New" : "Old"
+    e.srcElement.innerHTML = e.srcElement.innerHTML.split(" : ")[0] + " : " +gameLook}})
+}
 
 function centerScreen(element){
     element.style.position = "absolute"
@@ -212,10 +178,9 @@ function centerScreen(element){
     element.style.left = posW + window.scrollX +5 + "px"
 }
 
-
 const cellSize = 35
 function buildProjectsGrid(whichGrid="",cellSize=0,globalContainer=right){
-
+    globalContainer.style = ""
     let curStat = "(jan.2024)"
     let curVal = "50k"
     let topText = "Click a tile for more infos"
@@ -224,20 +189,12 @@ function buildProjectsGrid(whichGrid="",cellSize=0,globalContainer=right){
      <br>station will require more than `+curVal+` energy
      <br>cells to be fully upgraded*`
 
-    let tabInfos = document.createElement("div")
-    globalContainer.appendChild(tabInfos)
-    tabInfos.innerHTML = topText
-    tabInfos.style = textStyle
-    tabInfos.style.fontSize = 20 + "px"
-    tabInfos.style.paddingLeft = 40 + "px"
-    tabInfos.style.color = "rgb(0,212,250)"
-    tabInfos.style.textAlign = "left"
+    addEle({dad:globalContainer,setClass:"texting",fontS:"20px",paddingL:"40px",
+    textC:"rgb(0,212,250)",textA:"left",text:topText,setID:"gridInfos",
+    minHeight:whichGrid==="projects" ? "24px" : "100px"})
 
-
-    let table = document.createElement("table")
-
+    let table = addEle({dad:globalContainer,what:"table"})
     let cut = 5
-
     let maxRow = 0
     let maxCol =0
     let refArray1 = undefined
@@ -258,70 +215,40 @@ function buildProjectsGrid(whichGrid="",cellSize=0,globalContainer=right){
             break
     }
 
-
     for (i=1;i<=maxRow;i++){
-        let row = document.createElement("tr")
-
-        if (whichGrid === "projects" && i % 2 === 0)
-            {row.style.height = cellSize/cut + "px"}
-        else
-            {row.style.height = cellSize + "px"}
-
-
-        table.appendChild(row)
+        let row = addEle({dad:table,what:"tr",height:whichGrid === "projects" 
+                    && i % 2 === 0 ? cellSize/cut + "px" : cellSize + "px"})
 
         for (j=1;j<=maxCol;j++){
-            let cell = document.createElement("td")
-
-            if (whichGrid === "projects" && j % 2 === 0)
-                {cell.style.width = cellSize/cut + "px"}
-            else
-                {cell.style.width = cellSize + "px"}
-
+            let cell = addEle({dad:row,what:"td",width:whichGrid === "projects" 
+            && j % 2 === 0 ? cellSize/cut + "px" : cellSize + "px",setID:"Row:"+i+"|Col:"+j})
             cell.style.minWidth = cell.style.width
-            cell.setAttribute("id","Row:"+i+"|Col:"+j)
-            row.appendChild(cell)
-
-//            cell.style.border = "solid 1px white"
         }}
 
-    globalContainer.appendChild(table)
 
     refArray1.forEach((obj)=>{
-        let img = new Image(cellSize,cellSize)
+        let thisSrc = ""
         if (obj.label.includes("telescope")){
             let txt = obj.label.split(" ")[0]
             let ref = Number(obj.label.split(" ")[1])
-
-            if (ref < 9)
-                {img.src = "./IPM Projects/"+txt+"1.jpg"} 
-            else if (ref > 8 && ref < 13)
-                {img.src = "./IPM Projects/"+txt+"2.jpg"}
-            else 
-                {img.src = "./IPM Projects/"+txt+"3.jpg"}
+            if (ref < 9){thisSrc = "./IPM Projects/"+txt+"1.jpg"} 
+            else if (ref > 8 && ref < 13){thisSrc = "./IPM Projects/"+txt+"2.jpg"}
+            else {thisSrc = "./IPM Projects/"+txt+"3.jpg"}
             }
-        else if (obj.label.includes("#"))
-            {img.src = "./IPM Components/"+obj.label.split(" #")[0]+".jpg"}
-        else 
-            {img.src = "./IPM Projects/"+obj.label+".jpg"}
-        
-        img.style.display="block"
+        else if (obj.label.includes("#")){thisSrc = "./IPM Components/"+obj.label.split(" #")[0]+".jpg"}
+        else {thisSrc = "./IPM Projects/"+obj.label+".jpg"}
 
-        table.rows[obj.rows-1].cells[obj.cell-1].appendChild(img)
-        table.rows[obj.rows-1].cells[obj.cell-1].style=`
-        border:solid 1px white;
-        cursor:pointer;
-        `
+        let img = addEle({dad:table.rows[obj.rows-1].cells[obj.cell-1],what:"img",
+        imgFullSrc:thisSrc,display:"block",imgSize:cellSize,setFunc:function(){clickCell2(obj,whichGrid)}})
+        img.addEventListener("mouseover",()=>{getID("gridInfos").innerHTML=obj.label})
+        img.addEventListener("mouseout",()=>{getID("gridInfos").innerHTML=""})
+
+        table.rows[obj.rows-1].cells[obj.cell-1].style="border:solid 1px white; cursor:pointer;"
         
-        img.addEventListener("mouseover",()=>{info.innerHTML=obj.label})
-        img.addEventListener("mouseout",()=>{info.innerHTML=infoTitle})
-        img.addEventListener("click",function(e){clickCell2(e,obj,whichGrid)})
     })
 
     if (whichGrid === "projects"){
-        let img = new Image(cellSize,cellSize)
-        img.src = "./IPM Projects/origin.png"
-        table.rows[17-1].cells[13-1].appendChild(img)
+        addEle({dad:table.rows[17-1].cells[13-1],what:"img",imgSize:cellSize,imgFullSrc:"./IPM Projects/origin.png"})
         }
 
         refArray2.forEach((obj)=>{
@@ -380,194 +307,83 @@ function buildProjectsGrid(whichGrid="",cellSize=0,globalContainer=right){
     }
 
 
-function clickCell2(e,obj,whichGrid){
+function clickCell2(obj,whichGrid){
     popKiller()
 
-    let projectPopWidth = 300
-    projectPop = document.createElement("div")
-    projectPop.style = containerStyle
-    projectPop.style.width = projectPopWidth + "px"
+    projectPop = addEle({dad:body,padding:"15px",border:"blue solid 3px",radius:"30px",
+    backG:'url("./IPM Components/bg.jpg")',fontS:"18px",width:"300px"})
     projectPop.style.opacity = 0.9
-    body.appendChild(projectPop)
 
-        let subContainer1 = document.createElement("div")
-        subContainer1.style = subContainerStyleA
-        projectPop.appendChild(subContainer1)
-
-            let text = document.createElement("div")
-            text.style.fontSize = 20 + "px"
-            text.style.margin = "10px"
-            text.style.borderBottom = "blue solid 3px"
-            text.innerHTML = obj.label
-            subContainer1.appendChild(text)
-
-            let img = new Image(40,40)
-
+        let subContainer1 = addEle({dad:projectPop,setClass:"contRow",alignItems:"center"})
+            let thisSrc = ""
             if (obj.label.includes("telescope")){
                 let txt = obj.label.split(" ")[0]
                 let ref = Number(obj.label.split(" ")[1])
 
-                if (ref < 9)
-                    {img.src = "./IPM Projects/"+txt+"1.jpg"} 
-                else if (ref > 8 && ref < 13)
-                    {img.src = "./IPM Projects/"+txt+"2.jpg"}
-                else 
-                    {img.src = "./IPM Projects/"+txt+"3.jpg"}
+                if (ref < 9){thisSrc = "./IPM Projects/"+txt+"1.jpg" }
+                else if (ref > 8 && ref < 13){thisSrc = "./IPM Projects/"+txt+"2.jpg"}
+                else {thisSrc = "./IPM Projects/"+txt+"3.jpg" }
                 }
-            else if (obj.label.includes("#"))
-                {img.src = "./IPM Components/"+obj.label.split(" #")[0]+".jpg"}
-            else 
-                {img.src = "./IPM Projects/"+obj.label+".jpg"}
+            else if (obj.label.includes("#")){thisSrc = "./IPM Components/"+obj.label.split(" #")[0]+".jpg"}
+            else {thisSrc = "./IPM Projects/"+obj.label+".jpg"}
+            addEle({dad:subContainer1,what:"img",imgSize:40,imgFullSrc:thisSrc})
 
-            subContainer1.appendChild(img)
-        
-        if (obj.description){
-        let description = document.createElement("div")
-        description.innerHTML = obj.description
-        description.style.margin = "10px"
-        projectPop.appendChild(description)
-            }
+            addEle({dad:subContainer1,fontS:"20px",margin:"10px",
+            borderB:"blue solid 3px",text:obj.label})                
 
-        if (obj.comment){
-            let comment = document.createElement("div")
-            comment.innerHTML = obj.comment
-            comment.style.margin = "10px"
-            projectPop.appendChild(comment)}
+        if (obj.description){addEle({dad:projectPop,margin:"10px",text:obj.description})}
 
-        if (obj.prerequisites){
-        let prerequisites = document.createElement("div")
-        prerequisites.innerHTML = "Prerequisites :  " + obj.prerequisites
-        prerequisites.style.margin = "10px"
-        projectPop.appendChild(prerequisites)
-            }
+        if (obj.comment){addEle({dad:projectPop,margin:"10px",text:obj.comment})}
 
-        if (obj.highestPlanetRequired){
-        let highestPlanet = document.createElement("div")
-        highestPlanet.innerHTML = "Highest Planet Required :  " + obj.highestPlanetRequired
-        highestPlanet.style.margin = "10px"
-        projectPop.appendChild(highestPlanet)
-            }
+        if (obj.prerequisites){addEle({dad:projectPop,margin:"10px",text:"Prerequisites :  " + obj.prerequisites})}
+
+        if (obj.highestPlanetRequired){addEle({dad:projectPop,margin:"10px",text:"Highest Planet Required :  " + obj.highestPlanetRequired})}
         
         if(whichGrid === "projects"){
 
-        let costLabel = document.createElement("div")
-        costLabel.innerHTML = "Base Cost => Cost with Max Lev Lab"
-        costLabel.style.margin = "10px"
-        projectPop.appendChild(costLabel)
-            
-        let subContainer2 = document.createElement("div")
-        subContainer2.style = subContainerStyleB
-        projectPop.appendChild(subContainer2)
+            addEle({dad:projectPop,border:"blue solid 1px"})
 
-            let subContainer3 = document.createElement("div")
-            subContainer3.style = subContainerStyleA
-            subContainer2.appendChild(subContainer3)
+            addEle({dad:projectPop,margin:"10px",text:"Base Cost => Cost with Max Lev Lab"})
 
-                img = new Image()
-                img.height = 40
-                img.width = 40
-                img.src = gameLook === "Old" ? "./IPM Components/"+obj.component1.label+".jpg" :
-                "./IPM Components/"+obj.component1.label+"n.jpg"
-                subContainer3 .appendChild(img)
+            let subContainer2 = addEle({dad:projectPop,setClass:"contCol",marginL:"20px"})
 
-                text = document.createElement("div")
-                text.style.marginLeft = "10px"
-                text.innerHTML = 
-                obj.component1.label + " " + obj.component1.baseCost + " => " + obj.component1.costWithMaxLab
-                subContainer3.appendChild(text)
+            for(let i=0;i<obj.components.length;i++){
+                let subContainer3 = addEle({dad:subContainer2,setClass:"contRow",alignItems:"center",marginB:"5px"})
+                    addEle({dad:subContainer3,what:"img",imgSize:40,imgFullSrc:gameLook === "Old" ?
+                    "./IPM Components/"+obj.components[i].label+".jpg" : 
+                    "./IPM Components/"+obj.components[i].label+"n.jpg"})
 
-        if (obj.component2.label) {
-            let subContainer4 = document.createElement("div")
-            subContainer4.style = subContainerStyleA
-            subContainer2.appendChild(subContainer4)
-
-                img = new Image()
-                img.height = 40
-                img.width = 40
-                img.src = gameLook === "Old" ? "./IPM Components/"+obj.component2.label+".jpg" :
-                "./IPM Components/"+obj.component2.label+"n.jpg"
-                subContainer4 .appendChild(img)
-
-                text = document.createElement("div")
-                text.style.marginLeft = "10px"
-                text.innerHTML = 
-                obj.component2.label + " " + obj.component2.baseCost + " => " + obj.component2.costWithMaxLab
-                subContainer4.appendChild(text)
-            }
-
-        if (obj.component3.label) {
-            let subContainer5 = document.createElement("div")
-            subContainer5.style = subContainerStyleA
-            subContainer2.appendChild(subContainer5)
-
-                img = new Image()
-                img.height = 40
-                img.width = 40
-                img.src = gameLook === "Old" ? "./IPM Components/"+obj.component3.label+".jpg" :
-                "./IPM Components/"+obj.component3.label+"n.jpg"
-                subContainer5.appendChild(img)
-
-                text = document.createElement("div")
-                text.style.marginLeft = "10px"
-                text.innerHTML = 
-                obj.component3.label + " " + obj.component3.baseCost + " => " + obj.component3.costWithMaxLab
-                subContainer5.appendChild(text)
+                    addEle({dad:subContainer3,marginL:"10px",text:obj.components[i].label + " " 
+                    + obj.components[i].baseCost + " => " + obj.components[i].costWithMaxLab})
             }
         }
+        else if (whichGrid === "station"){
+            let popTxt = obj.bonusPerLevel > 0 ? 
+            "Bonus per Level + " + obj.bonusPerLevel : "Bonus per Level " + obj.bonusPerLevel
+            popTxt += obj.percentage ? "%" : ""
+            addEle({dad:projectPop,margin:"10px",text:popTxt})
 
-        if (whichGrid === "station"){
-            let bonusPerLevel = document.createElement("div")
-            bonusPerLevel.innerHTML = 
-            obj.bonusPerLevel > 0 ? "Bonus per Level + "+obj.bonusPerLevel : "Bonus per Level " + obj.bonusPerLevel
-            bonusPerLevel.innerHTML = 
-            obj.percentage ? bonusPerLevel.innerHTML + "%" : bonusPerLevel.innerHTML
-            bonusPerLevel.style.margin = "10px"
-            projectPop.appendChild(bonusPerLevel)
+            addEle({dad:projectPop,margin:"10px",text:"Max Level : " + obj.maxLevel})
 
-            let maxLevel = document.createElement("div")
-            maxLevel.innerHTML = "Max Level : "+obj.maxLevel
-            maxLevel.style.margin = "10px"
-            projectPop.appendChild(maxLevel)
+            addEle({dad:projectPop,margin:"10px",text:"Costs :"})
 
-            let costsLabel = document.createElement("div")
-            costsLabel.innerHTML = "Costs : "
-            costsLabel.style.margin = "10px"
-            projectPop.appendChild(costsLabel)
-
-            let costs = document.createElement("div")
+            let popTtl = ""
             for(i=0;i<obj.costs.length;i++){
-                costs.innerHTML += obj.costs[i] + " - "
-                if((i+1) % 7 === 0){costs.innerHTML += "<br>"}
-            }
-            costs.innerHTML = costs.innerHTML.slice(0,costs.innerHTML.length-2)
-            costs.style.margin = "10px"
-            costs.style.borderTop = "blue solid 3px"
-            costs.style.borderBottom = "blue solid 3px"
-            projectPop.appendChild(costs)
+                popTtl += obj.costs[i] + " - "
+                if((i+1) % 7 === 0){popTtl += "<br>"}
+            } popTtl.slice(0,popTtl.length-2)
+            addEle({dad:projectPop,margin:"10px",text:popTtl,
+            borderT:"blue solid 3px",borderB:"blue solid 3px"})
 
-            let totalCost = document.createElement("div")
-            totalCost.innerHTML = "Buy all for : "+obj.totalCost
-            totalCost.style.margin = "10px"
-            projectPop.appendChild(totalCost)
+            addEle({dad:projectPop,margin:"10px",text:"Buy all for : "+obj.totalCost})
 
-            let totalBonus = document.createElement("div")
-            totalBonus.innerHTML = "Bonus at Max Level : " 
-            totalBonus.innerHTML += 
-            obj.percentage ? obj.totalBonus + "%" : "x" + (Number(obj.totalBonus) + 1)
-            totalBonus.style.margin = "10px"
-            projectPop.appendChild(totalBonus)
-
+            popTxt = "Bonus at Max Level : "
+            popTxt += obj.percentage ? obj.totalBonus + "%" : "x" + (Number(obj.totalBonus) + 1)
+            addEle({dad:projectPop,margin:"10px",text:popTxt})
         }
 
-            let closeButton = document.createElement("div")
-            closeButton.innerHTML = "Close"
-            closeButton.style = closeButtonStyle
-            closeButton.style.margin = "10px"
-            closeButton.addEventListener("click",()=>{
-                body.removeChild(projectPop)
-                projectPop = undefined
-            })
-            projectPop.appendChild(closeButton)
+        addEle({dad:projectPop,setClass:"button1",margin:"10px",text:"Close",
+        setFunc:()=>{body.removeChild(projectPop) ; projectPop = undefined}})
 
-            centerScreen(projectPop)
+        centerScreen(projectPop)
 }
