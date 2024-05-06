@@ -163,10 +163,13 @@ function clickLook(){
     buildLook()
 }
 
+let toggleOldNewText = "Toggle the game Graphics here,<br>(Planets / Items)<br> now set to ⇒ " 
 function buildLook(){
-    addEle({dad:right,setClass:"button1",text:"Toggle the game Graphics here, now set to : " + gameLook,margin:"0 10px",
-    width:"fit-content",setFunc:(e)=>{gameLook = e.srcElement.innerHTML.split(" : ")[1] === "Old" ? "New" : "Old"
-    e.srcElement.innerHTML = e.srcElement.innerHTML.split(" : ")[0] + " : " +gameLook}})
+    addEle({dad:right,setClass:"button1",text:toggleOldNewText + gameLook,margin:"0 10px",
+    width:"fit-content",setFunc:(e)=>{
+        let gameLookNow = e.srcElement.innerHTML.split(" ⇒ ")[1]
+        gameLook = gameLookNow === "Old" ? "New" : "Old"
+        e.srcElement.innerHTML = toggleOldNewText + gameLook}})
 }
 
 function centerScreen(element){

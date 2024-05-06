@@ -988,7 +988,7 @@ new Item({
     label:"advanced robot",
     type:"item",
     unlockCost:"142.00 q",
-    baseCraftTime:{hr:17,mn:15,sc:24},
+    baseCraftTime:{hr:17,mn:22,sc:00},
     ingredients:[
         {label:"robot",amount:160,min:80},
         {label:"fusion reactor",amount:5,min:2},
