@@ -166,7 +166,7 @@ function clickLook(){
 let toggleOldNewText = "Toggle the game Graphics here,<br>(Planets / Items)<br> now set to ⇒ " 
 function buildLook(){
     addEle({dad:right,setClass:"button1",text:toggleOldNewText + gameLook,margin:"0 10px",
-    width:"fit-content",setFunc:(e)=>{
+    backG:togNot,width:"fit-content",setFunc:(e)=>{
         let gameLookNow = e.srcElement.innerHTML.split(" ⇒ ")[1]
         gameLook = gameLookNow === "Old" ? "New" : "Old"
         e.srcElement.innerHTML = toggleOldNewText + gameLook}})
