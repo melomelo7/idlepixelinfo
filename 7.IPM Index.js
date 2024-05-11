@@ -5,7 +5,7 @@ const body = document.querySelector("body")
     const global = addEle({dad:body,setID:"info",width:"100%",height:"100%",margin:"40px 0 0 100px"})
         const right = addEle({dad:global,setID:"right"})
 
-const lastUp = "(Last up 2024/05/11 11:30) *new expensive item*"
+const lastUp = "(Last up 2024/05/11 11:40) *new expensive item*"
 const infoTitle = "Idle Planet Miner Infos " +lastUp
 info.innerHTML = infoTitle
 
