@@ -289,7 +289,7 @@ function checkRoomShopping(){
     if(roomShopping.length===0){return}
 
     let myRoomShopping = addEle({dad:getID("roomShoppingFr"),setClass:"contCol_W",
-    border:"3px solid blue",padding:"30px 10px",radius:"30px",fontS:"18px"})
+    border:"3px solid blue",padding:"30px 10px",radius:"30px",fontS:"18px",marginL:"10px"})
 
     addEle({dad:myRoomShopping,textC:"rgb(0,212,250)",text:"*Click a line to remove it*",
     margin:"10px 0",textA:"center"})
@@ -340,11 +340,13 @@ function checkRoomShopping(){
     setFunc:()=>{
         roomShopping = []
         getID("roomShoppingBtn").innerHTML = "Shopping (" + roomShopping.length + ")"
-        let grp = document.getElementsByName("roomSelectBtns")
-        for(i=0;i<grp.length;i++){
-            if(grp[i].innerHTML===getID("refRoom").innerHTML){grp[i].click()}
+        if(getID("refRoom")!==null){
+            let grp = document.getElementsByName("roomSelectBtns")
+            for(i=0;i<grp.length;i++){
+                if(grp[i].innerHTML===getID("refRoom").innerHTML){grp[i].click()}
+            }
+            getID("roomDisplayLv").click()
         }
-        getID("roomDisplayLv").click()
         getID("roomShoppingBtn").click()
     }})
 
