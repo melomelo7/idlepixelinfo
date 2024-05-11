@@ -801,6 +801,7 @@ function buildPlanets(){
 
 
     let thisBt = addEle({dad:rightTop,setClass:"button1",marginL:"10px",text:"Full List",
+    backG:"linear-gradient(to bottom left,rgba(0,0,0,0) 60%,rgba(169,169,169,1))",
     setID:"planetFull",setFunc:()=>{
         info.innerHTML = infoTitle
         cleanParent(rightMiddle) 
@@ -812,6 +813,7 @@ function buildPlanets(){
 
 
     thisBt = addEle({dad:rightTop,setClass:"button1",marginL:"10px",text:"Telescope",
+    backG:"linear-gradient(to bottom left,rgba(0,0,0,0) 60%,rgba(169,169,169,1))",
     setID:"planetFull",setFunc:()=>{
         info.innerHTML = infoTitle
         cleanParent(rightMiddle) 
@@ -840,6 +842,7 @@ function buildPlanets(){
 
 
     thisBt = addEle({dad:rightTop,setClass:"button1",marginL:"10px",text:"Find Ore",
+    backG:"linear-gradient(to bottom left,rgba(0,0,0,0) 60%,rgba(169,169,169,1))",
     setID:"planetFull",setFunc:()=>{
 
         info.innerHTML = infoTitle
@@ -905,7 +908,9 @@ function buildPlanets(){
     thisBt.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
 
 
-    thisBt = addEle({dad:rightTop,setClass:"button1",marginL:"10px",text:"Find Planet",setFunc:()=>{
+    thisBt = addEle({dad:rightTop,setClass:"button1",marginL:"10px",text:"Find Planet",
+    backG:"linear-gradient(to bottom left,rgba(0,0,0,0) 60%,rgba(169,169,169,1))",
+    setFunc:()=>{
         info.innerHTML = infoTitle
         cleanParent(rightMiddle) 
         cleanParent(rightBottom)
@@ -931,7 +936,8 @@ function buildPlanets(){
     thisBt.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
 
 
-    thisBt = addEle({dad:rightTop,setClass:"button1",marginL:"10px",text:"Private List",backC:"#BB482E",textC:"yellow",
+    thisBt = addEle({dad:rightTop,setClass:"button1",marginL:"10px",text:"Private List",
+    backG:"linear-gradient(to bottom,rgba(220,126,115,1),rgba(0,0,0,1))",textC:"yellow",
     setID:"privatePlanets",setFunc:()=>{
         info.innerHTML = infoTitle
         cleanParent(rightMiddle) 

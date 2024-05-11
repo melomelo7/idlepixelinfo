@@ -173,8 +173,9 @@ function buildRooms(){
 
             tC = addEle({dad:tR,what:"td"})
             let myTxt = "Shopping (" + roomShopping.length + ")"
-            addEle({dad:tC,setClass:"button1",marginL:"10px",text:myTxt,backC:"#BB482E",setID:"roomShoppingBtn",
-            textC:"yellow",width:"160px",border:"solid 3px blue",setFunc:checkRoomShopping})
+            addEle({dad:tC,setClass:"button1",marginL:"10px",text:myTxt,setID:"roomShoppingBtn",
+            backG:"linear-gradient(to bottom,rgba(220,126,115,1),rgba(0,0,0,1))",textC:"yellow",
+            width:"160px",border:"solid 3px blue",setFunc:checkRoomShopping})
         }
     }
 
@@ -255,6 +256,8 @@ function displayRoom(e,rightBottom){
         setID:"roomDisplayLv",setFunc:()=>{
             getID("roomLv").style.display = getID("roomLv").style.display ==="none" ? "flex" : "none"
         }})
+
+        if(roomShopping.length > 0){getID("roomShoppingBtn").click()}
 }
 
 let roomShopping = []
@@ -332,5 +335,21 @@ function checkRoomShopping(){
     addEle({dad:myRoomShopping,paddingR:"10px",text:"Total : "+roomCost.toLocaleString(),
     marginT:"20px",textA:"right"})
 
+    addEle({dad:myRoomShopping,setClass:"button1",text:"Empty List &#9940",marginT:"20px",
+    backG:"linear-gradient(to bottom,rgba(220,126,115,1),rgba(0,0,0,1))",textC:"yellow",
+    setFunc:()=>{
+        roomShopping = []
+        getID("roomShoppingBtn").innerHTML = "Shopping (" + roomShopping.length + ")"
+        let grp = document.getElementsByName("roomSelectBtns")
+        for(i=0;i<grp.length;i++){
+            if(grp[i].innerHTML===getID("refRoom").innerHTML){grp[i].click()}
+        }
+        getID("roomDisplayLv").click()
+        getID("roomShoppingBtn").click()
+    }})
+
     getID("roomShoppingBtn").innerHTML = "Shopping (" + roomShopping.length + ")"
+
+
+    
 }
