@@ -566,14 +566,14 @@ function setTournament(container){
             let tr = addEle({dad:table,what:"tr"})
 
             let td = addEle({dad:tr,what:"td",setClass:"button1",minWidth:"60px",text:"Infos",
-            setFunc:()=>{
+            backG:togNot,setFunc:()=>{
                 cleanParent(subFrame)
                 addEle({dad:subFrame,what:"img",imgFullSrc:location + "tournament2.jpg",
                 display:"block",marginL:"auto",marginR:"auto"})
                 subFrame.style.height = "630px" }})
 
             td = addEle({dad:tr,what:"td",setClass:"button1",minWidth:"60px",text:"[ *?!* ]",
-            setFunc:()=>{
+            backG:togNot,setFunc:()=>{
 
                 cleanParent(subFrame)
                 let subC = addEle({dad:subFrame,setClass:"contRow",justifyC:"center"})
@@ -617,7 +617,7 @@ function setTournament(container){
             }})
 
             td = addEle({dad:tr,what:"td",setClass:"button1",minWidth:"60px",text:"Copper",
-            setFunc:()=>{
+            backG:togNot,setFunc:()=>{
                 cleanParent(subFrame)
                 addEle({dad:subFrame,what:"img",imgFullSrc:location + "tournament rewards1.jpg",
                 display:"block",marginL:"auto",marginR:"auto"})
@@ -626,7 +626,7 @@ function setTournament(container){
                 subFrame.style.height = "630px"
             }})
             td = addEle({dad:tr,what:"td",setClass:"button1",minWidth:"60px",text:"Silver",
-            setFunc:()=>{
+            backG:togNot,setFunc:()=>{
                 cleanParent(subFrame)
                 addEle({dad:subFrame,what:"img",imgFullSrc:location + "tournament rewards2.jpg",
                 display:"block",marginL:"auto",marginR:"auto"})
@@ -635,7 +635,7 @@ function setTournament(container){
                 subFrame.style.height = "630px"
             }})
             td = addEle({dad:tr,what:"td",setClass:"button1",minWidth:"60px",text:"Gold",
-            setFunc:()=>{
+            backG:togNot,setFunc:()=>{
                 cleanParent(subFrame)
                 addEle({dad:subFrame,what:"img",imgFullSrc:location + "tournament rewards3.jpg",
                 display:"block",marginL:"auto",marginR:"auto"})
@@ -644,7 +644,7 @@ function setTournament(container){
                 subFrame.style.height = "630px"
             }})
             td = addEle({dad:tr,what:"td",setClass:"button1",minWidth:"60px",text:"Platinum",
-            setFunc:()=>{
+            backG:togNot,setFunc:()=>{
                 cleanParent(subFrame)
                 addEle({dad:subFrame,what:"img",imgFullSrc:location + "tournament rewards4.jpg",
                 display:"block",marginL:"auto",marginR:"auto"})
@@ -659,12 +659,14 @@ function setTournament(container){
 function setManagers(container){
     let location = "./IPM Components/"
 
-    addEle({dad:container,setClass:"button1",text:"Recruit",width:"90%",setFunc:()=>{
+    addEle({dad:container,setClass:"button1",text:"Recruit",width:"90%",
+    backG:togNot,setFunc:()=>{
         getID("managerTab").style.display = "none"
         getID("recruit").style.display = getID("recruit").style.display === "none" ? "block" : "none"
     }})
 
-    addEle({dad:container,setClass:"button1",text:"Manager Tab",width:"90%",setFunc:()=>{
+    addEle({dad:container,setClass:"button1",text:"Manager Tab",width:"90%",
+    backG:togNot,setFunc:()=>{
         getID("recruit").style.display = "none"
         getID("managerTab").style.display = getID("managerTab").style.display === "none" ? "block" : "none"
     }})
@@ -816,7 +818,9 @@ a similar value that wont be incremented.<br>
 `
 
     let subCont1 = addEle({dad:container,setClass:"contRow",width:"100%"})
-        addEle({dad:subCont1,text:"10 to 101 credits",setClass:"button1",width:"85%",backC:"slateblue",textC:"black",setFunc:()=>{
+        addEle({dad:subCont1,text:"10 to 101 credits",setClass:"button1",width:"85%",
+        backG:"linear-gradient(to top right,rgba(169,169,169,1),rgba(106,90,205,0.5) 70%)",
+        textC:"black",setFunc:()=>{
             getID("targetCreditFr").style.display = getID("targetCreditFr").style.display==="none"?"flex":"none"
         }})
         
