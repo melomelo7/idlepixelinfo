@@ -1873,6 +1873,7 @@ function buildProcess(){
 
         thisItem = document.createElement("div")
         thisItem.style = closeButtonStyle
+        thisItem.style.background = togNot
         thisItem.style.marginLeft = 40 + "px"
         thisItem.innerHTML = "New Process"
         rightTop.appendChild(thisItem)
