@@ -7,6 +7,10 @@ const body = document.querySelector("body")
 
 const lastUp = "(Last up 2024/05/11 11:40) *new expensive item*"
 const infoTitle = "Idle Planet Miner Infos " +lastUp
+
+const togSel = "linear-gradient(to bottom left,rgba(90,185,47,0.5) 70%,rgba(169,169,169,1))"
+const togNot = "linear-gradient(to bottom left,rgba(0,0,0,0) 60%,rgba(169,169,169,1))"
+
 info.innerHTML = infoTitle
 
 let projectPop = undefined

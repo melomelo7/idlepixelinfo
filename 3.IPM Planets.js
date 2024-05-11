@@ -801,8 +801,7 @@ function buildPlanets(){
 
 
     let thisBt = addEle({dad:rightTop,setClass:"button1",marginL:"10px",text:"Full List",
-    backG:"linear-gradient(to bottom left,rgba(0,0,0,0) 60%,rgba(169,169,169,1))",
-    setID:"planetFull",setFunc:()=>{
+    backG:togNot,setID:"planetFull",setFunc:()=>{
         info.innerHTML = infoTitle
         cleanParent(rightMiddle) 
         cleanParent(rightBottom)
@@ -813,8 +812,7 @@ function buildPlanets(){
 
 
     thisBt = addEle({dad:rightTop,setClass:"button1",marginL:"10px",text:"Telescope",
-    backG:"linear-gradient(to bottom left,rgba(0,0,0,0) 60%,rgba(169,169,169,1))",
-    setID:"planetFull",setFunc:()=>{
+    backG:togNot,setID:"planetFull",setFunc:()=>{
         info.innerHTML = infoTitle
         cleanParent(rightMiddle) 
         cleanParent(rightBottom)
@@ -842,7 +840,7 @@ function buildPlanets(){
 
 
     thisBt = addEle({dad:rightTop,setClass:"button1",marginL:"10px",text:"Find Ore",
-    backG:"linear-gradient(to bottom left,rgba(0,0,0,0) 60%,rgba(169,169,169,1))",
+    backG:togNot,
     setID:"planetFull",setFunc:()=>{
 
         info.innerHTML = infoTitle
@@ -908,9 +906,7 @@ function buildPlanets(){
     thisBt.addEventListener("mouseout",()=>{tabInfos.innerHTML = ""})
 
 
-    thisBt = addEle({dad:rightTop,setClass:"button1",marginL:"10px",text:"Find Planet",
-    backG:"linear-gradient(to bottom left,rgba(0,0,0,0) 60%,rgba(169,169,169,1))",
-    setFunc:()=>{
+    thisBt = addEle({dad:rightTop,setClass:"button1",marginL:"10px",text:"Find Planet",backG:togNot,setFunc:()=>{
         info.innerHTML = infoTitle
         cleanParent(rightMiddle) 
         cleanParent(rightBottom)

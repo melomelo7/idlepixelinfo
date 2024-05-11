@@ -398,7 +398,7 @@ function setFaq(){
         let forkB = addEle({dad:fork,setClass:"contCol_W"})
     for(i=0;i<faqsArray.length;i++)
         {addEle({dad:forkA,setClass:"button1",padding:"10px",
-        backG:"linear-gradient(to bottom left,rgba(0,0,0,0) 60%,rgba(169,169,169,1))",
+        backG:togNot,
         text:faqsArray[i].label,setFunc:(e)=>{faqButton(e,forkB)}}) }  }
 
 function faqButton(e,subContainerB){

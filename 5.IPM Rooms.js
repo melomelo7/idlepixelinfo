@@ -162,14 +162,14 @@ function buildRooms(){
         let tC = addEle({dad:tR,what:"td"})
             let myC = Rooms[i].costs.length === 10 ? "green" : "blue"
             addEle({dad:tC,setClass:"button1",marginL:"10px",text:Rooms[i].label,
-            backG:"linear-gradient(to bottom left,rgba(0,0,0,0) 60%,rgba(169,169,169,1))",
+            backG:togNot,
             width:"160px",border:"solid 3px "+myC,setName:"roomSelectBtns",setFunc:(e)=>{
             displayRoom(e,rightBottom2A)}})
 
         if (i===Rooms.length-1){
             tC = addEle({dad:tR,what:"td"})
             addEle({dad:tC,setClass:"button1",marginL:"10px",text:"cost [ New Room ]",
-            backG:"linear-gradient(to bottom left,rgba(0,0,0,0) 60%,rgba(169,169,169,1))",
+            backG:togNot,
             width:"160px",border:"solid 3px blueviolet",setFunc:()=>{
             rightBottom1.style.display = rightBottom1.style.display === "none" ? "block" : "none" }})
 

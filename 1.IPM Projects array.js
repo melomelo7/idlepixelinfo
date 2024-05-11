@@ -1295,42 +1295,38 @@ projectsConnections.push(
 {rows:26,cell:10,dir:"dia"},
 {rows:26,cell:8,dir:"dia"}, )
 
+//let togSel = "linear-gradient(to bottom left,rgba(173,185,47,0.5) 70%,rgba(169,169,169,1))"
 
 function setProjects(){
     let containerA = addEle({dad:right,setClass:"contRow_W",paddingL:"20px"})
     let containerB = addEle({dad:right,setID:"containerB"})
-        addEle({dad:containerA,setClass:"projectTogglerL",
+        addEle({dad:containerA,setClass:"projectTogglerL",height:"50px",
+        backG:togSel,
         text:"Display<br>as Tree",setID:"toggletree",setFunc:()=>{
             getID("projectsListsInfo").innerHTML = ""
             cleanParent(getID("containerB"))
-            getID("togglelist").style.backgroundColor = "black"
-            getID("toggletree").style.backgroundColor = "blue" 
+            getID("togglelist").style.background = togNot
+            getID("toggletree").style.background = togSel
             containerB.style = containerColumn
             buildProjectsGrid("projects",cellSize,containerB) }})
 
         addEle({dad:containerA,setClass:"projectTogglerR",
+        backG:togNot,
         text:"Display<br>as List",setID:"togglelist",setFunc:()=>{
             getID("projectsListsInfo").innerHTML = 
             `Project Tree as Full List or Filtered ... Special tool here being<br>
              a Private List you may customize by clicking on Projects Titles.<br>
              From whatever list you may Add/Remove and Filter the new batch again.`
             cleanParent(getID("containerB"))
-            getID("togglelist").style.backgroundColor = "blue"
-            getID("toggletree").style.backgroundColor = "black"
+            getID("togglelist").style.background = togSel
+            getID("toggletree").style.background = togNot
             setProjectsAreas(getID("containerB"))
             getID("fullProjects").click() }})
         addEle({dad:containerA,marginL:"20px",textC:"rgb(0,212,250)",fontS:"18px",setID:"projectsListsInfo"})
     buildProjectsGrid("projects",cellSize,containerB)
 }
 
-
-
-
 function setProjectsAreas(container){
-
-//    console.log(projectCells)
-
-
     container.style = containerRow
     let areas = []
     let found = false
@@ -1339,6 +1335,7 @@ function setProjectsAreas(container){
     addEle({dad:container,setID:"containerB2"})
     addEle({dad:container,setID:"containerB3"})
     addEle({dad:getID("containerB1"),setClass:"button1",fontS:"18px",
+    backG:togNot,
     text:"Full List",setID:"fullProjects",setFunc:clickProjectsAreas})
 
     for(i=0;i<projectCells.length;i++)
@@ -1348,12 +1345,13 @@ function setProjectsAreas(container){
         if(!found)
             {areas.push(projectCells[i].area)
             addEle({dad:getID("containerB1"),setClass:"button1",fontS:"18px",
+            backG:togNot,
             text:projectCells[i].area,setFunc:clickProjectsAreas}) }
         }
 
     addEle({dad:getID("containerB1"),setClass:"button1",fontS:"18px",
-    text:"Filtered Private List",backC:"#BB482E",textC:"yellow",
-    setID:"projectsPrivateList",setFunc:clickProjectsAreas})
+    backG:"linear-gradient(to bottom,rgba(220,126,115,1),rgba(0,0,0,1))",textC:"yellow",
+    text:"Filtered Private List",setID:"projectsPrivateList",setFunc:clickProjectsAreas})
 }
 
 
@@ -1414,15 +1412,15 @@ function clickProjectsAreas(e){
         subContainer = addEle({dad:costFrame,setClass:"contCol_W",marginT:"20px"})
             addEle({dad:subContainer,setClass:"projectTogglerT",text:"Raw Projects Costs",
             setID:"projectsRawCosts",setFunc:(e)=>{
-                e.srcElement.style.backgroundColor = "blue"
-                getID("projectsAsComponents").style.backgroundColor = "black"
+                e.srcElement.style.background = togSel
+                getID("projectsAsComponents").style.background = togNot
                 subCostFrameA.style.display = "block"
                 subCostFrameB.style.display = "none" }})
 
             addEle({dad:subContainer,setClass:"projectTogglerB",text:`Projects Costs as<br>
             Crafting Components`,setID:"projectsAsComponents",setFunc:(e)=>{
-                e.srcElement.style.backgroundColor = "blue"
-                getID("projectsRawCosts").style.backgroundColor = "black"
+                e.srcElement.style.background = togSel
+                getID("projectsRawCosts").style.background = togNot
                 subCostFrameB.style.display = "block"
                 subCostFrameA.style.display = "none" }})
 
@@ -1509,22 +1507,34 @@ function clickProjectsAreas(e){
             addEle({dad:subContainer,marginL:"10px",text:costComponents[i].label})
     }
 
-    if(!thisText.includes("(")) {thisText += " (" + thisArray.length + ")"}
-    addEle({dad:listFrame,setID:"projectsChosenList",text:thisText,textA:"center"})
+    let myBack = togNot
+    let myCol = "white"
+    if(!thisText.includes("Filtered")) 
+        {thisText += " (" + thisArray.length + ")"}
+    else 
+        {myCol = "yellow" ; myBack = "linear-gradient(to bottom,rgba(220,126,115,1),rgba(0,0,0,1))"}
+
+    addEle({dad:listFrame,setID:"projectsChosenList",text:thisText,textA:"center",
+    backG:myBack,textC:myCol,border:"solid white 1px",radius:"10px",padding:"3px"})
 
     for(i=0;i<thisArray.length;i++){
         addEle({dad:listFrame,border:"solid blue 2px",margin:"10px 0"})
-        addEle({dad:listFrame,setClass:"button1",textC:thisArray[i].selected===true ? "yellow" : "white",
-        backC:thisArray[i].selected===true ? "#BB482E" : "black",text:thisArray[i].label,setFunc:(e)=>{
-            focusElement = projectCells.findIndex(x=> x.label === e.srcElement.innerHTML )
+        myBack = thisArray[i].selected===true ? 
+        "linear-gradient(to bottom,rgba(220,126,115,1),rgba(0,0,0,1))" : togNot
+        myCol = thisArray[i].selected===true ? "yellow" : "white"
+        addEle({dad:listFrame,setClass:"button1",backG:myBack,textC:myCol,
+        text:thisArray[i].label.slice(0,1).toUpperCase()+thisArray[i].label.slice(1)  ,
+        
+        setFunc:(e)=>{
+            focusElement = projectCells.findIndex(x=> x.label === e.srcElement.innerHTML.toLowerCase() )
             focusElement = projectCells[focusElement]
             if(!focusElement.selected){
                     e.srcElement.style.color = "yellow"
-                    e.srcElement.style.backgroundColor = "#BB482E"
+                    e.srcElement.style.background = "linear-gradient(to bottom,rgba(220,126,115,1),rgba(0,0,0,1))"
                     focusElement.selected = true
                 } else {
                     e.srcElement.style.color = "white"
-                    e.srcElement.style.backgroundColor = "black"
+                    e.srcElement.style.background = togNot
                     focusElement.selected = false
                 }
             let chosen = getID("projectsPrivateList") 
