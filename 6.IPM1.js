@@ -193,7 +193,7 @@ function buildProjectsGrid(whichGrid="",cellSize=0,globalContainer=right){
      <br>cells to be fully upgraded*`
 
     addEle({dad:globalContainer,setClass:"texting",fontS:"20px",paddingL:"40px",
-    textC:"rgb(0,212,250)",textA:"left",text:topText,setID:"gridInfos",
+    textC:"rgb(0,212,250)",textA:"left",text:topText,setID:"gridInfos",backG:"",
     minHeight:whichGrid==="projects" ? "24px" : "100px"})
 
     let table = addEle({dad:globalContainer,what:"table"})
