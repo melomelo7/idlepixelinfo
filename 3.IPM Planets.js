@@ -830,7 +830,7 @@ function buildPlanets(){
                 td = addEle({dad:tr,what:"td",setClass:"contRow_W"})
             }
 
-            addEle({dad:td,setClass:"button2",text:i,setFunc:(e)=>{
+            addEle({dad:td,setClass:"button2",text:i,backG:togNot,setFunc:(e)=>{
                 cleanParent(rightBottom) ; let refId = Number(e.srcElement.innerHTML)
                 displayPlanets(rightBottom,planetsArray.filter(x=>x.telescope === refId))  }})
         }
@@ -840,8 +840,7 @@ function buildPlanets(){
 
 
     thisBt = addEle({dad:rightTop,setClass:"button1",marginL:"10px",text:"Find Ore",
-    backG:togNot,
-    setID:"planetFull",setFunc:()=>{
+    backG:togNot,setID:"planetFull",setFunc:()=>{
 
         info.innerHTML = infoTitle
         cleanParent(rightMiddle) 
@@ -866,21 +865,21 @@ function buildPlanets(){
                 addEle({dad:subCont2,text:"Ore Selected : ",margin:"0 20px"})
                 addEle({dad:subCont2,text:"- none -",setID:"seekOreSelection",textC:"lime",marginR:"10px"})
                 subCont2.children[1].click()
-
-            let table = addEle({dad:subCont,what:"table"})
+            
+            let tabFr = addEle({dad:subCont,margin:"0 0 10px 10px"})
+            let table = addEle({dad:tabFr,what:"table"})
                 let tr = addEle({dad:table,what:"tr"})
-                    let td = addEle({dad:tr,what:"td"})
 
         for (i=0;i<oresArray.length;i++){
             if(oresArray[i].type==="ore"){
                 lineCount+=1
-                if( lineCount > 1 && (lineCount-1) % lineMax === 0) {
-                    tr = addEle({dad:table,what:"tr"})
-                    td = addEle({dad:tr,what:"td"})
-                }
+                if(lineCount > 1 && (lineCount-1) % lineMax === 0)
+                    {tr = addEle({dad:table,what:"tr"})}
+                td = addEle({dad:tr,what:"td"})
+                let tdc = addEle({dad:td,setClass:"contCol",border:"solid 2px white",radius:"5px",})
                 let thisImgSrc = gameLook === "Old" ? oresArray[i].img : oresArray[i].img.split(".jpg")[0]+"n.jpg"
-                let thisImg = addEle({dad:td,what:"img",imgSize:"30px",imgFullSrc:thisImgSrc,setClass:"button2",
-                    setID:oresArray[i].label,setFunc:(e)=>{
+                let thisImg = addEle({dad:tdc,what:"img",imgSize:30,imgFullSrc:thisImgSrc,
+                setID:oresArray[i].label,setFunc:(e)=>{
                         cleanParent(rightBottom)
                         let getItem = e.srcElement.id
                         let newArray = planetsArray.filter(x=>x.ores.some(function(x){return x.label===getItem}))
