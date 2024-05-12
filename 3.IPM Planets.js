@@ -819,20 +819,19 @@ function buildPlanets(){
         let lineCount = 0
         let lineMax = 10
 
-        let table = addEle({dad:rightMiddle,what:"table"})
+        let tabFr = addEle({dad:rightMiddle,margin:"0 0 10px 10px"})
+        let table = addEle({dad:tabFr,what:"table"})
             let tr = addEle({dad:table,what:"tr"})
-                let td = addEle({dad:tr,what:"td",setClass:"contRow_W"})
 
         for (i=0;i<=22;i++){
             lineCount+=1
-            if(lineCount > 1 && (lineCount-1) % lineMax === 0) {
-                tr = addEle({dad:table,what:"tr"})
-                td = addEle({dad:tr,what:"td",setClass:"contRow_W"})
-            }
+            if(lineCount > 1 && (lineCount-1) % lineMax === 0)
+                {tr = addEle({dad:table,what:"tr"})}
 
-            addEle({dad:td,setClass:"button2",text:i,backG:togNot,setFunc:(e)=>{
+            td = addEle({dad:tr,what:"td",border:"white solid 2px",radius:"5px",text:i,
+            backG:togNot,textA:"center",padding:"5px",cursor:"pointer",setFunc:(e)=>{
                 cleanParent(rightBottom) ; let refId = Number(e.srcElement.innerHTML)
-                displayPlanets(rightBottom,planetsArray.filter(x=>x.telescope === refId))  }})
+                displayPlanets(rightBottom,planetsArray.filter(x=>x.telescope === refId)) }})
         }
     }})
     thisBt.addEventListener("mouseover",()=>{tabInfos.innerHTML = "Displays a 1 specific telescope of your choosing"})
