@@ -818,18 +818,16 @@ a similar value that wont be incremented.<br>
 `
 
     let subCont1 = addEle({dad:container,setClass:"contRow",width:"100%"})
-        addEle({dad:subCont1,text:"10 to 101 credits",setClass:"button1",width:"85%",
+        addEle({dad:subCont1,text:"10 to 101 (base)credits",setClass:"button1",width:"85%",
         backG:"linear-gradient(to top right,rgba(169,169,169,1),rgba(106,90,205,0.5) 70%)",
-        textC:"black",setFunc:()=>{
-            getID("targetCreditFr").style.display = getID("targetCreditFr").style.display==="none"?"flex":"none"
-        }})
+        textC:"black"})
         
         addEle({dad:subCont1,setClass:"button1",border:"slateblue solid 2px",text:"[ i ]",minWidth:"20px",setFunc:()=>{
             getID("credits10101infos").style.display = getID("credits10101infos").style.display==="none"?"flex":"none"
         }})
 
     let subCont2 = addEle({dad:container,setClass:"contRow",border:"slateblue solid 2px",radius:"5px",
-        setID:"targetCreditFr",display:"none",padding:"10px",marginB:"10px"})
+        setID:"targetCreditFr",padding:"10px",marginB:"20px"})
             addEle({dad:subCont2,text:"Target Credits (10~101) :"})
             addEle({dad:subCont2,what:"input",isInput:true,setVal:0,width:"30px",textA:"center",margin:"0 10px",setFunc:(e)=>{
                 let thisIdx = credits101.findIndex(itm=>itm.credits===Number(e.srcElement.value))
@@ -860,7 +858,7 @@ a similar value that wont be incremented.<br>
         addEle({dad:myL,what:"td",text: spanText("lime","(Ma)") + "gnitudes:",border:"solid 2px blue",radius:"5px",
         minWidth:"100px",textA:"center",rowSpan:2})
 
-        addEle({dad:myL,what:"td",text:"Credits for:",border:"solid 2px blue",radius:"5px",
+        addEle({dad:myL,what:"td",text:"Base credits for:",border:"solid 2px blue",radius:"5px",
         colSpan:3,textA:"center"})
         myL = addEle({dad:myT,what:"tr"})
         addEle({dad:myL,what:"td",text:"1 "+ spanText("lime","(Ma)"),border:"solid 2px blue",
