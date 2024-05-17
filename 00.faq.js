@@ -156,8 +156,8 @@ const faqsArray = [
             starts/ends. Logic says dont start the chain by the top<br>
             item but by the lowest ...<br><br>
             example : <br>
-            lens require glass dont put lens in [1] and glass in [2]
-            `,
+            lens require glass dont put lens in `+spanText("red","[1]")+` and glass in `
+            +spanText("red","[2]"),
     url : "",
     img : "craft2.jpg",
     thisFunction : undefined,
