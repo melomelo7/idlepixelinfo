@@ -71,7 +71,7 @@ const faqsArray = [
     label : "Prestige and Galaxy Value in IPM ?",
     icon : "credits2.jpg",
     text : `Every run can be ended when you reach 10 Millions. <br>
-            (Next credit rewarded point being another ~2.5+ Millions)<br><br>
+            (Next credit rewarded point : 12.51M... advice : go for it)<br><br>
             So in order to "Prestige", you sell your current galaxy<br>
             receiving in return Credits that can be spent to<br>
             build/upgrade rooms on your mothership.<br><br>
