@@ -46,17 +46,17 @@ const faqsArray = [
             you will get your cut in IPM. Just a couple, for extra fun ;-)<br><br>
             ** side note here : not all bugs are being hunted some are just<br>
             considered "not current priority" ... ** <br><br>
-            Phase 1 : try to remedy the bug yourself with any of these :<br>
+            `+spanText("green","Phase 1")+` : try to remedy the bug yourself with any of these :<br>
             (- [read settings > help] at some point is good)<br>
             - selling galaxy<br>
             - closing/force-closing game<br>
             - REBOOT of device <br>
             (recently rebooting my phone helped with other stuff than <br>
             gaming too)<br><br>
-            No success so far ? then try phase 2 :<br>
+            No success so far ? then try `+spanText("yellow","Phase 2")+` :<br>
             check <a href="https://www.reddit.com/r/IdlePlanetMiner/" target="_blank">Reddit</a> / 
             <a href="https://discord.gg/r4X3ktZ" target="_blank">Discord</a> for any advice<br><br>
-            Phase 3 when all hope is gone :<br>
+            `+spanText("crimson","Phase 3")+` when all hope is gone :<br>
             Support shall save the day ! ... hopefully :<br>
             Provide your Player ID (under settings) along with any screen<br>
             shots and/or purchase receipt if needs be.<br><br>
