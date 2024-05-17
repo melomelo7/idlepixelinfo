@@ -1315,7 +1315,7 @@ function setProjects(){
         text:"Display<br>as List",setID:"togglelist",setFunc:()=>{
             getID("projectsListsInfo").innerHTML = 
             `Project Tree as Full List or Filtered ... Special tool here being<br>
-             a Private List you may customize by clicking on Projects Titles.<br>
+             a Private List you may customize by `+spanText("yellow","clicking")+` on Projects `+spanText("yellow","Titles/Names")+`.<br>
              From whatever list you may Add/Remove and Filter the new batch again.`
             cleanParent(getID("containerB"))
             getID("togglelist").style.background = togSel
