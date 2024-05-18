@@ -142,7 +142,8 @@ function buildRooms(){
     ** Robotics lv4+ will also open up missions with better payout **
     <br><br> If you ever wonder how many credits in global you will spend on rooms :` 
     + overall.toLocaleString()+"<br><br>"+spanText("greenyellow",`New mini tool to budget your next
-    big credit spending : Shopping list.<br>Click a Room > Display details > click lines ... easy !`)
+    big credit spending : Shopping list.<br>Click a Room > Display details > click lines ... easy !<br>
+    ( you can also click on the`)+spanText("blueviolet"," [New Room Costs] ")+spanText("greenyellow","for the shopping list)")
 
     let tabInfos = addEle({dad:right,setClass:"texting",fontS:"18px",marginL:"20px",
     textC:"rgb(0,212,250)",text:roomsInfo})
@@ -186,8 +187,18 @@ function buildRooms(){
             if(i===0 || i===9){tR = addEle({dad:tB,what:"tr"})}
             tC = addEle({dad:tR,what:"td",minWidth:"50px",border:"solid 2px blueviolet",textA:"center"})
             let thisC = addEle({dad:tC,setClass:"contCol_W"})
-                addEle({dad:thisC,text:"# " + (i+1),borderB:"dotted white 2px"})
-                addEle({dad:thisC,text:newRoom[i].toLocaleString()})
+                addEle({dad:thisC,text:"# " + (i+1),borderB:"dotted white 2px",cursor:"pointer",
+                setID:"#lbl:"+(i+1),setFunc:(e)=>{getID("#cost:"+e.srcElement.id.split(":")[1]).click()}})
+                addEle({dad:thisC,text:newRoom[i].toLocaleString(),setID:"#cost:"+(i+1),cursor:"pointer",
+                setFunc:(e)=>{
+                    let thisLVL = Number(getID("#lbl:"+e.srcElement.id.split(":")[1]).innerHTML.split("#")[1])
+                    let thisIDX = roomShopping.findIndex(rs=>rs.label.includes("#") && rs.level===thisLVL)
+                    if(thisIDX > -1){return}
+                    roomShopping.push({
+                        label:"Unlock Room#"+e.srcElement.id.split(":")[1],
+                        level:thisLVL,cost:newRoom[(thisLVL-1)]})
+                    getID("roomShoppingBtn").click()
+                }})
     }
     rightBottom1.style.display = "none"
 }
@@ -297,6 +308,10 @@ function checkRoomShopping(){
     margin:"10px 0",textA:"center"})
 
     let tempo = [] ; let newArr = []
+    roomShopping.filter(rs=>rs.label.includes("#"))
+    .sort((a,b)=>a.level-b.level)
+    .forEach(rs=>newArr.push(rs))
+   
     Rooms.forEach(rm=>{
         tempo = roomShopping.filter(rs=>rs.label===rm.label).sort((a,b)=>a.level-b.level)
         tempo.forEach(itm=>newArr.push(itm))
@@ -307,6 +322,20 @@ function checkRoomShopping(){
     for(let i=0;i<newArr.length;i++){
         let itm = newArr[i] ; roomCost+= itm.cost
         let tR = addEle({dad:tB,what:"tr"})
+        if(itm.label.includes("#")){
+            addEle({dad:tR,what:"td",textA:"right",text:itm.label,//,minWidth:"150px"
+            setID:itm.label,cursor:"pointer",padding:"5px 0",setFunc:(e)=>{
+                let thisIdx = roomShopping.findIndex(itm=>itm.label===e.srcElement.id)
+                roomShopping.splice(thisIdx,1)
+                checkRoomShopping()
+            }})            
+            addEle({dad:tR,what:"td",textA:"right",minWidth:"100px",text:itm.cost.toLocaleString(),
+            setID:itm.label,paddingR:"10px",cursor:"pointer",setFunc:(e)=>{
+                let thisIdx = roomShopping.findIndex(itm=>itm.label===e.srcElement.id)
+                roomShopping.splice(thisIdx,1)
+                checkRoomShopping()
+            }})
+        } else {
             addEle({dad:tR,what:"td",textA:"right",text:itm.label+" Lv"+(itm.level+2),//,minWidth:"150px"
             setID:itm.label+":"+(itm.level+2),cursor:"pointer",padding:"5px 0",setFunc:(e)=>{
                 let myNm = e.srcElement.id.split(":")[0]
@@ -333,6 +362,7 @@ function checkRoomShopping(){
                 getID("roomDisplayLv").click()
                 checkRoomShopping()
             }})
+        }
     }
     addEle({dad:myRoomShopping,paddingR:"10px",text:"Total : "+roomCost.toLocaleString(),
     marginT:"20px",textA:"right"})
@@ -353,7 +383,5 @@ function checkRoomShopping(){
     }})
 
     getID("roomShoppingBtn").innerHTML = "Shopping (" + roomShopping.length + ")"
-
-
     
 }
