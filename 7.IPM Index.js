@@ -14,7 +14,8 @@ const togNot = "linear-gradient(to bottom left,rgba(0,0,0,0) 60%,rgba(169,169,16
 info.innerHTML = infoTitle
 
 let projectPop = undefined
-let gameLook = "New"
+let gameLook = spanText("lime","New")
+let toggleOldNewText = "Toggle the game Graphics here,<br>(Planets / Items)<br> now set to ⇒ "
 
 const menuButtons = [
     {label:"Look",clickFunction:clickLook},

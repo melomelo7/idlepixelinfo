@@ -163,13 +163,14 @@ function clickLook(){
     buildLook()
 }
 
-let toggleOldNewText = "Toggle the game Graphics here,<br>(Planets / Items)<br> now set to ⇒ " 
+ 
 function buildLook(){
     addEle({dad:right,setClass:"button1",text:toggleOldNewText + gameLook,margin:"0 10px",
     backG:togNot,width:"fit-content",setFunc:(e)=>{
-        let gameLookNow = e.srcElement.innerHTML.split(" ⇒ ")[1]
-        gameLook = gameLookNow === "Old" ? "New" : "Old"
-        e.srcElement.innerHTML = toggleOldNewText + gameLook}})
+        gameLook = e.srcElement.innerHTML.includes("Old") ? spanText("lime","New") : spanText("lime","Old")
+//        let gameLookNow = e.srcElement.innerHTML.split(" ⇒ ")[1]
+//        gameLook = gameLookNow === "Old" ? "New" : "Old"
+        e.srcElement.innerHTML = toggleOldNewText + spanText("lime",gameLook)}})
 }
 
 function centerScreen(element){
