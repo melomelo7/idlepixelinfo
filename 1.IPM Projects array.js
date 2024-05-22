@@ -683,8 +683,9 @@ projectCells.push(
         label:"cargo logistics",
         components:[{label:"aluminium bar",baseCost:10,costWithMaxLab:5},
         {label:"circuit",baseCost:3,costWithMaxLab:2},],
-        description:"ability to prioritize which ore to pick up first",
-        comment:"even if it isn't the most valuable",
+        description:`ability to prioritize which ore to pick<br> first
+        even if it isn't the most valuable`,
+        comment:"",
         prerequisites:"telescope 4",
         highestPlanetRequired:"9-Yangtze"}),
     
