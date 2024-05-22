@@ -450,7 +450,7 @@ projectCells.push(
         {label:"plasma torch",baseCost:20,costWithMaxLab:10},
         {label:"nuclear capsule",baseCost:2,costWithMaxLab:1},],
         description:"ability to put a 2nd furnace into overdrive",
-        comment:"smelt speed x2 BUT ingredients costs +50%",
+        comment:"",
         prerequisites:"furnace overdrive",
         highestPlanetRequired:"46-Sotomi"}),
     
@@ -461,7 +461,7 @@ projectCells.push(
         {label:"plasma torch",baseCost:100,costWithMaxLab:50},
         {label:"fusion capsule",baseCost:2,costWithMaxLab:1},],
         description:"ability to put a 3rd furnace into overdrive",
-        comment:"smelt speed x2 BUT ingredients costs +50%",
+        comment:"",
         prerequisites:"furnace overdrive 2",
         highestPlanetRequired:"52-Vega"}),
     
@@ -472,7 +472,7 @@ projectCells.push(
         {label:"inerton alloy",baseCost:20,costWithMaxLab:10},
         {label:"thermal scanner",baseCost:10,costWithMaxLab:5},],
         description:"increases furnace overdrive smelt speed to x4",
-        comment:"smelt speed x2 BUT ingredients costs +50%",
+        comment:"",
         prerequisites:"furnace overdrive",
         highestPlanetRequired:"37-Utritis"}),
     
@@ -482,7 +482,7 @@ projectCells.push(
         components:[{label:"iridium bar",baseCost:200,costWithMaxLab:100},
         {label:"motor",baseCost:1,costWithMaxLab:1},],
         description:"decreases furnace overdrive extra ingredients cost to +20%",
-        comment:"smelt speed x2 BUT ingredients costs +50%",
+        comment:"",
         prerequisites:"furnace overdrive",
         highestPlanetRequired:"25-Osun"}),
     
@@ -492,7 +492,7 @@ projectCells.push(
         components:[{label:"lead ore",baseCost:"5k",costWithMaxLab:"2.5k"},
         {label:"iron bar",baseCost:5,costWithMaxLab:2},],
         description:"crafts items from raw materials",
-        comment:"smelt speed x2 BUT ingredients costs +50%",
+        comment:"",
         prerequisites:"smelter",
         highestPlanetRequired:"4-Drasta"}),
     
@@ -502,7 +502,7 @@ projectCells.push(
         components:[{label:"lens",baseCost:5,costWithMaxLab:2},
         {label:"gold bar",baseCost:50,costWithMaxLab:25},],
         description:"all crafters speed x1.20",
-        comment:"smelt speed x2 BUT ingredients costs +50%",
+        comment:"",
         prerequisites:"crafter",
         highestPlanetRequired:"14-Batalla"}),
     
@@ -511,7 +511,7 @@ projectCells.push(
         label:"crafting efficiency",
         components:[{label:"solar panel",baseCost:30,costWithMaxLab:15},],
         description:"decreases ingredients required by 20% for all crafters",
-        comment:"smelt speed x2 BUT ingredients costs +50%",
+        comment:"",
         prerequisites:"advanced crafter",
         highestPlanetRequired:"9-Yangtze"}),
     
@@ -521,7 +521,7 @@ projectCells.push(
         components:[{label:"lens",baseCost:1,costWithMaxLab:1},
         {label:"silver bar",baseCost:5,costWithMaxLab:2},],
         description:"a x1.20 increase to all items value",
-        comment:"smelt speed x2 BUT ingredients costs +50%",
+        comment:"",
         prerequisites:"advanced crafter",
         highestPlanetRequired:"12-Relic"}),
     
@@ -531,7 +531,7 @@ projectCells.push(
         components:[{label:"palladium bar",baseCost:200,costWithMaxLab:100},
         {label:"laser torch",baseCost:25,costWithMaxLab:12},],
         description:"a x1.20 increase to all items value",
-        comment:"smelt speed x2 BUT ingredients costs +50%",
+        comment:"",
         prerequisites:"advanced item value",
         highestPlanetRequired:"28-Tikkun"}),
     
@@ -542,7 +542,7 @@ projectCells.push(
         {label:"advanced battery",baseCost:10,costWithMaxLab:5},
         {label:"laser torch",baseCost:20,costWithMaxLab:10},],
         description:"all crafters speed x1.20",
-        comment:"smelt speed x2 BUT ingredients costs +50%",
+        comment:"",
         prerequisites:"crafting efficiency OR advanced item value",
         highestPlanetRequired:"19-Parnitha"}),
     
@@ -552,7 +552,7 @@ projectCells.push(
         components:[{label:"advanced battery",baseCost:3,costWithMaxLab:2},
         {label:"advanced computer",baseCost:2,costWithMaxLab:1},],
         description:"a 10% chance to craft double of an item",
-        comment:"smelt speed x2 BUT ingredients costs +50%",
+        comment:"",
         prerequisites:"advanced item value",
         highestPlanetRequired:"22-Zelene"}),
     
@@ -562,7 +562,7 @@ projectCells.push(
         components:[{label:"battery",baseCost:5,costWithMaxLab:2},
         {label:"aluminium bar",baseCost:20,costWithMaxLab:10},],
         description:"all planet mine rates x1.25",
-        comment:"smelt speed x2 BUT ingredients costs +50%",
+        comment:"",
         prerequisites:"rover",
         highestPlanetRequired:"9-Yangtze"}),
     
@@ -572,7 +572,7 @@ projectCells.push(
         components:[{label:"glass",baseCost:2,costWithMaxLab:1},
         {label:"gold bar",baseCost:10,costWithMaxLab:5},],
         description:"all ship speed x1.25",
-        comment:"smelt speed x2 BUT ingredients costs +50%",
+        comment:"",
         prerequisites:"advanced mining",
         highestPlanetRequired:"14-Batalla"}),
     
@@ -582,7 +582,7 @@ projectCells.push(
         components:[{label:"hammer",baseCost:5,costWithMaxLab:2},
         {label:"silver bar",baseCost:25,costWithMaxLab:12},],
         description:"all ship cargo x1.25",
-        comment:"smelt speed x2 BUT ingredients costs +50%",
+        comment:"",
         prerequisites:"advanced mining",
         highestPlanetRequired:"12-Relic"}),
     
@@ -592,7 +592,7 @@ projectCells.push(
         components:[{label:"laser torch",baseCost:10,costWithMaxLab:5},
         {label:"platinum bar",baseCost:25,costWithMaxLab:12},],
         description:"all planet mine rates x1.25",
-        comment:"smelt speed x2 BUT ingredients costs +50%",
+        comment:"",
         prerequisites:"advanced thrusters OR advanced cargo handling",
         highestPlanetRequired:"19-Parnitha"}),
     
@@ -601,7 +601,7 @@ projectCells.push(
         label:"superior thrusters",
         components:[{label:"advanced battery",baseCost:4,costWithMaxLab:2},],
         description:"all ship speed x1.25",
-        comment:"smelt speed x2 BUT ingredients costs +50%",
+        comment:"",
         prerequisites:"superior mining",
         highestPlanetRequired:"4-Dholen"}),
     
@@ -610,7 +610,7 @@ projectCells.push(
         label:"superior cargo handling",
         components:[{label:"titanium bar",baseCost:50,costWithMaxLab:25},],
         description:"all ship cargo x1.25",
-        comment:"smelt speed x2 BUT ingredients costs +50%",
+        comment:"",
         prerequisites:"superior mining",
         highestPlanetRequired:"22-Zelene"}),
     
@@ -619,7 +619,7 @@ projectCells.push(
         label:"beacon",
         components:[{label:"iron bar",baseCost:15,costWithMaxLab:8},],
         description:"constructs a beacon providing bonuses to planet clusters",
-        comment:"smelt speed x2 BUT ingredients costs +50%",
+        comment:"",
         prerequisites:"telescope 1",
         highestPlanetRequired:"2-Drasta"}),
     
