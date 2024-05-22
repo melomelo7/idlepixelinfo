@@ -714,7 +714,7 @@ projectCells.push(
         components:[{label:"copper ore",baseCost:400,costWithMaxLab:200},
         {label:"iron ore",baseCost:50,costWithMaxLab:25},],
         description:"hire and assign managers to planets",
-        comment:"(total will be 130%)",
+        comment:"",
         prerequisites:" - ",
         highestPlanetRequired:"2-Drasta"}),
     
@@ -724,7 +724,7 @@ projectCells.push(
         components:[{label:"laser torch",baseCost:1,costWithMaxLab:1},
         {label:"steel bar",baseCost:50,costWithMaxLab:25},],
         description:"all managers benefits x1.10",
-        comment:"(total will be 130%)",
+        comment:"",
         prerequisites:"telescope 6",
         highestPlanetRequired:"12-Relic"}),
     
@@ -735,7 +735,7 @@ projectCells.push(
         {label:"circuit",baseCost:20,costWithMaxLab:10},
         {label:"titanium bar",baseCost:25,costWithMaxLab:12},],
         description:"increases manager slots by 1",
-        comment:"(total will be 130%)",
+        comment:"",
         prerequisites:"manager training",
         highestPlanetRequired:"22-Zelene"}),
     
@@ -745,7 +745,7 @@ projectCells.push(
         components:[{label:"advanced computer",baseCost:10,costWithMaxLab:5},
         {label:"thermal scanner",baseCost:10,costWithMaxLab:5},],
         description:"increases manager slots by 1",
-        comment:"(total will be 130%)",
+        comment:"",
         prerequisites:"contract manager",
         highestPlanetRequired:"22-Zelene"}),
     
@@ -755,7 +755,7 @@ projectCells.push(
         components:[{label:"advanced computer",baseCost:2,costWithMaxLab:1},
         {label:"advanced battery",baseCost:10,costWithMaxLab:5},],
         description:"all managers second benefits x1.10",
-        comment:"(total will be 130%)",
+        comment:"",
         prerequisites:"manager training",
         highestPlanetRequired:"22-Zelene"}),
     
@@ -765,7 +765,7 @@ projectCells.push(
         components:[{label:"motor",baseCost:3,costWithMaxLab:2},
         {label:"inerton alloy",baseCost:300,costWithMaxLab:150},],
         description:"all managers second benefits x1.05",
-        comment:"(total will be 130%)",
+        comment:"",
         prerequisites:"advanced manager training",
         highestPlanetRequired:"37-Utritis"}),
     
@@ -775,7 +775,7 @@ projectCells.push(
         components:[{label:"accumulator",baseCost:2,costWithMaxLab:1},
         {label:"scrith alloy",baseCost:100,costWithMaxLab:50},],
         description:"all managers second benefits x1.05",
-        comment:"(total will be 130%)",
+        comment:"",
         prerequisites:"specialist university",
         highestPlanetRequired:"43-Daedalus"}),
     
@@ -784,7 +784,7 @@ projectCells.push(
         label:"superior specialist university",
         components:[{label:"viterium alloy",baseCost:800,costWithMaxLab:400},],
         description:"all managers second benefits x1.05",
-        comment:"(total will be 130%)",
+        comment:"",
         prerequisites:"advanced specialist university",
         highestPlanetRequired:"55-Zumbia"}),
     
@@ -793,7 +793,7 @@ projectCells.push(
         label:"superior manager training",
         components:[{label:"rhodium bar",baseCost:200,costWithMaxLab:100},],
         description:"all managers benefits x1.10",
-        comment:"(total will be 130%)",
+        comment:"",
         prerequisites:"advanced manager training",
         highestPlanetRequired:"34-Rupert"}),
     
@@ -802,7 +802,7 @@ projectCells.push(
         label:"leader",
         components:[{label:"navigation module",baseCost:5,costWithMaxLab:2},{label:"rhodium bar",baseCost:60,costWithMaxLab:30},],
         description:"ability to elect a leader among managers.All leader bonuses x2",
-        comment:"(total will be 130%)",
+        comment:"",
         prerequisites:"advanced manager training",
         highestPlanetRequired:"34-Rupert"}),
     
@@ -811,7 +811,7 @@ projectCells.push(
         label:"advanced leader",
         components:[{label:"motor",baseCost:10,costWithMaxLab:5},{label:"telescope",baseCost:10,costWithMaxLab:5},{label:"scrith alloy",baseCost:200,costWithMaxLab:100},],
         description:"all leader bonuses x3",
-        comment:"(total will be 130%)",
+        comment:"",
         prerequisites:"leader",
         highestPlanetRequired:"43-Daedalus"}),
     
@@ -820,7 +820,7 @@ projectCells.push(
         label:"senior leader",
         components:[{label:"robot",baseCost:10,costWithMaxLab:5},],
         description:"ability to elect a 2nd leader among 5+ stars managers",
-        comment:"(total will be 130%)",
+        comment:"",
         prerequisites:"advanced leader",
         highestPlanetRequired:"43-Daedalus"}),
     
@@ -829,7 +829,7 @@ projectCells.push(
         label:"superior leader",
         components:[{label:"collider",baseCost:50,costWithMaxLab:25},{label:"gravity chamber",baseCost:20,costWithMaxLab:10},{label:"quolium alloy",baseCost:200,costWithMaxLab:100},],
         description:"all leader bonuses x4",
-        comment:"(total will be 130%)",
+        comment:"",
         prerequisites:"senior leader",
         highestPlanetRequired:"61-Bob"}),
     
