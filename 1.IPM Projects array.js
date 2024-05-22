@@ -627,8 +627,8 @@ projectCells.push(
         area:"Alchemy and Logistics",
         label:"resource details",
         components:[{label:"battery",baseCost:3,costWithMaxLab:2},],
-        description:"adds a detail panel with resource stats",
-        comment:"accessed from resource panel",
+        description:"adds a detail panel with resource stats<br>(accessed from resource panel)",
+        comment:"",
         prerequisites:"telescope 2",
         highestPlanetRequired:"1-Balor"}),
     
@@ -638,8 +638,9 @@ projectCells.push(
         components:[{label:"titanium bar",baseCost:5,costWithMaxLab:2},
         {label:"platinum bar",baseCost:25,costWithMaxLab:12},
         {label:"steel bar",baseCost:50,costWithMaxLab:25},],
-        description:"adds visual clue to planet upgrades to show what",
-        comment:"upgrade is bottlenecking production",
+        description:`adds visual clue to planet upgrades to show<br>
+        upgrade is bottlenecking production what`,
+        comment:"",
         prerequisites:"resource details",
         highestPlanetRequired:"22-Zelene"}),
     
@@ -648,9 +649,9 @@ projectCells.push(
         label:"alchemy",
         components:[{label:"gold bar",baseCost:50,costWithMaxLab:25},
         {label:"lens",baseCost:6,costWithMaxLab:3},],
-        description:`convert an ore on a planet to an ore worth 1 level higher<br>`
-        + spanText("crimson","**1x Planet <=> 1x Alchemy**"),
-        comment:"upgrade is bottlenecking production",
+        description:`convert an ore on a planet to <br>an oreworth 1 level higher<br>`
+        + spanText("red","**1x Planet <=> 1x Alchemy**"),
+        comment:"",
         prerequisites:"cargo logistics",
         highestPlanetRequired:"14-Batalla"}),
     
@@ -660,9 +661,9 @@ projectCells.push(
         components:[{label:"silver ore",baseCost:"50k",costWithMaxLab:"25k"},
         {label:"basic computer",baseCost:6,costWithMaxLab:3},
         {label:"titanium ore",baseCost:"25k",costWithMaxLab:"12.5k"},],
-        description:`convert an ore on a planet to an ore worth 2 levels higher<br>`
-        + spanText("crimson","**1x Planet <=> 1x Alchemy**"),
-        comment:"upgrade is bottlenecking production",
+        description:`convert an ore on a planet to <br>an ore worth 2 levels higher<br>`
+        + spanText("red","**1x Planet <=> 1x Alchemy**"),
+        comment:"",
         prerequisites:"alchemy",
         highestPlanetRequired:"22-Zelene"}),
     
@@ -672,9 +673,9 @@ projectCells.push(
         components:[{label:"palladium bar",baseCost:400,costWithMaxLab:200},
         {label:"osmium bar",baseCost:200,costWithMaxLab:100},
         {label:"advanced computer",baseCost:5,costWithMaxLab:2},],
-        description:`convert an ore on a planet to an ore worth 3 levels higher<br>`
-        + spanText("crimson","**1x Planet <=> 1x Alchemy**"),
-        comment:"upgrade is bottlenecking production",
+        description:`convert an ore on a planet to <br>an ore worth 3 levels higher<br>`
+        + spanText("red","**1x Planet <=> 1x Alchemy**"),
+        comment:"",
         prerequisites:"advanced alchemy",
         highestPlanetRequired:"31-Vular"}),
     
@@ -848,7 +849,7 @@ projectCells.push(
         label:"rover advanced logistics",
         components:[{label:"bronze bar",baseCost:20,costWithMaxLab:10},{label:"battery",baseCost:20,costWithMaxLab:10},{label:"lens",baseCost:10,costWithMaxLab:5},],
         description:"unlocks an additional mission choice for new scans",
-        comment:"(unlock access to rover[s])",
+        comment:"",
         prerequisites:"telescope 5",
         highestPlanetRequired:"12-Relic"}),
     
@@ -1145,7 +1146,7 @@ projectCells.push(
         label:"terraforming",
         components:[{label:"diamond",baseCost:"20k",costWithMaxLab:"10k"},{label:"thermal scanner",baseCost:10,costWithMaxLab:5},],
         description:"pick any unlocked planet and increase<br>its colonization level by 2 instantly",
-        comment:spanText("crimson","**1x Planet <=> 1x Terraforming**"),
+        comment:spanText("red","**1x Planet <=> 1x Terraforming**"),
         prerequisites:"colonization advanced efficiency",
         highestPlanetRequired:"19-Parnitha"}),
     
@@ -1154,7 +1155,7 @@ projectCells.push(
         label:"advanced terraforming",
         components:[{label:"satellite dish",baseCost:10,costWithMaxLab:5},],
         description:"pick any unlocked planet and increase<br>its colonization level by 3 instantly",
-        comment:spanText("crimson","**1x Planet <=> 1x Terraforming**"),
+        comment:spanText("red","**1x Planet <=> 1x Terraforming**"),
         prerequisites:"terraforming",
         highestPlanetRequired:"28-Tikkun"}),
 )
@@ -1562,6 +1563,9 @@ function clickProjectsAreas(e){
         let subC = addEle({dad:subContainer,setClass:"contCol"})
            let myTxt = "Description : " + thisArray[i].description
             if(thisArray[i].comment){myTxt += "<br>" + thisArray[i].comment}
+
+if(thisArray[i].comment){console.log(thisArray[i].label + " > " + thisArray[i].comment )}
+
             addEle({dad:subC,setClass:"texting",text:myTxt})
             addEle({dad:subC,setClass:"texting",text:"Prerequisites : " + thisArray[i].prerequisites})
             addEle({dad:subC,setClass:"texting",text:"Highest planet required : " + thisArray[i].highestPlanetRequired})
