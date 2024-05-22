@@ -876,7 +876,7 @@ projectCells.push(
         label:"rover scanning module",
         components:[{label:"aluminium bar",baseCost:100,costWithMaxLab:50},{label:"basic computer",baseCost:1,costWithMaxLab:1},],
         description:"+5% chance of rovers finding all rewards",
-        comment:"(instead of a x2.5)",
+        comment:"",
         prerequisites:"rover advanced logistics",
         highestPlanetRequired:"12-Relic"}),
     
@@ -885,7 +885,7 @@ projectCells.push(
         label:"asteroid miner",
         components:[{label:"copper ore",baseCost:400,costWithMaxLab:200},{label:"iron ore",baseCost:100,costWithMaxLab:50},],
         description:"ability to mine asteroids for ore<br>"+ spanText("lime","Frequency : 10mn"),
-        comment:"(instead of a x2.5)",
+        comment:"",
         prerequisites:" - ",
         highestPlanetRequired:"2-Drasta"}),
     
@@ -894,7 +894,7 @@ projectCells.push(
         label:"asteroid refined drilling",
         components:[{label:"silicon bar",baseCost:40,costWithMaxLab:20},{label:"lead bar",baseCost:80,costWithMaxLab:40},],
         description:"10% chance of an asteroid containing 20x normal value worth of alloy",
-        comment:"(instead of a x2.5)",
+        comment:"",
         prerequisites:"telescope 3",
         highestPlanetRequired:"7-Widow"}),
     
@@ -903,7 +903,7 @@ projectCells.push(
         label:"asteroid harvester",
         components:[{label:"iron bar",baseCost:400,costWithMaxLab:200},{label:"circuit",baseCost:5,costWithMaxLab:2},],
         description:"all asteroid value x1.3",
-        comment:"(instead of a x2.5)",
+        comment:"",
         prerequisites:"asteroid refined drilling",
         highestPlanetRequired:"9-Yangtze"}),
     
@@ -1011,7 +1011,7 @@ projectCells.push(
         label:"market manipulation",
         components:[{label:"gold bar",baseCost:"15k",costWithMaxLab:"7.5k"},{label:"diamond",baseCost:"30k",costWithMaxLab:"15k"},{label:"basic computer",baseCost:10,costWithMaxLab:5},],
         description:"chance of a 4x positive market",
-        comment:"(on all future changes)",
+        comment:"",
         prerequisites:"inside trader",
         highestPlanetRequired:"17-Castellus"}),
     
@@ -1020,7 +1020,7 @@ projectCells.push(
         label:"advanced market manipulation",
         components:[{label:"telescope",baseCost:5,costWithMaxLab:2},{label:"advanced computer",baseCost:10,costWithMaxLab:5},{label:"quadium alloy",baseCost:100,costWithMaxLab:50},],
         description:"chance of a 5x positive market",
-        comment:"(on all future changes)",
+        comment:"",
         prerequisites:"market manipulation",
         highestPlanetRequired:"40-Unicae"}),
     
@@ -1047,7 +1047,7 @@ projectCells.push(
         label:"colonization",
         components:[{label:"copper bar",baseCost:20,costWithMaxLab:10},{label:"iron bar",baseCost:10,costWithMaxLab:5},],
         description:"complete planet requests to colonize them and earn bonuses",
-        comment:"(cool down 8H)",
+        comment:"",
         prerequisites:"management",
         highestPlanetRequired:"2-Drasta"}),
     
@@ -1056,7 +1056,7 @@ projectCells.push(
         label:"colonization scouting",
         components:[{label:"iron nail",baseCost:15,costWithMaxLab:8},],
         description:"increases max colonization tasks from 3 to 4",
-        comment:"(cool down 8H)",
+        comment:"",
         prerequisites:"colonization",
         highestPlanetRequired:"2-Drasta"}),
     
@@ -1065,7 +1065,7 @@ projectCells.push(
         label:"colonization advanced scouting",
         components:[{label:"silver bar",baseCost:60,costWithMaxLab:30},],
         description:"increases max colonization tasks from 4 to 5",
-        comment:"(cool down 8H)",
+        comment:"",
         prerequisites:"colonization scouting",
         highestPlanetRequired:"12-Relic"}),
     
@@ -1074,7 +1074,7 @@ projectCells.push(
         label:"colonization superior scouting",
         components:[{label:"diamond",baseCost:"50k",costWithMaxLab:"25k"},],
         description:"increases max colonization tasks from 5 to 6",
-        comment:"(cool down 8H)",
+        comment:"",
         prerequisites:"colonization advanced scouting",
         highestPlanetRequired:"17-Castellus"}),
     
@@ -1110,7 +1110,7 @@ projectCells.push(
         label:"colonization efficiency",
         components:[{label:"silver bar",baseCost:15,costWithMaxLab:8},{label:"hammer",baseCost:10,costWithMaxLab:5},],
         description:"colonization cost 20% less resources",
-        comment:"(mine,speed,cargo)",
+        comment:"",
         prerequisites:"colonization",
         highestPlanetRequired:"12-Relic"}),
     
@@ -1119,7 +1119,7 @@ projectCells.push(
         label:"colonization advanced efficiency",
         components:[{label:"steel bar",baseCost:40,costWithMaxLab:20},{label:"laser",baseCost:10,costWithMaxLab:5},],
         description:"colonization cost 20% less resources",
-        comment:"(mine,speed,cargo)",
+        comment:"",
         prerequisites:"colonization efficiency",
         highestPlanetRequired:"14-Batalla"}),
     
@@ -1128,7 +1128,7 @@ projectCells.push(
         label:"colonization superior efficiency",
         components:[{label:"palladium bar",baseCost:50,costWithMaxLab:25},{label:"laser torch",baseCost:15,costWithMaxLab:8},],
         description:"colonization cost 20% less resources",
-        comment:"(mine,speed,cargo)",
+        comment:"",
         prerequisites:"colonization advanced efficiency",
         highestPlanetRequired:"28-Tikkun"}),
     
