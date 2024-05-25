@@ -3,12 +3,78 @@
 rooms from start
 =================
 
-Engineering <> Forge
-Forge => Engineering <> Aeronotical
-Forge => Engineering => Aeronotical <> Astronomy
-Forge => Engineering => Astronomy => Aeronotical <> Packaging
+Engineering <> Forge*
+Forge => Engineering* <> Aeronotical
+Forge => Engineering => Aeronotical <> Astronomy*
+Forge => Engineering => Astronomy => Aeronotical <> Packaging*
+
+Engineering
+Packaging
+Forge
+workshop
+astronomy
+
+aeronautical <> lab
+lab = > aeronautical <> robotics
+robotics => aeronautical <> lounge
+lounge => aeronautical <> backup generator
+backup generator => aeronautical <> terrarium
+terrarium => aeronautical <> underforge
+underforge => aeronautical <> dorms
+dorms => aeronautical <> sales
+
+
+
 
 */
+
+
+const patterns =[
+    {pattern:1500,detail:[1350,1290,1230,1170,1110,1050,990,930,870,810,750,]},
+    {pattern:3,detail:[3,3,2,2,2,2,2,2,2,2,2,]},
+    {pattern:5,detail:[4,4,4,4,4,4,3,3,3,3,2,]},
+    {pattern:500,detail:[450,430,410,390,370,350,330,310,290,270,250,]},
+    {pattern:10,detail:[9,9,8,8,7,7,7,6,6,5,5,]},
+    {pattern:15,detail:[14,13,12,12,11,10,10,9,9,8,8,]},
+    {pattern:20,detail:[18,17,16,16,15,14,13,12,12,11,10,]},
+    {pattern:25,detail:[22,21,20,20,18,18,16,16,14,13,12,]},
+    {pattern:4,detail:[4,3,3,3,3,3,3,2,2,2,2,]},
+    {pattern:12,detail:[11,10,10,9,9,8,8,7,7,6,6,]},
+    {pattern:6,detail:[5,5,5,5,4,4,4,4,3,3,3,]},
+    {pattern:24,detail:[22,21,20,19,18,17,16,15,14,13,12,]},
+    {pattern:600,detail:[540,516,492,468,444,420,396,372,348,324,300,]},
+    {pattern:250,detail:[225,215,205,195,185,175,165,155,145,135,125,]},
+    {pattern:200,detail:[180,172,164,156,148,140,132,124,116,108,100,]},
+    {pattern:250000,detail:[225000,215000,205000,195000,185000,175000,165000,155000,145000,135000,125000,]},
+    {pattern:30,detail:[27,26,25,23,22,21,20,19,17,16,15,]},
+    {pattern:50,detail:[45,43,41,39,37,35,33,31,29,27,25,]},
+    {pattern:2,detail:[2,2,2,2,1,1,1,1,1,1,1,]},
+    {pattern:75,detail:[68,64,62,58,56,52,49,46,44,40,38,]},
+    {pattern:40,detail:[36,34,33,31,30,28,26,25,23,22,20,]},
+    {pattern:1,detail:[1,1,1,1,1,1,1,1,1,1,1,]},
+    {pattern:300,detail:[270,258,246,234,222,210,198,186,174,162,150,]},
+    {pattern:100,detail:[90,86,82,78,74,70,66,62,58,54,50,]},
+    {pattern:5000,detail:[4500,4300,4100,3900,3700,3500,3300,3100,2900,2700,2500,]},
+    {pattern:50000,detail:[45000,43000,41000,39000,37000,35000,33000,31000,29000,27000,25000,]},
+    {pattern:25000,detail:[22500,21500,20500,19500,18500,17500,16500,15500,14500,13500,12500,]},
+    {pattern:400,detail:[360,344,328,312,296,280,264,248,232,216,200,]},
+    {pattern:800,detail:[720,688,656,624,592,560,528,496,464,432,400,]},
+    {pattern:60,detail:[54,52,49,47,44,42,40,37,35,32,30,]},
+    {pattern:80,detail:[72,69,66,62,59,56,53,50,46,43,40,]},
+    {pattern:8,detail:[7,7,7,6,6,6,5,5,5,4,4,]},
+    {pattern:1200,detail:[1080,1032,984,936,888,840,792,744,696,648,600,]},
+    {pattern:1400,detail:[1260,1200,1150,1090,1040,980,924,868,812,756,700,]},
+    {pattern:150,detail:[135,129,123,117,111,105,99,93,87,81,75,]},
+    {pattern:15000,detail:[13500,12900,12300,11700,11100,10500,9900,9300,8700,8100,7500,]},
+    {pattern:30000,detail:[27000,25800,24600,23400,22200,21000,19800,18600,17400,16200,15000,]},
+    {pattern:115,detail:[104,99,94,90,85,80,76,71,67,62,58,]},
+    {pattern:20000,detail:[18000,17200,16400,15600,14800,14000,13200,12400,11600,10800,10000,]},
+]
+
+let patterns2 = patterns.sort((a,b)=>a.pattern-b.pattern)
+
+//console.log(patterns2)
+
 const newRoom = [3,6,12,21,35,56,87,133,200,298,439,642,934,1351,1946,2932,4402,6586]
 
 const Rooms = [
@@ -271,6 +337,7 @@ function displayRoom(e,rightBottom){
         }})
 
         if(roomShopping.length > 0){getID("roomShoppingBtn").click()}
+
 }
 
 let roomShopping = []
@@ -375,7 +442,7 @@ function checkRoomShopping(){
         if(getID("refRoom")!==null){
             let grp = document.getElementsByName("roomSelectBtns")
             for(i=0;i<grp.length;i++){
-                if(grp[i].innerHTML===getID("refRoom").innerHTML){grp[i].click()}
+                if(grp[i].innerHTML===getID("refRoom").innerHTML){grp[i].click();i=grp.length}
             }
             getID("roomDisplayLv").click()
         }
