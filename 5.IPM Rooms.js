@@ -211,13 +211,29 @@ function buildRooms(){
     big credit spending : Shopping list.<br>Click a Room > Display details > click lines ... easy !<br>
     ( you can also click on the`)+spanText("blueviolet"," [New Room Costs] ")+spanText("greenyellow","for the shopping list)")
 
-    let tabInfos = addEle({dad:right,setClass:"texting",fontS:"18px",marginL:"20px",
-    textC:"rgb(0,212,250)",text:roomsInfo})
 
-    let rightTop = addEle({dad:right,setClass:"contRow_W"})
-    let rightMiddle = addEle({dad:right,setClass:"contCol_W"})
-    let rightBottom1 = addEle({dad:right,setClass:"contCol_W"})
-    let rightBottom2 = addEle({dad:right,setClass:"contRow_W"})
+    let roomFork = addEle({dad:right,setClass:"contRow_W"})
+        let roomForkA = addEle({dad:roomFork,setClass:"contCol_W"})
+        let roomForkB = addEle({dad:roomFork,setClass:"contCol_W",marginL:"10px"})
+
+        addEle({dad:roomForkB,text:"Mothership",backC:"black",height:"75px",fontS:60,
+        radiusTL:"110px",radiusTR:"110px",textA:"center",paddingT:"75px"})
+        Rooms.forEach(rm=>{
+            let rmC = addEle({dad:roomForkB,setClass:"contRow_W",position:"relative"})
+                addEle({dad:rmC,text:rm.label,position:"absolute",zIdx:1,margin:"5px",
+                backC:"black",radius:"5px",padding:"5px",minWidth:"120px",textA:"center"})
+                addEle({dad:rmC,what:"img",img2Sizes:"500:142",
+                imgFullSrc:"./IPM Components/" + rm.label + ".jpg"})
+        })
+
+        let tabInfos = addEle({dad:roomForkA,setClass:"texting",fontS:"18px",marginL:"20px",
+        textC:"rgb(0,212,250)",text:roomsInfo})
+    
+
+    let rightTop = addEle({dad:roomForkA,setClass:"contRow_W"})
+    let rightMiddle = addEle({dad:roomForkA,setClass:"contCol_W"})
+    let rightBottom1 = addEle({dad:roomForkA,setClass:"contCol_W"})
+    let rightBottom2 = addEle({dad:roomForkA,setClass:"contRow_W"})
         let  rightBottom2A = addEle({dad:rightBottom2,setClass:"contCol_W"})
         let  rightBottom2B = addEle({dad:rightBottom2,setClass:"contCol_W",setID:"roomShoppingFr"})
 
