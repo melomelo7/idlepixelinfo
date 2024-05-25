@@ -193,7 +193,13 @@ function buildProjectsGrid(whichGrid="",cellSize=0,globalContainer=right){
      <br>station will require more than `+curVal+` energy
      <br>cells to be fully upgraded*`
 
-    addEle({dad:globalContainer,setClass:"texting",fontS:"20px",paddingL:"40px",
+    let gridHeader = addEle({dad:globalContainer,setClass:"contRow_W"})
+
+    if(whichGrid==="station"){
+        addEle({dad:gridHeader,what:"img",imgSize:120,imgFullSrc:"./IPM Components/station.jpg",margin:"10px 0 0 40px"})
+    }
+
+    addEle({dad:gridHeader,setClass:"texting",fontS:"20px",paddingL:"40px",
     textC:"rgb(0,212,250)",textA:"left",text:topText,setID:"gridInfos",backG:"",
     minHeight:whichGrid==="projects" ? "24px" : "100px"})
 
