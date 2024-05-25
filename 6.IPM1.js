@@ -196,7 +196,8 @@ function buildProjectsGrid(whichGrid="",cellSize=0,globalContainer=right){
     let gridHeader = addEle({dad:globalContainer,setClass:"contRow_W"})
 
     if(whichGrid==="station"){
-        addEle({dad:gridHeader,what:"img",imgSize:120,imgFullSrc:"./IPM Components/station.jpg",margin:"10px 0 0 40px"})
+        addEle({dad:gridHeader,what:"img",imgSize:120,radius:"100px",
+        imgFullSrc:"./IPM Components/station.jpg",margin:"10px 0 0 40px"})
     }
 
     addEle({dad:gridHeader,setClass:"texting",fontS:"20px",paddingL:"40px",
