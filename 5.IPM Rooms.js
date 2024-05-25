@@ -409,11 +409,13 @@ function checkRoomShopping(){
                 let myLv = Number(e.srcElement.id.split(":")[1])-2
                 let thisIdx = roomShopping.findIndex(itm=>itm.label===myNm && itm.level===myLv)
                 roomShopping.splice(thisIdx,1)
-                let grp = document.getElementsByName("roomSelectBtns")
-                for(i=0;i<grp.length;i++){
-                    if(grp[i].innerHTML===getID("refRoom").innerHTML){grp[i].click()}
+                if(getID("refRoom")!==null){
+                    let grp = document.getElementsByName("roomSelectBtns")
+                    for(i=0;i<grp.length;i++){
+                        if(grp[i].innerHTML===getID("refRoom").innerHTML){grp[i].click()}
+                    }
+                    getID("roomDisplayLv").click()
                 }
-                getID("roomDisplayLv").click()
                 checkRoomShopping()
             }})
             addEle({dad:tR,what:"td",textA:"right",minWidth:"100px",text:itm.cost.toLocaleString(),
