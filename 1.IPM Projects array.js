@@ -1564,8 +1564,6 @@ function clickProjectsAreas(e){
            let myTxt = "Description : " + thisArray[i].description
             if(thisArray[i].comment){myTxt += "<br>" + thisArray[i].comment}
 
-if(thisArray[i].comment){console.log(thisArray[i].label + " > " + thisArray[i].comment )}
-
             addEle({dad:subC,setClass:"texting",text:myTxt})
             addEle({dad:subC,setClass:"texting",text:"Prerequisites : " + thisArray[i].prerequisites})
             addEle({dad:subC,setClass:"texting",text:"Highest planet required : " + thisArray[i].highestPlanetRequired})
