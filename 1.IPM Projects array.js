@@ -1354,6 +1354,200 @@ function setProjectsAreas(container){
     addEle({dad:getID("containerB1"),setClass:"button1",fontS:"18px",
     backG:"linear-gradient(to bottom,rgba(220,126,115,1),rgba(0,0,0,1))",textC:"yellow",
     text:"Filtered Private List",setID:"projectsPrivateList",setFunc:clickProjectsAreas})
+
+    let mapListC = addEle({dad:getID("containerB1"),setClass:"contCol_W",border:"brown solid 2px",
+    radius:"10px",padding:"10px",alignItems:"center"})
+        addEle({dad:mapListC,text:"List based on Depth<br>(Pick Telescope/Planet)",textA:"center"})
+
+        addEle({dad:mapListC,setID:"mapTgt",padding:"10px",border:"brown solid 2px",radius:"5px",
+        marginT:"10px",textA:"center"})
+
+    let tb = addEle({dad:mapListC,what:"table"})
+    let tc = undefined
+    let tr = addEle({dad:tb,what:"tr"})
+            tc = addEle({dad:tr,what:"td"})
+            addEle({dad:tc,text:"&#128309;",marginR:"5px"})
+            tc = addEle({dad:tr,what:"td"})
+            addEle({dad:tc,text:"Farthest<br>Telescope",textA:"center"})
+            tc = addEle({dad:tr,what:"td"})
+            addEle({dad:tc,what:"input",isInput:true,setVal:0,textA:"center",width:"30px",
+            marginL:"10px",setID:"mapTel",setFunc:(e)=>{
+                let outP = getID("mapTgt")
+                let warnU = spanText("red","~~~~ *!* ~~~~<br>Enter a number<br>between 0 ~ 22<br>~~~~ *!* ~~~~") 
+                if(!rangeChecker(e.srcElement.value,0,22)){outP.innerHTML = warnU}
+                else {dispMapBounds(true)}
+            }})
+
+        tr = addEle({dad:tb,what:"tr"})
+            tc = addEle({dad:tr,what:"td"})
+            addEle({dad:tc,text:"&#129680;",marginR:"5px"})
+            tc = addEle({dad:tr,what:"td"})
+            addEle({dad:tc,textA:"center",setID:"mapMaxP"})
+            tc = addEle({dad:tr,what:"td"})
+            addEle({dad:tc,what:"input",isInput:true,textA:"center",width:"30px",
+            marginL:"10px",setID:"mapRefP",setFunc:(e)=>{
+                let outP = getID("mapTgt")
+                let warnU = spanText("red","~~~~ *!* ~~~~<br>Valid Entry:<br>Number between<br>1 ~ 70<br>~~~~ *!* ~~~~") 
+                if(!rangeChecker(e.srcElement.value,1,70)){outP.innerHTML = warnU}
+                else {dispMapBounds()}
+            }})
+
+        addEle({dad:mapListC,text:spanText("red","Important")+` here :<br>
+        Correct `+spanText("red","Farthest")+` Planet`,border:"2px red dashed",
+        radius:"10px",padding:"10px",  marginT:"5px",textA:"center"})
+
+        addEle({dad:mapListC,text:"Build this Private List<br>(replace existing one if any)",border:"blue solid 3px",textA:"center",
+        cursor:"pointer",padding:"10px",radius:"10px",marginT:"20px",setID:"mapBuild",width:"90%",
+        backG:"linear-gradient(to bottom,rgba(220,126,115,1),rgba(0,0,0,1))",textC:"yellow",
+        setFunc:()=>{
+            if(!rangeChecker(getID("mapRefP").value,1,70)){return}
+            mapBuilder(Number(getID("mapRefP").value))
+        }})
+    
+        dispMapBounds()
+}
+
+function dispMapBounds(fromTele=false){
+    let depth = undefined
+    let depthT = undefined
+    let tele = undefined
+    let telGrp = undefined
+    let teleT = undefined
+    let outP = getID("mapTgt")
+
+    if(fromTele===false && rangeChecker(getID("mapRefP").value,1,70)){
+        depth = Number(getID("mapRefP").value)
+        tele = planetsArray.filter(pl=>pl.idNumber===depth)[0].telescope
+        depthT = depth < 10 ? "0"+depth : depth
+        getID("mapTel").value = planetsArray.filter(pl=>pl.idNumber===depth)[0].telescope
+        }
+    else {
+        tele = Number(getID("mapTel").value)
+        telGrp = planetsArray.filter(pl=>pl.telescope===tele)
+        depth = telGrp[telGrp.length-1].idNumber
+        depthT = depth < 10 ? "0"+depth : depth
+        getID("mapRefP").value = depth
+    }
+    teleT = tele < 10 ? "0"+tele : tele
+    telGrp = planetsArray.filter(pl=>pl.telescope===tele)
+
+    outP.innerHTML = "From & including :<br>" + spanText("lime","T : 00 > P : 01 - Balor") +
+    "<br>Up to & including :<br>" + spanText("lime","T : "+teleT+" > P : "+depthT+
+    " - "+planetsArray.filter(pl=>pl.idNumber===depth)[0].label)
+
+    getID("mapMaxP").innerHTML = "Farthest Planet<br>(" + telGrp[0].idNumber +
+    " ~ " + telGrp[telGrp.length-1].idNumber + ")"
+}
+
+function rangeChecker(inp,vmin,vmax){
+    let good = true
+    if(inp==="" || isNaN(inp)){good=false}
+    else {if(Number(inp) < vmin || Number(inp) > vmax){good=false}}
+    return good
+}
+
+function mapBuilder(depth){
+    let myA1 = []
+    let myA2 = []
+    let myA3 = []
+    let pls = planetsArray.filter(pl=>pl.idNumber<=depth)
+
+    let idx = undefined
+    let own = undefined
+
+    pls.forEach(pl=>{
+        pl.ores.forEach(ore=>{
+            idx = myA1.findIndex(x=>x===ore.label)
+            if (idx===-1){myA1.push(ore.label)} }) })
+
+    barsArray.forEach(bar=>{
+        own = true
+        bar.ingredients.forEach(ing=>{
+            idx = myA1.findIndex(x=>x===ing.label)
+            if(idx===-1){own = false}
+        })
+        if(own){myA1.push(bar.label)}
+    })
+
+    itemsArray.forEach(itm=>{
+        own = true
+        itm.ingredients.forEach(ing=>{
+            idx = myA1.findIndex(x=>x===ing.label)
+            if(idx===-1){own = false}
+        })
+        if(own){myA1.push(itm.label)}
+    })
+
+    projectCells.forEach(pro=>{
+        own = true
+        pro.components.forEach(com=>{
+            idx = myA1.findIndex(x=>x===com.label)
+            if(idx===-1){own = false}
+        })
+        if(own){
+            if(testPrereqs(myA1,pro)){myA2.push( projectCells.filter(itm=>itm.label===pro.label)[0])}
+        }
+    })
+
+projectCells.forEach(pro=>{pro.selected=false})
+myA2.forEach(pro=>{pro.selected=true})
+
+getID("projectsPrivateList").innerHTML = "Filtered Private List (" + projectCells.filter(x=>x.selected).length + ")"
+getID("projectsPrivateList").click()
+
+}
+
+function testPrereqs(refArray,refProjo){
+    let good = true
+    let cpt=0
+    let seek = true
+    let focus = undefined
+    let own1 = undefined
+    let own2 = undefined
+    let idx = undefined
+    let path = undefined
+
+    while(seek){
+        cpt++
+        path = ""
+        if(refProjo.prerequisites.includes("-")){seek=false}
+        else if(refProjo.prerequisites.includes("OR")){
+            own1=true
+            focus = projectCells.filter(pro=>pro.label===refProjo.prerequisites.split(" OR ")[0])[0]
+            focus.components.forEach(com=>{
+                idx = refArray.findIndex(x=>x===com.label)
+                if(idx===-1){own1 = false}
+            })
+            if(own1===true){path = refProjo.prerequisites.split(" OR ")[0]}
+            own2=true
+            focus = projectCells.filter(pro=>pro.label===refProjo.prerequisites.split(" OR ")[1])[0]
+            focus.components.forEach(com=>{
+                idx = refArray.findIndex(x=>x===com.label)
+                if(idx===-1){own2 = false}
+            })
+            if(own2===true && path === ""){path = refProjo.prerequisites.split(" OR ")[1]}
+            if(own1===false && own2===false){seek=false ; good=false}
+        }
+        else {
+            own1=true
+            focus = projectCells.filter(pro=>pro.label===refProjo.prerequisites)[0]
+            focus.components.forEach(com=>{
+                idx = refArray.findIndex(x=>x===com.label)
+                if(idx===-1){own1 = false}
+            })
+            if(own1===false){seek=false ; good=false}
+        }
+
+        if(seek===true){
+            if(path==="")
+                {refProjo = projectCells.filter(pro=>pro.label===refProjo.prerequisites)[0]}
+            else {refProjo = projectCells.filter(pro=>pro.label===path)[0]}
+        }
+
+        if(cpt===110){seek=false}
+    }
+
+    return good
 }
 
 
@@ -1525,8 +1719,7 @@ function clickProjectsAreas(e){
         "linear-gradient(to bottom,rgba(220,126,115,1),rgba(0,0,0,1))" : togNot
         myCol = thisArray[i].selected===true ? "yellow" : "white"
         addEle({dad:listFrame,setClass:"button1",backG:myBack,textC:myCol,
-        text:thisArray[i].label.slice(0,1).toUpperCase()+thisArray[i].label.slice(1)  ,
-        
+        text:thisArray[i].label.slice(0,1).toUpperCase()+thisArray[i].label.slice(1),
         setFunc:(e)=>{
             focusElement = projectCells.findIndex(x=> x.label === e.srcElement.innerHTML.toLowerCase() )
             focusElement = projectCells[focusElement]
@@ -1563,6 +1756,8 @@ function clickProjectsAreas(e){
         let subC = addEle({dad:subContainer,setClass:"contCol"})
            let myTxt = "Description : " + thisArray[i].description
             if(thisArray[i].comment){myTxt += "<br>" + thisArray[i].comment}
+
+//if(thisArray[i].comment){console.log(thisArray[i].label + " > " + thisArray[i].comment )}
 
             addEle({dad:subC,setClass:"texting",text:myTxt})
             addEle({dad:subC,setClass:"texting",text:"Prerequisites : " + thisArray[i].prerequisites})
