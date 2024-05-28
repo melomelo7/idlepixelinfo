@@ -23,6 +23,7 @@ function addEle({
     maxHeight = "",
     width = "",
     minWidth = "",
+    maxWidth = "",
     border = "",
     borderL = "",
     borderR = "",
@@ -62,6 +63,7 @@ function addEle({
     radioCol = "",
     position = "",
     top = "",
+    left = "",
     zIdx = "",
     userSelect = "",
     colSpan = "",
@@ -133,8 +135,8 @@ function addEle({
     if(maxHeight!==""){thisObj.style.maxHeight = maxHeight}
 
     if(width!==""){thisObj.style.width = width}
-
     if(minWidth!==""){thisObj.style.minWidth=minWidth}
+    if(maxWidth!==""){thisObj.style.maxWidth=minWidth}
 
     if(border!==""){thisObj.style.border = border}
     if(borderL!==""){thisObj.style.borderLeft = borderL}
@@ -188,6 +190,7 @@ function addEle({
     if(position !==""){thisObj.style.position = position}
 
     if(top !==""){thisObj.style.top = top}
+    if(left !==""){thisObj.style.left = top}
 
     if(zIdx!==""){thisObj.style.zIndex = zIdx}
 

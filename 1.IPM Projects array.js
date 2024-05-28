@@ -1457,35 +1457,37 @@ function mapBuilder(depth){
 
     pls.forEach(pl=>{
         pl.ores.forEach(ore=>{
-            idx = myA1.findIndex(x=>x===ore.label)
-            if (idx===-1){myA1.push(ore.label)} }) })
+            idx = myA1.findIndex(x=>x.label===ore.label)
+            if (idx===-1){myA1.push({type:"ore",label:ore.label})} }) })
 
     barsArray.forEach(bar=>{
         own = true
         bar.ingredients.forEach(ing=>{
-            idx = myA1.findIndex(x=>x===ing.label)
+            idx = myA1.findIndex(x=>x.label===ing.label)
             if(idx===-1){own = false}
         })
-        if(own){myA1.push(bar.label)}
+        if(own){myA1.push({type:"bar",label:bar.label})}
     })
 
     itemsArray.forEach(itm=>{
         own = true
         itm.ingredients.forEach(ing=>{
-            idx = myA1.findIndex(x=>x===ing.label)
+            idx = myA1.findIndex(x=>x.label===ing.label)
             if(idx===-1){own = false}
         })
-        if(own){myA1.push(itm.label)}
+        if(own){myA1.push({type:"itm",label:itm.label})}
     })
 
     projectCells.forEach(pro=>{
         own = true
         pro.components.forEach(com=>{
-            idx = myA1.findIndex(x=>x===com.label)
+            idx = myA1.findIndex(x=>x.label===com.label)
             if(idx===-1){own = false}
         })
         if(own){
-            if(testPrereqs(myA1,pro)){myA2.push( projectCells.filter(itm=>itm.label===pro.label)[0])}
+            if(testPrereqs(myA1,pro))
+                {myA2.push( projectCells.filter(itm=>itm.label===pro.label)[0])}
+            else(myA3.push( projectCells.filter(itm=>itm.label===pro.label)[0]))
         }
     })
 
@@ -1494,6 +1496,144 @@ myA2.forEach(pro=>{pro.selected=true})
 
 getID("projectsPrivateList").innerHTML = "Filtered Private List (" + projectCells.filter(x=>x.selected).length + ")"
 getID("projectsPrivateList").click()
+
+buildMapRecap(myA1,myA2,myA3)
+
+}
+
+function buildMapRecap(res,pro1,pro2){
+    popKiller()
+
+    projectPop = addEle({dad:body,setClass:"contCol",padding:"15px",border:"brown solid 3px",radius:"30px",justifyC:"center",
+    backG:'url("./IPM Components/bg.jpg")',fontS:"18px",width:"fit-content",textA:"center",alignItems:"center"})
+    projectPop.style.opacity = 0.9
+        txt = Number(getID("mapRefP").value) < 10 ? "0"+getID("mapRefP").value : getID("mapRefP").value
+        addEle({dad:projectPop,text:"New List Done.<br>Recap With Farthest Planet :<br>"+spanText("lime",txt+
+        " - "+planetsArray.filter(pl=>pl.idNumber===Number(getID("mapRefP").value))[0].label),paddingB:"10px"})
+
+        addEle({dad:projectPop,border:"solid blue 2px",width:"100%"})
+
+        let LW = 260 + "px"
+
+        let subC = addEle({dad:projectPop,setClass:"contRow",margin:"10px 0",alignItems:"center"})
+            addEle({dad:subC,text:"Projects Unlockable ("+pro1.length+")",marginR:"10px",width:LW})
+            addEle({dad:subC,text:"&#128317;",cursor:"pointer",border:"solid red 2px",setFunc:(e)=>{
+                e.srcElement.innerHTML = e.srcElement.innerHTML === "🔽" ? "🔼" : "🔽"
+                getID("goodPro").style.display = getID("goodPro").style.display === "none" ? "flex" : "none"
+            }})
+
+        subC = addEle({dad:projectPop,setClass:"listCont",setID:"goodPro",display:"none"})
+            pro1.forEach(pro=>{
+                let subC2 = addEle({dad:subC,setClass:"contRow"})
+                let thisSrc = undefined
+                if (pro.label.includes("telescope")){
+                    let txt = pro.label.split(" ")[0]
+                    let ref = Number(pro.label.split(" ")[1])
+                    if (ref < 9){thisSrc = "./IPM Projects/"+txt+"1.jpg"} 
+                    else if (ref > 8 && ref < 13){thisSrc = "./IPM Projects/"+txt+"2.jpg"}
+                    else {thisSrc = "./IPM Projects/"+txt+"3.jpg"}
+                } else {thisSrc = "./IPM Projects/"+pro.label+".jpg"}
+
+                addEle({dad:subC2,what:"img",imgFullSrc:thisSrc,imgSize:20,margin:"0 10px"})
+                addEle({dad:subC2,text:pro.label})
+            })
+
+        subC = addEle({dad:projectPop,setClass:"contRow",margin:"10px 0",alignItems:"center"})
+            addEle({dad:subC,text:"Projects Unreachable/Cut ("+pro2.length+")",marginR:"10px",width:LW})
+            addEle({dad:subC,text:"&#128317;",cursor:"pointer",border:"solid red 2px",setFunc:(e)=>{
+                e.srcElement.innerHTML = e.srcElement.innerHTML === "🔽" ? "🔼" : "🔽"
+                getID("badPro").style.display = getID("badPro").style.display === "none" ? "flex" : "none"
+            }})
+
+        subC = addEle({dad:projectPop,setClass:"listCont",setID:"badPro",display:"none"})
+            pro2.forEach(pro=>{
+                let subC2 = addEle({dad:subC,setClass:"contRow"})
+                let thisSrc = undefined
+                if (pro.label.includes("telescope")){
+                    let txt = pro.label.split(" ")[0]
+                    let ref = Number(pro.label.split(" ")[1])
+                    if (ref < 9){thisSrc = "./IPM Projects/"+txt+"1.jpg"} 
+                    else if (ref > 8 && ref < 13){thisSrc = "./IPM Projects/"+txt+"2.jpg"}
+                    else {thisSrc = "./IPM Projects/"+txt+"3.jpg"}
+                } else {thisSrc = "./IPM Projects/"+pro.label+".jpg"}
+
+                addEle({dad:subC2,what:"img",imgFullSrc:thisSrc,imgSize:20,margin:"0 10px"})
+                addEle({dad:subC2,text:pro.label})
+            })
+
+
+        subC = addEle({dad:projectPop,setClass:"contRow",margin:"10px 0",alignItems:"center"})
+            addEle({dad:subC,text:"Unlocked Ores ("+ res.filter(re=>re.type==="ore").length+")",
+            marginR:"10px",width:LW})
+            addEle({dad:subC,text:"&#128317;",cursor:"pointer",border:"solid red 2px",setFunc:(e)=>{
+                e.srcElement.innerHTML = e.srcElement.innerHTML === "🔽" ? "🔼" : "🔽"
+                getID("resO").style.display = getID("resO").style.display === "none" ? "flex" : "none"
+            }})
+        subC = addEle({dad:projectPop,setClass:"listCont",setID:"resO",display:"none"})
+
+        subC = addEle({dad:projectPop,setClass:"contRow",margin:"10px 0",alignItems:"center"})
+        addEle({dad:subC,text:"Craftable Bars/Alloys ("+ res.filter(re=>re.type==="bar").length+")",
+        marginR:"10px",width:LW})
+        addEle({dad:subC,text:"&#128317;",cursor:"pointer",border:"solid red 2px",setFunc:(e)=>{
+            e.srcElement.innerHTML = e.srcElement.innerHTML === "🔽" ? "🔼" : "🔽"
+            getID("resB").style.display = getID("resB").style.display === "none" ? "flex" : "none"
+        }})
+        subC = addEle({dad:projectPop,setClass:"listCont",setID:"resB",display:"none"})
+
+        subC = addEle({dad:projectPop,setClass:"contRow",margin:"10px 0",alignItems:"center"})
+        addEle({dad:subC,text:"Craftable Items ("+ res.filter(re=>re.type==="itm").length+")",
+        marginR:"10px",width:LW})
+        addEle({dad:subC,text:"&#128317;",cursor:"pointer",border:"solid red 2px",setFunc:(e)=>{
+            e.srcElement.innerHTML = e.srcElement.innerHTML === "🔽" ? "🔼" : "🔽"
+            getID("resI").style.display = getID("resI").style.display === "none" ? "flex" : "none"
+        }})
+        subC = addEle({dad:projectPop,setClass:"listCont",setID:"resI",display:"none"})
+
+        res.forEach(re=>{
+            let dady = undefined
+            switch(re.type){
+                case "ore" : dady = getID("resO") ; break
+                case "bar" : dady = getID("resB") ; break
+                case "itm" : dady = getID("resI") ; break
+            }
+            let subC2 = addEle({dad:dady,setClass:"contRow"})
+            let thisSrc = "./IPM Components/"+re.label+".jpg"
+            addEle({dad:subC2,what:"img",imgFullSrc:thisSrc,imgSize:20,margin:"0 10px"})
+            addEle({dad:subC2,text:re.label})
+        })
+
+        subC = addEle({dad:projectPop,setClass:"contRow",margin:"10px 0",alignItems:"center"})
+        addEle({dad:subC,text:"Simplified Overview<br>of available projects",
+        marginR:"10px",width:LW})
+        addEle({dad:subC,text:"&#128317;",cursor:"pointer",border:"solid red 2px",setFunc:(e)=>{
+            e.srcElement.innerHTML = e.srcElement.innerHTML === "🔽" ? "🔼" : "🔽"
+            getID("mini").style.display = getID("mini").style.display === "none" ? "flex" : "none"
+        }})
+        subC = addEle({dad:projectPop,setClass:"contCol",setID:"mini",display:"none",border:"solid brown 2px",width:"fit-content"})//setClass:"listCont"
+        let tb = addEle({dad:subC,what:"table",backG:"black"})
+
+        for (i=1;i<=29;i++){
+        let tr = addEle({dad:tb,what:"tr",height: i % 2 === 0 ? "5px" : "14px"})
+            for (j=1;j<=29;j++){
+                let tc = addEle({dad:tr,what:"td",width: j % 2 === 0 ? "2px" : "10px",
+                setID:"Row:"+i+"|Col:"+j})
+                tc.style.minWidth = tc.style.width
+            }
+        }
+
+        projectCells.forEach(pro=>{tb.rows[pro.rows-1].cells[pro.cell-1].style.border = "solid 1px white"})
+        pro1.forEach(pro=>{tb.rows[pro.rows-1].cells[pro.cell-1].style.backgroundColor = "lime"})
+
+
+    addEle({dad:projectPop,setClass:"button1",margin:"10px",text:"Close",width:"80%",
+    setFunc:()=>{body.removeChild(projectPop) ; projectPop = undefined}})
+
+    projectPop.style.position = "absolute"
+    projectPop.style.top = 200 + "px"
+    projectPop.style.left = 150 + "px"
+
+
+//    centerScreen(projectPop)
 
 }
 
@@ -1515,14 +1655,14 @@ function testPrereqs(refArray,refProjo){
             own1=true
             focus = projectCells.filter(pro=>pro.label===refProjo.prerequisites.split(" OR ")[0])[0]
             focus.components.forEach(com=>{
-                idx = refArray.findIndex(x=>x===com.label)
+                idx = refArray.findIndex(x=>x.label===com.label)
                 if(idx===-1){own1 = false}
             })
             if(own1===true){path = refProjo.prerequisites.split(" OR ")[0]}
             own2=true
             focus = projectCells.filter(pro=>pro.label===refProjo.prerequisites.split(" OR ")[1])[0]
             focus.components.forEach(com=>{
-                idx = refArray.findIndex(x=>x===com.label)
+                idx = refArray.findIndex(x=>x.label===com.label)
                 if(idx===-1){own2 = false}
             })
             if(own2===true && path === ""){path = refProjo.prerequisites.split(" OR ")[1]}
@@ -1532,7 +1672,7 @@ function testPrereqs(refArray,refProjo){
             own1=true
             focus = projectCells.filter(pro=>pro.label===refProjo.prerequisites)[0]
             focus.components.forEach(com=>{
-                idx = refArray.findIndex(x=>x===com.label)
+                idx = refArray.findIndex(x=>x.label===com.label)
                 if(idx===-1){own1 = false}
             })
             if(own1===false){seek=false ; good=false}
@@ -1544,7 +1684,7 @@ function testPrereqs(refArray,refProjo){
             else {refProjo = projectCells.filter(pro=>pro.label===path)[0]}
         }
 
-        if(cpt===110){seek=false}
+        if(cpt===110){seek=false ; console.log("warned")}
     }
 
     return good
