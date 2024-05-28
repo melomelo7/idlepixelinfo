@@ -1626,7 +1626,7 @@ function buildMapRecap(res,pro1,pro2){
         pro2.forEach(pro=>{tb.rows[pro.rows-1].cells[pro.cell-1].style.backgroundColor = "red"})
 
 
-    addEle({dad:projectPop,setClass:"button1",margin:"20px 10px",text:"Close",width:"80%",
+    addEle({dad:projectPop,setClass:"button1",margin:"20px 10px",text:"Close",width:"80%",backG:togNot,
     setFunc:()=>{body.removeChild(projectPop) ; projectPop = undefined}})
 
     projectPop.style.position = "absolute"
