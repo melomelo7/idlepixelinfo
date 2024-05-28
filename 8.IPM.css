@@ -63,7 +63,6 @@ a {
     justify-content: space-around;
 }
 
-
 .texting {
     color: white;
     font-size: 22;
@@ -150,4 +149,23 @@ a {
     background-color:black;
     justify-content: center;
     min-height: 40px;
+}
+
+.listContBtn{
+    border: black solid 2px;
+    color: black;
+    cursor: pointer;
+    padding: 5px;
+    text-align: center;
+}
+
+.listCont {
+    display: flex;
+    flex-direction: column;
+    border: brown solid 1px;
+    border-radius: 5px;
+    margin: 10px 5px;
+    max-height: 100px;
+    padding: 10px 20px 10px 5px;
+    overflow-x: hidden;
 }
