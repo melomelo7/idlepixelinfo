@@ -1603,7 +1603,7 @@ function buildMapRecap(res,pro1,pro2){
         })
 
         subC = addEle({dad:projectPop,setClass:"contRow",margin:"10px 0",alignItems:"center"})
-        addEle({dad:subC,text:"Simplified Overview<br>of available projects",
+        addEle({dad:subC,text:"Simplified Overview<br>of "+spanText("lime","A")+"vailable & "+spanText("red","C")+"ut projects",
         marginR:"10px",width:LW})
         addEle({dad:subC,text:"&#128317;",cursor:"pointer",border:"solid red 2px",setFunc:(e)=>{
             e.srcElement.innerHTML = e.srcElement.innerHTML === "🔽" ? "🔼" : "🔽"
@@ -1623,9 +1623,10 @@ function buildMapRecap(res,pro1,pro2){
 
         projectCells.forEach(pro=>{tb.rows[pro.rows-1].cells[pro.cell-1].style.border = "solid 1px white"})
         pro1.forEach(pro=>{tb.rows[pro.rows-1].cells[pro.cell-1].style.backgroundColor = "lime"})
+        pro2.forEach(pro=>{tb.rows[pro.rows-1].cells[pro.cell-1].style.backgroundColor = "red"})
 
 
-    addEle({dad:projectPop,setClass:"button1",margin:"10px",text:"Close",width:"80%",
+    addEle({dad:projectPop,setClass:"button1",margin:"20px 10px",text:"Close",width:"80%",
     setFunc:()=>{body.removeChild(projectPop) ; projectPop = undefined}})
 
     projectPop.style.position = "absolute"
