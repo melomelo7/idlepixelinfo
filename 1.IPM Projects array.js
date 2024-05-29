@@ -1574,9 +1574,6 @@ getID("projectsPrivateList").click()
 
 buildMapRecap(myA1,myA2,myA3)
 
-console.log(rems.length)
-console.log(rems)
-
 }
 
 function buildMapRecap(res,pro1,pro2){
