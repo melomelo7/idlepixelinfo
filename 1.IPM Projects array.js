@@ -1589,7 +1589,7 @@ function buildMapRecap(res,pro1,pro2){
         addEle({dad:projectPop,border:"solid blue 2px",width:"100%"})
 
         let LW = 260 + "px"
-        txt = Math.ceil((pro1.length/projectCells.length)*100) + "% "
+        txt = Math.floor((pro1.length/projectCells.length)*100) + "% "
         let subC = addEle({dad:projectPop,setClass:"contRow",margin:"10px 0",alignItems:"center"})
             addEle({dad:subC,text:txt+"Projects Unlockable ("+pro1.length+")",marginR:"10px",width:LW})
             addEle({dad:subC,text:"&#128317;",cursor:"pointer",border:"solid red 2px",setFunc:(e)=>{
