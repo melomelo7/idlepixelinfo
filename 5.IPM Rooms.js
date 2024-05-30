@@ -217,7 +217,7 @@ function buildRooms(){
         let roomForkB = addEle({dad:roomFork,setClass:"contCol_W",marginL:"10px"})
 
         addEle({dad:roomForkB,text:"Mothership",backC:"black",height:"100px",fontS:"40px",
-        radiusTL:"110px",radiusTR:"110px",textA:"center",paddingT:"100px",border:"teal solid 2px"})
+        textA:"center",paddingT:"100px",border:"teal solid 2px",radiusTL:"200px",radiusTR:"200px",})
         Rooms.forEach(rm=>{
             let rmC = addEle({dad:roomForkB,setClass:"contRow_W",position:"relative",border:"teal solid 2px"})
                 addEle({dad:rmC,text:rm.label,position:"absolute",zIdx:1,margin:"5px",
