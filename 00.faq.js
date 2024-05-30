@@ -131,7 +131,8 @@ const faqsArray = [
             tiles ... and the [Ship]: Exodus.<br><br>
             There is a cap as to how much base credits<br>
             a single galaxy sale would reward, upon reaching<br>
-            e109 you will get to the max credits possible.<br><br>
+            e109 you will get to the max credits possible.<br>
+            `+spanText("lime","(extended to e220 since end of May 2024)")+`<br><br>
             Should you need more credits infos the 
             <a href="https://discord.gg/r4X3ktZ" target="_blank">Discord</a><br>
             community has a bot you can use made by Tanktalus.<br>
