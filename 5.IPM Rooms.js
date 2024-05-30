@@ -216,10 +216,10 @@ function buildRooms(){
         let roomForkA = addEle({dad:roomFork,setClass:"contCol_W"})
         let roomForkB = addEle({dad:roomFork,setClass:"contCol_W",marginL:"10px"})
 
-        addEle({dad:roomForkB,text:"Mothership",backC:"black",height:"75px",fontS:60,
-        radiusTL:"110px",radiusTR:"110px",textA:"center",paddingT:"75px"})
+        addEle({dad:roomForkB,text:"Mothership",backC:"black",height:"100px",fontS:"40px",
+        radiusTL:"110px",radiusTR:"110px",textA:"center",paddingT:"100px",border:"teal solid 2px"})
         Rooms.forEach(rm=>{
-            let rmC = addEle({dad:roomForkB,setClass:"contRow_W",position:"relative"})
+            let rmC = addEle({dad:roomForkB,setClass:"contRow_W",position:"relative",border:"teal solid 2px"})
                 addEle({dad:rmC,text:rm.label,position:"absolute",zIdx:1,margin:"5px",
                 backC:"black",radius:"5px",padding:"5px",minWidth:"120px",textA:"center"})
                 addEle({dad:rmC,what:"img",img2Sizes:"500:142",
@@ -235,7 +235,7 @@ function buildRooms(){
     let rightBottom1 = addEle({dad:roomForkA,setClass:"contCol_W"})
     let rightBottom2 = addEle({dad:roomForkA,setClass:"contRow_W"})
         let  rightBottom2A = addEle({dad:rightBottom2,setClass:"contCol_W"})
-        let  rightBottom2B = addEle({dad:rightBottom2,setClass:"contCol_W",setID:"roomShoppingFr"})
+        let  rightBottom2B = addEle({dad:rightBottom2,setClass:"contCol_W",setID:"roomShoppingFr",minWidth:"320px"})
 
     let tB = addEle({dad:rightMiddle,what:"table",width:"640px"})
         let tR = addEle({dad:tB,what:"tr"})
@@ -258,7 +258,7 @@ function buildRooms(){
 
             tC = addEle({dad:tR,what:"td"})
             let myTxt = "Shopping (" + roomShopping.length + ")"
-            addEle({dad:tC,setClass:"button1",marginL:"10px",text:myTxt,setID:"roomShoppingBtn",
+            addEle({dad:tC,setClass:"button1",marginL:"10px",marginR:"110px",text:myTxt,setID:"roomShoppingBtn",
             backG:"linear-gradient(to bottom,rgba(220,126,115,1),rgba(0,0,0,1))",textC:"yellow",
             width:"160px",border:"solid 3px blue",setFunc:checkRoomShopping})
         }
