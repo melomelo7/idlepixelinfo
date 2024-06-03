@@ -1297,7 +1297,54 @@ projectsConnections.push(
 {rows:26,cell:10,dir:"dia"},
 {rows:26,cell:8,dir:"dia"}, )
 
-//let togSel = "linear-gradient(to bottom left,rgba(173,185,47,0.5) 70%,rgba(169,169,169,1))"
+
+const patterns =[
+    {pattern:1500,detail:[1350,1290,1230,1170,1110,1050,990,930,870,810,750,]},
+    {pattern:3,detail:[3,3,2,2,2,2,2,2,2,2,2,]},
+    {pattern:5,detail:[4,4,4,4,4,4,3,3,3,3,2,]},
+    {pattern:500,detail:[450,430,410,390,370,350,330,310,290,270,250,]},
+    {pattern:10,detail:[9,9,8,8,7,7,7,6,6,5,5,]},
+    {pattern:15,detail:[14,13,12,12,11,10,10,9,9,8,8,]},
+    {pattern:20,detail:[18,17,16,16,15,14,13,12,12,11,10,]},
+    {pattern:25,detail:[22,21,20,20,18,18,16,16,14,13,12,]},
+    {pattern:4,detail:[4,3,3,3,3,3,3,2,2,2,2,]},
+    {pattern:12,detail:[11,10,10,9,9,8,8,7,7,6,6,]},
+    {pattern:6,detail:[5,5,5,5,4,4,4,4,3,3,3,]},
+    {pattern:24,detail:[22,21,20,19,18,17,16,15,14,13,12,]},
+    {pattern:600,detail:[540,516,492,468,444,420,396,372,348,324,300,]},
+    {pattern:250,detail:[225,215,205,195,185,175,165,155,145,135,125,]},
+    {pattern:200,detail:[180,172,164,156,148,140,132,124,116,108,100,]},
+    {pattern:250000,detail:[225000,215000,205000,195000,185000,175000,165000,155000,145000,135000,125000,]},
+    {pattern:30,detail:[27,26,25,23,22,21,20,19,17,16,15,]},
+    {pattern:50,detail:[45,43,41,39,37,35,33,31,29,27,25,]},
+    {pattern:2,detail:[2,2,2,2,1,1,1,1,1,1,1,]},
+    {pattern:75,detail:[68,64,62,58,56,52,49,46,44,40,38,]},
+    {pattern:40,detail:[36,34,33,31,30,28,26,25,23,22,20,]},
+    {pattern:1,detail:[1,1,1,1,1,1,1,1,1,1,1,]},
+    {pattern:300,detail:[270,258,246,234,222,210,198,186,174,162,150,]},
+    {pattern:100,detail:[90,86,82,78,74,70,66,62,58,54,50,]},
+    {pattern:5000,detail:[4500,4300,4100,3900,3700,3500,3300,3100,2900,2700,2500,]},
+    {pattern:50000,detail:[45000,43000,41000,39000,37000,35000,33000,31000,29000,27000,25000,]},
+    {pattern:25000,detail:[22500,21500,20500,19500,18500,17500,16500,15500,14500,13500,12500,]},
+    {pattern:400,detail:[360,344,328,312,296,280,264,248,232,216,200,]},
+    {pattern:800,detail:[720,688,656,624,592,560,528,496,464,432,400,]},
+    {pattern:60,detail:[54,52,49,47,44,42,40,37,35,32,30,]},
+    {pattern:80,detail:[72,69,66,62,59,56,53,50,46,43,40,]},
+    {pattern:8,detail:[7,7,7,6,6,6,5,5,5,4,4,]},
+    {pattern:1200,detail:[1080,1032,984,936,888,840,792,744,696,648,600,]},
+    {pattern:1400,detail:[1260,1200,1150,1090,1040,980,924,868,812,756,700,]},
+    {pattern:150,detail:[135,129,123,117,111,105,99,93,87,81,75,]},
+    {pattern:15000,detail:[13500,12900,12300,11700,11100,10500,9900,9300,8700,8100,7500,]},
+    {pattern:30000,detail:[27000,25800,24600,23400,22200,21000,19800,18600,17400,16200,15000,]},
+    {pattern:115,detail:[104,99,94,90,85,80,76,71,67,62,58,]},
+    {pattern:20000,detail:[18000,17200,16400,15600,14800,14000,13200,12400,11600,10800,10000,]},
+]
+
+let patterns2 = patterns.sort((a,b)=>a.pattern-b.pattern)
+
+//console.log(patterns2)
+
+
 
 function setProjects(){
     let containerA = addEle({dad:right,setClass:"contRow_W",paddingL:"20px"})
@@ -1336,6 +1383,7 @@ function setProjectsAreas(container){
     addEle({dad:container,setID:"containerB1",marginL:"10px"})
     addEle({dad:container,setID:"containerB2"})
     addEle({dad:container,setID:"containerB3"})
+    addEle({dad:container,marginL:"20px",setID:"recapCol4"})
     addEle({dad:getID("containerB1"),setClass:"button1",fontS:"18px",
     backG:togNot,
     text:"Full List",setID:"fullProjects",setFunc:clickProjectsAreas})
@@ -1356,19 +1404,19 @@ function setProjectsAreas(container){
     text:"Filtered Private List",setID:"projectsPrivateList",setFunc:clickProjectsAreas})
 
     let mapListC = addEle({dad:getID("containerB1"),setClass:"contCol_W",border:"brown solid 2px",
-    radius:"10px",padding:"10px",alignItems:"center"})
+    radius:"10px",padding:"10px",alignItems:"center",minWidth:"330px"})
         addEle({dad:mapListC,text:"List based on Depth<br>(Pick Telescope/Planet)",textA:"center"})
 
         addEle({dad:mapListC,setID:"mapTgt",padding:"10px",border:"brown solid 2px",radius:"5px",
         marginT:"10px",textA:"center"})
 
-    let tb = addEle({dad:mapListC,what:"table"})
+    let tb = addEle({dad:mapListC,what:"table",marginT:"10px"})
     let tc = undefined
     let tr = addEle({dad:tb,what:"tr"})
             tc = addEle({dad:tr,what:"td"})
             addEle({dad:tc,text:"&#128309;",marginR:"5px"})
             tc = addEle({dad:tr,what:"td"})
-            addEle({dad:tc,text:"Farthest<br>Telescope",textA:"center"})
+            addEle({dad:tc,text:"Farthest Telescope",textA:"center"})
             tc = addEle({dad:tr,what:"td"})
             addEle({dad:tc,what:"input",isInput:true,setVal:0,textA:"center",width:"30px",
             marginL:"10px",setID:"mapTel",setFunc:(e)=>{
@@ -1409,13 +1457,33 @@ function setProjectsAreas(container){
         Correct `+spanText("red","Farthest")+` Planet`,border:"2px red dashed",display:"none",
         radius:"10px",padding:"10px",  marginT:"5px",textA:"center",setID:"mapWarn",marginB:"10px"})
 
+
         subC = addEle({dad:mapListC,setClass:"contCol",border:"brown solid 1px",padding:"5px",
         setID:"mapOpts",display:"none",radius:"5px"})
-        let subC2 = addEle({dad:subC,setClass:"contRow"})
+
+
+        let subC2 = addEle({dad:subC,setClass:"contRow",marginT:"10px",alignItems:"center",
+        border:"red solid 1px",padding:"2px",radius:"5px",marginB:"10px"})
+            addEle({dad:subC2,what:"checkbox",isInput:true,setID:"mapAdRecap",setFunc:(e)=>{
+                if(e.srcElement.checked===true){
+                    getID("mapAdRecapTxt").innerHTML = "List with Recap : YES"
+                    recapOptFr.style.display = "block"
+                } else {
+                    getID("mapAdRecapTxt").innerHTML = "List with Recap : "+spanText("red","NO")
+                    recapOptFr.style.display = "none"
+                }
+            }})
+            addEle({dad:subC2,setID:"mapAdRecapTxt",marginL:"20px",minWidth:"160px"})
+            
+
+        let recapOptFr = addEle({dad:subC})//,setClass:"contCol"
+        getID("mapAdRecap").click()
+
+        subC2 = addEle({dad:recapOptFr,setClass:"contRow"})
         let subC3 = addEle({dad:subC2,setClass:"contCol",marginR:"10px",border:"red solid 1px",
         radius:"5px",padding:"2px"})
                 addEle({dad:subC3,what:"radio",isInput:true,setVal:`
-                List will include any<br>
+                Recap will include any<br>
                 possible craftables that<br>
                 would require more recipe<br>
                 unlocking to reach`
@@ -1424,7 +1492,7 @@ function setProjectsAreas(container){
                     grp.forEach(el=>{if(el.checked){getID("mapOpt1").innerHTML = e.srcElement.value}})
                 }})
                 addEle({dad:subC3,what:"radio",isInput:true,setVal:`
-                List will `+spanText("red","NOT")+` include<br>
+                Recap will `+spanText("red","NOT")+` include<br>
                 possible craftables that<br>
                 would require more recipe<br>
                 unlocking to reach`
@@ -1435,7 +1503,8 @@ function setProjectsAreas(container){
             addEle({dad:subC2,setID:"mapOpt1"})
             document.getElementsByName("mapCrafts")[0].click()
             
-            subC2 = addEle({dad:subC,setClass:"contRow",marginT:"10px",alignItems:"center"})
+
+            subC2 = addEle({dad:recapOptFr,setClass:"contRow",marginT:"10px",alignItems:"center"})
             subC3 = addEle({dad:subC2,setClass:"contCol",marginR:"10px",border:"red solid 1px",
             radius:"5px",padding:"2px"})
                 addEle({dad:subC3,what:"radio",isInput:true,setVal:`
@@ -1456,6 +1525,39 @@ function setProjectsAreas(container){
             document.getElementsByName("mapCuts")[0].click()
 
 
+            subC2 = addEle({dad:recapOptFr,setClass:"contRow",marginT:"10px",alignItems:"center"})
+            subC3 = addEle({dad:subC2,setClass:"contCol",marginR:"10px",border:"red solid 1px",
+            radius:"5px",padding:"2px"})
+                addEle({dad:subC3,what:"radio",isInput:true,setVal:`
+                Recap location :<br>
+                pop-up at center-screen`
+                ,setName:"mapRecPos",marginB:"5px",setFunc:(e)=>{
+                    let grp = document.getElementsByName("mapRecPos")
+                    grp.forEach(el=>{if(el.checked){getID("mapRecPosTxt").innerHTML = e.srcElement.value}})
+                }})
+                addEle({dad:subC3,what:"radio",isInput:true,setVal:`
+                Recap location :<br>
+                1st column<br>
+                (under Build button)`
+                ,setName:"mapRecPos",marginB:"5px",setFunc:(e)=>{
+                    let grp = document.getElementsByName("mapRecPos")
+                    grp.forEach(el=>{if(el.checked){getID("mapRecPosTxt").innerHTML = e.srcElement.value}})
+                }})
+                addEle({dad:subC3,what:"radio",isInput:true,setVal:`
+                Recap location :<br>
+                Add a 4th column<br>
+                (at far right end)`
+                ,setName:"mapRecPos",setFunc:(e)=>{
+                    let grp = document.getElementsByName("mapRecPos")
+                    grp.forEach(el=>{if(el.checked){getID("mapRecPosTxt").innerHTML = e.srcElement.value}})
+                }})
+            addEle({dad:subC2,setID:"mapRecPosTxt"})
+            document.getElementsByName("mapRecPos")[0].click()
+
+
+
+
+
 
         addEle({dad:mapListC,text:"Build this Private List<br>(replace existing one if any)",border:"blue solid 3px",textA:"center",
         cursor:"pointer",padding:"10px",radius:"10px",marginT:"20px",setID:"mapBuild",width:"90%",
@@ -1464,7 +1566,9 @@ function setProjectsAreas(container){
             if(!rangeChecker(getID("mapRefP").value,1,70)){return}
             mapBuilder(Number(getID("mapRefP").value))
         }})
-    
+
+        addEle({dad:mapListC,marginT:"20px",setID:"recapCol1"})
+
         dispMapBounds()
 }
 
@@ -1492,11 +1596,11 @@ function dispMapBounds(fromTele=false){
     teleT = tele < 10 ? "0"+tele : tele
     telGrp = planetsArray.filter(pl=>pl.telescope===tele)
 
-    outP.innerHTML = "From & including :<br>" + spanText("lime","T : 00 > P : 01 - Balor") +
-    "<br>Up to & including :<br>" + spanText("lime","T : "+teleT+" > P : "+depthT+
+    outP.innerHTML = "From & including : " + spanText("lime","T : 00 > P : 01 - Balor") +
+    "<br>Up to & including : " + spanText("lime","T : "+teleT+" > P : "+depthT+
     " - "+planetsArray.filter(pl=>pl.idNumber===depth)[0].label)
 
-    getID("mapMaxP").innerHTML = "Farthest Planet<br>(" + telGrp[0].idNumber +
+    getID("mapMaxP").innerHTML = "Farthest Planet (" + telGrp[0].idNumber +
     " ~ " + telGrp[telGrp.length-1].idNumber + ")"
 }
 
@@ -1578,26 +1682,50 @@ buildMapRecap(myA1,myA2,myA3)
 
 function buildMapRecap(res,pro1,pro2){
     popKiller()
+    cleanParent(getID("recapCol1"))
+    cleanParent(getID("recapCol4"))
 
-    projectPop = addEle({dad:body,setClass:"contCol",padding:"15px",border:"brown solid 3px",radius:"30px",justifyC:"center",
-    backG:'url("./IPM Components/bg.jpg")',fontS:"18px",width:"fit-content",textA:"center",alignItems:"center"})
-    projectPop.style.opacity = 0.9
+    if(getID("mapAdRecap").checked===false){return}
+
+    let recapFR = undefined
+    let needClBtn = false
+    let optG = document.getElementsByName("mapRecPos")
+    for(let i=0;i<optG.length;i++){
+        if(optG[i].checked){
+            if(optG[i].value.includes("pop")){
+                projectPop = addEle({dad:body,setClass:"contCol",padding:"15px",border:"brown solid 3px",radius:"30px",justifyC:"center",
+                backG:'url("./IPM Components/bg.jpg")',fontS:"18px",width:"fit-content",textA:"center",alignItems:"center"})
+                recapFR = projectPop
+                recapFR.style.opacity = 0.9
+                needClBtn = true
+            } else if(optG[i].value.includes("1st")) {
+                recapFR = addEle({dad:getID("recapCol1"),setClass:"contCol",padding:"15px",border:"brown solid 3px",radius:"30px",justifyC:"center",
+                backG:'url("./IPM Components/bg.jpg")',fontS:"18px",width:"fit-content",textA:"center",alignItems:"center"})
+                recapFR.style.opacity = 0.9
+            } else {
+                recapFR = addEle({dad:getID("recapCol4"),setClass:"contCol",padding:"15px",border:"brown solid 3px",radius:"30px",justifyC:"center",
+                backG:'url("./IPM Components/bg.jpg")',fontS:"18px",width:"fit-content",textA:"center",alignItems:"center"})
+                recapFR.style.opacity = 0.9
+            }
+        }
+    }
+
         txt = Number(getID("mapRefP").value) < 10 ? "0"+getID("mapRefP").value : getID("mapRefP").value
-        addEle({dad:projectPop,text:"New List Done.<br>Recap With Farthest Planet :<br>"+spanText("lime",txt+
+        addEle({dad:recapFR,text:"New List Done.<br>Recap With Farthest Planet :<br>"+spanText("lime",txt+
         " - "+planetsArray.filter(pl=>pl.idNumber===Number(getID("mapRefP").value))[0].label),paddingB:"10px"})
 
-        addEle({dad:projectPop,border:"solid blue 2px",width:"100%"})
+        addEle({dad:recapFR,border:"solid blue 2px",width:"100%"})
 
         let LW = 260 + "px"
         txt = Math.floor((pro1.length/projectCells.length)*100) + "% "
-        let subC = addEle({dad:projectPop,setClass:"contRow",margin:"10px 0",alignItems:"center"})
+        let subC = addEle({dad:recapFR,setClass:"contRow",margin:"10px 0",alignItems:"center"})
             addEle({dad:subC,text:txt+"Projects Unlockable ("+pro1.length+")",marginR:"10px",width:LW})
             addEle({dad:subC,text:"&#128317;",cursor:"pointer",border:"solid red 2px",setFunc:(e)=>{
                 e.srcElement.innerHTML = e.srcElement.innerHTML === "🔽" ? "🔼" : "🔽"
                 getID("goodPro").style.display = getID("goodPro").style.display === "none" ? "flex" : "none"
             }})
 
-        subC = addEle({dad:projectPop,setClass:"listCont",setID:"goodPro",display:"none"})
+        subC = addEle({dad:recapFR,setClass:"listCont",setID:"goodPro",display:"none"})
             pro1.forEach(pro=>{
                 let subC2 = addEle({dad:subC,setClass:"contRow"})
                 let thisSrc = undefined
@@ -1616,14 +1744,14 @@ function buildMapRecap(res,pro1,pro2){
 
         let grp = document.getElementsByName("mapCuts")
         grp.forEach(it=>{if(it.checked && !it.value.includes("NOT")){
-            subC = addEle({dad:projectPop,setClass:"contRow",margin:"10px 0",alignItems:"center"})
+            subC = addEle({dad:recapFR,setClass:"contRow",margin:"10px 0",alignItems:"center"})
             addEle({dad:subC,text:"Projects Unreachable/Cut ("+pro2.length+")",marginR:"10px",width:LW})
             addEle({dad:subC,text:"&#128317;",cursor:"pointer",border:"solid red 2px",setFunc:(e)=>{
                 e.srcElement.innerHTML = e.srcElement.innerHTML === "🔽" ? "🔼" : "🔽"
                 getID("badPro").style.display = getID("badPro").style.display === "none" ? "flex" : "none"
             }})
 
-            subC = addEle({dad:projectPop,setClass:"listCont",setID:"badPro",display:"none"})
+            subC = addEle({dad:recapFR,setClass:"listCont",setID:"badPro",display:"none"})
                 pro2.forEach(pro=>{
                     let subC2 = addEle({dad:subC,setClass:"contRow"})
                     let thisSrc = undefined
@@ -1640,32 +1768,32 @@ function buildMapRecap(res,pro1,pro2){
                 })
         }})
 
-        subC = addEle({dad:projectPop,setClass:"contRow",margin:"10px 0",alignItems:"center"})
+        subC = addEle({dad:recapFR,setClass:"contRow",margin:"10px 0",alignItems:"center"})
             addEle({dad:subC,text:"Unlocked Ores ("+ res.filter(re=>re.type==="ore").length+")",
             marginR:"10px",width:LW})
             addEle({dad:subC,text:"&#128317;",cursor:"pointer",border:"solid red 2px",setFunc:(e)=>{
                 e.srcElement.innerHTML = e.srcElement.innerHTML === "🔽" ? "🔼" : "🔽"
                 getID("resO").style.display = getID("resO").style.display === "none" ? "flex" : "none"
             }})
-        subC = addEle({dad:projectPop,setClass:"listCont",setID:"resO",display:"none"})
+        subC = addEle({dad:recapFR,setClass:"listCont",setID:"resO",display:"none"})
 
-        subC = addEle({dad:projectPop,setClass:"contRow",margin:"10px 0",alignItems:"center"})
+        subC = addEle({dad:recapFR,setClass:"contRow",margin:"10px 0",alignItems:"center"})
         addEle({dad:subC,text:"Craftable Bars/Alloys ("+ res.filter(re=>re.type==="bar").length+")",
         marginR:"10px",width:LW})
         addEle({dad:subC,text:"&#128317;",cursor:"pointer",border:"solid red 2px",setFunc:(e)=>{
             e.srcElement.innerHTML = e.srcElement.innerHTML === "🔽" ? "🔼" : "🔽"
             getID("resB").style.display = getID("resB").style.display === "none" ? "flex" : "none"
         }})
-        subC = addEle({dad:projectPop,setClass:"listCont",setID:"resB",display:"none"})
+        subC = addEle({dad:recapFR,setClass:"listCont",setID:"resB",display:"none"})
 
-        subC = addEle({dad:projectPop,setClass:"contRow",margin:"10px 0",alignItems:"center"})
+        subC = addEle({dad:recapFR,setClass:"contRow",margin:"10px 0",alignItems:"center"})
         addEle({dad:subC,text:"Craftable Items ("+ res.filter(re=>re.type==="itm").length+")",
         marginR:"10px",width:LW})
         addEle({dad:subC,text:"&#128317;",cursor:"pointer",border:"solid red 2px",setFunc:(e)=>{
             e.srcElement.innerHTML = e.srcElement.innerHTML === "🔽" ? "🔼" : "🔽"
             getID("resI").style.display = getID("resI").style.display === "none" ? "flex" : "none"
         }})
-        subC = addEle({dad:projectPop,setClass:"listCont",setID:"resI",display:"none"})
+        subC = addEle({dad:recapFR,setClass:"listCont",setID:"resI",display:"none"})
 
         res.forEach(re=>{
             let dady = undefined
@@ -1680,14 +1808,14 @@ function buildMapRecap(res,pro1,pro2){
             addEle({dad:subC2,text:re.label})
         })
 
-        subC = addEle({dad:projectPop,setClass:"contRow",margin:"10px 0",alignItems:"center"})
+        subC = addEle({dad:recapFR,setClass:"contRow",margin:"10px 0",alignItems:"center"})
         addEle({dad:subC,text:"Simplified Overview<br>of "+spanText("lime","U")+"nlockable & "+spanText("red","C")+"ut projects",
         marginR:"10px",width:LW})
         addEle({dad:subC,text:"&#128317;",cursor:"pointer",border:"solid red 2px",setFunc:(e)=>{
             e.srcElement.innerHTML = e.srcElement.innerHTML === "🔽" ? "🔼" : "🔽"
             getID("mini").style.display = getID("mini").style.display === "none" ? "flex" : "none"
         }})
-        subC = addEle({dad:projectPop,setClass:"contCol",setID:"mini",display:"none",border:"solid brown 2px",width:"fit-content"})//setClass:"listCont"
+        subC = addEle({dad:recapFR,setClass:"contCol",setID:"mini",display:"none",border:"solid brown 2px",width:"fit-content"})//setClass:"listCont"
         let tb = addEle({dad:subC,what:"table",backG:"black"})
 
         for (i=1;i<=29;i++){
@@ -1705,8 +1833,14 @@ function buildMapRecap(res,pro1,pro2){
             pro2.forEach(pro=>{tb.rows[pro.rows-1].cells[pro.cell-1].style.backgroundColor = "red"})
         }})
 
-    addEle({dad:projectPop,setClass:"button1",margin:"20px 10px",text:"Close",width:"80%",backG:togNot,
-    setFunc:()=>{body.removeChild(projectPop) ; projectPop = undefined}})
+ 
+        if(needClBtn){
+            addEle({dad:recapFR,setClass:"button1",margin:"20px 10px",text:"Close",width:"80%",backG:togNot,
+            setFunc:()=>{body.removeChild(projectPop) ; projectPop = undefined}})
+            centerScreen(projectPop)        
+        }
+
+
 
     /*
     projectPop.style.position = "absolute"
@@ -1714,7 +1848,7 @@ function buildMapRecap(res,pro1,pro2){
     projectPop.style.left = 150 + "px"
     */
 
-    centerScreen(projectPop)
+
 
 }
 
@@ -1785,6 +1919,7 @@ function clickProjectsAreas(e){
     listFrame.style.padding = 10 + "px"
     listFrame.style.fontSize = 18 + "px"
     listFrame.style.width = 505 + "px"
+    listFrame.style.minWidth = 505 + "px"
     let thisText = e.srcElement.innerHTML
     let thisArray = []
     let costs = []
@@ -1931,7 +2066,7 @@ function clickProjectsAreas(e){
     else 
         {myCol = "yellow" ; myBack = "linear-gradient(to bottom,rgba(220,126,115,1),rgba(0,0,0,1))"}
 
-    addEle({dad:listFrame,setID:"projectsChosenList",text:thisText,textA:"center",
+    addEle({dad:listFrame,setID:"projectsChosenList",text:thisText+"$",textA:"center",
     backG:myBack,textC:myCol,border:"solid white 1px",radius:"10px",padding:"3px"})
 
     for(i=0;i<thisArray.length;i++){
