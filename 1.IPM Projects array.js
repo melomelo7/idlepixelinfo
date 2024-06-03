@@ -2066,7 +2066,7 @@ function clickProjectsAreas(e){
     else 
         {myCol = "yellow" ; myBack = "linear-gradient(to bottom,rgba(220,126,115,1),rgba(0,0,0,1))"}
 
-    addEle({dad:listFrame,setID:"projectsChosenList",text:thisText+"$",textA:"center",
+    addEle({dad:listFrame,setID:"projectsChosenList",text:thisText,textA:"center",
     backG:myBack,textC:myCol,border:"solid white 1px",radius:"10px",padding:"3px"})
 
     for(i=0;i<thisArray.length;i++){
