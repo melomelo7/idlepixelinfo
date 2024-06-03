@@ -1545,7 +1545,7 @@ function setProjectsAreas(container){
                 }})
                 addEle({dad:subC3,what:"radio",isInput:true,setVal:`
                 Recap location :<br>
-                Add a 4th column<br>
+                into a new 4th column<br>
                 (at far right end)`
                 ,setName:"mapRecPos",setFunc:(e)=>{
                     let grp = document.getElementsByName("mapRecPos")
