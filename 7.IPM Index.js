@@ -18,6 +18,7 @@ let gameLook = spanText("lime","New")
 let toggleOldNewText = "Toggle the game Graphics here,<br>(Planets / Items)<br> now set to ⇒ "
 
 const menuButtons = [
+    {label:'"Event"',clickFunction:clickEvent},
     {label:"Look",clickFunction:clickLook},
     {label:"Faq",clickFunction:clickFaqs},
     {label:"Planets",clickFunction:clickPlanets},
@@ -31,6 +32,7 @@ const menuButtons = [
 function addLeftButtons(){menuButtons.forEach(btn=>{
 addEle({dad:menu,setClass:"menuBtn",text:btn.label,backG:togNot,setFunc:btn.clickFunction}) }) }
 
+
 addLeftButtons()
 
 window.onload = firstContact()
@@ -38,3 +40,14 @@ window.onload = firstContact()
 console.log(lastUp)
 
 let loopfork = 0
+
+let sst = 1
+let bbt = 2938
+stationCells.forEach(cel=>{
+    if(cel.label.includes("credits")){
+        console.log(cel.totalBonus)        
+        sst += cel.totalBonus
+    }
+})
+console.log(sst)
+console.log(sst*bbt)
