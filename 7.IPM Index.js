@@ -30,8 +30,8 @@ const menuButtons = [
 ]
 
 function addLeftButtons(){menuButtons.forEach(btn=>{
-addEle({dad:menu,setClass:"menuBtn",text:btn.label,backG:togNot,setFunc:btn.clickFunction}) }) }
-
+    let myc = "" ; if(btn.label==='"Event"'){myc="lime"}
+addEle({dad:menu,setClass:"menuBtn",text:btn.label,backG:togNot,textC:myc,setFunc:btn.clickFunction}) }) }
 
 addLeftButtons()
 
