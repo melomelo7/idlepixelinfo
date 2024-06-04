@@ -188,7 +188,7 @@ If it happens that you do have 2 clicks<br>
 to spare, please visit this reddit poll<br>
 and cast your vote.<br><br>
 <a href="https://www.reddit.com/r/IdlePlanetMiner/comments/1d598uk/comment/l6xyp9g/?context=3" target="_blank">Reddit Poll</a><br><br>
-If you need to express something please<br>
+If you want to express something please<br>
 add a few words there.<br><br>
 Thank you !!<br><br> 
 
