@@ -184,7 +184,7 @@ function buildLook(){
 let wanderers = [
     {label:"Merchant",ref:"merchant shipn.jpg",date:"Friday June 6th"},
     {label:"Aurora",ref:"aurora shipn.jpg",date:"Friday June 21st"},
-    {label:"Thunderhorse",ref:"thunderhorsen.jpg",date:"Friday June 28st"},
+    {label:"Thunderhorse",ref:"thunderhorsen.jpg",date:"Friday June 28th"},
 ]
 
 
