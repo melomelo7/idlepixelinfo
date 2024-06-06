@@ -182,11 +182,23 @@ function buildLook(){
 
 
 let wanderers = [
-    {label:"Merchant",ref:"merchant shipn.jpg",date:"Friday June 6th"},
-    {label:"Aurora",ref:"aurora shipn.jpg",date:"Friday June 21st"},
-    {label:"Thunderhorse",ref:"thunderhorsen.jpg",date:"Friday June 28th"},
+    {label:"Merchant",ref:"merchant shipn.jpg",date:{dayN:"Friday",month:"June",day:7}},
+    {label:"Aurora",ref:"aurora shipn.jpg",date:{dayN:"Friday",month:"June",day:21}},
+    {label:"Thunderhorse",ref:"thunderhorsen.jpg",date:{dayN:"Friday",month:"June",day:28}},
 ]
 
+let wandSuff = [
+"st","nd","rd","th","th","th","th","th","th","th",
+"th","th","th","th","th","th","th","th","th","th","th",]
+
+function dtSfx(day){
+    switch(day){
+        case 1 : case 21 : case 31 : return "st" ; break
+        case 2 : case 22 : return "nd" ; break
+        case 3 : case 23 : return "rd" ; break
+        default : return "th"
+    }
+}
 
 function buildEvent(){
 
@@ -203,11 +215,11 @@ Thank you !!<br><br>
 `,
 
 
-addEle({dad:right,text:txt,margin:"50px 50px",fontS:"20px"})
+addEle({dad:right,text:txt,margin:"50px 0 10px 50px",fontS:"20px"})
 
-addEle({dad:right,border:"lime dashed 2px",width:"50%",marginL:"50px"})
+addEle({dad:right,border:"lime dashed 2px",width:"500px",marginL:"50px"})
 
-addEle({dad:right,text:"Wandering Ships (IRL Money)",margin:"50px 0 10px 50px",fontS:"30px"})
+addEle({dad:right,text:"Wandering Ships (IRL Money)",margin:"20px 0 10px 50px",fontS:"30px"})
 addEle({dad:right,text:`(showing up in your galaxy if never bought<br>
 and available for a limited time only !!)`,margin:"0 50px",fontS:"22px"})
 
@@ -216,13 +228,13 @@ let myT = addEle({dad:myCont,what:"table"})
 
 wanderers.forEach(wa=>{
 
-console.log("./IPM Components/"+wa.label.toLowerCase()+" shipn.jpg")
 
     let myL = addEle({dad:myT,what:"tr"})
 
     let myC = addEle({dad:myL,what:"td",radius:"5px"})
-        addEle({dad:myC,what:"img",imgFullSrc:"./IPM Components/"+wa.ref,width:"100%"})
-    myC = addEle({dad:myL,what:"td",radius:"5px",text:wa.date,paddingL:"20px",fontS:"30px"})
+        addEle({dad:myC,what:"img",imgFullSrc:"./IPM Components/"+wa.ref,img2Sizes:"200:150"})//,width:"100%"
+    addEle({dad:myL,what:"td",radius:"5px",paddingL:"20px",fontS:"30px",
+    text:wa.date.dayN+" "+wa.date.month+" "+wa.date.day+dtSfx(wa.date.day)})
 
 })
 
