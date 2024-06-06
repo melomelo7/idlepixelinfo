@@ -180,6 +180,14 @@ function buildLook(){
         e.srcElement.innerHTML = toggleOldNewText + spanText("lime",gameLook)}})
 }
 
+
+let wanderers = [
+    {label:"Merchant",ref:"merchant shipn.jpg",date:"Friday June 6th"},
+    {label:"Aurora",ref:"aurora shipn.jpg",date:"Friday June 21st"},
+    {label:"Thunderhorse",ref:"thunderhorsen.jpg",date:"Friday June 21st"},
+]
+
+
 function buildEvent(){
 
 txt = `
@@ -195,7 +203,33 @@ Thank you !!<br><br>
 `,
 
 
-addEle({dad:right,text:txt,margin:"50px 50px"})
+addEle({dad:right,text:txt,margin:"50px 50px",fontS:"20px"})
+
+addEle({dad:right,border:"lime dashed 2px",width:"50%",marginL:"50px"})
+
+addEle({dad:right,text:"Wandering Ships (IRL Money)",margin:"50px 0 10px 50px",fontS:"30px"})
+addEle({dad:right,text:`(showing up in your galaxy if never bought<br>
+and available for a limited time only !!)`,margin:"0 50px",fontS:"22px"})
+
+let myCont = addEle({dad:right,margin:"20px 0 0 50px"})
+let myT = addEle({dad:myCont,what:"table"})
+
+wanderers.forEach(wa=>{
+
+console.log("./IPM Components/"+wa.label.toLowerCase()+" shipn.jpg")
+
+    let myL = addEle({dad:myT,what:"tr"})
+
+    let myC = addEle({dad:myL,what:"td",radius:"5px"})
+        addEle({dad:myC,what:"img",imgFullSrc:"./IPM Components/"+wa.ref,width:"100%"})
+    myC = addEle({dad:myL,what:"td",radius:"5px",text:wa.date,paddingL:"20px",fontS:"30px"})
+
+})
+
+
+
+
+
 
 }
 

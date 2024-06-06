@@ -5,7 +5,7 @@ const body = document.querySelector("body")
     const global = addEle({dad:body,setID:"info",width:"100%",height:"100%",margin:"40px 0 0 100px"})
         const right = addEle({dad:global,setID:"right"})
 
-const lastUp = "(Last up 2024/06/02 09:00) *new expensive item*"
+const lastUp = "(Last up 2024/06/06 19:00) *new expensive item*"
 const infoTitle = "Idle Planet Miner Infos " +lastUp
 
 const togSel = "linear-gradient(to bottom left,rgba(90,185,47,0.5) 70%,rgba(169,169,169,1))"
@@ -18,7 +18,7 @@ let gameLook = spanText("lime","New")
 let toggleOldNewText = "Toggle the game Graphics here,<br>(Planets / Items)<br> now set to ⇒ "
 
 const menuButtons = [
-    {label:'"Event"',clickFunction:clickEvent},
+    {label:"Events",clickFunction:clickEvent},
     {label:"Look",clickFunction:clickLook},
     {label:"Faq",clickFunction:clickFaqs},
     {label:"Planets",clickFunction:clickPlanets},
@@ -30,7 +30,7 @@ const menuButtons = [
 ]
 
 function addLeftButtons(){menuButtons.forEach(btn=>{
-    let myc = "" ; if(btn.label==='"Event"'){myc="lime"}
+    let myc = "" ; if(btn.label==="Events"){myc="orangered"}
 addEle({dad:menu,setClass:"menuBtn",text:btn.label,backG:togNot,textC:myc,setFunc:btn.clickFunction}) }) }
 
 addLeftButtons()
@@ -45,7 +45,7 @@ let sst = 1
 let bbt = 2938
 stationCells.forEach(cel=>{
     if(cel.label.includes("credits")){
-        console.log(cel.totalBonus)        
+        console.log(cel)        
         sst += cel.totalBonus
     }
 })
