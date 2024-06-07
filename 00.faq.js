@@ -370,10 +370,15 @@ const faqsArray = [
     icon : "fleet.jpg",
     text : `The always in store ships :<br>
             (Some may show up after another is bought)<br>
-            - Daughtership<br>
-            - Eldership<br>
-            - Exodus<br><br>
-            And the Special ships on a rotation basis,<br>
+            - Daughtership (Starter Pack)<br>
+            - Eldership (Epic Pack)<br>
+            - Exodus `+spanText("yellow","(Require to have purchased Starter")+
+            spanText("lime"," AND ") + spanText("yellow","Epic Packs)")+
+            `<br><br>
+            And the Wandering ships on a rotation basis,<br>
+            `+spanText("yellow","(Require to have purchased Starter")+
+            spanText("lime"," OR ")+ spanText("yellow","Epic Packs)") +  
+            `<br>
             showing every 1-2 month sometime less, 1 a time<br>
             and available for purchase during a couple days :<br>
             - Thunderhorse<br>
@@ -823,7 +828,8 @@ a similar value that wont be incremented.<br>
         backG:"linear-gradient(to top right,rgba(169,169,169,1),rgba(106,90,205,0.5) 70%)",
         textC:"black"})
         
-        addEle({dad:subCont1,setClass:"button1",border:"slateblue solid 2px",text:"[ i ]",minWidth:"20px",setFunc:()=>{
+        addEle({dad:subCont1,setClass:"button1",border:"slateblue solid 2px",text:"🔽",minWidth:"20px",setFunc:(e)=>{
+            e.srcElement.innerHTML = e.srcElement.innerHTML === "🔽" ? "🔼" : "🔽"
             getID("credits10101infos").style.display = getID("credits10101infos").style.display==="none"?"flex":"none"
         }})
 
@@ -852,7 +858,123 @@ a similar value that wont be incremented.<br>
         addEle({dad:subCont3,text:ipmmc2})
 
 
-    myCont = addEle({dad:container,setClass:"contCol",marginT:"20px"})
+    subCont1 = addEle({dad:container,setClass:"contRow",width:"100%",justifyC:"center"})
+        addEle({dad:subCont1,text:"Set Credit Boosters you own",setClass:"button1",width:"70%",
+        backG:"linear-gradient(to bottom left,rgba(255,69,0,0.6) 80%,rgba(255,160,122,1))",textC:"black"})
+
+        addEle({dad:subCont1,setClass:"button1",border:"slateblue solid 2px",text:"⚙ 🔽",minWidth:"20px",setFunc:(e)=>{
+            e.srcElement.innerHTML = e.srcElement.innerHTML === "⚙ 🔽" ? "⚙ 🔼" : "⚙ 🔽"
+            getID("creditsBoostersFr").style.display = getID("creditsBoostersFr").style.display==="none"?"flex":"none"
+        }})
+
+    subCont1 = addEle({dad:container,setClass:"contCol",setID:"creditsBoostersFr",display:"none",border:"solid 2px orangered",
+    textA:"center",padding:"2px",radius:"10px"})
+
+        addEle({dad:subCont1,text:"Under Construction...",textC:"yellow"})
+        addEle({dad:subCont1,what:"img",imgFullSrc:"./IPM Components/construction.jpg"})
+        addEle({dad:subCont1,text:"Under Construction...",textC:"yellow"})
+
+    /*
+        subCont2 = addEle({dad:subCont1})
+            let myT = addEle({dad:subCont2,what:"table"})
+            let myL = addEle({dad:myT,what:"tr"})
+
+                let myC = addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center"
+                ,colSpan:4,text:"To test a "+spanText("lime","BC")+" amount, type it here :",fontS:"16px",padding:"3px"})
+
+                console.log("FS:" + window.getComputedStyle(myC).getPropertyValue("font-size"))
+
+                myC = addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center"})
+                    addEle({dad:myC,what:"input",isInput:true,setVal:0,setID:"credBCUser",textA:"center",width:"100px"})
+
+                myL = addEle({dad:myT,what:"tr"})
+                    addEle({dad:myL,what:"td",radius:"5px",textA:"center",colSpan:5,text:"* "+spanText("lime","BC")+" ⇒ Base Credits ... "+spanText("lime","SS")+" ⇒ Space Station *"})
+    
+
+
+            myL = addEle({dad:myT,what:"tr"})
+
+                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
+                setID:"credSliderLabel",text:"- - - -"})
+
+                myC = addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center"})
+                    addEle({dad:myC,what:"range",isInput:true,min:0,max:0,setVal:0,width:"60px",setID:"credSlider",setFunc:upCredSlider})
+
+                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
+                text:"🔼",cursor:"pointer",setFunc:()=>{getID("credSlider").value ++ ; upCredSlider() }})
+ 
+                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
+                text:"🔽",cursor:"pointer",setFunc:()=>{getID("credSlider").value -- ; upCredSlider() }}) 
+
+                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",setID:"credBC"})
+                
+            myL = addEle({dad:myT,what:"tr"})
+            addEle({dad:myL,what:"td",radius:"5px",textA:"left",paddingL:"10PX",colSpan:5,text:spanText("lime","👇")+
+            " Pick a Bonus and adjust its level "+spanText("lime","👆")})
+
+            
+            myL = addEle({dad:myT,what:"tr"})
+
+                myC = addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center"})
+                addEle({dad:myC,what:"radio",isInput:true,setVal:"Lounge",setFunc:()=>{}})
+
+                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
+                text:"Room:Lounge"})
+
+                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
+                text:"Level:0"})
+
+                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
+                text:"Bonus:0"})
+
+                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",})
+
+
+        let ssc = stationCells.filter(itm=>itm.label.includes("credits"))
+        for(let i=0;i<ssc.length;i++){
+
+            myL = addEle({dad:myT,what:"tr"})
+
+                myC = addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center"})
+                addEle({dad:myC,what:"radio",isInput:true,setVal:"Lounge",setFunc:()=>{}})
+
+                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
+                text:"SS:"+tile.label})
+
+                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
+                text:"Level:0"})
+
+                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
+                text:"Bonus:0"})
+
+                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",})
+
+
+
+        }
+
+
+*/
+        
+
+
+    myCont = addEle({dad:container,setClass:"contCol",marginT:"20px",setID:"creditTableFr"})
+    updateCredits()
+
+}
+
+function upCredSlider(){
+    let val = getID("credSlider").value
+    console.log("range "+ val)
+
+    console.log(Rooms.filter(rm=>rm.label==="Lounge")[0])
+
+}
+
+
+function updateCredits(){
+    let myCont = getID("creditTableFr")
+    cleanParent(myCont)
 
     let myT = addEle({dad:myCont,what:"table"})
     let myL = addEle({dad:myT,what:"tr"})
@@ -877,7 +999,9 @@ a similar value that wont be incremented.<br>
             radius:"5px",textA:"center"})
             for(let j=0;j<creditsArray[i].credits.length;j++){
                 addEle({dad:myL,what:"td",text:creditsArray[i].credits[j],textA:"center",
-                border:"solid 2px blue",radius:"5px",minWidth:"50px",}) } } 
+                border:"solid 2px blue",radius:"5px",minWidth:"50px",setFunc:(e)=>{
+                    console.log(e.srcElement.innerHTML)
+                }}) } } 
     addEle({dad:myCont,text:`Confusing ? Exemple ...<br>- Line [5] : `+spanText("lime","Q")+`
     <br>- Column [2] : 10 `+spanText("lime","(Ma)")+`<br> will read 10 `+spanText("lime","Q")+`
     for 930 credits`,margin:"20px",padding:"10px 10px 10px 60px",border:"solid 2px lime",radius:"10px",})
