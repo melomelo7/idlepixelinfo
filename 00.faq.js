@@ -510,7 +510,7 @@ function setFleet(container){
     let ships = ["daughtership","eldership","exodus","thunderhorse","merchant ship","aurora ship","enigma"]
     let subC = addEle({dad:container,setClass:"contCol",marginT:"20px"})
     for(let i = 0;i<3;i++){
-        addEle({dad:subC,what:"img",imgFullSrc:gameLook === "Old" ? 
+        addEle({dad:subC,what:"img",imgFullSrc:UseR.gameLook === "Old" ? 
         location + ships[i] + ".jpg" : location + ships[i] + "n.jpg",
         margin:"5px",border:"solid 2px yellow",radius:"30px"})
     }
@@ -518,7 +518,7 @@ function setFleet(container){
     addEle({dad:subC,border:"yellow solid 2px",margin:"50px 0"})
 
     for(let i = 3;i<ships.length;i++){ 
-        addEle({dad:subC,what:"img",imgFullSrc:gameLook === "Old" ? 
+        addEle({dad:subC,what:"img",imgFullSrc:UseR.gameLook === "Old" ? 
         location + ships[i] + ".jpg" : location + ships[i] + "n.jpg",
         margin:"5px",border:"solid 2px yellow",radius:"30px"})
     } 
@@ -873,11 +873,16 @@ a similar value that wont be incremented.<br>
     subCont1 = addEle({dad:container,setClass:"contCol",setID:"creditsBoostersFr",display:"none",border:"solid 2px orangered",
     textA:"center",padding:"2px",radius:"10px"})
 
+    
         addEle({dad:subCont1,text:"Under Construction...",textC:"yellow"})
         addEle({dad:subCont1,what:"img",imgFullSrc:"./IPM Components/construction.jpg"})
         addEle({dad:subCont1,text:"Under Construction...",textC:"yellow"})
 
-    /*
+
+
+
+/*
+
         subCont2 = addEle({dad:subCont1})
             let myT = addEle({dad:subCont2,what:"table"})
             let myL = addEle({dad:myT,what:"tr"})
@@ -885,7 +890,7 @@ a similar value that wont be incremented.<br>
                 let myC = addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center"
                 ,colSpan:4,text:"To test a "+spanText("lime","BC")+" amount, type it here :",fontS:"16px",padding:"3px"})
 
-                console.log("FS:" + window.getComputedStyle(myC).getPropertyValue("font-size"))
+//                console.log("FS:" + window.getComputedStyle(myC).getPropertyValue("font-size"))
 
                 myC = addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center"})
                     addEle({dad:myC,what:"input",isInput:true,setVal:0,setID:"credBCUser",textA:"center",width:"100px"})
@@ -901,7 +906,8 @@ a similar value that wont be incremented.<br>
                 setID:"credSliderLabel",text:"- - - -"})
 
                 myC = addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center"})
-                    addEle({dad:myC,what:"range",isInput:true,min:0,max:0,setVal:0,width:"60px",setID:"credSlider",setFunc:upCredSlider})
+                    addEle({dad:myC,what:"range",isInput:true,min:0,max:0,setVal:0,width:"60px",
+                    setID:"credSlider",setFunc:upCredSlider})
 
                 addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
                 text:"🔼",cursor:"pointer",setFunc:()=>{getID("credSlider").value ++ ; upCredSlider() }})
@@ -919,18 +925,24 @@ a similar value that wont be incremented.<br>
             myL = addEle({dad:myT,what:"tr"})
 
                 myC = addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center"})
-                addEle({dad:myC,what:"radio",isInput:true,setVal:"Lounge",setFunc:()=>{}})
+                addEle({dad:myC,what:"radio",isInput:true,setVal:"Lounge",setFunc:()=>{
+                    getID("credSliderLabel").innerHTML = "Lounge"
+                    getID("credSlider").min = 0
+                    getID("credSlider").max = 50
+                    getID("credSlider").value = Number(getID("cred:Lounge:Level").innerHTML.split(":")[1])
+                }})
 
                 addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
                 text:"Room:Lounge"})
 
                 addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
-                text:"Level:0"})
+                text:"Level:0",setID:"cred:Lounge:Level"})
 
                 addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
-                text:"Bonus:0"})
+                text:"Bonus:0",setID:"cred:Lounge:Bonus"})
 
-                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",})
+                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
+                setID:"cred:Lounge:Payout"})
 
 
         let ssc = stationCells.filter(itm=>itm.label.includes("credits"))
@@ -942,23 +954,23 @@ a similar value that wont be incremented.<br>
                 addEle({dad:myC,what:"radio",isInput:true,setVal:"Lounge",setFunc:()=>{}})
 
                 addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
-                text:"SS:"+tile.label})
+                text:"SS:"+ssc[i].label})
 
                 addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
-                text:"Level:0"})
+                text:"Level:0",setID:"cred:"+ssc[i].label+":Level"})
 
                 addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
-                text:"Bonus:0"})
+                text:"Bonus:0",setID:"cred:"+ssc[i].label+":Bonus"})
 
-                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",})
+                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
+                setID:"cred:"+ssc[i].label+":Payout"})
 
 
 
         }
 
 
-*/
-        
+        */
 
 
     myCont = addEle({dad:container,setClass:"contCol",marginT:"20px",setID:"creditTableFr"})
@@ -968,9 +980,20 @@ a similar value that wont be incremented.<br>
 
 function upCredSlider(){
     let val = getID("credSlider").value
+    let tgt = undefined
+    let src = undefined
+
     console.log("range "+ val)
 
-    console.log(Rooms.filter(rm=>rm.label==="Lounge")[0])
+    if(getID("credSliderLabel").innerHTML === "Lounge")
+        {src = Rooms.filter(rm=>rm.label==="Lounge")[0]}
+    else {src = stationCells.filter(til=>til.label==="")[0]}
+
+    console.log()
+
+    tgt = "cred:"+getID("credSliderLabel").innerHTML+":"
+    console.log(tgt)
+    getID(tgt+"Level").innerHTML = "Level:" + val
 
 }
 

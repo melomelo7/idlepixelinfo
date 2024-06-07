@@ -1441,15 +1441,15 @@ function setProjectsAreas(container){
             }})
 
         let subC = addEle({dad:mapListC,setClass:"contRow",margin:"5px 0"})
-        addEle({dad:subC,text:"🔽 🤔",fontS:"24px",border:"red solid 2px",radius:"5px",padding:"2px",
+        addEle({dad:subC,text:"🤔 🔽",fontS:"24px",border:"red solid 2px",radius:"5px",padding:"2px",
         cursor:"pointer",setFunc:(e)=>{
-            e.srcElement.innerHTML = e.srcElement.innerHTML === "🔼 🤔" ? "🔽 🤔" : "🔼 🤔"
+            e.srcElement.innerHTML = e.srcElement.innerHTML === "🤔 🔼" ? "🤔 🔽" : "🤔 🔼"
             getID("mapWarn").style.display = getID("mapWarn").style.display === "none" ? "block" : "none"
         }})
 
-        addEle({dad:subC,text:"🔽 ⚙",fontS:"24px",border:"red solid 2px",radius:"5px",padding:"2px",
+        addEle({dad:subC,text:"⚙ 🔽",fontS:"24px",border:"red solid 2px",radius:"5px",padding:"2px",
         cursor:"pointer",marginL:"20px",setFunc:(e)=>{
-            e.srcElement.innerHTML = e.srcElement.innerHTML === "🔼 ⚙" ? "🔽 ⚙" : "🔼 ⚙"
+            e.srcElement.innerHTML = e.srcElement.innerHTML === "⚙ 🔼" ? "⚙ 🔽" : "⚙ 🔼"
             getID("mapOpts").style.display = getID("mapOpts").style.display === "none" ? "flex" : "none"
         }})
 
@@ -1553,9 +1553,6 @@ function setProjectsAreas(container){
                 }})
             addEle({dad:subC2,setID:"mapRecPosTxt"})
             document.getElementsByName("mapRecPos")[0].click()
-
-
-
 
 
 
@@ -1983,7 +1980,7 @@ function clickProjectsAreas(e){
 
     for (i=0;i<costs.length;i++){
         subContainer = addEle({dad:subCostFrameA,setClass:"contRow_W",alignItems:"center"})
-            addEle({dad:subContainer,what:"img",imgFullSrc:gameLook === "Old" ? 
+            addEle({dad:subContainer,what:"img",imgFullSrc:UseR.gameLook === "Old" ? 
             "./IPM Components/" + costs[i].label + ".jpg" : "./IPM Components/" + costs[i].label + "n.jpg"})
 
             addEle({dad:subContainer,marginL:"10px",text:formatKMBT(costs[i].baseCost) + 
@@ -2050,7 +2047,7 @@ function clickProjectsAreas(e){
 
     for (i=0;i<costComponents.length;i++){
         subContainer = addEle({dad:subCostFrameB,setClass:"contRow_W",alignItems:"center"})
-            addEle({dad:subContainer,what:"img",imgFullSrc:gameLook === "Old" ? "./IPM Components/" +
+            addEle({dad:subContainer,what:"img",imgFullSrc:UseR.gameLook === "Old" ? "./IPM Components/" +
             costComponents[i].label + ".jpg" : "./IPM Components/" + costComponents[i].label + "n.jpg"})
 
             addEle({dad:subContainer,marginL:"10px",text:formatKMBT(costComponents[i].baseCost) + " ⇒ " 
@@ -2125,7 +2122,7 @@ function clickProjectsAreas(e){
         subC = addEle({dad:subContainer,setClass:"contCol"})
         for(j=0;j<thisArray[i].components.length;j++){
             let subContainer2 = addEle({dad:subC,setClass:"contRow_W"})
-                addEle({dad:subContainer2,what:"img",imgFullSrc:gameLook === "Old" ? 
+                addEle({dad:subContainer2,what:"img",imgFullSrc:UseR.gameLook === "Old" ? 
                 "./IPM Components/" + thisArray[i].components[j].label + ".jpg" :
                 "./IPM Components/" + thisArray[i].components[j].label + "n.jpg"})
                 addEle({dad:subContainer2,setClass:"texting",paddingL:"10px",text:thisArray[i].components[j].baseCost

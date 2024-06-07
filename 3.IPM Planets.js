@@ -876,7 +876,7 @@ function buildPlanets(){
                     {tr = addEle({dad:table,what:"tr"})}
                 td = addEle({dad:tr,what:"td"})
                 let tdc = addEle({dad:td,setClass:"contCol",border:"solid 2px white",radius:"5px",})
-                let thisImgSrc = gameLook.includes("Old") ? oresArray[i].img : oresArray[i].img.split(".jpg")[0]+"n.jpg"
+                let thisImgSrc = UseR.gameLook.includes("Old") ? oresArray[i].img : oresArray[i].img.split(".jpg")[0]+"n.jpg"
                 let thisImg = addEle({dad:tdc,what:"img",imgSize:30,imgFullSrc:thisImgSrc,
                 setID:oresArray[i].label,setFunc:(e)=>{
                         cleanParent(rightBottom)
@@ -957,7 +957,7 @@ function displayPlanets(rightBottom,listArray){
             getID("privatePlanets").innerHTML = "Private List (" + planetsArray.filter(x=>x.selected).length + ")"
 
             let thisBox = addEle({dad:thisContainer,setClass:"planetBoxStyle"})
-                addEle({dad:thisBox,what:"img",cursor:"pointer",imgFullSrc:gameLook.includes("Old") ? item.imgSrc : 
+                addEle({dad:thisBox,what:"img",cursor:"pointer",imgFullSrc:UseR.gameLook.includes("Old") ? item.imgSrc : 
                 item.imgSrc.split(".jpg")[0]+"n.jpg",setFunc:()=>{
                     if (item.selected){item.selected = false ; getID("PIN"+item.idNumber).style.border = ""}
                     else { item.selected = true ; getID("PIN"+item.idNumber).style.border = "solid 2px #BB482E"}
@@ -974,7 +974,7 @@ function displayPlanets(rightBottom,listArray){
             let thisContainer3 = addEle({dad:thisContainer,setClass:"contCol_W"})
             for (i=0;i<item.ores.length;i++){
                 let subContainer = addEle({dad:thisContainer3,setClass:"contRow_W",alignItems:"center"})
-                    addEle({dad:subContainer,what:"img",imgSize:30,marginR:"10px",imgFullSrc:gameLook.includes("Old") ?
+                    addEle({dad:subContainer,what:"img",imgSize:30,marginR:"10px",imgFullSrc:UseR.gameLook.includes("Old") ?
                     "./IPM Components/"+item.ores[i].label+".jpg" : "./IPM Components/"+item.ores[i].label+"n.jpg"})
 
                     addEle({dad:subContainer,setClass:"texting",marginT:"-1px",

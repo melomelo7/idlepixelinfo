@@ -51,6 +51,18 @@ const challengeRewards = [
     {target : "1.00 D",darkMatter:200,},
 ]
 
+let UseR = {
+    gameLook:"New",
+    credits:{
+        lounge:0,
+        station:[],
+        exodus:false,
+    }
+}
+stationCells.filter(cel=>cel.label.includes("credit")).forEach(it=>UseR.credits.station.push(0))
+console.log(UseR)
+
+
 function formatKMBT(value,revert = false){
     let thisValue = undefined
 //    let baseValue = undefined
@@ -172,13 +184,10 @@ function clickLook(){
 
  
 function buildLook(){
-    addEle({dad:right,setClass:"button1",text:toggleOldNewText + spanText("lime",gameLook),
+    addEle({dad:right,setClass:"button1",text:toggleOldNewText + spanText("lime",UseR.gameLook),
     margin:"0 10px",backG:togNot,width:"fit-content",setFunc:(e)=>{
-        gameLook = gameLook === "Old" ? "New" : "Old"
-//        gameLook = e.srcElement.innerHTML.includes("Old") ? spanText("lime","New") : spanText("lime","Old")
-//        let gameLookNow = e.srcElement.innerHTML.split(" ⇒ ")[1]
-//        gameLook = gameLookNow === "Old" ? "New" : "Old"
-        e.srcElement.innerHTML = toggleOldNewText + spanText("lime",gameLook)}})
+        UseR.gameLook = UseR.gameLook === "Old" ? "New" : "Old"
+        e.srcElement.innerHTML = toggleOldNewText + spanText("lime",UseR.gameLook)}})
 }
 
 
@@ -435,7 +444,7 @@ function clickCell2(obj,whichGrid){
 
             for(let i=0;i<obj.components.length;i++){
                 let subContainer3 = addEle({dad:subContainer2,setClass:"contRow",alignItems:"center",marginB:"5px"})
-                    addEle({dad:subContainer3,what:"img",imgSize:40,imgFullSrc:gameLook === "Old" ?
+                    addEle({dad:subContainer3,what:"img",imgSize:40,imgFullSrc:UseR.gameLook === "Old" ?
                     "./IPM Components/"+obj.components[i].label+".jpg" : 
                     "./IPM Components/"+obj.components[i].label+"n.jpg"})
 
