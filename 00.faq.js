@@ -370,7 +370,10 @@ const faqsArray = [
     icon : "fleet.jpg",
     text : `The always in store ships :<br>
             (Some may show up after another is bought)<br>
-            - Daughtership (Starter Pack)<br>
+            - Daughtership (Starter Pack) `
+            + spanText("lime","⇒ ") + spanText("red","Priority") +
+              spanText("lime"," buy to keep special discount")+
+            `<br>
             - Eldership (Epic Pack)<br>
             - Exodus `+spanText("yellow","(Require to have purchased Starter")+
             spanText("lime"," AND ") + spanText("yellow","Epic Packs)")+
