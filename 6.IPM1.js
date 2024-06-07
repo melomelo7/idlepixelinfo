@@ -174,7 +174,8 @@ function clickLook(){
 function buildLook(){
     addEle({dad:right,setClass:"button1",text:toggleOldNewText + gameLook,margin:"0 10px",
     backG:togNot,width:"fit-content",setFunc:(e)=>{
-        gameLook = e.srcElement.innerHTML.includes("Old") ? spanText("lime","New") : spanText("lime","Old")
+        gameLook = gameLook === "Old" ? "New" : "Old"
+//        gameLook = e.srcElement.innerHTML.includes("Old") ? spanText("lime","New") : spanText("lime","Old")
 //        let gameLookNow = e.srcElement.innerHTML.split(" ⇒ ")[1]
 //        gameLook = gameLookNow === "Old" ? "New" : "Old"
         e.srcElement.innerHTML = toggleOldNewText + spanText("lime",gameLook)}})
