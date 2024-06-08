@@ -212,20 +212,40 @@ function dtSfx(day){
 
 function buildEvent(){
 
+
 txt = `
 Dear IPM Infos Users,<br>
-If it happens that you do have 2 clicks<br>
-to spare, please visit this reddit poll<br>
-and cast your vote.<br><br>
-<a href="https://www.reddit.com/r/IdlePlanetMiner/comments/1d598uk/comment/l6xyp9g/?context=3" target="_blank">Reddit Poll</a><br><br>
-If you want to express something please<br>
-add a few words there.<br><br>
-Thank you !!<br><br> 
+Votes are now closed in the Reddit Poll<br>
+Thank you for your participation 🌞 !!<br>
+Result as overal % of what Tabs are used the most ⇒<br>
+(June 2024)
+`
+   
+let pollFork = addEle({dad:right,setClass:"contRow",margin:"50px 0 20px 50px"})
+    addEle({dad:pollFork,text:txt,fontS:"20px"})
 
-`,
 
+let myCont = addEle({dad:pollFork,marginL:"20px"})//margin:"20px 0 0 50px"
+    let myT = addEle({dad:myCont,what:"table",border:"solid 2px orangered",radius:"5px"})
+        let myL = addEle({dad:myT,what:"tr"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"FAQs",textA:"center",padding:"5px"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"19%",textA:"center",padding:"5px"})
+        myL = addEle({dad:myT,what:"tr"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"Planets",textA:"center",padding:"5px"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"30%",textA:"center",padding:"5px"})
+        myL = addEle({dad:myT,what:"tr"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"Items",textA:"center",padding:"5px"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"19%",textA:"center",padding:"5px"})
+        myL = addEle({dad:myT,what:"tr"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"Projects",textA:"center",padding:"5px"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"7%",textA:"center",padding:"5px"})
+        myL = addEle({dad:myT,what:"tr"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"Station",textA:"center",padding:"5px"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"2%",textA:"center",padding:"5px"})
+        myL = addEle({dad:myT,what:"tr"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"Rooms",textA:"center",padding:"5px"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"23%",textA:"center",padding:"5px"})
 
-addEle({dad:right,text:txt,margin:"50px 0 10px 50px",fontS:"20px"})
 
 addEle({dad:right,border:"lime dashed 2px",width:"500px",marginL:"50px"})
 
@@ -234,13 +254,12 @@ addEle({dad:right,text:`(showing up in your galaxy if never bought<br>
 and available for a limited time only !!)`,margin:"0 50px",fontS:"22px"})
 addEle({dad:right,text:"** Faq > Expand Fleet ... for requirements **",textC:"yellow",fontS:"20px",marginL:"50px"})
 
-let myCont = addEle({dad:right,margin:"20px 0 0 50px"})
-let myT = addEle({dad:myCont,what:"table"})
+myCont = addEle({dad:right,margin:"20px 0 0 50px"})
+myT = addEle({dad:myCont,what:"table"})
 
 wanderers.forEach(wa=>{
 
-
-    let myL = addEle({dad:myT,what:"tr"})
+    myL = addEle({dad:myT,what:"tr"})
 
     let myC = addEle({dad:myL,what:"td",radius:"5px"})
         addEle({dad:myC,what:"img",imgFullSrc:"./IPM Components/"+wa.ref,img2Sizes:"200:150"})//,width:"100%"
