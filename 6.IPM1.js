@@ -272,7 +272,24 @@ wanderers.forEach(wa=>{
 
 })
 
+addEle({dad:right,border:"lime dashed 2px",width:"500px",margin:"10px 0 10px 50px"})
 
+addEle({dad:right,text:`
+Absolutely not related in any way to Idle Planet Miner...<br><br>
+- If you are having a boring time arking<br>
+- If you are open to the idea of trying another incremental/clicker game<br>
+well a suggestion (some of you may know it already) : `+spanText("crimson","Underworld idle")+`.
+<br>There are (to my knowledge) 2 versions available atm. 1 being available<br>
+for probably almost anyone, BUT older, and stopped midway developpement ...<br>
+⇒ <a href="https://echa.itch.io/underworld-idle" target="_blank">Underworld idle (browser)</a><br>
+(try browser version first if you want a glimpse before switching for the other with new graphics)<br><br>
+And the final version which very likely will not receive any more content.<br>
+Apparently now free to play too (used to be a small fee) <br>
+⇒ <a href="https://store.steampowered.com/app/1540960/Underworld_Idle/" 
+target="_blank">Underworld idle on Steam</a><br>
+`,
+margin:"50px"
+})
 
 
 
