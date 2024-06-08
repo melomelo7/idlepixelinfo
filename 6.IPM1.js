@@ -288,7 +288,7 @@ Apparently now free to play too (used to be a small fee) <br>
 ⇒ <a href="https://store.steampowered.com/app/1540960/Underworld_Idle/" 
 target="_blank">Underworld idle on Steam</a><br>
 `,
-margin:"50px"
+margin:"50px",padding:"10px",border:"white dotted 2px",radius:"10px",width:"fit-content"
 })
 
 
