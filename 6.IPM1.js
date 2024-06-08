@@ -263,7 +263,11 @@ wanderers.forEach(wa=>{
 
     let myC = addEle({dad:myL,what:"td",radius:"5px"})
         addEle({dad:myC,what:"img",imgFullSrc:"./IPM Components/"+wa.ref,img2Sizes:"200:150"})//,width:"100%"
-    addEle({dad:myL,what:"td",radius:"5px",paddingL:"20px",fontS:"30px",
+    myC = addEle({dad:myL,what:"td",radius:"5px"})
+    
+    addEle({dad:myC,radius:"5px",padding:"10px",fontS:"30px",marginL:"20px",
+    border:"solid 2px orangered",
+    backG:"linear-gradient(to bottom left,rgba(255,0,0,0.7) 20%,rgba(255,255,0,0.6))",
     text:wa.date.dayN+" "+wa.date.month+" "+wa.date.day+dtSfx(wa.date.day)})
 
 })
