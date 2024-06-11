@@ -1766,7 +1766,8 @@ function buildMapRecap(res,pro1,pro2){
         }})
 
         subC = addEle({dad:recapFR,setClass:"contRow",margin:"10px 0",alignItems:"center"})
-            addEle({dad:subC,text:"Unlocked Ores ("+ res.filter(re=>re.type==="ore").length+")",
+            txt = Math.floor((res.filter(re=>re.type==="ore").length/ oresArray.length)*100) + "% "
+            addEle({dad:subC,text:txt+"Unlocked Ores ("+ res.filter(re=>re.type==="ore").length+")",
             marginR:"10px",width:LW})
             addEle({dad:subC,text:"&#128317;",cursor:"pointer",border:"solid red 2px",setFunc:(e)=>{
                 e.srcElement.innerHTML = e.srcElement.innerHTML === "🔽" ? "🔼" : "🔽"
@@ -1775,7 +1776,8 @@ function buildMapRecap(res,pro1,pro2){
         subC = addEle({dad:recapFR,setClass:"listCont",setID:"resO",display:"none"})
 
         subC = addEle({dad:recapFR,setClass:"contRow",margin:"10px 0",alignItems:"center"})
-        addEle({dad:subC,text:"Craftable Bars/Alloys ("+ res.filter(re=>re.type==="bar").length+")",
+        txt = Math.floor((res.filter(re=>re.type==="bar").length/ barsArray.length)*100) + "% "
+        addEle({dad:subC,text:txt+"Craftable Bars/Alloys ("+ res.filter(re=>re.type==="bar").length+")",
         marginR:"10px",width:LW})
         addEle({dad:subC,text:"&#128317;",cursor:"pointer",border:"solid red 2px",setFunc:(e)=>{
             e.srcElement.innerHTML = e.srcElement.innerHTML === "🔽" ? "🔼" : "🔽"
@@ -1784,7 +1786,10 @@ function buildMapRecap(res,pro1,pro2){
         subC = addEle({dad:recapFR,setClass:"listCont",setID:"resB",display:"none"})
 
         subC = addEle({dad:recapFR,setClass:"contRow",margin:"10px 0",alignItems:"center"})
-        addEle({dad:subC,text:"Craftable Items ("+ res.filter(re=>re.type==="itm").length+")",
+        console.log(itemsArray.length)
+        txt = Math.floor((res.filter(re=>re.type==="itm").length/ itemsArray.length)*100) + "% "
+
+        addEle({dad:subC,text:txt+"Craftable Items ("+ res.filter(re=>re.type==="itm").length+")",
         marginR:"10px",width:LW})
         addEle({dad:subC,text:"&#128317;",cursor:"pointer",border:"solid red 2px",setFunc:(e)=>{
             e.srcElement.innerHTML = e.srcElement.innerHTML === "🔽" ? "🔼" : "🔽"
