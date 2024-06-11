@@ -184,7 +184,7 @@ function clickSettings(){
 function buildSettings(){
     popKiller()
 
-    let settings = addEle({dad:right,setClass:"contCol",width:"fit-content",margin:"20px"}) // 
+    let settings = addEle({dad:right,setClass:"contCol",width:"fit-content",margin:"20px",textA:"center"}) // 
 
     let subC = addEle({dad:settings,setClass:"contCol",border:"solid blue 2px",radius:"5px",
     padding:"5px",fontS:"20px",textA:"center"})
@@ -212,6 +212,7 @@ function buildSettings(){
     text:"Set ⇔ Test : Credit Boosters you own<br>(Test future boosters you do not own yet !)",
     backG:"linear-gradient(to bottom left,rgba(255,69,0,0.6) 80%,rgba(255,160,122,1))",textC:"black",
     setFunc:boostersPop})
+    addEle({dad:settings,text:spanText("yellow","** Same tool is found under Faq > Credits **")})
 
 }
 
