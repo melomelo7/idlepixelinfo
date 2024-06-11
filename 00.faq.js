@@ -796,7 +796,6 @@ let credits101 = [{credits:10,gv:"10",mag:"M"},{credits:11,gv:"12.51",mag:"M"},{
 
 function setCredits(container){
 
-
 let ipmmc1 = `
 The ` + spanText("lime","IPM - M") + `oral ` + spanText("lime","C") + `ontract :<br>
 Sell galaxy > Base Reward > [ i ]<br>`
@@ -829,7 +828,7 @@ a similar value that wont be incremented.<br>
     let subCont1 = addEle({dad:container,setClass:"contRow",width:"100%"})
         addEle({dad:subCont1,text:"10 to 101 (base)credits",setClass:"button1",width:"85%",
         backG:"linear-gradient(to top right,rgba(169,169,169,1),rgba(106,90,205,0.5) 70%)",
-        textC:"black"})
+        textC:"black",cursor:"text"})
         
         addEle({dad:subCont1,setClass:"button1",border:"slateblue solid 2px",text:"🔽",minWidth:"20px",setFunc:(e)=>{
             e.srcElement.innerHTML = e.srcElement.innerHTML === "🔽" ? "🔼" : "🔽"
@@ -862,7 +861,7 @@ a similar value that wont be incremented.<br>
 
 
     subCont1 = addEle({dad:container,setClass:"contRow",width:"100%",justifyC:"center"})
-        addEle({dad:subCont1,text:"Set Credit Boosters you own",setClass:"button1",width:"70%",
+        addEle({dad:subCont1,text:"Credit Boosters",setClass:"button1",width:"70%",cursor:"text",
         backG:"linear-gradient(to bottom left,rgba(255,69,0,0.6) 80%,rgba(255,160,122,1))",textC:"black"})
 
         addEle({dad:subCont1,setClass:"button1",border:"slateblue solid 2px",text:"⚙ 🔽",minWidth:"20px",setFunc:(e)=>{
@@ -870,107 +869,30 @@ a similar value that wont be incremented.<br>
             getID("creditsBoostersFr").style.display = getID("creditsBoostersFr").style.display==="none"?"flex":"none"
         }})
 
-    subCont1 = addEle({dad:container,setClass:"contCol",setID:"creditsBoostersFr",display:"none",border:"solid 2px orangered",
-    textA:"center",padding:"2px",radius:"10px"})
+    subCont1 = addEle({dad:container,setClass:"contCol",setID:"creditsBoostersFr",display:"none",
+    border:"solid 2px orangered",textA:"center",padding:"10px",radius:"10px"})
 
-    
+/*    
         addEle({dad:subCont1,text:"Under Construction...",textC:"yellow"})
         addEle({dad:subCont1,what:"img",imgFullSrc:"./IPM Components/construction.jpg"})
         addEle({dad:subCont1,text:"Under Construction...",textC:"yellow"})
+*/
 
+        addEle({dad:subCont1,setClass:"button1",padding:"10px",radius:"10px",fontS:"18px",
+        text:"Set ⇔ Test : Credit Boosters you own<br>(Test future boosters you do not own yet !)",
+        backG:"linear-gradient(to bottom left,rgba(255,69,0,0.6) 80%,rgba(255,160,122,1))",textC:"black",
+        setFunc:boostersPop})
 
+        addEle({dad:subCont1,text:spanText("lime","(Ma)")+"gnitudes Chart by :",marginB:"10px"})
 
-
-/*
-
-        subCont2 = addEle({dad:subCont1})
-            let myT = addEle({dad:subCont2,what:"table"})
-            let myL = addEle({dad:myT,what:"tr"})
-
-                let myC = addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center"
-                ,colSpan:4,text:"To test a "+spanText("lime","BC")+" amount, type it here :",fontS:"16px",padding:"3px"})
-
-//                console.log("FS:" + window.getComputedStyle(myC).getPropertyValue("font-size"))
-
-                myC = addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center"})
-                    addEle({dad:myC,what:"input",isInput:true,setVal:0,setID:"credBCUser",textA:"center",width:"100px"})
-
-                myL = addEle({dad:myT,what:"tr"})
-                    addEle({dad:myL,what:"td",radius:"5px",textA:"center",colSpan:5,text:"* "+spanText("lime","BC")+" ⇒ Base Credits ... "+spanText("lime","SS")+" ⇒ Space Station *"})
-    
-
-
-            myL = addEle({dad:myT,what:"tr"})
-
-                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
-                setID:"credSliderLabel",text:"- - - -"})
-
-                myC = addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center"})
-                    addEle({dad:myC,what:"range",isInput:true,min:0,max:0,setVal:0,width:"60px",
-                    setID:"credSlider",setFunc:upCredSlider})
-
-                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
-                text:"🔼",cursor:"pointer",setFunc:()=>{getID("credSlider").value ++ ; upCredSlider() }})
- 
-                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
-                text:"🔽",cursor:"pointer",setFunc:()=>{getID("credSlider").value -- ; upCredSlider() }}) 
-
-                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",setID:"credBC"})
-                
-            myL = addEle({dad:myT,what:"tr"})
-            addEle({dad:myL,what:"td",radius:"5px",textA:"left",paddingL:"10PX",colSpan:5,text:spanText("lime","👇")+
-            " Pick a Bonus and adjust its level "+spanText("lime","👆")})
-
+        subCont2 = addEle({dad:subCont1,setClass:"contRow",justifyC:"center",marginB:"10px"})
+            addEle({dad:subCont2,border:"blue solid 2px",radiusTL:"10px",radiusBL:"10px",minWidth:"120px",
+            backG:"linear-gradient(to bottom left,rgba(255,69,0,0.6) 80%,rgba(255,160,122,1))",textC:"black",
+            cursor:"pointer",padding:"5px", text:"Base Credits",setFunc:()=>{updateCredits()}})
             
-            myL = addEle({dad:myT,what:"tr"})
-
-                myC = addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center"})
-                addEle({dad:myC,what:"radio",isInput:true,setVal:"Lounge",setFunc:()=>{
-                    getID("credSliderLabel").innerHTML = "Lounge"
-                    getID("credSlider").min = 0
-                    getID("credSlider").max = 50
-                    getID("credSlider").value = Number(getID("cred:Lounge:Level").innerHTML.split(":")[1])
-                }})
-
-                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
-                text:"Room:Lounge"})
-
-                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
-                text:"Level:0",setID:"cred:Lounge:Level"})
-
-                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
-                text:"Bonus:0",setID:"cred:Lounge:Bonus"})
-
-                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
-                setID:"cred:Lounge:Payout"})
-
-
-        let ssc = stationCells.filter(itm=>itm.label.includes("credits"))
-        for(let i=0;i<ssc.length;i++){
-
-            myL = addEle({dad:myT,what:"tr"})
-
-                myC = addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center"})
-                addEle({dad:myC,what:"radio",isInput:true,setVal:"Lounge",setFunc:()=>{}})
-
-                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
-                text:"SS:"+ssc[i].label})
-
-                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
-                text:"Level:0",setID:"cred:"+ssc[i].label+":Level"})
-
-                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
-                text:"Bonus:0",setID:"cred:"+ssc[i].label+":Bonus"})
-
-                addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",
-                setID:"cred:"+ssc[i].label+":Payout"})
-
-
-
-        }
-
-
-        */
+            addEle({dad:subCont2,border:"blue solid 2px",radiusTR:"10px",radiusBR:"10px",minWidth:"120px",
+            backG:"linear-gradient(to bottom left,rgba(255,69,0,0.6) 80%,rgba(255,160,122,1))",textC:"black",
+            cursor:"pointer",padding:"5px",text:"Boosted Credits",setFunc:()=>{updateCredits(true)}})
 
 
     myCont = addEle({dad:container,setClass:"contCol",marginT:"20px",setID:"creditTableFr"})
@@ -978,27 +900,237 @@ a similar value that wont be incremented.<br>
 
 }
 
-function upCredSlider(){
-    let val = getID("credSlider").value
-    let tgt = undefined
-    let src = undefined
+function boostersPop(){
 
-    console.log("range "+ val)
+    projectPop = addEle({dad:body,padding:"15px",border:"blue solid 3px",radius:"30px",
+    backG:'url("./IPM Components/bg.jpg")',fontS:"18px",width:"fit-content"})
 
-    if(getID("credSliderLabel").innerHTML === "Lounge")
-        {src = Rooms.filter(rm=>rm.label==="Lounge")[0]}
-    else {src = stationCells.filter(til=>til.label==="")[0]}
+    let pad = 3 + "px"
 
-    console.log()
+    subCont2 = addEle({dad:projectPop})
+    let myT = addEle({dad:subCont2,what:"table"})
+    let myL = addEle({dad:myT,what:"tr"})
 
-    tgt = "cred:"+getID("credSliderLabel").innerHTML+":"
-    console.log(tgt)
-    getID(tgt+"Level").innerHTML = "Level:" + val
+        let myC = addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center"
+        ,colSpan:4,text:"To test a "+spanText("lime","BC")+" amount, type it here ⇒",fontS:"16px",padding:pad})
+
+        myC = addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center"})
+            addEle({dad:myC,what:"input",isInput:true,setVal:0,setID:"credBCUser",textA:"center",width:"100px",
+            setFunc:(e)=>{
+                let stw = true
+
+                let refN = undefined
+
+                if(e.srcElement.value.includes(","))
+                     {refN = e.srcElement.value.replace(",",".")} 
+                else {refN = e.srcElement.value}
+
+                if(refN.includes("k") || refN.includes("K") ){
+                    let filt = ""
+                    for(let i=0;i<refN.toLowerCase().split("k").length;i++){
+                        filt += refN.toLowerCase().split("k")[i]
+                    } refN = Number(filt)*1000
+                } 
+
+                if(isNaN(refN))
+                     {getID("credBC").innerHTML = spanText("fuchsia","NA")}
+                else {getID("credBC").innerHTML = refN ;  boostCredits(Number(refN),true)}
+                
+            }})
+
+        myL = addEle({dad:myT,what:"tr"})
+            addEle({dad:myL,what:"td",radius:"5px",textA:"center",colSpan:5,padding:pad,
+            text:`* `+spanText("lime","BC")+` ⇒ Base Credits ... `+spanText("lime","SS")+` ⇒ Space Station *<br>
+            (If you see `+spanText("fuchsia","NA")+` input number is not valid, calculation stopped )`
+            })
+
+
+    myL = addEle({dad:myT,what:"tr"})
+
+        addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",padding:pad,
+        setID:"credSliderLabel",text:"- - - -",minWidth:"70px"})
+
+        myC = addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",padding:pad})
+            addEle({dad:myC,what:"range",isInput:true,min:0,max:0,setVal:0,width:"100px",
+            setID:"credSlider",setFunc:upCredSlider})
+
+        addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",padding:pad,
+        text:"🔼",minWidth:"80px",cursor:"pointer",setFunc:()=>{getID("credSlider").value ++ ; upCredSlider() }})
+
+        addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",padding:pad,
+        text:"🔽",minWidth:"100px",cursor:"pointer",setFunc:()=>{getID("credSlider").value -- ; upCredSlider() }}) 
+
+        addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",setID:"credBC",
+        padding:pad,text:0})
+        
+    myL = addEle({dad:myT,what:"tr"})
+    addEle({dad:myL,what:"td",radius:"5px",textA:"left",padding:"3px 3px 3px 10PX",colSpan:5,text:spanText("lime","👇")+
+    " Pick a Bonus and adjust its level "+spanText("lime","👆")})
+
+
+    myL = addEle({dad:myT,what:"tr"})
+
+        let ref = Rooms.filter(rm=>rm.label==="Lounge")[0]
+        myC = addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",padding:pad})
+        addEle({dad:myC,what:"radio",isInput:true,setVal:ref.label,setName:"credRadio",setFunc:()=>{
+            let ref = Rooms.filter(rm=>rm.label==="Lounge")[0]
+            getID("credSliderLabel").innerHTML = ref.label
+            getID("credSlider").min = 0
+            getID("credSlider").max = ref.costs.length +1
+            getID("credSlider").value = Number(UseR.credits.lounge)
+        }})
+
+        addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",padding:pad,
+        text:"Room : Lounge",setID:"cred:Lounge:Label"})
+
+        addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",padding:pad,
+        text:"Level : "+UseR.credits.lounge,setID:"cred:Lounge:Level"})
+
+        let bon = Rooms.filter(rm=>rm.label==="Lounge")[0].bonus
+        txt = Number(UseR.credits.lounge) === 0 ? 0 : (bon.base + bon.start + ((txt-1)*bon.every)).toFixed(2)
+        addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",padding:pad,
+        text:"Bonus : "+txt,setID:"cred:Lounge:Bonus"})
+
+        addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",padding:pad,
+        setID:"cred:Lounge:Payout",text:0})
+
+
+    let ssc = stationCells.filter(itm=>itm.label.includes("credits"))
+    for(let i=0;i<ssc.length;i++){
+        myL = addEle({dad:myT,what:"tr"})
+
+            myC = addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center"})
+            addEle({dad:myC,what:"radio",isInput:true,setVal:"Lounge",setName:"credRadio",
+            setID:"cred:"+ssc[i].label,setFunc:(e)=>{
+                let ref = stationCells.filter(cel=>cel.label.includes(e.srcElement.id.split(":")[1]))[0]
+                getID("credSliderLabel").innerHTML = ref.label
+                getID("credSlider").min = 0
+                getID("credSlider").max = ref.maxLevel
+                getID("credSlider").value = UseR.credits.station[(Number(ref.label.split("#")[1])-1)]
+            }})
+
+            addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",padding:pad,
+            text:"SS:"+ssc[i].label,setID:"cred:"+ssc[i].label+":Label"})
+            
+            addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",padding:pad,
+            text:"Level : "+UseR.credits.station[(Number(ssc[i].label.split("#")[1])-1)],
+            setID:"cred:"+ssc[i].label+":Level"})
+
+            txt = UseR.credits.station[Number(ssc[i].label.split("#")[1])-1] === 0 ? 0 :
+            ((UseR.credits.station[(Number(ssc[i].label.split("#")[1])-1)] * ssc[i].bonusPerLevel)+1).toFixed(3)
+            addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",padding:pad,
+            text:"Bonus : "+txt,setID:"cred:"+ssc[i].label+":Bonus"})
+}
+
+    myL = addEle({dad:myT,what:"tr"})
+
+        addEle({dad:myL,what:"td"})
+
+        addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"right",padding:pad,
+        paddingR:"10px", text:"SS Global Bonus :",colSpan:2})
+
+        addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",padding:pad,
+        text:0,setID:"cred:Station:Bonus"})
+
+        addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",padding:pad,
+        setID:"cred:Station:Payout",text:0})
+
+    myL = addEle({dad:myT,what:"tr"})
+
+        myC = addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",padding:pad})
+            addEle({dad:myC,what:"checkbox",isInput:true,setFunc:(e)=>{
+                if(e.srcElement.checked){
+                    getID("cred:Exodus:Label").innerHTML = "Own Ship Exodus (Credits x2) : "+spanText("lime","YES")
+                    UseR.credits.exodus = true
+                    boostCredits(Number(getID("credBC").innerHTML),true)
+                } else {
+                    getID("cred:Exodus:Label").innerHTML = "Own Ship Exodus (Credits x2) : "+spanText("red","NO")
+                    UseR.credits.exodus = false
+                    boostCredits(Number(getID("credBC").innerHTML),true)
+                }
+            }})
+
+        addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"left",padding:pad,
+        paddingL:"10px", text:"Own Ship Exodus (Credits x2) : "+spanText("red","NO"),colSpan:3,setID:"cred:Exodus:Label"})
+
+        addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",padding:pad,
+        setID:"cred:Exodus:Payout",text:0})
+
+
+    myL = addEle({dad:myT,what:"tr"})
+
+        addEle({dad:myL,what:"td"})
+
+        addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",padding:pad,
+        text:"Overall Payout : ",colSpan:3})
+
+        addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",padding:pad,
+        setID:"cred:Overall:Payout",text:0})
+
+
+    myL = addEle({dad:myT,what:"tr"})
+
+        myC = addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",padding:pad})
+        addEle({dad:myC,what:"checkbox",isInput:true,setID:"credDMcheck",setFunc:(e)=>{
+            if(e.srcElement.checked){
+                getID("cred:doubleDM:Label").innerHTML = "Use 100 DM to double the Payout : "+spanText("lime","YES")
+                boostCredits(Number(getID("credBC").innerHTML),true)
+            } else {
+                getID("cred:doubleDM:Label").innerHTML = "Use 100 DM to double the Payout : "+spanText("red","NO")
+                boostCredits(Number(getID("credBC").innerHTML),true)
+            }
+        }})
+
+        addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"left",padding:pad,paddingL:"10px",
+        text:"Use 100 DM to double the Payout : "+spanText("red","NO"),colSpan:3,setID:"cred:doubleDM:Label"})
+
+        addEle({dad:myL,what:"td",border:"solid 2px blue",radius:"5px",textA:"center",padding:pad,
+        setID:"cred:doubleDM:Payout",text:0})
+
+
+addEle({dad:projectPop,setClass:"button1",margin:"10px",text:"Close",
+setFunc:()=>{body.removeChild(projectPop) ; projectPop = undefined}})
+
+centerScreen(projectPop)
 
 }
 
 
-function updateCredits(){
+function upCredSlider(){
+    let lvl = Number(getID("credSlider").value)
+    let tgt = undefined
+    let src = undefined
+
+    if(getID("credSliderLabel").innerHTML === "Lounge")
+        {src = Rooms.filter(rm=>rm.label==="Lounge")[0] ; UseR.credits.lounge = lvl }
+    else {
+        src = stationCells.filter(cel=>cel.label.includes("credit")).filter(it=>it.label.includes(getID("credSliderLabel").innerHTML.split("#")[1]))[0]
+        UseR.credits.station[(Number(getID("credSliderLabel").innerHTML.split("#")[1])-1)] = lvl
+    }
+
+    getID("cred:"+getID("credSliderLabel").innerHTML+":Level").innerHTML = "Level : " + lvl
+    if(lvl > 0){
+        txt = src.label === "Lounge" ? 
+        (src.bonus.base + src.bonus.start + ((lvl-1)*src.bonus.every)).toFixed(2) :
+        ((lvl * src.bonusPerLevel)+1).toFixed(3)
+    } else {txt = 0}
+    getID("cred:"+getID("credSliderLabel").innerHTML+":Bonus").innerHTML = "Bonus : " + txt
+
+    src = stationCells.filter(cel=>cel.label.includes("credit"))
+    let ucs = UseR.credits.station
+    let ttb = 0
+    for(let i=0;i<ucs.length;i++){
+        ttb += ucs[i] * src[i].bonusPerLevel
+    }
+    getID("cred:Station:Bonus").innerHTML = (ttb+1).toFixed(3)
+
+
+boostCredits(Number(getID("credBC").innerHTML),true)
+
+}
+
+
+function updateCredits(boosted=false){
     let myCont = getID("creditTableFr")
     cleanParent(myCont)
 
@@ -1024,11 +1156,50 @@ function updateCredits(){
             addEle({dad:myL,what:"td",text:thisTxt,border:"solid 2px blue",
             radius:"5px",textA:"center"})
             for(let j=0;j<creditsArray[i].credits.length;j++){
-                addEle({dad:myL,what:"td",text:creditsArray[i].credits[j],textA:"center",
-                border:"solid 2px blue",radius:"5px",minWidth:"50px",setFunc:(e)=>{
-                    console.log(e.srcElement.innerHTML)
-                }}) } } 
-    addEle({dad:myCont,text:`Confusing ? Exemple ...<br>- Line [5] : `+spanText("lime","Q")+`
+                txt = boosted === false ? Number(creditsArray[i].credits[j]) : boostCredits(Number(creditsArray[i].credits[j]))
+                txt = txt.toLocaleString()
+                addEle({dad:myL,what:"td",textA:"center",text:txt, // creditsArray[i].credits[j]
+                border:"solid 2px blue",radius:"5px",minWidth:"50px"}) } } 
+    addEle({dad:myCont,text:`Confusing ? Example ...<br>- Line [5] : `+spanText("lime","Q")+`
     <br>- Column [2] : 10 `+spanText("lime","(Ma)")+`<br> will read 10 `+spanText("lime","Q")+`
-    for 930 credits`,margin:"20px",padding:"10px 10px 10px 60px",border:"solid 2px lime",radius:"10px",})
+    ⇒ 930 credits`,margin:"20px",padding:"10px 10px 10px 60px",border:"solid 2px lime",radius:"10px",})
+}
+
+
+function boostCredits(cred,test=false){
+    if(cred===0 || isNaN(cred)){return 0}
+
+    let ref = UseR.credits
+    let recap = {
+        val:cred,
+        loungeB:0,
+        loungeV:0,
+        stationB:0,
+        stationV:0,
+        exodusV:0,
+        ttV:0 
+    }
+
+    let lng = Rooms.filter(rm=>rm.label==="Lounge")[0]
+    let stc = stationCells.filter(cel=>cel.label.includes("credit"))
+
+    recap.loungeB = ref.lounge === 0 ? 0 : lng.bonus.start + ( lng.bonus.every * (ref.lounge-1) )
+    recap.loungeV = recap.loungeB === 0 ? 0 : Number((recap.val * recap.loungeB).toFixed())
+
+    for (let i=0;i<stc.length;i++){
+        recap.stationB += ref.station[i] * stc[i].bonusPerLevel  
+    } recap.stationB = Number(recap.stationB.toFixed(3))
+    recap.stationV = recap.stationB === 0 ? 0 : Number(((recap.val + recap.loungeV) * recap.stationB).toFixed())
+    
+    recap.exodusV = ref.exodus === false ? 0 : recap.val + recap.loungeV + recap.stationV
+    recap.ttV = recap.val + recap.loungeV + recap.stationV + recap.exodusV
+
+    if(test){
+        getID("cred:Lounge:Payout").innerHTML = recap.loungeV.toLocaleString()
+        getID("cred:Station:Payout").innerHTML = recap.stationV.toLocaleString()
+        getID("cred:Exodus:Payout").innerHTML = recap.exodusV.toLocaleString()
+        getID("cred:Overall:Payout").innerHTML = recap.ttV.toLocaleString()
+        if(getID("credDMcheck").checked){getID("cred:doubleDM:Payout").innerHTML = (recap.ttV * 2).toLocaleString() }
+    } else {return recap.ttV}
+    
 }

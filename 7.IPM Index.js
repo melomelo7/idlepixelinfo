@@ -5,7 +5,7 @@ const body = document.querySelector("body")
     const global = addEle({dad:body,setID:"info",width:"100%",height:"100%",margin:"40px 0 0 100px"})
         const right = addEle({dad:global,setID:"right"})
 
-const lastUp = "(Last up 2024/06/07 19:40) *new expensive item since 30 Apr.2024* "
+const lastUp = "(Last up 2024/06/11 21:10) *new expensive item since 30 Apr.2024* "
 const infoTitle = "Idle Planet Miner Infos " +lastUp
 
 const togSel = "linear-gradient(to bottom left,rgba(90,185,47,0.5) 70%,rgba(169,169,169,1))"
@@ -14,12 +14,10 @@ const togNot = "linear-gradient(to bottom left,rgba(0,0,0,0) 60%,rgba(169,169,16
 info.innerHTML = infoTitle
 
 let projectPop = undefined
-let gameLook = "New"
-const toggleOldNewText = "Toggle the game Graphics here,<br>(Planets / Items)<br> now set to ⇒ "
 
 const menuButtons = [
     {label:"Events",clickFunction:clickEvent},
-    {label:"Look",clickFunction:clickLook},
+    {label:"Settings",clickFunction:clickSettings},
     {label:"Faq",clickFunction:clickFaqs},
     {label:"Planets",clickFunction:clickPlanets},
     {label:"Items",clickFunction:clickItems},
@@ -40,16 +38,3 @@ window.onload = firstContact()
 console.log(lastUp)
 
 let loopfork = 0
-
-/*
-let sst = 1
-let bbt = 2938
-stationCells.forEach(cel=>{
-    if(cel.label.includes("credits")){
-        console.log(cel)        
-        sst += cel.totalBonus
-    }
-})
-console.log(sst)
-console.log(sst*bbt)
-*/

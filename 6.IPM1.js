@@ -60,7 +60,6 @@ let UseR = {
     }
 }
 stationCells.filter(cel=>cel.label.includes("credit")).forEach(it=>UseR.credits.station.push(0))
-console.log(UseR)
 
 
 function formatKMBT(value,revert = false){
@@ -176,18 +175,44 @@ function clickProcess(){
     buildProcess()
 }
 
-function clickLook(){
+function clickSettings(){
     popKiller()
     cleanParent(right)
-    buildLook()
+    buildSettings()
 }
 
- 
-function buildLook(){
-    addEle({dad:right,setClass:"button1",text:toggleOldNewText + spanText("lime",UseR.gameLook),
-    margin:"0 10px",backG:togNot,width:"fit-content",setFunc:(e)=>{
-        UseR.gameLook = UseR.gameLook === "Old" ? "New" : "Old"
-        e.srcElement.innerHTML = toggleOldNewText + spanText("lime",UseR.gameLook)}})
+function buildSettings(){
+    popKiller()
+
+    let settings = addEle({dad:right,setClass:"contCol",width:"fit-content",margin:"20px"}) // 
+
+    let subC = addEle({dad:settings,setClass:"contCol",border:"solid blue 2px",radius:"5px",
+    padding:"5px",fontS:"20px",textA:"center"})
+        addEle({dad:subC,text:"Toggle the game Graphics here<br>(Planets / Items)"})        
+        let subC2 = addEle({dad:subC,setClass:"contRow",padding:"3px",justifyC:"center"})
+            addEle({dad:subC2,what:"radio",isInput:true,setVal:"New",setName:"radioLook",setFunc:()=>{
+                let grp = document.getElementsByName("radioLook")
+                grp.forEach(rd=>{
+                    if(rd.checked)
+                        {getID("lookFromRadio").innerHTML = "now set to ⇒ "+spanText("lime",rd.value) ; UseR.gameLook = rd.value}
+                })
+            }})
+            addEle({dad:subC2,what:"radio",isInput:true,setVal:"Old",setName:"radioLook",setFunc:()=>{
+                let grp = document.getElementsByName("radioLook")
+                grp.forEach(rd=>{
+                    if(rd.checked)
+                        {getID("lookFromRadio").innerHTML = "now set to ⇒ "+spanText("lime",rd.value) ; UseR.gameLook = rd.value}
+                })
+            }})
+            addEle({dad:subC2,setID:"lookFromRadio",marginL:"10px"})
+            document.getElementsByName("radioLook")[0].click()
+
+
+    addEle({dad:settings,setClass:"button1",padding:"10px",radius:"10px",
+    text:"Set ⇔ Test : Credit Boosters you own<br>(Test future boosters you do not own yet !)",
+    backG:"linear-gradient(to bottom left,rgba(255,69,0,0.6) 80%,rgba(255,160,122,1))",textC:"black",
+    setFunc:boostersPop})
+
 }
 
 
