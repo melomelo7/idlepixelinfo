@@ -238,7 +238,6 @@ function dtSfx(day){
 
 function buildEvent(){
 
-
 txt = `
 Dear IPM Infos Users,<br>
 Votes are now closed in the Reddit Poll<br>
@@ -271,6 +270,16 @@ let myCont = addEle({dad:pollFork,marginL:"20px"})//margin:"20px 0 0 50px"
         myL = addEle({dad:myT,what:"tr"})
             addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"Rooms",textA:"center",padding:"5px"})
             addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"23%",textA:"center",padding:"5px"})
+
+
+            txt = `
+            New poll to evaluate my new tool : 
+            <a href="https://www.reddit.com/r/IdlePlanetMiner/comments/1ddeok1/ipm_infos_testers_for_new_tool_please/" 
+            target="_blank">Reddit Poll</a><br>
+            `            
+            addEle({dad:right,text:txt,margin:"30px",border:"yellow dashed 5px",
+            padding:"10px",radius:"30px",width:"500px",textA:"center",fontS:"22px"})            
+            
 
 
 addEle({dad:right,border:"lime dashed 2px",width:"500px",marginL:"50px"})
