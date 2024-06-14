@@ -1122,8 +1122,7 @@ function upCredSlider(){
     for(let i=0;i<ucs.length;i++){
         ttb += ucs[i] * src[i].bonusPerLevel
     }
-    getID("cred:Station:Bonus").innerHTML = (ttb+1).toFixed(3)
-
+    getID("cred:Station:Bonus").innerHTML = ttb === 0 ? 0 : (ttb+1).toFixed(3)
 
 boostCredits(Number(getID("credBC").innerHTML),true)
 
