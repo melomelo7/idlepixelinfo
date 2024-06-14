@@ -990,7 +990,7 @@ new Item({
     unlockCost:"142.00 q",
     baseCraftTime:{hr:17,mn:22,sc:00},
     ingredients:[
-        {label:"robot",amount:160,min:80},
+        {label:"robot",amount:200,min:80},
         {label:"fusion reactor",amount:5,min:2},
     ],
     baseSellValue: {value:29.5,unit:"Q"},
