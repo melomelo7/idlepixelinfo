@@ -1501,7 +1501,7 @@ function setProjectsAreas(container){
                     grp.forEach(el=>{if(el.checked){getID("mapOpt1").innerHTML = e.srcElement.value}})
                 }})
             addEle({dad:subC2,setID:"mapOpt1"})
-            document.getElementsByName("mapCrafts")[0].click()
+            document.getElementsByName("mapCrafts")[1].click()
             
 
             subC2 = addEle({dad:recapOptFr,setClass:"contRow",marginT:"10px",alignItems:"center"})
@@ -1522,7 +1522,7 @@ function setProjectsAreas(container){
                     grp.forEach(el=>{if(el.checked){getID("mapOpt2").innerHTML = e.srcElement.value}})
                 }})
             addEle({dad:subC2,setID:"mapOpt2"})
-            document.getElementsByName("mapCuts")[0].click()
+            document.getElementsByName("mapCuts")[1].click()
 
 
             subC2 = addEle({dad:recapOptFr,setClass:"contRow",marginT:"10px",alignItems:"center"})
