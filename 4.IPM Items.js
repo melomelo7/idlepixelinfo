@@ -1071,6 +1071,12 @@ function buildItems(){
             let itemDisplayBottom = document.createElement("div")
             itemDisplayBottom.setAttribute("id","itemDisplayBottom")
             itemDisplay.appendChild(itemDisplayBottom)
+        
+        addEle({dad:itemsContainer,border:"blue solid 3px",
+        radius:"30px",padding:"40px 20px 10px 20px",marginL:"2px",height:"fit-content",
+        width:"fit-content",setID:"usedInFr",setClass:"contCol",textA:"left",
+        fontS:"20PX",minWidth:"170px",minHeight:"380px",justifyC:"flex-start",
+        display:"none"})
 
 
     let oresTable = document.createElement("table")
@@ -1090,7 +1096,7 @@ function buildItems(){
 
 
 function buildColumns(arraySource,targetTable,itemDisplayTop,itemDisplayMiddle,imgSize){
-
+    
     let tr = document.createElement("tr")
     targetTable.appendChild(tr)
     let td = undefined
@@ -1107,7 +1113,7 @@ function buildColumns(arraySource,targetTable,itemDisplayTop,itemDisplayMiddle,i
         img.style.border = "white 2px solid"
         td.appendChild(img)
 
-        if(itemCount ===2){
+        if(itemCount ===3){
             itemCount = 0
             tr = document.createElement("tr")
             targetTable.appendChild(tr)
@@ -1115,6 +1121,8 @@ function buildColumns(arraySource,targetTable,itemDisplayTop,itemDisplayMiddle,i
 
         img.addEventListener("mouseover",()=>{
             cleanParent(itemDisplayTop)
+            cleanParent(getID("usedInFr"))
+            getID("usedInFr").style.display = "none"
 
             let thisContainer = document.createElement("div")
             thisContainer.style = containerStyle
@@ -1123,18 +1131,50 @@ function buildColumns(arraySource,targetTable,itemDisplayTop,itemDisplayMiddle,i
             thisContainer.style.width = 300 + "px"
             itemDisplayTop.appendChild(thisContainer)
 
-                img = new Image (40,40)
-                img.src = UseR.gameLook.includes("Old") ? item.img :
-                item.img.split(".jpg")[0]+"n.jpg"
-                img.style.display = "block"
-                img.style = textStyle
-                thisContainer.appendChild(img)
+                let newC = addEle({dad:thisContainer,setClass:"contRow",alignItems:"center"})
+                    addEle({dad:newC,what:"img",imgSize:40,imgFullSrc:
+                    UseR.gameLook.includes("Old") ? item.img : item.img.split(".jpg")[0]+"n.jpg"})
+
+                    addEle({dad:newC,text:"Used for : ",margin:"0 10px 0 150px"})
+
+                    addEle({dad:newC,text:"⏩",cursor:"pointer",setID:"showUsed",
+                    setFunc:()=>{
+                        cleanParent(getID("usedInFr"))
+                        getID("usedInFr").style.display = "flex"
+                        let foc = getID("itmLbl").innerHTML.split(" : ")[1]
+                        let fdl1 = []
+                        let fdl2 = []
+                        let res1 = ""
+                        let res2 = ""
+                        barsArray.forEach(bar=>{
+                            bar.ingredients.forEach(ing=>{
+                                if(ing.label===foc){fdl1.push(bar.label)}
+                            })
+                        })
+                        fdl1.forEach(itm=>{res1 += "- "+itm+"<br><br>"})
+                        res1 = res1.slice(0,res1.length-4)
+
+                        itemsArray.forEach(itm=>{
+                            itm.ingredients.forEach(ing=>{
+                                if(ing.label===foc){fdl2.push(itm.label)}
+                            })
+                        })
+                        fdl2.forEach(itm=>{res2 += "- "+itm+"<br><br>"})
+
+                        addEle({dad:getID("usedInFr"),text:res1})
+                        if(res1!=="" && res2!=="")
+                            {addEle({dad:getID("usedInFr"),border:"green solid 2px",margin:"10px 0"})}
+                        addEle({dad:getID("usedInFr"),text:res2})
+
+                    }})
+
 
                 let mydiv = document.createElement("div")
                 mydiv.style = textStyle
                 thisContainer.appendChild(mydiv)
                 mydiv.innerHTML = "Name : "+item.label
-                
+                mydiv.setAttribute("id","itmLbl")
+
                 if(item.foundOnPlanets.length>0){
                     mydiv = document.createElement("div")
                     mydiv.style = textStyle
@@ -1203,10 +1243,15 @@ function buildColumns(arraySource,targetTable,itemDisplayTop,itemDisplayMiddle,i
                 mydiv.innerHTML = item.baseSellValue.unit === "" ? 
                 "Base Sell Value : $ "+item.baseSellValue.value :
                 "Base Sell Value : $ "+item.baseSellValue.value + " " + item.baseSellValue.unit
-        })
+
+            getID("showUsed").click()
+
+            })
 
         img.addEventListener("click",function(){setCrafting(item,tabInfos)})
-})}
+    }
+)
+}
 
 function setCrafting(item,tabInfos){
     let itemDisplayMiddle = document.getElementById("itemDisplayMiddle")
