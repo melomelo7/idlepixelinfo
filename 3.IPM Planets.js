@@ -788,6 +788,49 @@ planetsArray.push(
         unlockCost:"$ 2.40 O"
     }),
 
+
+
+
+
+
+    new Planet({
+        telescope:23,
+        idNumber : 71,
+        label:"Laconia",
+        ores:[
+            {label:"wraith ore",yield:40},
+            {label:"luterium ore",yield:40},
+            {label:"aqualite ore",yield:20},
+        ],
+        unlockCost:"$ 6.92 O"
+    }),
+
+    new Planet({
+        telescope:23,
+        idNumber : 72,
+        label:"Awohali",
+        ores:[
+            {label:"aqualite ore",yield:70},
+            {label:"quolium ore",yield:30},
+        ],
+        unlockCost:"$ 20.80 O"
+    }),
+
+    new Planet({
+        telescope:23,
+        idNumber : 73,
+        label:"Pegasi",
+        ores:[
+            {label:"aqualite ore",yield:100},
+        ],
+        unlockCost:"$ 62.30 O"
+    }),
+
+
+
+
+
+
 )
 
 function buildPlanets(){
@@ -823,7 +866,7 @@ function buildPlanets(){
         let table = addEle({dad:tabFr,what:"table"})
             let tr = addEle({dad:table,what:"tr"})
 
-        for (i=0;i<=22;i++){
+        for (i=0;i<=23;i++){
             lineCount+=1
             if(lineCount > 1 && (lineCount-1) % lineMax === 0)
                 {tr = addEle({dad:table,what:"tr"})}

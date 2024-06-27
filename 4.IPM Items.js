@@ -247,6 +247,13 @@ new Item({
     baseSellValue: {value:1.1,unit:"B"},
 }),
 
+new Item({
+    label:"aqualite ore",
+    type:"ore",
+    unlockCost:"$ 6.92 O",
+    baseSellValue: {value:4.3,unit:"B"},
+}),
+
 )
 
 /*
@@ -567,6 +574,18 @@ new Item({
         {label:"wraith ore",amount:1500,min:600},
     ],
     baseSellValue: {value:2.4,unit:"T"},
+}),
+
+new Item({
+    label:"aqualite alloy",
+    type:"bar",
+    unlockCost:"$ 12.00 T",
+    baseCraftTime:{hr:1,mn:23,sc:0},
+    ingredients:[
+        {label:"quolium alloy",amount:5,min:2},        
+        {label:"aqualite ore",amount:1500,min:600},
+    ],
+    baseSellValue: {value:17.5,unit:"T"},
 }),
 
 )

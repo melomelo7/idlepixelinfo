@@ -52,6 +52,7 @@ projectsArray.push(
     {label:"telescope 20",rows:9,cell:29},
     {label:"telescope 21",rows:11,cell:29},
     {label:"telescope 22",rows:13,cell:29},
+    {label:"telescope 23",rows:15,cell:29},
 
     {label:"superior leader",rows:1,cell:3},
     {label:"senior leader",rows:1,cell:5},
@@ -360,7 +361,16 @@ projectCells.push(
         description:"extends vision to 3 more planets",
         prerequisites:"telescope 21",
         highestPlanetRequired:"64-Hecate"}),
-    
+
+    new projectCell({
+        area:"Telescopes",
+        label:"telescope 23",
+        components:[{label:"fusion capsule",baseCost:6,costWithMaxLab:3},
+        {label:"wraith alloy",baseCost:30,costWithMaxLab:15},],
+        description:"extends vision to 3 more planets",
+        prerequisites:"telescope 22",
+        highestPlanetRequired:"67-Ren"}),        
+
     new projectCell({
         area:"Production",
         label:"smelter",
@@ -1266,7 +1276,7 @@ projectsConnections.push(
 {rows:8,cell:29,dir:"ver"},
 {rows:10,cell:29,dir:"ver"},
 {rows:12,cell:29,dir:"ver"},
-
+{rows:14,cell:29,dir:"ver"},
 
 {rows:6,cell:16,dir:"dia"},
 {rows:2,cell:10,dir:"dia"},
