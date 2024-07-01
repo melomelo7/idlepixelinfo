@@ -323,24 +323,8 @@ const faqsArray = [
             Long story short, Platinum is top shelf, dont expect to score good<br>
             if you did not build up for some time in lower leagues.<br>
             Even in non-Platinum sometimes you will encounter very strong<br>
-            players either fallen for whatever reason, or there on purpose.<br><br>
-            Out of curiosity, a `+spanText("lime","little experiment")+` : 
-            See what a `+spanText("lime","Copper Tournament")+`<br>
-            would be like `+spanText("lime","mid April 2024")+` ... Any Sand(or Douche)-baggers ?<br>
-            Yep there was 1 ... more a big Douche than a regular Sand-bagger<br>
-            went to [ab] magnitude ... while the 2nd was only a [T] magnitude ...<br>
-            Very likely a cheater else how to explain the waste of more than 10K DM...<br>
-            Anyways this particular tournament would pay reaching these :<br><br>
-            - Rank [`+spanText("lime","1")+`] sorry we have our "friend" here so let's skip<br>
-            - Rank [`+spanText("lime","2")+`] sitting at `+spanText("lime","11 T")+`<br>
-            - Rank `+spanText("lime","3~5")+` reach `+spanText("lime","30~50 B")+`<br>
-            - Rank `+spanText("lime","6~10")+` reach `+spanText("lime","13~29 B")+`<br>
-            - Rank `+spanText("lime","11~20")+` reach `+spanText("lime","4~12 B")+`<br>
-            - Rank `+spanText("lime","21~30")+` reach `+spanText("lime","1.5~3.5 B")+`<br>
-            - Rank `+spanText("lime","31~40")+` reach `+spanText("lime","860 M~1.5 B")+`<br>
-            - Rank `+spanText("lime","41~50")+` reach `+spanText("lime","450 M~830 M")+`<br>
-            - Rank `+spanText("lime","51~75")+` reach `+spanText("lime","74 M~400 M")+`<br>
-            `,
+            players either fallen for whatever reason, or there on purpose.<br>
+            ( ... called Sand-Baggers )<br><br>`,
     url : "",
     img : "",
     thisFunction : setTournament,
@@ -566,7 +550,152 @@ function setChallenge(container){
     }
 }
 
+const experiment = [ 
+    {label:"Copper",info:[
+        {low:1,high:undefined,lowV:`sorry Douche-bagger here<br>sitting in `+spanText("red","*ab*")+spanText("lime"," Magnitude"),highV:undefined},
+        {low:2,high:undefined,lowV:`sitting at `+spanText("lime","11 T"),highV:undefined},
+        {low:3,high:5,lowV:"30B",highV:"50B"},
+        {low:6,high:10,lowV:"13B",highV:"29B"},
+        {low:11,high:20,lowV:"4B",highV:"12B"},
+        {low:21,high:30,lowV:"1.5B",highV:"3.5B"},
+        {low:31,high:40,lowV:"30B",highV:"50B"},
+        {low:41,high:50,lowV:"30B",highV:"50B"},
+        {low:51,high:75,lowV:"30B",highV:"50B"},
+    ]},
+
+    {label:"Silver",info:[
+        {low:1,high:undefined,lowV:"76Q",highV:undefined},
+        {low:2,high:undefined,lowV:"122q",highV:undefined},
+        {low:3,high:5,lowV:"154T",highV:"823T"},
+        {low:6,high:10,lowV:"13T",highV:"146T"},
+        {low:11,high:20,lowV:"1.4T",highV:"7T"},
+        {low:21,high:30,lowV:"220B",highV:"1.3T"},
+        {low:31,high:40,lowV:"136B",highV:"219B"},
+        {low:41,high:50,lowV:"55B",highV:"123B"},
+        {low:51,high:75,lowV:"13B",highV:"53B"},
+        {low:76,high:100,lowV:"246M",highV:"11B"},
+    ]},
+
+    {label:"Gold",info:[
+        {low:1,high:undefined,lowV:"25s",highV:undefined},
+        {low:2,high:undefined,lowV:"3s",highV:undefined},
+        {low:3,high:4,lowV:"513Q",highV:"802Q"},
+        {low:5,high:7,lowV:"4Q",highV:"17Q"},
+        {low:8,high:10,lowV:"161q",highV:"743q"},
+        {low:11,high:13,lowV:"7q",highV:"146q"},
+        {low:14,high:16,lowV:"381T",highV:"2q"},
+        {low:17,high:20,lowV:"70T",highV:"380T"},
+        {low:21,high:30,lowV:"1.7T",highV:"55T"},
+        {low:31,high:40,lowV:"351B",highV:"935B"},
+    ]},
+
+    {label:"Platinum",info:[
+        {low:1,high:undefined,lowV:"486O",highV:undefined},
+        {low:2,high:undefined,lowV:"143O",highV:undefined},
+        {low:3,high:4,lowV:"3.3S",highV:"2.6O"},
+        {low:5,high:7,lowV:"337s",highV:"1.7S"},
+        {low:8,high:10,lowV:"71s",highV:"167s"},
+        {low:11,high:13,lowV:"11s",highV:"34s"},
+        {low:14,high:16,lowV:"3.7s",highV:"10s"},
+        {low:17,high:20,lowV:"585Q",highV:"3.5s"},
+        {low:21,high:25,lowV:"34q",highV:"487Q"},
+        {low:26,high:30,lowV:"675T",highV:"6q"},    
+    ]},
+
+]
+
+
+function dispExp(e){
+    let thisFr = getID("expTable")
+    cleanParent(thisFr)
+
+    for(let i=0;i<getID("expBtns").children.length;i++){getID("expBtns").children[i].style.background = togNot}
+    e.srcElement.style.background = togSel
+    let ref = experiment.filter(itm=>itm.label===e.srcElement.innerHTML)[0].info
+
+    let tb = addEle({dad:thisFr,what:"table",margin:"auto"})
+    ref.forEach(ln=>{
+        let tr = addEle({dad:tb,what:"tr"})
+            txt = ln.high===undefined ? "Rank ["+spanText("lime",ln.low)+"]" :
+            "Rank ["+spanText("lime",ln.low+"~"+ln.high)+"]"
+            addEle({dad:tr,what:"td",text:txt,textA:"left",padding:"10px",border:"blue solid 2px",radius:"5px"})
+
+            txt = ln.highV===undefined ? ln.lowV :
+            "Reach "+spanText("lime",ln.lowV+" ~ "+ln.highV)
+            addEle({dad:tr,what:"td",text:txt,textA:"left",padding:"10px",border:"blue solid 2px",radius:"5px"})
+    })
+}
+
 function setTournament(container){
+    let expCol = "brown"
+
+    let warnLb = addEle({dad:container,setClass:"contRow",border:"solid 2px "+expCol,radius:"10px",
+    alignItems:"center",padding:"5px 10px",minWidth:"90%",justifyC:"center"})
+        addEle({dad:warnLb,text: spanText("yellow","⚠ - Warning - ⚠"),borderB:"red solid 3px",textA:"center",fontS:"22px"})
+        addEle({dad:warnLb,text:"🔽",border:"solid 2px "+expCol,padding:"2px",cursor:"pointer",
+        marginL:"30px",setID:"togWarnFr",radius:"10px",setFunc:()=>{
+            getID("warnFr").style.display = getID("warnFr").style.display === "none" ? "flex" : "none"
+            getID("togWarnFr").innerHTML = getID("togWarnFr").innerHTML === "🔽" ? "🔼" : "🔽"
+        }})
+
+    let warnFr = addEle({dad:container,setClass:"contCol",border:"solid 2px "+expCol,padding:"10px",
+    width:"100%",textA:"center",setID:"warnFr",radius:"10px",display:"none",alignItems:"center"})
+        addEle({dad:warnFr,text:`
+        It is common to have some bugs related to tournaments.<br>
+        Some people will never experience such, some will.<br>
+        Wether it is USER responsability : "uncommon gaming practices",<br>
+        or GAME having an issue, in order to attempt getting support<br>
+        to help you, it is wise keeping some screenshots ...<br><br>
+        Those are my recommendations :<br>`+spanText("yellow","(send screenshots in full dont crop !)")+`<br><br>
+        1 - The player ID : when you instal the game you can do it anytime<br>`+spanText("yellow",
+        "(found under settings)")+`<br><br>
+        2 - The stats/legacy ⇒ Badges(stars) : Every Tournament<br>(before/during) <br><br>
+        3 - Your Ranking evolution : As many time as you want, keeping<br>
+        a fresh view of your progression, in case of any trouble.<br>
+        (**Last screenshot only for support if needs be**)<br><br>
+        `
+        ,textA:"left"})
+        addEle({dad:warnFr,margin:"10px 0",text:spanText("lime",
+        `Screenshots 2 & 3 will help you check if you missed the<br>
+        pop-up window and want to verify if you got rewarded.`)})
+        addEle({dad:warnFr,what:"img",imgFullSrc:"./IPM Components/secure1.jpg",img2Sizes:"300:530",
+        margin:"10px 0",border:"blue solid 2px",radius:"10px"})
+        addEle({dad:warnFr,what:"img",imgFullSrc:"./IPM Components/secure2.jpg",img2Sizes:"300:530",
+        margin:"10px 0",border:"blue solid 2px",radius:"10px"})
+        addEle({dad:warnFr,what:"img",imgFullSrc:"./IPM Components/secure3.jpg",img2Sizes:"300:530",
+        margin:"10px 0",border:"blue solid 2px",radius:"10px"})
+
+    let expFrLb = addEle({dad:container,setClass:"contRow",border:"solid 2px "+expCol,radius:"10px",
+    alignItems:"center",padding:"5px 10px",marginT:"20px",minWidth:"90%",justifyC:"center"})
+        addEle({dad:expFrLb,text: spanText("lime","Glimpse on Potential Future Tournaments... 👀")})
+        addEle({dad:expFrLb,text:"🔽",border:"solid 2px "+expCol,padding:"2px",cursor:"pointer",
+        marginL:"10px",setID:"togExpFr",radius:"10px",setFunc:()=>{
+            getID("expFr").style.display = getID("expFr").style.display === "none" ? "flex" : "none"
+            getID("togExpFr").innerHTML = getID("togExpFr").innerHTML === "🔽" ? "🔼" : "🔽"
+        }})
+
+
+    txt = `( based on mid April ~ mid June 2024 test drives )<br>` + spanText("yellow",
+    `** Every bracket is a new lotery. This section may or not<br>be close to what you
+     will experience yourself **`) + `<br><br>`+spanText("red","Warning")+` : Sand(or Douche)-Baggers 
+     ... might pop around ...`
+
+    let expFr = addEle({dad:container,setClass:"contCol",border:"solid 2px "+expCol,padding:"10px",
+    width:"100%",textA:"center",setID:"expFr",radius:"10px",display:"none"})
+        addEle({dad:expFr,text:txt})
+        addEle({dad:expFr,setClass:"contRow",justifyC:"space-between",padding:"0 10px",setID:"expBtns"})
+            addEle({dad:getID("expBtns"),setClass:"button1",text:"Copper",minWidth:"100px",backG:togNot,
+            cursor:"pointer",setID:0,setFunc:dispExp})
+            addEle({dad:getID("expBtns"),setClass:"button1",text:"Silver",minWidth:"100px",backG:togNot,
+            cursor:"pointer",setID:1,setFunc:dispExp})
+            addEle({dad:getID("expBtns"),setClass:"button1",text:"Gold",minWidth:"100px",backG:togNot,
+            cursor:"pointer",setID:2,setFunc:dispExp})
+            addEle({dad:getID("expBtns"),setClass:"button1",text:"Platinum",minWidth:"100px",backG:togNot,
+            cursor:"pointer",setID:3,setFunc:dispExp})
+        addEle({dad:expFr,setID:"expTable",justifyC:"center"})
+        getID("expBtns").children[0].click()
+
+
     let mainFrame = addEle({dad:container,border:"yellow 1px solid",radius:"10px",marginT:"20px",padding:"10px"})
     let location = "./IPM Components/"
 
@@ -591,7 +720,7 @@ function setTournament(container){
                 addEle({dad:subFrame,textA:"left",marginL:"40px",height:"550px",overflowX:"hidden",
                 text:`
                 - Retire ? Sure why not ... whatever the reason,<br>
-                your position will remain, and if no other<br>
+                your position will remain, and IF no other<br>
                 player is able to go past you during remaining<br>
                 time, reward will be yours at the end of timer.<br>
                 Otherwise, new position"s reward if any.<br><br>

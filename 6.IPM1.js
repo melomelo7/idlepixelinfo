@@ -218,10 +218,14 @@ function buildSettings(){
 
 
 let wanderers = [
-    {label:"Merchant",ref:"merchant shipn.jpg",date:{dayN:"Friday",month:"June",day:7}},
-    {label:"Aurora",ref:"aurora shipn.jpg",date:{dayN:"Friday",month:"June",day:21}},
-    {label:"Thunderhorse",ref:"thunderhorsen.jpg",date:{dayN:"Friday",month:"June",day:28}},
+    {label:"Thunderhorse",ref:"thunderhorsen.jpg",date:{dayN:"Friday",month:6,day:28}},
+    {label:"Merchant",ref:"merchant shipn.jpg",date:{dayN:"Friday",month:7,day:12}},
+    {label:"Aurora",ref:"aurora shipn.jpg",date:{dayN:"Friday",month:6,day:21}},
+    {label:"Enigma",ref:"enigma.jpg",date:{dayN:"Friday",month:7,day:5}},
 ]
+
+let months = [
+"January","February","March","April","May","June","July","August","September","October","November","December"]
 
 let wandSuff = [
 "st","nd","rd","th","th","th","th","th","th","th",
@@ -237,6 +241,8 @@ function dtSfx(day){
 }
 
 function buildEvent(){
+
+let greenL = "600px"
 
 txt = `
 Dear IPM Infos Users,<br>
@@ -271,7 +277,7 @@ let myCont = addEle({dad:pollFork,marginL:"20px"})//margin:"20px 0 0 50px"
             addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"Rooms",textA:"center",padding:"5px"})
             addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"23%",textA:"center",padding:"5px"})
 
-
+/*
             txt = `
             New poll to evaluate my new tool : 
             <a href="https://www.reddit.com/r/IdlePlanetMiner/comments/1ddeok1/ipm_infos_testers_for_new_tool_please/" 
@@ -279,10 +285,19 @@ let myCont = addEle({dad:pollFork,marginL:"20px"})//margin:"20px 0 0 50px"
             `            
             addEle({dad:right,text:txt,margin:"30px",border:"yellow dashed 5px",
             padding:"10px",radius:"30px",width:"500px",textA:"center",fontS:"22px"})            
-            
+*/          
+
+addEle({dad:right,border:"lime dashed 2px",width:greenL,marginL:"50px"})
+
+txt=`Last Modifications :<br>
+- Events Updated<br>
+- Faq > Tournaments 
+`
+addEle({dad:right,text:txt,margin:"30px",border:"yellow dashed 4px",
+padding:"20px",radius:"30px",width:"fit-content",textA:"left",fontS:"20px"})
 
 
-addEle({dad:right,border:"lime dashed 2px",width:"500px",marginL:"50px"})
+addEle({dad:right,border:"lime dashed 2px",width:greenL,marginL:"50px"})
 
 addEle({dad:right,text:"Wandering Ships (IRL Money)",margin:"20px 0 10px 50px",fontS:"30px"})
 addEle({dad:right,text:`(showing up in your galaxy if never bought<br>
@@ -300,14 +315,17 @@ wanderers.forEach(wa=>{
         addEle({dad:myC,what:"img",imgFullSrc:"./IPM Components/"+wa.ref,img2Sizes:"200:150"})//,width:"100%"
     myC = addEle({dad:myL,what:"td",radius:"5px"})
     
+    let mdt = new Date()
+    let wanC = mdt.getMonth()+1 === wa.date.month ?
+    "linear-gradient(to bottom left,rgba(255,0,0,0.7) 20%,rgba(255,255,0,0.6))" : togNot
+
     addEle({dad:myC,radius:"5px",padding:"10px",fontS:"30px",marginL:"20px",
-    border:"solid 2px orangered",
-    backG:"linear-gradient(to bottom left,rgba(255,0,0,0.7) 20%,rgba(255,255,0,0.6))",
-    text:wa.date.dayN+" "+wa.date.month+" "+wa.date.day+dtSfx(wa.date.day)})
+    border:"solid 2px orangered",backG:wanC,
+    text:wa.date.dayN+" "+ months[wa.date.month-1] +" "+wa.date.day+dtSfx(wa.date.day)})
 
 })
 
-addEle({dad:right,border:"lime dashed 2px",width:"500px",margin:"10px 0 10px 50px"})
+addEle({dad:right,border:"lime dashed 2px",width:greenL,margin:"10px 0 10px 50px"})
 
 addEle({dad:right,text:`
 Absolutely not related in any way to Idle Planet Miner...<br><br>
