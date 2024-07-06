@@ -1619,6 +1619,15 @@ function rangeChecker(inp,vmin,vmax){
 }
 
 function mapBuilder(depth){
+
+    let XtraBars = []
+    let XtraItms = []
+
+    let XtraCrafts = true
+    let grp = document.getElementsByName("mapCrafts")
+    grp.forEach(it=>{if(it.checked && it.value.includes("NOT")){ XtraCrafts = false}})
+
+
     let myA1 = []
     let myA2 = []
     let myA3 = []
@@ -1641,19 +1650,41 @@ function mapBuilder(depth){
             if(idx===-1){own = false}
         })
         if(own){
+
+            /*
             rem=false
             let grp = document.getElementsByName("mapCrafts")
             grp.forEach(it=>{if(it.checked && it.value.includes("NOT")){rem=true}})
+            */
+
+
 
             idx = barsArray.findIndex(itm=>itm.label === bar.label)
             if(idx===0){myA1.push({type:"bar",label:bar.label})}
             else {
+
+                let uncovered = false
+                for(let i=0;i<idx;i++){
+                    let idx2 = myA1.findIndex(x=>x.label===barsArray[i].label)
+                    if(idx2===-1){
+                        uncovered = true
+                        let idx3 = XtraBars.findIndex(x=>x.label===barsArray[i].label)
+                        if(idx3===-1){XtraBars.push({type:"bar",label:barsArray[i].label})}
+                    }
+                }
+
+                if(uncovered===false || XtraCrafts===true ){
+                    myA1.push({type:"bar",label:bar.label})
+                }
+/*
                 idx = myA1.findIndex(x=>x.label===barsArray[idx-1].label)
                 if(idx===-1 && rem===true){rems.push({type:"bar",label:bar.label})}
                 else {myA1.push({type:"bar",label:bar.label})}
+*/
             }
         }
     })
+
 
     itemsArray.forEach(itm=>{
         own = true
@@ -1661,7 +1692,32 @@ function mapBuilder(depth){
             idx = myA1.findIndex(x=>x.label===ing.label)
             if(idx===-1){own = false}
         })
-        if(own){myA1.push({type:"itm",label:itm.label})}
+        if(own){
+
+            idx = itemsArray.findIndex(itms=>itms.label === itm.label)
+            if(idx===0){myA1.push({type:"itm",label:itm.label})}
+            else {
+
+                let uncovered = false
+                for(let i=0;i<idx;i++){
+                    let idx2 = myA1.findIndex(x=>x.label===itemsArray[i].label)
+                    if(idx2===-1){
+                        uncovered = true
+                        let idx3 = XtraItms.findIndex(x=>x.label===itemsArray[i].label)
+                        if(idx3===-1){XtraItms.push({type:"itm",label:itemsArray[i].label})}
+                    }
+                }
+
+                if(uncovered===false || XtraCrafts===true ){
+                    myA1.push({type:"itm",label:itm.label})
+                }
+            }
+
+            /*
+            myA1.push({type:"itm",label:itm.label})
+            */
+
+        }
     })
 
     projectCells.forEach(pro=>{
@@ -1683,16 +1739,20 @@ myA2.forEach(pro=>{pro.selected=true})
 getID("projectsPrivateList").innerHTML = "Filtered Private List (" + projectCells.filter(x=>x.selected).length + ")"
 getID("projectsPrivateList").click()
 
-buildMapRecap(myA1,myA2,myA3)
+buildMapRecap(myA1,myA2,myA3,XtraBars,XtraItms)
 
 }
 
-function buildMapRecap(res,pro1,pro2){
+function buildMapRecap(res,pro1,pro2,Xbars,Xitems){
     popKiller()
     cleanParent(getID("recapCol1"))
     cleanParent(getID("recapCol4"))
 
     if(getID("mapAdRecap").checked===false){return}
+
+    let XtraCrafts = true
+    let grp = document.getElementsByName("mapCrafts")
+    grp.forEach(it=>{if(it.checked && it.value.includes("NOT")){ XtraCrafts = false}})
 
     let recapFR = undefined
     let needClBtn = false
@@ -1718,8 +1778,16 @@ function buildMapRecap(res,pro1,pro2){
     }
 
         txt = Number(getID("mapRefP").value) < 10 ? "0"+getID("mapRefP").value : getID("mapRefP").value
-        addEle({dad:recapFR,text:"New List Done.<br>Recap With Farthest Planet :<br>"+spanText("lime",txt+
-        " - "+planetsArray.filter(pl=>pl.idNumber===Number(getID("mapRefP").value))[0].label),paddingB:"10px"})
+        txt = "New List Done.<br>Recap With Farthest Planet :<br>"+spanText("lime",txt+
+        " - "+planetsArray.filter(pl=>pl.idNumber===Number(getID("mapRefP").value))[0].label)
+        if(Xbars.length>0 && XtraCrafts===true){
+            txt+= spanText("yellow","<br>(includes "+Xbars.length+" extra bars/alloys unlocks)")
+        }
+        if(Xitems.length>0 && XtraCrafts===true){
+            txt+= spanText("yellow","<br>(includes "+ Xitems.length+" extra items unlocks)")
+        }
+
+        addEle({dad:recapFR,text:txt,paddingB:"10px"})
 
         addEle({dad:recapFR,border:"solid blue 2px",width:"100%"})
 
@@ -1749,7 +1817,7 @@ function buildMapRecap(res,pro1,pro2){
             })
 
 
-        let grp = document.getElementsByName("mapCuts")
+        grp = document.getElementsByName("mapCuts")
         grp.forEach(it=>{if(it.checked && !it.value.includes("NOT")){
             subC = addEle({dad:recapFR,setClass:"contRow",margin:"10px 0",alignItems:"center"})
             addEle({dad:subC,text:"Projects Unreachable/Cut ("+pro2.length+")",marginR:"10px",width:LW})
@@ -1796,7 +1864,6 @@ function buildMapRecap(res,pro1,pro2){
         subC = addEle({dad:recapFR,setClass:"listCont",setID:"resB",display:"none"})
 
         subC = addEle({dad:recapFR,setClass:"contRow",margin:"10px 0",alignItems:"center"})
-        console.log(itemsArray.length)
         txt = Math.floor((res.filter(re=>re.type==="itm").length/ itemsArray.length)*100) + "% "
 
         addEle({dad:subC,text:txt+"Craftable Items ("+ res.filter(re=>re.type==="itm").length+")",
