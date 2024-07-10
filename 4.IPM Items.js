@@ -1164,8 +1164,8 @@ function buildColumns(arraySource,targetTable,itemDisplayTop,itemDisplayMiddle,i
                         let fdl1 = []
                         let fdl2 = []
                         let fdl3 = []
-                        let res1 = ""
-                        let res2 = ""
+                        let res1 = spanText("lime","*** Bars/Alloys ***<br><br>")
+                        let res2 = spanText("lime","*** Items ***<br><br>")
                         let res3 =  spanText("lime","*** Projects ***<br><br>") 
                         barsArray.forEach(bar=>{
                             bar.ingredients.forEach(ing=>{
