@@ -291,7 +291,8 @@ addEle({dad:right,border:"lime dashed 2px",width:greenL,marginL:"50px"})
 
 txt=`Last Modifications :<br>
 - Events Updated<br>
-- Faq > Tournaments 
+- Faq > Tournaments<br>
+- items tab > [Used for] also shows in what projects
 `
 addEle({dad:right,text:txt,margin:"30px",border:"yellow dashed 4px",
 padding:"20px",radius:"30px",width:"fit-content",textA:"left",fontS:"20px"})

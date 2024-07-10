@@ -1163,8 +1163,10 @@ function buildColumns(arraySource,targetTable,itemDisplayTop,itemDisplayMiddle,i
                         let foc = getID("itmLbl").innerHTML.split(" : ")[1]
                         let fdl1 = []
                         let fdl2 = []
+                        let fdl3 = []
                         let res1 = ""
                         let res2 = ""
+                        let res3 =  spanText("lime","*** Projects ***<br><br>") 
                         barsArray.forEach(bar=>{
                             bar.ingredients.forEach(ing=>{
                                 if(ing.label===foc){fdl1.push(bar.label)}
@@ -1180,10 +1182,22 @@ function buildColumns(arraySource,targetTable,itemDisplayTop,itemDisplayMiddle,i
                         })
                         fdl2.forEach(itm=>{res2 += "- "+itm+"<br><br>"})
 
+                        projectCells.forEach(pc=>{
+                            pc.components.forEach(co=>{
+                                if(co.label===foc){fdl3.push(pc.label)}
+                            })
+                        })
+                        fdl3.forEach(itm=>{res3 += "- "+itm+"<br><br>"})
+
                         addEle({dad:getID("usedInFr"),text:res1})
                         if(res1!=="" && res2!=="")
                             {addEle({dad:getID("usedInFr"),border:"green solid 2px",margin:"10px 0"})}
                         addEle({dad:getID("usedInFr"),text:res2})
+
+                        if(res1!=="" || res2!=="")
+                            {addEle({dad:getID("usedInFr"),border:"blue solid 2px",margin:"10px 0"})}
+                        addEle({dad:getID("usedInFr"),text:res3})
+
 
                     }})
 
