@@ -647,10 +647,10 @@ function setTournament(container){
         or GAME having an issue, in order to attempt getting support<br>
         to help you, it is wise keeping some screenshots ...<br><br>
         Those are my recommendations :<br>`+spanText("yellow","(send screenshots in full dont crop !)")+`<br><br>
-        1 - The player ID : when you instal the game you can do it anytime<br>`+spanText("yellow",
+        `+spanText("lime","1")+` - The player ID : when you instal the game you can do it anytime<br>`+spanText("yellow",
         "(found under settings)")+`<br><br>
-        2 - The stats/legacy ⇒ Badges(stars) : Every Tournament<br>(before/during) <br><br>
-        3 - Your Ranking evolution : As many time as you want, keeping<br>
+        `+spanText("lime","2")+` - The stats/legacy ⇒ Badges(stars) : Every Tournament<br>(before/during) <br><br>
+        `+spanText("lime","3")+` - Your Ranking evolution : As many time as you want, keeping<br>
         a fresh view of your progression, in case of any trouble.<br>
         (**Last screenshot only for support if needs be**)<br><br>
         `

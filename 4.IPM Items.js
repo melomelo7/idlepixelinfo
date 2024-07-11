@@ -1190,14 +1190,10 @@ function buildColumns(arraySource,targetTable,itemDisplayTop,itemDisplayMiddle,i
                         fdl3.forEach(itm=>{res3 += "- "+itm+"<br><br>"})
 
                         addEle({dad:getID("usedInFr"),text:res1})
-                        if(res1!=="" && res2!=="")
-                            {addEle({dad:getID("usedInFr"),border:"green solid 2px",margin:"10px 0"})}
+                        addEle({dad:getID("usedInFr"),border:"green solid 2px",margin:"10px 0"})
                         addEle({dad:getID("usedInFr"),text:res2})
-
-                        if(res1!=="" || res2!=="")
-                            {addEle({dad:getID("usedInFr"),border:"blue solid 2px",margin:"10px 0"})}
+                        addEle({dad:getID("usedInFr"),border:"blue solid 2px",margin:"10px 0"})
                         addEle({dad:getID("usedInFr"),text:res3})
-
 
                     }})
 
