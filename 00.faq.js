@@ -643,7 +643,7 @@ function setTournament(container){
         addEle({dad:warnFr,text:`
         It is common to have some bugs related to tournaments.<br>
         Some people will never experience such, some will.<br>
-        Wether it is USER responsability : "uncommon gaming practices",<br>
+        Whether it is USER responsability : "uncommon gaming practices",<br>
         or GAME having an issue, in order to attempt getting support<br>
         to help you, it is wise keeping some screenshots ...<br><br>
         Those are my recommendations :<br>`+spanText("yellow","(send screenshots in full dont crop !)")+`<br><br>
