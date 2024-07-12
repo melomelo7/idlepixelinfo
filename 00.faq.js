@@ -646,6 +646,10 @@ function setTournament(container){
         Whether it is USER responsability : "uncommon gaming practices",<br>
         or GAME having an issue, in order to attempt getting support<br>
         to help you, it is wise keeping some screenshots ...<br><br>
+        `+spanText("yellow",`
+        (If a game update is available in the store, do it before entering<br>
+        tournament or after your are done with the tournament as it may<br>
+        cause a bug for tournament stability)`)+`<br><br>
         Those are my recommendations :<br>`+spanText("yellow","(send screenshots in full dont crop !)")+`<br><br>
         `+spanText("lime","1")+` - The player ID : when you instal the game you can do it anytime<br>`+spanText("yellow",
         "(found under settings)")+`<br><br>
