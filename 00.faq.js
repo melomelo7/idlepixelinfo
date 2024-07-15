@@ -862,7 +862,8 @@ function setManagers(container){
         And under the manager stars you get to see the skills.<br>
         - Line 1 bonus applied to himself only<br>
         - Line 2 bonus that will be shared with other managers<br>
-        having that same skill (for 3 stars managers and above)<br><br>
+        having that same skill (for 3 stars managers and above)<br>
+        and/or applied to all planets depending on the skill.<br><br>
 
         The Best manager you can reach is a 7 star that will be<br>
         displayed as a 6-RED-Stars instead of 7 stars.
