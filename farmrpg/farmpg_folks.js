@@ -88,12 +88,6 @@ function showFolks(target="all"){
             addEle({dad:tr,what:"td",text:tpTxt,padding:"5px",border:"2px solid brown"})
     })
 
-
-
-
-    console.log(myL)
-
-
 }
 
 function folksItems(){
@@ -131,10 +125,6 @@ function itemRelation(e){
         idx = fo.hate.findIndex(itm=>itm===e.srcElement.innerHTML)
         if(idx>-1){hated.push(fo.label)}
     })
-
-    console.log(loved)
-
-    console.log(contWd)
 
     let tbFr = addEle({dad:fr5,margin:"5px"})
     let tb = addEle({dad:tbFr,what:"table"})
