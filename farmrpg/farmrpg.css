@@ -1,0 +1,30 @@
+html,body{
+    height: 100%;
+    width: 100%;
+}
+
+body {
+/*    background-color: black;*/
+    margin: 0;
+    color: white;
+    background-color: black;
+}
+
+.contRow{
+    display: flex;
+    flex-direction: row;
+}
+
+.contCol{
+    display: flex;
+    flex-direction: column;
+}
+
+.btn {
+    border:blue solid 3px;
+    border-radius: 20px;
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+    cursor: pointer;
+}
