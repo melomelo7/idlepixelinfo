@@ -1,9 +1,14 @@
 
 const body = document.querySelector("body")
 
+
+let update = "up 7.19 0:55"
+
+
+
 const frame = addEle({dad:body,setClass:"contCol"})
 
-    const fr1 = addEle({dad:frame,setClass:"contRow"})
+    const fr1 = addEle({dad:frame,setClass:"contRow",alignItems:"center"})
         addEle({dad:fr1,setClass:"btn",text:"Full List",setFunc:()=>{
             cleanParent(fr2)
             cleanParent(fr3)
@@ -20,7 +25,6 @@ const frame = addEle({dad:body,setClass:"contCol"})
                 addEle({dad:fr2,setClass:"btn",text:fo.label,
                 width:"fit-content",setFunc:()=>{showFolks(fo.label)}})
             })
-            addEle({dad:fr2,border:"solid 2px lime",width:"100%",margin:"10px 0"})
 
         }})
         addEle({dad:fr1,setClass:"btn",text:"Use Related Item",setFunc:()=>{
@@ -35,16 +39,22 @@ const frame = addEle({dad:body,setClass:"contCol"})
             })
         }})
 
-        
-        addEle({dad:frame,border:"solid 2px lime",width:"100%",margin:"10px 0"})
 
-    const fr2 = addEle({dad:frame,setClass:"contRow",flWrap:"wrap",maxWidth:"800px"})
+        addEle({dad:fr1,marginL:"50px",text:update})
+
+        
+
+    addEle({dad:frame,border:"solid 2px lime",width:"100%",margin:"10px 0"})
+
+    let contWd = 700
+    const fr2 = addEle({dad:frame,setClass:"contRow",flWrap:"wrap",maxWidth:contWd+"px"})
 
     const fr3 = addEle({dad:frame,setClass:"contCol"})
 
-    const fr4 = addEle({dad:frame,setClass:"contRow",flWrap:"wrap",maxWidth:"800px"})
-
     const fr5 = addEle({dad:frame,setClass:"contCol"})
+
+    const fr4 = addEle({dad:frame,setClass:"contRow",flWrap:"wrap",maxWidth:contWd+"px"})
+
 
 function showFolks(target="all"){
 
@@ -124,6 +134,7 @@ function itemRelation(e){
 
     console.log(loved)
 
+    console.log(contWd)
 
     let tbFr = addEle({dad:fr5,margin:"5px"})
     let tb = addEle({dad:tbFr,what:"table"})
