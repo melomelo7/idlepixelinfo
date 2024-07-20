@@ -774,7 +774,7 @@ let crafts = [
     components:[{label:"Blue Gel",quantity:3},{label:"Frost Snapper Shell",quantity:1},{label:"Hammer",quantity:1},
     {label:"Nails",quantity:3},{label:"Red Shield",quantity:1},],},
     
-    {label:"Heart Container",silver:undefined,exp:0,lvl:99,sell:1000000000,give:[{sender:99},{receiver:25}],
+    {label:"Heart Container",silver:1000000000,exp:0,lvl:99,sell:undefined,give:[{sender:99},{receiver:25}],
     components:[{label:"Piece of Heart",quantity:4},],},
     
     {label:"Pair of Gold Boots",silver:10,exp:25000,lvl:99,sell:2000000,
