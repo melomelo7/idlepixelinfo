@@ -774,7 +774,7 @@ let crafts = [
     components:[{label:"Blue Gel",quantity:3},{label:"Frost Snapper Shell",quantity:1},{label:"Hammer",quantity:1},
     {label:"Nails",quantity:3},{label:"Red Shield",quantity:1},],},
     
-    {label:"Heart Container",silver:1000000000,exp:0,lvl:99,sell:1000000000,give:[{sender:99},{receiver:25}],
+    {label:"Heart Container",silver:undefined,exp:0,lvl:99,sell:1000000000,give:[{sender:99},{receiver:25}],
     components:[{label:"Piece of Heart",quantity:4},],},
     
     {label:"Pair of Gold Boots",silver:10,exp:25000,lvl:99,sell:2000000,
@@ -817,6 +817,26 @@ let countryStore = [
 ]
 
 
+let recipes = [
+    {folk:"Cecil",recipe:"Shrimp-a-Plenty",level:60},
+    {folk:"Charles Horsington III",recipe:"Neigh",level:40},
+    {folk:"George",recipe:"Onion Soup",level:10},
+    {folk:"Holger",recipe:"Mushroom Stew",level:40},
+    {folk:"Jill",recipe:"Quandary Chowder",level:50},
+    {folk:"Lorn",recipe:"Breakfast Boost",level:40},
+    {folk:"Mariya",recipe:"Breakfast Boost",level:40},
+    {folk:"ROOMBA",recipe:"Over The Moon",level:20},
+    {folk:"Rosalie",recipe:"Bone Broth",level:0},
+    {folk:"Rosalie",recipe:"Red Berry Pie",level:40},
+    {folk:"Rosalie",recipe:"Concord Grape Pie",level:50},
+    {folk:"Thomas",recipe:"Cat's Meow",level:30},
+    {folk:"Vincent",recipe:"Sea Pincher Special",level:50},
+    {folk:"Mariya",recipe:"Crunchy Omelette",special:"Limited time quest reward. Finish Eggstremely Delicious II"},
+    {folk:"Baba Gec",recipe:"Cabbage Stew",special:"Quest reward. Finish My Cabbages XX(20)"},
+
+//    {folk:"",recipe:"",level:0},
+]
+
 let folkGifts = [
     {label:"Beatrix",
     love:["Black Powder","Explosive","Iced Tea","Fireworks"],
@@ -841,13 +861,13 @@ let folkGifts = [
     {label:"Cecil",
     love:["Leather","MIAB","Old Boot","Shiny Beetle","Horned Beetle","Grasshopper","Yarn"],
     like:["Aquamarine","Grapes","Ladder","Snail","Giant Centipede","Slimestone"],
-    hate:["Worms","Feathers","Mushroom","Milk"]},
+    hate:["Worms","Feathers","Mushroom","Milk"],},
         
     {label:"Charles Horsington III",
     love:["Apple","Gold Carrot","Apple Cider","Box of Chocolate 01","Valentines Card","Peach"],
     like:["Carrot","3-leaf Clover","Twine","Grasshopper"],
-    hate:["Worms","Stone","Green Chromis","Blue Crab","Lemon","Lemonade","Bone","Cheese","Grubs","Snail","Spider"]},
-    
+    hate:["Worms","Stone","Green Chromis","Blue Crab","Lemon","Lemonade","Bone","Cheese","Grubs","Snail","Spider"],},
+
     {label:"Frank",
     love:["Carrot","Gold Carrot"],
     like:["Bucket","Feathers","Blue Feathers","Caterpillar","Grasshopper","Blue Dye"],
@@ -866,27 +886,27 @@ let folkGifts = [
     {label:"George",
     love:["Hide","Carbon Sphere","Spider","Apple Cider","Mug of Beer"],
     like:["Hops","Glass Orb","Orange Juice","Arrowhead","Bird Egg","Mushroom Stew"],
-    hate:["Worms","Fish Bones","Bone","Cheese"]},
+    hate:["Worms","Fish Bones","Bone","Cheese"],},
     
     {label:"Holger",
     love:["Potato","Gold Trout","Mug of Beer","Wooden Table"],
     like:["Largemouth Bass","Peas","Trout","Arrowhead","Bluegill","Carp","Horn","Cheese","Apple Cider","Peach","Mushroom Stew"],
-    hate:["Worms","Aquamarine","Milk","Valentines Card"]},
-        
+    hate:["Worms","Aquamarine","Milk","Valentines Card"],},
+
     {label:"Jill",
     love:["Yellow Perch","Mushroom Paste","Leather","Peach","MIAB"],
     like:["Tomato","Milk","Old Boot","Grapes","Cheese","Scrap Metal"],
-    hate:["Worms","Hops","Stingray","Grubs","Spider","Snowball"]},
+    hate:["Worms","Hops","Stingray","Grubs","Spider","Snowball"],},
     
     {label:"Lorn",
     love:["Small Prawn","Glass Orb","Milk","Shrimp","Gold Peas"],
     like:["Bucket","Peas","Purple Parchment","Green Parchment","Iron Cup","Iced Tea","3-leaf Clover","Apple Cider"],
-    hate:["Worms","Crappie","Old Boot","Snail","Spider"]},
-        
+    hate:["Worms","Crappie","Old Boot","Snail","Spider"],},
+
     {label:"Mariya",
     love:["Leather Diary","Mushroom Stew","Onion Soup","Cat's Meow","Quandary Chowder","Sea Pincher Special","Shrimp-a-Plenty","Over The Moon"],
     like:["Eggplant","Eggs","Cucumber","Radish","Milk","Iced Tea","Peach"],
-    hate:["Worms","Black Powder","Explosive","Spider"]},
+    hate:["Worms","Black Powder","Explosive","Spider"],},
         
     {label:"Mummy",
     love:["Bone","Spider","Valentines Card"],
@@ -901,12 +921,12 @@ let folkGifts = [
     {label:"ROOMBA",
     love:["Carbon Sphere","Scrap Metal"],
     like:["Glass Orb","Hammer","Scrap Wire"],
-    hate:["Worms","Milk","Acorn","Arrowhead","Bird Egg","3-leaf Clover","Snowball"]},
-        
+    hate:["Worms","Milk","Acorn","Arrowhead","Bird Egg","3-leaf Clover","Snowball"],},
+
     {label:"Rosalie",
     love:["Gold Carrot","Green Dye","Box of Chocolate 01","Valentines Card","Blue Dye","Red Dye","Purple Dye"],
     like:["Carrot","Aquamarine","Apple","Purple Flower","Iced Tea","Caterpillar","Apple Cider","Fireworks"],
-    hate:["Worms","Fish Bones","Coal","Old Boot","Iron Cup","Carp","Grubs","Horned Beetle","Fire Ant","Spider"]},
+    hate:["Worms","Fish Bones","Coal","Old Boot","Iron Cup","Carp","Grubs","Horned Beetle","Fire Ant","Spider"],},
     
     {label:"Star Meerif",
     love:["Blue Feathers","Gold Feather"],
@@ -916,12 +936,12 @@ let folkGifts = [
     {label:"Thomas",
     love:["Flier","Fishing Net","Gold Trout","Gold Catfish","Goldgill"],
     like:["Drum","Largemouth Bass","Carp","Iced Tea","Minnows","Gummy Worms","Mealworms"],
-    hate:["Worms","Eggs","Leek","Green Dye"]},
-    
+    hate:["Worms","Eggs","Leek","Green Dye"],},
+
     {label:"Vincent",
     love:["Mushroom Paste","Orange Juice","Lemonade","Axe","Apple Cider","5 Gold","Onion Soup"],
     like:["Wooden Box","Apple","Hops","Acorn","Leather Diary","Horn","Cheese","Shovel"],
-    hate:["Worms","Aquamarine","Purple Flower","Purple Parchment","Shrimp","Valentines Card"]},
+    hate:["Worms","Aquamarine","Purple Flower","Purple Parchment","Shrimp","Valentines Card"],},
     
     /*
     {label:,
