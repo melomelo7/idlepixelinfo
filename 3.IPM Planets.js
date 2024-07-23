@@ -356,7 +356,7 @@ planetsArray.push(
     new Planet({
         telescope:9,
         idNumber : 31,
-        label:"Vulnar",
+        label:"Vular",
         ores:[
             {label:"palladium ore",yield:70},
             {label:"osmium ore",yield:30},
