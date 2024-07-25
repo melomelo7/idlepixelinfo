@@ -2,9 +2,12 @@
 const body = document.querySelector("body")
 
 
-let update = "up 7.19 0:55"
+let update = "up 7.25 18:45"
 
-
+/*
+star meerif
+vincent
+*/
 
 const frame = addEle({dad:body,setClass:"contCol"})
 
@@ -27,7 +30,10 @@ const frame = addEle({dad:body,setClass:"contCol"})
             })
 
         }})
-        addEle({dad:fr1,setClass:"btn",text:"Use Related Item",setFunc:()=>{
+        addEle({dad:fr1,text:"Use Related Item",
+        border:"blue solid 3px",radius:"20px",padding:"5px",margin:"5px 0 5px 5px",
+        cursor:"pointer",textA:"center",radiusTR:"0px",radiusBR:"0px",
+        setFunc:()=>{
             cleanParent(fr2)
             cleanParent(fr3)            
             cleanParent(fr4)
@@ -38,7 +44,27 @@ const frame = addEle({dad:body,setClass:"contCol"})
                 width:"fit-content",setFunc:itemRelation})
             })
         }})
+        let pickItm = addEle({dad:fr1,what:"input",isInput:true,
+        border:"solid blue 6px",width:"80px",
+        setFunc:()=>{
+            cleanParent(fr2)
+            cleanParent(fr3)            
+            cleanParent(fr4)
+            cleanParent(fr5)
+            let itms = folksItems().filter(itm=>itm.toUpperCase().includes(pickItm.value.toUpperCase()))
+            itms.forEach(itm=>{
+                addEle({dad:fr4,setClass:"btn",text:itm,
+                width:"fit-content",setFunc:itemRelation})
+            })
+        }})
 
+        addEle({dad:fr1,setClass:"btn",text:"Recipes",setFunc:()=>{
+            cleanParent(fr2)
+            cleanParent(fr3)            
+            cleanParent(fr4)
+            cleanParent(fr5)
+            dispRecipes()
+        }})
 
         addEle({dad:fr1,marginL:"50px",text:update})
 
@@ -143,4 +169,25 @@ function itemRelation(e){
             tpTxt = "" ; hated.forEach(it=>{tpTxt+="- "+it+"<br>"})
             addEle({dad:tr,what:"td",text:tpTxt,padding:"5px",border:"2px solid brown"})
 
+}
+
+function dispRecipes(){
+
+    let src = recipes.sort(a=>{a.folk})
+
+    let rcpFr = addEle({dad:fr2})
+    let tb = addEle({dad:rcpFr,what:"table"})
+    let tr = addEle({dad:tb,what:"tr"})
+        addEle({dad:tr,what:"td",text:"Folk",padding:"5px",border:"2px solid brown"})
+        addEle({dad:tr,what:"td",text:"Recipe",padding:"5px",border:"2px solid brown"})
+        addEle({dad:tr,what:"td",text:"Friendship Lv",padding:"5px",border:"2px solid brown"})
+    src.forEach(it=>{
+        tr = addEle({dad:tb,what:"tr"})
+        addEle({dad:tr,what:"td",text:it.folk,padding:"5px",border:"2px solid brown"})
+        addEle({dad:tr,what:"td",text:it.recipe,padding:"5px",border:"2px solid brown"})
+        addEle({dad:tr,what:"td",text:it.level,padding:"5px",border:"2px solid brown"})
+        if(it.special){
+            addEle({dad:tr,what:"td",text:it.special,padding:"5px",border:"2px solid brown"})
+        }
+    })    
 }
