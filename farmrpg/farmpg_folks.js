@@ -12,14 +12,14 @@ vincent
 const frame = addEle({dad:body,setClass:"contCol"})
 
     const fr1 = addEle({dad:frame,setClass:"contRow",alignItems:"center"})
-        addEle({dad:fr1,setClass:"btn",text:"Full List",setFunc:()=>{
+        addEle({dad:fr1,setClass:"btn",text:"Folk Full List<br>Love-Like-Hate",setFunc:()=>{
             cleanParent(fr2)
             cleanParent(fr3)
             cleanParent(fr4)
             cleanParent(fr5)
             showFolks()
         }})
-        addEle({dad:fr1,setClass:"btn",text:"Target 1 Townfolk",setFunc:()=>{
+        addEle({dad:fr1,setClass:"btn",text:"Pick 1 Townfolk",height:"26px",setFunc:()=>{
             cleanParent(fr2)
             cleanParent(fr3)
             cleanParent(fr4)
@@ -30,7 +30,7 @@ const frame = addEle({dad:body,setClass:"contCol"})
             })
 
         }})
-        addEle({dad:fr1,text:"Use Related Item",
+        addEle({dad:fr1,text:"Use Related Item<br>or type item to search",
         border:"blue solid 3px",radius:"20px",padding:"5px",margin:"5px 0 5px 5px",
         cursor:"pointer",textA:"center",radiusTR:"0px",radiusBR:"0px",
         setFunc:()=>{
@@ -180,12 +180,12 @@ function dispRecipes(){
     let tr = addEle({dad:tb,what:"tr"})
         addEle({dad:tr,what:"td",text:"Folk",padding:"5px",border:"2px solid brown"})
         addEle({dad:tr,what:"td",text:"Recipe",padding:"5px",border:"2px solid brown"})
-        addEle({dad:tr,what:"td",text:"Friendship Lv",padding:"5px",border:"2px solid brown"})
+        addEle({dad:tr,what:"td",text:"Friendship Lv",padding:"5px",border:"2px solid brown",width:"100px"})
     src.forEach(it=>{
         tr = addEle({dad:tb,what:"tr"})
         addEle({dad:tr,what:"td",text:it.folk,padding:"5px",border:"2px solid brown"})
-        addEle({dad:tr,what:"td",text:it.recipe,padding:"5px",border:"2px solid brown"})
-        addEle({dad:tr,what:"td",text:it.level,padding:"5px",border:"2px solid brown"})
+        addEle({dad:tr,what:"td",text:it.recipe,padding:"5px",border:"2px solid brown",width:"150px"})
+        addEle({dad:tr,what:"td",text:it.level,padding:"5px",border:"2px solid brown",textA:"center"})
         if(it.special){
             addEle({dad:tr,what:"td",text:it.special,padding:"5px",border:"2px solid brown"})
         }
