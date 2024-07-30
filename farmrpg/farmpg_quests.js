@@ -21,7 +21,7 @@ const mainFr = addEle({dad:body,setClass:"contRow",height:"100%",width:"100%"}) 
     overflowX:"hidden",minWidth:lftWd+"px",borderR:"solid blue 2px"})
 
         for(let i=0;i<2;i++){addEle({dad:left,setClass:"contCol",margin:"2px",
-        setID:"left"+(i+1),alignItems:"center",border:"solid 2px yellow"})}
+        setID:"left"+(i+1),alignItems:"center"})}
 
     const right = addEle({dad:mainFr,setClass:"contCol",height:"100%",width:"100%"})
     
