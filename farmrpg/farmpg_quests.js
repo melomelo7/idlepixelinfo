@@ -9,12 +9,14 @@ let txt = undefined
 
 let player = {
     questlines:[],
+    questSkills:[],
+    questStorage:0,
 
     addQuestline:undefined,
 }
 
 
-let lastUp = "31/07 18:35"
+let lastUp = "08/01 02:00"
 
 const body = document.querySelector("body")
 
@@ -136,41 +138,37 @@ function setQuesting(){
     let cont = undefined
 
     let currentGood = true
-    player.questlines.forEach(q=>{q.current = getActiveQ(q.label)})
     player.questlines.forEach(q=>{if(q.current===""){currentGood = false}})
-
 
     addEle({dad:main,text:"Questlines : " + spanText("lime",player.questlines.length)})
     cont = addEle({dad:main,setClass:"contRow",marginT:"5px"})
-        addEle({dad:cont,what:"radio",isInput:true,setVal:"global",setName:"questCur"})
+        addEle({dad:cont,what:"radio",isInput:true,setVal:"global view",setName:"questCur"})
         addEle({dad:cont,text:"Global View (1st quests until last quests)"})
     cont = addEle({dad:main,setClass:"contRow",margin:"5px 0"})
-        addEle({dad:cont,what:"radio",isInput:true,setVal:"current1",setName:"questCur",
+        addEle({dad:cont,what:"radio",isInput:true,setVal:"current view 1",setName:"questCur",
         disabled:currentGood === false ? true:false})
-        addEle({dad:cont,text:"Current View 1 (current quests only)"})
+        addEle({dad:cont,text:"Current View 1 (current quests only)",textC:currentGood ? "white" : "brown"})
     cont = addEle({dad:main,setClass:"contRow",marginB:"5px"})
-        addEle({dad:cont,what:"radio",isInput:true,setVal:"current",setName:"questCur",
+        addEle({dad:cont,what:"radio",isInput:true,setVal:"current view to last",setName:"questCur",
         disabled:currentGood === false ? true:false})
-        addEle({dad:cont,text:"Current View to last (current quests until last quests)"})
+        addEle({dad:cont,text:"Current View to last (current quests until last quests)",
+        textC:currentGood ? "white" : "brown"})
 
-    cont = addEle({dad:main,setClass:"contRow",margin:"5px 0",display:currentGood ? "none":"flex"})
+    cont = addEle({dad:main,setClass:"contRow",margin:"5px 0",})//display:currentGood ? "none":"flex"
         addEle({dad:cont,text:"✅To enable options 2 & 3<br>you need to set current quests",textC:"cyan"})
         addEle({dad:cont,setClass:"btn",text:"Set "+spanText("brown","Current")+" Quests",border:"solid 3px brown",setFunc:()=>{
             if(curQfr.style.display==="none")
-                 {curQfr.style.display = "flex" ; curQsetter()} 
+                    {curQfr.style.display = "flex" ; curQsetter()} 
             else {curQfr.style.display = "none"}
         }})
     
     addEle({dad:main,setClass:"contCol",margin:"5px",padding:"5px",border:"solid 3px brown"
     ,display:"none",radius:"10px",setID:"curQfr"})
 
+    addEle({dad:main,setID:"infoQ",margin:"5px 0",textC:"yellow",minHeight:"20px",textA:"center"})
+    addEle({dad:main,setClass:"btn",text:"Display Result",width:"90%",setFunc:displayR})
 
-//console.log(grabQL(player.questlines[0]))
-
-//console.log(player.questlines)
-
-
-
+    addEle({dad:main,setClass:"contCol",setID:"questingDisp",padding:"5px",display:"none"})
 }
 
 function curQsetter(){
@@ -179,16 +177,12 @@ function curQsetter(){
     cleanParent(myC)
 
     for(let i=0;i<src.length;i++){
-
-        console.log(src[i])
-        console.log(grabQL(src[i].label))
-
         let cont = addEle({dad:myC,setClass:"contRow",alignItems:"center"})
             addEle({dad:cont,text:src[i].label,marginR:"10px",marginL:"10px",
             minWidth:"160px",textA:"center",setID:"currentL:"+i})
 
             addEle({dad:cont,text:src[i].current === "" ? "I":src[i].current,textC:"lime",
-            minWidth:"30px",textA:"center",setID:"currentQ:"+i})
+            minWidth:"50px",textA:"center",setID:"currentQ:"+i})
 
             addEle({dad:cont,text:"◀",fontS:"10px",fontB:"bold",padding:"5px",textC:"brown",
             marginL:"5px",border:"solid 2px brown",radiusTL:"20px",radiusBL:"20px",
@@ -200,14 +194,17 @@ function curQsetter(){
             cursor:"pointer",setID:"currentP:"+i,
             setFunc:(e)=>{getID("currentR:"+e.srcElement.id.split(":")[1]).value++ ; upCurR(e)}})
 
-            addEle({dad:cont,what:"range",isInput:true,width:"70px",accentCol:"brown",
+            addEle({dad:cont,what:"range",isInput:true,width:"50px",accentCol:"brown",
             setID:"currentR:"+i,min:1,max:grabQL(src[i].label).length,
             setVal:src[i].current === "" ? 1 : romanToNb(src[i].current)
             ,setFunc:(e)=>{upCurR(e)}})
-
     }
 
-
+    addEle({dad:myC,setClass:"btn",text:"Save Changes",width:"90%",marginT:"10px",border:"solid 3px brown",
+    backC:"brown",textC:"ghostwhite",fontB:"bold",setFunc:()=>{
+        for(let i=0;i<player.questlines.length;i++){player.questlines[i].current = getID("currentQ:"+i).innerHTML}
+        setQuesting()
+    }})
 }
 function upCurR(e){
     let dis = getID("currentQ:"+e.srcElement.id.split(":")[1])
@@ -221,21 +218,107 @@ function grabQL(nm){
     return frpgQLs.filter(it=>it.questline === nm)
 }
 
-function getActiveQ(nm){
-    let act = ""
-    txt = ""
-    grabQL(nm).forEach(q=>{if(q.current===true){txt=q.quest}})
-    if(txt!==""){
-        let idx = txt.lastIndexOf(" ")
-        act = txt.slice(idx+1)
-    }
-    return act
-}
-
 function romanToNb(nb,rev = false){
     if(!rev){return romans.findIndex(r=>r===nb)+1}
     else    {return romans[nb-1]}
 }
 
-//console.log(romanToNb("X"))
-//console.log(romanToNb(10,true))
+function displayR(){
+    let res = ""
+    document.getElementsByName("questCur").forEach(it=>{if(it.checked){res = it.value}})
+
+    let sel = []
+    let idx = undefined
+    if(res!==""){ getID("infoQ").innerHTML = ""
+        player.questlines.forEach(q1=>{
+            let lb = q1.label
+            let src = grabQL(lb)
+            for(let i=0;i<src.length;i++){
+                switch(res){
+                    case "global view" : sel.push(src[i]) ; break
+                    case "current view 1" : idx = romanToNb(q1.current)
+                        if(i===idx-1){sel.push(src[i])} ; break
+                    case "current view to last" : idx = romanToNb(q1.current)
+                        if(i>=idx-1){sel.push(src[i])} ; break
+                    }
+            }
+        })
+        displayR2(sel)
+    } else {getID("infoQ").innerHTML = "Select a View Option before click on Display"}
+}
+
+function displayR2(lst){
+    let myC = getID("questingDisp")
+    cleanParent(myC)
+
+    let requirements = []
+
+    player.questlines.forEach(q=>{
+        let lb = q.label
+        let obj = {questline:lb,requirements:[],storageRq:0,storageRw:0}
+        lst.forEach(l=>{
+            if(l.questline===lb){
+                l.skills.forEach(sk=>{
+                    let idx = obj.requirements.findIndex(it=>it.label===sk.skill)
+                    if(idx<0){
+                        obj.requirements.push({label:sk.skill,values:[]})
+                        obj.requirements[obj.requirements.length-1].values.push(sk.value)
+                    } else {
+                        let idx2 = obj.requirements[idx].values.findIndex(it=>it===sk.value)
+                        if(idx2===-1){obj.requirements[idx].values.push(sk.value)}
+                    }
+                })
+                l.requests.forEach(rq=>{
+                    if(rq.label!=="Silver"){
+                        if(rq.quantity > obj.storageRq){obj.storageRq = rq.quantity}
+                    }
+                })
+
+                l.rewards.forEach(rw=>{
+                    if(rw.label!=="Silver"){
+                        if(rw.quantity > obj.storageRw){obj.storageRw = rw.quantity}
+                    }
+                })
+
+            }
+
+        })
+        requirements.push(obj)
+    })
+
+    myC.style.display = "flex"
+
+    let cont = addEle({dad:myC,setClass:"contRow",alignItems:"center",marginB:"5px"})
+        addEle({dad:cont,text:spanText("yellow","Requirements :"),borderB:"solid red 3px",
+        width:"fit-content",marginB:"5px"})
+        addEle({dad:cont,text:"🔽",padding:"2px",border:"yellow solid 2px",radius:"10px",
+        marginL:"10px",cursor:"pointer",setFunc:(e)=>{
+            getID("reqsFr").style.display = e.srcElement.innerHTML==="🔽" ? "flex" : "none"
+            e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽"
+        }})
+ 
+
+    cont = addEle({dad:myC,setClass:"contCol",border:"blue solid 3px",radius:"20px",padding:"5px",
+    setID:"reqsFr",display:"none",maxHeight:"200px",overflowX:"hidden"})
+
+    requirements.forEach(r=>{
+        let subC1 = addEle({dad:cont,setClass:"contRow",marginT:"5px",border:"solid 2px teal",
+        radius:"20px",padding:"5px"})
+            addEle({dad:subC1,text:r.questline,minWidth:"160px",marginR:"5px"})
+            let subC2 = addEle({dad:subC1,setClass:"contCol",width:"100%"})
+            addEle({dad:subC2,text:"Requests Max<br>Storage : "+r.storageRq})
+            addEle({dad:subC2,text:"Rewards Max<br>Storage : "+r.storageRw})
+            addEle({dad:subC2,borderB:"dotted lime 3px",margin:"5px 0",width:"100%"})
+            r.requirements.forEach(r2=>{
+                if(r2.values.length<2){
+                    txt = r2.label+ " : " +r2.values[0]
+                } else {
+                    r2.values.sort((a,b)=>a-b)
+                    txt = r2.label+ " : " +r2.values[0]+ " ~ "+r2.values[r2.values.length-1]
+                }
+                addEle({dad:subC2,text:txt})
+            })
+    })
+
+
+}
