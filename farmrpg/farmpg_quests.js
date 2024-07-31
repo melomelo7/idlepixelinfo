@@ -345,9 +345,46 @@ function displayR2(lst){
 }
 
 function sortL(lst){
-    
 
-    lst.forEach(it=>{
-        let idx = 1
-    })
+/*
+
+
+let lst2 = []
+
+lst.forEach(it=>{
+
+Let idx = lst2.findIndex(l=>l.label === it.label)
+If (idx===-1){
+   lst2.push ({
+   label : it.label,
+   sum : 0,
+   values : [],
+})
+
+lst2[lst2.length-1].values.push(it.quantity)
+
+} else {
+
+lst2[idx].values.push(it.quantity)
+
+}
+
+}
+
+lst2.forEach(it=>{
+
+Let cpt = 0
+It.values.forEach(v=>{
+cpt += v
+})
+it.sum = cpt
+
+})
+
+return lst2
+
+*/
+
+
+
 }
