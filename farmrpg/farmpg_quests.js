@@ -16,7 +16,7 @@ let player = {
 }
 
 
-let lastUp = "08/01 02:00"
+let lastUp = "08/01 06:40"
 
 const body = document.querySelector("body")
 
@@ -252,6 +252,8 @@ function displayR2(lst){
     cleanParent(myC)
 
     let requirements = []
+    let Qreq = []
+    let Qrew = []
 
     player.questlines.forEach(q=>{
         let lb = q.label
@@ -272,12 +274,14 @@ function displayR2(lst){
                     if(rq.label!=="Silver"){
                         if(rq.quantity > obj.storageRq){obj.storageRq = rq.quantity}
                     }
+                    Qreq.push(rq)
                 })
 
                 l.rewards.forEach(rw=>{
                     if(rw.label!=="Silver"){
                         if(rw.quantity > obj.storageRw){obj.storageRw = rw.quantity}
                     }
+                    Qrew.push(rw)
                 })
 
             }
@@ -288,7 +292,11 @@ function displayR2(lst){
 
     myC.style.display = "flex"
 
-    let cont = addEle({dad:myC,setClass:"contRow",alignItems:"center",marginB:"5px"})
+    let forks = addEle({dad:myC,setClass:"contRow"})
+        let fork1 = addEle({dad:forks,setClass:"contCol"})
+        let fork2 = addEle({dad:forks,setClass:"contCol",marginL:"10px"})
+
+    let cont = addEle({dad:fork1,setClass:"contRow",alignItems:"center",marginB:"5px"})
         addEle({dad:cont,text:spanText("yellow","Requirements :"),borderB:"solid red 3px",
         width:"fit-content",marginB:"5px"})
         addEle({dad:cont,text:"🔽",padding:"2px",border:"yellow solid 2px",radius:"10px",
@@ -298,7 +306,7 @@ function displayR2(lst){
         }})
  
 
-    cont = addEle({dad:myC,setClass:"contCol",border:"blue solid 3px",radius:"20px",padding:"5px",
+    cont = addEle({dad:fork1,setClass:"contCol",border:"blue solid 3px",radius:"20px",padding:"5px",
     setID:"reqsFr",display:"none",maxHeight:"200px",overflowX:"hidden"})
 
     requirements.forEach(r=>{
@@ -320,5 +328,26 @@ function displayR2(lst){
             })
     })
 
+    cont = addEle({dad:fork2,setClass:"contRow",alignItems:"center",marginB:"5px"})
+        addEle({dad:cont,text:spanText("yellow","Requests :"),borderB:"solid red 3px",
+        width:"fit-content",marginB:"5px"})
+        addEle({dad:cont,text:"🔽",padding:"2px",border:"yellow solid 2px",radius:"10px",
+        marginL:"10px",cursor:"pointer",setFunc:(e)=>{
+            getID("requestsFr").style.display = e.srcElement.innerHTML==="🔽" ? "flex" : "none"
+            e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽"
+        }})
+ 
 
+    cont = addEle({dad:fork2,setClass:"contCol",border:"blue solid 3px",radius:"20px",padding:"5px",
+    setID:"requestsFr",display:"none",maxHeight:"200px",overflowX:"hidden"})
+        Qreq = sortL(Qreq)
+        console.log(Qreq)
+}
+
+function sortL(lst){
+    
+
+    lst.forEach(it=>{
+        let idx = 1
+    })
 }
