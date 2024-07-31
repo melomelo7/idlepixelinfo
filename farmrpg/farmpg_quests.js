@@ -13,6 +13,9 @@ let player = {
     addQuestline:undefined,
 }
 
+
+let lastUp = "31/07 18:35"
+
 const body = document.querySelector("body")
 
 const mainFr = addEle({dad:body,setClass:"contRow",height:"100%",width:"100%"}) // ,backC:"green",
@@ -25,9 +28,12 @@ const mainFr = addEle({dad:body,setClass:"contRow",height:"100%",width:"100%"}) 
 
     const right = addEle({dad:mainFr,setClass:"contCol",height:"100%",width:"100%"})
     
-        txt = `To have it a little more "RPG-like" we will call your `+
+        let cont = addEle({dad:right,setClass:"contRow",alignItems:"center"})
+        txt = `To have it a little more "RPG-like" we will call<br>your `+
         spanText("lime","Adventure")+` the collection of your `+spanText("lime","Questlines")  
-        addEle({dad:right,text:txt,margin:"10px 0 0 10px"})
+        addEle({dad:cont,text:txt,margin:"10px 0 0 10px"})
+
+        addEle({dad:cont,text:"last up : "+lastUp,marginL:"50px",textC:"yellow"})
 
         const topFr = addEle({dad:right,setClass:"contRow",marginL:"5px"})
 
@@ -204,12 +210,9 @@ function curQsetter(){
 
 }
 function upCurR(e){
-//    let idx = e.srcElement.id.split(":")[1]
     let dis = getID("currentQ:"+e.srcElement.id.split(":")[1])
     let ran = getID("currentR:"+e.srcElement.id.split(":")[1])
-//    console.log(idx)
     dis.innerHTML = romanToNb(ran.value,true)
-//    getID("currentQ:"+e.srcElement.id.split(":")[1]).innerHTML = romanToNb(e.srcElement.value,true)
 }
 
 
