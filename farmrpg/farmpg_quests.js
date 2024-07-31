@@ -21,7 +21,7 @@ const mainFr = addEle({dad:body,setClass:"contRow",height:"100%",width:"100%"}) 
     overflowX:"hidden",minWidth:lftWd+"px",borderR:"solid blue 2px"})
 
         for(let i=0;i<2;i++){addEle({dad:left,setClass:"contCol",margin:"2px",
-        setID:"left"+(i+1),alignItems:"center"})}
+        setID:"left"+(i+1),alignItems:"center",border:"solid 2px yellow"})}
 
     const right = addEle({dad:mainFr,setClass:"contCol",height:"100%",width:"100%"})
     
@@ -149,7 +149,7 @@ function setQuesting(){
 
     cont = addEle({dad:main,setClass:"contRow",margin:"5px 0",display:currentGood ? "none":"flex"})
         addEle({dad:cont,text:"✅To enable options 2 & 3<br>you need to set current quests",textC:"cyan"})
-        addEle({dad:cont,setClass:"btn",text:"Set current Quests",border:"solid 3px brown",setFunc:()=>{
+        addEle({dad:cont,setClass:"btn",text:"Set "+spanText("brown","Current")+" Quests",border:"solid 3px brown",setFunc:()=>{
             if(curQfr.style.display==="none")
                  {curQfr.style.display = "flex" ; curQsetter()} 
             else {curQfr.style.display = "none"}
@@ -175,24 +175,42 @@ function curQsetter(){
     for(let i=0;i<src.length;i++){
 
         console.log(src[i])
+        console.log(grabQL(src[i].label))
 
-        let cont = undefined
-        let subC = undefined
-        cont = addEle({dad:myC,setClass:"contCol",marginB:"10px"})
-            subC = addEle({dad:cont,setClass:"contRow"})
-                addEle({dad:subC,text:src[i].label,marginR:"10px",marginL:"10px"})
-                addEle({dad:subC,text:src[i].current === "" ? "I":src[i].current,textC:"lime"})
+        let cont = addEle({dad:myC,setClass:"contRow",alignItems:"center"})
+            addEle({dad:cont,text:src[i].label,marginR:"10px",marginL:"10px",
+            minWidth:"160px",textA:"center",setID:"currentL:"+i})
 
-                addEle({dad:subC,text:"◀",setClass:"btn",fontS:"8px",width:"10px"})
-                addEle({dad:subC,text:"▶",setClass:"btn",fontS:"8px",width:"10px"})
-                addEle({dad:subC,what:"range",isInput:true,width:"100px"})
+            addEle({dad:cont,text:src[i].current === "" ? "I":src[i].current,textC:"lime",
+            minWidth:"30px",textA:"center",setID:"currentQ:"+i})
 
-            subC = addEle({dad:cont,setClass:"contRow"})
+            addEle({dad:cont,text:"◀",fontS:"10px",fontB:"bold",padding:"5px",textC:"brown",
+            marginL:"5px",border:"solid 2px brown",radiusTL:"20px",radiusBL:"20px",
+            cursor:"pointer",setID:"currentM:"+i,
+            setFunc:(e)=>{getID("currentR:"+e.srcElement.id.split(":")[1]).value-- ; upCurR(e)}})
+
+            addEle({dad:cont,text:"▶",fontS:"10px",fontB:"bold",padding:"5px",textC:"brown",
+            marginR:"5px",border:"solid 2px brown",radiusTR:"20px",radiusBR:"20px",
+            cursor:"pointer",setID:"currentP:"+i,
+            setFunc:(e)=>{getID("currentR:"+e.srcElement.id.split(":")[1]).value++ ; upCurR(e)}})
+
+            addEle({dad:cont,what:"range",isInput:true,width:"70px",accentCol:"brown",
+            setID:"currentR:"+i,min:1,max:grabQL(src[i].label).length,
+            setVal:src[i].current === "" ? 1 : romanToNb(src[i].current)
+            ,setFunc:(e)=>{upCurR(e)}})
+
     }
 
 
 }
-
+function upCurR(e){
+//    let idx = e.srcElement.id.split(":")[1]
+    let dis = getID("currentQ:"+e.srcElement.id.split(":")[1])
+    let ran = getID("currentR:"+e.srcElement.id.split(":")[1])
+//    console.log(idx)
+    dis.innerHTML = romanToNb(ran.value,true)
+//    getID("currentQ:"+e.srcElement.id.split(":")[1]).innerHTML = romanToNb(e.srcElement.value,true)
+}
 
 
 

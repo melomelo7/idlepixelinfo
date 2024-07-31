@@ -1,4 +1,7 @@
 
+let blackList = [
+    "gumpygazebo"
+]
 
 function addEle({
     addToTop = false,
@@ -61,7 +64,7 @@ function addEle({
     img2Sizes = "",
     imgSrc = "",
     imgFullSrc = "",
-    radioCol = "",
+    accentCol = "",
     position = "",
     top = "",
     left = "",
@@ -96,7 +99,7 @@ function addEle({
         thisObj.innerHTML = url
     }
 
-    if(radioCol!==""){thisObj.style.accentColor = radioCol}
+    if(accentCol!==""){thisObj.style.accentColor = accentCol}
 
     if(text!==""){thisObj.innerHTML = text}
 
@@ -223,7 +226,19 @@ function cleanParent(parent){while(parent.children.length >0){parent.removeChild
 
 function nBr(text){return text.includes(",") ? Number(text.replace(",","")) : Number(text)}
 
-
+const romans = [
+    "I","II","III","IV","V","VI","VII","VIII","IX","X",
+   "XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX",
+   "XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX",
+   "XXXI","XXXII","XXXIII","XXXIV","XXXV","XXXVI","XXXVII","XXXVIII","XXXIX","XL",
+   "XLI","XLII","XLIII","XLIV","XLV","XLVI","XLVII","XLVIII","XLIX","L",
+   "LI","LII","LIII","LIV","LV","LVI","LVII","LVIII","LIX","LX",
+   "LXI","LXII","LXIII","LXIV","LXV","LXVI","LXVII","LXVIII","LXIX","LXX",
+   "LXXI","LXXII","LXXIII","LXXIV","LXXV","LXXVI","LXXVII","LXXVIII","LXXIX","LXXX",
+   "LXXXI","LXXXII","LXXXIII","LXXXIV","LXXXV","LXXXVI","LXXXVII","LXXXVIII","LXXXIX","XC",
+   "XCI","XCII","XCIII","XCIV","XCV","XCVI","XCVII","XCVIII","XCIX","C"
+   ]
+   
 
 
 let crafts = [
@@ -976,3 +991,198 @@ Strange Onion	Tomato Onion Hops Potato	Leek Watermelon Corn Cabbage	Pumpkin Broc
 Red Fox	Lemon Quartz Leather Cotton Green Cloak	Runestone 12 Pine Tree Peach Canoe	Diamond Runestone 17 Treasure Key Skeleton Key
 Spotted Seal	Runestone 06 Moonstone Snowball Blue Purse	Iced Tea Seaweed Mittens Rice	Blue Gel Gold Sea Crest Frost Snapper Shell Glacierstone
 Stinky Skunk	Onion Leek Herbs Cooking Pot	Sweet Root Flour Salt Pie Pan	Peach Corn Oil Bone Broth Butter`
+
+
+
+
+
+let bbbbb = `
+Rosalie
+Level	Rewards
+10	10x Cooking Pot & 50x Glass Bottle
+20	50x Apple & 50x Orange
+30	50x Orange Juice & 5x Fruit Punch
+40	1x Rosalie's Red Berry Pie & 100x Red Berries
+50	1x Rosalie's Concord Grape Pie & 50x Grapes
+60	3x Red Berry Pie & 3x Concord Grape Pie
+99	1x Rosalie Bobblehead
+*
+Holger
+Level	Rewards
+10	100x Peas & 100x Mushroom
+20	10x Steak & 25x Steak Kabob
+30	25x Shiny Beetle & 5x Orange Gecko
+40	1x Holger's Mushroom Stew & 500x Mushroom
+50	1x Mushroom Stew & 10x Spiked Shell
+99	1x Holger Bobblehead
+*
+Beatrix
+Level	Rewards
+10	25x Emberstone & 5x Moonstone
+20	50x Sturdy Shield & 25x Sturdy Sword
+30	30x Bottle Rocket & 10x Fireworks
+40	50x Explosive & 15x Wooden Barrel
+99	1x Beatrix Bobblehead
+*
+Thomas
+Level	Rewards
+10	25x Gummy Worms & 5x Blue Catfish
+20	50x Mealworms & 10x Globber
+25	Chums Questline
+30	1x Thomas's Cat's Meow & 10x Essence of Slime
+40	1x Cat's Meow & 250x Fish Bones
+99	1x Thomas Bobblehead
+*
+Cecil
+Level	Rewards
+10	50x Shrimp & 100x Small Prawn
+20	50x Grapes & 1x Wine
+30	1x Clubs & 10x Fancy Pipe
+40	10x Small Bolt & 10x Small Chest 02
+50	3x Skeleton Key & 5x Treasure Key
+60	1x Cecil's Shrimp-a-Plenty & 500x Shrimp
+70	20x Rice & 1x Shrimp-a-Plenty
+99	1x Holger Bobblehead
+*
+George
+Level	Rewards
+10	1x George's Onion Soup & 100x Onion
+20	1x Mug of Beer & 1x Blue Purse
+30	10x Green Shield & 2x Red Shield
+40	1x Onion Soup & 200x Coal
+99	1x George Bobblehead
+*
+Jill
+Level	Rewards
+10	1x Popcorn & 10x Corn Seeds
+20	10x Grab Bag 01 & 5x Gouda
+30	25x Grab Bag 02 & 5x Square Key
+40	25x Corn Oil & 1x Corn Prize Bag
+50	1x Jill's Quandary Chowder & 100x Corn
+60	1x Quandary Chowder & 25x Salt
+99	1x Jill Bobblehead
+*
+Vincent
+Level	Rewards
+10	10x Wooden Sword & 25x Wooden Barrel
+20	10x Bacon & 10x Frog
+30	1x Gold Horseshoe & 5x Gouda
+40	5x Grab Bag 07 & 5x Grab Bag 08
+50	1x Vincent's Sea Pincher Special & 25x Large Net
+60	1x Sea Pincher Special & 100x Honey
+99	1x Vincent Bobblehead
+*
+Lorn
+Level	Rewards
+10	1x 10 Gold & 10x Iron Cup
+20	3x Cutlass & 3x Crab Claw
+30	10x Sea Dragon & 25x Gold Feather
+40	1x Lorn's Breakfast Boost & 10x Butter
+50	1x Bouquet of Flowers & 1x Congratulations Card
+60	1x Breakfast Boost & 50x Flour
+99	1x Lorn Bobblehead
+*
+Buddy
+Level	Rewards
+10	100x Ancient Coin & 1x Pirate Bandana
+20	100x Mushroom & 1x Pirate Flag
+30	5x Arnold Palmer & 5x Large Net
+40	50x Orange Juice & 1x Buddy Loves You Card
+50	1x Dice & 1x Diamonds & Secretly A Society Summons You (SASSY) Questline for House of Cards
+99	1x Buddy Bobblehead
+*
+Borgen
+Level	Rewards
+10	5x Gold Flier & 5x Gold Catfish
+20	5x Gold Carrot & 5x Gold Cucumber
+30	5x Gold Coral & 5x Gold Sea Bass
+40	1x Borgen Buck & 5x Gold Sea Crest
+50	1x Velocity Belt & 5x Gold Jelly
+60	3x Gold Crab & 3x Large Clam Shell
+99	1x Borgen Bobblehead
+*
+Ric Ryph
+Level	Rewards
+10	10x Black Powder & 15x Explosive
+20	25x Unpolished Jade & 10x Honey
+30	3x Fancy Drum & 3x Fancy Guitar
+40	3x Fancy Chair & 3x Fancy Table
+99	1x Ric Ryph Bobblehead
+*
+Mummy
+Level	Rewards
+10	5x Toilet Paper & 1x Treat Bag 01
+20	5x Candy Corn & 5x Candy Roll
+30	1x Treat Bag 02 & 1x Treat Bag 03
+40	10x Cyclops Spider & 100x Candy
+99	1x Mummy Bobblehead
+*
+Star Meerif
+Level	Rewards
+10	100x Feathers & 3x Gold Feather
+20	25x Blue Feathers & 100x Mushroom Paste
+30	25x Steel & 25x Steel Wire
+40	10x Gold Feather & 100x Orange Juice
+99	1x Star Bobblehead
+*
+Charles Horsington III
+Level	Rewards
+10	50x Carrot & 25x Apple
+15	Friends With Charles Questline
+20	5x Gold Carrot & 10x Blue Catfish
+30	10x Broccoli & 1x Hot Potato
+40	1x Charles's Neigh & 50x Apple Cider
+50	1x Neigh & 40x Bone Broth
+99	1x Charles Bobblehead
+*
+ROOMBA
+Level	Rewards
+10	5x Small Gear & 5x Small Screw & Tales From The Great Logs Questline
+20	1x Roomba's Over The Moon & 10x Herbs
+30	10x Small Bolt & 10x Salt
+40	1x Over The Moon & 100x Corn
+99	1x Roomba Bobblehead
+*
+Captain Thomas
+Level	Rewards
+10	50x Trout & 3x Gold Trout
+20	50x Fishing Net & 50x Gummy Worms
+30	50x Iced Tea & 10x Large Net
+40	100x Minnows & 5x Gold Flier
+99	1x CptThomas Bobblehead
+*
+frank
+Level	Rewards
+10	5x Cabbage & 5x Broccoli
+20	50x Hops & 50x Potato
+30	10x Large Chest 02 & 10x Grab Bag 07
+40	10x 4-leaf Clover & 1x Good Luck Card
+50	30x Wheat & 1x Mystical Chest 02
+99	1x frank Bobblehead
+*
+Mariya
+Level	Rewards
+10	25x Potato & 5x Arnold Palmer
+20	25x Cooking Pot & 10x Peach Juice
+30	100x Flour & 100x Soap
+40	1x Mariya's Hickory Omelette & 100x Bird Egg
+50	1x Crunchy Omelette & 100x Butter
+99	1x Mariya Bobblehead
+*
+Geist
+Level	Rewards
+10	10x Fish Bones & 10x Bone
+20	5x Sea Pincher Special & 50x Emberstone
+25	The Wind Beneath My Wings Questline
+30	10x Grab Bag 07 & 25x Tea Leaves
+40	50x Sweet Root & 10x Herbs
+99	1x Geist Bobblehead
+*
+Gary Bearson V
+Level	Rewards
+10	25x Apple & 5x Breakfast Boost
+20	10x Apple Cider & 5x Cat's Meow
+30	10x Honey & 10x Gold Feather
+40	10x Gold Leaf & 10x Gold Trout
+99	1x Gary Bobblehead
+`
