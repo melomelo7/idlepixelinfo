@@ -218,10 +218,18 @@ function buildSettings(){
 
 
 let wanderers = [
-    {label:"Thunderhorse",ref:"thunderhorsen.jpg",date:{dayN:"Friday",month:6,day:28}},
-    {label:"Merchant",ref:"merchant shipn.jpg",date:{dayN:"Friday",month:7,day:12}},
-    {label:"Aurora",ref:"aurora shipn.jpg",date:{dayN:"Friday",month:7,day:26}},
-    {label:"Enigma",ref:"enigma.jpg",date:{dayN:"Friday",month:7,day:5}},
+    {label:"Thunderhorse",ref:"thunderhorsen.jpg",dates:[
+        {dayN:"Friday",month:6,day:28},{dayN:"Friday",month:8,day:2},
+    ]},
+    {label:"Merchant",ref:"merchant shipn.jpg",dates:[
+        {dayN:"Friday",month:7,day:12},
+    ]},
+    {label:"Aurora",ref:"aurora shipn.jpg",dates:[
+        {dayN:"Friday",month:7,day:26},
+    ]},
+    {label:"Enigma",ref:"enigma.jpg",dates:[
+        {dayN:"Friday",month:7,day:5},
+    ]},
 ]
 
 let months = [
@@ -289,12 +297,17 @@ let myCont = addEle({dad:pollFork,marginL:"20px"})//margin:"20px 0 0 50px"
 
 addEle({dad:right,border:"lime dashed 2px",width:greenL,marginL:"50px"})
 
-txt=`Last Modifications :<br>
+txt=`
+`+spanText("yellow","** Prior Modification(s) :<br>")+`
 - Events Updated<br>
 - Faq > Tournaments<br>
-- items tab > [Used for] also shows in what projects
+- items tab > [Used for] also shows in what projects<br>
+`+spanText("yellow","** Last Modification(s) :<br>")+`
+- Events (wandering ships) Updating Changed<br>
+`+spanText("yellow","** Soon to come :<br>")+`
+- a few words on last game update (V2.2.1) : Probe Hangar & Live Event
 `
-addEle({dad:right,text:txt,margin:"30px",border:"yellow dashed 4px",
+addEle({dad:right,text:txt,margin:"30px",border:"teal dashed 4px",
 padding:"20px",radius:"30px",width:"fit-content",textA:"left",fontS:"20px"})
 
 
@@ -304,25 +317,41 @@ addEle({dad:right,text:"Wandering Ships (IRL Money)",margin:"20px 0 10px 50px",f
 addEle({dad:right,text:`(showing up in your galaxy if never bought<br>
 and available for a limited time only !!)`,margin:"0 50px",fontS:"22px"})
 addEle({dad:right,text:"** Faq > Expand Fleet ... for requirements **",textC:"yellow",fontS:"20px",marginL:"50px"})
+txt = 
+`Due to some "changes" in the discord community,<br>
+ the planning of ships rotation cannot be updated<br>
+ anymore. Instead I will post when they were <br>`
+ +spanText("yellow",`LAST SEEN`)+` for the time being ...`
+addEle({dad:right,text:txt,textC:"brown",fontS:"18px",margin:"10px 0 0 50px",
+border:"dotted yellow 2px",width:"fit-content",radius:"10px",padding:"5px"})
 
 myCont = addEle({dad:right,margin:"20px 0 0 50px"})
 myT = addEle({dad:myCont,what:"table"})
 
 wanderers.forEach(wa=>{
-
     myL = addEle({dad:myT,what:"tr"})
 
     let myC = addEle({dad:myL,what:"td",radius:"5px"})
         addEle({dad:myC,what:"img",imgFullSrc:"./IPM Components/"+wa.ref,img2Sizes:"200:150"})//,width:"100%"
     myC = addEle({dad:myL,what:"td",radius:"5px"})
     
-    let mdt = new Date()
-    let wanC = mdt.getMonth()+1 === wa.date.month ?
-    "linear-gradient(to bottom left,rgba(255,0,0,0.7) 20%,rgba(255,255,0,0.6))" : togNot
+    txt = ""
+    wa.dates.forEach(dt=>{
+        txt += "- " + dt.dayN+" "+ months[dt.month-1] +" "+dt.day+dtSfx(dt.day)+"<br>"
 
-    addEle({dad:myC,radius:"5px",padding:"10px",fontS:"30px",marginL:"20px",
-    border:"solid 2px orangered",backG:wanC,
-    text:wa.date.dayN+" "+ months[wa.date.month-1] +" "+wa.date.day+dtSfx(wa.date.day)})
+        
+        /*
+        let mdt = new Date()
+        let wanC = mdt.getMonth()+1 === dt.month ?
+        "linear-gradient(to bottom left,rgba(255,0,0,0.7) 20%,rgba(255,255,0,0.6))" : togNot
+        
+        addEle({dad:myC,radius:"5px",padding:"10px",fontS:"20px",marginL:"20px",
+        border:"solid 2px orangered",backG:wanC,
+        text:dt.dayN+" "+ months[dt.month-1] +" "+dt.day+dtSfx(dt.day)})
+        */
+    })
+    addEle({dad:myC,radius:"5px",padding:"5px",marginL:"20px",text:txt,fontS:"22px",border:"brown 3px solid"})
+
 
 })
 
