@@ -446,9 +446,15 @@ function setUnlocks(container){
         addEle({dad:cont,text:txt,marginR:"10px"})
         addEle({dad:cont,what:"img",imgSize:30,imgFullSrc:"./IPM Components/tournament1.jpg"})
 
-
+    cont = addEle({dad:container,setClass:"contRow",alignItems:"center",marginT:"10px"})
+        txt = `After selling 4 Galaxies, `+ spanText("fuchsia","new locations") +` opens up,
+        <br>and also full access to `+ spanText("fuchsia","autosell mechanics")+` :`
+        addEle({dad:cont,text:txt,marginR:"10px"})
+        addEle({dad:cont,what:"img",imgSize:40,imgFullSrc:"./IPM Components/event ball.jpg"})
+        addEle({dad:cont,what:"img",imgSize:40,imgFullSrc:"./IPM Components/probe hangar.jpg"})
+        addEle({dad:container,what:"img",height:"80%",width:"80%",marginT:"5px",
+        imgFullSrc:"./IPM Components/autosell.jpg"})
 }
-
 
 function showGal100(container){
     let subC = addEle({dad:container,setClass:"contCol",textA:"center",alignItems:"center"})
