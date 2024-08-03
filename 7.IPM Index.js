@@ -5,7 +5,7 @@ const body = document.querySelector("body")
     const global = addEle({dad:body,setID:"info",width:"100%",height:"100%",margin:"40px 0 0 100px"})
         const right = addEle({dad:global,setID:"right"})
 
-const lastUp = "(Last up 2024/08/02 21:50) *Game update V2.2.1 : start of August 2024"
+const lastUp = "(Last up 2024/08/03 18:10) *Game update V2.2.1 : start of August 2024"
 const infoTitle = "Idle Planet Miner Infos " +lastUp
 
 const togSel = "linear-gradient(to bottom left,rgba(90,185,47,0.5) 70%,rgba(169,169,169,1))"

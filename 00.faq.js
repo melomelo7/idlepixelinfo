@@ -116,7 +116,7 @@ const faqsArray = [
             All the more reasons to sell often for a full experience of the game.`,
     url : "",
     img : "construction.jpg",
-    thisFunction : undefined,
+    thisFunction : setUnlocks,
     },
     {
     label : "Credits",
@@ -143,6 +143,19 @@ const faqsArray = [
     thisFunction : setCredits,
     },
     {
+    label : "Events | Probes Hangar",
+    icon : "yellow dia.jpg",
+    text : `
+    `+spanText("lime","Starting August 2024")+`<br><br>
+    More `+spanText("fuchsia","idle time")+` for your `+spanText("fuchsia","action")+
+    ` ! Or was it the opposit `+spanText("","🤔",24)+` ? Im lost `+spanText("","🙈",24)+` ...<br><br>
+    Anyways 2 new places of interest for us to play ! `+spanText("","🥳",24)+` 
+    `,
+    url : "",
+    img : "holo bolts.jpg",
+    thisFunction : setProbeHangar,
+    },
+    {
     label : "Avoid Crafting issues",
     icon : "craft.jpg",
     text : `① Above image(ingame help info) tells us idle/offline<br>
@@ -164,7 +177,7 @@ const faqsArray = [
     thisFunction : undefined,
     },
     {
-    label : "Crafters/Smelters costs",
+    label : "Crafters | Smelters costs",
     icon : "smelterCrafter.jpg",
     text : `Below image(bottom tile on Projects tree/tab)<br>
             is the tile you want to unlock, in order to cut<br>
@@ -412,6 +425,24 @@ function faqButton(e,subContainerB){
 
         if(reFaq.thisFunction){reFaq.thisFunction(thisContainer)}
 }
+
+function setUnlocks(container){
+    let cont = undefined
+    txt = "Unlocks"
+    addEle({dad:container,text:txt,fontS:"30px",borderB:"solid 3px blue",textC:"fuchsia"})
+    
+    cont = addEle({dad:container,setClass:"contRow",alignItems:"center",marginT:"10px"})
+        txt = `Reach `+spanText("lime","2nd Galaxy")+` Sale : Challenges opens up`
+        addEle({dad:cont,text:txt,marginR:"10px"})
+        addEle({dad:cont,what:"img",imgSize:30,imgFullSrc:"./IPM Components/challenge.jpg"})
+    
+    cont = addEle({dad:container,setClass:"contRow",alignItems:"center",marginT:"10px"})
+        txt = `Sold 2 Galaxies ? : `+spanText("lime","Planet Upgrade Batches") +` up to`
+        addEle({dad:cont,text:txt,marginR:"10px"})
+        addEle({dad:cont,what:"img",imgSize:40,imgFullSrc:"./IPM Components/planet buy.jpg"})
+
+}
+
 
 function showGal100(container){
     let subC = addEle({dad:container,setClass:"contCol",textA:"center",alignItems:"center"})
@@ -1336,3 +1367,100 @@ function boostCredits(cred,test=false){
     } else {return recap.ttV}
     
 }
+
+function setProbeHangar(container){
+
+    // holo bolts.jpg
+    // yellow dia.jpg
+    let twins = addEle({dad:container,setClass:"contRow",width:"100%",justifyC:"space-evenly",
+        alignItems:"center"})
+        addEle({dad:twins,what:"img",imgFullSrc:"./IPM Components/event ball.jpg",
+        border:"yellow solid 3px",radius:"80px",cursor:"pointer",setFunc:()=>{
+            eventBall()
+            cleanParent(getID("eventBtm"))
+            if(getID("eventPassBtn").innerHTML ==="Event Pass 👆"){getID("eventPassBtn").click()}
+            addEle({dad:getID("eventBtm"),setClass:"contRow",width:"100%",justifyC:"space-around",
+            backC:"rgb(20,13,44)",setID:"eventBtns",padding:"10px 0"})
+                addEle({dad:getID("eventBtns"),text:"MISSIONS",border:"solid 3px rgb(114,110,128)",cursor:"pointer",
+                radius:"20px",fontB:"bold",padding:"10px",minWidth:"100px",textA:"center",setFunc:clickEventBtns})
+                addEle({dad:getID("eventBtns"),text:"REWARDS",border:"solid 3px rgb(114,110,128)",cursor:"pointer",
+                radius:"20px",fontB:"bold",padding:"10px",minWidth:"100px",textA:"center",setFunc:clickEventBtns})
+                addEle({dad:getID("eventBtns"),text:"PERKS",border:"solid 3px rgb(114,110,128)",cursor:"pointer",
+                radius:"20px",fontB:"bold",padding:"10px",minWidth:"100px",textA:"center",setFunc:clickEventBtns})
+                getID("eventBtns").children[0].click()
+        }})
+
+        addEle({dad:twins,setClass:"contCol",border:"blue solid 3px",
+        radius:"30px",padding:"10px",setID:"passFr"})
+            addEle({dad:getID("passFr"),what:"img",imgFullSrc:"./IPM Components/multipass.jpg",
+            radius:"20px",cursor:"pointer",setFunc:()=>{getID("passFr").children[1].click()}})
+            addEle({dad:getID("passFr"),text:"Event Pass 👇",cursor:"pointer",textA:"center",
+            paddingT:"5px",setID:("eventPassBtn"),setFunc:(e)=>{
+                let myPass = getID("passDisp")
+                if(e.srcElement.innerHTML==="Event Pass 👇"){
+                    e.srcElement.innerHTML="Event Pass 👆"
+                    myPass.style.display = "block"
+                } else {
+                    e.srcElement.innerHTML="Event Pass 👇"
+                    myPass.style.display = "none"
+                }
+                console.log("multipass")
+            }})
+        
+        addEle({dad:twins,what:"img",imgFullSrc:"./IPM Components/probe hangar.jpg",
+        border:"yellow solid 3px",radius:"80px",cursor:"pointer",setFunc:()=>{
+            eventBall()
+
+            cleanParent(getID("eventTop"))
+            cleanParent(getID("eventBtm"))
+            if(getID("eventPassBtn").innerHTML ==="Event Pass 👆"){getID("eventPassBtn").click()}
+            let cont = addEle({dad:getID("eventTop"),width:"100%",textA:"center",margin:"10px 0"})
+                addEle({dad:cont,what:"img",imgFullSrc:"./IPM Components/probes hangar.jpg",
+                height:"70%",width:"70%"})
+        }})
+
+    addEle({dad:container,setID:"passDisp",what:"img",border:"solid blue 3px",
+    padding:"5px",radius:"20px",imgFullSrc:"./IPM Components/event pass 1.jpg",
+    display:"none",height:"70%",width:"70%"})
+
+    let eventFr = addEle({dad:container,setClass:"contCol",width:"100%"})
+        addEle({dad:eventFr,setID:"eventTop"})
+        addEle({dad:eventFr,setID:"eventBtm",width:"100%",backC:"rgb(20,13,44)"})
+
+    addEle({dad:container,setID:"eventHangarFr"})
+
+
+
+}
+function clickEventBtns(e){
+    let mySrc = getID("eventBtns")
+    for(let i=0;i<mySrc.children.length;i++){
+        if(mySrc.children[i].innerHTML===e.srcElement.innerHTML){
+            mySrc.children[i].style.border = "solid 3px rgb(92,229,252)"
+            mySrc.children[i].style.background = "rgb(31,46,76)"
+            cleanParent(getID("eventTop"))
+            let cont = addEle({dad:getID("eventTop"),width:"100%",textA:"center",margin:"10px 0"})
+                addEle({dad:cont,what:"img",imgFullSrc:"./IPM Components/event ball "+(i+1)+".jpg",
+                height:"70%",width:"70%"})
+        } else {
+            mySrc.children[i].style.border = "solid 3px rgb(114,110,128)"
+            mySrc.children[i].style.background = ""
+        }
+    }
+
+}
+function eventBall(){
+    let myC = getID("eventHangarFr")
+    cleanParent(myC)
+
+    let cont = addEle({dad:myC,setClass:"contCol",border:"orange solid 3px",
+    padding:"10px",textA:"center",radius:"20px"})
+    addEle({dad:cont,text:"Under Construction...",textC:"yellow"})
+    addEle({dad:cont,what:"img",imgFullSrc:"./IPM Components/construction.jpg"})
+    addEle({dad:cont,text:"Under Construction...",textC:"yellow"})
+
+}
+
+
+//// probes cost : 100 / 500
+
