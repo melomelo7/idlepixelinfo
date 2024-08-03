@@ -108,10 +108,10 @@ const faqsArray = [
     {
     label : "Early Unlocks",
     icon:"cash windfall.jpg",
-    text :  `Roughly selling your galaxy ~10 times early on<br>will unlock 
-            things you will use forever :<br><br>
-            - Resources auto-sell mechanics <br>(which after 4th sale turns % based)<br><br>
-            All the more reasons to sell often for a full experience of the game.`,
+    text :  `Roughly selling your galaxy ~5 times early on<br>will unlock 
+            things you will use forever.<br><br>
+            Sell at 10M sharp or rather follow my advice : 12.51M,<br>
+            see for yourself ...`,
     url : "",
     img : "construction.jpg",
     thisFunction : setUnlocks,
@@ -429,30 +429,33 @@ function setUnlocks(container){
     txt = "Unlocks"
     addEle({dad:container,text:txt,fontS:"30px",borderB:"solid 3px blue",textC:"fuchsia"})
     
-    cont = addEle({dad:container,setClass:"contRow",alignItems:"center",marginT:"10px"})
+    let unFr = addEle({dad:container,setClass:"contCol",textA:"left",paddingL:"10%"})
+
+    cont = addEle({dad:unFr,setClass:"contRow",alignItems:"center",marginT:"10px"})
         txt = `Reach `+spanText("lime","2nd Galaxy")+` Sale : `
         +spanText("fuchsia","Challenges")+` opens up`
         addEle({dad:cont,text:txt,marginR:"10px"})
         addEle({dad:cont,what:"img",imgSize:30,imgFullSrc:"./IPM Components/challenge.jpg"})
     
-    cont = addEle({dad:container,setClass:"contRow",alignItems:"center",marginT:"10px"})
+    cont = addEle({dad:unFr,setClass:"contRow",alignItems:"center",marginT:"10px"})
         txt = `Sold 2 Galaxies ? :<br>(Mine/Ship/Cargo) `+
         spanText("fuchsia","Planet Upgrade Batches") +` up to `
         addEle({dad:cont,text:txt,marginR:"10px"})
         addEle({dad:cont,what:"img",imgSize:40,imgFullSrc:"./IPM Components/planet buy.jpg"})
 
-    cont = addEle({dad:container,setClass:"contRow",alignItems:"center",marginT:"10px"})
+    cont = addEle({dad:unFr,setClass:"contRow",alignItems:"center",marginT:"10px"})
         txt = `Reach `+spanText("lime","3rd Galaxy")+` Sale : `+spanText("fuchsia","Tournament")+` opens up`
         addEle({dad:cont,text:txt,marginR:"10px"})
         addEle({dad:cont,what:"img",imgSize:30,imgFullSrc:"./IPM Components/tournament1.jpg"})
 
-    cont = addEle({dad:container,setClass:"contRow",alignItems:"center",marginT:"10px"})
+    cont = addEle({dad:unFr,setClass:"contRow",alignItems:"center",marginT:"10px"})
         txt = `After selling 4 Galaxies, `+ spanText("fuchsia","new locations") +` opens up,
-        <br>and also full access to `+ spanText("fuchsia","autosell mechanics")+` :`
+        <br>and also full access to `+ spanText("fuchsia","autosell mechanics")+` :
+        <br>`+spanText("yellow","(press & hold a resource to activate/stop autosell)")
         addEle({dad:cont,text:txt,marginR:"10px"})
         addEle({dad:cont,what:"img",imgSize:40,imgFullSrc:"./IPM Components/event ball.jpg"})
         addEle({dad:cont,what:"img",imgSize:40,imgFullSrc:"./IPM Components/probe hangar.jpg"})
-        addEle({dad:container,what:"img",height:"80%",width:"80%",marginT:"5px",
+        addEle({dad:unFr,what:"img",height:"80%",width:"80%",marginT:"5px",
         imgFullSrc:"./IPM Components/autosell.jpg"})
 }
 
