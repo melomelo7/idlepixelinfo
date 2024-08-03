@@ -110,9 +110,7 @@ const faqsArray = [
     icon:"cash windfall.jpg",
     text :  `Roughly selling your galaxy ~10 times early on<br>will unlock 
             things you will use forever :<br><br>
-            - Access to Challenges,Tournaments ...<br><br>
             - Resources auto-sell mechanics <br>(which after 4th sale turns % based)<br><br>
-            - Planet upgrade batches x1 ... x5 ... x10<br><br><br>
             All the more reasons to sell often for a full experience of the game.`,
     url : "",
     img : "construction.jpg",
@@ -432,14 +430,22 @@ function setUnlocks(container){
     addEle({dad:container,text:txt,fontS:"30px",borderB:"solid 3px blue",textC:"fuchsia"})
     
     cont = addEle({dad:container,setClass:"contRow",alignItems:"center",marginT:"10px"})
-        txt = `Reach `+spanText("lime","2nd Galaxy")+` Sale : Challenges opens up`
+        txt = `Reach `+spanText("lime","2nd Galaxy")+` Sale : `
+        +spanText("fuchsia","Challenges")+` opens up`
         addEle({dad:cont,text:txt,marginR:"10px"})
         addEle({dad:cont,what:"img",imgSize:30,imgFullSrc:"./IPM Components/challenge.jpg"})
     
     cont = addEle({dad:container,setClass:"contRow",alignItems:"center",marginT:"10px"})
-        txt = `Sold 2 Galaxies ? : `+spanText("lime","Planet Upgrade Batches") +` up to`
+        txt = `Sold 2 Galaxies ? :<br>(Mine/Ship/Cargo) `+
+        spanText("fuchsia","Planet Upgrade Batches") +` up to `
         addEle({dad:cont,text:txt,marginR:"10px"})
         addEle({dad:cont,what:"img",imgSize:40,imgFullSrc:"./IPM Components/planet buy.jpg"})
+
+    cont = addEle({dad:container,setClass:"contRow",alignItems:"center",marginT:"10px"})
+        txt = `Reach `+spanText("lime","3rd Galaxy")+` Sale : `+spanText("fuchsia","Tournament")+` opens up`
+        addEle({dad:cont,text:txt,marginR:"10px"})
+        addEle({dad:cont,what:"img",imgSize:30,imgFullSrc:"./IPM Components/tournament1.jpg"})
+
 
 }
 
@@ -1453,12 +1459,21 @@ function eventBall(){
     let myC = getID("eventHangarFr")
     cleanParent(myC)
 
+    txt = `
+    So whats going on here ?
+    We have an Event Ball-like
+    ` 
+
+
+
+
+
+    
     let cont = addEle({dad:myC,setClass:"contCol",border:"orange solid 3px",
     padding:"10px",textA:"center",radius:"20px"})
     addEle({dad:cont,text:"Under Construction...",textC:"yellow"})
     addEle({dad:cont,what:"img",imgFullSrc:"./IPM Components/construction.jpg"})
     addEle({dad:cont,text:"Under Construction...",textC:"yellow"})
-
 }
 
 
