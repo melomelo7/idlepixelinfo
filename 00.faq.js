@@ -146,7 +146,7 @@ const faqsArray = [
     text : `
     `+spanText("lime","Starting August 2024")+`<br><br>
     More `+spanText("fuchsia","idle time")+` for your `+spanText("fuchsia","action")+
-    ` ! Or was it the opposit `+spanText("","🤔",24)+` ? Im lost `+spanText("","🙈",24)+` ...<br><br>
+    ` ! Or was it the opposite `+spanText("","🤔",24)+` ? Im lost `+spanText("","🙈",24)+` ...<br><br>
     Anyways 2 new places of interest for us to play ! `+spanText("","🥳",24)+` 
     `,
     url : "",
