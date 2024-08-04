@@ -1498,29 +1498,33 @@ let eventsMissions = [
 ]
 
 eventLevels = [
-    {lvl:1,val:0},
-    {lvl:2,val:0},
-    {lvl:3,val:0},
-    {lvl:4,val:0},
-    {lvl:5,val:0},
-    {lvl:6,val:0},
-    {lvl:7,val:0},
-    {lvl:8,val:0},
-    {lvl:9,val:0},
-    {lvl:10,val:0},
-    {lvl:11,val:0},
-    {lvl:12,val:0},
-    {lvl:13,val:0},
+    {lvl:1,val:15},
+    {lvl:2,val:15},
+    {lvl:3,val:15},
+    {lvl:4,val:15},
+    {lvl:5,val:15},
+    {lvl:6,val:15},
+    {lvl:7,val:15},
+    {lvl:8,val:15},
+    {lvl:9,val:15},
+    {lvl:10,val:15},
+    {lvl:11,val:60},
+    {lvl:12,val:60},
+    {lvl:13,val:60},
     {lvl:14,val:60},
     {lvl:15,val:60},
     {lvl:16,val:90},
-    {lvl:17,val:60},
-    {lvl:18,val:60},
-    {lvl:19,val:60},
-    {lvl:20,val:60},
+    {lvl:17,val:90},
+    {lvl:18,val:90},
+    {lvl:19,val:90},
+    {lvl:20,val:90},
 ]
 
 function setProbeHangar(container){
+
+
+    let crystalFr = addEle({dad:container,setClass:"contCol"})
+
 
     // holo bolts.jpg
     // yellow dia.jpg
@@ -1668,7 +1672,8 @@ function eventBall(){
         let tb = addEle({dad:tabC,what:"table"})
         let tr = addEle({dad:tb,what:"tr"})
         addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:"Type"})
-        addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:"Mission & Tiers"})
+        addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:"Mission & "
+        +spanText("lime","Tiers")})
         addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:"Comments"})
         eventsMissions.forEach(mi=>{
             let tr = addEle({dad:tb,what:"tr"})
@@ -1677,7 +1682,7 @@ function eventBall(){
                 let subC = addEle({dad:tc,setClass:"contCol",alignItems:"center"})
                     addEle({dad:subC,text:mi.type,textC:"lime",minWidth:"80px"})
                     addEle({dad:subC,what:"img",imgFullSrc:iSrc+mi.typeI+".jpg",imgSize:40})
-            txt = mi.label + "<br>" + spanText("lime","["+mi.tiers.qt+"]") + " : "
+            txt = mi.label + "<br>" + spanText("lime",mi.tiers.qt+"T ⇒ ")
             mi.tiers.vals.forEach(va=>{
                 txt+= va+" | "
             })
