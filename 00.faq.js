@@ -1383,6 +1383,143 @@ function boostCredits(cred,test=false){
     
 }
 
+let eventsMissions = [
+    {   // ok
+        label: spanText("yellow","Upgrade")+" planets X times",
+        tiers:{qt:3,vals:[200,1000,6000]},
+        comment:`upgrade mine/cargo/ship<br>
+        on any planet you like`,
+        type:"Pay-for-it",
+        typeI:"pay"
+    },
+    {   // ok
+        label:spanText("yellow","Spend")+" X DM<br>recruiting managers",
+        tiers:{qt:3,vals:[250,600,1500]},
+        comment:`self explicit...<br> check `+spanText("lime","Overall")+` info if needs be.`,
+        type:"Pay-for-it",
+        typeI:"pay"
+    },
+    {   ///////////////////
+        label:spanText("yellow","Unlock")+" X smelters",
+        tiers:{qt:3,vals:[20,40,200]},
+        comment:`obviously impossible with 1 galaxy only ...<br>
+        you know what to do next ... or so I hope `+spanText("","😁",26),
+        type:"Pay-for-it",
+        typeI:"pay"
+    },
+    {   // ok
+        label:spanText("yellow","Assign")+" X Managers to Y planets",
+        tiers:{qt:3,vals:[4,8,16]},
+        comment:`self explicit`,
+        type:"Do-it",
+        typeI:"yes"
+    },
+    {   ///// 2M 20M
+        /////  ?  ?  500B
+        label:spanText("yellow","Craft")+" X-value of Items",
+        tiers:{qt:3,vals:["relative to player<br>x3 times"]},
+        comment:`self explicit`,
+        type:"Work-for-it",
+        typeI:"work"
+    },
+    {   // ok
+        label:spanText("yellow","Enter")+" a Tournament",
+        tiers:{qt:1,vals:["Do it !"]},
+        comment:`self explicit`,
+        img:"./IPM Components/do it.jpg",
+        type:"Do-it",
+        typeI:"yes"
+    },
+    {   // ok
+        label:`In the `+spanText("fuchsia","same")+` galaxy, `+spanText("yellow","get")+
+        ` X<br>different `+spanText("yellow","resources")+` from asteroids`,
+        tiers:{qt:3,vals:[6,20,50]},
+        comment:`Asteroids, not debris, so hope you be lucky<br>
+        as the last tier is long... hauler kinda<br>`
+        +spanText("lime","hint : Project Pink Asteroids helps"),
+        img:"lucky",
+        type:"Wait-for-it",
+        typeI:"wait"
+    },
+    {   /// 1M  10M  250M
+        ///          25B
+        label:spanText("yellow","Smelt")+" X-value of alloys",
+        tiers:{qt:3,vals:["relative to player<br>x3 times"]},
+        comment:`self explicit`,
+        type:"Work-for-it",
+        typeI:"work"
+    },
+    {   // ok
+        label:spanText("yellow","Unlock")+" X craft recipes",
+        tiers:{qt:3,vals:[10,70,200]},
+        comment:`Yes items, not alloys/bars...`,
+        type:"Pay-for-it",
+        typeI:"pay"
+    },
+    {   // 1x P10+ -- 3x P30+ -- 2x P60+ ok
+        label:spanText("yellow","Colonize")+" X times planet Y or more",
+        tiers:{qt:3,vals:["1x P10+","3x P30+","2x P60+"]},
+        comment:`planet Y (=>id of planet<br>as in 10 = Solveig )<br>
+        long haulers here you go !`,
+        type:"Work-for-it",
+        typeI:"work"
+    },
+    {   // ok
+        label:spanText("yellow","Colonize")+" X planets",
+        tiers:{qt:3,vals:[10,25,60]},
+        comment:`better here, you may<br>colonize anywhere you like`,
+        type:"Work-for-it",
+        typeI:"work"
+    },
+    {   /// 12 Sm < 2D /// 35sm < 2D /// 100sm < 1D  ok
+        label:spanText("yellow","Unlock")+" X smelters in<br>less than Y days",
+        tiers:{qt:3,vals:["12s < 2D","35s < 12D","100s < 1D"]},
+        comment:`stop buying more crafters !<br>... you clever !`+spanText("","🤓",26),
+        type:"Run-for-it",
+        typeI:"rabbit"
+    },
+    {   /// ok
+        label:spanText("yellow","Collect")+` X Ark rewards<br>in the `
+        +spanText("fuchsia","same")+` galaxy`,
+        tiers:{qt:3,vals:[5,10,20]},
+        comment:`self explicit, if unfamiliar with<br>`+spanText("lime","Arking")+
+        ` check other Faqs`,
+        type:"Wait-for-it",
+        typeI:"wait"
+    },
+    {   // ok
+        label:spanText("yellow","Promote")+" X Managers",
+        tiers:{qt:3,vals:[2,5,15]},
+        comment:`self explicit`,
+        type:"Pay-for-it",
+        typeI:"pay"
+    },
+
+]
+
+eventLevels = [
+    {lvl:1,val:0},
+    {lvl:2,val:0},
+    {lvl:3,val:0},
+    {lvl:4,val:0},
+    {lvl:5,val:0},
+    {lvl:6,val:0},
+    {lvl:7,val:0},
+    {lvl:8,val:0},
+    {lvl:9,val:0},
+    {lvl:10,val:0},
+    {lvl:11,val:0},
+    {lvl:12,val:0},
+    {lvl:13,val:0},
+    {lvl:14,val:60},
+    {lvl:15,val:60},
+    {lvl:16,val:90},
+    {lvl:17,val:60},
+    {lvl:18,val:60},
+    {lvl:19,val:60},
+    {lvl:20,val:60},
+]
+
 function setProbeHangar(container){
 
     // holo bolts.jpg
@@ -1442,7 +1579,8 @@ function setProbeHangar(container){
         addEle({dad:eventFr,setID:"eventTop"})
         addEle({dad:eventFr,setID:"eventBtm",width:"100%",backC:"rgb(20,13,44)"})
 
-    addEle({dad:container,setID:"eventHangarFr"})
+    addEle({dad:container,setID:"eventHangarFr",setClass:"contCol",width:"100%",
+    alignItems:"center",textA:"center"})
 
 
 
@@ -1467,24 +1605,101 @@ function clickEventBtns(e){
 function eventBall(){
     let myC = getID("eventHangarFr")
     cleanParent(myC)
+    let cont = undefined
+    let iSrc = "./IPM Components/"
 
     txt = `
-    So whats going on here ?
-    We have an Event Ball-like
+    `+spanText("lime","◎")+` Do missions to earn yellow crystals<br>
+    `+spanText("yellow","◎")+`Mission payout : 10 crystal x Mission tier<br><br>
+    `+spanText("lime","◎")+` Grab rewards when you got enough <br>
+    crystals to level up far enough<br><br>
+    `+spanText("lime","◎")+` Use the "pay to earn more" option IF <br>
+    appropriate for you ⇒ activate `+spanText("yellow","Miner Pass")+`.<br>
+    (to collect rewards from right colum,<br>when eligible, along with new skin)<br>
+    `+spanText("yellow","** Perks Tab is for Miner Pass users **")+`<br><br>
+    `+spanText("teal","⚠",20)+spanText("yellow",
+    ` Nearly all Missions have 3 tiers with<br>
+      a growing "difficulty" so to speak ...`,18)+`<br><br>
+    `+spanText("fuchsia","⚠⚠",20)+spanText("yellow",
+    ` Missions like "Recruit a manager"<br>
+      for a X-DM-value have the overpaid<br>
+      amount credited to the next tier.`,18)+`<br><br>
+    `+spanText("red","⚠⚠⚠",20)+spanText("yellow",
+    ` Do NOT click on the 50DM button <br>
+    you can see in the middle of the rewards tab.<br>
+     Not a "Collect" button here, but a "pay for".<br>
+     Effect : reach next level instantly`,18)+`
+
     ` 
 
+    cont = addEle({dad:myC,setClass:"contRow",padding:"10px",
+        alignItems:"center",width:"100%",justifyC:"center"})
+        addEle({dad:cont,what:"img",imgSize:60,imgFullSrc:iSrc+"event ball.jpg",
+        radius:"50px"})
+        addEle({dad:cont,text:spanText("lime","Overall",30),margin:"0 10px"})
+        addEle({dad:cont,text:"⏬",border:"solid lime 3px",radius:"10px",padding:"3px",
+        cursor:"pointer",setFunc:(e)=>{
+            if(e.srcElement.innerHTML==="⏬")
+              {e.srcElement.innerHTML="⏫" ; getID("overallFr").style.display = "flex"}
+            else 
+              {e.srcElement.innerHTML="⏬" ; getID("overallFr").style.display = "none"}
+        }})
+    addEle({dad:myC,setClass:"contCol",border:"solid teal 3px",padding:"10px",
+    radius:"20px",alignItems:"center",setID:"overallFr",display:"none"})
+        addEle({dad:getID("overallFr"),text:txt,textA:"left"})
 
 
+        
+    cont = addEle({dad:myC,setClass:"contRow",padding:"10px",
+        alignItems:"center",width:"100%",justifyC:"center"})
+        addEle({dad:cont,what:"img",imgSize:60,imgFullSrc:iSrc+"event ball.jpg",
+        radius:"50px"})
+        addEle({dad:cont,text:spanText("lime","Missions Overview",30),margin:"0 10px"})
+        addEle({dad:cont,text:"⏬",border:"solid lime 3px",radius:"10px",padding:"3px",
+        cursor:"pointer",setFunc:(e)=>{
+            if(e.srcElement.innerHTML==="⏬")
+              {e.srcElement.innerHTML="⏫" ; getID("overViewFr").style.display = "flex"}
+            else 
+              {e.srcElement.innerHTML="⏬" ; getID("overViewFr").style.display = "none"}
+        }})
+    addEle({dad:myC,setClass:"contCol",border:"solid teal 3px",padding:"10px",
+    radius:"20px",alignItems:"center",setID:"overViewFr",display:"none"})
+        let tabC = addEle({dad:getID("overViewFr")})
+        let tb = addEle({dad:tabC,what:"table"})
+        let tr = addEle({dad:tb,what:"tr"})
+        addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:"Type"})
+        addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:"Mission & Tiers"})
+        addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:"Comments"})
+        eventsMissions.forEach(mi=>{
+            let tr = addEle({dad:tb,what:"tr"})
+            let tc = addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",
+            padding:"3px"})
+                let subC = addEle({dad:tc,setClass:"contCol",alignItems:"center"})
+                    addEle({dad:subC,text:mi.type,textC:"lime",minWidth:"80px"})
+                    addEle({dad:subC,what:"img",imgFullSrc:iSrc+mi.typeI+".jpg",imgSize:40})
+            txt = mi.label + "<br>" + spanText("lime","["+mi.tiers.qt+"]") + " : "
+            mi.tiers.vals.forEach(va=>{
+                txt+= va+" | "
+            })
+            txt=txt.slice(0,txt.length-3)
+            addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:txt,padding:"3px"})
+            addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:mi.comment,padding:"3px"})
+        })
 
 
     
-    let cont = addEle({dad:myC,setClass:"contCol",border:"orange solid 3px",
-    padding:"10px",textA:"center",radius:"20px"})
-    addEle({dad:cont,text:"Under Construction...",textC:"yellow"})
+    cont = addEle({dad:myC,setClass:"contCol",border:"orange solid 3px",
+    padding:"10px",textA:"center",radius:"20px",marginT:"30px"})
+    addEle({dad:cont,text:"Under Construction...still",textC:"yellow"})
     addEle({dad:cont,what:"img",imgFullSrc:"./IPM Components/construction.jpg"})
     addEle({dad:cont,text:"Under Construction...",textC:"yellow"})
+    
 }
 
 
+
+
 //// probes cost : 100 / 500
+
+
 
