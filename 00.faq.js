@@ -1473,7 +1473,7 @@ let eventsMissions = [
     },
     {   /// 12 Sm < 2D /// 35sm < 2D /// 100sm < 1D  ok
         label:spanText("yellow","Unlock")+" X smelters in<br>less than Y days",
-        tiers:{qt:3,vals:["12s < 2D","35s < 12D","100s < 1D"]},
+        tiers:{qt:3,vals:["12s < 2D","35s < 2D","100s < 1D"]},
         comment:`stop buying more crafters !<br>... you clever !`+spanText("","🤓",26),
         type:"Run-for-it",
         typeI:"rabbit"
