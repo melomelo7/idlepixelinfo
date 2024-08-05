@@ -1528,70 +1528,82 @@ let probeDeploys = [60,64]
 
 function setProbeHangar(container){
 
-
     let crystalFr = addEle({dad:container,setClass:"contCol"})
-
 
     // holo bolts.jpg
     // yellow dia.jpg
-    let twins = addEle({dad:container,setClass:"contRow",width:"100%",justifyC:"space-evenly",
+    let twins = addEle({dad:container,setClass:"contRow",minWidth:"780px",width:"100%",justifyC:"space-evenly",
         alignItems:"center"})
         addEle({dad:twins,what:"img",imgFullSrc:"./IPM Components/event ball.jpg",
         border:"yellow solid 3px",radius:"80px",cursor:"pointer",setFunc:()=>{
-            eventBall()
-            cleanParent(getID("eventBtm"))
-            if(getID("eventPassBtn").innerHTML ==="Event Pass 👆"){getID("eventPassBtn").click()}
-            addEle({dad:getID("eventBtm"),setClass:"contRow",width:"100%",justifyC:"space-around",
-            backC:"rgb(20,13,44)",setID:"eventBtns",padding:"10px 0"})
-                addEle({dad:getID("eventBtns"),text:"MISSIONS",border:"solid 3px rgb(114,110,128)",cursor:"pointer",
-                radius:"20px",fontB:"bold",padding:"10px",minWidth:"100px",textA:"center",setFunc:clickEventBtns})
-                addEle({dad:getID("eventBtns"),text:"REWARDS",border:"solid 3px rgb(114,110,128)",cursor:"pointer",
-                radius:"20px",fontB:"bold",padding:"10px",minWidth:"100px",textA:"center",setFunc:clickEventBtns})
-                addEle({dad:getID("eventBtns"),text:"PERKS",border:"solid 3px rgb(114,110,128)",cursor:"pointer",
-                radius:"20px",fontB:"bold",padding:"10px",minWidth:"100px",textA:"center",setFunc:clickEventBtns})
-                getID("eventBtns").children[0].click()
+            if(getID("middleDisp").style.display==="none" || getID("middleLbl").innerHTML !== "Event"){
+                console.log("ok")
+                getID("middleDisp").style.display="flex"
+                getID("middleLbl").innerHTML = "Event"
+                cleanParent(getID("eventBtm"))
+                addEle({dad:getID("eventBtm"),setClass:"contRow",width:"100%",justifyC:"space-around",
+                backC:"rgb(20,13,44)",setID:"eventBtns",padding:"10px 0"})
+                    addEle({dad:getID("eventBtns"),text:"MISSIONS",border:"solid 3px rgb(114,110,128)",cursor:"pointer",
+                    radius:"20px",fontB:"bold",padding:"10px",minWidth:"100px",textA:"center",setFunc:clickEventBtns})
+                    addEle({dad:getID("eventBtns"),text:"REWARDS",border:"solid 3px rgb(114,110,128)",cursor:"pointer",
+                    radius:"20px",fontB:"bold",padding:"10px",minWidth:"100px",textA:"center",setFunc:clickEventBtns})
+                    addEle({dad:getID("eventBtns"),text:"PERKS",border:"solid 3px rgb(114,110,128)",cursor:"pointer",
+                    radius:"20px",fontB:"bold",padding:"10px",minWidth:"100px",textA:"center",setFunc:clickEventBtns})
+                    getID("eventBtns").children[0].click()
+            } else {
+                console.log("pazok")
+                getID("middleDisp").style.display="none"
+                getID("middleLbl").innerHTML=""
+            }
         }})
 
         addEle({dad:twins,setClass:"contCol",border:"blue solid 3px",
         radius:"30px",padding:"10px",setID:"passFr"})
             addEle({dad:getID("passFr"),what:"img",imgFullSrc:"./IPM Components/multipass.jpg",
-            radius:"20px",cursor:"pointer",setFunc:()=>{getID("passFr").children[1].click()}})
-            addEle({dad:getID("passFr"),text:"Event Pass 👇",cursor:"pointer",textA:"center",
-            paddingT:"5px",setID:("eventPassBtn"),setFunc:(e)=>{
-                let myPass = getID("passDisp")
-                if(e.srcElement.innerHTML==="Event Pass 👇"){
-                    e.srcElement.innerHTML="Event Pass 👆"
-                    myPass.style.display = "block"
-                } else {
-                    e.srcElement.innerHTML="Event Pass 👇"
-                    myPass.style.display = "none"
-                }
-                console.log("multipass")
+            radius:"20px",cursor:"pointer",setFunc:()=>{
+                if(getID("middleDisp").style.display==="none" || getID("middleLbl").innerHTML !== "Pass"){
+                    getID("middleDisp").style.display="flex"
+                    getID("middleLbl").innerHTML = "Pass"
+                    cleanParent(getID("eventTop"))
+                    cleanParent(getID("eventBtm"))
+                    let cont = addEle({dad:getID("eventTop"),width:"100%",textA:"center",margin:"10px 0"})
+                    addEle({dad:cont,setID:"passDisp",what:"img",border:"solid blue 3px",
+                    padding:"5px",radius:"20px",imgFullSrc:"./IPM Components/event pass 1.jpg",
+                    height:"70%",width:"70%"})
+                } else {getID("middleDisp").style.display="none" ; getID("middleLbl").innerHTML=""}
             }})
         
         addEle({dad:twins,what:"img",imgFullSrc:"./IPM Components/probe hangar.jpg",
         border:"yellow solid 3px",radius:"80px",cursor:"pointer",setFunc:()=>{
-            eventBall()
-
-            cleanParent(getID("eventTop"))
-            cleanParent(getID("eventBtm"))
-            if(getID("eventPassBtn").innerHTML ==="Event Pass 👆"){getID("eventPassBtn").click()}
-            let cont = addEle({dad:getID("eventTop"),width:"100%",textA:"center",margin:"10px 0"})
-                addEle({dad:cont,what:"img",imgFullSrc:"./IPM Components/probes hangar.jpg",
-                height:"70%",width:"70%"})
+            if(getID("middleDisp").style.display==="none" || getID("middleLbl").innerHTML !== "Hangar"){
+                console.log("ok")
+                getID("middleDisp").style.display="flex"
+                getID("middleLbl").innerHTML = "Hangar"
+                cleanParent(getID("eventBtm"))
+                cleanParent(getID("eventTop"))
+                let cont = addEle({dad:getID("eventTop"),width:"100%",textA:"center",margin:"10px 0"})
+                    addEle({dad:cont,what:"img",imgFullSrc:"./IPM Components/probes hangar.jpg",
+                    border:"solid yellow 3px",padding:"5px",radius:"20px",
+                    height:"70%",width:"70%"})
+            } else {
+                console.log("pazok")
+                getID("middleDisp").style.display="none"
+                getID("middleLbl").innerHTML=""
+            }
         }})
 
-    addEle({dad:container,setID:"passDisp",what:"img",border:"solid blue 3px",
-    padding:"5px",radius:"20px",imgFullSrc:"./IPM Components/event pass 1.jpg",
-    display:"none",height:"70%",width:"70%"})
 
-    let eventFr = addEle({dad:container,setClass:"contCol",width:"100%"})
-        addEle({dad:eventFr,setID:"eventTop"})
-        addEle({dad:eventFr,setID:"eventBtm",width:"100%",backC:"rgb(20,13,44)"})
+    addEle({dad:container,setClass:"contCol",setID:"middleDisp",width:"100%",alignItems:"center",
+    marginT:"10px",display:"none"})
+        addEle({dad:getID("middleDisp"),setID:"middleLbl",display:"none"})
+        addEle({dad:getID("middleDisp"),setID:"eventBtm",width:"70%",backC:"rgb(20,13,44)"})
+        addEle({dad:getID("middleDisp"),setID:"eventTop"})
+
 
     addEle({dad:container,setID:"eventHangarFr",setClass:"contCol",width:"100%",
-    alignItems:"center",textA:"center"})
+    alignItems:"center",textA:"center"}) 
 
+    eventBall()
 
 
 }
@@ -1604,6 +1616,7 @@ function clickEventBtns(e){
             cleanParent(getID("eventTop"))
             let cont = addEle({dad:getID("eventTop"),width:"100%",textA:"center",margin:"10px 0"})
                 addEle({dad:cont,what:"img",imgFullSrc:"./IPM Components/event ball "+(i+1)+".jpg",
+                border:"solid yellow 3px",padding:"5px",radius:"20px",
                 height:"70%",width:"70%"})
         } else {
             mySrc.children[i].style.border = "solid 3px rgb(114,110,128)"
@@ -1643,7 +1656,7 @@ function eventBall(){
     ` 
 
     cont = addEle({dad:myC,setClass:"contRow",padding:"10px",
-        alignItems:"center",width:"100%",justifyC:"center"})
+        alignItems:"center",width:"100%",justifyC:"center"}) 
         addEle({dad:cont,what:"img",imgSize:60,imgFullSrc:iSrc+"event ball.jpg",
         radius:"50px"})
         addEle({dad:cont,text:spanText("lime","Overall",30),margin:"0 10px"})
@@ -1655,7 +1668,7 @@ function eventBall(){
               {e.srcElement.innerHTML="⏬" ; getID("overallFr").style.display = "none"}
         }})
     addEle({dad:myC,setClass:"contCol",border:"solid teal 3px",padding:"10px",
-    radius:"20px",alignItems:"center",setID:"overallFr",display:"none"})
+    radius:"20px",setID:"overallFr",alignItems:"center",display:"none"})  
         addEle({dad:getID("overallFr"),text:txt,textA:"left"})
 
 
