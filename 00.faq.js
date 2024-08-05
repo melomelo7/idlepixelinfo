@@ -585,7 +585,7 @@ function setChallenge(container){
         {value:"100N",dm:200},
         {value:"1D",dm:200},
     ]
-
+ 
     let table = addEle({dad:container,what:"table",margin:"0 auto",marginT:"-20px"})
     for (i=0;i<challenge.length;i++){
         let tr = addEle({dad:table,what:"tr"})
@@ -1494,31 +1494,37 @@ let eventsMissions = [
         type:"Pay-for-it",
         typeI:"pay"
     },
-
+    {   /// ok
+        label:spanText("yellow","Unlock")+" X crafters in<br>less than Y days",
+        tiers:{qt:3,vals:["4c < 2D","12c < 2D","50c < 1D"]},
+        comment:`stop buying more smelters !<br>... you clever !`+spanText("","🤓",26),
+        type:"Run-for-it",
+        typeI:"rabbit"
+    },
+    {   // ok
+        label: spanText("yellow","Upgrade")+" X times Cargo<br>on planets with a rover",
+        tiers:{qt:3,vals:[30,100,600]},
+        comment:`
+        Make sure its the CARGO you target AND<br>
+        its a RUNNING rover. Timer completed,<br>
+        ready to collect rovers wont work here<br>
+        `+spanText("lime",
+        `Costwise think multiple rovers/galaxies`),
+        type:"Pay-for-it",
+        typeI:"pay"
+    },
+    {   /// ok
+        label:spanText("yellow","Collect")+` X daily rewards`,
+        tiers:{qt:3,vals:[4,spanText("fuchsia","?"),spanText("fuchsia","?")]},
+        comment:`Here we talk about daily<br>login Gift in Shop : 1/day`,
+        type:"Wait-for-it",
+        typeI:"wait"
+    },
 ]
 
-eventLevels = [
-    {lvl:1,val:15},
-    {lvl:2,val:15},
-    {lvl:3,val:15},
-    {lvl:4,val:15},
-    {lvl:5,val:15},
-    {lvl:6,val:15},
-    {lvl:7,val:15},
-    {lvl:8,val:15},
-    {lvl:9,val:15},
-    {lvl:10,val:15},
-    {lvl:11,val:60},
-    {lvl:12,val:60},
-    {lvl:13,val:60},
-    {lvl:14,val:60},
-    {lvl:15,val:60},
-    {lvl:16,val:90},
-    {lvl:17,val:90},
-    {lvl:18,val:90},
-    {lvl:19,val:90},
-    {lvl:20,val:90},
-]
+let eventLevels = [15,15,15,15,15,15,15,15,15,15,60,60,60,60,60,90,90,90,90,90]
+
+let probeDeploys = [60,64]
 
 function setProbeHangar(container){
 

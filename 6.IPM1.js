@@ -305,9 +305,8 @@ txt=`
 `+spanText("yellow","** Last Modification(s) :<br>")+`
 - Events (wandering ships) Updating Changed<br>
 - Early Unlocks Faq reworked<br>
-- Events | Probes Hangar Faq (part I)<br>
+- Events | Probes Hangar Faq (stay tuned work in progress)<br>
 `+spanText("yellow","** Soon to come :<br>")+`
-- update (V2.2.1) : Events | Probes Hangar Faq (part II)
 `
 addEle({dad:right,text:txt,margin:"30px",border:"teal dashed 4px",
 padding:"20px",radius:"30px",width:"fit-content",textA:"left",fontS:"20px"})
