@@ -1436,7 +1436,7 @@ let eventsMissions = [
         tiers:{qt:3,vals:[6,20,50]},
         comment:`Asteroids, not debris, so hope you be lucky<br>
         as the last tier is long... hauler kinda<br>`
-        +spanText("lime","hint : Project Pink Asteroids helps"),
+        +spanText("lime","Hint : Project Pink Asteroids helps & Boosts"),
         img:"lucky",
         type:"Wait-for-it",
         typeI:"wait"
@@ -1459,8 +1459,9 @@ let eventsMissions = [
     {   // 1x P10+ -- 3x P30+ -- 2x P60+ ok
         label:spanText("yellow","Colonize")+" X times planet Y or more",
         tiers:{qt:3,vals:["1x P10+","3x P30+","2x P60+"]},
-        comment:`planet Y (=>id of planet<br>as in 10 = Solveig )<br>
-        long haulers here you go !`,
+        comment:`
+        planet Y (=>id of planet. ex: 10 = Solveig )<br>`+
+        spanText("lime","Hint:Terraforming"),
         type:"Work-for-it",
         typeI:"work"
     },
@@ -1520,6 +1521,31 @@ let eventsMissions = [
         type:"Wait-for-it",
         typeI:"wait"
     },
+
+    {   ///////////////////
+        label:spanText("yellow","Unlock")+" X crafters",
+        tiers:{qt:3,vals:[5,15,80]},
+        comment:`obviously impossible with 1 galaxy only ...<br>
+        you know what to do next ... or so I hope `+spanText("","😁",26),
+        type:"Pay-for-it",
+        typeI:"pay"
+    },
+    {   /// ok
+        label:spanText("yellow","Keep")+` X smelter active for Y hour(s)`,
+        tiers:{qt:3,vals:["1s:1Hr","4s:4Hr","10s:10Hr"]},
+        comment:`Make sure you have enough/steady incoming ore ...<br>`+
+        spanText("lime","Hint: boosts / pair with boost use mission..."),
+        type:"Wait-for-it",
+        typeI:"wait"
+    },
+    {   ///////////////////
+        label:spanText("yellow","Use")+" X boosts",
+        tiers:{qt:3,vals:[6,20,50]},
+        comment:`self explicit`,
+        type:"Pay-for-it",
+        typeI:"pay"
+    },
+
 ]
 
 let eventLevels = [15,15,15,15,15,15,15,15,15,15,60,60,60,60,60,90,90,90,90,90]
@@ -1639,18 +1665,20 @@ function eventBall(){
     `+spanText("lime","◎")+` Use the "pay to earn more" option IF <br>
     appropriate for you ⇒ activate `+spanText("yellow","Miner Pass")+`.<br>
     (to collect rewards from right colum,<br>when eligible, along with new skin)<br>
-    `+spanText("yellow","** Perks Tab is for Miner Pass users **")+`<br><br>
-    `+spanText("teal","⚠",20)+spanText("yellow",
+    `+spanText("yellow","** Perks Tab is for Miner Pass users **")+`<br>
+    `+spanText("orange","** Perks reset/lost when event ends  **")+`<br><br>
+    `+`🟢`+spanText("yellow", //  spanText("teal","⚠",20)
     ` Nearly all Missions have 3 tiers with<br>
       a growing "difficulty" so to speak ...`,18)+`<br><br>
-    `+spanText("fuchsia","⚠⚠",20)+spanText("yellow",
-    ` Missions like "Recruit a manager"<br>
-      for a X-DM-value have the overpaid<br>
-      amount credited to the next tier.`,18)+`<br><br>
-    `+spanText("red","⚠⚠⚠",20)+spanText("yellow",
+    `+`🟣`+spanText("yellow", //  spanText("fuchsia","⚠⚠",20)
+    ` Unless particular mission, usually<br>
+      overpaid amounts will carry on/be<br>
+      credited to next tier. Example with<br>
+      "Recruit a manager" for a X-DM-value`,18)+`<br><br>
+    `+`🟥`+spanText("yellow", // spanText("red","⚠⚠⚠",20)
     ` Do NOT click on the 50DM button <br>
     you can see in the middle of the rewards tab.<br>
-     Not a "Collect" button here, but a "pay for".<br>
+     Not a "COLLECT" button here, but a "PAY FOR".<br>
      Effect : reach next level instantly`,18)+`
 
     ` 
@@ -1703,14 +1731,43 @@ function eventBall(){
                     addEle({dad:subC,what:"img",imgFullSrc:iSrc+mi.typeI+".jpg",imgSize:40})
             txt = mi.label + "<br>" + spanText("lime",mi.tiers.qt+"T ⇒ ")
             mi.tiers.vals.forEach(va=>{
-                txt+= va+" | "
+                txt+= va+" "+spanText("lime","|")+" "
             })
-            txt=txt.slice(0,txt.length-3)
+            console.log(txt)
+            console.log(` <span style="color:lime;">|</span> `.length)
+            txt=txt.slice(0,txt.length-36)
             addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:txt,padding:"3px"})
             addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:mi.comment,padding:"3px"})
         })
 
-
+/*
+    cont = addEle({dad:myC,setClass:"contRow",padding:"10px",
+        alignItems:"center",width:"100%",justifyC:"center"}) 
+        addEle({dad:cont,what:"img",imgSize:60,imgFullSrc:iSrc+"event ball.jpg",
+        radius:"50px"})
+        addEle({dad:cont,text:spanText("lime","Event Levelling",30),margin:"0 10px"})
+        addEle({dad:cont,text:"⏬",border:"solid lime 3px",radius:"10px",padding:"3px",
+        cursor:"pointer",setFunc:(e)=>{
+            if(e.srcElement.innerHTML==="⏬")
+              {e.srcElement.innerHTML="⏫" ; getID("levellingFr").style.display = "flex"}
+            else 
+              {e.srcElement.innerHTML="⏬" ; getID("levellingFr").style.display = "none"}
+        }})
+    addEle({dad:myC,setClass:"contCol",border:"solid teal 3px",padding:"10px",
+    radius:"20px",setID:"levellingFr",display:"none"}) // ,alignItems:"center"
+        let subC = addEle({dad:getID("levellingFr"),setClass:"contRow"})
+            addEle({dad:subC,setID:"lvlRng1",what:"range",isInput:true,setVal:0,min:0,max:20,setFunc:()=>{
+                getID("lvlRng2").max = eventLevels[getID("lvlRng1").value-1]
+                getID("lvlTxt1").innerHTML = "Your Current Event Level : "+spanText("yellow",getID("lvlRng1").value+"/"+20)
+            }})
+            addEle({dad:subC,setID:"lvlTxt1",marginL:"10px",text:"Your Current Event Level : "+spanText("yellow",0+"/"+20)})
+        subC = addEle({dad:getID("levellingFr"),setClass:"contRow"})
+            addEle({dad:subC,setID:"lvlRng2",what:"range",isInput:true,setVal:0,min:0,max:15,setFunc:updLevelling})
+            addEle({dad:subC,setID:"lvlTxt2",marginL:"10px",text:"Owned Crystals for this level : "+spanText("yellow",0)})
+        subC = addEle({dad:getID("levellingFr"),setClass:"contRow"})
+            addEle({dad:subC,setID:"lvlRng3",what:"range",isInput:true,setVal:1,min:1,max:20,setFunc:updLevelling})
+            addEle({dad:subC,setID:"lvlTxt3",marginL:"10px",text:"Estimate remaining Crystals for level : "+spanText("yellow",1)})
+*/
     
     cont = addEle({dad:myC,setClass:"contCol",border:"orange solid 3px",
     padding:"10px",textA:"center",radius:"20px",marginT:"30px"})
@@ -1720,10 +1777,25 @@ function eventBall(){
     
 }
 
+function updLevelling(){
+    let curLv = getID("lvlRng1").value
+    let curCr = getID("lvlRng2").value
+    let tgtLv = getID("lvlRng3").value
 
 
 
-//// probes cost : 100 / 500
+    
+    getID("lvlTxt2").innerHTML = "Owned Crystals for this level : "+spanText("yellow",curCr)
 
+}
 
+/*
+probes buy cost : 100 / 500
+
+planet bonus : x1.04 upcost : 130 holo [1.06,1.08,1.1  +0.2/up ]
+scan time reduction : 0% upcost : 80 holo [-0.5%]
+asteroids chance : 1.00% /scan upcost : 130 holo [+1%/up]
+asteroids size : 1.00K upcost : 30 holo [+25K/up]
+
+*/
 
