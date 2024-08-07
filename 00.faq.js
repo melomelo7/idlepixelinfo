@@ -1563,7 +1563,6 @@ function setProbeHangar(container){
         addEle({dad:twins,what:"img",imgFullSrc:"./IPM Components/event ball.jpg",
         border:"yellow solid 3px",radius:"80px",cursor:"pointer",setFunc:()=>{
             if(getID("middleDisp").style.display==="none" || getID("middleLbl").innerHTML !== "Event"){
-                console.log("ok")
                 getID("middleDisp").style.display="flex"
                 getID("middleLbl").innerHTML = "Event"
                 cleanParent(getID("eventBtm"))
@@ -1602,7 +1601,6 @@ function setProbeHangar(container){
         addEle({dad:twins,what:"img",imgFullSrc:"./IPM Components/probe hangar.jpg",
         border:"yellow solid 3px",radius:"80px",cursor:"pointer",setFunc:()=>{
             if(getID("middleDisp").style.display==="none" || getID("middleLbl").innerHTML !== "Hangar"){
-                console.log("ok")
                 getID("middleDisp").style.display="flex"
                 getID("middleLbl").innerHTML = "Hangar"
                 cleanParent(getID("eventBtm"))
