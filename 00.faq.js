@@ -1548,7 +1548,7 @@ let eventsMissions = [
 
 ]
 
-let eventLevels = [15,15,15,15,15,15,15,15,15,15,60,60,60,60,60,90,90,90,90,90]
+let eventLevels = [15,15,15,15,15,15,15,15,15,15,60,60,60,60,60,90,90,90,90,90,0]
 
 let probeDeploys = [60,64]
 
@@ -1733,14 +1733,12 @@ function eventBall(){
             mi.tiers.vals.forEach(va=>{
                 txt+= va+" "+spanText("lime","|")+" "
             })
-            console.log(txt)
-            console.log(` <span style="color:lime;">|</span> `.length)
             txt=txt.slice(0,txt.length-36)
             addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:txt,padding:"3px"})
             addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:mi.comment,padding:"3px"})
         })
 
-/*
+
     cont = addEle({dad:myC,setClass:"contRow",padding:"10px",
         alignItems:"center",width:"100%",justifyC:"center"}) 
         addEle({dad:cont,what:"img",imgSize:60,imgFullSrc:iSrc+"event ball.jpg",
@@ -1756,18 +1754,46 @@ function eventBall(){
     addEle({dad:myC,setClass:"contCol",border:"solid teal 3px",padding:"10px",
     radius:"20px",setID:"levellingFr",display:"none"}) // ,alignItems:"center"
         let subC = addEle({dad:getID("levellingFr"),setClass:"contRow"})
-            addEle({dad:subC,setID:"lvlRng1",what:"range",isInput:true,setVal:0,min:0,max:20,setFunc:()=>{
-                getID("lvlRng2").max = eventLevels[getID("lvlRng1").value-1]
+            addEle({dad:subC,setID:"lvlRng1",what:"range",isInput:true,setVal:0,min:0,max:20,accentCol:"rgb(255,184,23)",setFunc:()=>{
+//                console.log()
+                getID("lvlRng2").max = eventLevels[getID("lvlRng1").value]
+                getID("lvlTxt2").innerHTML = "Owned Crystals for this level : "+spanText("yellow",getID("lvlRng2").value+"/"+getID("lvlRng2").max)
                 getID("lvlTxt1").innerHTML = "Your Current Event Level : "+spanText("yellow",getID("lvlRng1").value+"/"+20)
+                if(Number(getID("lvlRng3").value)<Number(getID("lvlRng1").value)){
+                    console.log(getID("lvlRng1").value)
+                    console.log(getID("lvlRng3").value)
+
+                    getID("lvlRng3").value = Number(getID("lvlRng1").value)+1
+                    console.log(getID("lvlRng3").value)
+
+                    getID("lvlTxt3").innerHTML = "Target Level for estimation : "+spanText("yellow",getID("lvlRng3").value+"/"+getID("lvlRng3").max)
+                }
+                updLevelling()
             }})
-            addEle({dad:subC,setID:"lvlTxt1",marginL:"10px",text:"Your Current Event Level : "+spanText("yellow",0+"/"+20)})
+            addEle({dad:subC,setID:"lvlTxt1",marginL:"10px",text:"Your Current Event Level : "+spanText("yellow",0+"/"+20),
+            minWidth:"300px",textA:"right",paddingR:"5px"})
         subC = addEle({dad:getID("levellingFr"),setClass:"contRow"})
-            addEle({dad:subC,setID:"lvlRng2",what:"range",isInput:true,setVal:0,min:0,max:15,setFunc:updLevelling})
-            addEle({dad:subC,setID:"lvlTxt2",marginL:"10px",text:"Owned Crystals for this level : "+spanText("yellow",0)})
+            addEle({dad:subC,setID:"lvlRng2",what:"range",isInput:true,setVal:0,min:0,max:15,accentCol:"rgb(255,184,23)",setFunc:()=>{
+                getID("lvlTxt2").innerHTML = "Owned Crystals for this level : "+spanText("yellow",getID("lvlRng2").value+"/"+getID("lvlRng2").max)
+                updLevelling()
+            }})
+            addEle({dad:subC,setID:"lvlTxt2",marginL:"10px",text:"Owned Crystals for this level : "+spanText("yellow",0+"/"+15),
+            minWidth:"300px",textA:"right",paddingR:"5px"})
         subC = addEle({dad:getID("levellingFr"),setClass:"contRow"})
-            addEle({dad:subC,setID:"lvlRng3",what:"range",isInput:true,setVal:1,min:1,max:20,setFunc:updLevelling})
-            addEle({dad:subC,setID:"lvlTxt3",marginL:"10px",text:"Estimate remaining Crystals for level : "+spanText("yellow",1)})
-*/
+            addEle({dad:subC,setID:"lvlRng3",what:"range",isInput:true,setVal:1,min:1,max:20,accentCol:"rgb(255,184,23)",setFunc:()=>{
+                getID("lvlTxt3").innerHTML = "Target Level for estimation : "+spanText("yellow",getID("lvlRng3").value+"/"+getID("lvlRng3").max)
+                updLevelling()
+            }})
+            addEle({dad:subC,setID:"lvlTxt3",marginL:"10px",text:"Target Level for estimation : "+spanText("yellow",1+"/"+20),
+            minWidth:"300px",textA:"right",paddingR:"5px"})
+
+            let nbc = Number(getID("lvlRng2").max) - Number(getID("lvlRng2").value)
+            for(let i=Number(getID("lvlRng1").value)+1;i<Number(getID("lvlRng3").value);i++){nbc+=eventLevels[i]}
+            txt = `Target Lv`+spanText("lime",Number(getID("lvlRng3").value))+ 
+            `, you need another `+spanText("yellow",nbc)+` Crystal(s) `
+
+            addEle({dad:getID("levellingFr"),setID:"lvlTxt4",marginL:"10px",textA:"right",paddingR:"5px",text:txt})
+
     
     cont = addEle({dad:myC,setClass:"contCol",border:"orange solid 3px",
     padding:"10px",textA:"center",radius:"20px",marginT:"30px"})
@@ -1778,15 +1804,17 @@ function eventBall(){
 }
 
 function updLevelling(){
-    let curLv = getID("lvlRng1").value
-    let curCr = getID("lvlRng2").value
-    let tgtLv = getID("lvlRng3").value
+    console.log("calc")
+    let curLv = Number(getID("lvlRng1").value)
+    let curCr = getID("lvlRng2")
+    let tgtLv = Number(getID("lvlRng3").value)
 
-
-
-    
-    getID("lvlTxt2").innerHTML = "Owned Crystals for this level : "+spanText("yellow",curCr)
-
+    let nbc = Number(curCr.max) - Number(curCr.value)
+    for(let i=curLv+1;i<tgtLv;i++){
+        nbc+=eventLevels[i]
+    }
+    getID("lvlTxt4").innerHTML = 
+    `Target Lv`+spanText("lime",tgtLv)+ `, you need another `+spanText("yellow",nbc)+` Crystal(s) `
 }
 
 /*

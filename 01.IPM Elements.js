@@ -60,6 +60,7 @@ function addEle({
     img2Sizes = "",
     imgSrc = "",
     imgFullSrc = "",
+    accentCol = "",
     radioCol = "",
     position = "",
     top = "",
@@ -95,7 +96,7 @@ function addEle({
         thisObj.innerHTML = url
     }
 
-    if(radioCol!==""){thisObj.style.accentColor = radioCol}
+    if(accentCol!==""){thisObj.style.accentColor = accentCol}
 
     if(text!==""){thisObj.innerHTML = text}
 
