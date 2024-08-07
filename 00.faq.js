@@ -1787,14 +1787,71 @@ function eventBall(){
 
             addEle({dad:getID("levellingFr"),setID:"lvlTxt4",marginL:"10px",textA:"right",paddingR:"5px",text:txt})
 
-    
+
+        txt =`
+            Starting from the Hangar send OR cancel a Probe scouting trip/action<br><br>
+            Until further updates (Station new content added), the type of bonus<br>
+            a probe scan will provide to the target Planet is random. You may check<br>
+            which will be applied next by clicking the probe to see the details.<br><br>
+            You can use no more than 1 Probe to scan 1 Planet, so very likely you<br>
+            would be able to own at least as many Probes as there are Planets.<br>
+            Costwise this might get nuts ... 1st Probe 100 Holo Bolts, 2nd 500 HB ...<br><br>
+            Starting scan range from 1Hr for Balor up to Days according to distance<br>
+            of target planet. If the Probe is not called back, it will carry on<br>
+            scanning the same planet over and over stockpiling buffs with 10% more<br>
+            time recalculated on each additional scans.<br><br>
+            Selling Galaxy will shut down all scans : probes back to Hangar,<br>
+            And reset Planet Boosts.<br><br>
+            Probes along with probe upgrades or remaining Holo Bolts are permanent.
+           `
+        cont = addEle({dad:myC,setClass:"contRow",padding:"10px",
+            alignItems:"center",width:"100%",justifyC:"center"})
+            addEle({dad:cont,what:"img",imgSize:60,imgFullSrc:iSrc+"probe hangar.jpg",
+            radius:"50px"})
+            addEle({dad:cont,text:spanText("lime","Probes",30),margin:"0 10px"})
+            addEle({dad:cont,text:"⏬",border:"solid lime 3px",radius:"10px",padding:"3px",
+            cursor:"pointer",setFunc:(e)=>{
+                if(e.srcElement.innerHTML==="⏬")
+                  {e.srcElement.innerHTML="⏫" ; getID("probesFr").style.display = "flex"}
+                else 
+                  {e.srcElement.innerHTML="⏬" ; getID("probesFr").style.display = "none"}
+            }})
+        addEle({dad:myC,setClass:"contCol",border:"solid teal 3px",padding:"10px",
+        radius:"20px",alignItems:"center",setID:"probesFr",display:"none"})
+            addEle({dad:getID("probesFr"),text:txt,textA:"left"})
+            addEle({dad:getID("probesFr"),text:"Upgrades "+spanText("yellow","(Each for a single Probe)")
+            ,textA:"left",margin:"10px 0 5px 0",borderB:"fuchsia 3px solid"})
+            cont = addEle({dad:getID("probesFr")})
+            tb = addEle({dad:cont,what:"table"})
+            tr = addEle({dad:tb,what:"tr"})
+                addEle({dad:tr,what:"td",text:"Type",border:"teal solid 3px",padding:"3px"})
+                addEle({dad:tr,what:"td",text:"Start<br>Value",border:"teal solid 3px",padding:"3px",minWidth:"60px"})
+                addEle({dad:tr,what:"td",text:"HB<br>Cost",border:"teal solid 3px",padding:"3px",minWidth:"60px"})
+                addEle({dad:tr,what:"td",text:"Added<br>Value",border:"teal solid 3px",padding:"3px",minWidth:"60px"})
+            probeUpgrades.forEach(pr=>{
+                tr = addEle({dad:tb,what:"tr"})
+                addEle({dad:tr,what:"td",text:pr.label,border:"teal solid 3px",padding:"3px"})
+                addEle({dad:tr,what:"td",text:pr.start,border:"teal solid 3px",padding:"3px"})
+                addEle({dad:tr,what:"td",text:pr.cost,border:"teal solid 3px",padding:"3px"})
+                addEle({dad:tr,what:"td",text:pr.buff,border:"teal solid 3px",padding:"3px"})
+            })
+
+/*
     cont = addEle({dad:myC,setClass:"contCol",border:"orange solid 3px",
     padding:"10px",textA:"center",radius:"20px",marginT:"30px"})
     addEle({dad:cont,text:"Under Construction...still",textC:"yellow"})
     addEle({dad:cont,what:"img",imgFullSrc:"./IPM Components/construction.jpg"})
     addEle({dad:cont,text:"Under Construction...",textC:"yellow"})
-    
+*/
+
 }
+
+let probeUpgrades = [
+    {label:"Planet Bonus",start:"x1.04",cost:130,buff:"+0.2"},
+    {label:"Scan Time",start:"0%",cost:80,buff:"-0.5%"},
+    {label:"Asteroids Chance",start:"1%",cost:130,buff:"+1%"},
+    {label:"Asteroids Size",start:"1.00K",cost:30,buff:"+25.00K"},
+]
 
 function updLevelling(){
     let curLv = Number(getID("lvlRng1").value)
@@ -1808,14 +1865,4 @@ function updLevelling(){
     getID("lvlTxt4").innerHTML = 
     `Target Lv`+spanText("lime",tgtLv)+ `, you need another `+spanText("yellow",nbc)+` Crystal(s) `
 }
-
-/*
-probes buy cost : 100 / 500
-
-planet bonus : x1.04 upcost : 130 holo [1.06,1.08,1.1  +0.2/up ]
-scan time reduction : 0% upcost : 80 holo [-0.5%]
-asteroids chance : 1.00% /scan upcost : 130 holo [+1%/up]
-asteroids size : 1.00K upcost : 30 holo [+25K/up]
-
-*/
 

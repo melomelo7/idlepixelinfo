@@ -311,13 +311,12 @@ addEle({dad:right,border:"lime dashed 2px",width:greenL,marginL:"50px"})
 
 txt=`
 `+spanText("yellow","** Prior Modification(s) :<br>")+`
-- Events Updated<br>
 - Faq > Tournaments<br>
 - items tab > [Used for] also shows in what projects<br>
-`+spanText("yellow","** Last Modification(s) :<br>")+`
 - Events (wandering ships) Updating Changed<br>
 - Early Unlocks Faq reworked<br>
-- Events | Probes Hangar Faq (stay tuned work in progress)<br>
+`+spanText("yellow","** Last Modification(s) :<br>")+`
+- Events | Probes Hangar Faq <br>
 `+spanText("yellow","** Soon to come :<br>")+`
 `
 addEle({dad:right,text:txt,margin:"30px",border:"teal dashed 4px",
