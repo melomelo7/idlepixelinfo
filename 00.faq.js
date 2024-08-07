@@ -1760,12 +1760,7 @@ function eventBall(){
                 getID("lvlTxt2").innerHTML = "Owned Crystals for this level : "+spanText("yellow",getID("lvlRng2").value+"/"+getID("lvlRng2").max)
                 getID("lvlTxt1").innerHTML = "Your Current Event Level : "+spanText("yellow",getID("lvlRng1").value+"/"+20)
                 if(Number(getID("lvlRng3").value)<Number(getID("lvlRng1").value)){
-                    console.log(getID("lvlRng1").value)
-                    console.log(getID("lvlRng3").value)
-
                     getID("lvlRng3").value = Number(getID("lvlRng1").value)+1
-                    console.log(getID("lvlRng3").value)
-
                     getID("lvlTxt3").innerHTML = "Target Level for estimation : "+spanText("yellow",getID("lvlRng3").value+"/"+getID("lvlRng3").max)
                 }
                 updLevelling()
@@ -1804,7 +1799,6 @@ function eventBall(){
 }
 
 function updLevelling(){
-    console.log("calc")
     let curLv = Number(getID("lvlRng1").value)
     let curCr = getID("lvlRng2")
     let tgtLv = Number(getID("lvlRng3").value)
