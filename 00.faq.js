@@ -1656,6 +1656,16 @@ function eventBall(){
     let iSrc = "./IPM Components/"
 
     txt = `
+    1 Event is 2 weeks which makes 2 per month<br>
+    or 24/year ... and as of today you may collect<br>
+    collectible-space wise 20 different skins from<br>
+    the Miner Pass ... As it is stated from the starting<br>
+    available missions you will receive additional 3/day.<br>
+    remember you have 2 full weeks to complete all.<br>
+    `+spanText("yellow",`(Players buying the miner Pass might want to<br>
+    achieve corresponding levels faster to unlock<br>
+    and be able to use faster the perks they like)`)+`
+    <br><br>
     `+spanText("lime","◎")+` Do missions to earn yellow crystals<br>
     `+spanText("yellow","◎")+`Mission payout : 10 crystal x Mission tier<br><br>
     `+spanText("lime","◎")+` Grab rewards when you got enough <br>
