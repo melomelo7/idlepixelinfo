@@ -254,7 +254,7 @@ txt = `
 Regarding game current bugs, instability, lost of content etc ...<br>
 devs are working on it, until more is know please be patient.<br>
 Spamming support will only slow down process. Thanks<br>
-`+spanText("lime","Current reworked Update : 2.2.6 stay tuned for more...")
+`+spanText("lime","Current reworked Update : V2.2.6 stay tuned for more...")
 
 addEle({dad:right,text:txt,textC:"yellow",fontS:"30px",
 fontB:"bold", margin:"50px 0 0 50px"})
