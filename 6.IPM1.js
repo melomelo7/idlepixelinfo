@@ -250,10 +250,13 @@ function dtSfx(day){
 
 function buildEvent(){
 
-addEle({dad:right,text:`
+txt = `
 Regarding game current bugs, instability, lost of content etc ...<br>
 devs are working on it, until more is know please be patient.<br>
-Spamming support will only slow down process. Thanks`,textC:"yellow",fontS:"30px",
+Spamming support will only slow down process. Thanks<br>
+`+spanText("lime","Current reworked Update : 2.2.6 stay tuned for more...")
+
+addEle({dad:right,text:txt,textC:"yellow",fontS:"30px",
 fontB:"bold", margin:"50px 0 0 50px"})
 
 addEle({dad:right,what:"img",imgFullSrc:"./IPM Components/announcement.jpg",margin:"50px",
