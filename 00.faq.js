@@ -1516,7 +1516,7 @@ let eventsMissions = [
     },
     {   /// ok
         label:spanText("yellow","Collect")+` X daily rewards`,
-        tiers:{qt:3,vals:[4,spanText("fuchsia","?"),spanText("fuchsia","?")]},
+        tiers:{qt:3,vals:[4,8,spanText("fuchsia","?")]},
         comment:`Here we talk about daily<br>login Gift in Shop : 1/day`,
         type:"Wait-for-it",
         typeI:"wait"

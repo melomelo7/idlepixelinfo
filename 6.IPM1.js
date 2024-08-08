@@ -259,10 +259,10 @@ Spamming support will only slow down process. Thanks<br>
 
 addEle({dad:right,text:txt,textC:"yellow",fontS:"30px",
 fontB:"bold", margin:"50px 0 0 50px"})
-
+*/
 addEle({dad:right,what:"img",imgFullSrc:"./IPM Components/announcement.jpg",margin:"50px",
 border:"red solid 10px"})
-*/
+
 
 let greenL = "600px"
 
