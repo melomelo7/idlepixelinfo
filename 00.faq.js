@@ -1657,11 +1657,13 @@ function eventBall(){
 
     txt = `
     1 Event is 2 weeks which makes 2 per month<br>
-    or 24/year ... and as of today you may collect<br>
-    collectible-space wise 20 different skins from<br>
-    the Miner Pass ... As it is stated from the starting<br>
-    available missions you will receive additional 3/day.<br>
-    remember you have 2 full weeks to complete all.<br>
+    or 24/year. Currently, collectible-space wise,<br>
+    you may collect up to 20 different skins for<br>
+    your mothership : 1 per event Pass.<br><br>
+    Ingame information : 5 missions available<br>
+    on day 1. Then, during 1st week only : 3 more<br>
+    missions shall be added every day.<br>
+    Remember you have 2 full weeks to complete all.<br>
     `+spanText("yellow",`(Players buying the miner Pass might want to<br>
     achieve corresponding levels faster to unlock<br>
     and be able to use faster the perks they like)`)+`
