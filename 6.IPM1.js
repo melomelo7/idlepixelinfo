@@ -336,7 +336,8 @@ txt =
  the planning of ships rotation cannot be updated<br>
  anymore. Instead I will post when they were <br>`
  +spanText("yellow",`LAST SEEN`)+` for the time being ...<br>`+
- spanText("lime",`(If you see "Friday*" this is only a wild guess)`)
+ spanText("lime","(If you see ")+spanText("yellow",`"Friday*"`)+
+ spanText("lime"," this is only a wild guess)")
 
 addEle({dad:right,text:txt,textC:"brown",fontS:"18px",margin:"10px 0 0 50px",
 border:"dotted yellow 2px",width:"fit-content",radius:"10px",padding:"5px"})
@@ -355,7 +356,14 @@ wanderers.forEach(wa=>{
     let txt2 = ""
     wa.dates.forEach(dt=>{
         let mdt = new Date()
-        txt2 = mdt.getMonth()+1 === dt.month && mdt.getDay()+1 <= dt.day ? "lime" : "" 
+        if(mdt.getMonth()+1 === dt.month && mdt.getDate() <= dt.day){
+            txt2 = "yellow"
+            console.log(mdt.getDate()+1)
+            if(mdt.getDate()>=dt.day && mdt.getDate()<=dt.day+2){
+                txt2="lime"
+            }
+        }
+//        txt2 = mdt.getMonth()+1 === dt.month && mdt.getDay()+1 <= dt.day ? "lime" : "" 
         txt += spanText(txt2,"- " + dt.dayN+" "+ months[dt.month-1] +" "+dt.day+dtSfx(dt.day)+"<br>")
 
         
