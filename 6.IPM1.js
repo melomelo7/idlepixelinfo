@@ -222,13 +222,13 @@ let wanderers = [
         {dayN:"Friday",month:6,day:28},{dayN:"Friday",month:8,day:2},
     ]},
     {label:"Merchant",ref:"merchant shipn.jpg",dates:[
-        {dayN:"Friday",month:7,day:12},
+        {dayN:"Friday",month:7,day:12},{dayN:"Friday*",month:8,day:16},
     ]},
     {label:"Aurora",ref:"aurora shipn.jpg",dates:[
-        {dayN:"Friday",month:7,day:26},
+        {dayN:"Friday",month:7,day:26},{dayN:"Friday*",month:8,day:23},
     ]},
     {label:"Enigma",ref:"enigma.jpg",dates:[
-        {dayN:"Friday",month:7,day:5},
+        {dayN:"Friday",month:7,day:5},{dayN:"Friday",month:8,day:9},
     ]},
 ]
 
@@ -335,7 +335,9 @@ txt =
 `Due to some "changes" in the discord community,<br>
  the planning of ships rotation cannot be updated<br>
  anymore. Instead I will post when they were <br>`
- +spanText("yellow",`LAST SEEN`)+` for the time being ...`
+ +spanText("yellow",`LAST SEEN`)+` for the time being ...<br>`+
+ spanText("lime",`(If you see "Friday*" this is only a wild guess)`)
+
 addEle({dad:right,text:txt,textC:"brown",fontS:"18px",margin:"10px 0 0 50px",
 border:"dotted yellow 2px",width:"fit-content",radius:"10px",padding:"5px"})
 
@@ -350,8 +352,11 @@ wanderers.forEach(wa=>{
     myC = addEle({dad:myL,what:"td",radius:"5px"})
     
     txt = ""
+    let txt2 = ""
     wa.dates.forEach(dt=>{
-        txt += "- " + dt.dayN+" "+ months[dt.month-1] +" "+dt.day+dtSfx(dt.day)+"<br>"
+        let mdt = new Date()
+        txt2 = mdt.getMonth()+1 === dt.month && mdt.getDay()+1 <= dt.day ? "lime" : "" 
+        txt += spanText(txt2,"- " + dt.dayN+" "+ months[dt.month-1] +" "+dt.day+dtSfx(dt.day)+"<br>")
 
         
         /*
