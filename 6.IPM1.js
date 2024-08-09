@@ -124,10 +124,10 @@ function popKiller(){
     }
 
 
-function clickEvent(){
+function clickNews(){
     popKiller()
     cleanParent(right)
-    buildEvent()
+    buildNews()
 }
 
 function clickFaqs(){
@@ -248,7 +248,7 @@ function dtSfx(day){
     }
 }
 
-function buildEvent(){
+function buildNews(){
 
 /*    
 txt = `
@@ -266,59 +266,19 @@ border:"red solid 10px"})
 
 let greenL = "600px"
 
-txt = `
-Dear IPM Infos Users,<br>
-Votes are now closed in the Reddit Poll<br>
-Thank you for your participation 🌞 !!<br>
-Result as overal % of what Tabs are used the most ⇒<br>
-(June 2024)
-`
-   
-let pollFork = addEle({dad:right,setClass:"contRow",margin:"50px 0 20px 50px"})
-    addEle({dad:pollFork,text:txt,fontS:"20px"})
-
-
-let myCont = addEle({dad:pollFork,marginL:"20px"})//margin:"20px 0 0 50px"
-    let myT = addEle({dad:myCont,what:"table",border:"solid 2px orangered",radius:"5px"})
-        let myL = addEle({dad:myT,what:"tr"})
-            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"FAQs",textA:"center",padding:"5px"})
-            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"19%",textA:"center",padding:"5px"})
-        myL = addEle({dad:myT,what:"tr"})
-            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"Planets",textA:"center",padding:"5px"})
-            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"30%",textA:"center",padding:"5px"})
-        myL = addEle({dad:myT,what:"tr"})
-            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"Items",textA:"center",padding:"5px"})
-            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"19%",textA:"center",padding:"5px"})
-        myL = addEle({dad:myT,what:"tr"})
-            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"Projects",textA:"center",padding:"5px"})
-            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"7%",textA:"center",padding:"5px"})
-        myL = addEle({dad:myT,what:"tr"})
-            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"Station",textA:"center",padding:"5px"})
-            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"2%",textA:"center",padding:"5px"})
-        myL = addEle({dad:myT,what:"tr"})
-            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"Rooms",textA:"center",padding:"5px"})
-            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"23%",textA:"center",padding:"5px"})
-
-/*
-            txt = `
-            New poll to evaluate my new tool : 
-            <a href="https://www.reddit.com/r/IdlePlanetMiner/comments/1ddeok1/ipm_infos_testers_for_new_tool_please/" 
-            target="_blank">Reddit Poll</a><br>
-            `            
-            addEle({dad:right,text:txt,margin:"30px",border:"yellow dashed 5px",
-            padding:"10px",radius:"30px",width:"500px",textA:"center",fontS:"22px"})            
-*/          
-
-addEle({dad:right,border:"lime dashed 2px",width:greenL,marginL:"50px"})
+let myCont = undefined
+let myT = undefined
+let myL = undefined
 
 txt=`
 `+spanText("yellow","** Prior Modification(s) :<br>")+`
-- Faq > Tournaments<br>
-- items tab > [Used for] also shows in what projects<br>
-- Events (wandering ships) Updating Changed<br>
-- Early Unlocks Faq reworked<br>
+- Faq (modif) > Tournaments<br>
+- Items tab > [Used for] also shows in which projects<br>
+- News tab (wandering ships) Updating Changed<br>
+- Faq (rework) > Early Unlocks <br>
 `+spanText("yellow","** Last Modification(s) :<br>")+`
-- Events | Probes Hangar Faq <br>
+- Faq (creation) > Events | Probes Hangar  <br>
+- Top tab "`+spanText("orangered","Events")+`" name changed to "`+spanText("springgreen","News")+`"<br> 
 `+spanText("yellow","** Soon to come :<br>")+`
 `
 addEle({dad:right,text:txt,margin:"30px",border:"teal dashed 4px",
@@ -358,7 +318,6 @@ wanderers.forEach(wa=>{
         let mdt = new Date()
         if(mdt.getMonth()+1 === dt.month && mdt.getDate() <= dt.day){
             txt2 = "yellow"
-            console.log(mdt.getDate()+1)
             if(mdt.getDate()>=dt.day && mdt.getDate()<=dt.day+2){
                 txt2="lime"
             }
@@ -383,6 +342,52 @@ wanderers.forEach(wa=>{
 })
 
 addEle({dad:right,border:"lime dashed 2px",width:greenL,margin:"10px 0 10px 50px"})
+
+txt = `
+Dear IPM Infos Users,<br>
+Votes are now closed in the Reddit Poll<br>
+Thank you for your participation 🌞 !!<br>
+Result as overal % of what Tabs are used the most ⇒<br>
+(June 2024)
+`
+   
+let pollFork = addEle({dad:right,setClass:"contRow",margin:"50px 0 20px 50px"})
+    addEle({dad:pollFork,text:txt,fontS:"20px"})
+
+
+myCont = addEle({dad:pollFork,marginL:"20px"})//margin:"20px 0 0 50px"
+    myT = addEle({dad:myCont,what:"table",border:"solid 2px orangered",radius:"5px"})
+        myL = addEle({dad:myT,what:"tr"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"FAQs",textA:"center",padding:"5px"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"19%",textA:"center",padding:"5px"})
+        myL = addEle({dad:myT,what:"tr"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"Planets",textA:"center",padding:"5px"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"30%",textA:"center",padding:"5px"})
+        myL = addEle({dad:myT,what:"tr"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"Items",textA:"center",padding:"5px"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"19%",textA:"center",padding:"5px"})
+        myL = addEle({dad:myT,what:"tr"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"Projects",textA:"center",padding:"5px"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"7%",textA:"center",padding:"5px"})
+        myL = addEle({dad:myT,what:"tr"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"Station",textA:"center",padding:"5px"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"2%",textA:"center",padding:"5px"})
+        myL = addEle({dad:myT,what:"tr"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"Rooms",textA:"center",padding:"5px"})
+            addEle({dad:myL,what:"td",radius:"5px",border:"green solid 2px",text:"23%",textA:"center",padding:"5px"})
+
+/*
+            txt = `
+            New poll to evaluate my new tool : 
+            <a href="https://www.reddit.com/r/IdlePlanetMiner/comments/1ddeok1/ipm_infos_testers_for_new_tool_please/" 
+            target="_blank">Reddit Poll</a><br>
+            `            
+            addEle({dad:right,text:txt,margin:"30px",border:"yellow dashed 5px",
+            padding:"10px",radius:"30px",width:"500px",textA:"center",fontS:"22px"})            
+*/          
+
+addEle({dad:right,border:"lime dashed 2px",width:greenL,marginL:"50px"})
+
 
 addEle({dad:right,text:`
 Absolutely not related in any way to Idle Planet Miner...<br><br>
