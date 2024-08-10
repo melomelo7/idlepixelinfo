@@ -157,14 +157,17 @@ function buildRooms(){
     Rooms with a Green border are the ones with Max Level 11 <br>
     Though rooms developpement paths are multiple depending each players settings, <br>
     early on elder players will probably agree on these : <br>
-    - buy at least 1 lev of every new room as soon as possible (biggest boost at lv1) <br>
+    - buy every new room as soon as possible (the 1st lev brings the biggest boost)<br>
     - try to complete low cap(11) rooms early : good boost at low cost <br>
+    - One room you dont to miss is the Lounge obviously, give it some love.<br>
     - then its about balancing what you lack or aim for specific result ....<br>
     ** Robotics lv4+ will also open up missions with better payout **
     <br><br> If you ever wonder how many credits in global you will spend on rooms :` 
     + overall.toLocaleString()+"<br><br>"+spanText("greenyellow",`New mini tool to budget your next
     big credit spending : Shopping list.<br>Click a Room > Display details > click lines ... easy !<br>
     ( you can also click on the`)+spanText("blueviolet"," [New Room Costs] ")+spanText("greenyellow","for the shopping list)")
+
+    //     - buy at least 1 lev of every new room as soon as possible (biggest boost at lv1) <br>
 
 
     let roomFork = addEle({dad:right,setClass:"contRow_W"})
