@@ -1534,7 +1534,9 @@ let eventsMissions = [
         label:spanText("yellow","Keep")+` X smelter active for Y hour(s)`,
         tiers:{qt:3,vals:["1s:1Hr","4s:4Hr","10s:10Hr"]},
         comment:`Make sure you have enough/steady incoming ore ...<br>`+
-        spanText("lime","Hint: boosts / pair with boost use mission..."),
+        spanText("lime","Hint: boosts / pair with boost use mission...<br>")
+        +spanText("yellow",`Currently this mission MUST be done With<br>
+        the same ore from start to end, hope this will change...`),
         type:"Wait-for-it",
         typeI:"wait"
     },
