@@ -1812,10 +1812,10 @@ function eventBall(){
             of target planet. If the Probe is not called back, it will carry on<br>
             scanning the same planet over and over stockpiling buffs with 10% more<br>
             time recalculated on each additional scans.<br><br>
-            Selling Galaxy will shut down all scans : probes back to Hangar,<br>
-            And reset Planet Boosts.<br><br>
-            Probes along with probe upgrades or remaining Holo Bolts are permanent.
-           `
+            `+spanText("yellow",`Selling Galaxy will shut down all scans : probes back to Hangar,<br>
+            And reset Planet Boosts.`)+`<br><br>`+
+            spanText("lime","Probes along with probe upgrades or remaining Holo Bolts are permanent.")
+            
         cont = addEle({dad:myC,setClass:"contRow",padding:"10px",
             alignItems:"center",width:"100%",justifyC:"center"})
             addEle({dad:cont,what:"img",imgSize:60,imgFullSrc:iSrc+"probe hangar.jpg",
@@ -1831,8 +1831,13 @@ function eventBall(){
         addEle({dad:myC,setClass:"contCol",border:"solid teal 3px",padding:"10px",
         radius:"20px",alignItems:"center",setID:"probesFr",display:"none"})
             addEle({dad:getID("probesFr"),text:txt,textA:"left"})
-            addEle({dad:getID("probesFr"),text:"Upgrades "+spanText("yellow","(Each for a single Probe)")
-            ,textA:"left",margin:"10px 0 5px 0",borderB:"fuchsia 3px solid"})
+
+            let rowC = addEle({dad:getID("probesFr"),setClass:"contRow",alignItems:"center",marginT:"10px"})
+                addEle({dad:rowC,what:"img",imgSize:30,imgFullSrc:"./IPM Components/holo bolts.jpg",marginR:"20px"})
+                addEle({dad:rowC,text:"Upgrades "+spanText("yellow","(Each for a single Probe)")
+                ,textA:"left",margin:"10px 0 5px 0",borderB:"fuchsia 3px solid"})
+                addEle({dad:rowC,what:"img",imgSize:30,imgFullSrc:"./IPM Components/holo bolts.jpg",marginL:"20px"})
+
             cont = addEle({dad:getID("probesFr")})
             tb = addEle({dad:cont,what:"table"})
             tr = addEle({dad:tb,what:"tr"})
