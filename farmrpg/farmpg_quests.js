@@ -8,9 +8,12 @@ function getEmAll(){
 let txt = undefined
 
 let player = {
-    questlines:[],
-    questSkills:[],
-    questStorage:0,
+    questLines:[],
+    questRequirements:[],
+    questRequests:[],
+    questRewards:[],
+   // questSkills:[],
+ //   questStorage:0,
 
     addQuestline:undefined,
 }
@@ -23,7 +26,7 @@ const body = document.querySelector("body")
 const mainFr = addEle({dad:body,setClass:"contRow",height:"100%",width:"100%"}) // ,backC:"green",
     let lftWd = 180
     const left = addEle({dad:mainFr,setClass:"contCol",height:"100%",
-    overflowX:"hidden",minWidth:lftWd+"px",borderR:"solid blue 2px"})
+    overflowX:"hidden",minWidth:lftWd+"px"}) // ,borderR:"solid blue 2px"
 
         for(let i=0;i<2;i++){addEle({dad:left,setClass:"contCol",margin:"2px",
         setID:"left"+(i+1),alignItems:"center"})}
@@ -68,11 +71,11 @@ function setAdventure(){
 }
 
 function updAdvFr(){
-    getID("advQnb").innerHTML = `Questlines in your Adventure : `+ spanText("yellow",player.questlines.length)+
+    getID("advQnb").innerHTML = `Questlines in your Adventure : `+ spanText("yellow",player.questLines.length)+
     `/`+ allLines.length+`<br>✅`+spanText("cyan",`(remove text in "Find" box to cancel filtering)`)
-    getID("addQl").style.display = player.questlines.length < allLines.length ? "block" : "none"
-    getID("remQl").style.display = player.questlines.length > 0 ? "block" : "none"
-    questingBtn.style.display = player.questlines.length > 0 ? "block" : "none"
+    getID("addQl").style.display = player.questLines.length < allLines.length ? "block" : "none"
+    getID("remQl").style.display = player.questLines.length > 0 ? "block" : "none"
+    questingBtn.style.display = player.questLines.length > 0 ? "block" : "none"
 }
 
 function questSelect(){
@@ -85,11 +88,11 @@ function questSelect(){
 
     if(player.addQuestline){
         allLines.forEach(q=>{
-            let idx = player.questlines.findIndex(it=>it.label === q)
+            let idx = player.questLines.findIndex(it=>it.label === q)
             if(idx===-1){lst.push(q)}
         })
     } else {
-        player.questlines.forEach(q=>{lst.push(q.label)})
+        player.questLines.forEach(q=>{lst.push(q.label)})
     }
 
     if(getID("qSeeker").value !==""){
@@ -108,9 +111,9 @@ function showQuestlines(lines){
        
         if(player.addQuestline){
             myFunc = function(e){
-                let idx = player.questlines.findIndex(it=>it.label === e.srcElement.innerHTML)
+                let idx = player.questLines.findIndex(it=>it.label === e.srcElement.innerHTML)
                 if(idx===-1){
-                    player.questlines.push({label:e.srcElement.innerHTML,current:""})
+                    player.questLines.push({label:e.srcElement.innerHTML,current:""})
                     updAdvFr()
                     getID("addQl").click()
                 }
@@ -118,13 +121,13 @@ function showQuestlines(lines){
         } else {
             myFunc = function(e){
                 grabQL(e.srcElement.innerHTML).forEach(q=>q.current = false)
-                let idx = player.questlines.findIndex(it=>it.label === e.srcElement.innerHTML)
-                player.questlines.splice(idx,1)
+                let idx = player.questLines.findIndex(it=>it.label === e.srcElement.innerHTML)
+                player.questLines.splice(idx,1)
                 updAdvFr()
                 getID("remQl").click()
             }
         }
-        lines.forEach(l=>{addEle({dad:btmC,setClass:"btn",text:l,setFunc:myFunc})})
+        lines.forEach(l=>{addEle({dad:btmC,setClass:"btn",text:l,setFunc:myFunc,minWidth:"180px"})})
     }
 
 }
@@ -138,9 +141,9 @@ function setQuesting(){
     let cont = undefined
 
     let currentGood = true
-    player.questlines.forEach(q=>{if(q.current===""){currentGood = false}})
+    player.questLines.forEach(q=>{if(q.current===""){currentGood = false}})
 
-    addEle({dad:main,text:"Questlines : " + spanText("lime",player.questlines.length)})
+    addEle({dad:main,text:"Questlines : " + spanText("lime",player.questLines.length)})
     cont = addEle({dad:main,setClass:"contRow",marginT:"5px"})
         addEle({dad:cont,what:"radio",isInput:true,setVal:"global view",setName:"questCur"})
         addEle({dad:cont,text:"Global View (1st quests until last quests)"})
@@ -173,7 +176,7 @@ function setQuesting(){
 
 function curQsetter(){
     let myC = getID("curQfr")
-    let src = player.questlines
+    let src = player.questLines
     cleanParent(myC)
 
     for(let i=0;i<src.length;i++){
@@ -202,7 +205,7 @@ function curQsetter(){
 
     addEle({dad:myC,setClass:"btn",text:"Save Changes",width:"90%",marginT:"10px",border:"solid 3px brown",
     backC:"brown",textC:"ghostwhite",fontB:"bold",setFunc:()=>{
-        for(let i=0;i<player.questlines.length;i++){player.questlines[i].current = getID("currentQ:"+i).innerHTML}
+        for(let i=0;i<player.questLines.length;i++){player.questLines[i].current = getID("currentQ:"+i).innerHTML}
         setQuesting()
     }})
 }
@@ -230,38 +233,83 @@ function displayR(){
     let sel = []
     let idx = undefined
     if(res!==""){ getID("infoQ").innerHTML = ""
-        player.questlines.forEach(q1=>{
+        player.questLines.forEach(q1=>{
             let lb = q1.label
             let src = grabQL(lb)
+
+//            console.log(src)
+
             for(let i=0;i<src.length;i++){
                 switch(res){
-                    case "global view" : sel.push(src[i]) ; break
-                    case "current view 1" : idx = romanToNb(q1.current)
-                        if(i===idx-1){sel.push(src[i])} ; break
-                    case "current view to last" : idx = romanToNb(q1.current)
-                        if(i>=idx-1){sel.push(src[i])} ; break
+                    case "global view" : 
+                        idx = sel.findIndex(it=>it.label===q1.label)
+                        if(idx ===-1){
+                            sel.push({label:q1.label,quests:[src[i]]})
+                        } else {
+                            sel[idx].quests.push(src[i])
+                        }
+    //                    sel.push(src[i]) ; break
+                    case "current view 1" : 
+
+                        if(i===romanToNb(q1.current)-1){
+                            sel.push({label:q1.label,quests:[src[i]]})
+                        } ; break
+
+                        /*
+                        idx = sel.findIndex(it=>it.label===q1.label)
+                        if(idx ===-1){
+                            sel.push({label:q1,quests:[src[i]]})
+                        } else {
+                            sel[idx].quests.push(src[i])
+                        }
+                        */
+                    
+//                        idx = romanToNb(q1.current)
+  //                      if(i===idx-1){sel.push(src[i])} ; break
+                    case "current view to last" : 
+                        if(i>=romanToNb(q1.current)-1){
+                            idx = sel.findIndex(it=>it.label===q1.label)
+                            if(idx ===-1){
+                                sel.push({label:q1.label,quests:[src[i]]})
+                            } else {
+                                sel[idx].quests.push(src[i])
+                            }
+                        } ; break
+
+//                        idx = romanToNb(q1.current)
+  //                      if(i>=idx-1){sel.push(src[i])} ; break
                     }
             }
         })
+
+
+        extract(sel)
         displayR2(sel)
     } else {getID("infoQ").innerHTML = "Select a View Option before click on Display"}
+
+
+//    console.log(player)
+
+
 }
 
-function displayR2(lst){
-    let myC = getID("questingDisp")
-    cleanParent(myC)
-
+function extract(lst){
+    let idx = undefined
     let requirements = []
     let Qreq = []
     let Qrew = []
 
-    player.questlines.forEach(q=>{
+//    console.log(lst)
+
+
+    /*
+    player.questLines.forEach(q=>{
         let lb = q.label
         let obj = {questline:lb,requirements:[],storageRq:0,storageRw:0}
         lst.forEach(l=>{
             if(l.questline===lb){
                 l.skills.forEach(sk=>{
-                    let idx = obj.requirements.findIndex(it=>it.label===sk.skill)
+                    idx = obj.requirements.findIndex(it=>it.label===sk.skill)
                     if(idx<0){
                         obj.requirements.push({label:sk.skill,values:[]})
                         obj.requirements[obj.requirements.length-1].values.push(sk.value)
@@ -274,14 +322,14 @@ function displayR2(lst){
                     if(rq.label!=="Silver"){
                         if(rq.quantity > obj.storageRq){obj.storageRq = rq.quantity}
                     }
-                    Qreq.push(rq)
+                    Qreq.push({questLine:lb,label:rq.label,quantity:rq.quantity})
                 })
 
                 l.rewards.forEach(rw=>{
                     if(rw.label!=="Silver"){
                         if(rw.quantity > obj.storageRw){obj.storageRw = rw.quantity}
                     }
-                    Qrew.push(rw)
+                    Qrew.push({questLine:lb,label:rw.label,quantity:rw.quantity})
                 })
 
             }
@@ -289,102 +337,240 @@ function displayR2(lst){
         })
         requirements.push(obj)
     })
+    */
 
-    myC.style.display = "flex"
 
-    let forks = addEle({dad:myC,setClass:"contRow"})
-        let fork1 = addEle({dad:forks,setClass:"contCol"})
-        let fork2 = addEle({dad:forks,setClass:"contCol",marginL:"10px"})
+    lst.forEach(ls=>{
+        let obj1 = {questline:ls.label,requirements:[],storageRq:0,storageRw:0}
+        let obj2 = {questline:ls.label,requests:[]}
+        let obj3 = {questline:ls.label,rewards:[]}
+        ls.quests.forEach(qu=>{
 
-    let cont = addEle({dad:fork1,setClass:"contRow",alignItems:"center",marginB:"5px"})
-        addEle({dad:cont,text:spanText("yellow","Requirements :"),borderB:"solid red 3px",
-        width:"fit-content",marginB:"5px"})
-        addEle({dad:cont,text:"🔽",padding:"2px",border:"yellow solid 2px",radius:"10px",
-        marginL:"10px",cursor:"pointer",setFunc:(e)=>{
-            getID("reqsFr").style.display = e.srcElement.innerHTML==="🔽" ? "flex" : "none"
-            e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽"
-        }})
- 
+        //    console.log(qu)
 
-    cont = addEle({dad:fork1,setClass:"contCol",border:"blue solid 3px",radius:"20px",padding:"5px",
-    setID:"reqsFr",display:"none",maxHeight:"200px",overflowX:"hidden"})
-
-    requirements.forEach(r=>{
-        let subC1 = addEle({dad:cont,setClass:"contRow",marginT:"5px",border:"solid 2px teal",
-        radius:"20px",padding:"5px"})
-            addEle({dad:subC1,text:r.questline,minWidth:"160px",marginR:"5px"})
-            let subC2 = addEle({dad:subC1,setClass:"contCol",width:"100%"})
-            addEle({dad:subC2,text:"Requests Max<br>Storage : "+r.storageRq})
-            addEle({dad:subC2,text:"Rewards Max<br>Storage : "+r.storageRw})
-            addEle({dad:subC2,borderB:"dotted lime 3px",margin:"5px 0",width:"100%"})
-            r.requirements.forEach(r2=>{
-                if(r2.values.length<2){
-                    txt = r2.label+ " : " +r2.values[0]
+            qu.skills.forEach(sk=>{
+                let idx = obj1.requirements.findIndex(it=>it.label===sk.skill)
+                if(idx<0){
+                    obj1.requirements.push({label:sk.skill,values:[]})
+                    obj1.requirements[obj1.requirements.length-1].values.push(sk.value)
                 } else {
-                    r2.values.sort((a,b)=>a-b)
-                    txt = r2.label+ " : " +r2.values[0]+ " ~ "+r2.values[r2.values.length-1]
+                    let idx2 = obj1.requirements[idx].values.findIndex(it=>it===sk.value)
+                    if(idx2===-1){obj1.requirements[idx].values.push(sk.value)}
                 }
-                addEle({dad:subC2,text:txt})
             })
+
+
+            qu.requests.forEach(rq=>{
+
+//                console.log(rq)
+
+                if(rq.label!=="Silver"){
+                    if(rq.quantity > obj1.storageRq){obj1.storageRq = rq.quantity}
+                }
+                obj2.requests.push(rq)
+            })
+
+
+            qu.rewards.forEach(rw=>{
+                if(rw.label!=="Silver"){
+                    if(rw.quantity > obj1.storageRw){obj1.storageRw = rw.quantity}
+                }
+                obj3.rewards.push(rw)
+            })
+
+
+    
+
+        })
+
+        requirements.push(obj1)
+        Qreq.push(obj2)
+        Qrew.push(obj3)
+
     })
 
-    cont = addEle({dad:fork2,setClass:"contRow",alignItems:"center",marginB:"5px"})
-        addEle({dad:cont,text:spanText("yellow","Requests :"),borderB:"solid red 3px",
-        width:"fit-content",marginB:"5px"})
-        addEle({dad:cont,text:"🔽",padding:"2px",border:"yellow solid 2px",radius:"10px",
-        marginL:"10px",cursor:"pointer",setFunc:(e)=>{
-            getID("requestsFr").style.display = e.srcElement.innerHTML==="🔽" ? "flex" : "none"
-            e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽"
-        }})
- 
+    player.questRequirements = requirements
+    player.questRequests = Qreq
+    player.questRewards = Qrew
 
-    cont = addEle({dad:fork2,setClass:"contCol",border:"blue solid 3px",radius:"20px",padding:"5px",
-    setID:"requestsFr",display:"none",maxHeight:"200px",overflowX:"hidden"})
-        Qreq = sortL(Qreq)
-        console.log(Qreq)
 }
 
 function sortL(lst){
-
-/*
-
-
-let lst2 = []
-
-lst.forEach(it=>{
-
-Let idx = lst2.findIndex(l=>l.label === it.label)
-If (idx===-1){
-   lst2.push ({
-   label : it.label,
-   sum : 0,
-   values : [],
-})
-
-lst2[lst2.length-1].values.push(it.quantity)
-
-} else {
-
-lst2[idx].values.push(it.quantity)
-
+    let lst2 = []
+    lst.forEach(it=>{
+        let idx = lst2.findIndex(l=>l.label === it.label)
+        if(idx===-1){
+            lst2.push({questLine:it.questLine,label:it.label,sum:0,values:[]})
+            lst2[lst2.length-1].values.push(it.quantity)
+        } else {
+            lst2[idx].values.push(it.quantity)
+        }
+    })
+    lst2.forEach(it=>{let cpt = 0 ; it.values.forEach(v=>{cpt += v}) ; it.sum = cpt})
+    return lst2
 }
 
+function displayR2(){
+    let myC = getID("questingDisp")
+    cleanParent(myC)
+
+    myC.style.display = "flex"
+
+    let dispOptions = ["Requirements","Requests","Rewards"]
+
+    let cont = addEle({dad:myC,setClass:"contCol",border:"solid blue 3px",padding:"5px",radius:"20px",
+    width:"320px",setID:"dispOpFr",justifyC:"center",textA:"center",alignItems:"center"})
+
+    cont = addEle({dad:myC,setClass:"contRow",alignItems:"center",marginT:"10px",flWrap:"wrap",
+    border:"solid blue 3px",padding:"5px",radius:"20px",width:"320px",justifyC:"center",setID:"dispResFr"})
+
+    dispOptions.forEach(di=>{
+        addEle({dad:getID("dispOpFr"),text:spanText("yellow",di+" 🔽"),borderB:"solid red 3px",
+        marginB:"5px",width:"120px",textA:"center",cursor:"pointer",setFunc:(e)=>{
+            switch(e.srcElement.innerHTML.split(" 🔽")[0]){
+                case "Requirements" : showRequirements() ; break
+                case "Requests" : showRequests(true) ; break
+                case "Rewards" : showRequests(false) ; break
+                default : console.log("Unknown dispopt") } }}) })
 }
 
-lst2.forEach(it=>{
+function showRequirements(){
+    let fr = getID("dispResFr")
+    cleanParent(fr)
 
-Let cpt = 0
-It.values.forEach(v=>{
-cpt += v
-})
-it.sum = cpt
+    let maxS1 = []
+    let maxS2 = []
+    let skills = []
+    player.questRequirements.forEach(r=>{
+        maxS1.push(r.storageRq)
+        maxS2.push(r.storageRw)
+        r.requirements.forEach(rq=>{
+            let idx = skills.findIndex(it=>it.label===rq.label)
+            if(idx===-1){
+                skills.push({label:rq.label,reqs:[]})
+                rq.values.forEach(v=>{skills[skills.length-1].reqs.push(v)})
+            } else {
+                rq.values.forEach(v=>{skills[idx].reqs.push(v)})
+            }
+        })
+    })
 
-})
+    let mastC = addEle({dad:fr,setClass:"contCol",margin:"5px",border:"solid 1px lime",
+    radius:"20px",padding:"5px 10px",width:"100%"})
+        let dspTxt = spanText("lime","All Questlines :")+`<br>
+        Max storage needed for Requests :`+ maxS1.reduce((a, b) => Math.max(a, b), -Infinity) +`<br>
+        Max storage needed for Rewards :`+ maxS2.reduce((a, b) => Math.max(a, b), -Infinity) +`<br>`
+        addEle({dad:mastC,text:dspTxt})
+        addEle({dad:mastC,border:"yellow dotted 2px",width:"90%",margin:"5px 0"})
+        dspTxt = ""
+        skills.forEach(sk=>{
+            let min = 300 ; sk.reqs.forEach(r=>{if(r<min){min=r}})
+            let max = 0 ; sk.reqs.forEach(r=>{if(r>max){max=r}})
+            dspTxt += sk.label + " : "
+            dspTxt += sk.reqs.length === 1 ? sk.reqs[0] + "<br>" : min + "~" + max + "<br>"
+        })
+        addEle({dad:mastC,text:dspTxt})
 
-return lst2
+    addEle({dad:fr,width:"104%",height:"5px",backC:"blue",marginL:"-20px",marginR:"-20px"})
 
-*/
-
-
-
+    player.questRequirements.forEach(r=>{
+        let subC1 = addEle({dad:fr,setClass:"contCol",marginT:"5px",border:"solid 2px teal",
+        radius:"20px",padding:"5px",width:"100%"})
+            dspTxt = spanText("yellow",r.questline)+`<br>
+            Max storage needed for Requests :`+ r.storageRq +`<br>
+            Max storage needed for Rewards :`+ r.storageRw +`<br>`
+            addEle({dad:subC1,text:dspTxt})
+            addEle({dad:subC1,border:"lime dotted 2px",width:"90%",margin:"5px 0"})
+            dspTxt = ""
+            r.requirements.forEach(sk=>{
+                dspTxt += sk.label + " : "
+                dspTxt += sk.values.length === 1 ? sk.values[0] + "<br>" : sk.values[0] + 
+                "~" + sk.values[sk.values.length-1] + "<br>"
+            })
+            addEle({dad:subC1,text:dspTxt})
+    })
 }
+
+function showRequests(requests = true){
+    let fr = getID("dispResFr")
+    cleanParent(fr)
+
+    let src = undefined
+    if(requests)
+         {src = player.questRequests}
+    else {src = player.questRewards}
+
+    let passLst = undefined
+
+    let cont = addEle({dad:fr,setClass:"contRow",width:"100%"})
+        addEle({dad:cont,text:"Total",padding:"5px",border:"blue solid 3px",radiusTL:"20px",
+        radiusBL:"20px",width:"50%",textA:"center",cursor:"pointer",setFunc:()=>{
+            passLst = []
+            let precompile = []
+            src.forEach(q=>{
+                if(requests)
+                     {q.requests.forEach(r=>{precompile.push(r)}) ; txt = "All Requests" }
+                else {q.rewards.forEach(r=>{precompile.push(r)}) ; txt = "All Rewards" }
+            })
+            let myLst = compileReq(precompile)
+            passLst.push({label:txt,lst:myLst})
+            showRequests2(passLst,requests)
+        }})
+        addEle({dad:cont,text:"Details",padding:"5px",border:"blue solid 3px",radiusTR:"20px",
+        radiusBR:"20px",width:"50%",textA:"center",cursor:"pointer",setFunc:()=>{
+            passLst = []
+            src.forEach(q=>{
+                let precompile = []
+                if(requests)
+                     {q.requests.forEach(r=>{precompile.push(r)})}
+                else {q.rewards.forEach(r=>{precompile.push(r)})}
+                let myLst = compileReq(precompile)
+                passLst.push({label:q.questline,lst:myLst})
+            })
+            showRequests2(passLst,requests)
+        }})
+    cont = addEle({dad:fr,setClass:"contCol",border:"solid teal 3px",radius:"20px",padding:"5px",
+    marginT:"10px",setID:"showRfr"})
+}
+
+function compileReq(lst){
+    let comp = []
+    lst.forEach(it=>{
+        let idx = comp.findIndex(c=>c.label===it.label)
+        if(idx===-1)
+             {comp.push({label:it.label,tot:0,vals:[it.quantity]})} 
+        else {comp[idx].vals.push(it.quantity)}
+    })
+    comp.forEach(c=>{let cpt=0 ; c.vals.forEach(v=>{cpt+=v}) ; c.tot=cpt})
+    return comp.sort((a,b)=>b.tot-a.tot)
+}
+
+function showRequests2(lst,requests = true){
+    let fr = getID("showRfr")
+    let ctb = undefined
+    let tb = undefined
+    let tr = undefined
+
+    cleanParent(fr)
+    for(let i=0;i<lst.length;i++){
+        addEle({dad:fr,text:lst[i].label+" ("+lst[i].lst.length+")",textC:"yellow",margin:"5px"})
+        ctb = addEle({dad:fr})
+        tb = addEle({dad:ctb,what:"table"})
+        tr = addEle({dad:tb,what:"tr"})
+            addEle({dad:tr,what:"td",border:"teal solid 2px",padding:"3px",text:"Item"})
+            txt = requests===true ? "Requests" : "Rewards"
+            addEle({dad:tr,what:"td",border:"teal solid 2px",padding:"3px",text:txt})
+            txt = requests===true ? "Inventory/Needed" : "Amount"
+            addEle({dad:tr,what:"td",border:"teal solid 2px",padding:"3px",text:txt})
+        lst[i].lst.forEach(ls=>{
+        tr = addEle({dad:tb,what:"tr"})
+            addEle({dad:tr,what:"td",border:"teal solid 2px",padding:"3px",text:ls.label,setID:"req :"+i})
+            addEle({dad:tr,what:"td",border:"teal solid 2px",padding:"3px",text:ls.vals.length})
+            txt = requests===true ? 0+"/"+ls.tot.toLocaleString() : ls.tot.toLocaleString() 
+            addEle({dad:tr,what:"td",border:"teal solid 2px",padding:"3px",text:txt})
+        })
+    }
+}
+
+
+
