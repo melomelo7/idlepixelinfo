@@ -75,6 +75,13 @@ const frame = addEle({dad:body,setClass:"contCol"})
             dispAllRewards()
         }})
 
+        addEle({dad:fr1,setClass:"btn",text:"⇒ Quests Page",
+        textC:"lime",setFunc:()=>{
+            let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmpg_quests.html"
+            window.open(lnk,'_blank')
+        }})
+
+
         addEle({dad:fr1,marginL:"50px",text:update})
 
         
@@ -294,3 +301,8 @@ function dispAllRewards (val){
 
 }
 
+/*
+
+hello, currently trying to reach explo 99 depleted stamina, would appreciate spare ((Arnold Palmer)) & ((Orange Juice)) thanks
+
+*/

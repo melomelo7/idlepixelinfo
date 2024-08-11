@@ -12,6 +12,7 @@ let player = {
     questRequirements:[],
     questRequests:[],
     questRewards:[],
+    inventory:undefined,
    // questSkills:[],
  //   questStorage:0,
 
@@ -24,7 +25,7 @@ let lastUp = "08/01 06:40"
 const body = document.querySelector("body")
 
 const mainFr = addEle({dad:body,setClass:"contRow",height:"100%",width:"100%"}) // ,backC:"green",
-    let lftWd = 180
+    let lftWd = 200
     const left = addEle({dad:mainFr,setClass:"contCol",height:"100%",
     overflowX:"hidden",minWidth:lftWd+"px"}) // ,borderR:"solid blue 2px"
 
@@ -39,6 +40,13 @@ const mainFr = addEle({dad:body,setClass:"contRow",height:"100%",width:"100%"}) 
         addEle({dad:cont,text:txt,margin:"10px 0 0 10px"})
 
         addEle({dad:cont,text:"last up : "+lastUp,marginL:"50px",textC:"yellow"})
+
+        addEle({dad:cont,setClass:"btn",text:"⇒ Folks Page",
+        textC:"lime",margin:"10px",setFunc:()=>{
+            let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmpg_folks.html"
+            window.open(lnk)
+        }})
+
 
         const topFr = addEle({dad:right,setClass:"contRow",marginL:"5px"})
 
@@ -158,8 +166,8 @@ function setQuesting(){
         textC:currentGood ? "white" : "brown"})
 
     cont = addEle({dad:main,setClass:"contRow",margin:"5px 0",})//display:currentGood ? "none":"flex"
-        addEle({dad:cont,text:"✅To enable options 2 & 3<br>you need to set current quests",textC:"cyan"})
-        addEle({dad:cont,setClass:"btn",text:"Set "+spanText("brown","Current")+" Quests",border:"solid 3px brown",setFunc:()=>{
+        addEle({dad:cont,text:"✅To enable options 2 & 3<br>you need to set "+spanText("lime","Current")+" quests",textC:"cyan"})
+        addEle({dad:cont,setClass:"btn",text:"Set "+spanText("lime","Current")+" Quests",border:"solid 3px brown",setFunc:()=>{
             if(curQfr.style.display==="none")
                     {curQfr.style.display = "flex" ; curQsetter()} 
             else {curQfr.style.display = "none"}
@@ -236,9 +244,6 @@ function displayR(){
         player.questLines.forEach(q1=>{
             let lb = q1.label
             let src = grabQL(lb)
-
-//            console.log(src)
-
             for(let i=0;i<src.length;i++){
                 switch(res){
                     case "global view" : 
@@ -248,24 +253,10 @@ function displayR(){
                         } else {
                             sel[idx].quests.push(src[i])
                         }
-    //                    sel.push(src[i]) ; break
                     case "current view 1" : 
-
                         if(i===romanToNb(q1.current)-1){
                             sel.push({label:q1.label,quests:[src[i]]})
                         } ; break
-
-                        /*
-                        idx = sel.findIndex(it=>it.label===q1.label)
-                        if(idx ===-1){
-                            sel.push({label:q1,quests:[src[i]]})
-                        } else {
-                            sel[idx].quests.push(src[i])
-                        }
-                        */
-                    
-//                        idx = romanToNb(q1.current)
-  //                      if(i===idx-1){sel.push(src[i])} ; break
                     case "current view to last" : 
                         if(i>=romanToNb(q1.current)-1){
                             idx = sel.findIndex(it=>it.label===q1.label)
@@ -275,79 +266,23 @@ function displayR(){
                                 sel[idx].quests.push(src[i])
                             }
                         } ; break
-
-//                        idx = romanToNb(q1.current)
-  //                      if(i>=idx-1){sel.push(src[i])} ; break
                     }
             }
         })
-
-
         extract(sel)
         displayR2(sel)
     } else {getID("infoQ").innerHTML = "Select a View Option before click on Display"}
-
-
-//    console.log(player)
-
-
 }
 
 function extract(lst){
-    let idx = undefined
     let requirements = []
     let Qreq = []
     let Qrew = []
-
-//    console.log(lst)
-
-
-    /*
-    player.questLines.forEach(q=>{
-        let lb = q.label
-        let obj = {questline:lb,requirements:[],storageRq:0,storageRw:0}
-        lst.forEach(l=>{
-            if(l.questline===lb){
-                l.skills.forEach(sk=>{
-                    idx = obj.requirements.findIndex(it=>it.label===sk.skill)
-                    if(idx<0){
-                        obj.requirements.push({label:sk.skill,values:[]})
-                        obj.requirements[obj.requirements.length-1].values.push(sk.value)
-                    } else {
-                        let idx2 = obj.requirements[idx].values.findIndex(it=>it===sk.value)
-                        if(idx2===-1){obj.requirements[idx].values.push(sk.value)}
-                    }
-                })
-                l.requests.forEach(rq=>{
-                    if(rq.label!=="Silver"){
-                        if(rq.quantity > obj.storageRq){obj.storageRq = rq.quantity}
-                    }
-                    Qreq.push({questLine:lb,label:rq.label,quantity:rq.quantity})
-                })
-
-                l.rewards.forEach(rw=>{
-                    if(rw.label!=="Silver"){
-                        if(rw.quantity > obj.storageRw){obj.storageRw = rw.quantity}
-                    }
-                    Qrew.push({questLine:lb,label:rw.label,quantity:rw.quantity})
-                })
-
-            }
-
-        })
-        requirements.push(obj)
-    })
-    */
-
-
     lst.forEach(ls=>{
         let obj1 = {questline:ls.label,requirements:[],storageRq:0,storageRw:0}
         let obj2 = {questline:ls.label,requests:[]}
         let obj3 = {questline:ls.label,rewards:[]}
         ls.quests.forEach(qu=>{
-
-        //    console.log(qu)
-
             qu.skills.forEach(sk=>{
                 let idx = obj1.requirements.findIndex(it=>it.label===sk.skill)
                 if(idx<0){
@@ -358,56 +293,28 @@ function extract(lst){
                     if(idx2===-1){obj1.requirements[idx].values.push(sk.value)}
                 }
             })
-
-
             qu.requests.forEach(rq=>{
-
-//                console.log(rq)
-
                 if(rq.label!=="Silver"){
                     if(rq.quantity > obj1.storageRq){obj1.storageRq = rq.quantity}
                 }
                 obj2.requests.push(rq)
             })
-
-
             qu.rewards.forEach(rw=>{
                 if(rw.label!=="Silver"){
                     if(rw.quantity > obj1.storageRw){obj1.storageRw = rw.quantity}
                 }
                 obj3.rewards.push(rw)
             })
-
-
-    
-
         })
-
         requirements.push(obj1)
         Qreq.push(obj2)
         Qrew.push(obj3)
-
     })
 
     player.questRequirements = requirements
     player.questRequests = Qreq
     player.questRewards = Qrew
 
-}
-
-function sortL(lst){
-    let lst2 = []
-    lst.forEach(it=>{
-        let idx = lst2.findIndex(l=>l.label === it.label)
-        if(idx===-1){
-            lst2.push({questLine:it.questLine,label:it.label,sum:0,values:[]})
-            lst2[lst2.length-1].values.push(it.quantity)
-        } else {
-            lst2[idx].values.push(it.quantity)
-        }
-    })
-    lst2.forEach(it=>{let cpt = 0 ; it.values.forEach(v=>{cpt += v}) ; it.sum = cpt})
-    return lst2
 }
 
 function displayR2(){
@@ -495,9 +402,37 @@ function showRequests(requests = true){
     let fr = getID("dispResFr")
     cleanParent(fr)
 
+    let myC = addEle({dad:fr,setClass:"contCol",setID:"setInventoryFr",display:"none",
+    width:"100%"})
+        let subC = addEle({dad:myC,setClass:"contRow",border:"brown solid 3px",
+        radius:"20px",padding:"2px",alignItems:"center",width:"96%",justifyC:"center"})
+
+        addEle({dad:subC,text:"Set "+spanText("lime","Inventory"),margin:"10px",textA:"center"})
+        addEle({dad:subC,text:"🔽",cursor:"pointer",padding:"1px",border:"lime solid 2px",
+        width:"fit-content",height:"fit-content",radius:"7px",setFunc:(e)=>{
+            if(e.srcElement.innerHTML === "🔽")
+                 {getID("setInventory2Fr").style.display = "flex" ; e.srcElement.innerHTML = "🔼"}
+            else {getID("setInventory2Fr").style.display = "none" ; e.srcElement.innerHTML = "🔽"}
+        }})
+
+        addEle({dad:myC,setClass:"contCol",border:"brown solid 3px",radius:"20px",padding:"5px",
+        setID:"setInventory2Fr",display:"none"})
+            txt = `
+            when playing FarmRpg :<br>
+            - click on "My Inventory"<br>
+            - `+spanText("yellow","dont click anywhere")+`<br>
+            - use keyboard ⇒ `+spanText("lime","Control + A")+`<br>
+            - use keyboard ⇒ `+spanText("lime","Control + C")+`<br>
+            - now click inside white box below and :<br>
+            - use keyboard ⇒ `+spanText("lime","Control + V")+`<br>
+            `
+            addEle({dad:getID("setInventory2Fr"),text:txt,margin:"5px"})
+            addEle({dad:getID("setInventory2Fr"),what:"input",isInput:true,setID:"inventoryRaw"})
+            addEle({dad:getID("setInventory2Fr"),setClass:"btn",text:"OK",width:"80%",setFunc:loadInventory})
+
     let src = undefined
     if(requests)
-         {src = player.questRequests}
+         {src = player.questRequests ; getID("setInventoryFr").style.display = "flex" }
     else {src = player.questRewards}
 
     let passLst = undefined
@@ -574,3 +509,24 @@ function showRequests2(lst,requests = true){
 
 
 
+function loadInventory(){
+    let src = getID("inventoryRaw").value
+    let inventorySize = 
+    src.split("Currently, you cannot have more than ")[1]
+    .split(" of any single thing")[0]
+    inventorySize = Number(inventorySize.replaceAll(",",""))
+    src=src.split("Quantity (DESC) ")[1]
+    
+
+    console.log(inventorySize)
+
+    let raw = src.split("chevron")
+    console.log(raw[0])
+    let seek = 200
+    for(let i=0;i<seek;i++){
+        console.log(raw[1].charCodeAt(i) + " > " +String.fromCharCode(raw[1].charCodeAt(i)))
+    }
+
+    console.log(raw[1].split("     "))
+
+}
