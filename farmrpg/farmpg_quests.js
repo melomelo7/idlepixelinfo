@@ -12,7 +12,7 @@ let player = {
     questRequirements:[],
     questRequests:[],
     questRewards:[],
-    inventory:undefined,
+    inventory:[],
     inventoryCap:undefined,
    // questSkills:[],
  //   questStorage:0,
@@ -21,7 +21,7 @@ let player = {
 }
 
 
-let lastUp = "08/12 09:25"
+let lastUp = "08/12 09:45"
 
 const body = document.querySelector("body")
 
@@ -572,6 +572,8 @@ function loadInventory(){
 
     player.inventory = inv
     player.inventoryCap = inventorySize
+
+    console.log(player)
 
     let srcc1 = player.inventory[0]
     let srcc2 = player.inventory[player.inventory.length-1]
