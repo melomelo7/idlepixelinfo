@@ -13,6 +13,7 @@ let player = {
     questRequests:[],
     questRewards:[],
     inventory:undefined,
+    inventoryCap:undefined,
    // questSkills:[],
  //   questStorage:0,
 
@@ -516,17 +517,69 @@ function loadInventory(){
     .split(" of any single thing")[0]
     inventorySize = Number(inventorySize.replaceAll(",",""))
     src=src.split("Quantity (DESC) ")[1]
-    
-
-    console.log(inventorySize)
 
     let raw = src.split("chevron")
-    console.log(raw[0])
-    let seek = 200
-    for(let i=0;i<seek;i++){
-        console.log(raw[1].charCodeAt(i) + " > " +String.fromCharCode(raw[1].charCodeAt(i)))
+    let sections = []
+    let slicer = "     "
+    for(let i=1;i<raw.length;i++){
+        let part1 = undefined
+        let part2 = undefined
+        if(i===1){
+            part1 = raw[i-1].replaceAll(" ","")
+        } else {
+            part1 = raw[i-1].split(slicer)
+            part1 = part1[part1.length-1]
+            part1 = part1.slice(1,part1.length-1)
+        }
+
+        if(i===raw.length-1){
+            part2 = raw[i]
+            let cpt = 0
+            while(part2[part2.length-1]===" "){
+                cpt++
+                part2 = part2.slice(0,part2.length-1)
+                if(cpt>50){ console.log("Problem Sectionning Raw on last") ; break}
+            }
+        } else {
+            part2 = raw[i].split(slicer)
+            part2 = part2[part2.length-1]
+            part2 = slicer+part2
+            part2 = raw[i].split(part2)[0]
+        }
+        sections.push({section:part1,content:part2})
     }
 
-    console.log(raw[1].split("     "))
+    let inv = []
+    sections.forEach(sec=>{
+        let thisSec = sec.section 
+        let raw2 = sec.content.split(slicer)
+        let obj = undefined
+        for(let i=1;i<raw2.length;i++){
+            if(obj===undefined){
+                obj = {section:thisSec,label:raw2[i],infos:[],quantity:undefined}
+            } else {
+                if(isNaN(raw2[i])){
+                    obj.infos.push(raw2[i])
+                }
+                else {
+                    obj.quantity = Number(raw2[i])
+                    inv.push(obj)
+                    obj = undefined
+                }
+            } 
+        }
+    })
+
+    player.inventory = inv
+    player.inventoryCap = inventorySize
+
+    let srcc1 = player.inventory[0]
+    let srcc2 = player.inventory[player.inventory.length-1]
+    addEle({dad:left,text:"Max Inventory : "+player.inventoryCap})
+    addEle({dad:left,text:srcc1.label+" : "+srcc1.quantity})
+    addEle({dad:left,text:srcc2.label+" : "+srcc2.quantity})
+    player.inventory.forEach(itm=>{
+    //    addEle({dad:left})
+    })
 
 }
