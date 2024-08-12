@@ -21,7 +21,7 @@ let player = {
 }
 
 
-let lastUp = "08/12 09:10"
+let lastUp = "08/12 09:25"
 
 const body = document.querySelector("body")
 
