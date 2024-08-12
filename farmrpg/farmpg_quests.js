@@ -45,7 +45,7 @@ const mainFr = addEle({dad:body,setClass:"contRow",height:"100%",width:"100%"}) 
         addEle({dad:cont,setClass:"btn",text:"⇒ Folks Page",
         textC:"lime",margin:"10px",setFunc:()=>{
             let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmpg_folks.html"
-            window.open(lnk)
+            window.open(lnk,"_self")
         }})
 
 
