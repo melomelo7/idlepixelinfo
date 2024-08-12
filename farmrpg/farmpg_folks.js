@@ -2,7 +2,7 @@
 const body = document.querySelector("body")
 
 
-let update = "up 7.25 18:45"
+let update = "last up 8/12 19:30"
 
 /*
 star meerif
