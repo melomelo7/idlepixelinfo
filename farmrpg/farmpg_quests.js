@@ -21,7 +21,7 @@ let player = {
 }
 
 
-let lastUp = "08/12 09:45"
+let lastUp = "08/12 09:55"
 
 const body = document.querySelector("body")
 
@@ -573,7 +573,9 @@ function loadInventory(){
     player.inventory = inv
     player.inventoryCap = inventorySize
 
-    console.log(player)
+
+    console.log("Player inventory Cap : " + player.inventoryCap)
+    console.log("Player inventory current size : " + player.inventory.length)
 
     let srcc1 = player.inventory[0]
     let srcc2 = player.inventory[player.inventory.length-1]
