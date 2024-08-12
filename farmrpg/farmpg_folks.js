@@ -78,7 +78,7 @@ const frame = addEle({dad:body,setClass:"contCol"})
         addEle({dad:fr1,setClass:"btn",text:"⇒ Quests Page",
         textC:"lime",setFunc:()=>{
             let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmpg_quests.html"
-            window.open(lnk,'_blank')
+            window.open(lnk)
         }})
 
 
