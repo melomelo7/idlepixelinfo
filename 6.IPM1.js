@@ -276,9 +276,10 @@ txt=`
 - Items tab > [Used for] also shows in which projects<br>
 - News tab (wandering ships) Updating Changed<br>
 - Faq (rework) > Early Unlocks <br>
-`+spanText("yellow","** Last Modification(s) :<br>")+`
 - Faq (creation) > Events | Probes Hangar  <br>
 - Top tab "`+spanText("orangered","Events")+`" name changed to "`+spanText("springgreen","News")+`"<br> 
+`+spanText("yellow","** Last Modification(s) :<br>")+`
+- Faq (updating) > Events | Probes Hangar  <br>
 `+spanText("yellow","** Soon to come :<br>")+`
 `
 addEle({dad:right,text:txt,margin:"30px",border:"teal dashed 4px",
