@@ -21,7 +21,7 @@ let player = {
 }
 
 
-let lastUp = "08/12 09:55"
+let lastUp = "08/15 22:10"
 
 const body = document.querySelector("body")
 
@@ -154,19 +154,23 @@ function setQuesting(){
 
     addEle({dad:main,text:"Questlines : " + spanText("lime",player.questLines.length)})
     cont = addEle({dad:main,setClass:"contRow",marginT:"5px"})
-        addEle({dad:cont,what:"radio",isInput:true,setVal:"global view",setName:"questCur"})
-        addEle({dad:cont,text:"Global View (1st quests until last quests)"})
+        addEle({dad:cont,what:"radio",isInput:true,setVal:"global view",setName:"questCur",
+        setFunc:()=>{displayR()}})
+        addEle({dad:cont,text:"Global View (1st quests until last quests)",cursor:"pointer",
+        setFunc:()=>{document.getElementsByName("questCur")[0].click()}})
     cont = addEle({dad:main,setClass:"contRow",margin:"5px 0"})
         addEle({dad:cont,what:"radio",isInput:true,setVal:"current view 1",setName:"questCur",
-        disabled:currentGood === false ? true:false})
-        addEle({dad:cont,text:"Current View 1 (current quests only)",textC:currentGood ? "white" : "brown"})
+        disabled:currentGood === false ? true:false,setFunc:()=>{displayR()}})
+        addEle({dad:cont,text:"Current View 1 (current quests only)",cursor:"pointer",
+        textC:currentGood ? "white" : "brown",setFunc:()=>{document.getElementsByName("questCur")[1].click()}})
     cont = addEle({dad:main,setClass:"contRow",marginB:"5px"})
         addEle({dad:cont,what:"radio",isInput:true,setVal:"current view to last",setName:"questCur",
-        disabled:currentGood === false ? true:false})
+        disabled:currentGood === false ? true:false,setFunc:()=>{displayR()}})
         addEle({dad:cont,text:"Current View to last (current quests until last quests)",
-        textC:currentGood ? "white" : "brown"})
+        textC:currentGood ? "white" : "brown",cursor:"pointer",setFunc:()=>{
+        document.getElementsByName("questCur")[2].click()}})
 
-    cont = addEle({dad:main,setClass:"contRow",margin:"5px 0",})//display:currentGood ? "none":"flex"
+    cont = addEle({dad:main,setClass:"contRow",margin:"5px 0",})
         addEle({dad:cont,text:"✅To enable options 2 & 3<br>you need to set "+spanText("lime","Current")+" quests",textC:"cyan"})
         addEle({dad:cont,setClass:"btn",text:"Set "+spanText("lime","Current")+" Quests",border:"solid 3px brown",setFunc:()=>{
             if(curQfr.style.display==="none")
@@ -176,9 +180,6 @@ function setQuesting(){
     
     addEle({dad:main,setClass:"contCol",margin:"5px",padding:"5px",border:"solid 3px brown"
     ,display:"none",radius:"10px",setID:"curQfr"})
-
-    addEle({dad:main,setID:"infoQ",margin:"5px 0",textC:"yellow",minHeight:"20px",textA:"center"})
-    addEle({dad:main,setClass:"btn",text:"Display Result",width:"90%",setFunc:displayR})
 
     addEle({dad:main,setClass:"contCol",setID:"questingDisp",padding:"5px",display:"none"})
 }
@@ -241,38 +242,36 @@ function displayR(){
 
     let sel = []
     let idx = undefined
-    if(res!==""){ getID("infoQ").innerHTML = ""
-        player.questLines.forEach(q1=>{
-            let lb = q1.label
-            let src = grabQL(lb)
-            for(let i=0;i<src.length;i++){
-                switch(res){
-                    case "global view" : 
+    player.questLines.forEach(q1=>{
+        let lb = q1.label
+        let src = grabQL(lb)
+        for(let i=0;i<src.length;i++){
+            switch(res){
+                case "global view" : 
+                    idx = sel.findIndex(it=>it.label===q1.label)
+                    if(idx ===-1){
+                        sel.push({label:q1.label,quests:[src[i]]})
+                    } else {
+                        sel[idx].quests.push(src[i])
+                    }
+                case "current view 1" : 
+                    if(i===romanToNb(q1.current)-1){
+                        sel.push({label:q1.label,quests:[src[i]]})
+                    } ; break
+                case "current view to last" : 
+                    if(i>=romanToNb(q1.current)-1){
                         idx = sel.findIndex(it=>it.label===q1.label)
                         if(idx ===-1){
                             sel.push({label:q1.label,quests:[src[i]]})
                         } else {
                             sel[idx].quests.push(src[i])
                         }
-                    case "current view 1" : 
-                        if(i===romanToNb(q1.current)-1){
-                            sel.push({label:q1.label,quests:[src[i]]})
-                        } ; break
-                    case "current view to last" : 
-                        if(i>=romanToNb(q1.current)-1){
-                            idx = sel.findIndex(it=>it.label===q1.label)
-                            if(idx ===-1){
-                                sel.push({label:q1.label,quests:[src[i]]})
-                            } else {
-                                sel[idx].quests.push(src[i])
-                            }
-                        } ; break
-                    }
-            }
-        })
-        extract(sel)
-        displayR2(sel)
-    } else {getID("infoQ").innerHTML = "Select a View Option before click on Display"}
+                    } ; break
+                }
+        }
+    })
+    extract(sel)
+    displayR2(sel)
 }
 
 function extract(lst){
@@ -315,6 +314,16 @@ function extract(lst){
     player.questRequirements = requirements
     player.questRequests = Qreq
     player.questRewards = Qrew
+
+    let plInv=[]
+    Qreq.forEach(ql=>{
+        ql.requests.forEach(rq=>{
+            let idx = plInv.findIndex(itm=>itm.label === rq.label)
+            if(idx===-1){plInv.push({label:rq.label,inventory:0,qt:rq.quantity})} else
+            {plInv[idx].qt+=rq.quantity}
+        })
+    })
+    player.inventory = plInv.sort((a,b)=>b.qt-a.qt)
 
 }
 
@@ -412,24 +421,41 @@ function showRequests(requests = true){
         addEle({dad:subC,text:"🔽",cursor:"pointer",padding:"1px",border:"lime solid 2px",
         width:"fit-content",height:"fit-content",radius:"7px",setFunc:(e)=>{
             if(e.srcElement.innerHTML === "🔽")
-                 {getID("setInventory2Fr").style.display = "flex" ; e.srcElement.innerHTML = "🔼"}
+                 {getID("setInventory2Fr").style.display = "flex" ; e.srcElement.innerHTML = "🔼"
+                 cleanParent(getID("setInventory2Fr"))
+                 let subC2 = addEle({dad:getID("setInventory2Fr")})
+                    let tb = addEle({dad:subC2,what:"table"})
+                 let src = player.inventory
+                 for(let i=0;i<src.length;i++){
+                    let tr = addEle({dad:tb,what:"tr"})
+                        addEle({dad:tr,what:"td",text:src[i].label})
+                    let tc = addEle({dad:tr,what:"td",})
+                        addEle({dad:tc,what:"input",isInput:true,setVal:src[i].inventory,
+                        width:"80px",setID:"invQt1:"+i,textA:"center",setFunc:(e)=>{
+                            let val = e.srcElement.value 
+                            if(val.includes(".")){val=val.replaceAll(".","")}
+                            if(val.includes(",")){val=val.replaceAll(",","")}
+                            txt = e.srcElement.id.split(":")[1]
+                            if(isNaN(val) || val === "" || Number(val) < 0){
+                                getID("invQt2:"+txt).innerHTML = spanText("fuchsia","Number !")
+                                getID("invSts:"+txt).innerHTML = "⛔"
+                            } else {
+                                getID("invQt2:"+txt).innerHTML = Number(val).toLocaleString()
+                                getID("invSts:"+txt).innerHTML = "✅"
+                                src[Number(txt)].inventory = Number(val)
+                                getID("reqTtlBtn").click()
+                            }
+                        }})
+                        addEle({dad:tr,what:"td",text:src[i].inventory,setID:"invQt2:"+i,
+                        minWidth:"80px",textA:"center"})
+                        addEle({dad:tr,what:"td",text:"❓",setID:"invSts:"+i})
+                 }
+                }
             else {getID("setInventory2Fr").style.display = "none" ; e.srcElement.innerHTML = "🔽"}
         }})
 
         addEle({dad:myC,setClass:"contCol",border:"brown solid 3px",radius:"20px",padding:"5px",
         setID:"setInventory2Fr",display:"none"})
-            txt = `
-            when playing FarmRpg :<br>
-            - click on "My Inventory"<br>
-            - `+spanText("yellow","dont click anywhere")+`<br>
-            - use keyboard ⇒ `+spanText("lime","Control + A")+`<br>
-            - use keyboard ⇒ `+spanText("lime","Control + C")+`<br>
-            - now click inside white box below and :<br>
-            - use keyboard ⇒ `+spanText("lime","Control + V")+`<br>
-            `
-            addEle({dad:getID("setInventory2Fr"),text:txt,margin:"5px"})
-            addEle({dad:getID("setInventory2Fr"),what:"input",isInput:true,setID:"inventoryRaw"})
-            addEle({dad:getID("setInventory2Fr"),setClass:"btn",text:"OK",width:"80%",setFunc:loadInventory})
 
     let src = undefined
     if(requests)
@@ -440,7 +466,7 @@ function showRequests(requests = true){
 
     let cont = addEle({dad:fr,setClass:"contRow",width:"100%"})
         addEle({dad:cont,text:"Total",padding:"5px",border:"blue solid 3px",radiusTL:"20px",
-        radiusBL:"20px",width:"50%",textA:"center",cursor:"pointer",setFunc:()=>{
+        radiusBL:"20px",width:"50%",textA:"center",cursor:"pointer",setID:"reqTtlBtn",setFunc:()=>{
             passLst = []
             let precompile = []
             src.forEach(q=>{
@@ -502,88 +528,11 @@ function showRequests2(lst,requests = true){
         tr = addEle({dad:tb,what:"tr"})
             addEle({dad:tr,what:"td",border:"teal solid 2px",padding:"3px",text:ls.label,setID:"req :"+i})
             addEle({dad:tr,what:"td",border:"teal solid 2px",padding:"3px",text:ls.vals.length})
-            txt = requests===true ? 0+"/"+ls.tot.toLocaleString() : ls.tot.toLocaleString() 
+            txt = requests===true ? 
+            player.inventory.filter(itm=>itm.label===ls.label)[0].inventory.toLocaleString()
+            +"/"+ls.tot.toLocaleString() : ls.tot.toLocaleString() 
             addEle({dad:tr,what:"td",border:"teal solid 2px",padding:"3px",text:txt})
         })
     }
 }
 
-
-
-function loadInventory(){
-    let src = getID("inventoryRaw").value
-    let inventorySize = 
-    src.split("Currently, you cannot have more than ")[1]
-    .split(" of any single thing")[0]
-    inventorySize = Number(inventorySize.replaceAll(",",""))
-    src=src.split("Quantity (DESC) ")[1]
-
-    let raw = src.split("chevron")
-    let sections = []
-    let slicer = "     "
-    for(let i=1;i<raw.length;i++){
-        let part1 = undefined
-        let part2 = undefined
-        if(i===1){
-            part1 = raw[i-1].replaceAll(" ","")
-        } else {
-            part1 = raw[i-1].split(slicer)
-            part1 = part1[part1.length-1]
-            part1 = part1.slice(1,part1.length-1)
-        }
-
-        if(i===raw.length-1){
-            part2 = raw[i]
-            let cpt = 0
-            while(part2[part2.length-1]===" "){
-                cpt++
-                part2 = part2.slice(0,part2.length-1)
-                if(cpt>50){ console.log("Problem Sectionning Raw on last") ; break}
-            }
-        } else {
-            part2 = raw[i].split(slicer)
-            part2 = part2[part2.length-1]
-            part2 = slicer+part2
-            part2 = raw[i].split(part2)[0]
-        }
-        sections.push({section:part1,content:part2})
-    }
-
-    let inv = []
-    sections.forEach(sec=>{
-        let thisSec = sec.section 
-        let raw2 = sec.content.split(slicer)
-        let obj = undefined
-        for(let i=1;i<raw2.length;i++){
-            if(obj===undefined){
-                obj = {section:thisSec,label:raw2[i],infos:[],quantity:undefined}
-            } else {
-                if(isNaN(raw2[i])){
-                    obj.infos.push(raw2[i])
-                }
-                else {
-                    obj.quantity = Number(raw2[i])
-                    inv.push(obj)
-                    obj = undefined
-                }
-            } 
-        }
-    })
-
-    player.inventory = inv
-    player.inventoryCap = inventorySize
-
-
-    console.log("Player inventory Cap : " + player.inventoryCap)
-    console.log("Player inventory current size : " + player.inventory.length)
-
-    let srcc1 = player.inventory[0]
-    let srcc2 = player.inventory[player.inventory.length-1]
-    addEle({dad:left,text:"Max Inventory : "+player.inventoryCap})
-    addEle({dad:left,text:srcc1.label+" : "+srcc1.quantity})
-    addEle({dad:left,text:srcc2.label+" : "+srcc2.quantity})
-    player.inventory.forEach(itm=>{
-    //    addEle({dad:left})
-    })
-
-}

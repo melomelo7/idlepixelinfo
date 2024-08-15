@@ -885,13 +885,11 @@ requests:[{label:"Wooden Table",quantity:1000,inventory:0},
 {label:"Frost Shield",quantity:20,inventory:0},
 {label:"Treasure Chest",quantity:100,inventory:0},
 {label:"Wizard Hat",quantity:1000,inventory:0},
-{label:"Ship in",quantity:NaN,inventory:0},
-{label:"Bottle",quantity:10,inventory:0},
+{label:"Ship in a Bottle",quantity:10,inventory:0},
 ],
 rewards:[{label:"Silver",quantity:20000000000,},
 {label:"Hearts",quantity:1,},
-{label:"Buddy Loves",quantity:NaN,},
-{label:"Card",quantity:5,},
+{label:"Buddy Loves You Card",quantity:5,},
 ],
 current:false,},
 
@@ -1512,11 +1510,9 @@ requests:[{label:"Cabbage",quantity:2000,inventory:0},
 {label:"Wooden Box",quantity:1000,inventory:0},
 ],
 rewards:[{label:"Silver",quantity:100000000,},
-{label:"Baba Gec's",quantity:NaN,},
-{label:"Stew",quantity:1,},
+{label:"Baba Gec's Cabbage Stew",quantity:1,},
 ],
 current:false,},
-
 
 
 ]
