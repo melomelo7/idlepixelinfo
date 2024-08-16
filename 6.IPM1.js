@@ -222,7 +222,7 @@ let wanderers = [
         {dayN:"Friday",month:6,day:28},{dayN:"Friday",month:8,day:2},
     ]},
     {label:"Merchant",ref:"merchant shipn.jpg",dates:[
-        {dayN:"Friday",month:7,day:12},{dayN:"Friday*",month:8,day:16},
+        {dayN:"Friday",month:7,day:12},{dayN:"Friday",month:8,day:16},
     ]},
     {label:"Aurora",ref:"aurora shipn.jpg",dates:[
         {dayN:"Friday",month:7,day:26},{dayN:"Friday*",month:8,day:23},
