@@ -1407,7 +1407,7 @@ let eventsMissions = [
         type:"Pay-for-it",
         typeI:"pay"
     },
-    {   ///////////////////
+    {   /// new
         label:spanText("yellow","Send")+" a rover on planet X or more",
         tiers:{qt:3,vals:["1x P20+","1x P30+","1x P40+"]},
         comment:`self explicit`,
@@ -1421,7 +1421,7 @@ let eventsMissions = [
         type:"Pay-for-it",
         typeI:"pay"
     },
-    {   /// 12 Sm < 2D /// 35sm < 2D /// 100sm < 1D  ok
+    {   /// new
         label:spanText("yellow","Unlock")+" X planets in<br>less than Y days",
         tiers:{qt:3,vals:["12p < 2D","35p < 2D","100p < 1D"]},
         comment:`Maybe several galaxies ...`,
@@ -1442,9 +1442,6 @@ let eventsMissions = [
         type:"Work-for-it",
         typeI:"work"
     },
-
-
-
     {   ///////////////////
         label:spanText("yellow","Unlock")+" X smelters",
         tiers:{qt:3,vals:[20,40,200]},
@@ -1453,6 +1450,30 @@ let eventsMissions = [
         type:"Pay-for-it",
         typeI:"pay"
     },
+    {   // ok
+        label:`In the `+spanText("fuchsia","same")+` galaxy, `+spanText("yellow","get")+
+        ` X<br>different `+spanText("yellow","resources")+` from asteroids`,
+        tiers:{qt:3,vals:[6,20,50]},
+        comment:`Asteroids, not debris, so hope you be lucky<br>
+        as the last tier is long... hauler kinda<br>`
+        +spanText("lime","Hint : Project Pink Asteroids helps & Boosts"),
+        img:"lucky",
+        type:"Wait-for-it",
+        typeI:"wait"
+    },
+    {   /// ok
+        label:spanText("yellow","Collect")+` X daily rewards`,
+        tiers:{qt:3,vals:[4,8,spanText("fuchsia","?")]},
+        comment:`Here we talk about daily<br>login Gift in Shop : 1/day`,
+        type:"Wait-for-it",
+        typeI:"wait"
+    },
+
+
+
+
+
+
     {   ///// 2M 20M
         /////  ?  ?  500B
         label:spanText("yellow","Craft")+" X-value of Items",
@@ -1468,17 +1489,6 @@ let eventsMissions = [
         img:"./IPM Components/do it.jpg",
         type:"Do-it",
         typeI:"yes"
-    },
-    {   // ok
-        label:`In the `+spanText("fuchsia","same")+` galaxy, `+spanText("yellow","get")+
-        ` X<br>different `+spanText("yellow","resources")+` from asteroids`,
-        tiers:{qt:3,vals:[6,20,50]},
-        comment:`Asteroids, not debris, so hope you be lucky<br>
-        as the last tier is long... hauler kinda<br>`
-        +spanText("lime","Hint : Project Pink Asteroids helps & Boosts"),
-        img:"lucky",
-        type:"Wait-for-it",
-        typeI:"wait"
     },
     {   /// 1M  10M  250M
         ///          25B
@@ -1538,13 +1548,6 @@ let eventsMissions = [
         `Costwise think multiple rovers/galaxies`),
         type:"Pay-for-it",
         typeI:"pay"
-    },
-    {   /// ok
-        label:spanText("yellow","Collect")+` X daily rewards`,
-        tiers:{qt:3,vals:[4,8,spanText("fuchsia","?")]},
-        comment:`Here we talk about daily<br>login Gift in Shop : 1/day`,
-        type:"Wait-for-it",
-        typeI:"wait"
     },
     {   ///////////////////
         label:spanText("yellow","Unlock")+" X crafters",
@@ -1766,7 +1769,7 @@ function eventBall(){
             txt=txt.slice(0,txt.length-36)
             addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:txt,padding:"3px"})
             addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:eventsMissions[i].comment,padding:"3px"})
-            if(i===7){
+            if(i===10){
                 let tr = addEle({dad:tb,what:"tr"})
                 txt = spanText("lime",`
                 ***********************************************<br>
