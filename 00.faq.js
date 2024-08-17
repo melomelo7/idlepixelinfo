@@ -1385,6 +1385,7 @@ function boostCredits(cred,test=false){
 
 let eventsMissions = [
     {   // ok
+        ref:1,
         label:spanText("yellow","Spend")+" X DM<br>recruiting managers",
         tiers:{qt:3,vals:[250,600,1500]},
         comment:`self explicit...<br> check `+spanText("lime","Overall")+` info if needs be.`,
@@ -1392,6 +1393,7 @@ let eventsMissions = [
         typeI:"pay"
     },
     {   // ok
+        ref:2,
         label: spanText("yellow","Upgrade")+" planets X times",
         tiers:{qt:3,vals:[200,1000,6000]},
         comment:`upgrade mine/cargo/ship<br>
@@ -1401,6 +1403,7 @@ let eventsMissions = [
         typeI:"pay"
     },
     {   // ok
+        ref:3,
         label:spanText("yellow","Unlock")+" X craft recipes",
         tiers:{qt:3,vals:[10,70,200]},
         comment:`Yes items, not alloys/bars...`,
@@ -1408,13 +1411,16 @@ let eventsMissions = [
         typeI:"pay"
     },
     {   /// new
+        ref:4,
         label:spanText("yellow","Send")+" a rover on planet X or more",
         tiers:{qt:3,vals:["1x P20+","1x P30+","1x P40+"]},
-        comment:`self explicit`,
+        comment:`P `+spanText("yellow",">=")+` Orisoni `+spanText("lime","|")+
+        ` Urla Rast `+spanText("lime","|")+` Unicae<br>Use the `+spanText("lime","Planets Tab")+` if needs be`,
         type:"Do-it",
         typeI:"yes"
     },
     {   ///////////////////
+        ref:5,
         label:spanText("yellow","Use")+" X boosts",
         tiers:{qt:3,vals:[6,20,50]},
         comment:`self explicit`,
@@ -1422,6 +1428,7 @@ let eventsMissions = [
         typeI:"pay"
     },
     {   /// new
+        ref:6,
         label:spanText("yellow","Unlock")+" X planets in<br>less than Y days",
         tiers:{qt:3,vals:["12p < 2D","35p < 2D","100p < 1D"]},
         comment:`Maybe several galaxies ...`,
@@ -1429,6 +1436,7 @@ let eventsMissions = [
         typeI:"rabbit"
     },
     {   // ok
+        ref:7,
         label:spanText("yellow","Assign")+" X Managers to Y planets",
         tiers:{qt:3,vals:[4,8,16]},
         comment:`self explicit`,
@@ -1436,6 +1444,7 @@ let eventsMissions = [
         typeI:"yes"
     },
     {   // ok
+        ref:8,
         label:spanText("yellow","Colonize")+" X planets",
         tiers:{qt:3,vals:[10,25,60]},
         comment:`better here, you may<br>colonize anywhere you like`,
@@ -1443,6 +1452,7 @@ let eventsMissions = [
         typeI:"work"
     },
     {   ///////////////////
+        ref:9,
         label:spanText("yellow","Unlock")+" X smelters",
         tiers:{qt:3,vals:[20,40,200]},
         comment:`obviously impossible with 1 galaxy only ...<br>
@@ -1451,6 +1461,7 @@ let eventsMissions = [
         typeI:"pay"
     },
     {   // ok
+        ref:10,
         label:`In the `+spanText("fuchsia","same")+` galaxy, `+spanText("yellow","get")+
         ` X<br>different `+spanText("yellow","resources")+` from asteroids`,
         tiers:{qt:3,vals:[6,20,50]},
@@ -1462,6 +1473,7 @@ let eventsMissions = [
         typeI:"wait"
     },
     {   /// ok
+        ref:11,
         label:spanText("yellow","Collect")+` X daily rewards`,
         tiers:{qt:3,vals:[4,8,spanText("fuchsia","?")]},
         comment:`Here we talk about daily<br>login Gift in Shop : 1/day`,
@@ -1476,6 +1488,7 @@ let eventsMissions = [
 
     {   ///// 2M 20M
         /////  ?  ?  500B
+        ref:12,
         label:spanText("yellow","Craft")+" X-value of Items",
         tiers:{qt:3,vals:["relative to player<br>x3 times"]},
         comment:`self explicit`,
@@ -1483,6 +1496,7 @@ let eventsMissions = [
         typeI:"work"
     },
     {   // ok
+        ref:13,
         label:spanText("yellow","Enter")+" a Tournament",
         tiers:{qt:1,vals:["Do it !"]},
         comment:`self explicit`,
@@ -1492,6 +1506,7 @@ let eventsMissions = [
     },
     {   /// 1M  10M  250M
         ///          25B
+        ref:14,
         label:spanText("yellow","Smelt")+" X-value of alloys",
         tiers:{qt:3,vals:["relative to player<br>x3 times"]},
         comment:`self explicit`,
@@ -1499,15 +1514,17 @@ let eventsMissions = [
         typeI:"work"
     },
     {   // 1x P10+ -- 3x P30+ -- 2x P60+ ok
+        ref:15,
         label:spanText("yellow","Colonize")+" X times planet Y or more",
         tiers:{qt:3,vals:["1x P10+","3x P30+","2x P60+"]},
-        comment:`
-        planet Y (=>id of planet. ex: 10 = Solveig )<br>`+
-        spanText("lime","Hint:Terraforming"),
+        comment:`P `+spanText("yellow",">=")+` Solveig `+spanText("lime","|")+
+        ` Urla Rast `+spanText("lime","|")+` Limbo<br>Use the `+spanText("lime","Planets Tab")+
+        ` if needs be<br>`+spanText("lime","Hint:Terraforming"),
         type:"Work-for-it",
         typeI:"work"
     },
     {   /// 12 Sm < 2D /// 35sm < 2D /// 100sm < 1D  ok
+        ref:16,
         label:spanText("yellow","Unlock")+" X smelters in<br>less than Y days",
         tiers:{qt:3,vals:["12s < 2D","35s < 2D","100s < 1D"]},
         comment:`stop buying more crafters !<br>... you clever !`+spanText("","🤓",26),
@@ -1515,6 +1532,7 @@ let eventsMissions = [
         typeI:"rabbit"
     },
     {   /// ok
+        ref:17,
         label:spanText("yellow","Collect")+` X Ark rewards<br>in the `
         +spanText("fuchsia","same")+` galaxy`,
         tiers:{qt:3,vals:[5,10,20]},
@@ -1524,6 +1542,7 @@ let eventsMissions = [
         typeI:"wait"
     },
     {   // ok
+        ref:18,
         label:spanText("yellow","Promote")+" X Managers",
         tiers:{qt:3,vals:[2,5,15]},
         comment:`self explicit`,
@@ -1531,6 +1550,7 @@ let eventsMissions = [
         typeI:"pay"
     },
     {   /// ok
+        ref:19,
         label:spanText("yellow","Unlock")+" X crafters in<br>less than Y days",
         tiers:{qt:3,vals:["4c < 2D","12c < 2D","50c < 1D"]},
         comment:`stop buying more smelters !<br>... you clever !`+spanText("","🤓",26),
@@ -1538,6 +1558,7 @@ let eventsMissions = [
         typeI:"rabbit"
     },
     {   // ok
+        ref:20,
         label: spanText("yellow","Upgrade")+" X times Cargo<br>on planets with a rover",
         tiers:{qt:3,vals:[30,100,600]},
         comment:`
@@ -1550,6 +1571,7 @@ let eventsMissions = [
         typeI:"pay"
     },
     {   ///////////////////
+        ref:21,
         label:spanText("yellow","Unlock")+" X crafters",
         tiers:{qt:3,vals:[5,15,80]},
         comment:`obviously impossible with 1 galaxy only ...<br>
@@ -1558,6 +1580,7 @@ let eventsMissions = [
         typeI:"pay"
     },
     {   /// ok
+        ref:22,
         label:spanText("yellow","Keep")+` X smelter active for Y hour(s)`,
         tiers:{qt:3,vals:["1s:1Hr","4s:4Hr","10s:10Hr"]},
         comment:`Make sure you have enough/steady incoming ore ...<br>`+
@@ -1568,6 +1591,10 @@ let eventsMissions = [
         typeI:"wait"
     },
 ]
+
+let injecteOrder = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22]
+
+let injectedMissions = 10
 
 let eventLevels = [15,15,15,15,15,15,15,15,15,15,60,60,60,60,60,90,90,90,90,90,0]
 
@@ -1754,22 +1781,27 @@ function eventBall(){
         +spanText("lime","Tiers")})
         addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:"Comments"})
 
+        let thisEvent = []
+        for(let i=0;i<injecteOrder.length;i++){
+            thisEvent.push(eventsMissions.filter(em=>em.ref===injecteOrder[i])[0])
+        }
 
-        for(let i=0;i<eventsMissions.length;i++){
+        for(let i=0;i<thisEvent.length;i++){
             let tr = addEle({dad:tb,what:"tr"})
             let tc = addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",
             padding:"3px"})
                 let subC = addEle({dad:tc,setClass:"contCol",alignItems:"center"})
-                    addEle({dad:subC,text:eventsMissions[i].type,textC:"lime",minWidth:"80px"})
-                    addEle({dad:subC,what:"img",imgFullSrc:iSrc+eventsMissions[i].typeI+".jpg",imgSize:40})
-            txt = eventsMissions[i].label + "<br>" + spanText("lime",eventsMissions[i].tiers.qt+"T ⇒ ")
-            eventsMissions[i].tiers.vals.forEach(va=>{
+                    addEle({dad:subC,text:thisEvent[i].type,textC:"lime",minWidth:"80px"})
+                    addEle({dad:subC,what:"img",imgFullSrc:iSrc+thisEvent[i].typeI+".jpg",imgSize:40})
+                    addEle({dad:subC,text:"M:"+thisEvent[i].ref,textC:"lime",minWidth:"80px"})
+            txt = thisEvent[i].label + "<br>" + spanText("lime",thisEvent[i].tiers.qt+"T ⇒ ")
+            thisEvent[i].tiers.vals.forEach(va=>{
                 txt+= va+" "+spanText("lime","|")+" "
             })
             txt=txt.slice(0,txt.length-36)
             addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:txt,padding:"3px"})
-            addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:eventsMissions[i].comment,padding:"3px"})
-            if(i===10){
+            addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:thisEvent[i].comment,padding:"3px"})
+            if(i===injectedMissions){
                 let tr = addEle({dad:tb,what:"tr"})
                 txt = spanText("lime",`
                 ***********************************************<br>
@@ -1778,26 +1810,8 @@ function eventBall(){
                 `)
                 addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:txt,padding:"3px",colSpan:3})
             }
-
         }
 
-        /*
-        eventsMissions.forEach(mi=>{
-            let tr = addEle({dad:tb,what:"tr"})
-            let tc = addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",
-            padding:"3px"})
-                let subC = addEle({dad:tc,setClass:"contCol",alignItems:"center"})
-                    addEle({dad:subC,text:mi.type,textC:"lime",minWidth:"80px"})
-                    addEle({dad:subC,what:"img",imgFullSrc:iSrc+mi.typeI+".jpg",imgSize:40})
-            txt = mi.label + "<br>" + spanText("lime",mi.tiers.qt+"T ⇒ ")
-            mi.tiers.vals.forEach(va=>{
-                txt+= va+" "+spanText("lime","|")+" "
-            })
-            txt=txt.slice(0,txt.length-36)
-            addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:txt,padding:"3px"})
-            addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:mi.comment,padding:"3px"})
-        })
-        */
 
     cont = addEle({dad:myC,setClass:"contRow",padding:"10px",
         alignItems:"center",width:"100%",justifyC:"center"}) 
