@@ -288,7 +288,7 @@ padding:"20px",radius:"30px",width:"fit-content",textA:"left",fontS:"20px"})
 
 addEle({dad:right,border:"lime dashed 2px",width:greenL,marginL:"50px"})
 
-addEle({dad:right,text:"Wandering Ships (IRL Money)",margin:"20px 0 10px 50px",fontS:"30px"})
+addEle({dad:right,text:"Wandering Ships<br>(IRL Money budget 30~50 $US)",margin:"20px 0 10px 50px",fontS:"30px"})
 addEle({dad:right,text:`(showing up in your galaxy if never bought<br>
 and available for a limited time only !!)`,margin:"0 50px",fontS:"22px"})
 addEle({dad:right,text:"** Faq > Expand Fleet ... for requirements **",textC:"yellow",fontS:"20px",marginL:"50px"})
