@@ -1793,7 +1793,7 @@ function eventBall(){
                 let subC = addEle({dad:tc,setClass:"contCol",alignItems:"center"})
                     addEle({dad:subC,text:thisEvent[i].type,textC:"lime",minWidth:"80px"})
                     addEle({dad:subC,what:"img",imgFullSrc:iSrc+thisEvent[i].typeI+".jpg",imgSize:40})
-                    addEle({dad:subC,text:"M:"+thisEvent[i].ref,textC:"lime",minWidth:"80px"})
+                    addEle({dad:subC,text:"m:"+thisEvent[i].ref,textC:"lime",minWidth:"80px",fontS:"14px"})
             txt = thisEvent[i].label + "<br>" + spanText("lime",thisEvent[i].tiers.qt+"T ⇒ ")
             thisEvent[i].tiers.vals.forEach(va=>{
                 txt+= va+" "+spanText("lime","|")+" "
