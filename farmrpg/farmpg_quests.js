@@ -21,7 +21,7 @@ let player = {
 }
 
 
-let lastUp = "08/19 07:45<br>"+spanText("red","Page In test Mode atm")
+let lastUp = "08/19 08:00<br>"+spanText("red","Page In test Mode atm")
 
 const body = document.querySelector("body")
 
