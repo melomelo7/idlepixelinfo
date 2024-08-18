@@ -21,26 +21,21 @@ let player = {
 }
 
 
-let lastUp = "08/15 22:10"
+let lastUp = "08/15 22:10<br>"+spanText("red","Page In test Mode atm")
 
 const body = document.querySelector("body")
 
 const mainFr = addEle({dad:body,setClass:"contRow",height:"100%",width:"100%"}) // ,backC:"green",
-    let lftWd = 200
-    const left = addEle({dad:mainFr,setClass:"contCol",height:"100%",
-    overflowX:"hidden",minWidth:lftWd+"px"}) // ,borderR:"solid blue 2px"
+    let lftWd = 340
+    const left = addEle({dad:mainFr,setClass:"contCol",height:"100%",width:"fit-content",//
+    minWidth:lftWd+"px",overflowX:"hidden"}) // ,borderR:"solid blue 2px"
 
-        for(let i=0;i<2;i++){addEle({dad:left,setClass:"contCol",margin:"2px",
-        setID:"left"+(i+1),alignItems:"center"})}
+    const right = addEle({dad:mainFr,setClass:"contCol",height:"100%",minWidth:"300px",})//width:"fit-content"
+    const right2 = addEle({dad:mainFr,setClass:"contCol",height:"100%",marginL:"10px"
+    ,overflowX:"hidden",border:"red solid 3px",width:"50%"})//width:"100%",minWdth:"1000px",
 
-    const right = addEle({dad:mainFr,setClass:"contCol",height:"100%",width:"100%"})
-    
-        let cont = addEle({dad:right,setClass:"contRow",alignItems:"center"})
-        txt = `To have it a little more "RPG-like" we will call<br>your `+
-        spanText("lime","Adventure")+` the collection of your `+spanText("lime","Questlines")  
-        addEle({dad:cont,text:txt,margin:"10px 0 0 10px"})
-
-        addEle({dad:cont,text:"last up : "+lastUp,marginL:"50px",textC:"yellow"})
+        let cont = addEle({dad:right,setClass:"contRow",alignItems:"center",marginL:"10px"})
+        addEle({dad:cont,text:"last up : "+lastUp,textC:"yellow"})
 
         addEle({dad:cont,setClass:"btn",text:"⇒ Folks Page",
         textC:"lime",margin:"10px",setFunc:()=>{
@@ -48,24 +43,34 @@ const mainFr = addEle({dad:body,setClass:"contRow",height:"100%",width:"100%"}) 
             window.open(lnk,"_self")
         }})
 
+        cont = addEle({dad:right,setClass:"contRow",alignItems:"center"})
+        txt = 
+        `To have it a little more "RPG-like"<br>
+         we will call your `+ spanText("lime","Adventure")+
+         ` the<br>collection of your `+spanText("lime","Questlines")+`.`
+        addEle({dad:cont,text:txt,margin:"10px 0 0 10px"})
+
+
 
         const topFr = addEle({dad:right,setClass:"contRow",marginL:"5px"})
 
             addEle({dad:topFr,setClass:"btn",width:"fit-content",text:"Manage your "
             +spanText("lime","Adventure"),setFunc:()=>{ main.style.display = "flex" ; setAdventure()}})
 
-            let questingBtn = addEle({dad:topFr,setClass:"btn",width:"fit-content",
+            let questingBtn = addEle({dad:topFr,setClass:"btn",width:"fit-content",border:"brown solid 3px",
             text:"Questing",display:"none",setFunc:()=>{setQuesting()}})
 
-        const main = addEle({dad:right,setClass:"contCol",display:"none",border:"solid 2px blue",
-        padding:"5px",width:"fit-content",radius:"10px",marginL:"10px",marginB:"10px"})
+        const main = addEle({dad:right,setClass:"contCol",display:"none",
+        padding:"5px",width:"fit-content",radius:"10px",marginL:"10px",marginB:"10px"}) //border:"solid 2px blue",
 
 
 getEmAll()
 
 function clWorkSp(){
-    cleanParent(getID("left1"))
-    cleanParent(getID("left2"))
+    cleanParent(left)
+    cleanParent(right2)
+    for(let i=0;i<2;i++){addEle({dad:left,setClass:"contCol",margin:"2px",
+    setID:"left"+(i+1),alignItems:"center"})}
     cleanParent(main)
 }
 
@@ -81,7 +86,7 @@ function setAdventure(){
 
 function updAdvFr(){
     getID("advQnb").innerHTML = `Questlines in your Adventure : `+ spanText("yellow",player.questLines.length)+
-    `/`+ allLines.length+`<br>✅`+spanText("cyan",`(remove text in "Find" box to cancel filtering)`)
+    `/`+ allLines.length+`<br>✅`+spanText("cyan",`(remove text in "Find"<br> box to cancel filtering)`)
     getID("addQl").style.display = player.questLines.length < allLines.length ? "block" : "none"
     getID("remQl").style.display = player.questLines.length > 0 ? "block" : "none"
     questingBtn.style.display = player.questLines.length > 0 ? "block" : "none"
@@ -171,8 +176,8 @@ function setQuesting(){
         document.getElementsByName("questCur")[2].click()}})
 
     cont = addEle({dad:main,setClass:"contRow",margin:"5px 0",})
-        addEle({dad:cont,text:"✅To enable options 2 & 3<br>you need to set "+spanText("lime","Current")+" quests",textC:"cyan"})
-        addEle({dad:cont,setClass:"btn",text:"Set "+spanText("lime","Current")+" Quests",border:"solid 3px brown",setFunc:()=>{
+        addEle({dad:cont,text:"✅To enable options 2 & 3 you<br> need to set "+spanText("lime","Current")+" quests",textC:"cyan"})
+        addEle({dad:main,setClass:"btn",text:"Set "+spanText("lime","Current")+" Quests",border:"solid 3px brown",setFunc:()=>{
             if(curQfr.style.display==="none")
                     {curQfr.style.display = "flex" ; curQsetter()} 
             else {curQfr.style.display = "none"}
@@ -335,16 +340,17 @@ function displayR2(){
 
     let dispOptions = ["Requirements","Requests","Rewards"]
 
-    let cont = addEle({dad:myC,setClass:"contCol",border:"solid blue 3px",padding:"5px",radius:"20px",
-    width:"320px",setID:"dispOpFr",justifyC:"center",textA:"center",alignItems:"center"})
+    let cont = addEle({dad:myC,setClass:"contCol",paddingR:"-100px",radius:"20px",
+    width:"320px",setID:"dispOpFr",alignItems:"center",}) // border:"solid blue 3px",justifyC:"center",textA:"center",
 
-    cont = addEle({dad:myC,setClass:"contRow",alignItems:"center",marginT:"10px",flWrap:"wrap",
-    border:"solid blue 3px",padding:"5px",radius:"20px",width:"320px",justifyC:"center",setID:"dispResFr"})
+    cont = addEle({dad:myC,setClass:"contRow",alignItems:"left",marginT:"10px",flWrap:"wrap",
+    padding:"5px",radius:"20px",width:"320px",justifyC:"center",setID:"dispResFr",//border:"solid blue 3px"
+    }) // 
 
     dispOptions.forEach(di=>{
-        addEle({dad:getID("dispOpFr"),text:spanText("yellow",di+" 🔽"),borderB:"solid red 3px",
-        marginB:"5px",width:"120px",textA:"center",cursor:"pointer",setFunc:(e)=>{
-            switch(e.srcElement.innerHTML.split(" 🔽")[0]){
+        addEle({dad:getID("dispOpFr"),text:spanText("yellow",di+" ⏩"),fontS:"20px",//borderB:"solid red 3px",
+                margin:"10px",width:"170px",textA:"right",cursor:"pointer",setFunc:(e)=>{
+            switch(e.srcElement.innerHTML.split(" ⏩")[0]){
                 case "Requirements" : showRequirements() ; break
                 case "Requests" : showRequests(true) ; break
                 case "Rewards" : showRequests(false) ; break
@@ -352,8 +358,13 @@ function displayR2(){
 }
 
 function showRequirements(){
-    let fr = getID("dispResFr")
+
+    let fr = right2
+
+//    let fr = getID("dispResFr")
     cleanParent(fr)
+    cleanParent(left)
+    //fr.style.border = "solid blue 3px"
 
     let maxS1 = []
     let maxS2 = []
@@ -372,13 +383,13 @@ function showRequirements(){
         })
     })
 
-    let mastC = addEle({dad:fr,setClass:"contCol",margin:"5px",border:"solid 1px lime",
-    radius:"20px",padding:"5px 10px",width:"100%"})
+    let mastC = addEle({dad:fr,setClass:"contCol",margin:"5px",border:"solid 2px lime",
+    radius:"20px",padding:"5px 10px",width:"fit-content"})
         let dspTxt = spanText("lime","All Questlines :")+`<br>
         Max storage needed for Requests :`+ maxS1.reduce((a, b) => Math.max(a, b), -Infinity) +`<br>
         Max storage needed for Rewards :`+ maxS2.reduce((a, b) => Math.max(a, b), -Infinity) +`<br>`
         addEle({dad:mastC,text:dspTxt})
-        addEle({dad:mastC,border:"yellow dotted 2px",width:"90%",margin:"5px 0"})
+        addEle({dad:mastC,border:"yellow dotted 2px",width:"100%",margin:"5px 0"})
         dspTxt = ""
         skills.forEach(sk=>{
             let min = 300 ; sk.reqs.forEach(r=>{if(r<min){min=r}})
@@ -388,16 +399,16 @@ function showRequirements(){
         })
         addEle({dad:mastC,text:dspTxt})
 
-    addEle({dad:fr,width:"104%",height:"5px",backC:"blue",marginL:"-20px",marginR:"-20px"})
+//    addEle({dad:fr,width:"100%",border:"blue dashed 2px",})//marginL:"-20px",marginR:"-20px"
 
     player.questRequirements.forEach(r=>{
-        let subC1 = addEle({dad:fr,setClass:"contCol",marginT:"5px",border:"solid 2px teal",
-        radius:"20px",padding:"5px",width:"100%"})
+        let subC1 = addEle({dad:fr,setClass:"contCol",margin:"5px",border:"solid 2px teal",
+        radius:"20px",padding:"5px 10px",width:"fit-content"}) // 
             dspTxt = spanText("yellow",r.questline)+`<br>
             Max storage needed for Requests :`+ r.storageRq +`<br>
             Max storage needed for Rewards :`+ r.storageRw +`<br>`
             addEle({dad:subC1,text:dspTxt})
-            addEle({dad:subC1,border:"lime dotted 2px",width:"90%",margin:"5px 0"})
+            addEle({dad:subC1,border:"lime dotted 2px",width:"100%",margin:"5px 0"})
             dspTxt = ""
             r.requirements.forEach(sk=>{
                 dspTxt += sk.label + " : "
@@ -409,9 +420,45 @@ function showRequirements(){
 }
 
 function showRequests(requests = true){
-    let fr = getID("dispResFr")
-    cleanParent(fr)
 
+    let fr = right2
+
+//    let fr = getID("dispResFr")
+    cleanParent(fr)
+    fr.style.border = ""
+
+    if(requests){
+        console.log(player.inventory)
+        let tb = addEle({dad:left,what:"table",marginL:"5px",margin:"10px 0"})
+        let src = player.inventory
+        for(let i=0;i<src.length;i++){
+        let tr = addEle({dad:tb,what:"tr"})
+            addEle({dad:tr,what:"td",text:src[i].label})
+        let tc = addEle({dad:tr,what:"td",})
+            addEle({dad:tc,what:"input",isInput:true,setVal:src[i].inventory,
+            width:"80px",setID:"invQt1:"+i,textA:"center",setFunc:(e)=>{
+                let val = e.srcElement.value 
+                if(val.includes(".")){val=val.replaceAll(".","")}
+                if(val.includes(",")){val=val.replaceAll(",","")}
+                txt = e.srcElement.id.split(":")[1]
+                if(isNaN(val) || val === "" || Number(val) < 0){
+                    getID("invQt2:"+txt).innerHTML = spanText("fuchsia","Number !")
+                    getID("invSts:"+txt).innerHTML = "⛔"
+                } else {
+                    getID("invQt2:"+txt).innerHTML = Number(val).toLocaleString()
+                    getID("invSts:"+txt).innerHTML = "✅"
+                    src[Number(txt)].inventory = Number(val)
+                    getID("reqTtlBtn").click()
+                }
+            }})
+            addEle({dad:tr,what:"td",text:src[i].inventory,setID:"invQt2:"+i,
+            minWidth:"80px",textA:"center"})
+            addEle({dad:tr,what:"td",text:"❓",setID:"invSts:"+i})
+        }
+    }
+
+
+/*
     let myC = addEle({dad:fr,setClass:"contCol",setID:"setInventoryFr",display:"none",
     width:"100%"})
         let subC = addEle({dad:myC,setClass:"contRow",border:"brown solid 3px",
@@ -422,9 +469,12 @@ function showRequests(requests = true){
         width:"fit-content",height:"fit-content",radius:"7px",setFunc:(e)=>{
             if(e.srcElement.innerHTML === "🔽")
                  {getID("setInventory2Fr").style.display = "flex" ; e.srcElement.innerHTML = "🔼"
-                 cleanParent(getID("setInventory2Fr"))
-                 let subC2 = addEle({dad:getID("setInventory2Fr")})
-                    let tb = addEle({dad:subC2,what:"table"})
+
+//                 cleanParent(getID("setInventory2Fr"))
+let subC2 = left
+
+//                 let subC2 = addEle({dad:getID("setInventory2Fr")})
+                    let tb = addEle({dad:subC2,what:"table",marginL:"5px"})
                  let src = player.inventory
                  for(let i=0;i<src.length;i++){
                     let tr = addEle({dad:tb,what:"tr"})
@@ -455,11 +505,13 @@ function showRequests(requests = true){
         }})
 
         addEle({dad:myC,setClass:"contCol",border:"brown solid 3px",radius:"20px",padding:"5px",
-        setID:"setInventory2Fr",display:"none"})
+        setID:"setInventory2Fr",display:"none",width:"fit-content"})
+*/
+
 
     let src = undefined
     if(requests)
-         {src = player.questRequests ; getID("setInventoryFr").style.display = "flex" }
+         {src = player.questRequests}// ; getID("setInventoryFr").style.display = "flex" }
     else {src = player.questRewards}
 
     let passLst = undefined
@@ -491,8 +543,8 @@ function showRequests(requests = true){
             })
             showRequests2(passLst,requests)
         }})
-    cont = addEle({dad:fr,setClass:"contCol",border:"solid teal 3px",radius:"20px",padding:"5px",
-    marginT:"10px",setID:"showRfr"})
+    cont = addEle({dad:fr,setClass:"contCol",radius:"20px",padding:"5px",
+    marginT:"10px",setID:"showRfr",border:"solid teal 3px"}) // 
 }
 
 function compileReq(lst){
@@ -530,7 +582,7 @@ function showRequests2(lst,requests = true){
             addEle({dad:tr,what:"td",border:"teal solid 2px",padding:"3px",text:ls.vals.length})
             txt = requests===true ? 
             player.inventory.filter(itm=>itm.label===ls.label)[0].inventory.toLocaleString()
-            +"/"+ls.tot.toLocaleString() : ls.tot.toLocaleString() 
+            +" / "+ls.tot.toLocaleString() : ls.tot.toLocaleString() 
             addEle({dad:tr,what:"td",border:"teal solid 2px",padding:"3px",text:txt})
         })
     }
