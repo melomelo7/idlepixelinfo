@@ -21,7 +21,7 @@ let player = {
 }
 
 
-let lastUp = "08/15 22:10<br>"+spanText("red","Page In test Mode atm")
+let lastUp = "08/19 07:45<br>"+spanText("red","Page In test Mode atm")
 
 const body = document.querySelector("body")
 
@@ -320,15 +320,26 @@ function extract(lst){
     player.questRequests = Qreq
     player.questRewards = Qrew
 
-    let plInv=[]
+    let plInv=player.inventory
+   
+    plInv.forEach(itm=>{
+      itm.qt = 0 ; itm.active = false 
+      })
+   
     Qreq.forEach(ql=>{
         ql.requests.forEach(rq=>{
             let idx = plInv.findIndex(itm=>itm.label === rq.label)
-            if(idx===-1){plInv.push({label:rq.label,inventory:0,qt:rq.quantity})} else
-            {plInv[idx].qt+=rq.quantity}
+            if(idx===-1){
+               plInv.push({
+                  label:rq.label,inventory:0,qt:rq.quantity,active:true,
+               })
+            } else
+            {plInv[idx].qt+=rq.quantity ; plInv[idx].active = true }
         })
     })
-    player.inventory = plInv.sort((a,b)=>b.qt-a.qt)
+    plInv.sort((a,b)=>b.qt-a.qt)
+   
+    // player.inventory = plInv.sort((a,b)=>b.qt-a.qt)
 
 }
 
