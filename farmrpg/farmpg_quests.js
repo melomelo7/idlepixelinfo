@@ -441,7 +441,9 @@ function showRequests(requests = true){
     if(requests){
         console.log(player.inventory)
         let tb = addEle({dad:left,what:"table",marginL:"5px",margin:"10px 0"})
-        let src = player.inventory
+        let src = player.inventory.filter(
+            itm => itm.active === true
+      )
         for(let i=0;i<src.length;i++){
         let tr = addEle({dad:tb,what:"tr"})
             addEle({dad:tr,what:"td",text:src[i].label})
