@@ -1390,7 +1390,8 @@ let eventsMissions = [
         tiers:{qt:3,vals:[250,600,1500]},
         comment:`self explicit...<br> check `+spanText("lime","Overall")+` info if needs be.`,
         type:"Pay-for-it",
-        typeI:"pay"
+        typeI:"pay",
+        aim:0,
     },
     {   // ok
         ref:2,
@@ -1400,7 +1401,8 @@ let eventsMissions = [
         on any planet you like<br>
         1 or more galaxies`,
         type:"Pay-for-it",
-        typeI:"pay"
+        typeI:"pay",
+        aim:0,
     },
     {   // ok
         ref:3,
@@ -1408,7 +1410,8 @@ let eventsMissions = [
         tiers:{qt:3,vals:[10,70,200]},
         comment:`Yes items, not alloys/bars...`,
         type:"Pay-for-it",
-        typeI:"pay"
+        typeI:"pay",
+        aim:0,
     },
     {   /// new
         ref:4,
@@ -1417,7 +1420,8 @@ let eventsMissions = [
         comment:`P `+spanText("yellow",">=")+` Orisoni `+spanText("lime","|")+
         ` Urla Rast `+spanText("lime","|")+` Unicae<br>Use the `+spanText("lime","Planets Tab")+` if needs be`,
         type:"Do-it",
-        typeI:"yes"
+        typeI:"yes",
+        aim:0,
     },
     {   ///////////////////
         ref:5,
@@ -1425,7 +1429,8 @@ let eventsMissions = [
         tiers:{qt:3,vals:[6,20,50]},
         comment:`self explicit`,
         type:"Pay-for-it",
-        typeI:"pay"
+        typeI:"pay",
+        aim:0,
     },
     {   /// new
         ref:6,
@@ -1433,7 +1438,8 @@ let eventsMissions = [
         tiers:{qt:3,vals:["12p < 2D","35p < 2D","100p < 1D"]},
         comment:`Maybe several galaxies ...`,
         type:"Run-for-it",
-        typeI:"rabbit"
+        typeI:"rabbit",
+        aim:0,
     },
     {   // ok
         ref:7,
@@ -1441,7 +1447,8 @@ let eventsMissions = [
         tiers:{qt:3,vals:[4,8,16]},
         comment:`self explicit`,
         type:"Do-it",
-        typeI:"yes"
+        typeI:"yes",
+        aim:0,
     },
     {   // ok
         ref:8,
@@ -1449,7 +1456,8 @@ let eventsMissions = [
         tiers:{qt:3,vals:[10,25,60]},
         comment:`better here, you may<br>colonize anywhere you like`,
         type:"Work-for-it",
-        typeI:"work"
+        typeI:"work",
+        aim:0,
     },
     {   ///////////////////
         ref:9,
@@ -1458,7 +1466,8 @@ let eventsMissions = [
         comment:`obviously impossible with 1 galaxy only ...<br>
         you know what to do next ... or so I hope `+spanText("","😁",26),
         type:"Pay-for-it",
-        typeI:"pay"
+        typeI:"pay",
+        aim:0,
     },
     {   // ok
         ref:10,
@@ -1470,7 +1479,8 @@ let eventsMissions = [
         +spanText("lime","Hint : Project Pink Asteroids helps & Boosts"),
         img:"lucky",
         type:"Wait-for-it",
-        typeI:"wait"
+        typeI:"wait",
+        aim:0,
     },
     {   /// ok
         ref:11,
@@ -1478,87 +1488,117 @@ let eventsMissions = [
         tiers:{qt:3,vals:[4,8,spanText("fuchsia","?")]},
         comment:`Here we talk about daily<br>login Gift in Shop : 1/day`,
         type:"Wait-for-it",
-        typeI:"wait"
+        typeI:"wait",
+        aim:0,
     },
-
-
-
-
-
-
-    {   ///// 2M 20M
-        /////  ?  ?  500B
+    {   // ok
         ref:12,
+        label:spanText("yellow","Unlock")+" X smelt recipes",
+        tiers:{qt:3,vals:[20,"?","?"]},
+        comment:`Yes alloys/bars, not items ...`,
+        type:"Pay-for-it",
+        typeI:"pay",
+        aim:0,
+    },
+    {   /// ok
+        ref:13,
+        label:spanText("yellow","Keep")+` X smelter active for Y hour(s)`,
+        tiers:{qt:3,vals:["1s:1Hr","4s:4Hr","10s:10Hr"]},
+        comment:`Make sure you have enough/steady incoming ore ...<br>`+
+        spanText("lime","Hint: boosts / pair with boost use mission...<br>")
+        +spanText("yellow",`Currently this mission MUST be done With<br>
+        the same ore from start to end, hope this will change...`),
+        type:"Wait-for-it",
+        typeI:"wait",
+        aim:0
+    },
+    {   ///// 2M 20M
+        /////  200M  2B  500B
+        ref:14,
         label:spanText("yellow","Craft")+" X-value of Items",
         tiers:{qt:3,vals:["relative to player<br>x3 times"]},
         comment:`self explicit`,
         type:"Work-for-it",
-        typeI:"work"
+        typeI:"work",
+        aim:0,
     },
+
+
+
+
+
+
     {   // ok
-        ref:13,
+        ref:15,
         label:spanText("yellow","Enter")+" a Tournament",
         tiers:{qt:1,vals:["Do it !"]},
         comment:`self explicit`,
         img:"./IPM Components/do it.jpg",
         type:"Do-it",
-        typeI:"yes"
+        typeI:"yes",
+        aim:0,
     },
     {   /// 1M  10M  250M
         ///          25B
-        ref:14,
+        ref:16,
         label:spanText("yellow","Smelt")+" X-value of alloys",
         tiers:{qt:3,vals:["relative to player<br>x3 times"]},
         comment:`self explicit`,
         type:"Work-for-it",
-        typeI:"work"
+        typeI:"work",
+        aim:0,
     },
     {   // 1x P10+ -- 3x P30+ -- 2x P60+ ok
-        ref:15,
+        ref:17,
         label:spanText("yellow","Colonize")+" X times planet Y or more",
         tiers:{qt:3,vals:["1x P10+","3x P30+","2x P60+"]},
         comment:`P `+spanText("yellow",">=")+` Solveig `+spanText("lime","|")+
         ` Urla Rast `+spanText("lime","|")+` Limbo<br>Use the `+spanText("lime","Planets Tab")+
         ` if needs be<br>`+spanText("lime","Hint:Terraforming"),
         type:"Work-for-it",
-        typeI:"work"
+        typeI:"work",
+        aim:0,
     },
     {   /// 12 Sm < 2D /// 35sm < 2D /// 100sm < 1D  ok
-        ref:16,
+        ref:18,
         label:spanText("yellow","Unlock")+" X smelters in<br>less than Y days",
         tiers:{qt:3,vals:["12s < 2D","35s < 2D","100s < 1D"]},
         comment:`stop buying more crafters !<br>... you clever !`+spanText("","🤓",26),
         type:"Run-for-it",
-        typeI:"rabbit"
+        typeI:"rabbit",
+        aim:0,
     },
     {   /// ok
-        ref:17,
+        ref:19,
         label:spanText("yellow","Collect")+` X Ark rewards<br>in the `
         +spanText("fuchsia","same")+` galaxy`,
         tiers:{qt:3,vals:[5,10,20]},
         comment:`self explicit, if unfamiliar with<br>`+spanText("lime","Arking")+
         ` check other Faqs`,
         type:"Wait-for-it",
-        typeI:"wait"
+        typeI:"wait",
+        aim:0,
     },
     {   // ok
-        ref:18,
+        ref:20,
         label:spanText("yellow","Promote")+" X Managers",
         tiers:{qt:3,vals:[2,5,15]},
         comment:`self explicit`,
         type:"Pay-for-it",
-        typeI:"pay"
+        typeI:"pay",
+        aim:0,
     },
     {   /// ok
-        ref:19,
+        ref:21,
         label:spanText("yellow","Unlock")+" X crafters in<br>less than Y days",
         tiers:{qt:3,vals:["4c < 2D","12c < 2D","50c < 1D"]},
         comment:`stop buying more smelters !<br>... you clever !`+spanText("","🤓",26),
         type:"Run-for-it",
-        typeI:"rabbit"
+        typeI:"rabbit",
+        aim:0,
     },
     {   // ok
-        ref:20,
+        ref:22,
         label: spanText("yellow","Upgrade")+" X times Cargo<br>on planets with a rover",
         tiers:{qt:3,vals:[30,100,600]},
         comment:`
@@ -1568,33 +1608,24 @@ let eventsMissions = [
         `+spanText("lime",
         `Costwise think multiple rovers/galaxies`),
         type:"Pay-for-it",
-        typeI:"pay"
+        typeI:"pay",
+        aim:0,
     },
     {   ///////////////////
-        ref:21,
+        ref:23,
         label:spanText("yellow","Unlock")+" X crafters",
         tiers:{qt:3,vals:[5,15,80]},
         comment:`obviously impossible with 1 galaxy only ...<br>
         you know what to do next ... or so I hope `+spanText("","😁",26),
         type:"Pay-for-it",
-        typeI:"pay"
-    },
-    {   /// ok
-        ref:22,
-        label:spanText("yellow","Keep")+` X smelter active for Y hour(s)`,
-        tiers:{qt:3,vals:["1s:1Hr","4s:4Hr","10s:10Hr"]},
-        comment:`Make sure you have enough/steady incoming ore ...<br>`+
-        spanText("lime","Hint: boosts / pair with boost use mission...<br>")
-        +spanText("yellow",`Currently this mission MUST be done With<br>
-        the same ore from start to end, hope this will change...`),
-        type:"Wait-for-it",
-        typeI:"wait"
+        typeI:"pay",
+        aim:0,
     },
 ]
 
 let injecteOrder = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22]
 
-let injectedMissions = 10
+let injectedMissions = 14
 
 let eventLevels = [15,15,15,15,15,15,15,15,15,15,60,60,60,60,60,90,90,90,90,90,0]
 
@@ -1801,7 +1832,7 @@ function eventBall(){
             txt=txt.slice(0,txt.length-36)
             addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:txt,padding:"3px"})
             addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:thisEvent[i].comment,padding:"3px"})
-            if(i===injectedMissions){
+            if(i===injectedMissions-1){
                 let tr = addEle({dad:tb,what:"tr"})
                 txt = spanText("lime",`
                 ***********************************************<br>
