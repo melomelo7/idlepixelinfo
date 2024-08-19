@@ -1535,7 +1535,7 @@ let eventsMissions = [
         ref:16,
         label:spanText("yellow","Claim")+` X difficulty <br>`+
         `Y Rovers in the same galaxy`,
-        tiers:{qt:1,vals:["2x D1",spanText("fuchsia","?"),spanText("fuchsia","?")]},
+        tiers:{qt:1,vals:["2x D1","2x D2","3x D3"+spanText("fuchsia","?")]},
         comment:`read Rovers mission details to pick correct ones`,
         img:"./IPM Components/do it.jpg",
         type:"Wait-for-it",
