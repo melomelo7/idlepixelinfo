@@ -218,7 +218,11 @@ function addEle({
     return thisObj
 }
 
-function spanText(spanColor,spanTxt){return `<span style="color:`+spanColor+`;">`+spanTxt+"</span>"}
+function spanText(spanColor,spanTxt,sz=undefined){
+    return sz === undefined ? 
+    `<span style="color:`+spanColor+`;">`+spanTxt+"</span>" :
+    `<span style="color:`+spanColor+`; font-size: `+sz+`px;">`+spanTxt+"</span>"
+}
 
 function getID(id){return document.getElementById(id)}
 

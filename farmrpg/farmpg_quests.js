@@ -21,7 +21,7 @@ let player = {
 }
 
 
-let lastUp = "08/19 08:00<br>"+spanText("red","Page In test Mode atm")
+let lastUp = "08/20 01:30<br>"//+spanText("red","Page In test Mode atm")
 
 const body = document.querySelector("body")
 
@@ -32,7 +32,7 @@ const mainFr = addEle({dad:body,setClass:"contRow",height:"100%",width:"100%"}) 
 
     const right = addEle({dad:mainFr,setClass:"contCol",height:"100%",minWidth:"300px",})//width:"fit-content"
     const right2 = addEle({dad:mainFr,setClass:"contCol",height:"100%",marginL:"10px"
-    ,overflowX:"hidden",border:"red solid 3px",width:"50%"})//width:"100%",minWdth:"1000px",
+    ,overflowX:"hidden",width:"50%"})//width:"100%",minWdth:"1000px",
 
         let cont = addEle({dad:right,setClass:"contRow",alignItems:"center",marginL:"10px"})
         addEle({dad:cont,text:"last up : "+lastUp,textC:"yellow"})
@@ -320,26 +320,22 @@ function extract(lst){
     player.questRequests = Qreq
     player.questRewards = Qrew
 
-    let plInv=player.inventory
-   
+//    let plInv=[]
+    let plInv = player.inventory
+
     plInv.forEach(itm=>{
-      itm.qt = 0 ; itm.active = false 
-      })
-   
+        itm.qt = 0 ; itm.active = false
+    })
+
     Qreq.forEach(ql=>{
         ql.requests.forEach(rq=>{
             let idx = plInv.findIndex(itm=>itm.label === rq.label)
-            if(idx===-1){
-               plInv.push({
-                  label:rq.label,inventory:0,qt:rq.quantity,active:true,
-               })
-            } else
-            {plInv[idx].qt+=rq.quantity ; plInv[idx].active = true }
+            if(idx===-1){plInv.push({label:rq.label,inventory:0,qt:rq.quantity,active:true})} else
+            {plInv[idx].qt+=rq.quantity ; plInv[idx].active = true}
         })
     })
     plInv.sort((a,b)=>b.qt-a.qt)
-   
-    // player.inventory = plInv.sort((a,b)=>b.qt-a.qt)
+//    player.inventory = plInv.sort((a,b)=>b.qt-a.qt)
 
 }
 
@@ -439,11 +435,10 @@ function showRequests(requests = true){
     fr.style.border = ""
 
     if(requests){
-        console.log(player.inventory)
+        addEle({dad:left,text:spanText("yellow","Inventory",20),
+        borderB:"teal solid 3px",textA:"center",marginT:"5px"})
         let tb = addEle({dad:left,what:"table",marginL:"5px",margin:"10px 0"})
-        let src = player.inventory.filter(
-            itm => itm.active === true
-      )
+        let src = player.inventory.filter(itm=>itm.active===true)
         for(let i=0;i<src.length;i++){
         let tr = addEle({dad:tb,what:"tr"})
             addEle({dad:tr,what:"td",text:src[i].label})
@@ -529,9 +524,9 @@ let subC2 = left
 
     let passLst = undefined
 
-    let cont = addEle({dad:fr,setClass:"contRow",width:"100%"})
+    let cont = addEle({dad:fr,setClass:"contRow",width:"fit-content",margin:"20px 0 0 0"})
         addEle({dad:cont,text:"Total",padding:"5px",border:"blue solid 3px",radiusTL:"20px",
-        radiusBL:"20px",width:"50%",textA:"center",cursor:"pointer",setID:"reqTtlBtn",setFunc:()=>{
+        radiusBL:"20px",width:"100px",textA:"center",cursor:"pointer",setID:"reqTtlBtn",setFunc:()=>{
             passLst = []
             let precompile = []
             src.forEach(q=>{
@@ -544,7 +539,7 @@ let subC2 = left
             showRequests2(passLst,requests)
         }})
         addEle({dad:cont,text:"Details",padding:"5px",border:"blue solid 3px",radiusTR:"20px",
-        radiusBR:"20px",width:"50%",textA:"center",cursor:"pointer",setFunc:()=>{
+        radiusBR:"20px",width:"100px",textA:"center",cursor:"pointer",setFunc:()=>{
             passLst = []
             src.forEach(q=>{
                 let precompile = []
@@ -557,7 +552,8 @@ let subC2 = left
             showRequests2(passLst,requests)
         }})
     cont = addEle({dad:fr,setClass:"contCol",radius:"20px",padding:"5px",
-    marginT:"10px",setID:"showRfr",border:"solid teal 3px"}) // 
+    marginT:"10px",setID:"showRfr",}) // border:"solid teal 3px"
+    getID("reqTtlBtn").click()
 }
 
 function compileReq(lst){
@@ -587,15 +583,20 @@ function showRequests2(lst,requests = true){
             addEle({dad:tr,what:"td",border:"teal solid 2px",padding:"3px",text:"Item"})
             txt = requests===true ? "Requests" : "Rewards"
             addEle({dad:tr,what:"td",border:"teal solid 2px",padding:"3px",text:txt})
-            txt = requests===true ? "Inventory/Needed" : "Amount"
+            txt = requests===true ? "Inventory / Needed" : "Amount"
             addEle({dad:tr,what:"td",border:"teal solid 2px",padding:"3px",text:txt})
         lst[i].lst.forEach(ls=>{
         tr = addEle({dad:tb,what:"tr"})
             addEle({dad:tr,what:"td",border:"teal solid 2px",padding:"3px",text:ls.label,setID:"req :"+i})
-            addEle({dad:tr,what:"td",border:"teal solid 2px",padding:"3px",text:ls.vals.length})
-            txt = requests===true ? 
-            player.inventory.filter(itm=>itm.label===ls.label)[0].inventory.toLocaleString()
-            +" / "+ls.tot.toLocaleString() : ls.tot.toLocaleString() 
+            addEle({dad:tr,what:"td",border:"teal solid 2px",padding:"3px",text:ls.vals.length,textA:"center"})
+            if(requests===false){
+                txt = ls.tot.toLocaleString()
+            } else {
+                txt = player.inventory.filter(itm=>itm.label===ls.label)[0].inventory
+                let tc = txt>=ls.tot ? "lime" : "red"
+                txt = spanText(tc,player.inventory.filter(itm=>itm.label===ls.label)[0].inventory.toLocaleString())
+                txt += " / "+ls.tot.toLocaleString()
+            }
             addEle({dad:tr,what:"td",border:"teal solid 2px",padding:"3px",text:txt})
         })
     }
