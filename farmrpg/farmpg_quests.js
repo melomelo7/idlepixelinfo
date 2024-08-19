@@ -435,6 +435,7 @@ function showRequests(requests = true){
     fr.style.border = ""
 
     if(requests){
+        cleanParent(left)
         addEle({dad:left,text:spanText("yellow","Inventory",20),
         borderB:"teal solid 3px",textA:"center",marginT:"5px"})
         let tb = addEle({dad:left,what:"table",marginL:"5px",margin:"10px 0"})
