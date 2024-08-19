@@ -242,6 +242,8 @@ function romanToNb(nb,rev = false){
 }
 
 function displayR(){
+    cleanParent(left)
+    cleanParent(right2)
     let res = ""
     document.getElementsByName("questCur").forEach(it=>{if(it.checked){res = it.value}})
 
