@@ -1524,7 +1524,7 @@ let eventsMissions = [
     },
     {   /// ok
         ref:15,
-        label:spanText("yellow","Unlock")+" X crafter recipes<br>in less than Y days",
+        label:spanText("yellow","Unlock")+" X crafter recipes<br>in less than Y Days",
         tiers:{qt:3,vals:["16 < 2D","45 < 2D","90 < 1D"]},
         comment:`self explicit`,
         type:"Run-for-it",
@@ -1533,7 +1533,7 @@ let eventsMissions = [
     },
     {   // ok
         ref:16,
-        label:spanText("yellow","Claim")+` X difficulty <br>`+
+        label:spanText("yellow","Claim")+` X Difficulty <br>`+
         `Y Rovers in the same galaxy`,
         tiers:{qt:1,vals:["2x D1","2x D2","3x D3"+spanText("fuchsia","?")]},
         comment:`read Rovers mission details to pick correct ones`,
