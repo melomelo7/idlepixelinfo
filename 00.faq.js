@@ -1535,7 +1535,7 @@ let eventsMissions = [
         ref:16,
         label:spanText("yellow","Claim")+` X Difficulty <br>`+
         `Y Rovers in the same galaxy`,
-        tiers:{qt:1,vals:["2x D1","2x D2","3x D3"+spanText("fuchsia","?")]},
+        tiers:{qt:1,vals:["D1 x2","D2 x2","D3 x3"]},
         comment:`read Rovers mission details to pick correct ones`,
         img:"./IPM Components/do it.jpg",
         type:"Wait-for-it",
@@ -1551,12 +1551,6 @@ let eventsMissions = [
         typeI:"pay",
         aim:0,
     },
-
-
-
-
-
-
     {   // ok
         ref:18,
         label:spanText("yellow","Enter")+" a Tournament",
@@ -1567,9 +1561,37 @@ let eventsMissions = [
         typeI:"yes",
         aim:0,
     },
+    {   // ok
+        ref:19,
+        label:spanText("yellow","Sell")+" X resources,<br>positively affected by the market",
+        tiers:{qt:1,vals:[2,3,4]},
+        comment:`
+        get lucky markets : either wait for next market<br> 
+        to change or sell galaxy to trigger a new one.`,
+        img:"./IPM Components/do it.jpg",
+        type:"Do-it",
+        typeI:"yes",
+        aim:0,
+    },
+    {   /// ok
+        ref:20,
+        label:spanText("yellow","Mine")+` X Asteroids`,
+        tiers:{qt:3,vals:[30,140,spanText("fuchsia","?")]},
+        comment:`self explicit, if unfamiliar with<br>`+spanText("lime","Arking")+
+        ` check other Faqs`,
+        type:"Wait-for-it",
+        typeI:"wait",
+        aim:0,
+    },
+
+
+
+
+
+
     {   /// 1M  10M  250M
         ///          25B
-        ref:19,
+        ref:21,
         label:spanText("yellow","Smelt")+" X-value of alloys",
         tiers:{qt:3,vals:["relative to player<br>x3 times"]},
         comment:`self explicit`,
@@ -1578,7 +1600,7 @@ let eventsMissions = [
         aim:0,
     },
     {   // 1x P10+ -- 3x P30+ -- 2x P60+ ok
-        ref:20,
+        ref:22,
         label:spanText("yellow","Colonize")+" X times planet Y or more",
         tiers:{qt:3,vals:["1x P10+","3x P30+","2x P60+"]},
         comment:`P `+spanText("yellow",">=")+` Solveig `+spanText("lime","|")+
@@ -1589,7 +1611,7 @@ let eventsMissions = [
         aim:0,
     },
     {   /// 12 Sm < 2D /// 35sm < 2D /// 100sm < 1D  ok
-        ref:21,
+        ref:23,
         label:spanText("yellow","Unlock")+" X smelters in<br>less than Y days",
         tiers:{qt:3,vals:["12s < 2D","35s < 2D","100s < 1D"]},
         comment:`stop buying more crafters !<br>... you clever !`+spanText("","🤓",26),
@@ -1598,7 +1620,7 @@ let eventsMissions = [
         aim:0,
     },
     {   /// ok
-        ref:22,
+        ref:24,
         label:spanText("yellow","Collect")+` X Ark rewards<br>in the `
         +spanText("fuchsia","same")+` galaxy`,
         tiers:{qt:3,vals:[5,10,20]},
@@ -1609,7 +1631,7 @@ let eventsMissions = [
         aim:0,
     },
     {   /// ok
-        ref:23,
+        ref:25,
         label:spanText("yellow","Unlock")+" X crafters in<br>less than Y days",
         tiers:{qt:3,vals:["4c < 2D","12c < 2D","50c < 1D"]},
         comment:`stop buying more smelters !<br>... you clever !`+spanText("","🤓",26),
@@ -1619,7 +1641,7 @@ let eventsMissions = [
     },
 
     {   // ok
-        ref:24,
+        ref:26,
         label: spanText("yellow","Upgrade")+" X times Cargo<br>on planets with a rover",
         tiers:{qt:3,vals:[30,100,600]},
         comment:`
@@ -1633,7 +1655,7 @@ let eventsMissions = [
         aim:0,
     },
     {   ///////////////////
-        ref:25,
+        ref:27,
         label:spanText("yellow","Unlock")+" X crafters",
         tiers:{qt:3,vals:[5,15,80]},
         comment:`obviously impossible with 1 galaxy only ...<br>
@@ -1644,9 +1666,9 @@ let eventsMissions = [
     },
 ]
 
-let injecteOrder = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22]
+let injectedOrder = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27]
 
-let injectedMissions = 17
+let injectedMissions = 20
 
 let eventLevels = [15,15,15,15,15,15,15,15,15,15,60,60,60,60,60,90,90,90,90,90,0]
 
@@ -1834,8 +1856,8 @@ function eventBall(){
         addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:"Comments"})
 
         let thisEvent = []
-        for(let i=0;i<injecteOrder.length;i++){
-            thisEvent.push(eventsMissions.filter(em=>em.ref===injecteOrder[i])[0])
+        for(let i=0;i<injectedOrder.length;i++){
+            thisEvent.push(eventsMissions.filter(em=>em.ref===injectedOrder[i])[0])
         }
 
         for(let i=0;i<thisEvent.length;i++){
