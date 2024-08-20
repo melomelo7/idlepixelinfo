@@ -2,7 +2,7 @@
 const body = document.querySelector("body")
 
 
-let update = "last up 8/12 09:30"
+let update = "last up 8/20 20:15"
 
 /*
 star meerif
@@ -19,8 +19,8 @@ const frame = addEle({dad:body,setClass:"contCol"})
             cleanParent(fr5)
             showFolks()
         }})
-        addEle({dad:fr1,setClass:"btn",text:"Pick 1 Townfolk<br>Full Details",height:"26px",
-        padding:"10px", setFunc:()=>{
+        addEle({dad:fr1,setClass:"btn",text:"Pick 1 Townfolk<br>Full Details",
+        setFunc:()=>{
             cleanParent(fr2)
             cleanParent(fr3)
             cleanParent(fr4)
@@ -31,9 +31,9 @@ const frame = addEle({dad:body,setClass:"contCol"})
             })
 
         }})
-        addEle({dad:fr1,text:"Use Related Item<br>or type item to search",
-        border:"blue solid 3px",radius:"20px",padding:"5px",margin:"5px 0 5px 5px",
-        cursor:"pointer",textA:"center",radiusTR:"0px",radiusBR:"0px",
+        let subC = addEle({dad:fr1,setClass:"contCol",border:"yellow solid 3px",radius:"10px"
+        ,alignItems:"center",marginT:"5px",paddingB:"5px"})
+        addEle({dad:subC,setClass:"btn",text:"Use Related Item<br>or type item to search",
         setFunc:()=>{
             cleanParent(fr2)
             cleanParent(fr3)            
@@ -45,8 +45,8 @@ const frame = addEle({dad:body,setClass:"contCol"})
                 width:"fit-content",setFunc:itemRelation})
             })
         }})
-        let pickItm = addEle({dad:fr1,what:"input",isInput:true,
-        border:"solid blue 6px",width:"80px",
+        let pickItm = addEle({dad:subC,what:"input",isInput:true,width:"90%",
+        
         setFunc:()=>{
             cleanParent(fr2)
             cleanParent(fr3)            
