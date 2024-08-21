@@ -1567,7 +1567,9 @@ let eventsMissions = [
         tiers:{qt:1,vals:[2,3,4]},
         comment:`
         get lucky markets : either wait for next market<br> 
-        to change or sell galaxy to trigger a new one.`,
+        to change or sell galaxy to trigger a new one.<br>`
+        +spanText("yellow","No auto-sell, sell manualy")
+        ,
         img:"./IPM Components/do it.jpg",
         type:"Do-it",
         typeI:"yes",
@@ -1576,22 +1578,43 @@ let eventsMissions = [
     {   /// ok
         ref:20,
         label:spanText("yellow","Mine")+` X Asteroids`,
-        tiers:{qt:3,vals:[30,140,spanText("fuchsia","?")]},
+        tiers:{qt:3,vals:[30,140,400]},
         comment:`self explicit, if unfamiliar with<br>`+spanText("lime","Arking")+
         ` check other Faqs`,
         type:"Wait-for-it",
         typeI:"wait",
         aim:0,
     },
-
-
-
-
-
-
-    {   /// 1M  10M  250M
-        ///          25B
+    {   // ok
         ref:21,
+        label: spanText("yellow","Complete")+" X Projects",
+        tiers:{qt:3,vals:[50,250,spanText("fuchsia","?")]},
+        comment:`
+        Nothing much to say except this :<br>
+        The full project tree is 107 projects ...
+        `,
+        type:"Pay-for-it",
+        typeI:"pay",
+        aim:0,
+    },
+    {   // ok
+        ref:22,
+        label: spanText("yellow","Upgrade")+" X times "+spanText("fuchsia","Mining")
+        +" Speed<br>on planets with a rover",
+        tiers:{qt:3,vals:[30,100,600]},
+        comment:`
+        Make sure its the CARGO you target AND<br>
+        its a RUNNING rover. Timer completed,<br>
+        ready to collect rovers wont work here<br>
+        `+spanText("lime",
+        `Costwise think multiple rovers/galaxies`),
+        type:"Pay-for-it",
+        typeI:"pay",
+        aim:0,
+    },
+    {   /// 1M  10M  250M
+        /// 100M  1B  25B
+        ref:23,
         label:spanText("yellow","Smelt")+" X-value of alloys",
         tiers:{qt:3,vals:["relative to player<br>x3 times"]},
         comment:`self explicit`,
@@ -1599,8 +1622,16 @@ let eventsMissions = [
         typeI:"work",
         aim:0,
     },
+
+
+
+
+
+
+
+
     {   // 1x P10+ -- 3x P30+ -- 2x P60+ ok
-        ref:22,
+        ref:24,
         label:spanText("yellow","Colonize")+" X times planet Y or more",
         tiers:{qt:3,vals:["1x P10+","3x P30+","2x P60+"]},
         comment:`P `+spanText("yellow",">=")+` Solveig `+spanText("lime","|")+
@@ -1611,7 +1642,7 @@ let eventsMissions = [
         aim:0,
     },
     {   /// 12 Sm < 2D /// 35sm < 2D /// 100sm < 1D  ok
-        ref:23,
+        ref:25,
         label:spanText("yellow","Unlock")+" X smelters in<br>less than Y days",
         tiers:{qt:3,vals:["12s < 2D","35s < 2D","100s < 1D"]},
         comment:`stop buying more crafters !<br>... you clever !`+spanText("","🤓",26),
@@ -1620,7 +1651,7 @@ let eventsMissions = [
         aim:0,
     },
     {   /// ok
-        ref:24,
+        ref:26,
         label:spanText("yellow","Collect")+` X Ark rewards<br>in the `
         +spanText("fuchsia","same")+` galaxy`,
         tiers:{qt:3,vals:[5,10,20]},
@@ -1631,7 +1662,7 @@ let eventsMissions = [
         aim:0,
     },
     {   /// ok
-        ref:25,
+        ref:27,
         label:spanText("yellow","Unlock")+" X crafters in<br>less than Y days",
         tiers:{qt:3,vals:["4c < 2D","12c < 2D","50c < 1D"]},
         comment:`stop buying more smelters !<br>... you clever !`+spanText("","🤓",26),
@@ -1641,7 +1672,7 @@ let eventsMissions = [
     },
 
     {   // ok
-        ref:26,
+        ref:28,
         label: spanText("yellow","Upgrade")+" X times Cargo<br>on planets with a rover",
         tiers:{qt:3,vals:[30,100,600]},
         comment:`
@@ -1655,7 +1686,7 @@ let eventsMissions = [
         aim:0,
     },
     {   ///////////////////
-        ref:27,
+        ref:29,
         label:spanText("yellow","Unlock")+" X crafters",
         tiers:{qt:3,vals:[5,15,80]},
         comment:`obviously impossible with 1 galaxy only ...<br>
@@ -1666,9 +1697,9 @@ let eventsMissions = [
     },
 ]
 
-let injectedOrder = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27]
+let injectedOrder = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]
 
-let injectedMissions = 20
+let injectedMissions = 23
 
 let eventLevels = [15,15,15,15,15,15,15,15,15,15,60,60,60,60,60,90,90,90,90,90,0]
 
@@ -1861,28 +1892,32 @@ function eventBall(){
         }
 
         for(let i=0;i<thisEvent.length;i++){
-            let tr = addEle({dad:tb,what:"tr"})
-            let tc = addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",
-            padding:"3px"})
-                let subC = addEle({dad:tc,setClass:"contCol",alignItems:"center"})
-                    addEle({dad:subC,text:thisEvent[i].type,textC:"lime",minWidth:"80px"})
-                    addEle({dad:subC,what:"img",imgFullSrc:iSrc+thisEvent[i].typeI+".jpg",imgSize:40})
-                    addEle({dad:subC,text:"m:"+thisEvent[i].ref,textC:"lime",minWidth:"80px",fontS:"14px"})
-            txt = thisEvent[i].label + "<br>" + spanText("lime",thisEvent[i].tiers.qt+"T ⇒ ")
-            thisEvent[i].tiers.vals.forEach(va=>{
-                txt+= va+" "+spanText("lime","|")+" "
-            })
-            txt=txt.slice(0,txt.length-36)
-            addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:txt,padding:"3px"})
-            addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:thisEvent[i].comment,padding:"3px"})
-            if(i===injectedMissions-1){
+            if(i<23){
                 let tr = addEle({dad:tb,what:"tr"})
-                txt = spanText("lime",`
-                ***********************************************<br>
-                ***** Below are possible picks for future missions..*****<br>
-                ***********************************************
-                `)
-                addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:txt,padding:"3px",colSpan:3})
+                let tc = addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",
+                padding:"3px"})
+                    let subC = addEle({dad:tc,setClass:"contCol",alignItems:"center"})
+                        addEle({dad:subC,text:thisEvent[i].type,textC:"lime",minWidth:"80px"})
+                        addEle({dad:subC,what:"img",imgFullSrc:iSrc+thisEvent[i].typeI+".jpg",imgSize:40})
+                        addEle({dad:subC,text:"m:"+thisEvent[i].ref,textC:"lime",minWidth:"80px",fontS:"14px"})
+                txt = thisEvent[i].label + "<br>" + spanText("lime",thisEvent[i].tiers.qt+"T ⇒ ")
+                thisEvent[i].tiers.vals.forEach(va=>{
+                    txt+= va+" "+spanText("lime","|")+" "
+                })
+                txt=txt.slice(0,txt.length-36)
+                addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:txt,padding:"3px"})
+                addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:thisEvent[i].comment,padding:"3px"})
+                if(i===injectedMissions-1 ){
+                    /*
+                    let tr = addEle({dad:tb,what:"tr"})
+                    txt = spanText("lime",`
+                    ***********************************************<br>
+                    ***** Below are possible picks for future missions..*****<br>
+                    ***********************************************
+                    `)
+                    addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:txt,padding:"3px",colSpan:3})
+                    */
+                }
             }
         }
 
