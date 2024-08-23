@@ -303,6 +303,10 @@ txt =
 addEle({dad:right,text:txt,textC:"brown",fontS:"18px",margin:"10px 0 0 50px",
 border:"dotted yellow 2px",width:"fit-content",radius:"10px",padding:"5px"})
 
+
+addEle({dad:right,text:spanText("yellow",`🟥 23 August No Ship Coming<br>
+🟥 instead : double DM tapjoy event`),margin:"50px",fontS:"28px"})
+
 myCont = addEle({dad:right,margin:"20px 0 0 50px"})
 myT = addEle({dad:myCont,what:"table"})
 
