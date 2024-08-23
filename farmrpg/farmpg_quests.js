@@ -141,7 +141,7 @@ function showQuestlines(lines){
                 getID("remQl").click()
             }
         }
-        lines.forEach(l=>{addEle({dad:btmC,setClass:"btn",text:l,setFunc:myFunc,minWidth:"180px"})})
+        lines.forEach(l=>{addEle({dad:btmC,setClass:"btn",text:l,setFunc:myFunc,width:"90%"})})//minWidth:"180px"
     }
 
 }
