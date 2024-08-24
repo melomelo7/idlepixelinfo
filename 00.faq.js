@@ -1588,7 +1588,7 @@ let eventsMissions = [
     {   // ok
         ref:21,
         label: spanText("yellow","Complete")+" X Projects",
-        tiers:{qt:3,vals:[50,250,spanText("fuchsia","?")]},
+        tiers:{qt:3,vals:[50,250,800]},
         comment:`
         Nothing much to say except this :<br>
         The full project tree is 107 projects ...
