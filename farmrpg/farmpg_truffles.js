@@ -35,6 +35,14 @@ const body = document.querySelector("body")
 const mainFr = addEle({dad:body,setClass:"contRow",height:"100%",width:"100%"}) // ,backC:"green",
     cont = addEle({dad:mainFr,setClass:"contCol"})    
         addEle({dad:cont,text:spanText("lime","Last up : "+lastUp),margin:"20px"})
+
+    subC1 = addEle({dad:cont,setClass:"contRow"})
+        addEle({dad:subC1,setClass:"btn",text:"⇒ Quests Page",
+        textC:"lime",margin:"10px",setFunc:()=>{
+            let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmpg_quests.html"
+            window.open(lnk,"_self")
+        }})
+
         addEle({dad:cont,text:spanText("yellow","Built from input ><br>"+truffles.ref),margin:"0 20px"})
 
     subC1 = addEle({dad:cont,setClass:"contCol",border:"teal solid 2px",radius:"20px",padding:"5px",

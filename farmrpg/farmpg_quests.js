@@ -43,6 +43,13 @@ const mainFr = addEle({dad:body,setClass:"contRow",height:"100%",width:"100%"}) 
             window.open(lnk,"_self")
         }})
 
+        addEle({dad:cont,setClass:"btn",text:"⇒ Truffles Page",
+        textC:"lime",margin:"10px",setFunc:()=>{
+            let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmpg_truffles.html"
+            window.open(lnk,"_self")
+        }})
+
+
         cont = addEle({dad:right,setClass:"contRow",alignItems:"center"})
         txt = 
         `To have it a little more "RPG-like"<br>
@@ -177,7 +184,8 @@ function setQuesting(){
 
     cont = addEle({dad:main,setClass:"contRow",margin:"5px 0",})
         addEle({dad:cont,text:"✅To enable options 2 & 3 you<br> need to set "+spanText("lime","Current")+" quests",textC:"cyan"})
-        addEle({dad:main,setClass:"btn",text:"Set "+spanText("lime","Current")+" Quests",border:"solid 3px brown",setFunc:()=>{
+        addEle({dad:main,setClass:"btn",text:"Set "+spanText("lime","Current")+" Quests",
+        border:"solid 3px brown",width:"fit-content",setFunc:()=>{
             if(curQfr.style.display==="none")
                     {curQfr.style.display = "flex" ; curQsetter()} 
             else {curQfr.style.display = "none"}
@@ -195,12 +203,18 @@ function curQsetter(){
     cleanParent(myC)
 
     for(let i=0;i<src.length;i++){
-        let cont = addEle({dad:myC,setClass:"contRow",alignItems:"center"})
+        let subC = addEle({dad:myC,setClass:"contCol",margin:"3px",
+        border:"teal 3px solid",radius:"20px",padding:"3px 5px"})
+
+
+        let cont = addEle({dad:subC,setClass:"contRow",alignItems:"center"})
             addEle({dad:cont,text:src[i].label,marginR:"10px",marginL:"10px",
             minWidth:"160px",textA:"center",setID:"currentL:"+i})
 
             addEle({dad:cont,text:src[i].current === "" ? "I":src[i].current,textC:"lime",
             minWidth:"50px",textA:"center",setID:"currentQ:"+i})
+
+        cont = addEle({dad:subC,setClass:"contRow",alignItems:"center",marginT:"5px"})
 
             addEle({dad:cont,text:"◀",fontS:"10px",fontB:"bold",padding:"5px",textC:"brown",
             marginL:"5px",border:"solid 2px brown",radiusTL:"20px",radiusBL:"20px",
@@ -212,11 +226,20 @@ function curQsetter(){
             cursor:"pointer",setID:"currentP:"+i,
             setFunc:(e)=>{getID("currentR:"+e.srcElement.id.split(":")[1]).value++ ; upCurR(e)}})
 
-            addEle({dad:cont,what:"range",isInput:true,width:"50px",accentCol:"brown",
+            addEle({dad:cont,what:"range",isInput:true,accentCol:"brown", // ,width:"50px"
             setID:"currentR:"+i,min:1,max:grabQL(src[i].label).length,
-            setVal:src[i].current === "" ? 1 : romanToNb(src[i].current)
+            setVal:src[i].current === "" ? 1 : Number(romanToNb(src[i].current))
             ,setFunc:(e)=>{upCurR(e)}})
-    }
+
+
+            
+/*
+console.log(getID("currentR:"+i).min)
+console.log(getID("currentR:"+i).max)
+console.log(getID("currentR:"+i).value)
+*/
+
+}
 
     addEle({dad:myC,setClass:"btn",text:"Save Changes",width:"90%",marginT:"10px",border:"solid 3px brown",
     backC:"brown",textC:"ghostwhite",fontB:"bold",setFunc:()=>{
@@ -225,6 +248,7 @@ function curQsetter(){
     }})
 }
 function upCurR(e){
+    console.log("ranging")
     let dis = getID("currentQ:"+e.srcElement.id.split(":")[1])
     let ran = getID("currentR:"+e.srcElement.id.split(":")[1])
     dis.innerHTML = romanToNb(ran.value,true)
