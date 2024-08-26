@@ -243,6 +243,17 @@ const romans = [
    "XCI","XCII","XCIII","XCIV","XCV","XCVI","XCVII","XCVIII","XCIX","C"
    ]
    
+const truffles = {
+    ref:"Period : 29-May to 26-Aug 2024",
+    white:{// 58 557 039  ⇔　193 976 860
+        low:58557039,
+        high:193976860,
+    },
+    black:{// 158 360 504  ⇔　619 032 766
+        low:158360504,
+        high:619032766,
+    }
+}
 
 
 let crafts = [
