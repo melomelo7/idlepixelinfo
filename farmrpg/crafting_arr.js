@@ -256,6 +256,312 @@ const truffles = {
 }
 
 
+const fishSpots = [
+    {label:"Farm Pond",lv:1},     // 0
+    {label:"Small Pond",lv:1},    // 1
+    {label:"Forest Pond",lv:5},   // 2
+    {label:"Lake Tempest",lv:10}, // 3
+    {label:"Small Island",lv:20}, // 4
+    {label:"Crystal River",lv:30},// 5
+    {label:"Emerald Beach",lv:40},// 6
+    {label:"Vast Ocean",lv:50},   // 7
+    {label:"Lake Minerva",lv:60}, // 8
+    {label:"Large Island",lv:70}, // 9
+    {label:"Pirate's Cove",lv:80},// 10
+    {label:"Glacier Lake",lv:90}, // 11
+    ]
+
+    /*
+
+0"Magpie Cat"
+1"Siberian Husky",
+2"Red Squirrel",
+3"Tawny Owl",
+4"Wild Boar",
+5"Green Python",
+6"Ring-Tailed Lemur",
+7"Mandrill Baboon",
+8"Tree Frog",
+9"Gray Hedgehog",
+10"Banded Armadillo",
+11"Cobalt Tarantula",
+12"Pet Rock",
+13"Frigate Macaw",
+14"Emperor Penguin",
+15"Green Dragon",
+16"Red Dragon",
+17"Blue Dragon",
+18"Brown Bear",
+19"Greater Capybara",
+20"Strange Onion",
+21"Red Fox",
+22"Spotted Seal",
+23"Stinky Skunk"
+
+*/
+
+const Pets = [
+    {label:"Magpie Cat",
+    cost:0,
+    itmLv1:["Drum","Crappie","Feathers","Carp"],
+    itmLv2:["Blue Catfish","Blue Shell","Bluegill","Blue Feathers"],
+    itmLv3:["Pearl","Gold Feather","Globber","Shinefish"],
+    requirements:[],
+    },
+
+    {label:"Siberian Husky",
+    cost:0,
+    itmLv1:["Wood","Stone","Fish Bones","Bone"],
+    itmLv2:["Unpolished Shimmer Stone","Horn","Antler","Rope"],
+    itmLv3:["Amethyst","Cogwheel","Small Spring","Large Clam Shell"],
+    requirements:["4-leaf Clover","Dice","Runestone 20","Gold Crab"],
+    },
+
+    {label:"Red Squirrel",
+    cost:0,
+    itmLv1:["Mushroom","Fern Leaf","Purple Flower","Acorn"],
+    itmLv2:["Arrowhead","Leather","Coin Purse","Ancient Coin"],
+    itmLv3:[],
+    requirements:[],
+    },
+
+    {label:"Tawny Owl",
+    cost:0,
+    itmLv1:["Apple","Orange","Lemon","Hide"],
+    itmLv2:["Eggs","Bird Egg","Grapes","Honey"],
+    itmLv3:["Prism Shard","Gold Cucumber","Runestone 11","Goldfish"],
+    requirements:[],
+    },
+
+    {label:"Wild Boar",
+    cost:0,
+    itmLv1:["Coal","Carbon Sphere","3-leaf Clover","Green Dye"],
+    itmLv2:["Hammer","Axe","Shovel","Ladder"],
+    itmLv3:["Steak","Steel","Moonstone","Jade"],
+    requirements:[],
+    },
+
+    {label:"Green Python",
+    cost:0,
+    itmLv1:["Iron","Hops","Glass Orb","Horseshoe"],
+    itmLv2:["Bucket","Shimmer Quartz","Steel","Wizard Hat"],
+    itmLv3:["Wine","Gold Carrot","Runestone 15","Skull Coin"],
+    requirements:[],
+    },
+
+    {label:"Ring-Tailed Lemur",
+    cost:0,
+    itmLv1:["Snail","Caterpillar","Fire Ant","Giant Centipede"],
+    itmLv2:["Shiny Beetle","Horned Beetle","Spider","Ruby Scorpion"],
+    itmLv3:["Amber","Dragonfly","Cyclops Spider","Grasshopper"],
+    requirements:[],
+    },
+
+    {label:"Mandrill Baboon",
+    cost:0,
+    itmLv1:["Corn","Glass Bottle","Sturdy Shield","Shimmer Topaz"],
+    itmLv2:["Lemonade","Bone Fish","Cotton","Gold Eggplant"],
+    itmLv3:["Grape Juice","Runestone 03","Gold Peppers","Redgill"],
+    requirements:[],
+    },
+
+    {label:"Tree Frog",
+    cost:0,
+    itmLv1:["Peas","Cucumber","Hops","Cabbage"],
+    itmLv2:["Green Chromis","Puffer","Green Jellyfish","Skipjack"],
+    itmLv3:["Runestone 05","Gold Feather","Runestone 19","Gold Leaf"],
+    requirements:[],
+    },
+
+    {label:"Gray Hedgehog",
+    cost:0,
+    itmLv1:["Cabbage","Explosive","Straw","Cheese"],
+    itmLv2:["Orange Juice","Twine","Gold Cucumber","Broccoli"],
+    itmLv3:["Runestone 07","Gold Peas","Green Shield","Torch Fish"],
+    requirements:[],
+    },
+
+    {label:"Banded Armadillo",
+    cost:0,
+    itmLv1:["Board","Feathers","Iron Ring","Iron Cup"],
+    itmLv2:["Mushroom Paste","Leather","Steel","Magna Quartz"],
+    itmLv3:["Small Spring","Small Screw","Small Gear","Steel Wire"],
+    requirements:[],
+    },
+
+    {label:"Cobalt Tarantula",
+    cost:0,
+    itmLv1:["Eggplant","Amethyst","Emberstone","Giant Centipede"],
+    itmLv2:["Ruby Ring","Emerald Ring","Mystic Ring","Shimmer Ring"],
+    itmLv3:["Runestone 05","Runestone 10","Runestone 15","Runestone 20"],
+    requirements:[],
+    },
+
+    {label:"Pet Rock",
+    cost:0,
+    itmLv1:["Unpolished Ruby","Unpolished Emerald","Unpolished Jade","Unpolished Garnet"],
+    itmLv2:["Amethyst","Lemon Quartz","Shimmer Topaz","Jade"],
+    itmLv3:["Shimmer Stone","Glass Orb","Carbon Sphere","Diamond"],
+    requirements:[],
+    },
+
+    {label:"Frigate Macaw",
+    cost:0,
+    itmLv1:["Clownfish","Fishing Net","Eye Patch","Plumbfish"],
+    itmLv2:["Pirate Flag","Pirate Bandana","Large Chest 02","Blue Dye"],
+    itmLv3:["Skeleton Key","Crab Claw","Large Net","Anglerfish"],
+    requirements:[],
+    },
+
+    {label:"Emperor Penguin",
+    cost:0,
+    itmLv1:["Marlin","Skipjack","Seahorse","Octopus"],
+    itmLv2:["Giant Squid","Blue Tiger Fish","Fluorifish","Barracuda"],
+    itmLv3:["Swordfish","Sea Catfish","Serpent Eel","Ruby Coral"],
+    requirements:[],
+    },
+
+    {label:"Green Dragon",
+    cost:0,
+    itmLv1:["Runestone 01","Runestone 02","Runestone 03","Runestone 04"],
+    itmLv2:["Runestone 05","Runestone 06","Runestone 07","Runestone 08"],
+    itmLv3:["Runestone 09","Runestone 10","Runestone 11","Runestone 12"],
+    requirements:[],
+    },
+
+    {label:"Red Dragon",
+    cost:0,
+    itmLv1:["Runestone 13","Slimestone","Unpolished Garnet","Sour Root"],
+    itmLv2:["Runestone 14","Runestone 16","Green Cloak","Lantern"],
+    itmLv3:["Runestone 17","Runestone 18","Salt","Herbs"],
+    requirements:[],
+    },
+
+    {label:"Blue Dragon",
+    cost:0,
+    itmLv1:["Runestone 01","Runestone 02","Runestone 04","Runestone 06"],
+    itmLv2:["Runestone 08","Runestone 09","Runestone 13","Runestone 14"],
+    itmLv3:["Lava Sphere","Runestone 16","Runestone 18","Runestone 19"],
+    requirements:[],
+    },
+
+    {label:"Brown Bear",
+    cost:0,
+    itmLv1:["Crappie","Trout","Honey","Small Key"],
+    itmLv2:["Square Key","Medium Chest 02","Sunflower","Grab Bag 04"],
+    itmLv3:["Inferno Sphere","Treasure Key","Large Chest 01","Grab Bag 05"],
+    requirements:[],
+    },
+
+    {label:"Greater Capybara",
+    cost:0,
+    itmLv1:["Cabbage","Gold Peas","Broccoli","Beet"],
+    itmLv2:["Orange Juice","Lemonade","Water Lily","Apple Cider"],
+    itmLv3:["Herbs","Grab Bag 04","Grab Bag 05","Grab Bag 07"],
+    requirements:[],
+    },
+
+    {label:"Strange Onion",
+    cost:0,
+    itmLv1:["Tomato","Onion","Hops","Potato"],
+    itmLv2:["Leek","Watermelon","Corn","Cabbage"],
+    itmLv3:["Pumpkin","Broccoli","Mega Sunflower Seeds","Mega Beet Seeds"],
+    requirements:[],
+    },
+
+    {label:"Red Fox",
+    cost:0,
+    itmLv1:["Lemon Quartz","Leather","Cotton","Green Cloak"],
+    itmLv2:["Runestone 12","Pine Tree","Peach","Canoe"],
+    itmLv3:["Diamond","Runestone 17","Treasure Key","Skeleton Key"],
+    requirements:[],
+    },
+
+    {label:"Spotted Seal",
+    cost:0,
+    itmLv1:["Runestone 06","Moonstone","Snowball","Blue Purse"],
+    itmLv2:["Iced Tea","Seaweed","Mittens","Rice"],
+    itmLv3:["Blue Gel","Gold Sea Crest","Frost Snapper Shell","Glacierstone"],
+    requirements:[],
+    },
+
+    {label:"Stinky Skunk",
+    cost:0,
+    itmLv1:["Onion","Leek","Herbs","Cooking Pot"],
+    itmLv2:["Sweet Root","Flour","Salt","Pie Pan"],
+    itmLv3:["Peach","Corn Oil","Bone Broth","Butter"],
+    requirements:[],
+    },
+]
+
+const fishes = [
+    {label:"Drum",
+    sell:12,
+    xp:100,
+    giveAble:true,
+    pet:[0],
+    spots:[1,0,2,3],
+    selected:false,
+    },
+
+    {label:"Yellow Perch",
+    sell:12,
+    xp:100,
+    giveAble:true,
+    pet:[],
+    spots:[1,0,2,3],
+    selected:false,
+    },
+
+    {label:"Largemouth Bass",
+    sell:14,
+    xp:200,
+    giveAble:true,
+    pet:[],
+    spots:[0,2,3],
+    selected:false,
+    },
+
+    {label:"Trout",
+    sell:35,
+    xp:350,
+    giveAble:true,
+    pet:[18],
+    spots:[0,3,5],
+    selected:false,
+    },
+
+    {label:"Carp",
+    sell:75,
+    xp:400,
+    giveAble:true,
+    pet:[0],
+    spots:[0],
+    selected:false,
+    },
+
+    {label:"Gold Trout",
+    sell:350,
+    xp:350,
+    giveAble:true,
+    pet:[],
+    spots:[0],
+    selected:false,
+    },
+
+
+    {label:"",
+    sell:undefined,
+    xp:undefined,
+    giveAble:false,
+    pet:[],
+    spots:[],
+    selected:false,
+    },
+
+]
+
+
 let crafts = [
     {label:"Board",silver:1,exp:25,lvl:1,sell:undefined,pet:true,
     components:[{label:"Wood",quantity:5},],},
@@ -854,7 +1160,7 @@ let recipes = [
     {folk:"Holger",recipe:"Mushroom Stew",level:40,owned:false},
     {folk:"Jill",recipe:"Quandary Chowder",level:50,owned:false},
     {folk:"Lorn",recipe:"Breakfast Boost",level:40,owned:false},
-    {folk:"Mariya",recipe:"Breakfast Boost",level:40,owned:false},
+    {folk:"Mariya",recipe:"Hickory Omelette",level:40,owned:false},
     {folk:"ROOMBA",recipe:"Over The Moon",level:20,owned:false},
     {folk:"Rosalie",recipe:"Bone Broth",level:0,owned:false},
     {folk:"Rosalie",recipe:"Red Berry Pie",level:40,owned:false},
@@ -1152,33 +1458,6 @@ let folkGifts = [
     */
     
     ]
-
-let petsText =`Magpie Cat	Drum Crappie Feathers Carp	Blue Catfish Blue Shell Bluegill Blue Feathers	Pearl Gold Feather Globber Shinefish
-Siberian Husky	Wood Stone Fish Bones Bone	Unpolished Shimmer Stone Horn Antler Rope	Amethyst Cogwheel Small Spring Large Clam Shell
-Red Squirrel	Mushroom Fern Leaf Purple Flower Acorn	Arrowhead Leather Coin Purse Ancient Coin	4-leaf Clover Dice Runestone 20 Gold Crab
-Tawny Owl	Apple Orange Lemon Hide	Eggs Bird Egg Grapes Honey	Prism Shard Gold Cucumber Runestone 11 Goldfish
-Wild Boar	Coal Carbon Sphere 3-leaf Clover Green Dye	Hammer Axe Shovel Ladder	Steak Steel Moonstone Jade
-Green Python	Iron Hops Glass Orb Horseshoe	Bucket Shimmer Quartz Steel Wizard Hat	Wine Gold Carrot Runestone 15 Skull Coin
-Ring-Tailed Lemur	Snail Caterpillar Fire Ant Giant Centipede	Shiny Beetle Horned Beetle Spider Ruby Scorpion	Amber Dragonfly Cyclops Spider Grasshopper
-Mandrill Baboon	Corn Glass Bottle Sturdy Shield Shimmer Topaz	Lemonade Bone Fish Cotton Gold Eggplant	Grape Juice Runestone 03 Gold Peppers Redgill
-Tree Frog	Peas Cucumber Hops Cabbage	Green Chromis Puffer Green Jellyfish Skipjack	Runestone 05 Gold Feather Runestone 19 Gold Leaf
-Gray Hedgehog	Cabbage Explosive Straw Cheese	Orange Juice Twine Gold Cucumber Broccoli	Runestone 07 Gold Peas Green Shield Torch Fish
-Banded Armadillo	Board Feathers Iron Ring Iron Cup	Mushroom Paste Leather Steel Magna Quartz	Small Spring Small Screw Small Gear Steel Wire
-Cobalt Tarantula	Eggplant Amethyst Emberstone Giant Centipede	Ruby Ring Emerald Ring Mystic Ring Shimmer Ring	Runestone 05 Runestone 10 Runestone 15 Runestone 20
-Pet Rock	Unpolished Ruby Unpolished Emerald Unpolished Jade Unpolished Garnet	Amethyst Lemon Quartz Shimmer Topaz Jade	Shimmer Stone Glass Orb Carbon Sphere Diamond
-Frigate Macaw	Clownfish Fishing Net Eye Patch Plumbfish	Pirate Flag Pirate Bandana Large Chest 02 Blue Dye	Skeleton Key Crab Claw Large Net Anglerfish
-Emperor Penguin	Marlin Skipjack Seahorse Octopus	Giant Squid Blue Tiger Fish Fluorifish Barracuda	Swordfish Sea Catfish Serpent Eel Ruby Coral
-Green Dragon	Runestone 01 Runestone 02 Runestone 03 Runestone 04	Runestone 05 Runestone 06 Runestone 07 Runestone 08	Runestone 09 Runestone 10 Runestone 11 Runestone 12
-Red Dragon	Runestone 13 Slimestone Unpolished Garnet Sour Root	Runestone 14 Runestone 16 Green Cloak Lantern	Runestone 17 Runestone 18 Salt Herbs
-Blue Dragon	Runestone 01 Runestone 02 Runestone 04 Runestone 06	Runestone 08 Runestone 09 Runestone 13 Runestone 14	Lava Sphere Runestone 16 Runestone 18 Runestone 19
-Brown Bear	Crappie Trout Honey Small Key	Square Key Medium Chest 02 Sunflower Grab Bag 04	Inferno Sphere Treasure Key Large Chest 01 Grab Bag 05
-Greater Capybara	Cabbage Gold Peas Broccoli Beet	Orange Juice Lemonade Water Lily Apple Cider	Herbs Grab Bag 04 Grab Bag 05 Grab Bag 07
-Strange Onion	Tomato Onion Hops Potato	Leek Watermelon Corn Cabbage	Pumpkin Broccoli Mega Sunflower Seeds Mega Beet Seeds
-Red Fox	Lemon Quartz Leather Cotton Green Cloak	Runestone 12 Pine Tree Peach Canoe	Diamond Runestone 17 Treasure Key Skeleton Key
-Spotted Seal	Runestone 06 Moonstone Snowball Blue Purse	Iced Tea Seaweed Mittens Rice	Blue Gel Gold Sea Crest Frost Snapper Shell Glacierstone
-Stinky Skunk	Onion Leek Herbs Cooking Pot	Sweet Root Flour Salt Pie Pan	Peach Corn Oil Bone Broth Butter`
-
-
 
 
 
