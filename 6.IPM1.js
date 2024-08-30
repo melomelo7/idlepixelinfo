@@ -218,18 +218,23 @@ function buildSettings(){
 
 
 let wanderers = [
+    {label:"Aurora",ref:"aurora shipn.jpg",dates:[
+        {dayN:"Friday",month:7,day:26},{dayN:"Friday",month:8,day:30},
+ //       {dayN:"Friday*",month:9,day:27},
+    ]},
     {label:"Thunderhorse",ref:"thunderhorsen.jpg",dates:[
         {dayN:"Friday",month:6,day:28},{dayN:"Friday",month:8,day:2},
-    ]},
-    {label:"Merchant",ref:"merchant shipn.jpg",dates:[
-        {dayN:"Friday",month:7,day:12},{dayN:"Friday",month:8,day:16},
-    ]},
-    {label:"Aurora",ref:"aurora shipn.jpg",dates:[
-        {dayN:"Friday",month:7,day:26},{dayN:"Friday*",month:8,day:23},
+        {dayN:"Friday*",month:9,day:6},
     ]},
     {label:"Enigma",ref:"enigma.jpg",dates:[
         {dayN:"Friday",month:7,day:5},{dayN:"Friday",month:8,day:9},
+        {dayN:"Friday*",month:9,day:13},
     ]},
+    {label:"Merchant",ref:"merchant shipn.jpg",dates:[
+        {dayN:"Friday",month:7,day:12},{dayN:"Friday",month:8,day:16},
+        {dayN:"Friday*",month:9,day:20},
+    ]},
+
 ]
 
 let months = [
@@ -303,9 +308,12 @@ txt =
 addEle({dad:right,text:txt,textC:"brown",fontS:"18px",margin:"10px 0 0 50px",
 border:"dotted yellow 2px",width:"fit-content",radius:"10px",padding:"5px"})
 
-
+/*
 addEle({dad:right,text:spanText("yellow",`🟥 23 August No Ship Coming<br>
 🟥 instead : double DM tapjoy event`),margin:"50px",fontS:"28px"})
+*/
+
+// bef Aurora 1 week off : dbl tapjoy event
 
 myCont = addEle({dad:right,margin:"20px 0 0 50px"})
 myT = addEle({dad:myCont,what:"table"})
