@@ -219,6 +219,24 @@ function buildSettings(){
 
 let wanderers = [
     {label:"Aurora",ref:"aurora shipn.jpg",dates:[
+        {dayN:"Friday",month:8,day:30},
+    ]},
+    {label:"Thunderhorse",ref:"thunderhorsen.jpg",dates:[
+        {dayN:"Friday",month:9,day:6},
+    ]},
+    {label:"Enigma",ref:"enigma.jpg",dates:[
+        {dayN:"Friday",month:9,day:13},
+    ]},
+    {label:"Merchant",ref:"merchant shipn.jpg",dates:[
+        {dayN:"Friday",month:9,day:20},
+    ]},
+
+]
+
+
+
+let wanderers2 = [
+    {label:"Aurora",ref:"aurora shipn.jpg",dates:[
         {dayN:"Friday",month:7,day:26},{dayN:"Friday",month:8,day:30},
  //       {dayN:"Friday*",month:9,day:27},
     ]},
@@ -265,8 +283,10 @@ Spamming support will only slow down process. Thanks<br>
 addEle({dad:right,text:txt,textC:"yellow",fontS:"30px",
 fontB:"bold", margin:"50px 0 0 50px"})
 */
-addEle({dad:right,what:"img",imgFullSrc:"./IPM Components/announcement.jpg",margin:"50px",
-border:"red solid 10px"})
+
+
+//addEle({dad:right,what:"img",imgFullSrc:"./IPM Components/announcement.jpg",margin:"50px",
+// border:"red solid 10px"})
 
 
 let greenL = "600px"
@@ -297,6 +317,8 @@ addEle({dad:right,text:"Wandering Ships<br>(IRL Money budget 30~50 $US)",margin:
 addEle({dad:right,text:`(showing up in your galaxy if never bought<br>
 and available for a limited time only !!)`,margin:"0 50px",fontS:"22px"})
 addEle({dad:right,text:"** Faq > Expand Fleet ... for requirements **",textC:"yellow",fontS:"20px",marginL:"50px"})
+
+/*
 txt = 
 `Due to some "changes" in the discord community,<br>
  the planning of ships rotation cannot be updated<br>
@@ -307,6 +329,8 @@ txt =
 
 addEle({dad:right,text:txt,textC:"brown",fontS:"18px",margin:"10px 0 0 50px",
 border:"dotted yellow 2px",width:"fit-content",radius:"10px",padding:"5px"})
+*/
+
 
 /*
 addEle({dad:right,text:spanText("yellow",`🟥 23 August No Ship Coming<br>
@@ -328,18 +352,27 @@ wanderers.forEach(wa=>{
     txt = ""
     let txt2 = ""
     wa.dates.forEach(dt=>{
+
+
+        /*
         let mdt = new Date()
+        console.log(mdt.getMonth()+1 === dt.month)
+        console.log(mdt.getDate() <= dt.day)
         if(mdt.getMonth()+1 === dt.month && mdt.getDate() <= dt.day){
+            console.log("in1")
             txt2 = "yellow"
             if(mdt.getDate()>=dt.day && mdt.getDate()<=dt.day+2){
+                console.log("in2")
                 txt2="lime"
             }
         }
 //        txt2 = mdt.getMonth()+1 === dt.month && mdt.getDay()+1 <= dt.day ? "lime" : "" 
         txt += spanText(txt2,"- " + dt.dayN+" "+ months[dt.month-1] +" "+dt.day+dtSfx(dt.day)+"<br>")
+        */
+
 
         
-        /*
+        
         let mdt = new Date()
         let wanC = mdt.getMonth()+1 === dt.month ?
         "linear-gradient(to bottom left,rgba(255,0,0,0.7) 20%,rgba(255,255,0,0.6))" : togNot
@@ -347,9 +380,12 @@ wanderers.forEach(wa=>{
         addEle({dad:myC,radius:"5px",padding:"10px",fontS:"20px",marginL:"20px",
         border:"solid 2px orangered",backG:wanC,
         text:dt.dayN+" "+ months[dt.month-1] +" "+dt.day+dtSfx(dt.day)})
-        */
+        
+
+
+
     })
-    addEle({dad:myC,radius:"5px",padding:"5px",marginL:"20px",text:txt,fontS:"22px",border:"brown 3px solid"})
+//    addEle({dad:myC,radius:"5px",padding:"5px",marginL:"20px",text:txt,fontS:"22px",border:"brown 3px solid"})
 
 
 })
