@@ -1415,7 +1415,7 @@ let eventsMissions = [
     },
     {   /// new
         ref:4,
-        label:spanText("yellow","Send")+" a rover on planet X or more",
+        label:spanText("yellow","Send")+" a rover on planet X or beyond",
         tiers:{qt:3,vals:["1x P20+","1x P30+","1x P40+"]},
         comment:`P `+spanText("yellow",">=")+` Orisoni `+spanText("lime","|")+
         ` Urla Rast `+spanText("lime","|")+` Unicae<br>Use the `+spanText("lime","Planets Tab")+` if needs be`,
@@ -1485,7 +1485,7 @@ let eventsMissions = [
     {   /// ok
         ref:11,
         label:spanText("yellow","Collect")+` X daily rewards`,
-        tiers:{qt:3,vals:[4,8,spanText("fuchsia","?")]},
+        tiers:{qt:3,vals:[4,4,4]},
         comment:`Here we talk about daily<br>login Gift in Shop : 1/day`,
         type:"Wait-for-it",
         typeI:"wait",
@@ -1673,7 +1673,7 @@ let eventsMissions = [
 
     {   // ok
         ref:28,
-        label: spanText("yellow","Upgrade")+" X times Cargo<br>on planets with a rover",
+        label: spanText("yellow","Upgrade")+" X times "+spanText("fuchsia","Cargo")+"<br>on planets with a rover",
         tiers:{qt:3,vals:[30,100,600]},
         comment:`
         Make sure its the CARGO you target AND<br>
@@ -1695,9 +1695,61 @@ let eventsMissions = [
         typeI:"pay",
         aim:0,
     },
+
+    {   // ok
+        ref:30,
+        label: spanText("yellow","Use")+` a planet boost on a planet with<br>`
+        +`a X star(s) manager and Y colonies`,
+        tiers:{qt:3,vals:["1s & 4c","4s & 6c","6s & 10c"]},
+        comment:`Time to colonize planets here<br>Managers can be of higer level`,
+        type:"Pay-for-it",
+        typeI:"pay",
+        aim:0,
+    },
+
+    {   ///////////////////
+        ref:31,
+        label:spanText("yellow","Unlock")+" X planets",
+        tiers:{qt:3,vals:[35,250,700]},
+        comment:`obviously impossible with 1 galaxy only ...<br>
+        you know what to do next ... or so I hope `+spanText("","😁",26),
+        type:"Pay-for-it",
+        typeI:"pay",
+        aim:0,
+    },
+
+    {   // ok
+        ref:32,
+        label: spanText("yellow","Upgrade")+" planets X or<br>beyond Y times",
+        tiers:{qt:3,vals:["5 x200","30 x1000","70 x6000"]},
+        comment:`upgrade mine/cargo/ship<br>
+        on any planet starting from X<br>
+        1 or more galaxies (esp.T3)`,
+        type:"Pay-for-it",
+        typeI:"pay",
+        aim:0,
+    },
+
+    {   /// ok
+        ref:33,
+        label:spanText("yellow","Unlock")+" X alloy recipes<br>in less than Y Days",
+        tiers:{qt:3,vals:["24 < 2D","70 < 2D","150 < 1D"]},
+        comment:`self explicit`,
+        type:"Run-for-it",
+        typeI:"rabbit",
+        aim:0,
+    },
+
+
+
+
 ]
 
-let injectedOrder = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]
+let injectedOrder = [
+17,1,27,30,11,31,22,20,9,7,8,18,32,5,33,26,23,12,28,2,29,4,14
+    
+//    1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29
+]
 
 let injectedMissions = 23
 
