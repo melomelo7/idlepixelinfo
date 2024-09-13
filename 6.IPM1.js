@@ -370,19 +370,19 @@ wanderers.forEach(wa=>{
         txt += spanText(txt2,"- " + dt.dayN+" "+ months[dt.month-1] +" "+dt.day+dtSfx(dt.day)+"<br>")
         */
 
-
-        
-        
         let mdt = new Date()
-        let wanC = mdt.getMonth()+1 === dt.month ?
-        "linear-gradient(to bottom left,rgba(255,0,0,0.7) 20%,rgba(255,255,0,0.6))" : togNot
-        
+        let wanC = togNot
+        if(mdt.getMonth()+1 === dt.month){
+            if(mdt.getDate()<= dt.day+1){
+                wanC = "linear-gradient(to bottom left,rgba(255,0,0,0.7) 20%,rgba(255,255,0,0.6))"
+                if(mdt.getDate()===dt.day || mdt.getDate()===dt.day+1){
+                    wanC="linear-gradient(to bottom left,rgba(0,128,0,1),rgba(255,255,0,0.7))"//"green"
+                }
+            }
+        }
         addEle({dad:myC,radius:"5px",padding:"10px",fontS:"20px",marginL:"20px",
         border:"solid 2px orangered",backG:wanC,
         text:dt.dayN+" "+ months[dt.month-1] +" "+dt.day+dtSfx(dt.day)})
-        
-
-
 
     })
 //    addEle({dad:myC,radius:"5px",padding:"5px",marginL:"20px",text:txt,fontS:"22px",border:"brown 3px solid"})
@@ -686,3 +686,5 @@ function clickCell2(obj,whichGrid){
 
         centerScreen(projectPop)
 }
+
+
