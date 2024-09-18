@@ -1627,7 +1627,7 @@ let eventsMissions = [
 
     {   // 1x P10+ -- 3x P30+ -- 2x P60+ ok
         ref:24,
-        label:spanText("yellow","Colonize")+" X times planet Y or more",
+        label:spanText("yellow","Colonize")+" planet X or beyond Y times",
         tiers:{qt:3,vals:["1x P10+","3x P30+","2x P60+"]},
         comment:`P `+spanText("yellow",">=")+` Solveig `+spanText("lime","|")+
         ` Urla Rast `+spanText("lime","|")+` Limbo<br>Use the `+spanText("lime","Planets Tab")+
@@ -1741,7 +1741,7 @@ let eventsMissions = [
 ]
 
 let injectedOrder = [
-5,17,6,7,11,15,4,23,18,30,2,9,19,14,31,22,8,21,16,1
+5,17,6,7,11,15,4,23,18,30,2,9,19,14,31,22,8,21,16,1,12,24,20
 //17,1,27,30,11,31,22,20,9,7,8,18,32,5,33,26,23,12,28,2,29,4,14
     
 //    1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29
