@@ -1735,13 +1735,28 @@ let eventsMissions = [
         aim:0,
     },
 
+    {   // ok
+        ref:34,
+        label: spanText("yellow","Upgrade")+" X times "+spanText("fuchsia","Ship")
+        +" Speed<br>on planets with a rover",
+        tiers:{qt:3,vals:[30,100,600]},
+        comment:`
+        Make sure its the CARGO you target AND<br>
+        its a RUNNING rover. Timer completed,<br>
+        ready to collect rovers wont work here<br>
+        `+spanText("lime",
+        `Costwise think multiple rovers/galaxies`),
+        type:"Pay-for-it",
+        typeI:"pay",
+        aim:0,
+    },
 
 
 
 ]
 
 let injectedOrder = [
-8,2,6,32,11,25,28,23,3,10,17
+8,2,6,32,11,25,28,23,3,10,17,29,34,1
 //5,17,6,7,11,15,4,23,18,30,2,9,19,14,31,22,8,21,16,1,12,24,20
 //17,1,27,30,11,31,22,20,9,7,8,18,32,5,33,26,23,12,28,2,29,4,14
     
