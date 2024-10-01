@@ -245,8 +245,8 @@ const romans = [
    
 const truffles = {
     ref:"Period : 29-May to 26-Aug 2024",
-    white:{// 58 557 039  ⇔　193 976 860
-        low:58557039,
+    white:{// 57 788 097  ⇔　193 976 860
+        low:57788097,
         high:193976860,
     },
     black:{// 158 360 504  ⇔　619 032 766
@@ -271,8 +271,28 @@ const fishSpots = [
     {label:"Glacier Lake",lv:90}, // 11
     ]
 
-    /*
+const rarities = [
+    {idx:0,label:"Plenty"},
+    {idx:1,label:"Common"},
+    {idx:2,label:"Uncommon"},
+    {idx:3,label:"Rare"},
+    {idx:4,label:"Very Rare"},
+    {idx:4,label:"Extremely Rare"},
+]
 
+const masteries = [
+    {label:"No Tier<br>x/10"},
+    {label:"Tier I<br>x/100"},
+    {label:"Tier II<br>x/1 000"},
+    {label:"Tier III(M)<br>x/10 000"},
+    {label:"Tier IV(GM)<br>x/100 000"},
+    {label:"Tier V(MM)<br>x/1 000 000"},
+]
+function upMastery(text){
+    
+}
+
+/*
 0"Magpie Cat"
 1"Siberian Husky",
 2"Red Squirrel",
@@ -297,6 +317,11 @@ const fishSpots = [
 21"Red Fox",
 22"Spotted Seal",
 23"Stinky Skunk"
+
+hi, struggling to reach cecil friendship to 60, any of those would be of great help : 
+((Yarn))((Leather))((Grasshopper))((Horned Beetle))((MIAB))((Shiny Beetle)) thanks
+
+
 
 */
 
@@ -498,67 +523,117 @@ const fishes = [
     {label:"Drum",
     sell:12,
     xp:100,
+    rarity:0,
     giveAble:true,
     pet:[0],
     spots:[1,0,2,3],
+    mastered:false,
     selected:false,
     },
 
     {label:"Yellow Perch",
     sell:12,
     xp:100,
+    rarity:0,
     giveAble:true,
     pet:[],
     spots:[1,0,2,3],
+    mastered:false,
     selected:false,
     },
 
     {label:"Largemouth Bass",
     sell:14,
     xp:200,
+    rarity:0,
     giveAble:true,
     pet:[],
     spots:[0,2,3],
+    mastered:false,
     selected:false,
     },
 
     {label:"Trout",
     sell:35,
     xp:350,
+    rarity:1,
     giveAble:true,
     pet:[18],
     spots:[0,3,5],
+    mastered:false,
     selected:false,
     },
 
     {label:"Carp",
     sell:75,
     xp:400,
+    rarity:1,
     giveAble:true,
     pet:[0],
     spots:[0],
+    mastered:false,
     selected:false,
     },
 
     {label:"Gold Trout",
     sell:350,
     xp:350,
+    rarity:4,
     giveAble:true,
     pet:[],
     spots:[0],
+    mastered:false,
+    selected:false,
+    },
+
+    {label:"Catfish",
+    sell:75,
+    xp:475,
+    rarity:1,
+    giveAble:false,
+    pet:[],
+    spots:[0],
+    mastered:false,
+    selected:false,
+    },
+
+    {label:"Fish Bones",
+    sell:2,
+    xp:25,
+    rarity:1,
+    giveAble:true,
+    pet:[1],
+    spots:[1,0,2,3],
+    mastered:false,
+    selected:false,
+    },
+
+    {label:"Flier",
+    sell:250,
+    xp:500,
+    rarity:1,
+    giveAble:true,
+    pet:[],
+    spots:[0,3],
+    mastered:false,
     selected:false,
     },
 
 
+
+
+    /*
     {label:"",
     sell:undefined,
     xp:undefined,
+    rarity:0,
     giveAble:false,
     pet:[],
     spots:[],
+    mastered:false,
     selected:false,
     },
-
+*/
 ]
 
 
@@ -1154,21 +1229,54 @@ let countryStore = [
 
 
 let recipes = [
-    {folk:"Cecil",recipe:"Shrimp-a-Plenty",level:60,owned:false},
-    {folk:"Charles Horsington III",recipe:"Neigh",level:40,owned:false},
-    {folk:"George",recipe:"Onion Soup",level:10,owned:false},
-    {folk:"Holger",recipe:"Mushroom Stew",level:40,owned:false},
-    {folk:"Jill",recipe:"Quandary Chowder",level:50,owned:false},
-    {folk:"Lorn",recipe:"Breakfast Boost",level:40,owned:false},
-    {folk:"Mariya",recipe:"Hickory Omelette",level:40,owned:false},
-    {folk:"ROOMBA",recipe:"Over The Moon",level:20,owned:false},
-    {folk:"Rosalie",recipe:"Bone Broth",level:0,owned:false},
-    {folk:"Rosalie",recipe:"Red Berry Pie",level:40,owned:false},
-    {folk:"Rosalie",recipe:"Concord Grape Pie",level:50,owned:false},
-    {folk:"Thomas",recipe:"Cat's Meow",level:30,owned:false},
-    {folk:"Vincent",recipe:"Sea Pincher Special",level:50,owned:false},
-    {folk:"Mariya",recipe:"Crunchy Omelette",level:50,owned:false,special:"Limited time quest reward. Finish Eggstremely Delicious II"},
-    {folk:"Baba Gec",recipe:"Cabbage Stew",level:"?",owned:false,special:"Quest reward. Finish My Cabbages XX(20)"},
+    {folk:"Rosalie",recipe:"Bone Broth",level:0,owned:false,
+    time:10,exp:100,requireCook:1,ingredients:[
+        {label:"Coal",quantity:5},
+        {label:"Cooking Pot",quantity:1},
+        {label:"Bone",quantity:10},
+    ]
+    },
+    {folk:"George",recipe:"Onion Soup",level:10,owned:false,
+    time:60,exp:300,requireCook:5,ingredients:[
+        {label:"Coal",quantity:60},
+        {label:"Cooking Pot",quantity:1},
+        {label:"Bone Broth",quantity:1},
+        {label:"Onion",quantity:50},
+    ]
+    },
+    {folk:"ROOMBA",recipe:"Over The Moon",level:20,owned:false,
+    time:120,exp:600,requireCook:10,ingredients:[
+        {label:"Coal",quantity:120},
+        {label:"Salt",quantity:1},
+        {label:"Herbs",quantity:1},
+        {label:"Leek",quantity:3},
+        {label:"Corn",quantity:3},
+        {label:"Steak",quantity:3},
+    ]
+    },
+    {folk:"Thomas",recipe:"Cat's Meow",level:30,owned:false,
+    time:120,exp:600,requireCook:15,ingredients:[
+        {label:"Coal",quantity:120},
+        {label:"Cooking Pot",quantity:1},
+        {label:"Bone Broth",quantity:1},
+        {label:"Salt",quantity:1},
+        {label:"Fish Bones",quantity:25},
+        {label:"Onion",quantity:5},
+        {label:"Milk",quantity:5},
+        {label:"Essence of Slime",quantity:3},
+    ]
+    },
+    {folk:"Holger",recipe:"Mushroom Stew",level:40,owned:false,ingredients:[]},
+    {folk:"Jill",recipe:"Quandary Chowder",level:50,owned:false,ingredients:[]},
+    {folk:"Baba Gec",recipe:"Cabbage Stew",level:"?",owned:false,special:"Quest reward. Finish My Cabbages XX(20)",ingredients:[]},
+    {folk:"Charles Horsington III",recipe:"Neigh",level:40,owned:false,ingredients:[]},
+    {folk:"Vincent",recipe:"Sea Pincher Special",level:50,owned:false,ingredients:[]},
+    {folk:"Cecil",recipe:"Shrimp-a-Plenty",level:60,owned:false,ingredients:[]},
+    {folk:"Mariya",recipe:"Hickory Omelette",level:40,owned:false,ingredients:[]},
+    {folk:"Mariya",recipe:"Crunchy Omelette",level:50,owned:false,special:"Limited time quest reward. Finish Eggstremely Delicious II",ingredients:[]},
+    {folk:"Lorn",recipe:"Breakfast Boost",level:40,owned:false,ingredients:[]},
+    {folk:"Rosalie",recipe:"Red Berry Pie",level:40,owned:false,ingredients:[]},
+    {folk:"Rosalie",recipe:"Concord Grape Pie",level:50,owned:false,ingredients:[]},
 
 //    {folk:"",recipe:"",level:0},
 ]
