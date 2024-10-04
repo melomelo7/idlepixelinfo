@@ -219,16 +219,16 @@ function buildSettings(){
 
 let wanderers = [
     {label:"Aurora",ref:"aurora shipn.jpg",dates:[
-        {dayN:"Friday",month:8,day:30},
+        {dayN:"Friday",month:10,day:4},
     ]},
     {label:"Thunderhorse",ref:"thunderhorsen.jpg",dates:[
-        {dayN:"Friday",month:9,day:6},
+        {dayN:"Friday",month:10,day:11},
     ]},
     {label:"Enigma",ref:"enigma.jpg",dates:[
-        {dayN:"Friday",month:9,day:13},
+        {dayN:"Friday",month:10,day:18},
     ]},
     {label:"Merchant",ref:"merchant shipn.jpg",dates:[
-        {dayN:"Friday",month:9,day:20},
+        {dayN:"Friday",month:10,day:25},
     ]},
 
 ]
@@ -237,20 +237,24 @@ let wanderers = [
 
 let wanderers2 = [
     {label:"Aurora",ref:"aurora shipn.jpg",dates:[
-        {dayN:"Friday",month:7,day:26},{dayN:"Friday",month:8,day:30},
+        {dayN:"Friday",month:10,day:4},
+        //        {dayN:"Friday",month:7,day:26},{dayN:"Friday",month:8,day:30},
  //       {dayN:"Friday*",month:9,day:27},
     ]},
     {label:"Thunderhorse",ref:"thunderhorsen.jpg",dates:[
-        {dayN:"Friday",month:6,day:28},{dayN:"Friday",month:8,day:2},
-        {dayN:"Friday*",month:9,day:6},
+        {dayN:"Friday",month:10,day:11},
+//        {dayN:"Friday",month:6,day:28},{dayN:"Friday",month:8,day:2},
+  //      {dayN:"Friday*",month:9,day:6},
     ]},
     {label:"Enigma",ref:"enigma.jpg",dates:[
-        {dayN:"Friday",month:7,day:5},{dayN:"Friday",month:8,day:9},
-        {dayN:"Friday*",month:9,day:13},
+        {dayN:"Friday",month:10,day:18},
+//        {dayN:"Friday",month:7,day:5},{dayN:"Friday",month:8,day:9},
+  //      {dayN:"Friday*",month:9,day:13},
     ]},
     {label:"Merchant",ref:"merchant shipn.jpg",dates:[
-        {dayN:"Friday",month:7,day:12},{dayN:"Friday",month:8,day:16},
-        {dayN:"Friday*",month:9,day:20},
+        {dayN:"Friday",month:10,day:25},
+//        {dayN:"Friday",month:7,day:12},{dayN:"Friday",month:8,day:16},
+  //      {dayN:"Friday*",month:9,day:20},
     ]},
 
 ]
