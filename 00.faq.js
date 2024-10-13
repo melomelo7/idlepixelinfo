@@ -1716,7 +1716,7 @@ let eventsMissions = [
     {   // ok
         ref:32,
         label: spanText("yellow","Upgrade")+" planets X or<br>beyond Y times",
-        tiers:{qt:3,vals:["5 x200","30 x1000","70 x6000"]},
+        tiers:{qt:3,vals:["5 x200","30 x1000","60 x1500"]},
         comment:`upgrade mine/cargo/ship<br>
         on any planet starting from X<br>
         1 or more galaxies (esp.T3)`,
