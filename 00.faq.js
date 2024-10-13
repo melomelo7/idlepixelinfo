@@ -1471,7 +1471,7 @@ let eventsMissions = [
     },
     {   // ok
         ref:10,
-        label:`In the `+spanText("fuchsia","same")+` galaxy, `+spanText("yellow","get")+
+        label:`In the `+spanText("fuchsia","same")+` galaxy, `+spanText("yellow","Get")+
         ` X<br>different `+spanText("yellow","resources")+` from asteroids`,
         tiers:{qt:3,vals:[6,20,50]},
         comment:`Asteroids, not debris, so hope you be lucky<br>
@@ -1756,7 +1756,7 @@ let eventsMissions = [
 ]
 
 let injectedOrder = [
-8,14,27,22,11,3,16,17,31,32,2
+8,14,27,22,11,3,16,17,31,32,2,15,10,5
 //8,2,6,32,11,25,28,23,3,10,17,29,34,1,12,30,20,15,19,14,18,13,5
 //5,17,6,7,11,15,4,23,18,30,2,9,19,14,31,22,8,21,16,1,12,24,20
 //17,1,27,30,11,31,22,20,9,7,8,18,32,5,33,26,23,12,28,2,29,4,14
