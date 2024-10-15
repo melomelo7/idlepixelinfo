@@ -1756,7 +1756,7 @@ let eventsMissions = [
 ]
 
 let injectedOrder = [
-8,14,27,22,11,3,16,17,31,32,2,15,10,5,33,34,1
+8,14,27,22,11,3,16,17,31,32,2,15,10,5,33,34,1,18,30,20
 //8,2,6,32,11,25,28,23,3,10,17,29,34,1,12,30,20,15,19,14,18,13,5
 //5,17,6,7,11,15,4,23,18,30,2,9,19,14,31,22,8,21,16,1,12,24,20
 //17,1,27,30,11,31,22,20,9,7,8,18,32,5,33,26,23,12,28,2,29,4,14
@@ -2075,37 +2075,27 @@ function eventBall(){
                 ,textA:"left",margin:"10px 0 5px 0",borderB:"fuchsia 3px solid"})
                 addEle({dad:rowC,what:"img",imgSize:30,imgFullSrc:"./IPM Components/holo bolts.jpg",marginL:"20px"})
 
-            cont = addEle({dad:getID("probesFr")})
-            tb = addEle({dad:cont,what:"table"})
-            tr = addEle({dad:tb,what:"tr"})
-                addEle({dad:tr,what:"td",text:"Type",border:"teal solid 3px",padding:"3px"})
-                addEle({dad:tr,what:"td",text:"Start<br>Value",border:"teal solid 3px",padding:"3px",minWidth:"60px"})
-                addEle({dad:tr,what:"td",text:"HB<br>Cost",border:"teal solid 3px",padding:"3px",minWidth:"60px"})
-                addEle({dad:tr,what:"td",text:"Added<br>Value",border:"teal solid 3px",padding:"3px",minWidth:"60px"})
+
             probeUpgrades.forEach(pr=>{
+                addEle({dad:getID("probesFr"),text:pr.type,borderB:"fuschia 3px solid",
+                marginT:"10px",textC:"lime"})
+
+                cont = addEle({dad:getID("probesFr"),})
+                tb = addEle({dad:cont,what:"table",minWidth:"500px"})
                 tr = addEle({dad:tb,what:"tr"})
-                addEle({dad:tr,what:"td",text:pr.label,border:"teal solid 3px",padding:"3px"})
-                addEle({dad:tr,what:"td",text:pr.start,border:"teal solid 3px",padding:"3px"})
-                addEle({dad:tr,what:"td",text:pr.cost,border:"teal solid 3px",padding:"3px"})
-                addEle({dad:tr,what:"td",text:pr.buff,border:"teal solid 3px",padding:"3px"})
+                    addEle({dad:tr,what:"td",text:"Type",border:"teal solid 3px",padding:"3px"})
+                    addEle({dad:tr,what:"td",text:"Start<br>Value",border:"teal solid 3px",padding:"3px",minWidth:"60px"})
+                    addEle({dad:tr,what:"td",text:"HB<br>Cost",border:"teal solid 3px",padding:"3px",minWidth:"60px"})
+                    addEle({dad:tr,what:"td",text:"Added<br>Value",border:"teal solid 3px",padding:"3px",minWidth:"60px"})
+                pr.upgrades.forEach(ups=>{
+                    tr = addEle({dad:tb,what:"tr"})
+                    addEle({dad:tr,what:"td",text:ups.label,border:"teal solid 3px",padding:"3px"})
+                    addEle({dad:tr,what:"td",text:ups.start,border:"teal solid 3px",padding:"3px"})
+                    addEle({dad:tr,what:"td",text:ups.cost,border:"teal solid 3px",padding:"3px"})
+                    addEle({dad:tr,what:"td",text:ups.buff,border:"teal solid 3px",padding:"3px"})
+                })
             })
-
-/*
-    cont = addEle({dad:myC,setClass:"contCol",border:"orange solid 3px",
-    padding:"10px",textA:"center",radius:"20px",marginT:"30px"})
-    addEle({dad:cont,text:"Under Construction...still",textC:"yellow"})
-    addEle({dad:cont,what:"img",imgFullSrc:"./IPM Components/construction.jpg"})
-    addEle({dad:cont,text:"Under Construction...",textC:"yellow"})
-*/
-
 }
-
-let probeUpgrades = [
-    {label:"Planet Bonus",start:"x1.04",cost:130,buff:"+0.2"},
-    {label:"Scan Time",start:"0%",cost:80,buff:"-0.5%"},
-    {label:"Asteroids Chance",start:"1%",cost:130,buff:"+1%"},
-    {label:"Asteroids Size",start:"1.00K",cost:30,buff:"+25.00K"},
-]
 
 function updLevelling(){
     let curLv = Number(getID("lvlRng1").value)
@@ -2120,45 +2110,20 @@ function updLevelling(){
     `Target Lv`+spanText("lime",tgtLv)+ `, you need another `+spanText("yellow",nbc)+` Crystal(s) `
 }
 
-
-/*
-
-probe upgrades
-
---- scan ---
-- planet bonus > 130 hb 
-x1.04 > 1.06 (+0.02)
-
-- secondary manager skill > 150 hb 
-x1.0000 > 1.0025 (+ 0.0025)
-
-- planet boost bonus > 500 hb
-x1.00 > 1.02 (+0.02)
-
-
---- passive ---
-- planet boost duration > 200 hb
-x1.00 > 1.05 (+0.05)
-
-- primary manager skill > 250 hb 
-x1.00 > 1.01 (+0.01)
-
-- colony bonuses > 200 hb
-x1.00 > 1.03 (+0.03)
-
---- utility ---
-- scan time reduction > 80 hb
-0% > 0.50% (-0.50)
-
-- asteroids chance per scan > 130 hb
-1.00% > 2.00% (+1)
-
-- asteroid size > 30 hb
-1.00k > 26k (+25k)
-
-
-
-
-
-
-*/
+let probeUpgrades = [
+    {type:"Scan",upgrades:[
+        {label:"Planet Bonus",start:"x1.04",cost:130,buff:"+0.02"},
+        {label:"Secondary Manager Skill",start:"x1.0000",cost:150,buff:"+0.0025"},
+        {label:"Planet Boost Bonus",start:"x1.00",cost:500,buff:"+0.02"},
+    ]},
+    {type:"Passive",upgrades:[
+        {label:"Planet Boost Duration",start:"x1.00",cost:200,buff:"+0.05"},
+        {label:"Primary Manager Skill",start:"x1.00",cost:250,buff:"+0.01"},
+        {label:"Colony Bonuses",start:"x1.00",cost:200,buff:"+0.03"},
+    ]},
+    {type:"Utility",upgrades:[
+        {label:"Scan Time Reduction",start:"0%",cost:80,buff:"-0.50%"},
+        {label:"Asteroids Chance per Scan",start:"1%",cost:130,buff:"+1"},
+        {label:"Asteroid Size",start:"1k",cost:30,buff:"+25k"},
+    ]},
+]
