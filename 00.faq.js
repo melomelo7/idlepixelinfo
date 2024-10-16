@@ -1416,7 +1416,7 @@ let eventsMissions = [
     {   /// new
         ref:4,
         label:spanText("yellow","Send")+" a rover on planet X or beyond",
-        tiers:{qt:3,vals:["1x P20+","1x P30+","1x P40+"]},
+        tiers:{qt:3,vals:["P20+","P30+","P40+"]},
         comment:`P `+spanText("yellow",">=")+` Orisoni `+spanText("lime","|")+
         ` Urla Rast `+spanText("lime","|")+` Unicae<br>Use the `+spanText("lime","Planets Tab")+` if needs be`,
         type:"Do-it",
@@ -1756,7 +1756,7 @@ let eventsMissions = [
 ]
 
 let injectedOrder = [
-8,14,27,22,11,3,16,17,31,32,2,15,10,5,33,34,1,18,30,20
+8,14,27,22,11,3,16,17,31,32,2,15,10,5,33,34,1,18,30,20,6,4,23
 //8,2,6,32,11,25,28,23,3,10,17,29,34,1,12,30,20,15,19,14,18,13,5
 //5,17,6,7,11,15,4,23,18,30,2,9,19,14,31,22,8,21,16,1,12,24,20
 //17,1,27,30,11,31,22,20,9,7,8,18,32,5,33,26,23,12,28,2,29,4,14
