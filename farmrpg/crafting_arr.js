@@ -1453,6 +1453,11 @@ let friendshipRewards = [
     ]
 
 let folkGifts = [
+    {label:"Baba Gec",
+    love:["Wooden Button","Cabbage Stew","Peach Juice"],
+    like:["Leek","Rope","Onion","Snail"],
+    hate:["Horned Beetle","Stone","Worms"]},
+     
     {label:"Beatrix",
     love:["Black Powder","Explosive","Iced Tea","Fireworks"],
     like:["Hops","Coal","Bird Egg","Carbon Sphere","Hammer","Oak"],
@@ -1477,7 +1482,12 @@ let folkGifts = [
     love:["Leather","MIAB","Old Boot","Shiny Beetle","Horned Beetle","Grasshopper","Yarn"],
     like:["Aquamarine","Grapes","Ladder","Snail","Giant Centipede","Slimestone"],
     hate:["Worms","Feathers","Mushroom","Milk"],},
-        
+    
+    {label:"Cid",
+    love:["Spider","Mushroom Stew","Bomb","Safety Goggles","Diamonds","Explosive"],
+    like:["Black Powder","Blue Feathers","Shimmer Stone","Stone"],
+    hate:["Cheese","Worms"]},
+
     {label:"Charles Horsington III",
     love:["Apple","Gold Carrot","Apple Cider","Box of Chocolate 01","Valentines Card","Peach"],
     like:["Carrot","3-leaf Clover","Twine","Grasshopper"],
