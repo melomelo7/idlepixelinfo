@@ -219,16 +219,16 @@ function buildSettings(){
 
 let wanderers = [
     {label:"Aurora",ref:"aurora shipn.jpg",dates:[
-        {dayN:"Friday",month:10,day:4},
+        {dayN:"Friday",month:11,day:8},
     ]},
     {label:"Thunderhorse",ref:"thunderhorsen.jpg",dates:[
-        {dayN:"Friday",month:10,day:11},
+        {dayN:"Friday",month:11,day:15},
     ]},
     {label:"Enigma",ref:"enigma.jpg",dates:[
-        {dayN:"Friday",month:10,day:18},
+        {dayN:"Friday",month:11,day:22},
     ]},
     {label:"Merchant",ref:"merchant shipn.jpg",dates:[
-        {dayN:"Friday",month:10,day:25},
+        {dayN:"Friday",month:11,day:29},
     ]},
 
 ]
