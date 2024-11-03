@@ -1,25 +1,4 @@
 
-/*
-const truffles = {
-    ref:"Period : 29-May to 26-Aug 2024",
-    white:{// 58 557 039  ⇔　193 976 860
-        low:58557039,
-        high:193976860,
-        fella:[453,494,532.573], // 41 // 38 // 41
-        me:   [46,85,121,42],    // 39 // 36 // 43
-    },
-    black:{// 158 360 504  ⇔　619 032 766
-        low:158360504,
-        high:619032766,
-        fella:[106,123,139,157], // 17 // 16 // 18
-        me:   [11,22,37,53],     // 11 // 15 // 16
-    }
-}
-
-*/
-
-console.log(truffles)
-
 let cont = undefined
 let subC1 = undefined
 let subC2 = undefined
@@ -28,7 +7,7 @@ let tb = undefined
 let tr = undefined
 let tc = undefined
 
-let lastUp = "08/26 23:40<br>"//+spanText("red","Page In test Mode atm")
+let lastUp = "08/26 23:40<br>"
 
 const body = document.querySelector("body")
 
@@ -37,13 +16,14 @@ const mainFr = addEle({dad:body,setClass:"contRow",height:"100%",width:"100%"}) 
         addEle({dad:cont,text:spanText("lime","Last up : "+lastUp),margin:"20px"})
 
     subC1 = addEle({dad:cont,setClass:"contRow"})
-        addEle({dad:subC1,setClass:"btn",text:"⇒ Quests Page",
-        textC:"lime",margin:"10px",setFunc:()=>{
-            let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmpg_quests.html"
+        addEle({dad:subC1,setClass:"btn",text:"⇒ Go Back",
+        textC:"lime",setFunc:()=>{
+            let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmRpg_Bob1_Farm.html"
             window.open(lnk,"_self")
         }})
 
-        addEle({dad:cont,text:spanText("yellow","Built from input ><br>"+truffles.ref),margin:"0 20px"})
+
+        addEle({dad:cont,text:spanText("yellow","Built using input up to 29 May 2024"),margin:"0 20px"})
 
     subC1 = addEle({dad:cont,setClass:"contCol",border:"teal solid 2px",radius:"20px",padding:"5px",
         margin:"10px",width:"fit-content"})

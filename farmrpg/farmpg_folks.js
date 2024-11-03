@@ -1,13 +1,7 @@
 
 const body = document.querySelector("body")
 
-
 let update = "last up 8/20 20:15"
-
-/*
-star meerif
-vincent
-*/
 
 const frame = addEle({dad:body,setClass:"contCol"})
 
@@ -75,16 +69,14 @@ const frame = addEle({dad:body,setClass:"contCol"})
             dispAllRewards()
         }})
 
-        addEle({dad:fr1,setClass:"btn",text:"⇒ Quests Page",
+        addEle({dad:fr1,setClass:"btn",text:"⇒ Go Back",
         textC:"lime",setFunc:()=>{
-            let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmpg_quests.html"
+            let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmRpg_Bob1_Farm.html"
             window.open(lnk,"_self")
         }})
 
-
         addEle({dad:fr1,marginL:"50px",text:update})
-
-        
+       
 
     addEle({dad:frame,border:"solid 2px lime",width:"100%",margin:"10px 0"})
 
@@ -300,9 +292,3 @@ function dispAllRewards (val){
     })
 
 }
-
-/*
-
-hello, currently trying to reach explo 99 depleted stamina, would appreciate spare ((Arnold Palmer)) & ((Orange Juice)) thanks
-
-*/
