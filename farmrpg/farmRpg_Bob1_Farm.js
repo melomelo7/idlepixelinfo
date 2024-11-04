@@ -10,11 +10,9 @@ let inventoryS = 5000
 let mailboxS = 600
 let maxL = Math.floor(inventoryS/mailboxS) * mailboxS
 let shopV = "2.1"
-
-
 let itemPool = []
 
-let lastUp = "08/26 23:40<br>"//+spanText("red","Page In test Mode atm")
+let lastUp = "11/04 12:45<br>"
 
 const body = document.querySelector("body")
 
@@ -43,9 +41,9 @@ ratios 3.5⏩1 (OR 35⏩1) & 25⏩1<br>
 `+spanText("yellow",`
 BIG orders, Inventory-Wise ( way over `+spanText("cyan",inventoryS)+` ) :<br>
 - Please inform at the beginning total number of 🐟Nets <br>
-- Options to chose :<br>
-🟫1🟫you provide 6Mb 🪨Stones *After* every 8Mb 🐟Nets<br>
-🟫2🟫you provide a few Neigh🍲 meals before we start, I work on getting 🪨Stones<br> 
+- Options to chose from :<br>
+🟫1 🪨🟫you provide 6Mb 🪨Stones *After* every 8Mb 🐟Nets<br>
+🟫2 🍲🟫you provide a few Neigh🍲 meals before we start, I work on getting 🪨Stones<br> 
 - Process will be cut/paused into as many as needed :<br>
 🟢 Step 1 ➡️🟢 Send *Me* `+Math.floor(inventoryS/mailboxS)+`x MB(`+mailboxS+`) 🐟Nets = `+maxL+` units<br>
 🟡 Step 2 🟡⬅️ I send *You* the Large 🐟Nets Payout<br> 
@@ -61,6 +59,7 @@ let convArray = [
     {label:"Apples 🍎",to:"⏩ Apple Cider",ratio:"25⏩1"},
 ]
 
+addEle({dad:body,text:spanText("lime","Last up : "+lastUp),margin:"5px 30px"})
 addEle({dad:body,text:welcome,margin:"20px",padding:"5px",border:"blue solid 3px",
 radius:"30px",textA:"center",width:"fit-content"})
 
