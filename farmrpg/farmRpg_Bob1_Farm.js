@@ -42,12 +42,12 @@ ratios 3.5⏩1 (OR 35⏩1) & 25⏩1<br>
 BIG orders, Inventory-Wise ( way over `+spanText("cyan",inventoryS)+` ) :<br>
 - Please inform at the beginning total number of 🐟Nets <br>
 - Options to chose from :<br>
-🟫1 🪨🟫you provide 6Mb 🪨Stones *After* every 8Mb 🐟Nets<br>
-🟫2 🍲🟫you provide a few Neigh🍲 meals before we start, I work on getting 🪨Stones<br> 
+🟫1 🪨Stones🟫you provide 6Mb 🪨Stones *After* every 8Mb 🐟Nets<br>
+🟫2 🍲Meals🟫you provide a few 🍲Neigh meals before we start, I work on getting 🪨Stones<br> 
 - Process will be cut/paused into as many as needed :<br>
 🟢 Step 1 ➡️🟢 Send *Me* `+Math.floor(inventoryS/mailboxS)+`x MB(`+mailboxS+`) 🐟Nets = `+maxL+` units<br>
 🟡 Step 2 🟡⬅️ I send *You* the Large 🐟Nets Payout<br> 
-🟢 Step 3 ➡️🟢 Send *Me* the `+ ((600/mailboxS)*6) +` MB 🪨 (OR I go get some myself 🏃🏽‍➡️🏃🏽‍➡️🏃🏽‍➡️)<br>
+🟢 Step 3 ➡️🟢 Send *Me* the `+ ((600/mailboxS)*6) +` MB 🪨Stones (OR I go get some myself 🏃🏽‍➡️🏃🏽‍➡️🏃🏽‍➡️)<br>
 🔵 Step 4 🔵🔵 Back to step 1 until no more<br>
 `)
 
