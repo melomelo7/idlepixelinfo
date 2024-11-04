@@ -17,8 +17,8 @@ let lastUp = "11/04 12:45<br>"
 const body = document.querySelector("body")
 
 let welcome = spanText("lime",`
-🐮 Welcome to `+userN+`'s Farm : 🐷<br>
-🐖🐖 Busy busy lil Piggy ! 🐖🐖
+🐮🥚 Welcome to `+userN+`'s Farm : 🐷<br>
+🐖🐖Busy busy lil Piggy !🐣🐖🐖
 `
 ,40)
 
