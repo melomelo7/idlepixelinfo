@@ -47,7 +47,7 @@ BIG orders, Inventory-Wise ( way over `+spanText("cyan",inventoryS)+` ) :<br>
 🟫2🟫you provide a few Neigh🍲 meals before we start, I work on getting 🪨Stones<br> 
 - Process will be cut/paused into as many as needed :<br>
 🟢 Step 1 ➡️🟢 Send *Me* `+Math.floor(inventoryS/mailboxS)+`x MB(`+mailboxS+`) 🐟Nets = `+maxL+` units<br>
-🟡 Step 2 ⬅️🟡 I send *You* the Large 🐟Nets Payout<br> 
+🟡 Step 2 🟡⬅️ I send *You* the Large 🐟Nets Payout<br> 
 🟢 Step 3 ➡️🟢 Send *Me* the `+ ((600/mailboxS)*6) +` MB 🪨 (OR I go get some myself 🏃🏽‍➡️🏃🏽‍➡️🏃🏽‍➡️)<br>
 🔵 Step 4 🔵🔵 Back to step 1 until no more<br>
 `)
