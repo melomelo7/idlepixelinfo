@@ -13,7 +13,11 @@ let lastUp = "08/26 23:40<br>"//+spanText("red","Page In test Mode atm")
 
 const body = document.querySelector("body")
 
-let welcome = spanText("lime","🐮 Welcome to "+userN+"'s Farm ! 🐷",40)
+let welcome = spanText("lime",`
+🐮 Welcome to `+userN+`'s Farm : 🐷<br>
+🐖 Busy busy lil Piggy ! 🐖
+`
+,40)
 
 let intro = spanText("",
 `
