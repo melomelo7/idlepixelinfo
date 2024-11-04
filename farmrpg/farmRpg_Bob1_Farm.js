@@ -34,9 +34,10 @@ The shop is evolving as I approach Tower 200 ... Stay tuned ... 👻
 `,18)
 
 let convTxt = `
-Shop `+spanText("yellow","V1.0")+` : nets only, Ratio 1000⏩70<br>
-Shop `+spanText("yellow","V2.0")+` : nets only, Ratio 1000⏩75<br>
-Shop `+spanText("yellow","V2.1")+` : nets Ratio 1000⏩75, fruits to ratios 3.5⏩1 OR 35⏩1 & 25⏩1<br>
+Shop `+spanText("yellow","V1.0")+` : 🐟Nets only, Ratio 1000⏩70<br>
+Shop `+spanText("yellow","V2.0")+` : 🐟Nets only, Ratio 1000⏩75<br>
+Shop `+spanText("yellow","V2.1")+` : 🐟Nets Ratio 1000⏩75, fruits to 
+ratios 3.5⏩1 (OR 35⏩1) & 25⏩1<br>
 
 <br>
 `+spanText("yellow",`
@@ -53,7 +54,7 @@ BIG orders, Inventory-Wise ( way over `+spanText("cyan",inventoryS)+` ) :<br>
 `)
 
 let convArray = [
-    {label:"Small 🐟Nets",to:"⏩ Large Nets",ratio:"1000⏩75"},
+    {label:"Small 🐟Nets",to:"⏩ Large 🐟Nets",ratio:"1000⏩75"},
     {label:"Oranges 🍊",to:"⏩ Orange Juice",ratio:"3.5⏩1"},
     {label:"Lemons 🍋",to:"⏩ Lemonade",ratio:"3.5⏩1"},
     {label:"Lemons 🍋",to:"⏩ AP (Arnold Palmer)",ratio:"35⏩1"},
@@ -97,7 +98,7 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content"})
     for(let i=0;i<convArray.length;i++){
         tr = addEle({dad:tb,what:"tr"})
              addEle({dad:tr,what:"td",text:convArray[i].label,textA:"right",padding:"5px"})
-             addEle({dad:tr,what:"td",text:convArray[i].to,textA:"center",padding:"5px"})
+             addEle({dad:tr,what:"td",text:convArray[i].to,textA:"left",padding:"5px"})
              addEle({dad:tr,what:"td",text:convArray[i].ratio,textA:"center",padding:"5px"})
         tc = addEle({dad:tr,what:"td",padding:"5px"})
              addEle({dad:tc,what:"input",isInput:true,setVal:0,setID:"amount:"+i,
