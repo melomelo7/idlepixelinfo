@@ -40,6 +40,12 @@ ratios 3.5⏩1 (OR 35⏩1) & 25⏩1<br>
 <br>
 `+spanText("yellow",`
 BIG orders, Inventory-Wise ( way over `+spanText("cyan",inventoryS)+` ) :<br>
+🟡 process will be divided into rounds of 8mb = 4800 units<br>
+🟢 short pause 🟢 payout 🟢 🪨Stone refill(for me)<br>
+🟡 and resume next round.
+`)
+
+/*
 - Please inform at the beginning total number of 🐟Nets <br>
 - Options to chose from :<br>
 🟫1 🪨Stones🟫you provide 6Mb 🪨Stones *After* every 8Mb 🐟Nets<br>
@@ -49,7 +55,8 @@ BIG orders, Inventory-Wise ( way over `+spanText("cyan",inventoryS)+` ) :<br>
 🟡 Step 2 🟡⬅️ I send *You* the Large 🐟Nets Payout<br> 
 🟢 Step 3 ➡️🟢 Send *Me* the `+ ((600/mailboxS)*6) +` MB 🪨Stones (OR I go get some myself 🏃🏽‍➡️🏃🏽‍➡️🏃🏽‍➡️)<br>
 🔵 Step 4 🔵🔵 Back to step 1 until no more<br>
-`)
+
+*/
 
 let convArray = [
     {label:"Small 🐟Nets",to:"⏩ Large 🐟Nets",ratio:"1000⏩75"},
