@@ -9,7 +9,7 @@ let userN = "Bob1"
 let inventoryS = 5000
 let mailboxS = 600
 let maxL = Math.floor(inventoryS/mailboxS) * mailboxS
-let shopV = "2.1"
+let shopV = "2.2"
 let itemPool = []
 
 let lastUp = "11/04 12:45<br>"
@@ -36,8 +36,10 @@ Shop `+spanText("yellow","V1.0")+` : 🐟Nets only, Ratio 1000⏩70<br>
 Shop `+spanText("yellow","V2.0")+` : 🐟Nets only, Ratio 1000⏩75<br>
 Shop `+spanText("yellow","V2.1")+` : 🐟Nets Ratio 1000⏩75, fruits to 
 ratios 3.5⏩1 (OR 35⏩1) & 25⏩1<br>
-
-<br>
+Shop `+spanText("yellow","V2.2")+` : 🐟Nets Ratio 1000⏩75, fruits to 
+ratios 3⏩1 (OR 30⏩1) & 20⏩1<br>
+`+spanText("lime","(Now thinking about a way to boost final payout...)")+`
+<br><br>
 `+spanText("yellow",`
 BIG orders, Inventory-Wise ( way over `+spanText("cyan",inventoryS)+` ) :<br>
 🟡 process will be divided into rounds of 8mb = 4800 units<br>
@@ -60,10 +62,10 @@ BIG orders, Inventory-Wise ( way over `+spanText("cyan",inventoryS)+` ) :<br>
 
 let convArray = [
     {label:"Small 🐟Nets",to:"⏩ Large 🐟Nets",ratio:"1000⏩75"},
-    {label:"Oranges 🍊",to:"⏩ Orange Juice",ratio:"3.5⏩1"},
-    {label:"Lemons 🍋",to:"⏩ Lemonade",ratio:"3.5⏩1"},
-    {label:"Lemons 🍋",to:"⏩ AP (Arnold Palmer)",ratio:"35⏩1"},
-    {label:"Apples 🍎",to:"⏩ Apple Cider",ratio:"25⏩1"},
+    {label:"Oranges 🍊",to:"⏩ Orange Juice",ratio:"3⏩1"},
+    {label:"Lemons 🍋",to:"⏩ Lemonade",ratio:"3⏩1"},
+    {label:"Lemons 🍋",to:"⏩ AP (Arnold Palmer)",ratio:"30⏩1"},
+    {label:"Apples 🍎",to:"⏩ Apple Cider",ratio:"20⏩1"},
 ]
 
 addEle({dad:body,text:spanText("lime","Last up : "+lastUp),margin:"5px 30px"})
