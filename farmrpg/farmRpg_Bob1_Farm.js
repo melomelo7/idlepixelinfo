@@ -79,11 +79,11 @@ not generate a combo !
 
 
 let comboArr = [
-    {label:"Tower Status",values:["Combo 1","Combo 2","Combo 3",]},
-    {label:"NO Tower",values:[30,40,50]},
-    {label:"Tower < 90",values:[20,30,40]},
-    {label:"Tower < 160",values:[10,20,30]},
-    {label:"Tower = OR > 160",values:[5,10,15]},
+    {label:"Tower Tiers",values:["Combo 1","Combo 2","Combo 3",]},
+    {label:"0. NO Tower",values:[30,40,50]},
+    {label:"1. Tower < 90",values:[20,30,40]},
+    {label:"2. Tower 90 ~ 159",values:[10,20,30]},
+    {label:"3. Tower = OR > 160",values:[5,10,15]},
 ]
 
 
@@ -144,6 +144,14 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content"})
              width:"60px",textA:"center",setFunc:(e)=>{evalConv(e)}})
              addEle({dad:tr,what:"td",setID:"eval:"+i})
     }
+    /*
+    subC1 = addEle({dad:cont,setClass:"contRow"})
+        addEle({dad:subC1,text:"Input your tower Level here (0 for no tower yet)"})
+        addEle({})
+    */
+
+
+
 
 cont = addEle({dad:liner,margin:"10px 0",setID:"combo",border:"lime solid 2px",
 radius:"30px",display:"none",padding:"10px",width:"fit-content"})
