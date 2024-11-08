@@ -9,7 +9,7 @@ let userN = "Bob1"
 let inventoryS = 5000
 let mailboxS = 600
 let maxL = Math.floor(inventoryS/mailboxS) * mailboxS
-let shopV = "2.2"
+let shopV = "3.0"
 let itemPool = []
 
 let lastUp = "11/08 20:15<br>"
@@ -38,7 +38,7 @@ Shop `+spanText("yellow","V2.1")+` : 🐟Nets Ratio 1000⏩75, fruits to
 ratios 3.5⏩1 (OR 35⏩1) & 25⏩1<br>
 Shop `+spanText("yellow","V2.2")+` : 🐟Nets Ratio 1000⏩75, fruits to 
 ratios 3⏩1 (OR 30⏩1) & 20⏩1<br>
-`+spanText("lime","(Now thinking about a way to boost final payout...)")+`
+Shop `+spanText("yellow","V3.0")+` : ratios of V2.2 with `+spanText("yellow","Combo System")+`
 <br><br>
 `+spanText("yellow",`
 BIG orders, Inventory-Wise ( way over `+spanText("cyan",inventoryS)+` ) :<br>
@@ -64,18 +64,20 @@ let comboTxt1 = spanText("Yellow",`Combo System !<br>
 Test drive starting !<br>
 (content might change as it goes...)`,20)+`<br><br>
 In short a better payout for your goodies.<br>
-How ? You bring not 1 type of items but minimum 2 :<br>
+How ? You bring not 1 type of items but minimum 2<br>
+Examples :<br>
 - Nets + Oranges = Combo 1<br>
 - Nets + Oranges + Lemons = Combo 2<br>
 - Nets + Oranges + Lemons + Apples = Combo 3<br>
 `
 
 let comboTxt2 = spanText("Yellow",`
-Important:<br>
-The top amount Item is reference for combos<br>
-if other items amounts are too low they will<br>
-not generate a combo !
-`,18)
+Important:<br><br>
+The `+spanText("lime","(M)")+`aster `+spanText("lime","(I)")+`
+tem on the order list you send<br> me is the item with biggest amount.<br><br>
+Based on the `+spanText("lime","MI")+` all others items with at least
+<br>50% amount of `+spanText("lime","MI")+` will add 1 combo.`
+,16)
 
 
 let comboArr = [
@@ -124,7 +126,8 @@ let liner = addEle({dad:body,setClass:"contRow"})
 cont = addEle({dad:liner,margin:"10px 5px 10px 30px",setID:"shop",border:"lime solid 2px",
 radius:"30px",display:"none",padding:"10px",width:"fit-content"})
     addEle({dad:cont,text:convTxt})
-    subC1 = addEle({dad:cont,text:spanText("lime","-- Test Converting with current Shop ratios --",20),marginT:"20px",textA:"center"})
+    subC1 = addEle({dad:cont,text:spanText("lime","-- Test Converting with current Shop ratios --",20),
+    marginT:"20px",textA:"center"})
     tb = addEle({dad:subC1,what:"table",marginT:"10px"})
 
         tr = addEle({dad:tb,what:"tr"})
@@ -144,13 +147,23 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content"})
              width:"60px",textA:"center",setFunc:(e)=>{evalConv(e)}})
              addEle({dad:tr,what:"td",setID:"eval:"+i})
     }
-    /*
-    subC1 = addEle({dad:cont,setClass:"contRow"})
-        addEle({dad:subC1,text:"Input your tower Level here (0 for no tower yet)"})
-        addEle({})
-    */
 
-
+    subC1 = addEle({dad:cont,setClass:"contRow",border:"teal solid 3px",radius:"10px",
+            margin:"10px 0 0 30px",width:"fit-content",padding:"10px"})
+        addEle({dad:subC1,what:"radio",isInput:true,setVal:0,setName:"towerTier",
+        setFunc:(e)=>{getID("towerTierTxt").innerHTML="Tower tier : "+
+        spanText("lime",comboArr[(Number(e.srcElement.value)+1)].label)}})
+        addEle({dad:subC1,what:"radio",isInput:true,setVal:1,setName:"towerTier",
+        setFunc:(e)=>{getID("towerTierTxt").innerHTML="Tower tier : "+
+        spanText("lime",comboArr[(Number(e.srcElement.value)+1)].label)}})
+        addEle({dad:subC1,what:"radio",isInput:true,setVal:2,setName:"towerTier",
+        setFunc:(e)=>{getID("towerTierTxt").innerHTML="Tower tier : "+
+        spanText("lime",comboArr[(Number(e.srcElement.value)+1)].label)}})
+        addEle({dad:subC1,what:"radio",isInput:true,setVal:3,setName:"towerTier",
+        setFunc:(e)=>{getID("towerTierTxt").innerHTML="Tower tier : "+
+        spanText("lime",comboArr[(Number(e.srcElement.value)+1)].label)}})
+        addEle({dad:subC1,setID:"towerTierTxt",marginL:"10px"})
+        subC1.children[3].click()
 
 
 cont = addEle({dad:liner,margin:"10px 0",setID:"combo",border:"lime solid 2px",
