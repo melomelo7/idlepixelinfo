@@ -12,7 +12,7 @@ let maxL = Math.floor(inventoryS/mailboxS) * mailboxS
 let shopV = "2.2"
 let itemPool = []
 
-let lastUp = "11/04 12:45<br>"
+let lastUp = "11/08 20:15<br>"
 
 const body = document.querySelector("body")
 
