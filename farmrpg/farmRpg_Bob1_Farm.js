@@ -60,6 +60,33 @@ BIG orders, Inventory-Wise ( way over `+spanText("cyan",inventoryS)+` ) :<br>
 
 */
 
+let comboTxt1 = spanText("Yellow",`Combo System !<br>
+Test drive starting !<br>
+(content might change as it goes...)`,20)+`<br><br>
+In short a better payout for your goodies.<br>
+How ? You bring not 1 type of items but minimum 2 :<br>
+- Nets + Oranges = Combo 1<br>
+- Nets + Oranges + Lemons = Combo 2<br>
+- Nets + Oranges + Lemons + Apples = Combo 3<br>
+`
+
+let comboTxt2 = spanText("Yellow",`
+Important:<br>
+The top amount Item is reference for combos<br>
+if other items amounts are too low they will<br>
+not generate a combo !
+`,18)
+
+
+let comboArr = [
+    {label:"Tower Status",values:["Combo 1","Combo 2","Combo 3",]},
+    {label:"NO Tower",values:[30,40,50]},
+    {label:"Tower < 90",values:[20,30,40]},
+    {label:"Tower < 160",values:[10,20,30]},
+    {label:"Tower = OR > 160",values:[5,10,15]},
+]
+
+
 let convArray = [
     {label:"Small 🐟Nets",to:"⏩ Large 🐟Nets",ratio:"1000⏩75"},
     {label:"Oranges 🍊",to:"⏩ Orange Juice",ratio:"3⏩1"},
@@ -88,9 +115,13 @@ cont = addEle({dad:body,setClass:"contRow",margin:"20px 30px",alignItems:"center
     addEle({dad:cont,text:"🔽",border:"lime solid 2px",radius:"5px",setID:"shopCont",
     cursor:"pointer",height:"fit-content",setFunc:(e)=>{
         getID("shop").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
+        getID("combo").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
         e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
     }})
-cont = addEle({dad:body,margin:"10px 30px",setID:"shop",border:"lime solid 2px",
+
+let liner = addEle({dad:body,setClass:"contRow"})
+
+cont = addEle({dad:liner,margin:"10px 5px 10px 30px",setID:"shop",border:"lime solid 2px",
 radius:"30px",display:"none",padding:"10px",width:"fit-content"})
     addEle({dad:cont,text:convTxt})
     subC1 = addEle({dad:cont,text:spanText("lime","-- Test Converting with current Shop ratios --",20),marginT:"20px",textA:"center"})
@@ -113,6 +144,21 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content"})
              width:"60px",textA:"center",setFunc:(e)=>{evalConv(e)}})
              addEle({dad:tr,what:"td",setID:"eval:"+i})
     }
+
+cont = addEle({dad:liner,margin:"10px 0",setID:"combo",border:"lime solid 2px",
+radius:"30px",display:"none",padding:"10px",width:"fit-content"})
+    addEle({dad:cont,text:comboTxt1})
+    subC1 = addEle({dad:cont,margin:"10px 0"})
+    tb = addEle({dad:subC1,what:"table"})
+    comboArr.forEach(it=>{
+        tr = addEle({dad:tb,what:"tr"})
+            addEle({dad:tr,what:"td",text:it.label,border:"teal solid 3px",textA:"center"})
+            it.values.forEach(val=>{
+                addEle({dad:tr,what:"td",text: isNaN(val) ? val : val+"%",border:"teal solid 3px",textA:"center"})
+            })
+    })
+    addEle({dad:cont,text:comboTxt2})
+
 getID("shopCont").click()
 
 
