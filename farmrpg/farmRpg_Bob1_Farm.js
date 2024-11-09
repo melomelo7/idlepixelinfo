@@ -12,7 +12,7 @@ let maxL = Math.floor(inventoryS/mailboxS) * mailboxS
 let shopV = "3.0"
 let itemPool = []
 
-let lastUp = "11/09 12:00<br>"
+let lastUp = "11/09 14:50<br>"
 
 const body = document.querySelector("body")
 
@@ -47,18 +47,6 @@ BIG orders, Inventory-Wise ( way over `+spanText("cyan",inventoryS)+` ) :<br>
 🟡 and resume next round.
 `)
 
-/*
-- Please inform at the beginning total number of 🐟Nets <br>
-- Options to chose from :<br>
-🟫1 🪨Stones🟫you provide 6Mb 🪨Stones *After* every 8Mb 🐟Nets<br>
-🟫2 🍲Meals🟫you provide a few 🍲Neigh meals before we start, I work on getting 🪨Stones<br> 
-- Process will be cut/paused into as many as needed :<br>
-🟢 Step 1 ➡️🟢 Send *Me* `+Math.floor(inventoryS/mailboxS)+`x MB(`+mailboxS+`) 🐟Nets = `+maxL+` units<br>
-🟡 Step 2 🟡⬅️ I send *You* the Large 🐟Nets Payout<br> 
-🟢 Step 3 ➡️🟢 Send *Me* the `+ ((600/mailboxS)*6) +` MB 🪨Stones (OR I go get some myself 🏃🏽‍➡️🏃🏽‍➡️🏃🏽‍➡️)<br>
-🔵 Step 4 🔵🔵 Back to step 1 until no more<br>
-
-*/
 
 let comboTxt1 = spanText("Yellow",`Combo System !<br>
 Test drive starting !<br>
@@ -81,6 +69,24 @@ Based on the `+spanText("lime","MI")+` all `+spanText("cyan","OTHERS")+` items w
 <br>50% amount of `+spanText("lime","MI")+` will add 1 combo. ` +comboIc
 ,16)
 
+let typical = spanText("yellow","Easy to work with orders are as such :")+`
+<br>
+- `+spanText("lime","N")+`ets : amount (or 0)<br>
+- `+spanText("lime","O")+`ranges : amount (or 0)<br>
+- `+spanText("lime","L")+`emons : amount (or 0) AP (or Limo, L...)<br>
+(**no info you get AP**)<br>
+- `+spanText("lime","A")+`pples : amount (or 0)<br><br>
+`+spanText("yellow","example :")+`<br>
+`+spanText("lime","N")+`ets 0<br>
+`+spanText("lime","O")+`ranges 800<br>
+`+spanText("lime","L")+`emons 800 AP (L)<br> 
+`+spanText("lime","A")+`pples 0<br><br>
+`+spanText("yellow","or shorter if you like :")+`<br>
+`+spanText("lime","N")+` 0<br>
+`+spanText("lime","O")+` 800<br>
+`+spanText("lime","L")+` 800 AP (L)<br>
+`+spanText("lime","A")+` 0<br>
+`
 
 let comboArr = [
     {label:"Tower Tiers",values:["Combo 1<br>"+spanText("lime","2 items"),
@@ -188,6 +194,7 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content"})
             })
     })
     addEle({dad:cont,text:comboTxt2})
+    addEle({dad:cont,text:typical,border:"teal solid 3px",radius:"20px",padding:"5px 10px",marginT:"5px"})
 
 getID("shopCont").click()
 
