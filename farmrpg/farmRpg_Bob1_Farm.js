@@ -12,7 +12,7 @@ let maxL = Math.floor(inventoryS/mailboxS) * mailboxS
 let shopV = "3.0"
 let itemPool = []
 
-let lastUp = "11/08 20:15<br>"
+let lastUp = "11/09 11:30<br>"
 
 const body = document.querySelector("body")
 
@@ -71,12 +71,14 @@ Examples :<br>
 - Nets + Oranges + Lemons + Apples = Combo 3<br>
 `
 
+let comboIc = spanText("cyan","🅒",20)  //"🪙"
+
 let comboTxt2 = spanText("Yellow",`
 Important:<br><br>
 The `+spanText("lime","(M)")+`aster `+spanText("lime","(I)")+`
 tem on the order list you send<br> me is the item with biggest amount.<br><br>
 Based on the `+spanText("lime","MI")+` all others items with at least
-<br>50% amount of `+spanText("lime","MI")+` will add 1 combo.`
+<br>50% amount of `+spanText("lime","MI")+` will add 1 combo. ` +comboIc
 ,16)
 
 
@@ -135,6 +137,7 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content"})
              addEle({dad:tr,what:"td",text:"To",textA:"center",borderB:"solid teal 2px"})
              addEle({dad:tr,what:"td",text:"Ratio",textA:"center",borderB:"solid teal 2px"})
              addEle({dad:tr,what:"td",text:"Amount",textA:"center",borderB:"solid teal 2px"})
+             addEle({dad:tr,what:"td",text:"Combo",textA:"center",borderB:"solid teal 2px"})
              addEle({dad:tr,what:"td",text:"For You",textA:"center",borderB:"solid teal 2px",minWidth:"80px"})
 
     for(let i=0;i<convArray.length;i++){
@@ -145,24 +148,29 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content"})
         tc = addEle({dad:tr,what:"td",padding:"5px"})
              addEle({dad:tc,what:"input",isInput:true,setVal:0,setID:"amount:"+i,
              width:"60px",textA:"center",setFunc:(e)=>{evalConv(e)}})
+             addEle({dad:tr,what:"td",setID:"combo:"+i,text:"👀"})
              addEle({dad:tr,what:"td",setID:"eval:"+i})
     }
 
+
+
+
     subC1 = addEle({dad:cont,setClass:"contRow",border:"teal solid 3px",radius:"10px",
             margin:"10px 0 0 30px",width:"fit-content",padding:"10px"})
-        addEle({dad:subC1,what:"radio",isInput:true,setVal:0,setName:"towerTier",
+        addEle({dad:subC1,what:"radio",isInput:true,setVal:0,setName:"towerTier",setID:"none0",
         setFunc:(e)=>{getID("towerTierTxt").innerHTML="Tower tier : "+
-        spanText("lime",comboArr[(Number(e.srcElement.value)+1)].label)}})
-        addEle({dad:subC1,what:"radio",isInput:true,setVal:1,setName:"towerTier",
+        spanText("lime",comboArr[(Number(e.srcElement.value)+1)].label);evalConv(e)}})
+        addEle({dad:subC1,what:"radio",isInput:true,setVal:1,setName:"towerTier",setID:"none1",
         setFunc:(e)=>{getID("towerTierTxt").innerHTML="Tower tier : "+
-        spanText("lime",comboArr[(Number(e.srcElement.value)+1)].label)}})
-        addEle({dad:subC1,what:"radio",isInput:true,setVal:2,setName:"towerTier",
+        spanText("lime",comboArr[(Number(e.srcElement.value)+1)].label);evalConv(e)}})
+        addEle({dad:subC1,what:"radio",isInput:true,setVal:2,setName:"towerTier",setID:"none2",
         setFunc:(e)=>{getID("towerTierTxt").innerHTML="Tower tier : "+
-        spanText("lime",comboArr[(Number(e.srcElement.value)+1)].label)}})
-        addEle({dad:subC1,what:"radio",isInput:true,setVal:3,setName:"towerTier",
+        spanText("lime",comboArr[(Number(e.srcElement.value)+1)].label);evalConv(e)}})
+        addEle({dad:subC1,what:"radio",isInput:true,setVal:3,setName:"towerTier",setID:"none3",
         setFunc:(e)=>{getID("towerTierTxt").innerHTML="Tower tier : "+
-        spanText("lime",comboArr[(Number(e.srcElement.value)+1)].label)}})
+        spanText("lime",comboArr[(Number(e.srcElement.value)+1)].label);evalConv(e)}})
         addEle({dad:subC1,setID:"towerTierTxt",marginL:"10px"})
+        addEle({dad:subC1,text:"Combo 0",setID:"comboTxt",marginL:"10px"})
         subC1.children[3].click()
 
 
@@ -184,15 +192,71 @@ getID("shopCont").click()
 
 
 function evalConv(e){
-    let amt = e.srcElement.value
-    let idx = e.srcElement.id.split(":")[1]
-    if( !isNaN(amt) && amt!==""){
-        amt = Number(amt)
-        let val1 = Number(convArray[idx].ratio.split("⏩")[0])
-        let val2 = Number(convArray[idx].ratio.split("⏩")[1])
-        getID("eval:"+idx).innerHTML = spanText("yellow", Math.floor(amt/val1*val2),20)
-    } else {getID("eval:"+idx).innerHTML = spanText("","💩",30)}
+    let val = undefined
+    let valArr = []
+    let cpt = 0
+    let grp = document.getElementsByName("towerTier")
+    let towT = undefined
+    let comR = undefined
+   
+    if(e.srcElement.id === "amount:2" || e.srcElement.id === "amount:3"){
+        if(e.srcElement.id === "amount:2")
+             {getID("amount:3").value = 0}
+        else {getID("amount:2").value = 0} }
+
+
+    for(let i=0;i<convArray.length;i++){
+        val = getID("amount:"+i).value
+        if( !isNaN(val) && val!==""){
+            getID("eval:"+i).innerHTML = ""
+            valArr.push({
+                idx:i,
+                label:convArray[i].label,
+                ratio1:Number(convArray[i].ratio.split("⏩")[0]),
+                ratio2:Number(convArray[i].ratio.split("⏩")[1]),
+                amount:val,
+                comR:0,
+            })
+        } else {getID("eval:"+i).innerHTML = spanText("","💩",30)}
+    }
+
+    valArr.sort((a,b) => b.amount - a.amount)
+    getID("combo:"+valArr[0].idx).innerHTML = valArr[0].amount > 0 ? spanText("lime","MI") : "👀"
+
+    cpt = 0
+    for(let i=1;i<valArr.length;i++){
+        if(valArr[i].amount > 0 && valArr[i].amount >= valArr[0].amount /2 ){
+            getID("combo:"+valArr[i].idx).innerHTML = comboIc
+            cpt++
+        }
+        else {getID("combo:"+valArr[i].idx).innerHTML = "👀"}
+    }
+
+    grp.forEach(it=>{if(it.checked===true){towT=Number(it.value)}})
+
+    txt = spanText("cyan", "Combo "+cpt)
+    if(cpt>0){
+        comR = comboArr[towT+1].values[cpt-1]
+        txt = txt + spanText("lime"," +" + comR+"%")
+        valArr.forEach(it=>{it.comR = comR})
+    }
+    getID("comboTxt").innerHTML = txt
+
+    valArr.forEach(it=>{
+        if(it.amount>0){
+            let elem = "eval:"+it.idx
+            txt = Math.floor(it.amount/it.ratio1*it.ratio2)
+            if(it.comR>0){
+                let comB = Math.floor(txt*(comR/100))
+                txt = txt + "+" + comB + "= " + (txt+comB)
+            }
+            getID(elem).innerHTML = spanText("lime",txt,16)
+        }
+    })
 }
+
+
+
 
 cont = addEle({dad:body,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
     addEle({dad:cont,text:"Game Help & Infos",margin:"0 20px"})
