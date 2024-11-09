@@ -12,7 +12,7 @@ let maxL = Math.floor(inventoryS/mailboxS) * mailboxS
 let shopV = "3.0"
 let itemPool = []
 
-let lastUp = "11/09 11:30<br>"
+let lastUp = "11/09 12:00<br>"
 
 const body = document.querySelector("body")
 
@@ -77,13 +77,14 @@ let comboTxt2 = spanText("Yellow",`
 Important:<br><br>
 The `+spanText("lime","(M)")+`aster `+spanText("lime","(I)")+`
 tem on the order list you send<br> me is the item with biggest amount.<br><br>
-Based on the `+spanText("lime","MI")+` all others items with at least
+Based on the `+spanText("lime","MI")+` all `+spanText("cyan","OTHERS")+` items with at least
 <br>50% amount of `+spanText("lime","MI")+` will add 1 combo. ` +comboIc
 ,16)
 
 
 let comboArr = [
-    {label:"Tower Tiers",values:["Combo 1","Combo 2","Combo 3",]},
+    {label:"Tower Tiers",values:["Combo 1<br>"+spanText("lime","2 items"),
+    "Combo 2<br>"+spanText("lime","3 items"),"Combo 3<br>"+spanText("lime","4 items"),]},
     {label:"0. NO Tower",values:[30,40,50]},
     {label:"1. Tower < 90",values:[20,30,40]},
     {label:"2. Tower 90 ~ 159",values:[10,20,30]},
