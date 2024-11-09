@@ -133,7 +133,7 @@ cont = addEle({dad:body,setClass:"contRow",margin:"20px 30px",alignItems:"center
 let liner = addEle({dad:body,setClass:"contRow"})
 
 cont = addEle({dad:liner,margin:"10px 5px 10px 30px",setID:"shop",border:"lime solid 2px",
-radius:"30px",display:"none",padding:"10px",width:"fit-content"})
+radius:"30px",display:"none",padding:"10px",width:"fit-content",height:"fit-content"})
     addEle({dad:cont,text:convTxt})
     subC1 = addEle({dad:cont,text:spanText("lime","-- Test Converting with current Shop ratios --",20),
     marginT:"20px",textA:"center"})
