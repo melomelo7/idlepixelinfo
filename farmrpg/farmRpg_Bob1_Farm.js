@@ -12,7 +12,7 @@ let maxL = Math.floor(inventoryS/mailboxS) * mailboxS
 let shopV = "3.0"
 let itemPool = []
 
-let lastUp = "11/10 10:30<br>"
+let lastUp = "11/10 13:15<br>"
 
 const body = document.querySelector("body")
 
@@ -38,7 +38,7 @@ Shop `+spanText("yellow","V2.1")+` : 🐟Nets Ratio 1000⏩75, fruits to
 ratios 3.5⏩1 (OR 35⏩1) & 25⏩1<br>
 Shop `+spanText("yellow","V2.2")+` : 🐟Nets Ratio 1000⏩75, fruits to 
 ratios 3⏩1 (OR 30⏩1) & 20⏩1<br>
-Shop `+spanText("yellow","V3.0")+` : ratios of V2.2 with `+spanText("yellow","Combo System")+`
+Shop `+spanText("yellow","V3.0")+` : ratios of V2.2 with `+spanText("cyan","Combo System & NOLA")+`
 <br><br>
 `+spanText("yellow",`
 BIG orders, Inventory-Wise ( way over `+spanText("cyan",inventoryS)+` ) :<br>
@@ -99,12 +99,18 @@ let comboArr = [
 
 
 let convArray = [
-    {label:"Small 🐟Nets",to:"⏩ Large 🐟Nets",ratio:"1000⏩75"},
-    {label:"Oranges 🍊",to:"⏩ Orange Juice",ratio:"3⏩1"},
-    {label:"Lemons 🍋",to:"⏩ Lemonade",ratio:"3⏩1"},
-    {label:"Lemons 🍋",to:"⏩ AP (Arnold Palmer)",ratio:"30⏩1"},
-    {label:"Apples 🍎",to:"⏩ Apple Cider",ratio:"20⏩1"},
+    {ref:0,label:"Small 🐟Nets",to:"⏩ Large 🐟Nets",ratio:"1000⏩75"},
+    {ref:1,label:"Oranges 🍊",to:"⏩ Orange Juice",ratio:"3⏩1"},
+    {ref:2,label:"Lemons 🍋",to:"⏩ Lemonade",ratio:"3⏩1"},
+    {ref:3,label:"Lemons 🍋",to:"⏩ AP (Arnold Palmer)",ratio:"30⏩1"},
+    {ref:4,label:"Apples 🍎",to:"⏩ Apple Cider",ratio:"20⏩1"},
 ]
+
+let todaysMod = {
+    ref:1,val:-20,default:{ref:0,val:15},others:[
+        ,{ref:2,val:20}
+    ]
+}
 
 addEle({dad:body,text:spanText("lime","Last up : "+lastUp,20),margin:"5px 30px"})
 addEle({dad:body,text:welcome,margin:"20px",padding:"5px",border:"blue solid 3px",
@@ -169,7 +175,7 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",height:"fit-cont
 
     txt = spanText("cyan",`
     Day 2 Starting, **CHANGE IN COMBO PAYOUT** :<br>
-    TODAY ⇒ -20% total OJ Swapped for + 15% total LNs<br>
+    TODAY ⇒ -20% total OJ will be Swapped for extra LNs<br>
     (Adjusted to other when no nets in NOLA)`)
 
     subC2 = addEle({dad:cont,setClass:"contRow",with:"100%",
@@ -223,6 +229,9 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",height:"fit-cont
         addEle({dad:subC1,text:"Combo 0",setID:"comboTxt",marginL:"10px"})
         subC1.children[3].click()
 
+    let modCont = addEle({dad:cont,marginT:"10px",border:"cyan solid 2px",radius:"10px",
+    padding:"10px" })
+
 
 cont = addEle({dad:liner,margin:"10px 0",setID:"combo",border:"lime solid 2px",
 radius:"30px",display:"none",padding:"10px",width:"fit-content"})
@@ -267,6 +276,7 @@ function evalConv(e){
                 ratio2:Number(convArray[i].ratio.split("⏩")[1]),
                 amount:val,
                 comR:0,
+                payout:0,
             })
         } else {getID("eval:"+i).innerHTML = spanText("","💩",30)}
     }
@@ -297,11 +307,16 @@ function evalConv(e){
         if(it.amount>0){
             let elem = "eval:"+it.idx
             txt = Math.floor(it.amount/it.ratio1*it.ratio2)
+            it.payout = txt
             if(it.comR>0){
                 let comB = Math.floor(txt*(comR/100))
+                it.payout = txt+comB
                 txt = txt + "+" + comB + "= " + (txt+comB)
             }
             getID(elem).innerHTML = spanText("lime",txt,16)
         }
     })
+
+    console.log(valArr)
+
 }
