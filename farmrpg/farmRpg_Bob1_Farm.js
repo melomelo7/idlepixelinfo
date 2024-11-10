@@ -12,7 +12,7 @@ let maxL = Math.floor(inventoryS/mailboxS) * mailboxS
 let shopV = "3.0"
 let itemPool = []
 
-let lastUp = "11/09 14:50<br>"
+let lastUp = "11/10 10:25<br>"
 
 const body = document.querySelector("body")
 
@@ -106,7 +106,7 @@ let convArray = [
     {label:"Apples 🍎",to:"⏩ Apple Cider",ratio:"20⏩1"},
 ]
 
-addEle({dad:body,text:spanText("lime","Last up : "+lastUp),margin:"5px 30px"})
+addEle({dad:body,text:spanText("lime","Last up : "+lastUp,20),margin:"5px 30px"})
 addEle({dad:body,text:welcome,margin:"20px",padding:"5px",border:"blue solid 3px",
 radius:"30px",textA:"center",width:"fit-content"})
 
@@ -135,7 +135,19 @@ let liner = addEle({dad:body,setClass:"contRow"})
 cont = addEle({dad:liner,margin:"10px 5px 10px 30px",setID:"shop",border:"lime solid 2px",
 radius:"30px",display:"none",padding:"10px",width:"fit-content",height:"fit-content"})
     addEle({dad:cont,text:convTxt})
-    subC1 = addEle({dad:cont,text:spanText("lime","-- Test Converting with current Shop ratios --",20),
+
+    txt = spanText("cyan",`
+    Day 2 Starting, **CHANGE IN COMBO PAYOUT** :<br>
+    TODAY ⇒ -20% total OJ Swapped for + 15% total LNs<br>
+    (Adjusted to other when no nets in NOLA)`)
+
+    subC2 = addEle({dad:cont,setClass:"contRow",with:"100%",
+    justifyC:"center",marginT:"20px"})
+        addEle({dad:subC2,text:txt,border:"cyan solid 3px",radius:"10px",
+        width:"fit-content",textA:"center",padding:"10px"})
+
+    txt = spanText("lime","-- Test Converting with current Shop ratios --",20)
+    subC1 = addEle({dad:cont,text:txt,
     marginT:"20px",textA:"center"})
     tb = addEle({dad:subC1,what:"table",marginT:"10px"})
 
