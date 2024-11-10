@@ -183,7 +183,8 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",height:"fit-cont
         addEle({dad:subC2,text:txt,border:"cyan solid 3px",radius:"10px",
         width:"fit-content",textA:"center",padding:"10px"})
 
-    txt = spanText("lime","-- Test Converting with current Shop ratios --",20)
+    txt = spanText("lime",`-- Test Converting with current Shop ratios --<br>
+    (usually the result is rounded to closest multiple of 5)`,20)
     subC1 = addEle({dad:cont,text:txt,
     marginT:"20px",textA:"center"})
     tb = addEle({dad:subC1,what:"table",marginT:"10px"})
