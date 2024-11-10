@@ -121,6 +121,37 @@ cont = addEle({dad:body,setClass:"contRow",margin:"5px 30px",alignItems:"center"
 addEle({dad:body,text:intro,margin:"10px 30px",setID:"words",border:"lime solid 2px",
 radius:"30px",display:"none",padding:"10px",width:"fit-content"})
 
+
+cont = addEle({dad:body,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
+    addEle({dad:cont,text:"Game Help & Infos",margin:"0 20px"})
+    addEle({dad:cont,text:"🔽",border:"lime solid 2px",radius:"5px",
+    cursor:"pointer",height:"fit-content",setFunc:(e)=>{
+        getID("infosCont").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
+        e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
+    }})
+    addEle({dad:cont,text:"🤠",fontS:"30px",marginL:"20px"})
+cont = addEle({dad:body,margin:"10px 30px",setID:"infosCont",border:"lime solid 2px",
+radius:"30px",display:"none",padding:"10px",width:"fit-content"})
+
+    addEle({dad:cont,setClass:"btn",text:"⇒ Budy Farm",
+    textC:"lime",margin:"10px",setFunc:()=>{
+        let lnk = "https://buddy.farm/"
+        window.open(lnk,"_self")
+    }})
+
+    addEle({dad:cont,setClass:"btn",text:"⇒ Bob1 Folks Page",
+    textC:"lime",margin:"10px",setFunc:()=>{
+        let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmpg_folks.html"
+        window.open(lnk,"_self")
+    }})
+
+    addEle({dad:cont,setClass:"btn",text:"⇒ Bob1 Truffles Page",
+    textC:"lime",margin:"10px",setFunc:()=>{
+        let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmpg_truffles.html"
+        window.open(lnk,"_self")
+    }})
+
+
 cont = addEle({dad:body,setClass:"contRow",margin:"20px 30px",alignItems:"center"})
     addEle({dad:cont,text:"Conversion Shop "+spanText("yellow","V"+shopV,20),margin:"0 20px"})
     addEle({dad:cont,text:"🔽",border:"lime solid 2px",radius:"5px",setID:"shopCont",
@@ -274,35 +305,3 @@ function evalConv(e){
         }
     })
 }
-
-
-
-
-cont = addEle({dad:body,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
-    addEle({dad:cont,text:"Game Help & Infos",margin:"0 20px"})
-    addEle({dad:cont,text:"🔽",border:"lime solid 2px",radius:"5px",
-    cursor:"pointer",height:"fit-content",setFunc:(e)=>{
-        getID("infosCont").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
-        e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
-    }})
-    addEle({dad:cont,text:"🤠",fontS:"30px",marginL:"20px"})
-cont = addEle({dad:body,margin:"10px 30px",setID:"infosCont",border:"lime solid 2px",
-radius:"30px",display:"none",padding:"10px",width:"fit-content"})
-
-    addEle({dad:cont,setClass:"btn",text:"⇒ Budy Farm",
-    textC:"lime",margin:"10px",setFunc:()=>{
-        let lnk = "https://buddy.farm/"
-        window.open(lnk,"_self")
-    }})
-
-    addEle({dad:cont,setClass:"btn",text:"⇒ Bob1 Folks Page",
-    textC:"lime",margin:"10px",setFunc:()=>{
-        let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmpg_folks.html"
-        window.open(lnk,"_self")
-    }})
-
-    addEle({dad:cont,setClass:"btn",text:"⇒ Bob1 Truffles Page",
-    textC:"lime",margin:"10px",setFunc:()=>{
-        let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmpg_truffles.html"
-        window.open(lnk,"_self")
-    }})
