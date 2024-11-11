@@ -174,11 +174,15 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",height:"fit-cont
     addEle({dad:cont,text:convTxt})
 
     txt = spanText("cyan",`
-    Day 3 : Currently Regular payout,<br>
+    Day 3 : Currently Regular payout !`)
+
+
+    /*
     a little low on AP so if someone is<br>
     interested to exchange AP for more LNs<br>
     kindly write it in your NOLA ... TY ! 
     `)
+    */
 
 /*
     txt = spanText("cyan",`
