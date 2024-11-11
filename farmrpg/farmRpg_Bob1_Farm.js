@@ -12,7 +12,7 @@ let maxL = Math.floor(inventoryS/mailboxS) * mailboxS
 let shopV = "3.0"
 let itemPool = []
 
-let lastUp = "11/10 17:40<br>"
+let lastUp = "11/11 15:00<br>"
 
 const body = document.querySelector("body")
 
@@ -174,14 +174,15 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",height:"fit-cont
     addEle({dad:cont,text:convTxt})
 
     txt = spanText("cyan",`
-    Day 2 : Currently back to regular payout,<br>
-    hopefully no more changes today ...<br>
-    Apologies for extra time used processing orders.
+    Day 3 : Currently Regular payout,<br>
+    a little low on AP so if someone is<br>
+    interested to exchange AP for more LNs<br>
+    kindly write it in your NOLA ... TY ! 
     `)
 
 /*
     txt = spanText("cyan",`
-    Day 2 Starting, **CHANGE IN COMBO PAYOUT** :<br>
+    Day 3 Starting, **CHANGE IN COMBO PAYOUT** :<br>
     TODAY ⇒ -20% total OJ will be Swapped for extra LNs<br>
     (Adjusted to other when no nets in NOLA)`)
 
