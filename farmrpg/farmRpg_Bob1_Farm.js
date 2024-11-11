@@ -12,7 +12,7 @@ let maxL = Math.floor(inventoryS/mailboxS) * mailboxS
 let shopV = "3.0"
 let itemPool = []
 
-let lastUp = "11/11 18:50<br>"
+let lastUp = "11/12 07:10<br>"
 
 const body = document.querySelector("body")
 
@@ -174,7 +174,9 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",height:"fit-cont
     addEle({dad:cont,text:convTxt})
 
     txt = spanText("cyan",`
-    Day 3 : Currently Regular payout !`)
+    11/12 Day 4 : Currently Regular payout !<br>
+    Shop should be back online after game reset today<br>
+    (received orders prior will be handled past reset)`)
 
 
     /*
