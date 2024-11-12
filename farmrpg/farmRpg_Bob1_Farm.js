@@ -12,7 +12,7 @@ let maxL = Math.floor(inventoryS/mailboxS) * mailboxS
 let shopV = "3.0"
 let itemPool = []
 
-let lastUp = "11/12 07:10<br>"
+let lastUp = "11/12 16:10<br>"
 
 const body = document.querySelector("body")
 
@@ -176,7 +176,8 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",height:"fit-cont
     txt = spanText("cyan",`
     11/12 Day 4 : Currently Regular payout !<br>
     Shop should be back online after game reset today<br>
-    (received orders prior will be handled past reset)`)
+    (received orders prior will be handled past reset)<br><br>
+    I will be afk(not available from around 1AM until 3AM server time)`)
 
 
     /*
@@ -203,6 +204,7 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",height:"fit-cont
     (usually the result is rounded to closest multiple of 5)`,20)
     subC1 = addEle({dad:cont,text:txt,
     marginT:"20px",textA:"center"})
+
     tb = addEle({dad:subC1,what:"table",marginT:"10px"})
 
         tr = addEle({dad:tb,what:"tr"})
@@ -227,7 +229,6 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",height:"fit-cont
 
 
 
-
     subC1 = addEle({dad:cont,setClass:"contRow",border:"teal solid 3px",radius:"10px",
             margin:"10px 0 0 30px",width:"fit-content",padding:"10px"})
         addEle({dad:subC1,what:"radio",isInput:true,setVal:0,setName:"towerTier",setID:"none0",
@@ -246,8 +247,9 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",height:"fit-cont
         addEle({dad:subC1,text:"Combo 0",setID:"comboTxt",marginL:"10px"})
         subC1.children[3].click()
 
+
     let modCont = addEle({dad:cont,marginT:"10px",border:"cyan solid 2px",radius:"10px",
-    padding:"10px" })
+    padding:"10px",text:"here" })
 
 
 cont = addEle({dad:liner,margin:"10px 0",setID:"combo",border:"lime solid 2px",
