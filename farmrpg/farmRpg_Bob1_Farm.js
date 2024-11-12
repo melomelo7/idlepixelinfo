@@ -12,7 +12,7 @@ let maxL = Math.floor(inventoryS/mailboxS) * mailboxS
 let shopV = "3.0"
 let itemPool = []
 
-let lastUp = "11/12 16:10<br>"
+let lastUp = "11/12 16:10 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -166,6 +166,7 @@ cont = addEle({dad:body,setClass:"contRow",margin:"20px 30px",alignItems:"center
         getID("combo").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
         e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
     }})
+    addEle({dad:cont,text:"🏠",fontS:"30px",marginL:"20px"})
 
 let liner = addEle({dad:body,setClass:"contRow"})
 
@@ -175,9 +176,14 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",height:"fit-cont
 
     txt = spanText("cyan",`
     11/12 Day 4 : Currently Regular payout !<br>
-    Shop should be back online after game reset today<br>
-    (received orders prior will be handled past reset)<br><br>
-    I will be afk(not available from around 1AM until 3AM server time)`)
+    Day 5 11/13 : should run with Regular payout<br><br>
+
+    Weekdays business hours : after game reset until 1AM,<br>
+    AFK time, back around 3AM until 5AM<br>
+    After 5AM low activity and afk time, closed around 8AM<br>
+    until next game reset.<br><br>
+    (received orders prior reset are handled after reset)<br><br>
+    `)
 
 
     /*
@@ -249,7 +255,7 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",height:"fit-cont
 
 
     let modCont = addEle({dad:cont,marginT:"10px",border:"cyan solid 2px",radius:"10px",
-    padding:"10px",text:"here" })
+    padding:"10px",text:"" })
 
 
 cont = addEle({dad:liner,margin:"10px 0",setID:"combo",border:"lime solid 2px",
