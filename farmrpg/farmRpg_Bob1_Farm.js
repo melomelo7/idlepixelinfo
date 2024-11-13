@@ -176,7 +176,7 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",height:"fit-cont
 
     txt = spanText("cyan",`
     11/14 Day 6 : Low on LNs But try keep Regular payout !<br>
-    ( 11/14 Day off back probably after reset on Saturday )<br><br>
+    ( 11/15 Day off back probably after reset on Saturday )<br><br>
 
     Weekdays business hours : after game reset until 1AM,<br>
     AFK time, back around 3AM until 5AM<br>
