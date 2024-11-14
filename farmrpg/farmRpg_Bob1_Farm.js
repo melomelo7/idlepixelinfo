@@ -11,8 +11,10 @@ let mailboxS = 600
 let maxL = Math.floor(inventoryS/mailboxS) * mailboxS
 let shopV = "3.0"
 let itemPool = []
+let currentO = undefined
+let recap = ""
 
-let lastUp = "11/12 16:10 🇯🇵"
+let lastUp = "11/15 00:05 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -99,11 +101,11 @@ let comboArr = [
 
 
 let convArray = [
-    {ref:0,label:"Small 🐟Nets",to:"⏩ Large 🐟Nets",ratio:"1000⏩75"},
-    {ref:1,label:"Oranges 🍊",to:"⏩ Orange Juice",ratio:"3⏩1"},
-    {ref:2,label:"Lemons 🍋",to:"⏩ Lemonade",ratio:"3⏩1"},
-    {ref:3,label:"Lemons 🍋",to:"⏩ AP (Arnold Palmer)",ratio:"30⏩1"},
-    {ref:4,label:"Apples 🍎",to:"⏩ Apple Cider",ratio:"20⏩1"},
+    {ref:0,nola:"N",label:"Small 🐟Nets",to:"⏩ Large 🐟Nets",ratio:"1000⏩75"},
+    {ref:1,nola:"O",label:"Oranges 🍊",to:"⏩ Orange Juice",ratio:"3⏩1"},
+    {ref:2,nola:"L(LI)",label:"Lemons 🍋",to:"⏩ Lemonade",ratio:"3⏩1"},
+    {ref:3,nola:"L(AP)",label:"Lemons 🍋",to:"⏩ AP (Arnold Palmer)",ratio:"30⏩1"},
+    {ref:4,nola:"A",label:"Apples 🍎",to:"⏩ Apple Cider",ratio:"20⏩1"},
 ]
 
 let todaysMod = {
@@ -236,7 +238,7 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",height:"fit-cont
 
 
     subC1 = addEle({dad:cont,setClass:"contRow",border:"teal solid 3px",radius:"10px",
-            margin:"10px 0 0 30px",width:"fit-content",padding:"10px"})
+            margin:"10px 0 0 30px",width:"fit-content",padding:"10px",alignItems:"center"})
         addEle({dad:subC1,what:"radio",isInput:true,setVal:0,setName:"towerTier",setID:"none0",
         setFunc:(e)=>{getID("towerTierTxt").innerHTML="Tower tier : "+
         spanText("lime",comboArr[(Number(e.srcElement.value)+1)].label);evalConv(e)}})
@@ -254,8 +256,18 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",height:"fit-cont
         subC1.children[3].click()
 
 
-    let modCont = addEle({dad:cont,marginT:"10px",border:"cyan solid 2px",radius:"10px",
-    padding:"10px",text:"" })
+    let modCont = addEle({dad:cont,marginT:"10px",border:"cyan solid 2px",
+    radius:"10px",padding:"10px",setClass:"contRow",justifyC:"center" })
+        let nolaP = addEle({dad:modCont,what:"textarea",setID:"nolaP",
+        height:"150px",width:"300px",resize:"none",backG:"black",textC:"white"})
+        subC1 = addEle({dad:modCont,setClass:"contCol"})
+        addEle({dad:subC1,setClass:"btn",text:"Get NOLA",border:"lime solid 2px",
+        height:"fit-content",minWidth:"150px",padding:"5px",
+        setFunc:checkNOLA})
+        addEle({dad:subC1,setClass:"btn",text:"Copy NOLA",border:"lime solid 2px",
+        height:"fit-content",minWidth:"150px",padding:"5px",
+        setFunc:()=>{navigator.clipboard.writeText(nolaP.value)}})
+        addEle({dad:subC1,marginL:"5px",text:spanText("lime","* to paste in ingame msg for me *")})
 
 
 cont = addEle({dad:liner,margin:"10px 0",setID:"combo",border:"lime solid 2px",
@@ -296,6 +308,7 @@ function evalConv(e){
             getID("eval:"+i).innerHTML = ""
             valArr.push({
                 idx:i,
+                nola:convArray[i].nola,
                 label:convArray[i].label,
                 ratio1:Number(convArray[i].ratio.split("⏩")[0]),
                 ratio2:Number(convArray[i].ratio.split("⏩")[1]),
@@ -341,7 +354,40 @@ function evalConv(e){
             getID(elem).innerHTML = spanText("lime",txt,16)
         }
     })
-
-    console.log(valArr)
-
+    currentO = valArr
 }
+
+
+function checkNOLA(){
+    console.log(currentO)
+    recap = "Tower tier "
+    let towerT = undefined
+    let grp = document.getElementsByName("towerTier")
+    grp.forEach(it=>{if(it.checked){ towerT = Number(it.value)+1}})
+    recap += comboArr[towerT].label + "<br><br>"
+    for(let i=0;i<currentO.length;i++){
+        let itm = currentO.filter(it=>it.idx===i)[0]
+
+        let pay = itm.payout.toString()
+        pay = pay.slice(-1)
+        pay = Number(pay)
+
+        if(pay>0){
+            switch(pay){
+                case 1 : case 2 : itm.payout = (itm.payout-pay) ; break
+                case 3 : case 4 : itm.payout = (itm.payout+(5-pay)) ; break
+                case 6 : case 7 : itm.payout = (itm.payout+(5-pay)) ; break
+                case 8 : case 9 : itm.payout = (itm.payout+(10-pay)) ; break
+            }
+        }
+        recap += itm.nola + " > " + itm.amount + " > " + itm.payout + "<br>"
+    }
+    getID("nolaP").textContent = recap.replaceAll("<br>","\n")
+}
+
+/*
+function copyToClipboard(text){
+    navigator.clipboard.writeText(text)
+}
+
+*/
