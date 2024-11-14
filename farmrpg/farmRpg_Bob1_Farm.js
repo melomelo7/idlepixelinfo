@@ -258,7 +258,7 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",height:"fit-cont
 
     let modCont = addEle({dad:cont,marginT:"10px",border:"cyan solid 2px",
     radius:"10px",padding:"10px",setClass:"contRow",justifyC:"center" })
-        let nolaP = addEle({dad:modCont,what:"textarea",setID:"nolaP",
+        let nolaP = addEle({dad:modCont,what:"textarea",setID:"nolaP",overflow:"scroll",
         height:"150px",width:"300px",resize:"none",backG:"black",textC:"white"})
         subC1 = addEle({dad:modCont,setClass:"contCol"})
         addEle({dad:subC1,setClass:"btn",text:"Get NOLA",border:"lime solid 2px",
@@ -359,7 +359,6 @@ function evalConv(e){
 
 
 function checkNOLA(){
-    console.log(currentO)
     recap = "Tower tier "
     let towerT = undefined
     let grp = document.getElementsByName("towerTier")
