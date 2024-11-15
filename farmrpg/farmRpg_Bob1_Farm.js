@@ -14,7 +14,7 @@ let itemPool = []
 let currentO = undefined
 let recap = ""
 
-let lastUp = "11/15 06:45 🇯🇵"
+let lastUp = "11/15 17:00 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -94,7 +94,7 @@ let comboArr = [
     {label:"Tower Tiers",values:["Combo 1<br>"+spanText("lime","2 items"),
     "Combo 2<br>"+spanText("lime","3 items"),"Combo 3<br>"+spanText("lime","4 items"),]},
     {label:"0. NO Tower",values:[30,40,50]},
-    {label:"1. Tower < 90",values:[20,30,40]},
+    {label:"1. Tower less than 90",values:[20,30,40]},
     {label:"2. Tower 90 ~ 159",values:[10,20,30]},
     {label:"3. Tower = OR > 160",values:[5,10,15]},
 ]
