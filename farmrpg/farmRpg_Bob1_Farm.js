@@ -13,8 +13,9 @@ let shopV = "3.0"
 let itemPool = []
 let currentO = undefined
 let recap = ""
+let buildP = true
 
-let lastUp = "11/16 10:25 🇯🇵"
+let lastUp = "11/16 14:10 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -201,7 +202,7 @@ let contR = addEle({dad:cont,setClass:"contRow",justifyC:"space-between"})
 
 
 subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px",alignItems:"center"})
-    addEle({dad:subC1,text:"🟡 Business Hours and Daily Modifications (Payout ....)",marginR:"10px"})
+    addEle({dad:subC1,text:"🟡 Business Hours and "+spanText("","⚠️",24)+" Daily Modifications (Payout ....)",marginR:"10px"})
     addEle({dad:subC1,text:"🔽",border:"lime solid 2px",radius:"5px",
     cursor:"pointer",height:"fit-content",setFunc:(e)=>{
         getID("dailyTxt").style.display = e.srcElement.innerHTML==="🔽" ? "flex" : "none"
@@ -213,8 +214,8 @@ subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px",alignItems:"center"})
 11/15 Day OFF, back after reset on Saturday<br><br>
 `+spanText("lime",`
 11/16 Day 8 : Shop often lacking OJ recently, so from total `+spanText("yellow","OJ")+`<br>
-payout `+spanText("yellow","10%")+` will be `+spanText("yellow","auto-swapped")+` to other item,
-today it will be `+spanText("yellow","extra AP")+`<br>
+payout `+spanText("yellow","20%-ish")+` will be `+spanText("yellow","auto-swapped")+` to other item,
+today : `+spanText("yellow","extra AP")+`<br>
 should be running on weekday schedule, with little to no AFK time<br>
 after game reset until 5AM.<br><br>
 `)+`
@@ -270,7 +271,7 @@ until next game reset.<br><br>
              addEle({dad:tr,what:"td",text:convArray[i].ratio,textA:"center",padding:"5px"})
         tc = addEle({dad:tr,what:"td",padding:"5px"})
              addEle({dad:tc,what:"input",isInput:true,setVal:0,setID:"amount:"+i,
-             width:"60px",textA:"center",setFunc:(e)=>{evalConv(e)}})
+             width:"60px",textA:"center",setFunc:(e)=>{buildP =false ; evalConv(e)}})
              addEle({dad:tr,what:"td",setID:"combo:"+i,text:"👀"})
              addEle({dad:tr,what:"td",setID:"eval:"+i})
     }
@@ -305,7 +306,7 @@ until next game reset.<br><br>
 
         subC1 = addEle({dad:modCont,setClass:"contCol"})
         addEle({dad:subC1,setClass:"btn",text:"Get NOLA",border:"lime solid 2px",
-        height:"fit-content",minWidth:"150px",padding:"5px",
+        height:"fit-content",minWidth:"150px",padding:"5px",setID:"getNolaBtn",
         setFunc:checkNOLA})
         addEle({dad:subC1,setClass:"btn",text:"Copy NOLA",border:"lime solid 2px",
         height:"fit-content",minWidth:"150px",padding:"5px",
@@ -332,6 +333,10 @@ getID("shopCont").click()
 
 
 function evalConv(e){
+
+    if(buildP ===true){return}
+
+
     let val = undefined
     let valArr = []
     let cpt = 0
@@ -358,6 +363,7 @@ function evalConv(e){
                 amount:val,
                 comR:0,
                 payout:0,
+                autoSwap:0,
             })
         } else {getID("eval:"+i).innerHTML = spanText("","💩",30)}
     }
@@ -387,19 +393,58 @@ function evalConv(e){
     valArr.forEach(it=>{
         if(it.amount>0){
             let elem = "eval:"+it.idx
-            txt = Math.floor(it.amount/it.ratio1*it.ratio2)
+            txt = round5(Math.floor(it.amount/it.ratio1*it.ratio2))
             it.payout = txt
             if(it.comR>0){
-                let comB = Math.floor(txt*(comR/100))
+                let comB = round5(Math.floor(txt*(comR/100)))
                 it.payout = txt+comB
-                txt = txt + "+" + comB + "= " + (txt+comB)
-            }
+                txt = txt + "+" + comB + "= " + it.payout
+                        }
             getID(elem).innerHTML = spanText("lime",txt,16)
         }
     })
     currentO = valArr
+
+    if(autoSwap.active){
+//        console.log(currentO)
+        let fromItm = currentO.filter(it=>it.idx === autoSwap.fromIdx)[0]
+        let toItm =  currentO.filter(it=>it.idx === autoSwap.toIdx)[0]
+//        console.log(fromItm) 
+  //      console.log(toItm)
+
+        cut = fromItm.payout*.2
+        if(autoSwap.fromIdx===1 || autoSwap.fromIdx===2){
+            console.log("round")
+            cut = round50(cut)
+        }
+        fromItm.autoSwap = cut*-1
+
+    //    console.log(fromItm.autoSwap)
+
+        let r1 = Number(autoSwap.ratio.split(":")[0])
+        let r2 = Number(autoSwap.ratio.split(":")[1])
+        let swapV = ((fromItm.autoSwap*-1)/r1)*r2
+        toItm.autoSwap = swapV
+    //    console.log(swapV)
+
+        console.log(currentO)
+
+    }
+
+    let runN = false
+    currentO.forEach(it=>{if(it.amount>0){runN = true}})
+    if (runN) 
+         {getID("getNolaBtn").click()}
+    else {getID("nolaP").textContent = ""}
 }
 
+let autoSwap = {
+    active:true,
+    fromIdx:1,
+    toIdx:3,
+    percent:20,
+    ratio:"10:1"
+}
 
 function checkNOLA(){
     recap = "Tower tier "
@@ -409,27 +454,43 @@ function checkNOLA(){
     recap += comboArr[towerT].label + "<br><br>"
     for(let i=0;i<currentO.length;i++){
         let itm = currentO.filter(it=>it.idx===i)[0]
-
-        let pay = itm.payout.toString()
-        pay = pay.slice(-1)
-        pay = Number(pay)
-
-        if(pay>0){
-            switch(pay){
-                case 1 : case 2 : itm.payout = (itm.payout-pay) ; break
-                case 3 : case 4 : itm.payout = (itm.payout+(5-pay)) ; break
-                case 6 : case 7 : itm.payout = (itm.payout+(5-pay)) ; break
-                case 8 : case 9 : itm.payout = (itm.payout+(10-pay)) ; break
-            }
-        }
         recap += itm.nola + " > " + itm.amount + " > " + itm.payout + "<br>"
     }
     getID("nolaP").textContent = recap.replaceAll("<br>","\n")
 }
 
+function round5(val){
+    let rVal = Number(val)
+    if(rVal!==0){
+        let nbStr = val.toString()
+        let dgt = Number(nbStr.slice(-1))
+            
+        if(dgt>0){
+            switch(dgt){
+                case 1 : case 2 : rVal = (rVal-dgt); break
+                case 3 : case 4 : rVal = (rVal+(5-dgt)); break
+                case 6 : case 7 : rVal = (rVal+(5-dgt)); break
+                case 8 : case 9 : rVal = (rVal+(10-dgt)); break
+            }
+        }
+    }
+    return rVal
+}
+
+function round50(val){
+    let rVal = Number(val)
+    if(rVal % 20 !==0){
+        let nbStr = val.toString()
+        let dgt = Number(nbStr.slice(-2))
+        let mult = Math.floor(dgt/20)
+        rVal = rVal - dgt + (20*(mult+1))  
+    }
+    return rVal
+}
+
+
 /*
 function copyToClipboard(text){
     navigator.clipboard.writeText(text)
 }
-
 */
