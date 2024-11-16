@@ -15,7 +15,7 @@ let currentO = undefined
 let recap = ""
 let buildP = true
 
-let lastUp = "11/16 14:10 🇯🇵"
+let lastUp = "11/16 14:40 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -305,14 +305,10 @@ until next game reset.<br><br>
         resize:"none",backG:"black",textC:"white"})
 
         subC1 = addEle({dad:modCont,setClass:"contCol"})
-        addEle({dad:subC1,setClass:"btn",text:"Get NOLA",border:"lime solid 2px",
-        height:"fit-content",minWidth:"150px",padding:"5px",setID:"getNolaBtn",
-        setFunc:checkNOLA})
         addEle({dad:subC1,setClass:"btn",text:"Copy NOLA",border:"lime solid 2px",
         height:"fit-content",minWidth:"150px",padding:"5px",
         setFunc:()=>{navigator.clipboard.writeText(nolaP.value)}})
         addEle({dad:subC1,marginL:"5px",text:spanText("lime","* to paste in ingame msg for me *")})
-
 
 cont = addEle({dad:liner,margin:"10px 0",setID:"combo",border:"lime solid 2px",
 radius:"30px",display:"none",padding:"10px",width:"fit-content",display:"none"})
@@ -406,36 +402,17 @@ function evalConv(e){
     currentO = valArr
 
     if(autoSwap.active){
-//        console.log(currentO)
         let fromItm = currentO.filter(it=>it.idx === autoSwap.fromIdx)[0]
         let toItm =  currentO.filter(it=>it.idx === autoSwap.toIdx)[0]
-//        console.log(fromItm) 
-  //      console.log(toItm)
-
         cut = fromItm.payout*.2
-        if(autoSwap.fromIdx===1 || autoSwap.fromIdx===2){
-            console.log("round")
-            cut = round50(cut)
-        }
+        if(autoSwap.fromIdx===1 || autoSwap.fromIdx===2){cut = roundUP(cut,20)}
         fromItm.autoSwap = cut*-1
-
-    //    console.log(fromItm.autoSwap)
-
         let r1 = Number(autoSwap.ratio.split(":")[0])
         let r2 = Number(autoSwap.ratio.split(":")[1])
         let swapV = ((fromItm.autoSwap*-1)/r1)*r2
-        toItm.autoSwap = swapV
-    //    console.log(swapV)
-
-        console.log(currentO)
-
+        toItm.autoSwap = "+"+roundUP(swapV,5)
     }
-
-    let runN = false
-    currentO.forEach(it=>{if(it.amount>0){runN = true}})
-    if (runN) 
-         {getID("getNolaBtn").click()}
-    else {getID("nolaP").textContent = ""}
+    checkNOLA()
 }
 
 let autoSwap = {
@@ -454,7 +431,12 @@ function checkNOLA(){
     recap += comboArr[towerT].label + "<br><br>"
     for(let i=0;i<currentO.length;i++){
         let itm = currentO.filter(it=>it.idx===i)[0]
-        recap += itm.nola + " > " + itm.amount + " > " + itm.payout + "<br>"
+        txt = itm.autoSwap === 0 ?
+        itm.nola + " > " + itm.amount + " > " + itm.payout :
+        itm.nola + " > " + itm.amount + " > " + itm.payout + "(auto-swap "+itm.autoSwap+" = "
+        +(itm.payout+parseInt(itm.autoSwap))+" )"
+
+        recap += txt + "<br>"
     }
     getID("nolaP").textContent = recap.replaceAll("<br>","\n")
 }
@@ -477,13 +459,13 @@ function round5(val){
     return rVal
 }
 
-function round50(val){
+function roundUP(val,step){
     let rVal = Number(val)
-    if(rVal % 20 !==0){
+    if(rVal % step !==0){
         let nbStr = val.toString()
         let dgt = Number(nbStr.slice(-2))
-        let mult = Math.floor(dgt/20)
-        rVal = rVal - dgt + (20*(mult+1))  
+        let mult = Math.floor(dgt/step)
+        rVal = rVal - dgt + (step*(mult+1))  
     }
     return rVal
 }
