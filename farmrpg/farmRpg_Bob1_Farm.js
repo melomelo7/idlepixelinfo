@@ -123,7 +123,7 @@ addEle({dad:body,text:welcome,margin:"20px",padding:"5px",border:"blue solid 3px
 radius:"30px",textA:"center",width:"fit-content"})
 
 cont = addEle({dad:body,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
-    addEle({dad:cont,text:"A few words...",margin:"0 20px"})
+    addEle({dad:cont,text:"🟢 A few words...",margin:"0 20px"})
     addEle({dad:cont,text:"🔽",border:"lime solid 2px",radius:"5px",
     cursor:"pointer",height:"fit-content",setFunc:(e)=>{
         getID("words").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
@@ -135,7 +135,7 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content"})
 
 
 cont = addEle({dad:body,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
-    addEle({dad:cont,text:"Game Help & Infos",margin:"0 20px"})
+    addEle({dad:cont,text:"🟢 Game Help & Infos",margin:"0 20px"})
     addEle({dad:cont,text:"🔽",border:"lime solid 2px",radius:"5px",
     cursor:"pointer",height:"fit-content",setFunc:(e)=>{
         getID("infosCont").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
@@ -164,12 +164,12 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content"})
     }})
 
 
-cont = addEle({dad:body,setClass:"contRow",margin:"20px 30px",alignItems:"center"})
-    addEle({dad:cont,text:"Conversion Shop "+spanText("yellow","V"+shopV,20),margin:"0 20px"})
+cont = addEle({dad:body,setClass:"contRow",margin:"10px 30px",alignItems:"center"})
+    addEle({dad:cont,text:"🟢 Conversion Shop "+spanText("yellow","V"+shopV,20),margin:"0 20px"})
     addEle({dad:cont,text:"🔽",border:"lime solid 2px",radius:"5px",setID:"shopCont",
     cursor:"pointer",height:"fit-content",setFunc:(e)=>{
         getID("shop").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
-        getID("combo").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
+//        getID("combo").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
         e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
     }})
     addEle({dad:cont,text:"🏠",fontS:"30px",marginL:"20px"})
@@ -178,28 +178,52 @@ let liner = addEle({dad:body,setClass:"contRow"})
 
 cont = addEle({dad:liner,margin:"10px 5px 10px 30px",setID:"shop",border:"lime solid 2px",
 radius:"30px",display:"none",padding:"10px",width:"fit-content",height:"fit-content"})
-    addEle({dad:cont,text:convTxt})
+
+
+let contR = addEle({dad:cont,setClass:"contRow",justifyC:"space-between"})
+    subC1 = addEle({dad:contR,setClass:"contRow",margin:"5px",alignItems:"center"})
+        addEle({dad:subC1,text:"🟡 Shop Ratios History",marginR:"10px"})
+        addEle({dad:subC1,text:"🔽",border:"lime solid 2px",radius:"5px",
+        cursor:"pointer",height:"fit-content",setFunc:(e)=>{
+            getID("convTxtCt").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
+            e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
+        }})
+        addEle({dad:cont,text:convTxt,setID:"convTxtCt",display:"none"})
+
+    subC1 = addEle({dad:contR,setClass:"contRow",margin:"5px",alignItems:"center",marginR:"10px"})
+        addEle({dad:subC1,text:"🟡 Combo Informations",marginR:"10px"})
+        addEle({dad:subC1,text: "⏩",border:"lime solid 2px",radius:"5px",backC:"",
+        cursor:"pointer",height:"fit-content",setFunc:(e)=>{
+            getID("combo").style.display = e.srcElement.innerHTML==="⏩" ? "block" : "none"
+            e.srcElement.innerHTML = e.srcElement.innerHTML==="⏩" ? "⏪" : "⏩" 
+        }})
+
+
+
+subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px",alignItems:"center"})
+    addEle({dad:subC1,text:"🟡 Business Hours and Daily Modifications (Payout ....)",marginR:"10px"})
+    addEle({dad:subC1,text:"🔽",border:"lime solid 2px",radius:"5px",
+    cursor:"pointer",height:"fit-content",setFunc:(e)=>{
+        getID("dailyTxt").style.display = e.srcElement.innerHTML==="🔽" ? "flex" : "none"
+        e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
+    }})
 
     txt = spanText("cyan",`
-    *Time reference is 🇺🇸server time, that you can see in chat for example*<br><br>
-   
-    11/15 Day OFF, back after reset on Saturday<br><br>
-
-
+*Time reference is 🇺🇸 server time, that you can see in chat for example*<br><br>
+11/15 Day OFF, back after reset on Saturday<br><br>
 `+spanText("lime",`
 11/16 Day 8 : Shop often lacking OJ recently, so from total `+spanText("yellow","OJ")+`<br>
 payout `+spanText("yellow","10%")+` will be `+spanText("yellow","auto-swapped")+` to other item,
-today it will be `+spanText("yellow","AP")+`<br>
+today it will be `+spanText("yellow","extra AP")+`<br>
 should be running on weekday schedule, with little to no AFK time<br>
 after game reset until 5AM.<br><br>
 `)+`
-
-    Weekdays business hours : after game reset until 1AM,<br>
-    AFK time, back around 3AM until 5AM<br>
-    After 5AM low activity and afk time, closed around 8AM<br>
-    until next game reset.<br><br>
-    (received orders prior reset are handled after reset)<br><br>
-    `)
+Weekdays business hours : after game reset until 1AM,<br>
+AFK time, back around 3AM until 5AM<br>
+After 5AM low activity and afk time, closed around 8AM<br>
+until next game reset.<br><br>
+(received orders prior reset are handled after reset)<br><br>
+`)
 
 
     /*
@@ -218,7 +242,7 @@ after game reset until 5AM.<br><br>
 */
 
     subC2 = addEle({dad:cont,setClass:"contRow",with:"100%",
-    justifyC:"center",marginT:"20px"})
+    justifyC:"center",marginT:"20px",setID:"dailyTxt",display:"none"})
         addEle({dad:subC2,text:txt,border:"cyan solid 3px",radius:"10px",
         width:"fit-content",textA:"center",padding:"10px"})
 
@@ -288,7 +312,7 @@ after game reset until 5AM.<br><br>
 
 
 cont = addEle({dad:liner,margin:"10px 0",setID:"combo",border:"lime solid 2px",
-radius:"30px",display:"none",padding:"10px",width:"fit-content"})
+radius:"30px",display:"none",padding:"10px",width:"fit-content",display:"none"})
     addEle({dad:cont,text:comboTxt1})
     subC1 = addEle({dad:cont,margin:"10px 0"})
     tb = addEle({dad:subC1,what:"table"})
