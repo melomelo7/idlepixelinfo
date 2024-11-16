@@ -14,7 +14,7 @@ let itemPool = []
 let currentO = undefined
 let recap = ""
 
-let lastUp = "11/15 17:00 🇯🇵"
+let lastUp = "11/16 09:25 🇯🇵"
 
 const body = document.querySelector("body")
 
