@@ -6,7 +6,7 @@ let tb = undefined
 let tr = undefined
 let tc = undefined
 let userN = "Bob1"
-let inventoryS = 5000
+let inventoryS = 7800
 let mailboxS = 600
 let maxL = Math.floor(inventoryS/mailboxS) * mailboxS
 let shopV = "3.0"
@@ -43,12 +43,16 @@ ratios 3⏩1 (OR 30⏩1) & 20⏩1<br>
 Shop `+spanText("yellow","V3.0")+` : ratios of V2.2 with `+spanText("cyan","Combo System & NOLA")+`
 <br><br>
 `+spanText("yellow",`
-BIG orders, Inventory-Wise ( way over `+spanText("cyan",inventoryS)+` ) :<br>
-🟡 process will be divided into rounds of 8mb = 4800 units<br>
+BIG orders, will be accepted up to inventory size : `+spanText("cyan",inventoryS+
+` / Item (`+Math.floor(inventoryS/mailboxS)+`mb)`))
+
+/*
+) :<br>
+🟡 process will be divided into rounds of `+Math.floor(inventoryS/mailboxS)+`mb = `+maxL+` units<br>
 🟢 short pause 🟢 payout 🟢 🪨Stone refill(for me)<br>
 🟡 and resume next round.
 `)
-
+*/
 
 let comboTxt1 = spanText("Yellow",`Combo System !<br>
 Test drive starting !<br>
@@ -179,7 +183,16 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",height:"fit-cont
     txt = spanText("cyan",`
     *Time reference is 🇺🇸server time, that you can see in chat for example*<br><br>
    
-    11/15 Day OFF, back probably after reset on Saturday<br><br>
+    11/15 Day OFF, back after reset on Saturday<br><br>
+
+
+`+spanText("lime",`
+11/16 Day 8 : Shop often lacking OJ recently, so from total `+spanText("yellow","OJ")+`<br>
+payout `+spanText("yellow","10%")+` will be `+spanText("yellow","auto-swapped")+` to other item,
+today it will be `+spanText("yellow","AP")+`<br>
+should be running on weekday schedule, with little to no AFK time<br>
+after game reset until 5AM.<br><br>
+`)+`
 
     Weekdays business hours : after game reset until 1AM,<br>
     AFK time, back around 3AM until 5AM<br>
