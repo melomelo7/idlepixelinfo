@@ -14,7 +14,7 @@ let itemPool = []
 let currentO = undefined
 let recap = ""
 
-let lastUp = "11/16 09:25 🇯🇵"
+let lastUp = "11/16 10:25 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -225,6 +225,8 @@ until next game reset.<br><br>
 (received orders prior reset are handled after reset)<br><br>
 `)
 
+
+// LF ((Apple Cider)) pls ty !
 
     /*
     a little low on AP so if someone is<br>
