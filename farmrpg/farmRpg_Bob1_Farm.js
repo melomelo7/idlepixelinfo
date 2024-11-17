@@ -15,7 +15,7 @@ let currentO = undefined
 let recap = ""
 let buildP = true
 
-let lastUp = "11/16 14:40 🇯🇵"
+let lastUp = "11/17 13:35 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -104,7 +104,6 @@ let comboArr = [
     {label:"3. Tower = OR > 160",values:[5,10,15]},
 ]
 
-
 let convArray = [
     {ref:0,nola:"N",label:"Small 🐟Nets",to:"⏩ Large 🐟Nets",ratio:"1000⏩75"},
     {ref:1,nola:"O",label:"Oranges 🍊",to:"⏩ Orange Juice",ratio:"3⏩1"},
@@ -113,11 +112,15 @@ let convArray = [
     {ref:4,nola:"A",label:"Apples 🍎",to:"⏩ Apple Cider",ratio:"20⏩1"},
 ]
 
-let todaysMod = {
-    ref:1,val:-20,default:{ref:0,val:15},others:[
-        ,{ref:2,val:20}
-    ]
-}
+let dailySwaps = [
+    {active:true,fromIdx:1,toIdx:3,label:"-OJ<>+AP",
+     percent:15
+     ,ratio:"10:1"},
+
+    {active:true,fromIdx:4,toIdx:0,label:"-CIDER<>+LNs",
+     percent:20
+     ,ratio:"20:15"},
+]
 
 addEle({dad:body,text:spanText("lime","Last up : "+lastUp,20),margin:"5px 30px"})
 addEle({dad:body,text:welcome,margin:"20px",padding:"5px",border:"blue solid 3px",
@@ -170,7 +173,6 @@ cont = addEle({dad:body,setClass:"contRow",margin:"10px 30px",alignItems:"center
     addEle({dad:cont,text:"🔽",border:"lime solid 2px",radius:"5px",setID:"shopCont",
     cursor:"pointer",height:"fit-content",setFunc:(e)=>{
         getID("shop").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
-//        getID("combo").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
         e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
     }})
     addEle({dad:cont,text:"🏠",fontS:"30px",marginL:"20px"})
@@ -189,7 +191,8 @@ let contR = addEle({dad:cont,setClass:"contRow",justifyC:"space-between"})
             getID("convTxtCt").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
             e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
         }})
-        addEle({dad:cont,text:convTxt,setID:"convTxtCt",display:"none"})
+        addEle({dad:cont,text:convTxt,setID:"convTxtCt",display:"none",padding:"5px",
+        border:"yellow solid 2px",radius:"10px"})
 
     subC1 = addEle({dad:contR,setClass:"contRow",margin:"5px",alignItems:"center",marginR:"10px"})
         addEle({dad:subC1,text:"🟡 Combo Informations",marginR:"10px"})
@@ -199,55 +202,77 @@ let contR = addEle({dad:cont,setClass:"contRow",justifyC:"space-between"})
             e.srcElement.innerHTML = e.srcElement.innerHTML==="⏩" ? "⏪" : "⏩" 
         }})
 
-
-
-subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px",alignItems:"center"})
-    addEle({dad:subC1,text:"🟡 Business Hours and "+spanText("","⚠️",24)+" Daily Modifications (Payout ....)",marginR:"10px"})
+subC1 = addEle({dad:cont,setClass:"contRow",margin:"10px 0 0 5px"})
+    addEle({dad:subC1,text:"🟣 Business Hours and Informations",marginR:"10px"})
     addEle({dad:subC1,text:"🔽",border:"lime solid 2px",radius:"5px",
     cursor:"pointer",height:"fit-content",setFunc:(e)=>{
         getID("dailyTxt").style.display = e.srcElement.innerHTML==="🔽" ? "flex" : "none"
         e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
     }})
 
-    txt = spanText("cyan",`
+txt = spanText("cyan",`
 *Time reference is 🇺🇸 server time, that you can see in chat for example*<br><br>
-11/15 Day OFF, back after reset on Saturday<br><br>
-`+spanText("lime",`
-11/16 Day 8 : Shop often lacking OJ recently, so from total `+spanText("yellow","OJ")+`<br>
-payout `+spanText("yellow","20%-ish")+` will be `+spanText("yellow","auto-swapped")+` to other item,
-today : `+spanText("yellow","extra AP")+`<br>
-should be running on weekday schedule, with little to no AFK time<br>
-after game reset until 5AM.<br><br>
-`)+`
 Weekdays business hours : after game reset until 1AM,<br>
 AFK time, back around 3AM until 5AM<br>
 After 5AM low activity and afk time, closed around 8AM<br>
 until next game reset.<br><br>
 (received orders prior reset are handled after reset)<br><br>
+
+11/16 Day 8 : Shop often lacking OJ recently, so from total OJ<br>
+payout 20%-ish will be auto-swapped to other item, today : extra AP<br>
+should be running on weekday schedule, with little to no AFK time<br>
+after game reset until 5AM.<br><br>
+
+`+spanText("lime",`
+11/17 Day 9 : Now showing daily payout mods in next section.<br>
+Shop running on weekday schedule, little to no AFK time from<br>
+game reset to ~ 5AM. Then variable AFK time until close : 8AM<br><br>
+`)+`
 `)
 
 
 // LF ((Apple Cider)) pls ty !
-
-    /*
-    a little low on AP so if someone is<br>
-    interested to exchange AP for more LNs<br>
-    kindly write it in your NOLA ... TY ! 
-    `)
-    */
-
-/*
-    txt = spanText("cyan",`
-    Day 3 Starting, **CHANGE IN COMBO PAYOUT** :<br>
-    TODAY ⇒ -20% total OJ will be Swapped for extra LNs<br>
-    (Adjusted to other when no nets in NOLA)`)
-
-*/
+// 11/15 Day OFF, back after reset on Saturday<br><br>
 
     subC2 = addEle({dad:cont,setClass:"contRow",with:"100%",
-    justifyC:"center",marginT:"20px",setID:"dailyTxt",display:"none"})
-        addEle({dad:subC2,text:txt,border:"cyan solid 3px",radius:"10px",
+    marginT:"10px",setID:"dailyTxt",display:"none"})
+        addEle({dad:subC2,text:txt,border:"rgb(123,89,186) solid 3px",radius:"10px",
         width:"fit-content",textA:"center",padding:"10px"})
+
+
+
+subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px",alignItems:"center"})
+    addEle({dad:subC1,marginR:"10px",setID:"dailyModsText",borderB:"orangered solid 2px"})
+    addEle({dad:subC1,text:"🔽",border:"lime solid 2px",radius:"5px",marginT:"10px",
+    cursor:"pointer",height:"fit-content",setFunc:(e)=>{
+        getID("dailyMods").style.display = e.srcElement.innerHTML==="🔽" ? "flex" : "none"
+        e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
+    }})
+
+    subC2 = addEle({dad:cont,setClass:"contCol",with:"100%",
+    justifyC:"center",marginT:"10px",setID:"dailyMods",display:"none",width:"fit-content",
+    border:"2px solid orangered",padding:"5px",radius:"10px"})
+    
+    function checkDailyMods(){
+        let cpt = 0
+        let tgt = getID("dailyMods")
+        cleanParent(tgt)
+        txt = spanText("yellow","(Necessary changes to keep Shop running)")
+        addEle({dad:tgt,text:txt,margin:"10px"})
+        let tb = addEle({dad:tgt,what:"table"})
+
+        dailySwaps.forEach(swp=>{
+            if(swp.active){
+                cpt++
+                let tr = addEle({dad:tb,what:"tr"})
+                addEle({dad:tr,what:"td",text:spanText("yellow","-" + swp.percent + "%-ish ")})
+                addEle({dad:tr,what:"td",text:convArray[swp.fromIdx].to + spanText("yellow"," for extra ")})
+                addEle({dad:tr,what:"td",text:convArray[swp.toIdx].to})
+            }
+        })
+        txt = spanText("","⚠️",24)+" Daily Mods (Payout) [ " + spanText("yellow",cpt) + " ]"
+        getID("dailyModsText").innerHTML = txt
+    }
 
     txt = spanText("lime",`-- Test Converting with current Shop ratios --<br>
     (usually the result is rounded to closest multiple of 5)`,20)
@@ -401,27 +426,23 @@ function evalConv(e){
     })
     currentO = valArr
 
-    if(autoSwap.active){
-        let fromItm = currentO.filter(it=>it.idx === autoSwap.fromIdx)[0]
-        let toItm =  currentO.filter(it=>it.idx === autoSwap.toIdx)[0]
-        cut = fromItm.payout*.2
-        if(autoSwap.fromIdx===1 || autoSwap.fromIdx===2){cut = roundUP(cut,20)}
-        fromItm.autoSwap = cut*-1
-        let r1 = Number(autoSwap.ratio.split(":")[0])
-        let r2 = Number(autoSwap.ratio.split(":")[1])
-        let swapV = ((fromItm.autoSwap*-1)/r1)*r2
-        toItm.autoSwap = "+"+roundUP(swapV,5)
-    }
+    dailySwaps.forEach(swp=>{
+        if(swp.active){
+            let fromItm = currentO.filter(it=>it.idx === swp.fromIdx)[0]
+            let toItm =  currentO.filter(it=>it.idx === swp.toIdx)[0]
+            cut = roundUP(Math.ceil(fromItm.payout*(swp.percent/100)),5)
+            if(swp.fromIdx===1 || swp.fromIdx===2){cut = roundUP(cut,20)}
+            fromItm.autoSwap = cut*-1
+            let r1 = Number(swp.ratio.split(":")[0])
+            let r2 = Number(swp.ratio.split(":")[1])
+            let swapV =  Math.floor(((fromItm.autoSwap*-1)/r1)*r2)
+            console.log(swapV)
+            toItm.autoSwap = "+"+roundUP(swapV,5)
+        }
+    })
     checkNOLA()
 }
 
-let autoSwap = {
-    active:true,
-    fromIdx:1,
-    toIdx:3,
-    percent:20,
-    ratio:"10:1"
-}
 
 function checkNOLA(){
     recap = "Tower tier "
@@ -469,6 +490,9 @@ function roundUP(val,step){
     }
     return rVal
 }
+
+
+checkDailyMods()
 
 
 /*
