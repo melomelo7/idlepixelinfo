@@ -15,7 +15,7 @@ let currentO = undefined
 let recap = ""
 let buildP = true
 
-let lastUp = "11/17 13:35 🇯🇵"
+let lastUp = "11/17 13:55 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -31,7 +31,7 @@ Formerly a Strong Fisherman, my starting goal was to take down<br>
 all the fishing-MMs for the tower needs (floors 200+) ...<br><br>
 Now that this is over, I can turn the received nets to others<br>
 through my activity of converting.<br><br>
-The shop is evolving as I approach Tower 200 ... Stay tuned ... 👻
+The shop is evolving often ... Stay tuned 👻
 `,18)
 
 let convTxt = `
@@ -231,7 +231,6 @@ game reset to ~ 5AM. Then variable AFK time until close : 8AM<br><br>
 `)
 
 
-// LF ((Apple Cider)) pls ty !
 // 11/15 Day OFF, back after reset on Saturday<br><br>
 
     subC2 = addEle({dad:cont,setClass:"contRow",with:"100%",
@@ -270,7 +269,7 @@ subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px",alignItems:"center"})
                 addEle({dad:tr,what:"td",text:convArray[swp.toIdx].to})
             }
         })
-        txt = spanText("","⚠️",24)+" Daily Mods (Payout) [ " + spanText("yellow",cpt) + " ]"
+        txt = spanText("","⚠️",24)+" Daily Mods (Payout autoSwap) [ " + spanText("yellow",cpt) + " ]"
         getID("dailyModsText").innerHTML = txt
     }
 
@@ -436,7 +435,6 @@ function evalConv(e){
             let r1 = Number(swp.ratio.split(":")[0])
             let r2 = Number(swp.ratio.split(":")[1])
             let swapV =  Math.floor(((fromItm.autoSwap*-1)/r1)*r2)
-            console.log(swapV)
             toItm.autoSwap = "+"+roundUP(swapV,5)
         }
     })
@@ -454,7 +452,7 @@ function checkNOLA(){
         let itm = currentO.filter(it=>it.idx===i)[0]
         txt = itm.autoSwap === 0 ?
         itm.nola + " > " + itm.amount + " > " + itm.payout :
-        itm.nola + " > " + itm.amount + " > " + itm.payout + "(auto-swap "+itm.autoSwap+" = "
+        itm.nola + " > " + itm.amount + " > " + itm.payout + "(autoSwap "+itm.autoSwap+" = "
         +(itm.payout+parseInt(itm.autoSwap))+" )"
 
         recap += txt + "<br>"
@@ -495,8 +493,36 @@ function roundUP(val,step){
 checkDailyMods()
 
 
+// LF ((Apple Cider)) pls ty !
+
 /*
 function copyToClipboard(text){
     navigator.clipboard.writeText(text)
 }
+*/
+
+/*
+
+I encourage you to become
+a daily customer of my humble shop
+and benefit of my very own combo
+payout system.
+
+next open after game reset
+this gives you some time to
+visit my webpage and check
+the test/ordering tool available
+so you may understand that multiple
+items orders will bring a nice payout :)
+
+webpage link is found in my BIO
+(last update may not be ready server
+is a bit slow today)
+
+Ask questions if any ...
+
+** for players Not yet Farming 99
+some adjustement will be made on
+received orders **
+
 */
