@@ -113,13 +113,18 @@ let convArray = [
 ]
 
 let dailySwaps = [
-    {active:false,fromIdx:1,toIdx:3,label:"-OJ<>+AP",
+    {active:false,fromIdx:1,toIdx:3,
      percent:15
      ,ratio:"10:1"},
 
-    {active:false,fromIdx:4,toIdx:0,label:"-CIDER<>+LNs",
+    {active:false,fromIdx:4,toIdx:0,
      percent:20
      ,ratio:"20:15"},
+
+    {active:true,fromIdx:1,toIdx:0,
+     percent:15
+     ,ratio:"15:20"},
+
 ]
 
 addEle({dad:body,text:spanText("lime","Last up : "+lastUp,20),margin:"5px 30px"})
@@ -214,19 +219,16 @@ txt = spanText("cyan",`
 *Time reference is 🇺🇸 server time, that you can see in chat for example*<br><br>
 Weekdays business hours : after game reset until 1AM,<br>
 AFK time, back around 3AM until 5AM<br>
-After 5AM low activity and afk time, closed around 8AM<br>
+After 5AM low activity and afk time, closed around 6AM<br>
 until next game reset.<br><br>
 (received orders prior reset are handled after reset)<br><br>
 
-11/16 Day 8 : Shop often lacking OJ recently, so from total OJ<br>
-payout 20%-ish will be auto-swapped to other item, today : extra AP<br>
-should be running on weekday schedule, with little to no AFK time<br>
-after game reset until 5AM.<br><br>
-
-`+spanText("lime",`
 11/17 Day 9 : Now showing daily payout mods in next section.<br>
 Shop running on weekday schedule, little to no AFK time from<br>
 game reset to ~ 5AM. Then variable AFK time until close : 6AM<br><br>
+
+`+spanText("lime",` 
+11/18 Day 10 : Back to weekdays business hours... with 1 autoSwap today. 
 `)+`
 `)
 
