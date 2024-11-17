@@ -15,7 +15,7 @@ let currentO = undefined
 let recap = ""
 let buildP = true
 
-let lastUp = "11/17 13:55 🇯🇵"
+let lastUp = "11/17 15:00 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -113,11 +113,11 @@ let convArray = [
 ]
 
 let dailySwaps = [
-    {active:true,fromIdx:1,toIdx:3,label:"-OJ<>+AP",
+    {active:false,fromIdx:1,toIdx:3,label:"-OJ<>+AP",
      percent:15
      ,ratio:"10:1"},
 
-    {active:true,fromIdx:4,toIdx:0,label:"-CIDER<>+LNs",
+    {active:false,fromIdx:4,toIdx:0,label:"-CIDER<>+LNs",
      percent:20
      ,ratio:"20:15"},
 ]
@@ -426,7 +426,13 @@ function evalConv(e){
     currentO = valArr
 
     dailySwaps.forEach(swp=>{
-        if(swp.active){
+/*
+        console.log(swp)
+        console.log(currentO)
+        console.log(currentO.filter(itm=>itm.idx===swp.fromIdx)[0])
+        console.log(currentO[swp.fromIdx].amount)
+*/
+        if(swp.active && currentO.filter(itm=>itm.idx===swp.fromIdx)[0].amount > 0){
             let fromItm = currentO.filter(it=>it.idx === swp.fromIdx)[0]
             let toItm =  currentO.filter(it=>it.idx === swp.toIdx)[0]
             cut = roundUP(Math.ceil(fromItm.payout*(swp.percent/100)),5)
