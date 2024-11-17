@@ -226,7 +226,7 @@ after game reset until 5AM.<br><br>
 `+spanText("lime",`
 11/17 Day 9 : Now showing daily payout mods in next section.<br>
 Shop running on weekday schedule, little to no AFK time from<br>
-game reset to ~ 5AM. Then variable AFK time until close : 8AM<br><br>
+game reset to ~ 5AM. Then variable AFK time until close : 6AM<br><br>
 `)+`
 `)
 
