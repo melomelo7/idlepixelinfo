@@ -123,9 +123,20 @@ let dailySwaps = [
 
     {active:true,fromIdx:1,toIdx:0,
      percent:15
-     ,ratio:"15:20"},
+     ,ratio:"15:10"},
 
 ]
+
+/*
+thanks to this early converting
+I realise there is 1 mistake in the
+current formula ...
+
+
+
+*/
+
+
 
 addEle({dad:body,text:spanText("lime","Last up : "+lastUp,20),margin:"5px 30px"})
 addEle({dad:body,text:welcome,margin:"20px",padding:"5px",border:"blue solid 3px",
