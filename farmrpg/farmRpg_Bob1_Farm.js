@@ -15,7 +15,7 @@ let currentO = undefined
 let recap = ""
 let buildP = true
 
-let lastUp = "11/17 15:00 🇯🇵"
+let lastUp = "11/19 00:00 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -124,19 +124,7 @@ let dailySwaps = [
     {active:true,fromIdx:1,toIdx:0,// OJ > LNs
      percent:15
      ,ratio:"15:10"},
-
 ]
-
-/*
-thanks to this early converting
-I realise there is 1 mistake in the
-current formula ...
-
-
-
-*/
-
-
 
 addEle({dad:body,text:spanText("lime","Last up : "+lastUp,20),margin:"5px 30px"})
 addEle({dad:body,text:welcome,margin:"20px",padding:"5px",border:"blue solid 3px",
@@ -234,13 +222,11 @@ After 5AM low activity and afk time, closed around 6AM<br>
 until next game reset.<br><br>
 (received orders prior reset are handled after reset)<br><br>
 
-11/17 Day 9 : Now showing daily payout mods in next section.<br>
-Shop running on weekday schedule, little to no AFK time from<br>
-game reset to ~ 5AM. Then variable AFK time until close : 6AM<br><br>
+11/18 Day 10 : Back to weekdays business hours... with 1 autoSwap today<br>
+back from AFK time around 3:30AM.<br><br>
 
 `+spanText("lime",` 
-11/18 Day 10 : Back to weekdays business hours... with 1 autoSwap today<br>
-back from AFK time around 3:30AM. 
+11/19 Day 11 : Pretty much like 11/18 ... 
 `)+`
 `)
 
@@ -440,22 +426,18 @@ function evalConv(e){
     currentO = valArr
 
     dailySwaps.forEach(swp=>{
-/*
-        console.log(swp)
-        console.log(currentO)
-        console.log(currentO.filter(itm=>itm.idx===swp.fromIdx)[0])
-        console.log(currentO[swp.fromIdx].amount)
-*/
         if(swp.active && currentO.filter(itm=>itm.idx===swp.fromIdx)[0].amount > 0){
             let fromItm = currentO.filter(it=>it.idx === swp.fromIdx)[0]
             let toItm =  currentO.filter(it=>it.idx === swp.toIdx)[0]
             cut = roundUP(Math.ceil(fromItm.payout*(swp.percent/100)),5)
             if(swp.fromIdx===1 || swp.fromIdx===2){cut = roundUP(cut,20)}
-            fromItm.autoSwap = cut*-1
-            let r1 = Number(swp.ratio.split(":")[0])
-            let r2 = Number(swp.ratio.split(":")[1])
-            let swapV =  Math.floor(((fromItm.autoSwap*-1)/r1)*r2)
-            toItm.autoSwap = "+"+roundUP(swapV,5)
+            if(fromItm.payout>=cut){
+                fromItm.autoSwap = cut*-1
+                let r1 = Number(swp.ratio.split(":")[0])
+                let r2 = Number(swp.ratio.split(":")[1])
+                let swapV =  Math.floor(((fromItm.autoSwap*-1)/r1)*r2)
+                toItm.autoSwap = "+"+roundUP(swapV,5)
+            }
         }
     })
     checkNOLA()
