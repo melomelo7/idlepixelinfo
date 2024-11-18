@@ -113,15 +113,15 @@ let convArray = [
 ]
 
 let dailySwaps = [
-    {active:false,fromIdx:1,toIdx:3,
+    {active:false,fromIdx:1,toIdx:3,// OJ > AP
      percent:15
      ,ratio:"10:1"},
 
-    {active:false,fromIdx:4,toIdx:0,
+    {active:false,fromIdx:4,toIdx:0,// cider > LNs
      percent:20
      ,ratio:"20:15"},
 
-    {active:true,fromIdx:1,toIdx:0,
+    {active:true,fromIdx:1,toIdx:0,// OJ > LNs
      percent:15
      ,ratio:"15:10"},
 
@@ -239,7 +239,8 @@ Shop running on weekday schedule, little to no AFK time from<br>
 game reset to ~ 5AM. Then variable AFK time until close : 6AM<br><br>
 
 `+spanText("lime",` 
-11/18 Day 10 : Back to weekdays business hours... with 1 autoSwap today. 
+11/18 Day 10 : Back to weekdays business hours... with 1 autoSwap today<br>
+back from AFK time around 3:30AM. 
 `)+`
 `)
 
