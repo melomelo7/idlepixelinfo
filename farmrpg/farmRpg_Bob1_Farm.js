@@ -15,7 +15,7 @@ let currentO = undefined
 let recap = ""
 let buildP = true
 
-let lastUp = "11/19 19:55 🇯🇵"
+let lastUp = "11/20 06:20 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -235,7 +235,7 @@ until next game reset.<br><br>
 back from AFK time around 3:30AM.<br><br>
 
 `+spanText("lime",` 
-11/19 Day 11 : Pretty much like 11/18 ... 
+11/20 Day 11 : Same as 11/18 ... 
 `)+`
 `)
 
