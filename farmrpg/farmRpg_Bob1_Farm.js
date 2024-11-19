@@ -15,7 +15,7 @@ let currentO = undefined
 let recap = ""
 let buildP = true
 
-let lastUp = "11/19 19:25 🇯🇵"
+let lastUp = "11/19 19:55 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -117,17 +117,21 @@ let dailySwaps = [
      percent:15
      ,ratio:"10:1"},
 
-    {active:false,fromIdx:4,toIdx:0,// cider > LNs
-     percent:20
-     ,ratio:"20:15"},
-
-    {active:false,fromIdx:1,toIdx:0,// OJ > LNs
+     {active:false,fromIdx:1,toIdx:0,// OJ > LNs
      percent:15
      ,ratio:"15:10"},
 
-    {active:true,fromIdx:0,toIdx:4,// LNs > AP
+     {active:true,fromIdx:0,toIdx:3,// LNs > AP
      percent:10
      ,ratio:"5:1"},
+
+    {active:false,fromIdx:4,toIdx:0,// LNs > cider
+     percent:10
+     ,ratio:"20:15"},
+
+    {active:false,fromIdx:4,toIdx:0,// cider > LNs
+     percent:20
+     ,ratio:"20:15"},
 
 ]
 
