@@ -15,7 +15,7 @@ let currentO = undefined
 let recap = ""
 let buildP = true
 
-let lastUp = "11/20 06:20 🇯🇵"
+let lastUp = "11/20 19:10 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -113,15 +113,15 @@ let convArray = [
 ]
 
 let dailySwaps = [
-    {active:false,fromIdx:1,toIdx:3,// OJ > AP
-     percent:15
+    {active:true,fromIdx:1,toIdx:3,// OJ > AP
+     percent:20
      ,ratio:"10:1"},
 
      {active:false,fromIdx:1,toIdx:0,// OJ > LNs
      percent:15
      ,ratio:"15:10"},
 
-     {active:true,fromIdx:0,toIdx:3,// LNs > AP
+     {active:false,fromIdx:0,toIdx:3,// LNs > AP
      percent:10
      ,ratio:"5:1"},
 
@@ -512,28 +512,4 @@ function copyToClipboard(text){
 }
 */
 
-/*
 
-I encourage you to become
-a daily customer of my humble shop
-and benefit of my very own combo
-payout system.
-
-next open after game reset
-this gives you some time to
-visit my webpage and check
-the test/ordering tool available
-so you may understand that multiple
-items orders will bring a nice payout :)
-
-webpage link is found in my BIO
-(last update may not be ready server
-is a bit slow today)
-
-Ask questions if any ...
-
-** for players Not yet Farming 99
-some adjustement will be made on
-received orders **
-
-*/
