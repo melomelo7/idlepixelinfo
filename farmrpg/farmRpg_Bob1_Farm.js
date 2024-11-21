@@ -15,7 +15,7 @@ let currentO = undefined
 let recap = ""
 let buildP = true
 
-let lastUp = "11/21 00:40 🇯🇵"
+let lastUp = "11/21 20:50 🇯🇵"
 
 const body = document.querySelector("body")
 
