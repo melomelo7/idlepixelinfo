@@ -226,9 +226,11 @@ subC1 = addEle({dad:cont,setClass:"contRow",margin:"10px 0 0 5px"})
 txt = spanText("cyan",`
 *Time reference is 🇺🇸 server time, that you can see in chat for example*<br><br>
 Weekdays business hours : after game reset until 1AM,<br>
-AFK time, back around 3AM until 5AM<br>
+AFK time, back around 3:30M until 5AM<br>
 After 5AM low activity and afk time, closed around 6AM<br>
-until next game reset.<br><br>
+until next game reset. Friday is DAY OFF, back saturday.<br><br>
+`+spanText("yellow",`❗🛫Vacation time coming Mid-December until End-December❗ 
+<br>❗🛬 traveling time so the shop will very likely not open 🌍❗<br><br>`)+`
 (received orders prior reset are handled after reset)<br><br>
 
 11/18 Day 10 : Back to weekdays business hours... with 1 autoSwap today<br>
@@ -236,6 +238,9 @@ back from AFK time around 3:30AM.<br><br>
 
 `+spanText("lime",` 
 11/21 Day 12 : Same as 11/18 ... 
+
+`+spanText("yellow","reminder tomorrow is my Day OFF ")+spanText("","🤓",22)+`
+
 `)+`
 `)
 
