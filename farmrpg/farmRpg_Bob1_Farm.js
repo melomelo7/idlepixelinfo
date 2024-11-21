@@ -215,13 +215,16 @@ let contR = addEle({dad:cont,setClass:"contRow",justifyC:"space-between"})
             e.srcElement.innerHTML = e.srcElement.innerHTML==="⏩" ? "⏪" : "⏩" 
         }})
 
+        
 subC1 = addEle({dad:cont,setClass:"contRow",margin:"10px 0 0 5px"})
-    addEle({dad:subC1,text:"🟣 Business Hours and Informations",marginR:"10px"})
+    addEle({dad:subC1,text:"🟣 Business Hours and Informations"+spanText("",""),marginR:"10px"})
     addEle({dad:subC1,text:"🔽",border:"lime solid 2px",radius:"5px",
     cursor:"pointer",height:"fit-content",setFunc:(e)=>{
         getID("dailyTxt").style.display = e.srcElement.innerHTML==="🔽" ? "flex" : "none"
         e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
     }})
+    addEle({dad:subC1,text:"🚨",margin:"-5px 5px",fontS:"22px"})
+
 
 txt = spanText("cyan",`
 *Time reference is 🇺🇸 server time, that you can see in chat for example*<br><br>
