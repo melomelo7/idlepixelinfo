@@ -309,6 +309,7 @@ txt=`
 - Top tab "`+spanText("orangered","Events")+`" name changed to "`+spanText("springgreen","News")+`"<br> 
 `+spanText("yellow","** Last Modification(s) :<br>")+`
 - Faq (updating) > Events | Probes Hangar  <br>
+- Updated Rooms Max level to 60<br>
 `+spanText("yellow","** Soon to come :<br>")+`
 `
 addEle({dad:right,text:txt,margin:"30px",border:"teal dashed 4px",
