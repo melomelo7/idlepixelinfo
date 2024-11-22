@@ -236,16 +236,19 @@ until next game reset. Friday is DAY OFF, back saturday.<br><br>
 <br>❗🛬 traveling time so the shop will very likely not open 🌍❗<br><br>`)+`
 (received orders prior reset are handled after reset)<br><br>
 
-11/18 Day 10 : Back to weekdays business hours... with 1 autoSwap today<br>
-back from AFK time around 3:30AM.<br><br>
 
 `+spanText("lime",` 
-11/21 Day 12 : Same as 11/18 ... 
 
-`+spanText("yellow","reminder tomorrow is my Day OFF ")+spanText("","🤓",22)+`
+(Day 13) 11/22  : Day OFF .. See you tomorrow guys !
 
 `)+`
 `)
+
+//`+spanText("yellow","reminder tomorrow is my Day OFF ")+spanText("","🤓",22)+`
+
+//11/18 Day 10 : Back to weekdays business hours... with 1 autoSwap today<br>
+//back from AFK time around 3:30AM.<br><br>
+
 
 
 // 11/15 Day OFF, back after reset on Saturday<br><br>
