@@ -218,7 +218,7 @@ let contR = addEle({dad:cont,setClass:"contRow",justifyC:"space-between"})
         
 subC1 = addEle({dad:cont,setClass:"contRow",margin:"10px 0 0 5px"})
     addEle({dad:subC1,text:"🟣 Business Hours and Informations"+spanText("",""),marginR:"10px"})
-    addEle({dad:subC1,text:"🔽",border:"lime solid 2px",radius:"5px",
+    addEle({dad:subC1,text:"🔽",border:"lime solid 2px",radius:"5px",setID:"InfoClick",
     cursor:"pointer",height:"fit-content",setFunc:(e)=>{
         getID("dailyTxt").style.display = e.srcElement.innerHTML==="🔽" ? "flex" : "none"
         e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
@@ -370,6 +370,7 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",display:"none"})
     addEle({dad:cont,text:typical,border:"teal solid 3px",radius:"20px",padding:"5px 10px",marginT:"5px"})
 
 //getID("shopCont").click()
+getID("InfoClick").click()
 
 
 function evalConv(e){
