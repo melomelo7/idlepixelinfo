@@ -293,7 +293,8 @@ subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px",alignItems:"center"})
         getID("dailyModsText").innerHTML = txt
     }
 
-    txt = spanText("lime",`-- Test Converting with current Shop ratios --<br>
+    txt = spanText("lime",`-- Type amounts to build (or test) your order,
+    <br>then Click on [Copy NOLA] and msg me ingame --<br><br>
     (usually the result is rounded to closest multiple of 5)`,20)
     subC1 = addEle({dad:cont,text:txt,
     marginT:"20px",textA:"center"})
@@ -350,7 +351,7 @@ subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px",alignItems:"center"})
 
         subC1 = addEle({dad:modCont,setClass:"contCol"})
         addEle({dad:subC1,setClass:"btn",text:"Copy NOLA",border:"lime solid 2px",
-        height:"fit-content",minWidth:"150px",padding:"5px",
+        height:"fit-content",minWidth:"150px",padding:"5px",backC:"#2C5B52",textC:"lime",
         setFunc:()=>{navigator.clipboard.writeText(nolaP.value)}})
         addEle({dad:subC1,marginL:"5px",text:spanText("lime","* to paste in ingame msg for me *")})
 
