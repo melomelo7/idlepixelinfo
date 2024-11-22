@@ -369,7 +369,7 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",display:"none"})
     addEle({dad:cont,text:comboTxt2})
     addEle({dad:cont,text:typical,border:"teal solid 3px",radius:"20px",padding:"5px 10px",marginT:"5px"})
 
-getID("shopCont").click()
+//getID("shopCont").click()
 
 
 function evalConv(e){
