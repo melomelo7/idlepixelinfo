@@ -14,8 +14,9 @@ let itemPool = []
 let currentO = undefined
 let recap = ""
 let buildP = true
+let copyNb = 0
 
-let lastUp = "11/22 16:05 🇯🇵"
+let lastUp = "11/23 10:25 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -113,11 +114,11 @@ let convArray = [
 ]
 
 let dailySwaps = [
-    {active:true,fromIdx:1,toIdx:3,// OJ > AP
+    {active:false,fromIdx:1,toIdx:3,// OJ > AP
      percent:20
      ,ratio:"10:1"},
 
-     {active:false,fromIdx:1,toIdx:0,// OJ > LNs
+     {active:true,fromIdx:1,toIdx:0,// OJ > LNs
      percent:15
      ,ratio:"15:10"},
 
@@ -239,7 +240,7 @@ until next game reset. Friday is DAY OFF, back saturday.<br><br>
 
 `+spanText("lime",` 
 
-(Day 13) 11/22  : Day OFF .. See you tomorrow guys !
+(Day 14) 11/23  : Open after game reset, active until 4AM then relax, close 5AM
 
 `)+`
 `)
@@ -306,6 +307,7 @@ subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px",alignItems:"center"})
              addEle({dad:tr,what:"td",text:"To",textA:"center",borderB:"solid teal 2px"})
              addEle({dad:tr,what:"td",text:"Ratio",textA:"center",borderB:"solid teal 2px"})
              addEle({dad:tr,what:"td",text:"Amount",textA:"center",borderB:"solid teal 2px"})
+             addEle({dad:tr,what:"td",text:"Copy<br>Paste",textA:"center",borderB:"solid teal 2px"})
              addEle({dad:tr,what:"td",text:"Combo",textA:"center",borderB:"solid teal 2px"})
              addEle({dad:tr,what:"td",text:"For You",textA:"center",borderB:"solid teal 2px",minWidth:"80px"})
 
@@ -317,11 +319,30 @@ subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px",alignItems:"center"})
         tc = addEle({dad:tr,what:"td",padding:"5px"})
              addEle({dad:tc,what:"input",isInput:true,setVal:0,setID:"amount:"+i,
              width:"60px",textA:"center",setFunc:(e)=>{buildP =false ; evalConv(e)}})
+        tc = addEle({dad:tr,what:"td",padding:"5px"})
+             subC2 = addEle({dad:tc,setClass:"contRow"})
+              addEle({dad:subC2,text:"C",padding:"0 2px ",border:"orange solid 2px",textC:"orange",
+              radius:"5px",cursor:"pointer",setID:"copy:"+i,backC:"#2C5B52",textC:"lime",
+              setFunc:(e)=>{CPAm(e)}})
+              addEle({dad:subC2,text:"P",padding:"0 4px ",border:"orange solid 2px",textC:"orange",
+              marginL:"5px",radius:"5px",cursor:"pointer",setID:"paste:"+i,backC:"#2C5B52",textC:"lime",
+              setFunc:(e)=>{CPAm(e)}})
              addEle({dad:tr,what:"td",setID:"combo:"+i,text:"👀"})
              addEle({dad:tr,what:"td",setID:"eval:"+i})
     }
 
-
+function CPAm(e){
+    let idx = e.srcElement.id.split(":")[1]
+    let sw = e.srcElement.id.split(":")[0]
+    switch(sw){
+        case "copy" : copyNb = getID("amount:"+idx).value ; break
+        case "paste" : 
+            getID("amount:"+idx).value = copyNb
+        getID("amount:"+idx).dispatchEvent(new Event('input', { bubbles: true }));
+            break
+        default : console.log("Bug Copy Paste amounts")
+    }
+}
 
     subC1 = addEle({dad:cont,setClass:"contRow",border:"teal solid 3px",radius:"10px",
             margin:"10px 0 0 30px",width:"fit-content",padding:"10px",alignItems:"center"})
@@ -346,14 +367,14 @@ subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px",alignItems:"center"})
     radius:"10px",padding:"10px",setClass:"contRow",justifyC:"center" })
         let nolaP = addEle({dad:modCont,what:"textarea",setID:"nolaP",overflow:"scroll",
         height:"150px",width:"300px",minHeight:"150px",minWidth:"300px",
-        maxHeight:"150px",maxWidth:"300px",
-        resize:"none",backG:"black",textC:"white"})
+        maxHeight:"150px",maxWidth:"300px",border:"orange solid 2px",radius:"10px",
+        resize:"none",backG:"#2C5B52",textC:"lime",padding:"10px 0 0 10px"})
 
-        subC1 = addEle({dad:modCont,setClass:"contCol"})
-        addEle({dad:subC1,setClass:"btn",text:"Copy NOLA",border:"lime solid 2px",
-        height:"fit-content",minWidth:"150px",padding:"5px",backC:"#2C5B52",textC:"lime",
+        subC1 = addEle({dad:modCont,setClass:"contCol",alignItems:"center",justifyC:"center"})
+        addEle({dad:subC1,setClass:"btn",text:"Copy NOLA<br><br>* to paste in ingame msg for me *",
+        border:"orange solid 2px", height:"fit-content",Width:"100%",padding:"10px",
+        backC:"#2C5B52",textC:"lime",marginL:"10px",
         setFunc:()=>{navigator.clipboard.writeText(nolaP.value)}})
-        addEle({dad:subC1,marginL:"5px",text:spanText("lime","* to paste in ingame msg for me *")})
 
 cont = addEle({dad:liner,margin:"10px 0",setID:"combo",border:"lime solid 2px",
 radius:"30px",display:"none",padding:"10px",width:"fit-content",display:"none"})
@@ -370,14 +391,13 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",display:"none"})
     addEle({dad:cont,text:comboTxt2})
     addEle({dad:cont,text:typical,border:"teal solid 3px",radius:"20px",padding:"5px 10px",marginT:"5px"})
 
-//getID("shopCont").click()
-getID("InfoClick").click()
+getID("shopCont").click()
+//getID("InfoClick").click()
 
 
 function evalConv(e){
 
     if(buildP ===true){return}
-
 
     let val = undefined
     let valArr = []
@@ -389,8 +409,7 @@ function evalConv(e){
     if(e.srcElement.id === "amount:2" || e.srcElement.id === "amount:3"){
         if(e.srcElement.id === "amount:2")
              {getID("amount:3").value = 0}
-        else {getID("amount:2").value = 0} }
-
+        else {getID("amount:2").value = 0}}
 
     for(let i=0;i<convArray.length;i++){
         val = getID("amount:"+i).value
