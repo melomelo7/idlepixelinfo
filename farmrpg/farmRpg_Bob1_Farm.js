@@ -373,7 +373,7 @@ function CPAm(e){
         subC1 = addEle({dad:modCont,setClass:"contCol",alignItems:"center",justifyC:"center"})
         addEle({dad:subC1,setClass:"btn",text:"Copy NOLA<br><br>* to paste in ingame msg for me *",
         border:"orange solid 2px", height:"fit-content",Width:"100%",padding:"10px",
-        backC:"#2C5B52",textC:"lime",marginL:"10px",
+        backC:"#2C5B52",textC:"lime",marginL:"20px",
         setFunc:()=>{navigator.clipboard.writeText(nolaP.value)}})
 
 cont = addEle({dad:liner,margin:"10px 0",setID:"combo",border:"lime solid 2px",
