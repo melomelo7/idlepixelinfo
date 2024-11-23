@@ -1751,12 +1751,22 @@ let eventsMissions = [
         aim:0,
     },
 
+    {   /// ok
+        ref:35,
+        label:spanText("yellow","Complete")+` X Probe scans for a Cargo<br>
+        Bonus on planet Y or beyond`,
+        tiers:{qt:3,vals:["1s:P1+","2s:P7+","?"]},
+        comment:`self explicit`,
+        type:"Wait-for-it",
+        typeI:"wait",
+        aim:0,
+    },
 
 
 ]
 
 let injectedOrder = [
-23,2,3,10,11
+23,2,3,10,11,21,35,17,25,30,1
 
 //11,1,12,19,11,9,4,8,25,24,14,3,28,20,18,16,2,33,13,17,6,10,5
 //14,20,6,4,11,3,16,2,18,13,8,25,32,17,33,22,5,12,34,1,21,28,23
