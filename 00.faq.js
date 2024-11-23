@@ -1755,7 +1755,7 @@ let eventsMissions = [
         ref:35,
         label:spanText("yellow","Complete")+` X Probe scans for a Cargo<br>
         Bonus on planet Y or beyond`,
-        tiers:{qt:3,vals:["1s:P1+","2s:P7+","?"]},
+        tiers:{qt:3,vals:["1s:P1+","2s:P7+","3s:P9+"]},
         comment:`self explicit`,
         type:"Wait-for-it",
         typeI:"wait",
