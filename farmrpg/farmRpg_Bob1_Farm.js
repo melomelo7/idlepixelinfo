@@ -15,8 +15,16 @@ let currentO = undefined
 let recap = ""
 let buildP = true
 let copyNb = 0
+let MCP = 100000
 
-let lastUp = "11/23 10:25 🇯🇵"
+let OJM = 227213
+let LEM = 203528
+let LNM = 104833
+let CIM = 62584
+let APM = 36076
+
+
+let lastUp = "11/23 13:45 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -139,6 +147,7 @@ let dailySwaps = [
 addEle({dad:body,text:spanText("lime","Last up : "+lastUp,20),margin:"5px 30px"})
 addEle({dad:body,text:welcome,margin:"20px",padding:"5px",border:"blue solid 3px",
 radius:"30px",textA:"center",width:"fit-content"})
+
 
 cont = addEle({dad:body,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
     addEle({dad:cont,text:"🟢 A few words...",margin:"0 20px"})
@@ -533,15 +542,69 @@ function roundUP(val,step){
 }
 
 
-checkDailyMods()
-
-
-// LF ((Apple Cider)) pls ty !
-
-/*
-function copyToClipboard(text){
-    navigator.clipboard.writeText(text)
+let masteriesArr = {
+    main : [{label:"OJ Mastery",val:OJM > MCP*10 ? MCP*10 : OJM,cap:MCP*10},
+            {label:"Lemonade Mastery",val:LEM > MCP*10 ? MCP*10 : LEM,cap:MCP*10},
+            {label:"LNs Mastery",val:LNM > MCP*10 ? MCP*10 :LNM,cap:MCP*10},],
+    subs : [{label:"Cider Mastery",val:CIM > MCP ? MCP : CIM,cap:MCP},
+            {label:"AP Mastery",val:APM > MCP ? MCP : APM,cap:MCP},]
 }
-*/
 
+cont = addEle({dad:body,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
+    addEle({dad:cont,text:"🟢 Shop Goals...",margin:"0 20px"})
+    addEle({dad:cont,text:"🔽",border:"lime solid 2px",radius:"5px",
+    cursor:"pointer",height:"fit-content",setFunc:(e)=>{
+        getID("goals").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
+        e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
+    }})
+    addEle({dad:cont,text:"📈",fontS:"22px",marginL:"10px"})
+addEle({dad:body,margin:"10px 30px",setID:"goals",border:"lime solid 2px",
+radius:"30px",display:"none",padding:"10px",width:"fit-content"})
+    let overall = {val:0,cap:0}
+    let mcont = addEle({dad:getID("goals"),setClass:"contCol"})
+    subC1=addEle({dad:mcont})
+    tb = addEle({dad:subC1,what:"table"})
+    tr = addEle({dad:tb,what:"tr"})
+        addEle({dad:tr,what:"td",text:"Main Goals",textA:"center",
+        colSpan:2,borderB:"green solid 1px"})
+        masteriesArr.main.forEach(ma=>{
+            tr = addEle({dad:tb,what:"tr"})
+                addEle({dad:tr,what:"td",text:ma.label,textA:"right"})
+            tc = addEle({dad:tr,what:"td",paddingL:"10px"})
+            getPrgBar(tc,ma.val,ma.cap)
+            overall.val += ma.val
+            overall.cap += ma.cap
+        })
+        tr = addEle({dad:tb,what:"tr",height:"5px"})
+        tr = addEle({dad:tb,what:"tr"})
+        addEle({dad:tr,what:"td",text:"Main overall",textA:"right"})
+        tc = addEle({dad:tr,what:"td",paddingL:"10px"})
+            getPrgBar(tc,overall.val,overall.cap,"orange")
+    addEle({dad:tb,what:"tr",height:"10px"})
+    overall = {val:0,cap:0}
+    tr = addEle({dad:tb,what:"tr"})
+        addEle({dad:tr,what:"td",text:"Sub Goals",textA:"center",
+        colSpan:2,borderB:"green solid 1px"})
+        masteriesArr.subs.forEach(ma=>{
+            tr = addEle({dad:tb,what:"tr"})
+                addEle({dad:tr,what:"td",text:ma.label,textA:"right"})
+            tc = addEle({dad:tr,what:"td",paddingL:"10px"})
+            getPrgBar(tc,ma.val,ma.cap)
+            overall.val += ma.val
+            overall.cap += ma.cap
+        })
+        tr = addEle({dad:tb,what:"tr",height:"5px"})
+        tr = addEle({dad:tb,what:"tr"})
+        addEle({dad:tr,what:"td",text:"Subs overall",textA:"right"})
+        tc = addEle({dad:tr,what:"td",paddingL:"10px"})
+            getPrgBar(tc,overall.val,overall.cap,"orange")            
 
+function getPrgBar(dad,val,cap,borderC="green"){
+    let percent = Math.floor(val/cap*100)
+    let col = percent >= 100 ? "lime" : "yellow"
+    subC1 = addEle({dad:dad,border:borderC+" solid 3px",radius:"20px",height:"10px",
+    width:"100px",padding:"1px"})
+        addEle({dad:subC1,height:"100%",width:percent+"%",backC:col,radius:"20px"})
+}
+
+checkDailyMods()
