@@ -24,7 +24,7 @@ let CIM = 64922
 let APM = 38014
 
 
-let lastUp = "11/25 00:45 🇯🇵"
+let lastUp = "11/25 01:25 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -129,7 +129,7 @@ let dailySwaps = [
      percent:20
      ,ratio:"10:1"},
 
-     {active:false,fromIdx:1,toIdx:0,// OJ > LNs **
+     {active:true,fromIdx:1,toIdx:0,// OJ > LNs **
      percent:15
      ,ratio:"15:10"},
 
@@ -145,7 +145,7 @@ let dailySwaps = [
      percent:20
      ,ratio:"20:15"},
 
-     {active:true,fromIdx:3,toIdx:0,// AP > LNs
+     {active:false,fromIdx:3,toIdx:0,// AP > LNs
      percent:10
      ,ratio:"1:5"},
 
@@ -328,7 +328,8 @@ subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px",alignItems:"center"})
              addEle({dad:tr,what:"td",text:"Amount",textA:"center",borderB:"solid teal 2px"})
              addEle({dad:tr,what:"td",text:"Copy<br>Paste",textA:"center",borderB:"solid teal 2px"})
              addEle({dad:tr,what:"td",text:"Combo",textA:"center",borderB:"solid teal 2px"})
-             addEle({dad:tr,what:"td",text:"For You",textA:"center",borderB:"solid teal 2px",minWidth:"80px"})
+             addEle({dad:tr,what:"td",text:"For You"+spanText("yellow","<br>( before autoSwap )"),
+             textA:"center",borderB:"solid teal 2px",minWidth:"80px",paddingL:"5px"})
 
     for(let i=0;i<convArray.length;i++){
         tr = addEle({dad:tb,what:"tr"})
