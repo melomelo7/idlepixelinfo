@@ -1776,7 +1776,7 @@ let eventsMissions = [
     {   /// ok
         ref:37,
         label:spanText("yellow","Complete")+` X Probe scans`,
-        tiers:{qt:3,vals:[2,5,"?"]},
+        tiers:{qt:3,vals:[2,5,10]},
         comment:`self explicit`,
         type:"Wait-for-it",
         typeI:"wait",
