@@ -17,14 +17,14 @@ let buildP = true
 let copyNb = 0
 let MCP = 100000
 
-let OJM = 244501
-let LEM = 220291
-let LNM = 111412
-let CIM = 64922
-let APM = 38014
+let OJM = 260827
+let LEM = 235864
+let LNM = 116588
+let CIM = 67618
+let APM = 39589
 
 
-let lastUp = "11/25 01:25 🇯🇵"
+let lastUp = "11/26 23:30 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -249,7 +249,8 @@ Weekdays business hours : after game reset until 1AM,<br>
 AFK time, back around 3:30M until 5AM<br>
 After 5AM low activity and afk time, closed around 6AM<br>
 until next game reset. Friday is DAY OFF, back saturday.<br><br>
-`+spanText("yellow",`❗🛫Vacation time coming Mid-December until End-December❗ 
+`+spanText("yellow",`❗🛫Vacation time coming Mid-December(`+spanText("lime","14")+
+`) until End-December(`+spanText("lime","27")+`)❗ 
 <br>❗🛬 traveling time so the shop will very likely not open 🌍❗<br><br>`)+`
 (received orders prior reset are handled after reset)<br><br>
 
@@ -257,9 +258,7 @@ until next game reset. Friday is DAY OFF, back saturday.<br><br>
 `+spanText("lime",` 
 
 
-🫤 (Day 16~18) 11/25~27 : Internet provider will be working on cables so I will<br>
-try to be available after reset around 3AM, active until 5, relax and close at 6AM<br>
-(hopefully it will be stable enough to have some converting done ... cross fingers `+spanText("","🤞",22)+` )
+(Days 16~20) 11/25~28 : Back to Weekdays business hours. (11/29 Usual Day OFF)
 
 `)+`
 `)
@@ -461,7 +460,6 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",display:"none"})
     addEle({dad:cont,text:typical,border:"teal solid 3px",radius:"20px",padding:"5px 10px",marginT:"5px"})
 
 getID("shopCont").click()
-getID("InfoClick").click()
 //getID("InfoClick").click()
 
 
