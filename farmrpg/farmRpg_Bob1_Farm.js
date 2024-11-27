@@ -17,11 +17,11 @@ let buildP = true
 let copyNb = 0
 let MCP = 100000
 
-let OJM = 260827
-let LEM = 235864
-let LNM = 116588
-let CIM = 67618
-let APM = 39589
+let OJM = 273668
+let LEM = 247879
+let LNM = 121796
+let CIM = 69412
+let APM = 41769
 
 
 let lastUp = "11/27 22:50 🇯🇵"
@@ -723,6 +723,8 @@ checkDailyMods()
 /me LF ((Orange Juice))((Arnold Palmer)) to help refill the shop pls ty ! ((Piece of Heart))
 
 /me LF up to 500((Arnold Palmer)) to finish refill the shop pls ty ! ((Piece of Heart))
+
+/me LF ((Orange Juice)) LN((Large Net)) to help refill the shop pls ty ! ((Piece of Heart))
 
 
 player req net contract : jefrills
