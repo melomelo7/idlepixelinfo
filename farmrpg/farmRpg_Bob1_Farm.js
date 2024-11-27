@@ -24,7 +24,7 @@ let CIM = 67618
 let APM = 39589
 
 
-let lastUp = "11/26 23:30 🇯🇵"
+let lastUp = "11/27 22:50 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -311,6 +311,35 @@ subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px",alignItems:"center"})
         txt = spanText("","⚠️",24)+" Daily Mods (Payout autoSwap) [ " + spanText("yellow",cpt) + " ]"
         getID("dailyModsText").innerHTML = txt
     }
+
+
+
+    subC1 = addEle({dad:cont,setClass:"contRow",margin:"10px 5px",alignItems:"center"})
+        addEle({dad:subC1,text:"🔥",backC:"",border:"red solid 2px",radius:"10px",fontS:"24px"})
+        addEle({dad:subC1,text:spanText("yellow","BIG Tip",22),margin:"0 10px"})
+        addEle({dad:subC1,text:"🔽",border:"lime solid 2px",radius:"5px",
+        cursor:"pointer",height:"fit-content",setFunc:(e)=>{
+            getID("bigTip").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
+            e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
+        }}) // 
+        addEle({dad:subC1,text:"💡",backC:"",radius:"10px",fontS:"24px"})
+        addEle({dad:cont,setID:"bigTip",display:"none",padding:"5px",
+        border:"yellow solid 2px",radius:"10px"})
+            subC2 = addEle({dad:getID("bigTip"),setClass:"contRow",alignItems:"center",justifyC:"space-around"})
+                txt = "./cleverBox.jpg"
+                addEle({dad:subC2,what:"img",img2Sizes:"350:350",imgFullSrc:txt,radius:"10px"})
+                txt = spanText("yellow",`
+                `+spanText("lime","(works also in Workshop)")+`
+                <br><br>
+                You can organize items to be<br> 
+                at the top of the page and not<br>
+                always look for them in the list.<br>
+                Just click the 🤍`+spanText("white","Heart")+` icon on<br>
+                the left of the item name to turn<br>it ❤️`+spanText("red","Red")+`.<br>
+                `,20)
+                addEle({dad:subC2,text:txt,margin:"5px"})
+
+
 
     txt = spanText("lime",`-- Type amounts to build (or test) your order,
     <br>then Click on [Copy NOLA] and msg me ingame --<br><br>
