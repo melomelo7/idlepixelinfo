@@ -24,7 +24,7 @@ let CIM = 69412
 let APM = 41769
 
 
-let lastUp = "11/27 22:50 🇯🇵"
+let lastUp = "11/28 19:20 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -117,7 +117,7 @@ let comboArr = [
 ]
 
 let convArray = [
-    {ref:0,nola:"N",label:"Small 🐟Nets",to:"⏩ Large 🐟Nets",ratio:"1000⏩75"},
+    {ref:0,nola:"N",label:"Small 🐟Nets",to:"⏩ LN (Large 🐟Nets)",ratio:"1000⏩75"},
     {ref:1,nola:"O",label:"Oranges 🍊",to:"⏩ Orange Juice",ratio:"3⏩1"},
     {ref:2,nola:"L(LE)",label:"Lemons 🍋",to:"⏩ Lemonade",ratio:"3⏩1"},
     {ref:3,nola:"L(AP)",label:"Lemons 🍋",to:"⏩ AP (Arnold Palmer)",ratio:"30⏩1"},
@@ -125,11 +125,11 @@ let convArray = [
 ]
 
 let dailySwaps = [
-    {active:false,fromIdx:1,toIdx:3,// OJ > AP
-     percent:20
+    {active:true,fromIdx:1,toIdx:3,// OJ > AP
+     percent:15
      ,ratio:"10:1"},
 
-     {active:true,fromIdx:1,toIdx:0,// OJ > LNs **
+     {active:false,fromIdx:1,toIdx:0,// OJ > LNs **
      percent:15
      ,ratio:"15:10"},
 
@@ -342,7 +342,7 @@ subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px",alignItems:"center"})
 
 
     txt = spanText("lime",`-- Type amounts to build (or test) your order,
-    <br>then Click on [Copy NOLA] and msg me ingame --<br><br>
+    <br>then Click on [`+spanText("yellow","Copy NOLA")+`] and msg me ingame --<br><br>
     (usually the result is rounded to closest multiple of 5)`,20)
     subC1 = addEle({dad:cont,text:txt,
     marginT:"20px",textA:"center"})
@@ -413,7 +413,7 @@ function CPAm(e){
         subC1.children[3].click()
 
     subC1 = addEle({dad:subC2,setClass:"contCol",alignItems:"center",justifyC:"center"})
-        addEle({dad:subC1,setClass:"btn",text:"Copy NOLA<br>* to paste in ingame msg for me *",
+        addEle({dad:subC1,setClass:"btn",text:spanText("yellow","Copy NOLA",20)+"<br>* to paste in ingame msg for me *",
         border:"orange solid 2px", height:"fit-content",Width:"100%",padding:"10px",
         backC:"#2C5B52",textC:"lime",marginL:"10px",
         setFunc:()=>{navigator.clipboard.writeText(nolaP.value)}})
