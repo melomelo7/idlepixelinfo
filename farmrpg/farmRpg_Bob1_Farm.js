@@ -24,7 +24,7 @@ let CIM = 69412
 let APM = 41769
 
 
-let lastUp = "11/28 19:20 🇯🇵"
+let lastUp = "11/28 22:35 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -202,10 +202,12 @@ cont = addEle({dad:body,setClass:"contRow",margin:"10px 30px",alignItems:"center
     addEle({dad:cont,text:"🟢 Conversion Shop "+spanText("yellow","V"+shopV,20),margin:"0 20px"})
     addEle({dad:cont,text:"🔽",border:"lime solid 2px",radius:"5px",setID:"shopCont",
     cursor:"pointer",height:"fit-content",setFunc:(e)=>{
-        getID("shop").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
-        e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
+//        getID("shop").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
+//        e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
     }})
     addEle({dad:cont,text:"🏠",fontS:"30px",marginL:"20px"})
+    txt = "Shop now closed, tomorrow day OFF<br>... See you guys on Saturday !"
+    addEle({dad:cont,text:txt,fontS:"22px",marginL:"20px",border:"lime 2px solid",padding:"5px"})
 
 let liner = addEle({dad:body,setClass:"contRow"})
 
