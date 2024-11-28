@@ -17,11 +17,11 @@ let buildP = true
 let copyNb = 0
 let MCP = 100000
 
-let OJM = 273668
-let LEM = 247879
-let LNM = 121796
-let CIM = 69412
-let APM = 41769
+let OJM = 287157
+let LEM = 260752
+let LNM = 127725
+let CIM = 71662
+let APM = 43389
 
 
 let lastUp = "11/28 22:35 🇯🇵"
@@ -650,11 +650,11 @@ function roundUP(val,step){
 
 
 let masteriesArr = {
-    main : [{label:"OJ Mastery",val:OJM > MCP*10 ? MCP*10 : OJM,cap:MCP*10},
-            {label:"Lemonade Mastery",val:LEM > MCP*10 ? MCP*10 : LEM,cap:MCP*10},
-            {label:"LNs Mastery",val:LNM > MCP*10 ? MCP*10 :LNM,cap:MCP*10},],
-    subs : [{label:"Cider Mastery",val:CIM > MCP ? MCP : CIM,cap:MCP},
-            {label:"AP Mastery",val:APM > MCP ? MCP : APM,cap:MCP},]
+    main : [{label:"OJ Mastery MM",val:OJM > MCP*10 ? MCP*10 : OJM,cap:MCP*10},
+            {label:"Lemonade Mastery MM",val:LEM > MCP*10 ? MCP*10 : LEM,cap:MCP*10},
+            {label:"LNs Mastery MM",val:LNM > MCP*10 ? MCP*10 :LNM,cap:MCP*10},],
+    subs : [{label:"Cider Mastery GM",val:CIM > MCP ? MCP : CIM,cap:MCP},
+            {label:"AP Mastery GM",val:APM > MCP ? MCP : APM,cap:MCP},]
 }
 
 cont = addEle({dad:body,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
