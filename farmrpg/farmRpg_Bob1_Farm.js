@@ -17,14 +17,16 @@ let buildP = true
 let copyNb = 0
 let MCP = 100000
 
+let shopOpen = false
+
 let OJM = 287157
 let LEM = 260752
-let LNM = 127725
+let LNM = 128044
 let CIM = 71662
 let APM = 43389
 
 
-let lastUp = "11/28 22:35 🇯🇵"
+let lastUp = "11/29 17:00 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -202,12 +204,16 @@ cont = addEle({dad:body,setClass:"contRow",margin:"10px 30px",alignItems:"center
     addEle({dad:cont,text:"🟢 Conversion Shop "+spanText("yellow","V"+shopV,20),margin:"0 20px"})
     addEle({dad:cont,text:"🔽",border:"lime solid 2px",radius:"5px",setID:"shopCont",
     cursor:"pointer",height:"fit-content",setFunc:(e)=>{
-//        getID("shop").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
-//        e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
+        if(shopOpen){
+            getID("shop").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
+            e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
+        }
     }})
     addEle({dad:cont,text:"🏠",fontS:"30px",marginL:"20px"})
-    txt = "Shop now closed, tomorrow day OFF<br>... See you guys on Saturday !"
-    addEle({dad:cont,text:txt,fontS:"22px",marginL:"20px",border:"lime 2px solid",padding:"5px"})
+    if(!shopOpen){
+        txt = "Shop now closed, 11/29 day OFF<br>... See you guys on Saturday !"
+        addEle({dad:cont,text:txt,fontS:"22px",marginL:"20px",border:"lime 2px solid",padding:"5px"})
+    }
 
 let liner = addEle({dad:body,setClass:"contRow"})
 
