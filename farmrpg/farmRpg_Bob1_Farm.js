@@ -20,23 +20,19 @@ let master = false
 let orderPool = undefined
 
 let shopOpen = false
-let closeTxt = "Shop now closed ...<br>See you guys on Sunday !"
+let closeTxt = "Shop now closed ...<br>See you guys on Sunday !<br>(after Reset until 4AM, sligh afk time close 5AM)"
 
 //let closeTxt = "Shop now closed, 11/29 day OFF<br>... See you guys on Saturday !"
 
-
-let OJM = 287157
-let LEM = 260752
-let LNM = 128044
-let CIM = 71662
-let APM = 43389
-
+let OJM = 303929
+let LEM = 279012
+let LNM = 133636
+let CIM = 76664
+let APM = 44832
 
 let lastUp = "11/30 20:00 🇯🇵"
 
 const body = document.querySelector("body")
-
-
 
 
 let welcome = spanText("lime",`
@@ -787,6 +783,8 @@ checkDailyMods()
 
 /* 
 
+((Orange Juice))((Arnold Palmer))((Apple Cider))LN ((Large Net))
+
 /me LF any ((Orange Juice))((Arnold Palmer))((Apple Cider))LN((Large Net)) to help refill the shop pls ty ! ((Piece of Heart))
 
 /me LF 1 MB ((Orange Juice))((Arnold Palmer))((Apple Cider)) to help refill the shop pls ty ! ((Piece of Heart))
@@ -795,7 +793,7 @@ checkDailyMods()
 
 /me LF up to 500((Arnold Palmer)) to finish refill the shop pls ty ! ((Piece of Heart))
 
-/me LF LN((Large Net)) ((Apple Cider)) to help refill the shop pls ty ! ((Piece of Heart))
+/me LF ((Orange Juice)) LN ((Large Net)) to help refill the shop pls ty ! ((Piece of Heart))
 
 /me LF ((Glass Orb)) to refill shop bottles a bit thanks !
 
