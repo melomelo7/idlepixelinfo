@@ -17,7 +17,7 @@ let buildP = true
 let copyNb = 0
 let MCP = 100000
 
-let shopOpen = false
+let shopOpen = true
 
 let OJM = 287157
 let LEM = 260752
@@ -26,7 +26,7 @@ let CIM = 71662
 let APM = 43389
 
 
-let lastUp = "11/29 17:00 🇯🇵"
+let lastUp = "11/30 10:00 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -127,11 +127,11 @@ let convArray = [
 ]
 
 let dailySwaps = [
-    {active:true,fromIdx:1,toIdx:3,// OJ > AP
+    {active:false,fromIdx:1,toIdx:3,// OJ > AP
      percent:15
      ,ratio:"10:1"},
 
-     {active:false,fromIdx:1,toIdx:0,// OJ > LNs **
+     {active:true,fromIdx:1,toIdx:0,// OJ > LNs **
      percent:15
      ,ratio:"15:10"},
 
@@ -266,7 +266,9 @@ until next game reset. Friday is DAY OFF, back saturday.<br><br>
 `+spanText("lime",` 
 
 
-(Days 16~20) 11/25~28 : Back to Weekdays business hours. (11/29 Usual Day OFF)
+(Days 22~23) 11/30~12/1 : working after Reset until 4AM, sligh afk time close around 5AM<br>
+Have a great week end everyone ! `+spanText("","🤠",20)+`
+
 
 `)+`
 `)
@@ -497,7 +499,7 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",display:"none"})
     addEle({dad:cont,text:typical,border:"teal solid 3px",radius:"20px",padding:"5px 10px",marginT:"5px"})
 
 getID("shopCont").click()
-//getID("InfoClick").click()
+getID("InfoClick").click()
 
 
 function evalConv(e){
@@ -732,7 +734,7 @@ checkDailyMods()
 
 /me LF up to 500((Arnold Palmer)) to finish refill the shop pls ty ! ((Piece of Heart))
 
-/me LF ((Orange Juice)) LN((Large Net)) to help refill the shop pls ty ! ((Piece of Heart))
+/me LF LN((Large Net)) ((Apple Cider)) to help refill the shop pls ty ! ((Piece of Heart))
 
 
 player req net contract : jefrills
