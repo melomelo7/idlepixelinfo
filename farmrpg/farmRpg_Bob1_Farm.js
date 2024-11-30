@@ -16,8 +16,14 @@ let recap = ""
 let buildP = true
 let copyNb = 0
 let MCP = 100000
+let master = false
+let orderPool = undefined
 
-let shopOpen = true
+let shopOpen = false
+let closeTxt = "Shop now closed ...<br>See you guys on Sunday !"
+
+//let closeTxt = "Shop now closed, 11/29 day OFF<br>... See you guys on Saturday !"
+
 
 let OJM = 287157
 let LEM = 260752
@@ -26,7 +32,7 @@ let CIM = 71662
 let APM = 43389
 
 
-let lastUp = "11/30 10:00 🇯🇵"
+let lastUp = "11/30 20:00 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -211,8 +217,7 @@ cont = addEle({dad:body,setClass:"contRow",margin:"10px 30px",alignItems:"center
     }})
     addEle({dad:cont,text:"🏠",fontS:"30px",marginL:"20px"})
     if(!shopOpen){
-        txt = "Shop now closed, 11/29 day OFF<br>... See you guys on Saturday !"
-        addEle({dad:cont,text:txt,fontS:"22px",marginL:"20px",border:"lime 2px solid",padding:"5px"})
+        addEle({dad:cont,text:closeTxt,fontS:"22px",marginL:"20px",border:"lime 2px solid",padding:"5px",textA:"center"})
     }
 
 let liner = addEle({dad:body,setClass:"contRow"})
@@ -402,10 +407,13 @@ function CPAm(e){
     }
 }
 
-  subC2 = addEle({dad:cont,setClass:"contRow",})
+let subC4 = addEle({dad:cont,setClass:"contRow",alignItems:"center"})
 
-    subC1 = addEle({dad:subC2,setClass:"contRow",border:"teal solid 3px",radius:"10px",
-            margin:"",width:"fit-content",padding:"10px",alignItems:"center"})
+  let subC3 = addEle({dad:subC4,setClass:"contCol",border:"teal solid 3px",
+              radius:"10px",padding:"5px"})
+    subC2 = addEle({dad:subC3,setClass:"contRow",})
+      subC1 = addEle({dad:subC2,setClass:"contRow",
+            margin:"",width:"fit-content",padding:"0 10px",alignItems:"center"})
         addEle({dad:subC1,what:"radio",isInput:true,setVal:0,setName:"towerTier",setID:"none0",
         setFunc:(e)=>{getID("towerTierTxt").innerHTML="Tower tier : "+
         spanText("lime",comboArr[(Number(e.srcElement.value)+1)].label);evalConv(e)}})
@@ -422,12 +430,18 @@ function CPAm(e){
         addEle({dad:subC1,text:"Combo 0",setID:"comboTxt",marginL:"10px"})
         subC1.children[3].click()
 
-    subC1 = addEle({dad:subC2,setClass:"contCol",alignItems:"center",justifyC:"center"})
+      subC1 = addEle({dad:subC4,setClass:"contCol",alignItems:"center",justifyC:"center"})
         addEle({dad:subC1,setClass:"btn",text:spanText("yellow","Copy NOLA",20)+"<br>* to paste in ingame msg for me *",
         border:"orange solid 2px", height:"fit-content",Width:"100%",padding:"10px",
         backC:"#2C5B52",textC:"lime",marginL:"10px",
         setFunc:()=>{navigator.clipboard.writeText(nolaP.value)}})
+    
 
+    subC2 = addEle({dad:subC3,setClass:"contRow",justifyC:"center",alignItems:"center"})
+        addEle({dad:subC2,text:"Player Name("+spanText("yellow","*optional")+")"})
+        addEle({dad:subC2,what:"input",isInput:true,setID:"nolaName",height:"fit-content",
+        margin:"0 10px",setFunc:evalConv})
+        addEle({dad:subC2,text:"🤠",fontS:"20px",setFunc:()=>{if(master){masterUse()}}})
 
 
     subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
@@ -469,7 +483,6 @@ function evalSplit(e){
 
     thisEl.split = (rng.max - rng.value) - rng.max  
 
-
     checkNOLA()
 
 }
@@ -503,7 +516,6 @@ getID("InfoClick").click()
 
 
 function evalConv(e){
-
     if(buildP ===true){return}
 
     let val = undefined
@@ -533,6 +545,7 @@ function evalConv(e){
                 payout:0,
                 autoSwap:0,
                 split:0,
+                nolaName:""
             })
         } else {getID("eval:"+i).innerHTML = spanText("","💩",30)}
     }
@@ -600,16 +613,21 @@ if( txt > 0){
     getID("apRange").min = 0
 } 
 
+
+    currentO.nolaName = getID("nolaName").value !=="" ? getID("nolaName").value : ""
     checkNOLA()
 }
 
 
 function checkNOLA(){
+//    currentO.nolaName = getID("nolaName").value !=="" ? getID("nolaName").value : ""
     recap = "Tower tier "
     let towerT = undefined
     let grp = document.getElementsByName("towerTier")
     grp.forEach(it=>{if(it.checked){ towerT = Number(it.value)+1}})
-    recap += comboArr[towerT].label + "<br><br>"
+    txt = comboArr[towerT].label + "<br>"
+    txt += currentO.nolaName !=="" ? "Player : " + currentO.nolaName + "<br>": "" 
+    recap += txt + "<br>"
     for(let i=0;i<currentO.length;i++){
         let itm = currentO.filter(it=>it.idx===i)[0]
         txt = itm.autoSwap === 0 ?
@@ -722,6 +740,49 @@ function getPrgBar(dad,val,cap,borderC="green"){
         addEle({dad:subC1,height:"100%",width:percent+"%",backC:col,radius:"20px"})
 }
 
+
+function masterUse(){
+    
+    orderPool.push(currentO)
+
+
+    console.log(orderPool)
+
+    saveToBrowser()
+
+/*
+    console.log(currentO)
+
+    let dt = new Date()
+
+    let dtY = dt.getFullYear()
+    let dtM = dt.getMonth()+1
+    let dtD = dt.getDate()
+
+    console.log(dtY)
+    console.log(dtM)
+    console.log(dtD)
+*/
+
+
+}
+
+
+function saveToBrowser(){
+    let key = "farmRPGOrders"
+    let mySave = JSON.stringify(orderPool)
+    localStorage.setItem(key,mySave)
+}
+
+function loadFromBrowser(){
+    let key = "farmRPGOrders"
+    let mySave = localStorage.getItem(key)
+    if(mySave===null)
+        {txt="⛔ No Progress found 👿"}
+    else{orderPool=JSON.parse(mySave)}
+}
+
+
 checkDailyMods()
 
 /* 
@@ -736,6 +797,7 @@ checkDailyMods()
 
 /me LF LN((Large Net)) ((Apple Cider)) to help refill the shop pls ty ! ((Piece of Heart))
 
+/me LF ((Glass Orb)) to refill shop bottles a bit thanks !
 
 player req net contract : jefrills
 
