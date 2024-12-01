@@ -19,8 +19,9 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = true
-let closeTxt = "Shop now closed ...<br>See you guys on Sunday !<br>(after Reset until 4AM, sligh afk time close 5AM)"
+let shopOpen = false
+let closeTxt = `Shop now closed ...<br>See you guys on Monday !<br>
+(after Reset until 1AM,AFK time back around 3:30AM until 5AM)`
 
 //let closeTxt = "Shop now closed, 11/29 day OFF<br>... See you guys on Saturday !"
 
@@ -30,7 +31,7 @@ let LNM = 133636
 let CIM = 76664
 let APM = 44832
 
-let lastUp = "12/01 15:05 🇯🇵"
+let lastUp = "12/01 20:25 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -255,7 +256,7 @@ subC1 = addEle({dad:cont,setClass:"contRow",margin:"10px 0 0 5px"})
 txt = spanText("cyan",`
 *Time reference is 🇺🇸 server time, that you can see in chat for example*<br><br>
 Weekdays business hours : after game reset until 1AM,<br>
-AFK time, back around 3:30M until 5AM<br>
+AFK time, back around 3:30AM until 5AM<br>
 After 5AM low activity and afk time, closed around 6AM<br>
 until next game reset. Friday is DAY OFF, back saturday.<br><br>
 `+spanText("yellow",`❗🛫Vacation time coming Mid-December(`+spanText("lime","14")+
@@ -619,6 +620,9 @@ if( txt > 0){
 
 
 function checkNOLA(){
+
+    console.log(currentO.nolaName)
+
 //    currentO.nolaName = getID("nolaName").value !=="" ? getID("nolaName").value : ""
     recap = "Tower tier "
     let towerT = undefined
@@ -760,6 +764,8 @@ function removeKey(key=savK){
 
 function addH(){
     if(currentO){
+        if(currentO.nolaName==="" && getID("nolaName").value !=="")
+        {currentO.nolaName=getID("nolaName").value}
         orderPool.push(currentO)
         saveToBrowser()
         getID("historyC").innerHTML = "sav : " + currentO.nolaName
