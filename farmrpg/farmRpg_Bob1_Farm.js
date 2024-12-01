@@ -16,10 +16,10 @@ let recap = ""
 let buildP = true
 let copyNb = 0
 let MCP = 100000
-let master = false
-let orderPool = undefined
+let orderPool = []
+let savK = "farmRPGOrders"
 
-let shopOpen = false
+let shopOpen = true
 let closeTxt = "Shop now closed ...<br>See you guys on Sunday !<br>(after Reset until 4AM, sligh afk time close 5AM)"
 
 //let closeTxt = "Shop now closed, 11/29 day OFF<br>... See you guys on Saturday !"
@@ -30,7 +30,7 @@ let LNM = 133636
 let CIM = 76664
 let APM = 44832
 
-let lastUp = "11/30 20:00 🇯🇵"
+let lastUp = "12/01 15:05 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -404,9 +404,8 @@ function CPAm(e){
 }
 
 let subC4 = addEle({dad:cont,setClass:"contRow",alignItems:"center"})
-
-  let subC3 = addEle({dad:subC4,setClass:"contCol",border:"teal solid 3px",
-              radius:"10px",padding:"5px"})
+  let subC3 = addEle({dad:subC4,setClass:"contCol",border:"teal solid 3px",overflow:"hidden",
+        radius:"10px",padding:"5px",height:checkM() === "bob" ? "fit-content" : "20px"})
     subC2 = addEle({dad:subC3,setClass:"contRow",})
       subC1 = addEle({dad:subC2,setClass:"contRow",
             margin:"",width:"fit-content",padding:"0 10px",alignItems:"center"})
@@ -433,12 +432,16 @@ let subC4 = addEle({dad:cont,setClass:"contRow",alignItems:"center"})
         setFunc:()=>{navigator.clipboard.writeText(nolaP.value)}})
     
 
-    subC2 = addEle({dad:subC3,setClass:"contRow",justifyC:"center",alignItems:"center"})
+    subC2 = addEle({dad:subC3,setClass:"contRow",justifyC:"center",alignItems:"center",marginT:"10px"})
         addEle({dad:subC2,text:"Player Name("+spanText("yellow","*optional")+")"})
         addEle({dad:subC2,what:"input",isInput:true,setID:"nolaName",height:"fit-content",
         margin:"0 10px",setFunc:evalConv})
-        addEle({dad:subC2,text:"🤠",fontS:"20px",setFunc:()=>{if(master){masterUse()}}})
 
+    subC2 = addEle({dad:subC3,setClass:"contRow",justifyC:"center",alignItems:"center",marginT:"5px"})    
+        addEle({dad:subC2,setClass:"btn",text:"Add H",setFunc:addH})
+        addEle({dad:subC2,setClass:"btn",text:"Check H",setFunc:readH})
+        addEle({dad:subC2,setClass:"btn",text:"Wipe H",setFunc:removeKey})
+        addEle({dad:subC2,setID:"historyC"})
 
     subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
         addEle({dad:subC1,text:"-!-🍋 You always get AP but today a quest require Lemonade ? 🍋-!-",
@@ -736,48 +739,37 @@ function getPrgBar(dad,val,cap,borderC="green"){
         addEle({dad:subC1,height:"100%",width:percent+"%",backC:col,radius:"20px"})
 }
 
-
-function masterUse(){
-    
-    orderPool.push(currentO)
-
-
-    console.log(orderPool)
-
-    saveToBrowser()
-
-/*
-    console.log(currentO)
-
-    let dt = new Date()
-
-    let dtY = dt.getFullYear()
-    let dtM = dt.getMonth()+1
-    let dtD = dt.getDate()
-
-    console.log(dtY)
-    console.log(dtM)
-    console.log(dtD)
-*/
-
-
+function saveToBrowser(key=savK){
+    localStorage.setItem(key,JSON.stringify(orderPool))
 }
 
+function mastering(key=savK+"M"){localStorage.setItem(key,"bob")} //mastering()
+function shootM(key=savK+"M"){localStorage.removeItem(key)} //shootM()
+function checkM(){return localStorage.getItem(savK+"M")}
 
-function saveToBrowser(){
-    let key = "farmRPGOrders"
-    let mySave = JSON.stringify(orderPool)
-    localStorage.setItem(key,mySave)
-}
-
-function loadFromBrowser(){
-    let key = "farmRPGOrders"
+function loadFromBrowser(key=savK){
     let mySave = localStorage.getItem(key)
-    if(mySave===null)
-        {txt="⛔ No Progress found 👿"}
-    else{orderPool=JSON.parse(mySave)}
+    if(mySave===null){return undefined}
+    else{return JSON.parse(mySave)}
 }
 
+function removeKey(key=savK){
+    console.log("do")
+    localStorage.removeItem(key)
+}
+
+function addH(){
+    if(currentO){
+        orderPool.push(currentO)
+        saveToBrowser()
+        getID("historyC").innerHTML = "sav : " + currentO.nolaName
+    }
+}
+
+function readH(){
+    let myS = loadFromBrowser()
+    console.log(myS)
+}
 
 checkDailyMods()
 
@@ -793,7 +785,7 @@ checkDailyMods()
 
 /me LF up to 500((Arnold Palmer)) to finish refill the shop pls ty ! ((Piece of Heart))
 
-/me LF ((Orange Juice)) LN ((Large Net)) to help refill the shop pls ty ! ((Piece of Heart))
+/me LF LN ((Large Net)) ((Glass Orb)) to help refill the shop pls ty ! ((Piece of Heart))
 
 /me LF ((Glass Orb)) to refill shop bottles a bit thanks !
 
