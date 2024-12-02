@@ -19,19 +19,19 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = false
+let shopOpen = true
 let closeTxt = `Shop now closed ...<br>See you guys on Monday !<br>
-(after Reset until 1AM,AFK time back around 3:30AM until 5AM)`
+(after Reset until 1AM, AFK time back around 3:30AM until 5AM)`
 
 //let closeTxt = "Shop now closed, 11/29 day OFF<br>... See you guys on Saturday !"
 
-let OJM = 303929
-let LEM = 279012
-let LNM = 133636
-let CIM = 76664
-let APM = 44832
+let OJM = 316874
+let LEM = 290616
+let LNM = 138365
+let CIM = 78620
+let APM = 45932
 
-let lastUp = "12/01 20:25 🇯🇵"
+let lastUp = "12/02 14:40 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -268,8 +268,7 @@ until next game reset. Friday is DAY OFF, back saturday.<br><br>
 `+spanText("lime",` 
 
 
-(Days 22~23) 11/30~12/1 : working after Reset until 4AM, sligh afk time close around 5AM<br>
-Have a great week end everyone ! `+spanText("","🤠",20)+`
+(Days 24~27) 12/02~12/05 : after reset until 1AM, AFK time, back around 3:30AM until 5AM
 
 
 `)+`
@@ -441,7 +440,7 @@ let subC4 = addEle({dad:cont,setClass:"contRow",alignItems:"center"})
     subC2 = addEle({dad:subC3,setClass:"contRow",justifyC:"center",alignItems:"center",marginT:"5px"})    
         addEle({dad:subC2,setClass:"btn",text:"Add H",setFunc:addH})
         addEle({dad:subC2,setClass:"btn",text:"Check H",setFunc:readH})
-        addEle({dad:subC2,setClass:"btn",text:"Wipe H",setFunc:removeKey})
+        addEle({dad:subC2,setClass:"btn",text:"Wipe H",setFunc:()=>{removeKey()}})
         addEle({dad:subC2,setID:"historyC"})
 
     subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
@@ -620,9 +619,6 @@ if( txt > 0){
 
 
 function checkNOLA(){
-
-    console.log(currentO.nolaName)
-
 //    currentO.nolaName = getID("nolaName").value !=="" ? getID("nolaName").value : ""
     recap = "Tower tier "
     let towerT = undefined
@@ -764,9 +760,14 @@ function removeKey(key=savK){
 
 function addH(){
     if(currentO){
-        if(currentO.nolaName==="" && getID("nolaName").value !=="")
-        {currentO.nolaName=getID("nolaName").value}
-        orderPool.push(currentO)
+        orderPool.push({
+            player : getID("nolaName").value !=="" ? getID("nolaName").value : "Player X",
+            order : currentO 
+        })
+
+
+//        console.log(currentO)
+  //      orderPool.push(currentO)
         saveToBrowser()
         getID("historyC").innerHTML = "sav : " + currentO.nolaName
     }
@@ -782,6 +783,8 @@ checkDailyMods()
 /* 
 
 ((Orange Juice))((Arnold Palmer))((Apple Cider))LN ((Large Net))
+
+/me LF any ((Orange Juice)) ((Glass Orb)) to help refill the shop pls ty ! ((Piece of Heart))
 
 /me LF any ((Orange Juice))((Arnold Palmer))((Apple Cider))LN((Large Net)) to help refill the shop pls ty ! ((Piece of Heart))
 
