@@ -19,19 +19,20 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = false
-let closeTxt = `Shop now closed ...<br>See you guys on Tuesday !<br>
+let shopOpen = true
+let closeTxt = `Shop now closed ...<br>See you guys on Wednesday !<br>
 (after Reset until 1AM, AFK time back around 3:30AM until 5AM)`
 
 //let closeTxt = "Shop now closed, 11/29 day OFF<br>... See you guys on Saturday !"
 
-let OJM = 316874
-let LEM = 290616
-let LNM = 138365
-let CIM = 78620
-let APM = 45932
+let OJM = 329924
+let LEM = 303715
+let LNM = 143586
+let CIM = 80630
+let APM = 46831
 
-let lastUp = "12/02 20:10 🇯🇵"
+
+let lastUp = "12/03 14:50 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -259,7 +260,7 @@ Weekdays business hours : after game reset until 1AM,<br>
 AFK time, back around 3:30AM until 5AM<br>
 After 5AM low activity and afk time, closed around 6AM<br>
 until next game reset. Friday is DAY OFF, back saturday.<br><br>
-`+spanText("yellow",`❗🛫Vacation time coming Mid-December(`+spanText("lime","14")+
+`+spanText("yellow",`❗🛫Vacation time coming Mid-December(`+spanText("lime","13")+
 `) until End-December(`+spanText("lime","27")+`)❗ 
 <br>❗🛬 traveling time so the shop will very likely not open 🌍❗<br><br>`)+`
 (received orders prior reset are handled after reset)<br><br>
@@ -787,9 +788,12 @@ checkDailyMods()
 
 ((Orange Juice))((Arnold Palmer))((Apple Cider))LN ((Large Net))
 
+/me LF LN ((Large Net))((Orange Juice)) to help refill the shop pls ty ! ((Piece of Heart))
+
+
 /me LF any ((Orange Juice)) ((Glass Orb)) to help refill the shop pls ty ! ((Piece of Heart))
 
-/me LF any ((Orange Juice))((Arnold Palmer))((Apple Cider))LN((Large Net)) to help refill the shop pls ty ! ((Piece of Heart))
+/me LF LN ((Large Net))((Orange Juice))((Arnold Palmer))((Apple Cider)) to help refill the shop pls ty ! ((Piece of Heart))
 
 /me LF 1 MB ((Orange Juice))((Arnold Palmer))((Apple Cider)) to help refill the shop pls ty ! ((Piece of Heart))
 
