@@ -25,11 +25,11 @@ let closeTxt = `Shop now closed ...<br>See you guys on Wednesday !<br>
 
 //let closeTxt = "Shop now closed, 11/29 day OFF<br>... See you guys on Saturday !"
 
-let OJM = 329924
-let LEM = 303715
-let LNM = 143586
-let CIM = 80630
-let APM = 46831
+let OJM = 339223
+let LEM = 312761
+let LNM = 147990
+let CIM = 82173
+let APM = 47462
 
 
 let lastUp = "12/03 20:10 🇯🇵"
