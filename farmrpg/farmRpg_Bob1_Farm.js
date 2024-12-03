@@ -19,7 +19,7 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = true
+let shopOpen = false
 let closeTxt = `Shop now closed ...<br>See you guys on Wednesday !<br>
 (after Reset until 1AM, AFK time back around 3:30AM until 5AM)`
 
@@ -32,7 +32,7 @@ let CIM = 80630
 let APM = 46831
 
 
-let lastUp = "12/03 14:50 🇯🇵"
+let lastUp = "12/03 20:10 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -761,16 +761,22 @@ function removeKey(key=savK){
 
 function addH(){
     if(currentO){
+        let towerT = undefined
+        let grp = document.getElementsByName("towerTier")
+        grp.forEach(it=>{if(it.checked){ towerT = Number(it.value)+1}})
+
         let dt = new Date()
         let dtY = dt.getFullYear()
         let dtM = dt.getMonth()+1
         let dtD = dt.getDate()
         orderPool.push({
             player : getID("nolaName").value !=="" ? getID("nolaName").value : "Player X",
+            towerTier:towerT,
             year : dtY,
             month : dtM,
             day : dtD,
-            order : currentO 
+            order : currentO,
+            nola : getID("nolaP").textContent
         })
         saveToBrowser()
         getID("historyC").innerHTML = "sav : " + currentO.nolaName
