@@ -20,11 +20,14 @@ let orderPool = []
 let savK = "farmRPGOrders"
 
 let shopOpen = false
-let closeTxt = `Shop now closed ...<br>Today 12/04 was a BIG day, inventory is very low,<br>
-maybe tomorrow 12/05 shop will also be closed ...<br>Probably next opening Saturday ...`
+let closeTxt = `Shop now closed ...<br>Next opening tomorrow Thursdsday 12/05<br>
+(after Reset until 1AM, AFK time back around 3:30AM until 5AM)`
 
 /*
-,unsure !<br>
+brToday 12/04 was a BIG day, inventory is very low,<br>
+maybe tomorrow 12/05 shop will also be closed ...<br>Probably next opening Saturday ...`
+
+
 (after Reset until 1AM, AFK time back around 3:30AM until 5AM)`
 */
 
@@ -800,7 +803,7 @@ checkDailyMods()
 
 ((Orange Juice))((Arnold Palmer))((Apple Cider))LN ((Large Net))
 
-/me LF LN ((Orange Juice))((Large Net)) to help refill the shop pls ty ! ((Piece of Heart))
+/me LF LN ((Orange Juice)) to help refill the shop pls ty ! ((Piece of Heart))
 
 
 /me LF any ((Orange Juice)) ((Glass Orb)) to help refill the shop pls ty ! ((Piece of Heart))
