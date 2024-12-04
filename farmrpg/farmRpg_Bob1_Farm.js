@@ -19,7 +19,7 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = false
+let shopOpen = true
 let closeTxt = `Shop now closed ...<br>See you guys on Wednesday !<br>
 (after Reset until 1AM, AFK time back around 3:30AM until 5AM)`
 
