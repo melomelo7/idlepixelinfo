@@ -145,7 +145,7 @@ let dailySwaps = [
      ,ratio:"10:1"},
 
      {active:true,fromIdx:1,toIdx:0,// OJ > LNs **
-     percent:15
+     percent:20
      ,ratio:"15:10"},
 
      {active:false,fromIdx:0,toIdx:3,// LNs > AP
