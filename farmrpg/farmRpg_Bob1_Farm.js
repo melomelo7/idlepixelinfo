@@ -34,14 +34,14 @@ maybe tomorrow 12/05 shop will also be closed ...<br>Probably next opening Satur
 
 //let closeTxt = "Shop now closed, 11/29 day OFF<br>... See you guys on Saturday !"
 
-let OJM = 339223
-let LEM = 312761
-let LNM = 147990
-let CIM = 82173
-let APM = 47462
+let OJM = 355026
+let LEM = 328195
+let LNM = 154073
+let CIM = 85030
+let APM = 48570
 
 
-let lastUp = "12/04 20:25 🇯🇵"
+let lastUp = "12/04 23:55 🇯🇵"
 
 const body = document.querySelector("body")
 
