@@ -20,8 +20,8 @@ let orderPool = []
 let savK = "farmRPGOrders"
 
 let shopOpen = false
-let closeTxt = `Shop now closed ...<br>Today was a BIG day, inventory is very low,<br>
-maybe tomorrow shop will also be closed ...<br>Probably next opening Saturday ...`
+let closeTxt = `Shop now closed ...<br>Today 12/04 was a BIG day, inventory is very low,<br>
+maybe tomorrow 12/05 shop will also be closed ...<br>Probably next opening Saturday ...`
 
 /*
 ,unsure !<br>
