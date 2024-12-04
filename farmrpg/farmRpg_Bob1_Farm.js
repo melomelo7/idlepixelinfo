@@ -20,8 +20,14 @@ let orderPool = []
 let savK = "farmRPGOrders"
 
 let shopOpen = false
-let closeTxt = `Shop now closed ...<br>See you guys on Wednesday !<br>
+let closeTxt = `Shop now closed ...<br>Today was a BIG day, inventory is very low,<br>
+maybe tomorrow shop will also be closed ...<br>Probably next opening Saturday ...`
+
+/*
+,unsure !<br>
 (after Reset until 1AM, AFK time back around 3:30AM until 5AM)`
+*/
+
 
 //let closeTxt = "Shop now closed, 11/29 day OFF<br>... See you guys on Saturday !"
 
@@ -32,7 +38,7 @@ let CIM = 82173
 let APM = 47462
 
 
-let lastUp = "12/04 20:05 🇯🇵"
+let lastUp = "12/04 20:25 🇯🇵"
 
 const body = document.querySelector("body")
 
