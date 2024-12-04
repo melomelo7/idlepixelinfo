@@ -32,7 +32,7 @@ let CIM = 82173
 let APM = 47462
 
 
-let lastUp = "12/03 20:10 🇯🇵"
+let lastUp = "12/04 14:35 🇯🇵"
 
 const body = document.querySelector("body")
 
