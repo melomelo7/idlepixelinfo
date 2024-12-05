@@ -41,7 +41,7 @@ let CIM = 85030
 let APM = 48570
 
 
-let lastUp = "12/05 14:25 🇯🇵"
+let lastUp = "12/05 18:25 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -145,7 +145,7 @@ let dailySwaps = [
      ,ratio:"10:1"},
 
      {active:true,fromIdx:1,toIdx:0,// OJ > LNs **
-     percent:20
+     percent:15
      ,ratio:"15:10"},
 
      {active:false,fromIdx:0,toIdx:3,// LNs > AP
