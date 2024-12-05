@@ -21,7 +21,7 @@ let savK = "farmRPGOrders"
 
 let shopOpen = closed
 let closeTxt = `Shop now closed ...<br>Tomorrow 12/06 Day OFF, Next opening Saturday 12/07<br>
-(after Reset until 4AM, ralx/AFK until close 5AM)<br>
+(after Reset until 4AM, relax/afk until close 5AM)<br>
 `+spanText("yellow",`with my Subgoal about to complete on Cider, next week<br>
 will be the last one for apples to provide a Combo (up to 12/12)`)
 
