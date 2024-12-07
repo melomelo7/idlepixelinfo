@@ -19,8 +19,8 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = closed
-let closeTxt = `Shop now closed ...<br>Tomorrow 12/06 Day OFF, Next opening Saturday 12/07<br>
+let shopOpen = true
+let closeTxt = `Shop now closed ...<br>Next opening Saturday 12/07<br>
 (after Reset until 4AM, relax/afk until close 5AM)<br>
 `+spanText("yellow",`with my Subgoal about to complete on Cider, next week<br>
 will be the last one for apples to provide a Combo (up to 12/12)`)
@@ -36,14 +36,15 @@ maybe tomorrow 12/05 shop will also be closed ...<br>Probably next opening Satur
 
 //let closeTxt = "Shop now closed, 11/29 day OFF<br>... See you guys on Saturday !"
 
-let OJM = 355026
-let LEM = 328195
-let LNM = 154073
-let CIM = 85030
-let APM = 48570
+let OJM = 369141
+let LEM = 341935
+let LNM = 159234
+let CIM = 87009
+let APM = 49836
 
 
-let lastUp = "12/05 20:15 🇯🇵"
+
+let lastUp = "12/07 14:25 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -215,6 +216,48 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content"})
     }})
 
 
+    let goldArr = [
+        {label:"Apple Pie",active:true,buyV:"300",buyC:"G",sellV:"---",sellC:""}
+    ]
+
+    cont = addEle({dad:body,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
+    addEle({dad:cont,text:"🟡 Gold Corner ["+ spanText("yellow",goldArr.filter(it=>it.active===true).length,20)+"]",margin:"0 20px"})
+    addEle({dad:cont,text:"🔽",border:"lime solid 2px",radius:"5px",
+    cursor:"pointer",height:"fit-content",setFunc:(e)=>{
+        getID("goldCont").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
+        e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
+    }})
+    txt = "./gold.jpg"
+    addEle({dad:cont,what:"img",imgFullSrc:txt,imgSize:30,marginL:"20px"})
+    addEle({dad:body,margin:"10px 30px",setID:"goldCont",border:"lime solid 2px",
+    radius:"30px",display:"none",padding:"10px",width:"fit-content",setClass:"contCol"})
+      subC1 = addEle({dad:getID("goldCont"),setClass:"contRow"})
+        addEle({dad:subC1,text:"Message me if you are interested by any :",textA:"center",
+        marginB:"5px",width:"100%"})
+        subC2 = addEle({dad:getID("goldCont")})
+        tb = addEle({dad:subC2,what:"table"})
+        tr = addEle({dad:tb,what:"tr"})
+            addEle({dad:tr,what:"td",text:"Item",textA:"center",border:"teal solid 2px",radius:"5px"})
+            addEle({dad:tr,what:"td",text:"I Buy for",border:"teal solid 2px",padding:"0 5px",radius:"5px"})
+            addEle({dad:tr,what:"td",text:"I Sell for",border:"teal solid 2px",padding:"0 5px",radius:"5px"})
+        goldArr.forEach(it=>{
+            if(it.active){
+                tr = addEle({dad:tb,what:"tr"})
+                txt = "./"+ it.label.toLowerCase() + ".jpg"
+                tc = addEle({dad:tr,what:"td",border:"teal solid 2px",padding:"0 5px",radius:"5px"})
+                    let subC3 = addEle({dad:tc,setClass:"contRow",alignItems:"center"})
+                    addEle({dad:subC3,text:it.label,marginR:"5px"})
+                    addEle({dad:subC3,what:"img",imgSize:40,imgFullSrc:txt})
+                addEle({dad:tr,what:"td",text:spanText("yellow",it.buyV+" "+it.buyC),
+                border:"teal solid 2px",textA:"center",radius:"5px"})
+                addEle({dad:tr,what:"td",text:spanText("yellow",it.sellV+" "+it.sellC),
+                border:"teal solid 2px",textA:"center",radius:"5px"})
+            }
+        })
+
+
+
+
 cont = addEle({dad:body,setClass:"contRow",margin:"10px 30px",alignItems:"center"})
     addEle({dad:cont,text:"🟢 Conversion Shop "+spanText("yellow","V"+shopV,20),margin:"0 20px"})
     addEle({dad:cont,text:"🔽",border:"lime solid 2px",radius:"5px",setID:"shopCont",
@@ -273,19 +316,22 @@ After 5AM low activity and afk time, closed around 6AM<br>
 until next game reset. Friday is DAY OFF, back saturday.<br><br>
 `+spanText("yellow",`❗🛫Vacation time coming Mid-December(`+spanText("lime","13")+
 `) until End-December(`+spanText("lime","27")+`)❗ 
-<br>❗🛬 traveling time so the shop will very likely not open 🌍❗<br><br>`)+`
+<br>❗🛬 traveling time so .... sorry the shop will not open 🌍❗<br><br>`)+`
 (received orders prior reset are handled after reset)<br><br>
 
 
 `+spanText("lime",` 
 
 
-(Days 24~27) 12/02~12/05 : after reset until 1AM, AFK time, back around 3:30AM until 5AM
+(Days 29~30) 12/07~12/08 : after reset until 4AM, relax/afk until close 5AM<br>
+Starting the last 6 days week with 3 combos, apples will then lose their combo.
 
 
 `)+`
 `)
 
+
+//after reset until 1AM, AFK time, back around 3:30AM until 5AM
 //`+spanText("yellow","reminder tomorrow is my Day OFF ")+spanText("","🤓",22)+`
 
 //11/18 Day 10 : Back to weekdays business hours... with 1 autoSwap today<br>
@@ -805,7 +851,7 @@ checkDailyMods()
 
 ((Orange Juice))((Arnold Palmer))((Apple Cider))LN ((Large Net))
 
-/me LF LN ((Large Net)) ((Orange Juice)) to help refill the shop pls ty ! ((Piece of Heart))
+/me LF ((Arnold Palmer))((Apple Cider)) to help refill the shop pls ty ! ((Piece of Heart))
 
 
 /me LF any ((Orange Juice)) ((Glass Orb)) to help refill the shop pls ty ! ((Piece of Heart))
