@@ -19,7 +19,7 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = true
+let shopOpen = false
 let closeTxt = `Shop now closed ...<br>Next opening Saturday 12/07<br>
 (after Reset until 4AM, relax/afk until close 5AM)<br>
 `+spanText("yellow",`with my Subgoal about to complete on Cider, next week<br>
@@ -44,7 +44,7 @@ let APM = 49836
 
 
 
-let lastUp = "12/07 18:35 🇯🇵"
+let lastUp = "12/07 20:00 🇯🇵"
 
 const body = document.querySelector("body")
 
