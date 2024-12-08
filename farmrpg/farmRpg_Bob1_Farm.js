@@ -143,11 +143,11 @@ let convArray = [
 ]
 
 let dailySwaps = [
-    {active:true,fromIdx:1,toIdx:3,// OJ > AP
+    {active:false,fromIdx:1,toIdx:3,// OJ > AP
      percent:20
      ,ratio:"10:1"},
 
-     {active:false,fromIdx:1,toIdx:0,// OJ > LNs **
+     {active:true,fromIdx:1,toIdx:0,// OJ > LNs **
      percent:15
      ,ratio:"15:10"},
 
