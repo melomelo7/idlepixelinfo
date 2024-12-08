@@ -44,7 +44,7 @@ let APM = 49836
 
 
 
-let lastUp = "12/08 14:50 🇯🇵"
+let lastUp = "12/08 17:00 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -143,11 +143,11 @@ let convArray = [
 ]
 
 let dailySwaps = [
-    {active:false,fromIdx:1,toIdx:3,// OJ > AP
-     percent:20
+    {active:true,fromIdx:1,toIdx:3,// OJ > AP
+     percent:15
      ,ratio:"10:1"},
 
-     {active:true,fromIdx:1,toIdx:0,// OJ > LNs **
+     {active:false,fromIdx:1,toIdx:0,// OJ > LNs **
      percent:15
      ,ratio:"15:10"},
 
