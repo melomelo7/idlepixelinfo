@@ -24,7 +24,7 @@ let closeTxt = `Shop now closed ...<br>Next opening Monday 12/09<br>
 (after Reset until 1AM, afk time back around 3:30 close 5AM)<br>
 `+spanText("yellow",`with my Subgoal about to complete on Cider, current week<br>
 will be the last one for apples to provide a Combo (up to 12/12)`)+`<br>`+
-spanText("cyan","** Nor more Snowballs pls **")
+spanText("cyan","** No more Snowballs pls **")
 
 /*
 brToday 12/04 was a BIG day, inventory is very low,<br>
@@ -37,11 +37,11 @@ maybe tomorrow 12/05 shop will also be closed ...<br>Probably next opening Satur
 
 //let closeTxt = "Shop now closed, 11/29 day OFF<br>... See you guys on Saturday !"
 
-let OJM = 369141
-let LEM = 341935
-let LNM = 159234
-let CIM = 87009
-let APM = 49836
+let OJM = 408245
+let LEM = 378689
+let LNM = 173130
+let CIM = 94331
+let APM = 54274
 
 
 
@@ -144,11 +144,11 @@ let convArray = [
 ]
 
 let dailySwaps = [
-    {active:true,fromIdx:1,toIdx:3,// OJ > AP
+    {active:false,fromIdx:1,toIdx:3,// OJ > AP
      percent:15
      ,ratio:"10:1"},
 
-     {active:false,fromIdx:1,toIdx:0,// OJ > LNs **
+     {active:true,fromIdx:1,toIdx:0,// OJ > LNs **
      percent:15
      ,ratio:"15:10"},
 
