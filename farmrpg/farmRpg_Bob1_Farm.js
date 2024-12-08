@@ -44,7 +44,7 @@ let APM = 49836
 
 
 
-let lastUp = "12/08 17:00 🇯🇵"
+let lastUp = "12/08 17:10 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -411,11 +411,11 @@ subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px",alignItems:"center"})
 
         addEle({dad:cont,text:spanText("yellow",`
         `+spanText("cyan","Snowballs")+`
-         : Your help is very much appreciated, I still need many BUT<br>
-        currently am capped due to quest reward that wont fit my inventory,<br>
-        after the shop being running for some time my inventory will open<br>
-        again. Anyways due to converting need, `+spanText("cyan","please msg prior sending snowballs")+`.<br>
-        Thank you !
+         : my next event quest wont be available before the <br>
+         `+spanText("lime","4th of January")+` (as per buddys farm infos) so feel free<br>
+         to throw your snowballs to anyone of your (dis)liking ... `+spanText("","😆",20)+`<br>
+         Thanks for your help with that up to now, I will put an info<br>
+         again if needs be in January ... 
         `,18),border:"cyan dotted 5px",radius:"20px",width:"90%",textA:"center",padding:"5px"})
 
 
