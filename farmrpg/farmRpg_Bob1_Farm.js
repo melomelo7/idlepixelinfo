@@ -19,10 +19,10 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = false
+let shopOpen = true
 let closeTxt = `Shop now closed ...<br>Next opening Sunday 12/08<br>
 (after Reset until 4AM, relax/afk until close 5AM)<br>
-`+spanText("yellow",`with my Subgoal about to complete on Cider, next week<br>
+`+spanText("yellow",`with my Subgoal about to complete on Cider, current week<br>
 will be the last one for apples to provide a Combo (up to 12/12)`)
 
 /*
@@ -44,7 +44,7 @@ let APM = 49836
 
 
 
-let lastUp = "12/07 20:00 🇯🇵"
+let lastUp = "12/08 14:50 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -408,6 +408,15 @@ subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px",alignItems:"center"})
                 `,20)
                 addEle({dad:subC2,text:txt,margin:"5px"})
 
+
+        addEle({dad:cont,text:spanText("yellow",`
+        `+spanText("cyan","Snowballs")+`
+         : Your help is very much appreciated, I still need many BUT<br>
+        currently am capped due to quest reward that wont fit my inventory,<br>
+        after the shop being running for some time my inventory will open<br>
+        again. Anyways due to converting need, `+spanText("cyan","please msg prior sending snowballs")+`.<br>
+        Thank you !
+        `,18),border:"cyan dotted 5px",radius:"20px",width:"90%",textA:"center",padding:"5px"})
 
 
     txt = spanText("lime",`-- Type amounts to build (or test) your order,
