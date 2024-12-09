@@ -37,12 +37,11 @@ maybe tomorrow 12/05 shop will also be closed ...<br>Probably next opening Satur
 
 //let closeTxt = "Shop now closed, 11/29 day OFF<br>... See you guys on Saturday !"
 
-let OJM = 408245
-let LEM = 378689
-let LNM = 173130
-let CIM = 94331
-let APM = 54274
-
+let OJM = 421800
+let LEM = 392492
+let LNM = 178273
+let CIM = 96366
+let APM = 55288
 
 
 let lastUp = "12/09 20:05 🇯🇵"
