@@ -1979,7 +1979,7 @@ function eventBall(){
         alignItems:"center",width:"100%",justifyC:"center"})
         addEle({dad:cont,what:"img",imgSize:60,imgFullSrc:iSrc+"event ball.jpg",
         radius:"50px"})
-        addEle({dad:cont,text:spanText("lime","Missions Overview",30),margin:"0 10px"})
+        addEle({dad:cont,text:spanText("lime","Missions Overview (Full List)",30),margin:"0 10px"})
         addEle({dad:cont,text:"⏬",border:"solid lime 3px",radius:"10px",padding:"3px",
         cursor:"pointer",setFunc:(e)=>{
             if(e.srcElement.innerHTML==="⏬")
@@ -1998,12 +1998,19 @@ function eventBall(){
         addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:"Comments"})
 
         let thisEvent = []
+        /*
         for(let i=0;i<injectedOrder.length;i++){
             thisEvent.push(eventsMissions.filter(em=>em.ref===injectedOrder[i])[0])
         }
+        */
+
+        eventsMissions.forEach(mi=>{
+            thisEvent.push(mi)
+        })
+
 
         for(let i=0;i<thisEvent.length;i++){
-            if(i<23){
+  //          if(i<23){
                 let tr = addEle({dad:tb,what:"tr"})
                 let tc = addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",
                 padding:"3px"})
@@ -2018,9 +2025,10 @@ function eventBall(){
                 txt=txt.slice(0,txt.length-36)
                 addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:txt,padding:"3px"})
                 addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:thisEvent[i].comment,padding:"3px"})
-            }
+   //         }
         }
 
+        /*
         if(injectedOrder.length<23){
             let tr = addEle({dad:tb,what:"tr"})
             txt = spanText("lime",`
@@ -2030,7 +2038,7 @@ function eventBall(){
             `)
             addEle({dad:tr,what:"td",border:"teal solid 3px",radius:"10px",text:txt,padding:"3px",colSpan:3})
         }
-
+        */
 
     cont = addEle({dad:myC,setClass:"contRow",padding:"10px",
         alignItems:"center",width:"100%",justifyC:"center"}) 
