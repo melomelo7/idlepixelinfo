@@ -19,7 +19,7 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = false
+let shopOpen = true
 let closeTxt = `Shop now closed ...<br>Next opening Tuesday 12/10<br>
 (after Reset until 1AM, afk time back around 3:30 close 5AM)<br>
 `+spanText("yellow",`with my Subgoal about to complete on Cider, current week<br>
@@ -44,7 +44,7 @@ let CIM = 96366
 let APM = 55288
 
 
-let lastUp = "12/09 20:05 🇯🇵"
+let lastUp = "12/10 14:55 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -860,7 +860,7 @@ checkDailyMods()
 
 ((Orange Juice))((Arnold Palmer))((Apple Cider))LN ((Large Net))
 
-/me LF ((Arnold Palmer))((Apple Cider)) to help refill the shop pls ty ! ((Piece of Heart))
+/me LF LN ((Large Net)) to help refill the shop pls ty ! ((Piece of Heart))
 
 
 /me LF any ((Orange Juice)) ((Glass Orb)) to help refill the shop pls ty ! ((Piece of Heart))
