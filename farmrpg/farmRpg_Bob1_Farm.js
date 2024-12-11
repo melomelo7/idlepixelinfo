@@ -19,7 +19,7 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = false
+let shopOpen = true
 let closeTxt = `Shop now closed ...<br>Next(and last before my vacation) opening Thursday 12/12<br>
 (after Reset until 1AM, afk time back around 3:30 close 5AM)<br>
 `+spanText("yellow",`with my Subgoal about to complete on Cider, current week<br>
@@ -37,14 +37,14 @@ maybe tomorrow 12/05 shop will also be closed ...<br>Probably next opening Satur
 
 //let closeTxt = "Shop now closed, 11/29 day OFF<br>... See you guys on Saturday !"
 
-let OJM = 434783
-let LEM = 406165
-let LNM = 182919
-let CIM = 98958
-let APM = 56250
+let OJM = 447199
+let LEM = 418928
+let LNM = 187831
+let CIM = 100868
+let APM = 57183
 
 
-let lastUp = "12/11 20:00 🇯🇵"
+let lastUp = "12/11 21:50 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -143,11 +143,11 @@ let convArray = [
 ]
 
 let dailySwaps = [
-    {active:false,fromIdx:1,toIdx:3,// OJ > AP
+    {active:true,fromIdx:1,toIdx:3,// OJ > AP
      percent:15
      ,ratio:"10:1"},
 
-     {active:true,fromIdx:1,toIdx:0,// OJ > LNs **
+     {active:false,fromIdx:1,toIdx:0,// OJ > LNs **
      percent:15
      ,ratio:"15:10"},
 
@@ -860,7 +860,7 @@ checkDailyMods()
 
 ((Orange Juice))((Arnold Palmer))((Apple Cider))LN ((Large Net))
 
-/me LF ((Apple Cider)) to help refill the shop pls ty ! ((Piece of Heart))
+/me LF LN ((Large Net)) to help refill the shop pls ty ! ((Piece of Heart))
 
 
 /me LF any ((Orange Juice)) ((Glass Orb)) to help refill the shop pls ty ! ((Piece of Heart))
