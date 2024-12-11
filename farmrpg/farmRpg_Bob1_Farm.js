@@ -20,7 +20,7 @@ let orderPool = []
 let savK = "farmRPGOrders"
 
 let shopOpen = false
-let closeTxt = `Shop now closed ...<br>Next opening Wednesday 12/11<br>
+let closeTxt = `Shop now closed ...<br>Next opening Thursday 12/12<br>
 (after Reset until 1AM, afk time back around 3:30 close 5AM)<br>
 `+spanText("yellow",`with my Subgoal about to complete on Cider, current week<br>
 will be the last one for apples to provide a Combo (up to 12/12)`)+`<br>`+
