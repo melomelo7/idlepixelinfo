@@ -19,14 +19,25 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = true
-let closeTxt = `Shop now closed ...<br>Next(and last before my vacation) opening Thursday 12/12<br>
+let shopOpen = false
+let closeTxt = `Shop now closed ...<br>Vacations time it is for me now `+spanText("","🥶",30)+` 
+<br>Next opening probably 27/12 ... unsure exactly yet<br>
+So I wish everyone a Merry Christmas`+spanText("","🎅",30)+`, hope you get nice presents`+spanText("","🎁",30)+`<br>
+meet with family and have a great time ! See ya guys end of the month !!
+`
+
+
+
+/*
+
 (after Reset until 1AM, afk time back around 3:30 close 5AM)<br>
 `+spanText("yellow",`with my Subgoal about to complete on Cider, current week<br>
 will be the last one for apples to provide a Combo (up to 12/12)`)+`<br>`+
 spanText("cyan","** No more Snowballs pls **")
 
-/*
+
+
+
 brToday 12/04 was a BIG day, inventory is very low,<br>
 maybe tomorrow 12/05 shop will also be closed ...<br>Probably next opening Saturday ...`
 
