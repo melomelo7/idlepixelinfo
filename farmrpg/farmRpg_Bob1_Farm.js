@@ -21,9 +21,7 @@ let savK = "farmRPGOrders"
 
 let shopOpen = false
 let closeTxt = `Shop now closed ...<br>Vacations time it is for me now `+spanText("","🥶",30)+` 
-<br>Next opening probably 27/12 ... unsure exactly yet<br>
-So I wish everyone a Merry Christmas`+spanText("","🎅",30)+`, hope you get nice presents`+spanText("","🎁",30)+`<br>
-meet with family and have a great time ! See ya guys end of the month !!
+<br>Next opening Monday 30/12 ...
 `
 
 
@@ -48,14 +46,14 @@ maybe tomorrow 12/05 shop will also be closed ...<br>Probably next opening Satur
 
 //let closeTxt = "Shop now closed, 11/29 day OFF<br>... See you guys on Saturday !"
 
-let OJM = 447199
-let LEM = 418928
-let LNM = 187831
+let OJM = 488152
+let LEM = 460911
+let LNM = 214355
 let CIM = 100868
-let APM = 57183
+let APM = 62722
 
 
-let lastUp = "12/11 21:50 🇯🇵"
+let lastUp = "12/27 03:25 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -104,7 +102,6 @@ How ? You bring not 1 type of items but minimum 2<br>
 Examples :<br>
 - Nets + Oranges = Combo 1<br>
 - Nets + Oranges + Lemons = Combo 2<br>
-- Nets + Oranges + Lemons + Apples = Combo 3<br>
 `
 
 let comboIc = spanText("cyan","🅒",20)  //"🪙"
@@ -135,7 +132,7 @@ let typical = spanText("yellow","Easy to work with orders are as such :")+`
 `+spanText("lime","L")+` 800 AP (L)<br>
 `+spanText("lime","A")+` 0<br>
 `
-
+/*
 let comboArr = [
     {label:"Tower Tiers",values:["Combo 1<br>"+spanText("lime","2 items"),
     "Combo 2<br>"+spanText("lime","3 items"),"Combo 3<br>"+spanText("lime","4 items"),]},
@@ -144,13 +141,23 @@ let comboArr = [
     {label:"2. Tower 90 ~ 159",values:[10,20,30]},
     {label:"3. Tower = OR > 160",values:[5,10,15]},
 ]
+*/
+let comboArr = [
+    {label:"Tower Tiers",values:["Combo 1<br>"+spanText("lime","2 items"),
+    "Combo 2<br>"+spanText("lime","3 items")]},
+    {label:"0. NO Tower",values:[30,40]},
+    {label:"1. Tower less than 90",values:[20,30]},
+    {label:"2. Tower 90 ~ 159",values:[10,20]},
+    {label:"3. Tower = OR > 160",values:[5,10]},
+]
+
 
 let convArray = [
-    {ref:0,nola:"N",label:"Small 🐟Nets",to:"⏩ LN (Large 🐟Nets)",ratio:"1000⏩75"},
-    {ref:1,nola:"O",label:"Oranges 🍊",to:"⏩ Orange Juice",ratio:"3⏩1"},
-    {ref:2,nola:"L(LE)",label:"Lemons 🍋",to:"⏩ Lemonade",ratio:"3⏩1"},
-    {ref:3,nola:"L(AP)",label:"Lemons 🍋",to:"⏩ AP (Arnold Palmer)",ratio:"30⏩1"},
-    {ref:4,nola:"A",label:"Apples 🍎",to:"⏩ Apple Cider",ratio:"20⏩1"},
+    {ref:0,goal:false,nola:"N",label:"Small 🐟Nets",to:"⏩ LN (Large 🐟Nets)",ratio:"1000⏩75"},
+    {ref:1,goal:false,nola:"O",label:"Oranges 🍊",to:"⏩ Orange Juice",ratio:"3⏩1"},
+    {ref:2,goal:false,nola:"L(LE)",label:"Lemons 🍋",to:"⏩ Lemonade",ratio:"3⏩1"},
+    {ref:3,goal:false,nola:"L(AP)",label:"Lemons 🍋",to:"⏩ AP (Arnold Palmer)",ratio:"30⏩1"},
+    {ref:4,goal:true,nola:"A",label:"Apples 🍎",to:"⏩ Apple Cider",ratio:"20⏩1"},
 ]
 
 let dailySwaps = [
@@ -609,7 +616,7 @@ function evalConv(e){
 
     for(let i=0;i<convArray.length;i++){
         val = getID("amount:"+i).value
-        if( !isNaN(val) && val!==""){
+        if( !isNaN(val) && val!=="" && !convArray[i].goal ){
             getID("eval:"+i).innerHTML = ""
             valArr.push({
                 idx:i,
@@ -630,9 +637,29 @@ function evalConv(e){
     valArr.sort((a,b) => b.amount - a.amount)
     getID("combo:"+valArr[0].idx).innerHTML = valArr[0].amount > 0 ? spanText("lime","MI") : "👀"
 
+    for(let i=0;i<convArray.length;i++){
+        val = getID("amount:"+i).value
+        if( !isNaN(val) && val!=="" && convArray[i].goal ){
+            getID("eval:"+i).innerHTML = ""
+            valArr.push({
+                idx:i,
+                nola:convArray[i].nola,
+                label:convArray[i].label,
+                ratio1:Number(convArray[i].ratio.split("⏩")[0]),
+                ratio2:Number(convArray[i].ratio.split("⏩")[1]),
+                amount:val,
+                comR:0,
+                payout:0,
+                autoSwap:0,
+                split:0,
+                nolaName:""
+            })
+        }
+    }
+
     cpt = 0
     for(let i=1;i<valArr.length;i++){
-        if(valArr[i].amount > 0 && valArr[i].amount >= valArr[0].amount /2 ){
+        if(valArr[i].amount > 0 && valArr[i].amount >= valArr[0].amount /2 & valArr[i].idx!==4 ){
             getID("combo:"+valArr[i].idx).innerHTML = comboIc
             cpt++
         }
@@ -650,17 +677,19 @@ function evalConv(e){
     getID("comboTxt").innerHTML = txt
 
     valArr.forEach(it=>{
-        if(it.amount>0){
-            let elem = "eval:"+it.idx
-            txt = round5(Math.floor(it.amount/it.ratio1*it.ratio2))
-            it.payout = txt
-            if(it.comR>0){
-                let comB = round5(Math.floor(txt*(comR/100)))
-                it.payout = txt+comB
-                txt = txt + "+" + comB + "= " + it.payout
-                        }
-            getID(elem).innerHTML = spanText("lime",txt,16)
-        }
+            if(it.amount>0){
+                let elem = "eval:"+it.idx
+                txt = round5(Math.floor(it.amount/it.ratio1*it.ratio2))
+                it.payout = txt
+                if(it.comR>0 && it.idx!==4 ){
+                    let comB = round5(Math.floor(txt*(comR/100)))
+                    it.payout = txt+comB
+                    txt = txt + "+" + comB + "= " + it.payout
+                            }
+                getID(elem).innerHTML = spanText("lime",txt,16)
+            }
+   
+
     })
     currentO = valArr
 
@@ -891,3 +920,4 @@ checkDailyMods()
 player req net contract : jefrills
 
 */
+
