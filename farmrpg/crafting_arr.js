@@ -72,6 +72,7 @@ function addEle({
     userSelect = "",
     colSpan = "",
     rowSpan = "",
+    resize = "",
     url = "",
     log = false}){
 
@@ -203,6 +204,8 @@ function addEle({
     if(colSpan!==""){thisObj.colSpan = colSpan}
     if(rowSpan!==""){thisObj.rowSpan = rowSpan}
 
+    if(resize!==""){thisObj.style.resize = resize}
+
     if(log){
         console.log(setVal)
         console.log(dad)
@@ -218,10 +221,42 @@ function addEle({
     return thisObj
 }
 
+function centerScreen(element){
+    element.style.position = "absolute"
+    let rect = element.getBoundingClientRect()
+    let posW = window.innerWidth/2 - rect.width/2
+    let posH = window.innerHeight/2 - rect.height/2
+  
+
+    element.style.top = posH + window.scrollY -10 + "px"
+    element.style.left = posW + window.scrollX +5 + "px"
+
+//    element.style.top = posH + window.scrollY -10 + "px"
+//    element.style.left = posW + window.scrollX +5 + "px"
+
+
+}
+
 function spanText(spanColor,spanTxt,sz=undefined){
-    return sz === undefined ? 
-    `<span style="color:`+spanColor+`;">`+spanTxt+"</span>" :
-    `<span style="color:`+spanColor+`; font-size: `+sz+`px;">`+spanTxt+"</span>"
+    let rbc = ["#ef5350","#f48fb1","#7e57c2","#2196f3","#26c6da",
+    "#43a047","#eeff41","#f9a825","#ff5722"]
+    let ret = undefined
+    let cpt = 0
+    if (spanColor === "rainbow"){
+        ret = ""
+        for(let i=0;i<spanTxt.length;i++){
+            ret+= sz === undefined ? 
+            `<span style="color:`+ rbc[cpt] +`;">`+spanTxt[i]+"</span>" :
+            `<span style="color:`+rbc[cpt]+`; font-size: `+sz+`px;">`+spanTxt[i]+"</span>"
+            cpt++
+            if(cpt>rbc.length-1){cpt=0}
+        }
+    } else {
+        ret = sz === undefined ? 
+        `<span style="color:`+spanColor+`;">`+spanTxt+"</span>" :
+        `<span style="color:`+spanColor+`; font-size: `+sz+`px;">`+spanTxt+"</span>"
+    }
+    return ret
 }
 
 function getID(id){return document.getElementById(id)}
