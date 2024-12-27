@@ -27,10 +27,21 @@ It turns out end/beginning of year is a much more busy<br>
 time for me than I planned, (both ingame and irl)and so<br>
 the shop activity is currently not possible to carry on.<br>
 Hopefully back during(mid ?) January is my current estimate...<br><br>
-Anyways wishing you all guys a `+spanText("","Happy New Year",40,true)+` !!!
+Anyways wishing you all guys a `
++spanText("#ef5350","H",40)
++spanText("#f48fb1","a",40)
++spanText("#7e57c2","p",40)
++spanText("#2196f3","p",40)
++spanText("#26c6da","y",40)
++spanText("#43a047"," N",40)
++spanText("#eeff41","e",40)
++spanText("#f9a825","w",40)
++spanText("#ff5722"," Y",40)
++spanText("#ef5350","e",40)
++spanText("#f48fb1","a",40)
++spanText("#7e57c2","r",40)+
+` !!!
 `
-
-
 
 /*
 
@@ -59,7 +70,7 @@ let CIM = 100868
 let APM = 62722
 
 
-let lastUp = "12/27 16:35 🇯🇵"
+let lastUp = "12/27 16:50 🇯🇵"
 
 const body = document.querySelector("body")
 
