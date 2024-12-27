@@ -20,8 +20,14 @@ let orderPool = []
 let savK = "farmRPGOrders"
 
 let shopOpen = false
-let closeTxt = `Shop now closed ...<br>Vacations time it is for me now `+spanText("","🥶",30)+` 
-<br>Next opening Monday 30/12 ...
+let closeTxt = `
+`+spanText("cyan","Happy hollidays Everyone !")+`
+<br><br>
+It turns out end/beginning of year is a much more busy<br>
+time for me than I planned, (both ingame and irl)and so<br>
+the shop activity is currently not possible to carry on.<br>
+Hopefully back during(mid ?) January is my current estimate...<br><br>
+Anyways wishing you all guys a `+spanText("","Happy New Year",40,true)+` !!!
 `
 
 
