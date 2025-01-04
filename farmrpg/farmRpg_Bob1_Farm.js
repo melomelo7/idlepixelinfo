@@ -20,15 +20,14 @@ let orderPool = []
 let savK = "farmRPGOrders"
 
 let shopOpen = false
-let closeTxt = `
-`+spanText("cyan","Happy hollidays Everyone !",24)+`
-<br><br>
+let closeTxt = spanText("rainbow","Happy New Year Everyone !!!",40)+`<br><br>
 It turns out end/beginning of year is a much more busy<br>
 time for me than I planned, (both ingame and irl)and so<br>
-the shop activity is currently not possible to carry on.<br>
-Hopefully back during(mid ?) January is my current estimate...<br><br>
-Anyways wishing you all guys a<BR> `
-+spanText("rainbow","Happy New Year !!!",40)
+the shop activity is currently not possible to carry on.<br><br>
+`+spanText("cyan",`I will try to keep the nets converting running for the time<br>
+being so you can msg me for nets only. (Ratio 1000:75)<br>`)
+
+
 
 /*
 
@@ -57,7 +56,7 @@ let CIM = 100868
 let APM = 62722
 
 
-let lastUp = "12/27 18:15 🇯🇵"
+let lastUp = "01/04 16:00 🇯🇵"
 
 const body = document.querySelector("body")
 
