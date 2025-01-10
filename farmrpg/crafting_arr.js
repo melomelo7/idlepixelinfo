@@ -1317,6 +1317,22 @@ let recipes = [
 ]
 
 let friendshipRewards = [
+    {label : "Baba Gec",rewards:[
+        {lv:10,details:"10x Cabbage & 4x Wagon Wheel"},
+        {lv:20,details:"20x Cabbage & 5x Large Net"},
+        {lv:30,details:"5x Frozen Cabbage & 100x Wooden Plank"},
+        {lv:40,details:"10x Cabbage Stew & 100x Gold Feather"},
+        {lv:50,details:"250x Cabbage & 25x Arnold Palmer"},
+        {lv:99,details:"1x Baba Bobblehead"},
+        ]},
+    {label : "Cid",rewards:[
+        {lv:10,details:"5x Bomb & 25x Bone Pickaxe"},
+        {lv:20,details:"5x Bomb & 25x Crystal Pickaxe"},
+        {lv:30,details:"5x Bomb & 25x Sturdy Pickaxe"},
+        {lv:40,details:"5x Bomb & 25x Steel Pickaxe"},
+        {lv:50,details:"10x Bomb & 1x Borgen Buck"},
+        {lv:99,details:"1x Cid Bobblehead"},
+        ]},
     {label : "Rosalie",rewards:[
         {lv:10,details:"10x Cooking Pot & 50x Glass Bottle"},
         {lv:20,details:"50x Apple & 50x Orange"},
@@ -1804,3 +1820,14 @@ Level	Rewards
 40	10x Gold Leaf & 10x Gold Trout
 99	1x Gary Bobblehead
 `
+
+frozenMasteries = [
+    {label:"Frozen Skull",ratio:2.19,mastery:2139,area:"Small Island"},
+    {label:"Frozen Feather",ratio:2.02,mastery:12069,area:"Crystal River"},
+    {label:"Frozen Starfish",ratio:1.97,mastery:13391,area:"Emerald Beach"},
+    {label:"Frozen Book",ratio:1.85,mastery:7876,area:"Vast Ocean"},
+    {label:"Frozen Coin",ratio:2.725,mastery:9647,area:"Lake Minerva"},
+    {label:"Frozen Crab Claw",ratio:7.045,mastery:10726,area:"Large Island"},
+    {label:"Frozen Wheel",ratio:7.785,mastery:25349,area:"Pirate Cove"},
+    {label:"Frozen Dagger",ratio:7.16,mastery:21594,area:"Glacier Lake"},
+]
