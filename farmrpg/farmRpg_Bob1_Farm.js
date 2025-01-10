@@ -20,43 +20,24 @@ let orderPool = []
 let savK = "farmRPGOrders"
 
 let shopOpen = true
-let closeTxt = spanText("rainbow","Happy New Year Everyone !!!",40)+`<br><br>
-It turns out end/beginning of year is a much more busy<br>
-time for me than I planned, (both ingame and irl)and so<br>
-the shop activity is currently not possible to carry on.<br><br>
-`+spanText("cyan",`I will try to keep the nets converting running for the time<br>
-being so you can msg me for nets only. (Ratio 1000:75)<br>`)
+let closeTxt = spanText("yellow","Business Hours<br>",22,false,"solid 2px brown")+
+spanText("cyan",`
+*Time reference is 🇺🇸 server time, that you can see in chat for example*<br><br>
+Monday - Tuesday - Wednesday - Thursday - `+spanText("brown","Friday - Saturday - Sunday",16,true)+`
+<br><br>After game reset/midnight
+`+spanText("yellow","+15mn (review farm & get the meals working)",16)+`
+until 4AM<br>
+`,16)
 
 
-
-/*
-
-(after Reset until 1AM, afk time back around 3:30 close 5AM)<br>
-`+spanText("yellow",`with my Subgoal about to complete on Cider, current week<br>
-will be the last one for apples to provide a Combo (up to 12/12)`)+`<br>`+
-spanText("cyan","** No more Snowballs pls **")
-
-
-
-
-brToday 12/04 was a BIG day, inventory is very low,<br>
-maybe tomorrow 12/05 shop will also be closed ...<br>Probably next opening Saturday ...`
-
-
-(after Reset until 1AM, AFK time back around 3:30AM until 5AM)`
-*/
-
-
-//let closeTxt = "Shop now closed, 11/29 day OFF<br>... See you guys on Saturday !"
-
-let OJM = 488152
-let LEM = 460911
-let LNM = 214355
+let OJM = 546536
+let LEM = 511721
+let LNM = 276724
 let CIM = 100868
-let APM = 62722
+let APM = 68798
 
 
-let lastUp = "01/11 01:15 🇯🇵"
+let lastUp = "01/11 02:25 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -118,7 +99,8 @@ The `+spanText("lime","(M)")+`aster `+spanText("lime","(I)")+`
 tem on the order list you send<br> me is the item with biggest amount.<br><br>
 Based on the `+spanText("lime","MI")+` all `+spanText("cyan","OTHERS")+` items with at least
 <br>50% amount of `+spanText("lime","MI")+` will add 1 combo. ` +comboIc
-,16)
+,16)+`<br><br>`+spanText("brown",`Since V 3.1, Apples are merely service work,<br>
+they are OFF the combo system`)
 
 let typical = spanText("yellow","Easy to work with orders are as such :")+`
 <br>
@@ -288,7 +270,8 @@ cont = addEle({dad:body,setClass:"contRow",margin:"10px 30px",alignItems:"center
     cursor:"pointer",height:"fit-content",setFunc:(e)=>{
         if(shopOpen){
             getID("shop").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
-            e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
+            e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽"
+            if(getID("comboArrow").innerHTML==="⏪"){getID("comboArrow").click()}
         }
     }})
     addEle({dad:cont,text:"🏠",fontS:"30px",marginL:"20px"})
@@ -316,7 +299,7 @@ let contR = addEle({dad:cont,setClass:"contRow",justifyC:"space-between"})
     subC1 = addEle({dad:contR,setClass:"contRow",margin:"5px",alignItems:"center",marginR:"10px"})
         addEle({dad:subC1,text:"🟡 Combo Informations",marginR:"10px"})
         addEle({dad:subC1,text: "⏩",border:"lime solid 2px",radius:"5px",backC:"",
-        cursor:"pointer",height:"fit-content",setFunc:(e)=>{
+        cursor:"pointer",height:"fit-content",setID:"comboArrow",setFunc:(e)=>{
             getID("combo").style.display = e.srcElement.innerHTML==="⏩" ? "block" : "none"
             e.srcElement.innerHTML = e.srcElement.innerHTML==="⏩" ? "⏪" : "⏩" 
         }})
@@ -575,7 +558,7 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",display:"none"})
             })
     })
     addEle({dad:cont,text:comboTxt2})
-    addEle({dad:cont,text:typical,border:"teal solid 3px",radius:"20px",padding:"5px 10px",marginT:"5px"})
+    addEle({dad:cont,text:typical,border:"teal solid 3px",radius:"20px",padding:"5px 10px",margin:"10px 5px"})
 
 getID("shopCont").click()
 getID("InfoClick").click()
