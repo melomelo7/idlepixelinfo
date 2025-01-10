@@ -6,10 +6,10 @@ let tb = undefined
 let tr = undefined
 let tc = undefined
 let userN = "Bob1"
-let inventoryS = 7800
-let mailboxS = 600
+let inventoryS = 8800
+let mailboxS = 750
 let maxL = Math.floor(inventoryS/mailboxS) * mailboxS
-let shopV = "3.0"
+let shopV = "3.1"
 let itemPool = []
 let currentO = undefined
 let recap = ""
@@ -19,7 +19,7 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = false
+let shopOpen = true
 let closeTxt = spanText("rainbow","Happy New Year Everyone !!!",40)+`<br><br>
 It turns out end/beginning of year is a much more busy<br>
 time for me than I planned, (both ingame and irl)and so<br>
@@ -56,7 +56,7 @@ let CIM = 100868
 let APM = 62722
 
 
-let lastUp = "01/04 16:00 🇯🇵"
+let lastUp = "01/11 01:15 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -83,10 +83,13 @@ Shop `+spanText("yellow","V2.1")+` : 🐟Nets Ratio 1000⏩75, fruits to
 ratios 3.5⏩1 (OR 35⏩1) & 25⏩1<br>
 Shop `+spanText("yellow","V2.2")+` : 🐟Nets Ratio 1000⏩75, fruits to 
 ratios 3⏩1 (OR 30⏩1) & 20⏩1<br>
-Shop `+spanText("yellow","V3.0")+` : ratios of V2.2 with `+spanText("cyan","Combo System & NOLA")+`
+Shop `+spanText("yellow","V3.0")+` : ratios of V2.2 with `+spanText("cyan","Combo System & NOLA")+`<br>
+Shop `+spanText("yellow","V3.1")+` : Combo reduced to max2, apples will only be converted with other items.
+<br>`+spanText("cyan","***************** (")+spanText("yellow"," I stop converting apples alone ",20,false,
+"brown dotted 2px") +spanText("cyan",") *****************")+`
 <br><br>
 `+spanText("yellow",`
-BIG orders, will be accepted up to inventory size : `+spanText("cyan",inventoryS+
+BIG orders, depends what  : `+spanText("cyan",inventoryS+
 ` / Item (`+Math.floor(inventoryS/mailboxS)+`mb)`))
 
 /*
@@ -164,11 +167,11 @@ let convArray = [
 ]
 
 let dailySwaps = [
-    {active:true,fromIdx:1,toIdx:3,// OJ > AP
+    {active:false,fromIdx:1,toIdx:3,// OJ > AP
      percent:15
      ,ratio:"10:1"},
 
-     {active:false,fromIdx:1,toIdx:0,// OJ > LNs **
+     {active:true,fromIdx:1,toIdx:0,// OJ > LNs **
      percent:15
      ,ratio:"15:10"},
 
@@ -331,36 +334,12 @@ subC1 = addEle({dad:cont,setClass:"contRow",margin:"10px 0 0 5px"})
 
 txt = spanText("cyan",`
 *Time reference is 🇺🇸 server time, that you can see in chat for example*<br><br>
-Weekdays business hours : after game reset until 1AM,<br>
-AFK time, back around 3:30AM until 5AM<br>
-After 5AM low activity and afk time, closed around 6AM<br>
-until next game reset. Friday is DAY OFF, back saturday.<br><br>
-`+spanText("yellow",`❗🛫Vacation time coming Mid-December(`+spanText("lime","13")+
-`) until End-December(`+spanText("lime","27")+`)❗ 
-<br>❗🛬 traveling time so .... sorry the shop will not open 🌍❗<br><br>`)+`
-(received orders prior reset are handled after reset)<br><br>
+Monday - Tuesday - Wednesday - Thursday - `+spanText("brown","Friday - Saturday - Sunday",16,true)+`
+<br><br>After game reset/midnight
+`+spanText("yellow","+15mn (review farm & get the meals working)",16)+`
+until 4AM<br>
+`,16)
 
-
-`+spanText("lime",` 
-
-
-(Days 29~30) 12/07~12/08 : after reset until 4AM, relax/afk until close 5AM<br>
-Starting the last 6 days week with 3 combos, apples will then lose their combo.
-
-
-`)+`
-`)
-
-
-//after reset until 1AM, AFK time, back around 3:30AM until 5AM
-//`+spanText("yellow","reminder tomorrow is my Day OFF ")+spanText("","🤓",22)+`
-
-//11/18 Day 10 : Back to weekdays business hours... with 1 autoSwap today<br>
-//back from AFK time around 3:30AM.<br><br>
-
-
-
-// 11/15 Day OFF, back after reset on Saturday<br><br>
 
     subC2 = addEle({dad:cont,setClass:"contRow",with:"100%",
     marginT:"10px",setID:"dailyTxt",display:"none"})
@@ -429,7 +408,7 @@ subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px",alignItems:"center"})
                 `,20)
                 addEle({dad:subC2,text:txt,margin:"5px"})
 
-
+/*
         addEle({dad:cont,text:spanText("yellow",`
         `+spanText("cyan","Snowballs")+`
          : my next event quest wont be available before the <br>
@@ -438,7 +417,7 @@ subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px",alignItems:"center"})
          Thanks for your help with that up to now, I will put an info<br>
          again if needs be in January ... 
         `,18),border:"cyan dotted 5px",radius:"20px",width:"90%",textA:"center",padding:"5px"})
-
+*/
 
     txt = spanText("lime",`-- Type amounts to build (or test) your order,
     <br>then Click on [`+spanText("yellow","Copy NOLA")+`] and msg me ingame --<br><br>

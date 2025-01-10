@@ -237,25 +237,34 @@ function centerScreen(element){
 
 }
 
-function spanText(spanColor,spanTxt,sz=undefined){
+function spanText(spanColor="",spanTxt,sz=undefined,striked=false,underL=""){
+
     let rbc = ["#ef5350","#f48fb1","#7e57c2","#2196f3","#26c6da",
     "#43a047","#eeff41","#f9a825","#ff5722"]
-    let ret = undefined
+
+    let txtA = []
+    let ret = ""
+    let txt = ""
     let cpt = 0
-    if (spanColor === "rainbow"){
-        ret = ""
-        for(let i=0;i<spanTxt.length;i++){
-            ret+= sz === undefined ? 
-            `<span style="color:`+ rbc[cpt] +`;">`+spanTxt[i]+"</span>" :
-            `<span style="color:`+rbc[cpt]+`; font-size: `+sz+`px;">`+spanTxt[i]+"</span>"
-            cpt++
-            if(cpt>rbc.length-1){cpt=0}
+
+    if(spanColor!=="rainbow"){txtA.push(spanTxt)}
+    else {for(let i=0;i<spanTxt.length;i++){txtA.push(spanTxt[i])}}
+
+    txtA.forEach(ch=>{
+        txt = `<span style="`
+        if(spanColor!==""){
+            txt+=`color:`
+            if(spanColor === "rainbow"){
+                txt+= rbc[cpt] +`;`
+                cpt++ ; if(cpt>rbc.length-1){cpt=0}
+            } else {txt+= spanColor +`;`}
         }
-    } else {
-        ret = sz === undefined ? 
-        `<span style="color:`+spanColor+`;">`+spanTxt+"</span>" :
-        `<span style="color:`+spanColor+`; font-size: `+sz+`px;">`+spanTxt+"</span>"
-    }
+        if(sz!==undefined){txt+= ` font-size:`+sz+`px;`}
+        if(striked){txt+= ` text-decoration: line-through;`}
+        if(underL!==""){txt+=` border-bottom:`+underL} 
+        txt+= `">` + ch + `</span>`
+        ret+= txt
+    })
     return ret
 }
 
@@ -1828,6 +1837,5 @@ frozenMasteries = [
     {label:"Frozen Book",ratio:1.85,mastery:7876,area:"Vast Ocean"},
     {label:"Frozen Coin",ratio:2.725,mastery:9647,area:"Lake Minerva"},
     {label:"Frozen Crab Claw",ratio:7.045,mastery:10726,area:"Large Island"},
-    {label:"Frozen Wheel",ratio:7.785,mastery:25349,area:"Pirate Cove"},
-    {label:"Frozen Dagger",ratio:7.16,mastery:21594,area:"Glacier Lake"},
+    {label:"Frozen Dagger",ratio:7.16,mastery:29366,area:"Glacier Lake"},
 ]
