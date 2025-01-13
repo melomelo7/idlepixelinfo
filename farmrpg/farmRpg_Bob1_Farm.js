@@ -19,13 +19,14 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = true
+let shopOpen = false
+
 let closeTxt = spanText("yellow","Business Hours<br>",22,false,"solid 2px brown")+
 spanText("cyan",`
 *Time reference is 🇺🇸 server time, that you can see in chat for example*<br><br>
 Monday - Tuesday - Wednesday - Thursday - `+spanText("brown","Friday - Saturday - Sunday",16,true)+`
 <br><br>After game reset/midnight
-`+spanText("yellow","+15mn (review farm & get the meals working)",16)+`
+`+spanText("yellow","+20~25mn (until meals start working really)",16)+`
 until 4AM<br>
 `,16)
 
@@ -319,7 +320,7 @@ txt = spanText("cyan",`
 *Time reference is 🇺🇸 server time, that you can see in chat for example*<br><br>
 Monday - Tuesday - Wednesday - Thursday - `+spanText("brown","Friday - Saturday - Sunday",16,true)+`
 <br><br>After game reset/midnight
-`+spanText("yellow","+15mn (review farm & get the meals working)",16)+`
+`+spanText("yellow","+20~25mn (until meals start working really)",16)+`
 until 4AM<br>
 `,16)
 
