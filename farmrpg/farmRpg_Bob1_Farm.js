@@ -19,7 +19,7 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = false
+let shopOpen = true
 
 let closeTxt = spanText("yellow","Business Hours<br>",22,false,"solid 2px brown")+
 spanText("cyan",`
@@ -38,7 +38,7 @@ let CIM = 100868
 let APM = 68798
 
 
-let lastUp = "01/13 17:10 🇯🇵"
+let lastUp = "01/14 16:50 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -155,7 +155,7 @@ let dailySwaps = [
      ,ratio:"10:1"},
 
      {active:true,fromIdx:1,toIdx:0,// OJ > LNs **
-     percent:10
+     percent:15
      ,ratio:"15:10"},
 
      {active:false,fromIdx:0,toIdx:3,// LNs > AP
