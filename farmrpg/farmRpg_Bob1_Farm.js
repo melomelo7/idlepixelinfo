@@ -19,7 +19,7 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = false
+let shopOpen = true
 
 let closeTxt = spanText("yellow","Business Hours<br>",22,false,"solid 2px brown")+
 spanText("cyan",`
@@ -38,7 +38,7 @@ let CIM = 100868
 let APM = 68798
 
 
-let lastUp = "01/14 19:20 🇯🇵"
+let lastUp = "01/15 14:55 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -456,7 +456,7 @@ function CPAm(e){
 
 let subC4 = addEle({dad:cont,setClass:"contRow",alignItems:"center"})
   let subC3 = addEle({dad:subC4,setClass:"contCol",border:"teal solid 3px",overflow:"hidden",
-        radius:"10px",padding:"5px",height:checkM() === "bob" ? "fit-content" : "20px"})
+        radius:"10px",padding:"5px",height:"fit-content"})
     subC2 = addEle({dad:subC3,setClass:"contRow",})
       subC1 = addEle({dad:subC2,setClass:"contRow",
             margin:"",width:"fit-content",padding:"0 10px",alignItems:"center"})
@@ -482,17 +482,6 @@ let subC4 = addEle({dad:cont,setClass:"contRow",alignItems:"center"})
         backC:"#2C5B52",textC:"lime",marginL:"10px",
         setFunc:()=>{navigator.clipboard.writeText(nolaP.value)}})
     
-
-    subC2 = addEle({dad:subC3,setClass:"contRow",justifyC:"center",alignItems:"center",marginT:"10px"})
-        addEle({dad:subC2,text:"Player Name("+spanText("yellow","*optional")+")"})
-        addEle({dad:subC2,what:"input",isInput:true,setID:"nolaName",height:"fit-content",
-        margin:"0 10px",setFunc:evalConv})
-
-    subC2 = addEle({dad:subC3,setClass:"contRow",justifyC:"center",alignItems:"center",marginT:"5px"})    
-        addEle({dad:subC2,setClass:"btn",text:"Add H",setFunc:addH})
-        addEle({dad:subC2,setClass:"btn",text:"Check H",setFunc:readH})
-        addEle({dad:subC2,setClass:"btn",text:"Wipe H",setFunc:()=>{removeKey()}})
-        addEle({dad:subC2,setID:"historyC"})
 
     subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
         addEle({dad:subC1,text:"-!-🍋 You always get AP but today a quest require Lemonade ? 🍋-!-",
@@ -685,9 +674,8 @@ if( txt > 0){
     getID("apRange").min = 0
 } 
 
-
-    currentO.nolaName = getID("nolaName").value !=="" ? getID("nolaName").value : ""
     checkNOLA()
+
 }
 
 
