@@ -19,7 +19,7 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = true
+let shopOpen = false
 
 let closeTxt = spanText("yellow","Business Hours<br>",22,false,"solid 2px brown")+
 spanText("cyan",`
@@ -38,7 +38,7 @@ let CIM = 100868
 let APM = 68798
 
 
-let lastUp = "01/15 14:55 🇯🇵"
+let lastUp = "01/15 19:05 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -686,7 +686,7 @@ function checkNOLA(){
     let grp = document.getElementsByName("towerTier")
     grp.forEach(it=>{if(it.checked){ towerT = Number(it.value)+1}})
     txt = comboArr[towerT].label + "<br>"
-    txt += currentO.nolaName !=="" ? "Player : " + currentO.nolaName + "<br>": "" 
+//    txt += currentO.nolaName !=="" ? "Player : " + currentO.nolaName + "<br>": "" 
     recap += txt + "<br>"
     for(let i=0;i<currentO.length;i++){
         let itm = currentO.filter(it=>it.idx===i)[0]
