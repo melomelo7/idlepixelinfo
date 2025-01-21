@@ -31,14 +31,14 @@ until 4AM<br>
 `,16)
 
 
-let OJM = 614005
-let LEM = 591489
-let LNM = 330600
+let OJM = 627751
+let LEM = 602817
+let LNM = 343105
 let CIM = 100868
-let APM = 77019
+let APM = 77993
 
 
-let lastUp = "01/21 19:10 🇯🇵"
+let lastUp = "01/21 22:00 🇯🇵"
 
 const body = document.querySelector("body")
 
