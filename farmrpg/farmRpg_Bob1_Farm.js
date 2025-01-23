@@ -19,7 +19,7 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = false
+let shopOpen = true
 
 let closeTxt = spanText("yellow","Business Hours<br>",22,false,"solid 2px brown")+
 spanText("cyan",`
@@ -31,14 +31,14 @@ until 4AM<br>
 `,16)
 
 
-let OJM = 627751
-let LEM = 602817
-let LNM = 343105
+let OJM = 634807
+let LEM = 629512
+let LNM = 354876
 let CIM = 100868
-let APM = 77993
+let APM = 79785
 
 
-let lastUp = "01/22 19:15 🇯🇵"
+let lastUp = "01/23 15:50 🇯🇵"
 
 const body = document.querySelector("body")
 
