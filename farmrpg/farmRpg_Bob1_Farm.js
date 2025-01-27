@@ -19,9 +19,11 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = true
+let shopOpen = false
 
-let closeTxt = spanText("yellow","Business Hours<br>",22,false,"solid 2px brown")+
+let closeTxt = `<br>`+spanText("rainbow","** Many customers today, I need to close early sorry **",24)+`<br><br>`+
+
+spanText("yellow","Business Hours<br>",22,false,"solid 2px brown")+
 spanText("cyan",`
 *Time reference is 🇺🇸 server time, that you can see in chat for example*<br><br>
 Monday - Tuesday - Wednesday - Thursday - `+spanText("brown","Friday - Saturday - Sunday",16,true)+`
@@ -38,7 +40,7 @@ let CIM = 100868
 let APM = 81778
 
 
-let lastUp = "01/27 14:20 🇯🇵"
+let lastUp = "01/27 18:01 🇯🇵"
 
 const body = document.querySelector("body")
 
