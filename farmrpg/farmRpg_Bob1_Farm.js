@@ -19,7 +19,7 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = false
+let shopOpen = true
 
 let closeTxt = spanText("yellow","Business Hours<br>",22,false,"solid 2px brown")+
 spanText("cyan",`
@@ -31,14 +31,14 @@ until 4AM<br>
 `,16)
 
 
-let OJM = 634807
-let LEM = 629512
-let LNM = 354876
+let OJM = 645640
+let LEM = 647143
+let LNM = 400581
 let CIM = 100868
-let APM = 79785
+let APM = 81778
 
 
-let lastUp = "01/23 19:00 🇯🇵"
+let lastUp = "01/27 14:20 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -224,7 +224,7 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content"})
 
 
     let goldArr = [
-        {label:"Apple Pie",active:true,buyV:"300",buyC:"G",sellV:"---",sellC:""}
+        {label:"Apple Pie",active:false,buyV:"300",buyC:"G",sellV:"---",sellC:""}
     ]
 
     cont = addEle({dad:body,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
