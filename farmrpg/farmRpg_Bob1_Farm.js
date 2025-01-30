@@ -34,9 +34,9 @@ until 4AM<br>
 `,16)
 
 
-let OJM = 701682
+let OJM = 710930
 let LEM = 702180
-let LNM = 441029
+let LNM = 452440
 let CIM = 100868
 let APM = 85755
 
@@ -739,9 +739,9 @@ function roundUP(val,step){
 
 
 let masteriesArr = {
-    main : [{label:"OJ Mastery MM",val:OJM > MCP*10 ? MCP*10 : OJM,cap:MCP*10},
-            {label:"Lemonade Mastery MM",val:LEM > MCP*10 ? MCP*10 : LEM,cap:MCP*10},
-            {label:"LNs Mastery MM",val:LNM > MCP*10 ? MCP*10 :LNM,cap:MCP*10},],
+    main : [{label:"OJ Mastery MM",val:OJM > MCP*9 ? MCP*9 : OJM,cap:MCP*9},
+            {label:"Lemonade Mastery MM",val:LEM > MCP*9 ? MCP*9 : LEM,cap:MCP*9},
+            {label:"LNs Mastery MM",val:LNM > MCP*9 ? MCP*9 :LNM,cap:MCP*9},],
     subs : [{label:"Cider Mastery GM",val:CIM > MCP ? MCP : CIM,cap:MCP},
             {label:"AP Mastery GM",val:APM > MCP ? MCP : APM,cap:MCP},]
 }
