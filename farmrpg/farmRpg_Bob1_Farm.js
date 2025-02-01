@@ -23,8 +23,10 @@ let shopOpen = false
 
 let closeTxt = 
 //`<br>`+spanText("rainbow","** Many customers today, I need to close early sorry **",24)+`<br><br>`+
-
-spanText("yellow","Business Hours<br>",22,false,"solid 2px brown")+
+`⚠️The shop and NOLA system are going to stop<br>
+`+ spanText("lime","this current month on Feb. 13th,",26,false,"yellow dashed 2px") +`<br> 
+last NOLAs running on Thursday the 12th Feb.⚠️`+
+`<br><br>`+spanText("yellow","Business Hours<br>",22,false,"solid 2px brown")+
 spanText("cyan",`
 *Time reference is 🇺🇸 server time, that you can see in chat for example*<br><br>
 Monday - Tuesday - Wednesday - Thursday - `+spanText("brown","Friday - Saturday - Sunday",16,true)+`
@@ -34,11 +36,11 @@ until 4AM<br>
 `,16)
 
 
-let OJM = 710930
-let LEM = 702180
-let LNM = 452440
+let OJM = 714374
+let LEM = 702738
+let LNM = 495749
 let CIM = 100868
-let APM = 85755
+let APM = 85815
 
 
 let lastUp = "01/30 20:00 🇯🇵"
@@ -319,7 +321,12 @@ subC1 = addEle({dad:cont,setClass:"contRow",margin:"10px 0 0 5px"})
     addEle({dad:subC1,text:"🚨",margin:"-5px 5px",fontS:"22px"})
 
 
-txt = spanText("cyan",`
+txt =
+`⚠️The shop and NOLA system are going to stop<br>
+`+ spanText("lime","this current month on Feb. 13th,",26,false,"yellow dashed 2px") +`<br> 
+last NOLAs running on Thursday the 12th Feb.⚠️`+
+`<br><br>`+spanText("yellow","Business Hours<br>",22,false,"solid 2px brown")+
+spanText("cyan",`
 *Time reference is 🇺🇸 server time, that you can see in chat for example*<br><br>
 Monday - Tuesday - Wednesday - Thursday - `+spanText("brown","Friday - Saturday - Sunday",16,true)+`
 <br><br>After game reset/midnight
@@ -328,10 +335,20 @@ until 4AM<br>
 `,16)
 
 
+/*
+spanText("cyan",`
+*Time reference is 🇺🇸 server time, that you can see in chat for example*<br><br>
+Monday - Tuesday - Wednesday - Thursday - `+spanText("brown","Friday - Saturday - Sunday",16,true)+`
+<br><br>After game reset/midnight
+`+spanText("yellow","+20~25mn (until meals start working really)",16)+`
+until 4AM<br>
+`,16)
+*/
+
     subC2 = addEle({dad:cont,setClass:"contRow",with:"100%",
     marginT:"10px",setID:"dailyTxt",display:"none"})
         addEle({dad:subC2,text:txt,border:"rgb(123,89,186) solid 3px",radius:"10px",
-        width:"fit-content",textA:"center",padding:"10px",setID:"infoCont"})
+        width:"fit-content",textA:"center",padding:"10px",setID:"infoCont",fontS:"26px"})
 
 
 
