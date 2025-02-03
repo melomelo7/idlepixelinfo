@@ -19,7 +19,7 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = true
+let shopOpen = false
 
 let closeTxt = 
 //`<br>`+spanText("rainbow","** Many customers today, I need to close early sorry **",24)+`<br><br>`+
@@ -43,7 +43,7 @@ let CIM = 100868
 let APM = 85815
 
 
-let lastUp = "02/03 17:30 🇯🇵"
+let lastUp = "02/03 18:00 🇯🇵"
 
 const body = document.querySelector("body")
 
