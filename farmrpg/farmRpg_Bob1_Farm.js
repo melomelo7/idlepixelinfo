@@ -32,7 +32,7 @@ spanText("cyan",`
 Monday - Tuesday - Wednesday - Thursday - `+spanText("brown","Friday - Saturday - Sunday",16,true)+`
 <br><br>After game reset/midnight
 `+spanText("yellow","+20~25mn (until meals start working really)",16)+`
-until 4AM<br>
+until 3AM<br>
 `,16)
 
 
@@ -43,7 +43,7 @@ let CIM = 100868
 let APM = 85815
 
 
-let lastUp = "01/30 20:00 🇯🇵"
+let lastUp = "02/03 17:30 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -331,7 +331,7 @@ spanText("cyan",`
 Monday - Tuesday - Wednesday - Thursday - `+spanText("brown","Friday - Saturday - Sunday",16,true)+`
 <br><br>After game reset/midnight
 `+spanText("yellow","+20~25mn (until meals start working really)",16)+`
-until 4AM<br>
+until 3AM<br>
 `,16)
 
 
