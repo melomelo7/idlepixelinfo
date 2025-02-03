@@ -19,7 +19,7 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = false
+let shopOpen = true
 
 let closeTxt = 
 //`<br>`+spanText("rainbow","** Many customers today, I need to close early sorry **",24)+`<br><br>`+
