@@ -19,7 +19,7 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = false
+let shopOpen = true
 
 let closeTxt = 
 //`<br>`+spanText("rainbow","** Many customers today, I need to close early sorry **",24)+`<br><br>`+
@@ -36,11 +36,11 @@ until 3AM<br>
 `,16)
 
 
-let OJM = 743342
-let LEM = 723194
-let LNM = 522576
+let OJM = 747315
+let LEM = 727195
+let LNM = 528660
 let CIM = 100868
-let APM = 87090
+let APM = 87607
 
 
 let lastUp = "02/03 18:00 🇯🇵"
