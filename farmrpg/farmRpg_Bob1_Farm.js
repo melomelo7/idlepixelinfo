@@ -36,11 +36,11 @@ until 3AM<br>
 `,16)
 
 
-let OJM = 758111
-let LEM = 742974
-let LNM = 548154
+let OJM = 770946
+let LEM = 763563
+let LNM = 573534
 let CIM = 100868
-let APM = 88748
+let APM = 90247
 
 
 let lastUp = "02/05 18:15 🇯🇵"
