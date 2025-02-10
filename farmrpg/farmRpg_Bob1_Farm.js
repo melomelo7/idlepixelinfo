@@ -22,9 +22,11 @@ let savK = "farmRPGOrders"
 let shopOpen = false
 
 let closeTxt =
+/*
 spanText("red","Shop ran out of fruities")+`, contact me only<br> to convert your `
 +spanText("cyan","Nets today Monday 10th Feb.")+`<br>`+
 `<br>`+spanText("rainbow","** Many customers today, I need to close early sorry **",24)+`<br><br>`+
+*/
 `<br>⚠️The shop and NOLA system are going to stop<br>
 `+ spanText("lime","this current month on Feb. 13th,",26,false,"yellow dashed 2px") +`<br> 
 last NOLAs running on Thursday the 12th Feb.⚠️`+
@@ -38,14 +40,14 @@ until 3AM<br>
 `,16)
 
 
-let OJM = 818254
-let LEM = 774103
-let LNM = 627110
+let OJM = 881885
+let LEM = 806757
+let LNM = 720538
 let CIM = 100868
-let APM = 91028
+let APM = 93550
 
 
-let lastUp = "02/10 17:00 🇯🇵"
+let lastUp = "02/10 18:00 🇯🇵"
 
 const body = document.querySelector("body")
 
