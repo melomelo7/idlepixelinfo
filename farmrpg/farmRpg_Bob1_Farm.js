@@ -19,12 +19,12 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = true
+let shopOpen = false
 
 let closeTxt =
-//spanText("red","Shop ran out of fruities")+`, contact me only<br> to convert your `
-//+spanText("cyan","nets today Thursday 6th")+`<br>`+
-//`<br>`+spanText("rainbow","** Many customers today, I need to close early sorry **",24)+`<br><br>`+
+spanText("red","Shop ran out of fruities")+`, contact me only<br> to convert your `
++spanText("cyan","Nets today Monday 10th Feb.")+`<br>`+
+`<br>`+spanText("rainbow","** Many customers today, I need to close early sorry **",24)+`<br><br>`+
 `<br>⚠️The shop and NOLA system are going to stop<br>
 `+ spanText("lime","this current month on Feb. 13th,",26,false,"yellow dashed 2px") +`<br> 
 last NOLAs running on Thursday the 12th Feb.⚠️`+
@@ -45,7 +45,7 @@ let CIM = 100868
 let APM = 91028
 
 
-let lastUp = "02/06 16:45 🇯🇵"
+let lastUp = "02/10 17:00 🇯🇵"
 
 const body = document.querySelector("body")
 
