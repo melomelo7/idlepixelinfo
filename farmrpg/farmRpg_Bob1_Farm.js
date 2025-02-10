@@ -19,7 +19,7 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = false
+let shopOpen = true
 
 let closeTxt =
 //spanText("red","Shop ran out of fruities")+`, contact me only<br> to convert your `
@@ -38,11 +38,11 @@ until 3AM<br>
 `,16)
 
 
-let OJM = 797981
-let LEM = 774099
-let LNM = 594060
+let OJM = 818254
+let LEM = 774103
+let LNM = 627110
 let CIM = 100868
-let APM = 91019
+let APM = 91028
 
 
 let lastUp = "02/06 16:45 🇯🇵"
