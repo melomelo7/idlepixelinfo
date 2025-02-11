@@ -19,7 +19,7 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = true
+let shopOpen = false
 
 let closeTxt =
 /*
@@ -47,7 +47,7 @@ let CIM = 100868
 let APM = 93550
 
 
-let lastUp = "02/11 15:30 🇯🇵"
+let lastUp = "02/11 18:00 🇯🇵"
 
 const body = document.querySelector("body")
 
