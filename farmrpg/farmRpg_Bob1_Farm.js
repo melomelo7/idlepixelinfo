@@ -29,7 +29,7 @@ spanText("red","Shop ran out of fruities")+`, contact me only<br> to convert you
 */
 `<br>⚠️The shop and NOLA system are going to stop<br>
 `+ spanText("lime","this current month on Feb. 13th,",26,false,"yellow dashed 2px") +`<br> 
-last NOLAs running on Thursday the 12th Feb.⚠️`+
+last NOLAs running on Wednesday the 12th Feb.⚠️`+
 `<br><br>`+spanText("yellow","Business Hours<br>",22,false,"solid 2px brown")+
 spanText("cyan",`
 *Time reference is 🇺🇸 server time, that you can see in chat for example*<br><br>
@@ -328,7 +328,7 @@ subC1 = addEle({dad:cont,setClass:"contRow",margin:"10px 0 0 5px"})
 txt =
 `⚠️The shop and NOLA system are going to stop<br>
 `+ spanText("lime","this current month on Feb. 13th,",26,false,"yellow dashed 2px") +`<br> 
-last NOLAs running on Thursday the 12th Feb.⚠️`+
+last NOLAs running on Wednesday the 12th Feb.⚠️`+
 `<br><br>`+spanText("yellow","Business Hours<br>",22,false,"solid 2px brown")+
 spanText("cyan",`
 *Time reference is 🇺🇸 server time, that you can see in chat for example*<br><br>
