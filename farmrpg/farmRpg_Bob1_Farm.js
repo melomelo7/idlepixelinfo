@@ -22,14 +22,13 @@ let savK = "farmRPGOrders"
 let shopOpen = false
 
 let closeTxt =
-spanText("yellow","<br>Thursday 13 Feb.<br>")+
-`<br>Last day for the shop, `+spanText("lime","today only the Nets will be converted<br>")+``+
-`with the shop rate still ... my last goal : the LN mastery is about<br>`+
-`to be finished within a few days ... So I wish to thank everyone <br>`+
-`for their help pushing me all this time. If your still using the shop,<br>`+
-`I suppose your turn to become a converter yourself might be coming.<br>`+
-`Good luck and happy gaming !<br><br>`+
-spanText("cyan","Shop will be running at reset +1hr until maybe 5AM<br><br>")
+spanText("yellow","<br>Thursday 13 Feb. Ive completed All my Converting Masteries<br><br>")+
+//``<br>Last day for the shop, `+spanText("lime","today only the Nets will be converted<br>")+``+
+//`with the shop rate still ... my last goal : the LN mastery is about<br>`+
+//`to be finished within a few days ... 
+`So I wish to thank everyone for their help pushing me all this time.<br>`+
+`If your still using the shop, I suppose your turn to become a <br>`+
+`converter yourself might be coming. Good luck and happy gaming !<br><br>`
 
 /*
 
@@ -52,12 +51,12 @@ until 3AM<br>
 
 let OJM = 905881
 let LEM = 905000
-let LNM = 846919
+let LNM = 910000
 let CIM = 100868
 let APM = 100000
 
 
-let lastUp = "02/13 15:30 🇯🇵"
+let lastUp = "02/14 00:50 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -909,3 +908,6 @@ player req net contract : jefrills
 
 */
 
+// LF any amount up to 4k LNs ((Large Net)) to support net convertings pls ty !
+
+// Converting ((Fishing Net)) ( ((Stone)) support required)
