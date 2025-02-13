@@ -22,11 +22,21 @@ let savK = "farmRPGOrders"
 let shopOpen = false
 
 let closeTxt =
+spanText("yellow","<br>Thursday 13 Feb.<br>")+
+`<br>Last day for the shop, `+spanText("lime","today only the Nets will be converted<br>")+``+
+`with the shop rate still ... my last goal : the LN mastery is about<br>`+
+`to be finished within a few days ... So I wish to thank everyone <br>`+
+`for their help pushing me all this time. If your still using the shop,<br>`+
+`I suppose your turn to become a converter yourself might be coming.<br>`+
+`Good luck and happy gaming !<br><br>`+
+spanText("cyan","Shop will be running at reset +1hr until maybe 5AM<br><br>")
+
 /*
+
 spanText("red","Shop ran out of fruities")+`, contact me only<br> to convert your `
 +spanText("cyan","Nets today Monday 10th Feb.")+`<br>`+
 `<br>`+spanText("rainbow","** Many customers today, I need to close early sorry **",24)+`<br><br>`+
-*/
+
 `<br>⚠️The shop and NOLA system are going to stop<br>
 `+ spanText("lime","this current month on Feb. 13th,",26,false,"yellow dashed 2px") +`<br> 
 last NOLAs running on Wednesday the 12th Feb.⚠️`+
@@ -38,7 +48,7 @@ Monday - Tuesday - Wednesday - Thursday - `+spanText("brown","Friday - Saturday 
 `+spanText("yellow","+20~25mn (until meals start working really)",16)+`
 until 3AM<br>
 `,16)
-
+*/
 
 let OJM = 905881
 let LEM = 905000
@@ -47,7 +57,7 @@ let CIM = 100868
 let APM = 100000
 
 
-let lastUp = "02/12 18:10 🇯🇵"
+let lastUp = "02/13 15:30 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -286,7 +296,7 @@ cont = addEle({dad:body,setClass:"contRow",margin:"10px 30px",alignItems:"center
     }})
     addEle({dad:cont,text:"🏠",fontS:"30px",marginL:"20px"})
     if(!shopOpen){
-        addEle({dad:cont,text:closeTxt,fontS:"22px",marginL:"20px",border:"lime 2px solid",padding:"5px",textA:"center"})
+        addEle({dad:cont,text:closeTxt,fontS:"22px",marginL:"20px",border:"lime 2px solid",padding:"10px",radius:"20px",textA:"center"})
     }
 
 let liner = addEle({dad:body,setClass:"contRow"})
