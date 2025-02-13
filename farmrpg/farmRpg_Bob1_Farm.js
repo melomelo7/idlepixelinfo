@@ -52,7 +52,7 @@ until 3AM<br>
 
 let OJM = 905881
 let LEM = 905000
-let LNM = 818375
+let LNM = 846919
 let CIM = 100868
 let APM = 100000
 
