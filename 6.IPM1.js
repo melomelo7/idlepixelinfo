@@ -226,7 +226,7 @@ let wanderers = [
         {dayN:"Friday",month:2,day:21},
     ]},
     {label:"Thunderhorse",ref:"thunderhorsen.jpg",dates:[
-        {dayN:"Friday",month:1,day:17},
+        {dayN:"Friday",month:2,day:28},
     ]},
     {label:"Enigma",ref:"enigma.jpg",dates:[
         {dayN:"Friday",month:1,day:31},
@@ -242,7 +242,7 @@ let wanderers2 = [
  //       {dayN:"Friday*",month:9,day:27},
     ]},
     {label:"Thunderhorse",ref:"thunderhorsen.jpg",dates:[
-        {dayN:"Friday",month:10,day:11},
+        {dayN:"Friday",month:2,day:28},
 //        {dayN:"Friday",month:6,day:28},{dayN:"Friday",month:8,day:2},
   //      {dayN:"Friday*",month:9,day:6},
     ]},
