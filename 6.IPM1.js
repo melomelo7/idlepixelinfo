@@ -229,7 +229,7 @@ let wanderers = [
         {dayN:"Friday",month:2,day:28},
     ]},
     {label:"Enigma",ref:"enigma.jpg",dates:[
-        {dayN:"Friday",month:1,day:31},
+        {dayN:"Friday",month:3,day:7},
     ]},
 ]
 
