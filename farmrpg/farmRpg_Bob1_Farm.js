@@ -19,7 +19,7 @@ let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
 
-let shopOpen = false
+let shopOpen = true
 
 let closeTxt =
 spanText("yellow","<br>Thursday 13 Feb. Ive completed All my Converting Masteries<br><br>")+
@@ -911,3 +911,21 @@ player req net contract : jefrills
 // LF any amount up to 4k LNs ((Large Net)) to support net convertings pls ty !
 
 // Converting ((Fishing Net)) ( ((Stone)) support required)
+
+
+/*
+
+
+do you need more ((Orange Juice)) to do your convertings ?
+
+I propose to do a trade 1:1
+for my ((Orange Juice)) Vs your ((Lemonade))
+
+can be today(now) or other day.
+IF other day you need msg me early
+before game reset or 1 day before so
+that I keep some ((Orange Juice)) for you.
+
+
+****** entropy / niels84
+*/
