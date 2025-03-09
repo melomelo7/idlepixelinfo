@@ -172,7 +172,8 @@ function setCustom(){
 
     addEle({dad:setCB,text:"Add to Custom List",setClass:"btn",backC:"blue",
     border:"yellow solid 2px",padding:"10px",setFunc:()=>{
-        if(testNum(getID("customR1").value) && testNum(getID("customR1").value)){
+        if(testNum(getID("customR1").value) && 
+        testNum(getID("customR1").value) && testNum(getID("customB").value)  ){
             rateU.push({
 
                 output:getID("customT").innerHTML,
@@ -190,8 +191,10 @@ function setCustom(){
 
     addEle({dad:setCB,text:"Save Custom List to browser",setClass:"btn",backC:"blue",
     border:"yellow solid 2px",padding:"10px",setFunc:()=>{
-        info.innerHTML = spanText("fuchsia","Not yet working",22,true)
-        setTimeout(()=>{info.innerHTML =""},1000)
+
+info.innerHTML = spanText("fuchsia","Not yet working",22,true)
+setTimeout(()=>{info.innerHTML =""},1000)
+        
         if(rateU.length>0){
 
         } else {
