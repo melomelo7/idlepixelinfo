@@ -243,7 +243,7 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content"})
 
     addEle({dad:cont,setClass:"btn",text:"⇒ Bob1 Converter Tools",
     textC:"lime",margin:"10px",setFunc:()=>{
-        let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmpg_truffles.html"
+        let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmRpg_ConvertingTool.html"
         window.open(lnk,"_self")
     }})
 
