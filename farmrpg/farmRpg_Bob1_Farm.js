@@ -214,7 +214,7 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content"})
 
 cont = addEle({dad:body,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
     addEle({dad:cont,text:"🟣 Game Help , Infos ... Tools",margin:"0 20px"})
-    addEle({dad:cont,text:"🔽",border:"lime solid 2px",radius:"5px",
+    addEle({dad:cont,text:"🔽",border:"lime solid 2px",radius:"5px",setID:"helpCont",
     cursor:"pointer",height:"fit-content",setFunc:(e)=>{
         getID("infosCont").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
         e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
@@ -246,6 +246,8 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content"})
         let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmRpg_ConvertingTool.html"
         window.open(lnk,"_self")
     }})
+
+getID("helpCont").click()
 
 
     let goldArr = [
@@ -286,8 +288,6 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content"})
                 border:"teal solid 2px",textA:"center",radius:"5px"})
             }
         })
-
-
 
 
 cont = addEle({dad:body,setClass:"contRow",margin:"10px 30px",alignItems:"center"})
