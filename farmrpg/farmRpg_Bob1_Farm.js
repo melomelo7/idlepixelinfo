@@ -56,7 +56,7 @@ let CIM = 100868
 let APM = 100000
 
 
-let lastUp = "02/14 00:50 🇯🇵"
+let lastUp = "03/09 16:10 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -73,7 +73,8 @@ Formerly a Strong Fisherman, my starting goal was to take down<br>
 all the fishing-MMs for the tower needs (floors 200+) ...<br><br>
 Now that this is over, I can turn the received nets to others<br>
 through my activity of converting.<br><br>
-The shop is evolving often ... Stay tuned 👻
+The shop is evolving often ... Stay tuned 👻<br>
+`+spanText("fuchsia","Shop closed doors on 13 Feb. 2024")+`
 `,18)
 
 let convTxt = `
@@ -212,7 +213,7 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content"})
 
 
 cont = addEle({dad:body,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
-    addEle({dad:cont,text:"🟢 Game Help & Infos",margin:"0 20px"})
+    addEle({dad:cont,text:"🟣 Game Help , Infos ... Tools",margin:"0 20px"})
     addEle({dad:cont,text:"🔽",border:"lime solid 2px",radius:"5px",
     cursor:"pointer",height:"fit-content",setFunc:(e)=>{
         getID("infosCont").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
@@ -235,6 +236,12 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content"})
     }})
 
     addEle({dad:cont,setClass:"btn",text:"⇒ Bob1 Truffles Page",
+    textC:"lime",margin:"10px",setFunc:()=>{
+        let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmpg_truffles.html"
+        window.open(lnk,"_self")
+    }})
+
+    addEle({dad:cont,setClass:"btn",text:"⇒ Bob1 Converter Tools",
     textC:"lime",margin:"10px",setFunc:()=>{
         let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmpg_truffles.html"
         window.open(lnk,"_self")
@@ -284,7 +291,7 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content"})
 
 
 cont = addEle({dad:body,setClass:"contRow",margin:"10px 30px",alignItems:"center"})
-    addEle({dad:cont,text:"🟢 Conversion Shop "+spanText("yellow","V"+shopV,20),margin:"0 20px"})
+    addEle({dad:cont,text:"🟢 Conversion Shop "+spanText("yellow","V"+shopV,20)+spanText("fuchsia","<br> (Not Working Anymore, Info only)"),margin:"0 20px"})
     addEle({dad:cont,text:"🔽",border:"lime solid 2px",radius:"5px",setID:"shopCont",
     cursor:"pointer",height:"fit-content",setFunc:(e)=>{
         if(shopOpen){
@@ -583,8 +590,8 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content",display:"none"})
     addEle({dad:cont,text:comboTxt2})
     addEle({dad:cont,text:typical,border:"teal solid 3px",radius:"20px",padding:"5px 10px",margin:"10px 5px"})
 
-getID("shopCont").click()
-getID("InfoClick").click()
+//getID("shopCont").click()
+//getID("InfoClick").click()
 
 
 function evalConv(e){
