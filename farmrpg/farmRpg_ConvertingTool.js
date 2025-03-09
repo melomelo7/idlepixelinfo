@@ -25,6 +25,11 @@ let currentRate = undefined
 
 let settings = addEle({dad:body,setClass:"contCol",padding:"5px",width:"100%"})
     let cr = addEle({dad:settings,setClass:"contRow",alignItems:"center"})
+        addEle({dad:cr,setClass:"btn",text:"⇒ Go Back",
+        textC:"lime",setFunc:()=>{
+            let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmRpg_Bob1_Farm.html"
+            window.open(lnk,"_self")
+        }})
         addEle({dad:cr,text: "Settings",marginL:"5px"})
         addEle({dad:cr,text: spanText("yellow","⚙",24),margin:"0 10px"})
         addEle({dad:cr,text: spanText("lime","🔽",20),
@@ -131,15 +136,15 @@ function setCustom(){
     cont = addEle({dad:setCB,setClass:"contRow",margin:"3px",alignItems:"center"})
         addEle({dad:cont,text:"Rate of Converting =",marginR:"5px"})
         addEle({dad:cont,what:"input",isInput:true,width:"50px",setID:"customR1",setVal:1000,
-        textA:"center",textC:"lime",backC:"black",setFunc:calcTestR})
+        border:"solid 1px yellow",textA:"center",textC:"lime",backC:"black",setFunc:calcTestR})
         addEle({dad:cont,text:":",fontS:"22px",margin:"0 10px"})
         addEle({dad:cont,what:"input",isInput:true,width:"50px",setID:"customR2",setVal:70,
-        textA:"center",textC:"lime",backC:"black",setFunc:calcTestR})
+        border:"solid 1px yellow",textA:"center",textC:"lime",backC:"black",setFunc:calcTestR})
 
     cont = addEle({dad:setCB,setClass:"contRow",margin:"3px",alignItems:"center"})
         addEle({dad:cont,text:"Bonus(%) Payout =",marginR:"5px"})
         addEle({dad:cont,what:"input",isInput:true,width:"50px",setID:"customB",setVal:0,
-        textA:"center",textC:"lime",backC:"black",setFunc:calcTestR})
+        border:"solid 1px yellow",textA:"center",textC:"lime",backC:"black",setFunc:calcTestR})
         
     cont = addEle({dad:setCB,setClass:"contRow",margin:"3px"})
         addEle({dad:cont,text:"Type of Rounding :"})
@@ -158,7 +163,7 @@ function setCustom(){
     cont = addEle({dad:setCB,setClass:"contRow",margin:"3px",alignItems:"center"})
         addEle({dad:cont,text:"Test Amount",marginR:"10px"})
         addEle({dad:cont,what:"input",isInput:true,width:"80px",setID:"testR",setVal:0,
-        textA:"center",textC:"lime",backC:"black",setFunc:calcTestR})
+        border:"solid 1px yellow",textA:"center",textC:"lime",backC:"black",setFunc:calcTestR})
 
     cont = addEle({dad:setCB,setClass:"contRow",margin:"3px",alignItems:"center"})
     addEle({dad:cont,text:"⇒",margin:" 5px"})
