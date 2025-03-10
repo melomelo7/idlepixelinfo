@@ -93,7 +93,7 @@ function dispRates(basic = true){
     else {arr = rateU}
     let cpt=0
     arr.forEach(it=>{
-        let cont = addEle({dad:setCC,setClass:"contRow",margin:"3px"})
+        let cont = addEle({dad:setCC,setClass:"contRow",margin:"2px"})
             if(!basic){
                 addEle({dad:cont,text:"Delete",marginR:"10px",border:"yellow solid 2px",padding:"0 5px",
                 radius:"5px",backC:"brown",setID:"customDel:"+cpt,cursor:"pointer",setFunc:(e)=>{
@@ -107,7 +107,7 @@ function dispRates(basic = true){
             addEle({dad:cont,text:it.output,textA:"center",minWidth:"100px",backC:"teal",padding:"2px"})
             addEle({dad:cont,text:"rate : "+it.rate,textA:"center",minWidth:"100px",margin:"0 10px",backC:"teal",padding:"2px"})
             addEle({dad:cont,text:"bonus : "+it.bonus+" %",textA:"center",minWidth:"100px",backC:"teal",padding:"2px"})
-            addEle({dad:cont,text:"rounding : "+it.rounding,textA:"center",minWidth:"fit-content",backC:"teal",padding:"2px",marginL:"10px"})
+            addEle({dad:cont,text:"rounding : "+it.rounding,textA:"center",minWidth:"100px",backC:"teal",padding:"2px",margin:"0 10px"})
         cpt++
     })
 }
@@ -173,7 +173,7 @@ function setCustom(){
     addEle({dad:setCB,text:"Add to Custom List",setClass:"btn",backC:"blue",
     border:"yellow solid 2px",padding:"10px",setFunc:()=>{
         if(testNum(getID("customR1").value) && 
-        testNum(getID("customR1").value) && testNum(getID("customB").value)  ){
+        testNum(getID("customR2").value) && testNum(getID("customB").value,true)){
             rateU.push({
 
                 output:getID("customT").innerHTML,
@@ -350,9 +350,9 @@ function toolCalc(id){
         if (testNum(mbs)){
             let rnds1 = Math.floor(payT/Number(mbs))
             let rnds2 = Math.floor(ret.payR/Number(mbs))
-            let txt = payT+" ⇒ "+ rnds1 + "x" + mbs + " + " + (payT-(rnds1*Number(mbs))) 
+            let txt = payT+" ⇒ "+ rnds1 + "x " + mbs + " + " + (payT-(rnds1*Number(mbs))) 
             if(bon>0)
-              {txt += "<br>"+ ret.payR +" ⇒ "+ rnds2 + "x" + mbs + " + " + (ret.payR-(rnds2*Number(mbs)))}
+              {txt += "<br>"+ ret.payR +" ⇒ "+ rnds2 + "x " + mbs + " + " + (ret.payR-(rnds2*Number(mbs)))}
             getID("payoutD:"+idx).innerHTML = txt
         } else { getID("payoutD:"+idx).innerHTML = spanText("fuchsia","---") }
 
@@ -360,12 +360,12 @@ function toolCalc(id){
 
 }
 
-function testNum(num){
+function testNum(num,zeroGood=false){
     let test = true
 
     if(!isNaN(num)){
         let val = Number(num)
-        if(val===0){test=false}
+        if(val===0 && !zeroGood){test=false}
     } else {test=false}
 
     return test
