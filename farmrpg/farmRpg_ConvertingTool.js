@@ -43,7 +43,7 @@ let settings = addEle({dad:body,setClass:"contCol",padding:"5px",width:"100%"})
     let setC = addEle({dad:settings,setClass:"contRow",borderL:"yellow solid 3px",
     padding:"5px",display:"none",margin:"0 10px 10px 10px",})
         let setCA = addEle({dad:setC,setClass:"contCol"})
-        let setCB = addEle({dad:setC,setClass:"contCol",margin:"0 10px",minWidth:"350px"})
+        let setCB = addEle({dad:setC,setClass:"contCol",margin:"0 10px",minWidth:"300px"})
         let setCC = addEle({dad:setC,setClass:"contCol"})
 
 addEle({dad:body,text:"Set Tools",setClass:"btn",backC:"blue",border:"yellow solid 2px",
@@ -216,7 +216,7 @@ function calcTestR(){
     if(testNum(val) && testNum(valD) && testNum(valM)){
         let rtn = calcConvert(val,valD,valM,valB,getID("roundingT").innerHTML)
         let txt = rtn.payR +" (+"+rtn.bonR+") = " + (rtn.payR+rtn.bonR) + 
-                " from " + rtn.pay +" (+"+rtn.bon+") = " + (rtn.pay+rtn.bon)
+                " from " + rtn.pay.toFixed(2) +" (+"+rtn.bon+") = " + (rtn.pay+rtn.bon).toFixed(2)
         getID("testC").innerHTML = txt 
         }
     else
@@ -244,7 +244,7 @@ function buildTool(dad,itm,idx){
     let tr = undefined
     let tc = undefined
 
-    let tbC = addEle({dad:dad,border:"yellow solid 2px",radius:"5px",padding:"2px",margin:"5px"})
+    let tbC = addEle({dad:dad,setClass:"contCol",border:"yellow solid 2px",radius:"5px",padding:"5px",margin:"5px"})
     let tb = addEle({dad:tbC,what:"table"})
         tr = addEle({dad:tb,what:"tr"})
             addEle({dad:tr,what:"td",text:itm.output,border:"solid teal 2px",minWidth:"110px",
@@ -274,12 +274,24 @@ function buildTool(dad,itm,idx){
         tr = addEle({dad:tb,what:"tr"})
             addEle({dad:tr,what:"td",text:"Order",border:"solid teal 2px",textA:"center"})
           tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
-            addEle({dad:tc,what:"input",isInput:true,width:"100px",textA:"center",setID:"order:"+idx,
+            let inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
+            addEle({dad:inC,what:"input",isInput:true,width:"100px",textA:"center",setID:"order:"+idx,
             setFunc:(e)=>{toolCalc(e.srcElement.id)}})
 
         tr = addEle({dad:tb,what:"tr"})
-            addEle({dad:tr,what:"td",text:"Payout :",border:"solid teal 2px",textA:"center"})
+            addEle({dad:tr,what:"td",text:spanText("lime","**")+"Target MB Size"+spanText("green","<br>(Option for Detail)"),border:"solid teal 2px",textA:"center"})
+          tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
+            inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
+            addEle({dad:inC,what:"input",isInput:true,width:"100px",textA:"center",setID:"mbs:"+idx,
+            setFunc:(e)=>{toolCalc(e.srcElement.id)}})
+
+        tr = addEle({dad:tb,what:"tr"})
+            addEle({dad:tr,what:"td",text:"Payout (+Bonus):",border:"solid teal 2px",textA:"center"})
             addEle({dad:tr,what:"td",text:0,border:"solid teal 2px",textA:"center",setID:"payout:"+idx})
+
+        tr = addEle({dad:tb,what:"tr"})
+            addEle({dad:tr,what:"td",text:spanText("lime","**")+"Payout Detail",border:"solid teal 2px",textA:"center"})
+            addEle({dad:tr,what:"td",text:spanText("fuchsia","---"),border:"solid teal 2px",textA:"center",setID:"payoutD:"+idx})
 
         tr = addEle({dad:tb,what:"tr"})
             addEle({dad:tr,what:"td",text:"Craft :",border:"solid teal 2px",textA:"center"})
@@ -288,7 +300,6 @@ function buildTool(dad,itm,idx){
         tr = addEle({dad:tb,what:"tr"})
             addEle({dad:tr,what:"td",text:"Lose :",border:"solid teal 2px",textA:"center"})
             addEle({dad:tr,what:"td",text:0,border:"solid teal 2px",textA:"center",setID:"lose:"+idx})
-
 
 }
 
@@ -317,10 +328,12 @@ function toolCalc(id){
     let val = getID("order:"+idx).value
     if(testNum(val)){
         val = Number(val)
-        div = Number(getID("rate:"+idx).innerHTML.split(":")[0])
-        mul = Number(getID("rate:"+idx).innerHTML.split(":")[1])
-        bon = Number(getID("bonus:"+idx).innerHTML)
-        rnd = getID("rounding:"+idx).innerHTML
+        let div = Number(getID("rate:"+idx).innerHTML.split(":")[0])
+        let mul = Number(getID("rate:"+idx).innerHTML.split(":")[1])
+        let bon = Number(getID("bonus:"+idx).innerHTML)
+        let rnd = getID("rounding:"+idx).innerHTML
+        let mbs = getID("mbs:"+idx).value
+
         let ret = calcConvert(val,div,mul,bon,rnd)
         let payT = ret.payR+ret.bonR
         getID("payout:"+idx).innerHTML = ret.payR +" + "+ ret.bonR +" = "+ payT
@@ -333,6 +346,16 @@ function toolCalc(id){
         }
         getID("craft:"+idx).innerHTML = craft
         getID("lose:"+idx).innerHTML = (ret.payR - craft) + " + " +ret.bonR + " = " + (ret.payR - craft + ret.bonR)
+
+        if (testNum(mbs)){
+            let rnds1 = Math.floor(payT/Number(mbs))
+            let rnds2 = Math.floor(ret.payR/Number(mbs))
+            let txt = payT+" ⇒ "+ rnds1 + "x" + mbs + " + " + (payT-(rnds1*Number(mbs))) 
+            if(bon>0)
+              {txt += "<br>"+ ret.payR +" ⇒ "+ rnds2 + "x" + mbs + " + " + (ret.payR-(rnds2*Number(mbs)))}
+            getID("payoutD:"+idx).innerHTML = txt
+        } else { getID("payoutD:"+idx).innerHTML = spanText("fuchsia","---") }
+
     }
 
 }
