@@ -1,12 +1,13 @@
 
 const body = document.querySelector("body")
 
-const outputs = ["LN","OJ / Lemonade","AP","Cider"]
-const outputsImg = [
-    {label:"LN",img:"https://farmrpg.com/img/items/lnet.png"},
-    {label:"OJ / Lemonade",img:"https://farmrpg.com/img/items/orangejuice.png+https://farmrpg.com/img/items/lemonade.png"},
-    {label:"AP",img:"https://farmrpg.com/img/items/ap.png"},
-    {label:"Cider",img:"https://farmrpg.com/img/items/8984.png"},
+const srcImgs = "https://farmrpg.com/img/items/"
+
+const outputs = [
+    {label:"LN",rate:"1000:70",img:"lnet.png"},
+    {label:"OJ / Lemonade",rate:"3:1",img:"orangejuice.png+lemonade.png"},
+    {label:"AP",rate:"30:1",img:"ap.png"},
+    {label:"Cider",rate:"22:1",img:"8984.png"},
 ]
 
 const roundings = ["Up","Down","Closest 5"]
@@ -23,8 +24,6 @@ let userI = {
     rateU:[],
     autoLoad : false
 }
-
-//let rateU = []
 
 let currentRate = undefined
 
@@ -126,18 +125,22 @@ function setCustom(){
     if(userI.rateU.length > 0){dispRates(basic=false)}
 
     addEle({dad:setCB,text:"Add a Custom Rate",borderB:"solid 2px yellow",width:"fit-content"})
-    let cont = addEle({dad:setCB,setClass:"contRow",margin:"3px"})
+    let cont = addEle({dad:setCB,setClass:"contRow",margin:"3px",alignItems:"center"})
         addEle({dad:cont,text:"Type of Converting : "})
         outputs.forEach(out=>{
-            addEle({dad:cont,what:"radio",isInput:true,setVal:out,setName:"outputsR",setFunc:()=>{
+            addEle({dad:cont,what:"radio",isInput:true,setVal:out.label,setName:"outputsR",setFunc:()=>{
                 let grp = document.getElementsByName("outputsR")
                 grp.forEach(it=>{
-                    if(it.checked){ getID("customT").innerHTML = it.value}
+                    if(it.checked){ 
+                        getID("customT").innerHTML = it.value
+                        let txt = outputs.filter(x=>x.label===it.value)[0].rate
+                        getID("customR1").value = txt.split(":")[0]
+                        getID("customR2").value = txt.split(":")[1]
+                    }
                 })
             }})
         })
         addEle({dad:cont,setID:"customT",marginL:"5px",textC:"lime"})
-    document.getElementsByName("outputsR")[0].click()
     
 //    cont = addEle({dad:setCB,setClass:"contRow",margin:"3px",alignItems:"center"})
         addEle({dad:cont,text:"Rate of Converting =",margin:"0 5px 0 20px"})
@@ -206,7 +209,7 @@ function setCustom(){
         //    checkAvailRates()
         }})
 
-
+    document.getElementsByName("outputsR")[0].click()
     document.getElementsByName("roundingR")[0].click()
 }
 
@@ -290,12 +293,12 @@ function buildTool(dad,itm,idx){
             textA:"center",setID:"type:"+idx})
           tc = addEle({dad:tr,what:"td",border:"solid teal 2px",textA:"center"})
             let cont = addEle({dad:tc,setClass:"contRow",justifyC:"center",minWidth:"60px"})
-                let txt = outputsImg.filter(it=>it.label===itm.output)[0].img
+                let txt = outputs.filter(it=>it.label===itm.output)[0].img
             if(txt.includes("+")){
-                addEle({dad:cont,what:"img",imgFullSrc:txt.split("+")[0],imgSize:25})
-                addEle({dad:cont,what:"img",imgFullSrc:txt.split("+")[1],imgSize:25})
+                addEle({dad:cont,what:"img",imgFullSrc:srcImgs+txt.split("+")[0],imgSize:25})
+                addEle({dad:cont,what:"img",imgFullSrc:srcImgs+txt.split("+")[1],imgSize:25})
             } else {
-                addEle({dad:cont,what:"img",imgFullSrc:txt,imgSize:25})
+                addEle({dad:cont,what:"img",imgFullSrc:srcImgs+txt,imgSize:25})
             }
 
         tr = addEle({dad:tb,what:"tr"})
