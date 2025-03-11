@@ -48,7 +48,7 @@ let settings = addEle({dad:body,setClass:"contCol",padding:"5px",width:"100%"})
     padding:"5px",display:"none",margin:"0 10px 10px 10px",})
         let setCA = addEle({dad:setC,setClass:"contCol"})
         let Cfork = addEle({dad:setC,setClass:"contCol"})
-            let setCB = addEle({dad:Cfork,setClass:"contCol",margiB:"10px"})
+            let setCB = addEle({dad:Cfork,setClass:"contCol",marginB:"10px"})
             let setCC = addEle({dad:Cfork,setClass:"contCol"})
 
 addEle({dad:body,text:"Set Tools",setClass:"btn",backC:"blue",border:"yellow solid 2px",
