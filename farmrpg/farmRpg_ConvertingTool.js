@@ -19,7 +19,12 @@ const rateB =[
 {output:"Cider",rate:"22:1",bonus:0,rounding:roundings[2]},
 ]
 
-let rateU = []
+let userI = {
+    rateU:[],
+    autoLoad : false
+}
+
+//let rateU = []
 
 let currentRate = undefined
 
@@ -39,12 +44,13 @@ let settings = addEle({dad:body,setClass:"contCol",padding:"5px",width:"100%"})
             setC.style.display = e.srcElement.innerHTML=== "🔽" ? "flex" : "none"
             e.srcElement.innerHTML = e.srcElement.innerHTML=== "🔽" ? "🔼" : "🔽" 
         }})
-        let info = addEle({dad:cr,text: "Infos",marginL:"20px"})
+        let info = addEle({dad:cr,marginL:"20px"})
     let setC = addEle({dad:settings,setClass:"contRow",borderL:"yellow solid 3px",
     padding:"5px",display:"none",margin:"0 10px 10px 10px",})
         let setCA = addEle({dad:setC,setClass:"contCol"})
-        let setCB = addEle({dad:setC,setClass:"contCol",margin:"0 10px",minWidth:"300px"})
-        let setCC = addEle({dad:setC,setClass:"contCol"})
+        let Cfork = addEle({dad:setC,setClass:"contCol"})
+            let setCB = addEle({dad:Cfork,setClass:"contCol",margiB:"10px"})
+            let setCC = addEle({dad:Cfork,setClass:"contCol"})
 
 addEle({dad:body,text:"Set Tools",setClass:"btn",backC:"blue",border:"yellow solid 2px",
 padding:"5px",width:"100px",setID:"setToolsBtn",setFunc:setTools})
@@ -61,7 +67,7 @@ function fillSetCA(){
     addEle({dad:setCA,text:"Basic Rates ("+rateB.length+")",setClass:"btn",backC:"blue",border:"yellow solid 2px",
     padding:"10px",width:"100px",setFunc:dispRates})
 
-    addEle({dad:setCA,text:"Custom ("+rateU.length+")",setClass:"btn",backC:"blue",border:"yellow solid 2px",
+    addEle({dad:setCA,text:"Custom ("+userI.rateU.length+")",setClass:"btn",backC:"blue",border:"yellow solid 2px",
     padding:"10px",width:"100px",setID:"customBtn",setFunc:setCustom})
 
     let rateCont = addEle({dad:setCA,setClass:"contCol",alignItems:"center",})
@@ -81,8 +87,9 @@ function fillSetCA(){
 }
 
 function checkAvailRates(){
-    if(rateU.length===0){getID("customRate").disabled = true,document.getElementsByName("rateSet")[0].click()}
+    if(userI.rateU.length===0){getID("customRate").disabled = true,document.getElementsByName("rateSet")[0].click()}
     else                {getID("customRate").disabled = false}
+    getID("customBtn").innerHTML = "Custom ("+userI.rateU.length+")"
 }
 
 function dispRates(basic = true){
@@ -90,7 +97,7 @@ function dispRates(basic = true){
     let arr = undefined
     if(basic)
          {arr = rateB;cleanParent(setCB)}
-    else {arr = rateU}
+    else {arr = userI.rateU}
     let cpt=0
     arr.forEach(it=>{
         let cont = addEle({dad:setCC,setClass:"contRow",margin:"2px"})
@@ -98,8 +105,7 @@ function dispRates(basic = true){
                 addEle({dad:cont,text:"Delete",marginR:"10px",border:"yellow solid 2px",padding:"0 5px",
                 radius:"5px",backC:"brown",setID:"customDel:"+cpt,cursor:"pointer",setFunc:(e)=>{
                     let idx = Number(e.srcElement.id.split(":")[1])
-                    rateU.splice(idx,1)
-                    getID("customBtn").innerHTML = "Custom ("+rateU.length+")"
+                    userI.rateU.splice(idx,1)
                     checkAvailRates()
                     setCustom()
                 }})    
@@ -117,7 +123,7 @@ function setCustom(){
     cleanParent(setCB)
     cleanParent(setCC)
 
-    if(rateU.length > 0){dispRates(basic=false)}
+    if(userI.rateU.length > 0){dispRates(basic=false)}
 
     addEle({dad:setCB,text:"Add a Custom Rate",borderB:"solid 2px yellow",width:"fit-content"})
     let cont = addEle({dad:setCB,setClass:"contRow",margin:"3px"})
@@ -133,8 +139,8 @@ function setCustom(){
         addEle({dad:cont,setID:"customT",marginL:"5px",textC:"lime"})
     document.getElementsByName("outputsR")[0].click()
     
-    cont = addEle({dad:setCB,setClass:"contRow",margin:"3px",alignItems:"center"})
-        addEle({dad:cont,text:"Rate of Converting =",marginR:"5px"})
+//    cont = addEle({dad:setCB,setClass:"contRow",margin:"3px",alignItems:"center"})
+        addEle({dad:cont,text:"Rate of Converting =",margin:"0 5px 0 20px"})
         addEle({dad:cont,what:"input",isInput:true,width:"50px",setID:"customR1",setVal:1000,
         border:"solid 1px yellow",textA:"center",textC:"lime",backC:"black",setFunc:calcTestR})
         addEle({dad:cont,text:":",fontS:"22px",margin:"0 10px"})
@@ -146,8 +152,8 @@ function setCustom(){
         addEle({dad:cont,what:"input",isInput:true,width:"50px",setID:"customB",setVal:0,
         border:"solid 1px yellow",textA:"center",textC:"lime",backC:"black",setFunc:calcTestR})
         
-    cont = addEle({dad:setCB,setClass:"contRow",margin:"3px"})
-        addEle({dad:cont,text:"Type of Rounding :"})
+//    cont = addEle({dad:setCB,setClass:"contRow",margin:"3px"})
+        addEle({dad:cont,text:"Type of Rounding :",marginL:"20px"})
         roundings.forEach(out=>{
             addEle({dad:cont,what:"radio",isInput:true,setVal:out,setName:"roundingR",setFunc:()=>{
                 let grp = document.getElementsByName("roundingR")
@@ -165,48 +171,73 @@ function setCustom(){
         addEle({dad:cont,what:"input",isInput:true,width:"80px",setID:"testR",setVal:0,
         border:"solid 1px yellow",textA:"center",textC:"lime",backC:"black",setFunc:calcTestR})
 
-    cont = addEle({dad:setCB,setClass:"contRow",margin:"3px",alignItems:"center"})
+//    cont = addEle({dad:setCB,setClass:"contRow",margin:"3px",alignItems:"center"})
     addEle({dad:cont,text:"⇒",margin:" 5px"})
     addEle({dad:cont,setID:"testC",text:0,textC:"lime",backC:"black",disabled:true})        
 
+    cont = addEle({dad:setCB,setClass:"contRow"})
+        addEle({dad:cont,text:"Add to Custom List",setClass:"btn",backC:"blue",
+        border:"yellow solid 2px",padding:"10px",setFunc:()=>{
+            if(testNum(getID("customR1").value) && 
+            testNum(getID("customR2").value) && testNum(getID("customB").value,true)){
+                userI.rateU.push({
 
-    addEle({dad:setCB,text:"Add to Custom List",setClass:"btn",backC:"blue",
-    border:"yellow solid 2px",padding:"10px",setFunc:()=>{
-        if(testNum(getID("customR1").value) && 
-        testNum(getID("customR2").value) && testNum(getID("customB").value,true)){
-            rateU.push({
+                    output:getID("customT").innerHTML,
+                    rate:getID("customR1").value+":"+getID("customR2").value,
+                    bonus:getID("customB").value,
+                    rounding:getID("roundingT").innerHTML,
 
-                output:getID("customT").innerHTML,
-                rate:getID("customR1").value+":"+getID("customR2").value,
-                bonus:getID("customB").value,
-                rounding:getID("roundingT").innerHTML,
-
-            })
-            getID("customBtn").innerHTML = "Custom ("+rateU.length+")"
-            setCustom()
-        }
-        checkAvailRates()
-    }})
+                })
+                checkAvailRates()
+                setCustom()
+            }
+            checkAvailRates()
+        }})
 
 
-    addEle({dad:setCB,text:"Save Custom List to browser",setClass:"btn",backC:"blue",
-    border:"yellow solid 2px",padding:"10px",setFunc:()=>{
+        addEle({dad:cont,text:"Save Custom List to browser",setClass:"btn",backC:"blue",
+        border:"yellow solid 2px",padding:"10px",backC:"green",setFunc:()=>{
+            saveToBrowser()
+        }})
 
-info.innerHTML = spanText("fuchsia","Not yet working",22,true)
-setTimeout(()=>{info.innerHTML =""},1000)
-        
-        if(rateU.length>0){
-
-        } else {
-
-        } 
-
-    }})
-
+        addEle({dad:cont,text:"Load Custom List",setClass:"btn",backC:"blue",
+        border:"yellow solid 2px",padding:"10px",backC:"green",setFunc:()=>{
+            loadFromBrowser()
+            checkAvailRates()
+        }})
 
 
     document.getElementsByName("roundingR")[0].click()
 }
+
+
+
+
+function showInfo(msg){
+    info.innerHTML = msg
+    setTimeout(()=>{info.innerHTML=""},1000)
+}
+
+function saveToBrowser(){
+    let key = "farmRPGCustomConverting"
+    let mySave = JSON.stringify(userI)
+    localStorage.setItem(key,mySave)
+    showInfo("Progress Saved ✅")
+}
+
+function loadFromBrowser(){
+    txt = "Progress Loaded ✅"
+    let key = "farmRPGCustomConverting"
+    let mySave = localStorage.getItem(key)
+    if(mySave===null)
+        {txt="⛔ No Progress found 👿"}
+    else{userI=JSON.parse(mySave)}
+    showInfo(txt)
+    getID("customBtn").click()
+}
+
+
+
 
 function calcTestR(){
     let val = Number(getID("testR").value)
@@ -227,7 +258,7 @@ function setTools(){
     cleanParent(toolsC)
     let arr = undefined
     if (currentRate === undefined){currentRate = "Basic"}
-    arr = currentRate === "Basic" ? arr = rateB : arr = rateU
+    arr = currentRate === "Basic" ? arr = rateB : arr = userI.rateU
     let cpt = 0
     let tbC = addEle({dad:toolsC})
     let tb = addEle({dad:tbC,what:"table"})
