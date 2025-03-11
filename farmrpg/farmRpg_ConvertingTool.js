@@ -76,11 +76,11 @@ function fillSetCA(){
     let rateCont2 = addEle({dad:rateCont,setClass:"contCol",alignItems:"left",})
         let cont = addEle({dad:rateCont2,setClass:"contRow"})
             addEle({dad:cont,what:"radio",isInput:true,setVal:"Basic",setName:"rateSet"
-            ,setFunc:(e)=>{ currentRate = e.srcElement.value}})
+            ,setFunc:(e)=>{ currentRate = e.srcElement.value ; getID("setToolsBtn").click()}})
             addEle({dad:cont,text:"Basic"})
         cont = addEle({dad:rateCont2,setClass:"contRow",marginB:"10px"})
             addEle({dad:cont,what:"radio",isInput:true,setVal:"Custom",setName:"rateSet",
-            setID:"customRate",setFunc:(e)=>{ currentRate = e.srcElement.value}})
+            setID:"customRate",setFunc:(e)=>{ currentRate = e.srcElement.value ; getID("setToolsBtn").click()}})
             addEle({dad:cont,text:"Custom"})
 
     checkAvailRates()
@@ -203,7 +203,7 @@ function setCustom(){
         addEle({dad:cont,text:"Load Custom List",setClass:"btn",backC:"blue",
         border:"yellow solid 2px",padding:"10px",backC:"green",setFunc:()=>{
             loadFromBrowser()
-            checkAvailRates()
+        //    checkAvailRates()
         }})
 
 
@@ -222,18 +222,26 @@ function saveToBrowser(){
     let key = "farmRPGCustomConverting"
     let mySave = JSON.stringify(userI)
     localStorage.setItem(key,mySave)
-    showInfo("Progress Saved ✅")
+    showInfo("Custom List Saved ✅")
 }
 
 function loadFromBrowser(){
-    txt = "Progress Loaded ✅"
+    txt = "Custom List Loaded ✅"
     let key = "farmRPGCustomConverting"
     let mySave = localStorage.getItem(key)
     if(mySave===null)
-        {txt="⛔ No Progress found 👿"}
-    else{userI=JSON.parse(mySave)}
+        {txt="⛔ No Custom List found 👿"}
+    else{
+        userI=JSON.parse(mySave)
+        getID("customBtn").click()
+        checkAvailRates()
+        if(userI.rateU.length>0){
+            document.getElementsByName("rateSet")[1].click()
+            getID("setToolsBtn").click()
+        }
+    }
     showInfo(txt)
-    getID("customBtn").click()
+    
 }
 
 
