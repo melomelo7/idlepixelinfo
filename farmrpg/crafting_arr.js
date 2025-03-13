@@ -289,9 +289,9 @@ const romans = [
    
 const truffles = {
     ref:"Period : 29-May to 26-Aug 2024",
-    white:{// 57 788 097  ⇔　193 976 860 // 197,448,540
+    white:{// 57 788 097  ⇔　193 976 860 // 197,448,540 // 197934141
         low:57788097,
-        high:197448540,
+        high:197934141,
     },
     black:{// 158 360 504  ⇔　619 032 766
         low:158360504,
@@ -1837,5 +1837,7 @@ frozenMasteries = [
     {label:"Frozen Book",ratio:1.85,mastery:7876,area:"Vast Ocean"},
     {label:"Frozen Coin",ratio:2.725,mastery:9647,area:"Lake Minerva"},
     {label:"Frozen Crab Claw",ratio:7.045,mastery:10726,area:"Large Island"},
-    {label:"Frozen Dagger",ratio:7.16,mastery:29366,area:"Glacier Lake"},
+    {label:"Frozen Dagger",ratio:7.16,mastery:81744,area:"Glacier Lake"},
 ]
+
+// 28 pigs buy 3.4M
