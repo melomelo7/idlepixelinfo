@@ -5,7 +5,7 @@ let txt = undefined
 let tb = undefined
 let tr = undefined
 let tc = undefined
-let userN = "Bob1"
+let userN = "Apple Lord"
 let inventoryS = 8800
 let mailboxS = 750
 let maxL = Math.floor(inventoryS/mailboxS) * mailboxS
@@ -56,15 +56,17 @@ let CIM = 100868
 let APM = 100000
 
 
-let lastUp = "03/09 16:10 🇯🇵"
+let lastUp = "03/14 00:00 🇯🇵"
 
 const body = document.querySelector("body")
 
 
 let welcome = spanText("lime",`
 🐮🥚 Welcome to `+userN+`'s Farm : 🐷<br>
-🐖🐖Busy busy lil Piggy !🐣🐖🐖
+🐖🐖Busy busy lil Piggy !🐣🐖🐖<br>
+
 `
++spanText("fuchsia","(Formerly known as Bob1)",28)
 ,40)
 
 let intro = spanText("",
@@ -196,9 +198,14 @@ let dailySwaps = [
 ]
 
 addEle({dad:body,text:spanText("lime","Last up : "+lastUp,20),margin:"5px 30px"})
-addEle({dad:body,text:welcome,margin:"20px",padding:"5px",border:"blue solid 3px",
+
+cont = addEle({dad:body,setClass:"contCol",width:"fit-content",alignItems:"center"})
+
+addEle({dad:cont,text:welcome,margin:"20px",padding:"5px",border:"blue solid 3px",
 radius:"30px",textA:"center",width:"fit-content"})
 
+addEle({dad:cont,what:"img",imgFullSrc:"./apple lord.jpg",img2Sizes:"350:240",
+border:"lime solid 2px",radius:"50%"})
 
 cont = addEle({dad:body,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
     addEle({dad:cont,text:"🟢 A few words...",margin:"0 20px"})
