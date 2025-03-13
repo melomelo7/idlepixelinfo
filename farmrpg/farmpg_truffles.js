@@ -7,7 +7,7 @@ let tb = undefined
 let tr = undefined
 let tc = undefined
 
-let lastUp = "08/26 23:40<br>"
+let lastUp = "03/14 00:00<br>"
 
 const body = document.querySelector("body")
 
@@ -23,7 +23,7 @@ const mainFr = addEle({dad:body,setClass:"contRow",height:"100%",width:"100%"}) 
         }})
 
 
-        addEle({dad:cont,text:spanText("yellow","Built using input up to 29 May 2024"),margin:"0 20px"})
+        addEle({dad:cont,text:spanText("yellow","Built using input up to 13 March 2025"),margin:"0 20px"})
 
     subC1 = addEle({dad:cont,setClass:"contCol",border:"teal solid 2px",radius:"20px",padding:"5px",
         margin:"10px",width:"fit-content"})
