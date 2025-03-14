@@ -16,7 +16,7 @@ const rateB =[
 {output:"LN",rate:"1000:70",bonus:0,rounding:roundings[2]},
 {output:"OJ / Lemonade",rate:"3:1",bonus:0,rounding:roundings[2]},
 {output:"AP",rate:"30:1",bonus:0,rounding:roundings[2]},
-{output:"LN",rate:"1000:75",bonus:0,rounding:roundings[2]},
+//{output:"LN",rate:"1000:75",bonus:0,rounding:roundings[2]},
 {output:"Cider",rate:"22:1",bonus:0,rounding:roundings[2]},
 ]
 
