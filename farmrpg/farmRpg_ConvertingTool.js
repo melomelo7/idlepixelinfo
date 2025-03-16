@@ -330,7 +330,8 @@ function calcTestR(){
     if(testNum(val) && testNum(valD) && testNum(valM)){
         let rtn = calcConvert(val,valD,valM,valB,getID("roundingT").innerHTML)
         let txt = rtn.payR +" (+"+rtn.bonR+") = " + (rtn.payR+rtn.bonR) + 
-                " from " + rtn.pay.toFixed(2) +" (+"+rtn.bon+") = " + (rtn.pay+rtn.bon).toFixed(2)
+                " from " + rtn.pay.toFixed(2) +" (+"+rtn.bon.toFixed(2)+") = " 
+                + (rtn.pay+rtn.bon).toFixed(2)
         getID("testC").innerHTML = txt 
         }
     else
