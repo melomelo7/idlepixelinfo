@@ -16,16 +16,30 @@ const rateB =[
 {output:"LN",rate:"1000:70",bonus:0,rounding:roundings[2]},
 {output:"OJ / Lemonade",rate:"3:1",bonus:0,rounding:roundings[2]},
 {output:"AP",rate:"30:1",bonus:0,rounding:roundings[2]},
-//{output:"LN",rate:"1000:75",bonus:0,rounding:roundings[2]},
 {output:"Cider",rate:"22:1",bonus:0,rounding:roundings[2]},
 ]
 
 let userI = {
     rateU:[],
-    autoLoad : false
+    autoLoad : false,
 }
 
 let currentRate = undefined
+
+let tempRate = {
+    type:undefined,
+    rate1:undefined,
+    rate2:undefined,
+    bonus:undefined,
+    rounding:undefined,
+}
+
+let noAutoChange = undefined
+let tools_P_L = 3
+
+last = "Last up 2025 03/16 13:55 (settings Options added)"
+
+addEle({dad:body,text:spanText("lime",last),margin:"10px"})
 
 let settings = addEle({dad:body,setClass:"contCol",padding:"5px",width:"100%"})
     let cr = addEle({dad:settings,setClass:"contRow",alignItems:"center"})
@@ -74,20 +88,59 @@ function fillSetCA(){
 
     let rateCont2 = addEle({dad:rateCont,setClass:"contCol",alignItems:"left",})
         let cont = addEle({dad:rateCont2,setClass:"contRow"})
-            addEle({dad:cont,what:"radio",isInput:true,setVal:"Basic",setName:"rateSet"
+            addEle({dad:cont,what:"radio",isInput:true,setVal:"Basic",setName:"rateSet",accentCol:"green"
             ,setFunc:(e)=>{ currentRate = e.srcElement.value ; getID("setToolsBtn").click()}})
             addEle({dad:cont,text:"Basic"})
         cont = addEle({dad:rateCont2,setClass:"contRow",marginB:"10px"})
-            addEle({dad:cont,what:"radio",isInput:true,setVal:"Custom",setName:"rateSet",
+            addEle({dad:cont,what:"radio",isInput:true,setVal:"Custom",setName:"rateSet",accentCol:"green",
             setID:"customRate",setFunc:(e)=>{ currentRate = e.srcElement.value ; getID("setToolsBtn").click()}})
             addEle({dad:cont,text:"Custom"})
 
+    let autoLoadC = addEle({dad:setCA,setClass:"contCol",alignItems:"center",})
+        cont = addEle({dad:autoLoadC,setClass:"contRow"})
+            addEle({dad:cont,what:"checkbox",isInput:true,setID:"autoLoadBox",
+            accentCol:"green",setFunc:(e)=>{
+                if(noAutoChange){
+                    noAutoChange = false
+                } else {
+                    let txt = ""
+                    if(e.srcElement.checked)
+                            {userI.autoLoad = true ; txt = "Auto Load Activated for Custom List ✅"}
+                    else    {userI.autoLoad = false ; txt = "Auto Load Removed for Custom List ✅"}
+                    saveToBrowser(txt,2000)
+                }
+            }})
+            addEle({dad:cont,text:"Auto Load"})
+        let txt = "Custom List<br>On Opening"
+        addEle({dad:autoLoadC,text:txt,marginT:"10px",marginT:"-2px"})
+    if(userI.autoLoad && !getID("autoLoadBox").checked ||
+    !userI.autoLoad && getID("autoLoadBox").checked
+    ){noAutoChange=true ; getID("autoLoadBox").click()}
+
+    let toolPerLC = addEle({dad:setCA,setClass:"contRow",alignItems:"center",marginT:"10px",alignItems:"center"})
+        addEle({dad:toolPerLC,text:"Tools per Line",marginR:"5px"})
+        addEle({dad:toolPerLC,what:"input",isInput:true,setVal:tools_P_L,width:"10px",setFunc:(e)=>{
+            let val = e.srcElement.value
+            if(testNum(val)){
+                tools_P_L = Math.floor(Number(val))
+                getID("setToolsBtn").click()
+            } else {
+                info.innerHTML = spanText("fuchsia","Input Error")
+                setTimeout(()=>{info.innerHTML =""},1000)
+            }
+        }})
     checkAvailRates()
 }
 
 function checkAvailRates(){
-    if(userI.rateU.length===0){getID("customRate").disabled = true,document.getElementsByName("rateSet")[0].click()}
-    else                {getID("customRate").disabled = false}
+    if(userI.rateU.length===0){
+        getID("customRate").disabled = true 
+        document.getElementsByName("rateSet")[0].click()
+        }
+    else{
+        getID("customRate").disabled = false
+        if(currentRate === "Custom"){document.getElementsByName("rateSet")[1].click()}
+    }
     getID("customBtn").innerHTML = "Custom ("+userI.rateU.length+")"
 }
 
@@ -105,7 +158,9 @@ function dispRates(basic = true){
                 radius:"5px",backC:"brown",setID:"customDel:"+cpt,cursor:"pointer",setFunc:(e)=>{
                     let idx = Number(e.srcElement.id.split(":")[1])
                     userI.rateU.splice(idx,1)
+                    if(userI.rateU.length === 0){userI.autoLoad = false ; saveToBrowser("")}
                     checkAvailRates()
+                    getID("setToolsBtn").click()
                     setCustom()
                 }})    
             }
@@ -142,7 +197,6 @@ function setCustom(){
         })
         addEle({dad:cont,setID:"customT",marginL:"5px",textC:"lime"})
     
-//    cont = addEle({dad:setCB,setClass:"contRow",margin:"3px",alignItems:"center"})
         addEle({dad:cont,text:"Rate of Converting =",margin:"0 5px 0 20px"})
         addEle({dad:cont,what:"input",isInput:true,width:"50px",setID:"customR1",setVal:1000,
         border:"solid 1px yellow",textA:"center",textC:"lime",backC:"black",setFunc:calcTestR})
@@ -151,11 +205,10 @@ function setCustom(){
         border:"solid 1px yellow",textA:"center",textC:"lime",backC:"black",setFunc:calcTestR})
 
     cont = addEle({dad:setCB,setClass:"contRow",margin:"3px",alignItems:"center"})
-        addEle({dad:cont,text:"Bonus(%) Payout =",marginR:"5px"})
+        addEle({dad:cont,text:"Bonus(+%) Payout =",marginR:"5px"})
         addEle({dad:cont,what:"input",isInput:true,width:"50px",setID:"customB",setVal:0,
         border:"solid 1px yellow",textA:"center",textC:"lime",backC:"black",setFunc:calcTestR})
         
-//    cont = addEle({dad:setCB,setClass:"contRow",margin:"3px"})
         addEle({dad:cont,text:"Type of Rounding :",marginL:"20px"})
         roundings.forEach(out=>{
             addEle({dad:cont,what:"radio",isInput:true,setVal:out,setName:"roundingR",setFunc:()=>{
@@ -174,7 +227,6 @@ function setCustom(){
         addEle({dad:cont,what:"input",isInput:true,width:"80px",setID:"testR",setVal:0,
         border:"solid 1px yellow",textA:"center",textC:"lime",backC:"black",setFunc:calcTestR})
 
-//    cont = addEle({dad:setCB,setClass:"contRow",margin:"3px",alignItems:"center"})
     addEle({dad:cont,text:"⇒",margin:" 5px"})
     addEle({dad:cont,setID:"testC",text:0,textC:"lime",backC:"black",disabled:true})        
 
@@ -191,10 +243,18 @@ function setCustom(){
                     rounding:getID("roundingT").innerHTML,
 
                 })
+
+                tempRate.type = getID("customT").innerHTML
+                tempRate.rate1 = getID("customR1").value
+                tempRate.rate2 = getID("customR2").value
+                tempRate.bonus = getID("customB").value
+                tempRate.rounding = getID("roundingT").innerHTML
+
                 checkAvailRates()
                 setCustom()
             }
             checkAvailRates()
+            getID("setToolsBtn").click()
         }})
 
 
@@ -206,26 +266,37 @@ function setCustom(){
         addEle({dad:cont,text:"Load Custom List",setClass:"btn",backC:"blue",
         border:"yellow solid 2px",padding:"10px",backC:"green",setFunc:()=>{
             loadFromBrowser()
-        //    checkAvailRates()
         }})
 
     document.getElementsByName("outputsR")[0].click()
     document.getElementsByName("roundingR")[0].click()
+
+    if(tempRate.type !== undefined){
+        document.getElementsByName("outputsR").forEach(it=>{
+            if(it.value===tempRate.type){it.click()}
+        })
+        getID("customR1").value = tempRate.rate1
+        getID("customR2").value = tempRate.rate2
+        getID("customB").value = tempRate.bonus
+        getID("roundingT").innerHTML = tempRate.rounding
+    }
+    if(userI.autoLoad && !getID("autoLoadBox").checked || 
+    !userI.autoLoad && getID("autoLoadBox").checked)
+    {noAutoChange=true ; getID("autoLoadBox").click()}
 }
 
 
-
-
-function showInfo(msg){
+function showInfo(msg,dur=1000){
     info.innerHTML = msg
-    setTimeout(()=>{info.innerHTML=""},1000)
+    setTimeout(()=>{info.innerHTML=""},dur)
 }
 
-function saveToBrowser(){
+function saveToBrowser(msg=undefined,dur=1000){
+    let txt = msg === undefined ? "Custom List Saved ✅" : msg
     let key = "farmRPGCustomConverting"
     let mySave = JSON.stringify(userI)
     localStorage.setItem(key,mySave)
-    showInfo("Custom List Saved ✅")
+    showInfo(txt,dur)
 }
 
 function loadFromBrowser(){
@@ -236,15 +307,16 @@ function loadFromBrowser(){
         {txt="⛔ No Custom List found 👿"}
     else{
         userI=JSON.parse(mySave)
-        getID("customBtn").click()
-        checkAvailRates()
-        if(userI.rateU.length>0){
-            document.getElementsByName("rateSet")[1].click()
-            getID("setToolsBtn").click()
-        }
+        if(userI.rateU.length > 0){
+            getID("customBtn").click()
+            checkAvailRates()
+            if(userI.rateU.length>0){
+                document.getElementsByName("rateSet")[1].click()
+                getID("setToolsBtn").click()
+            }
+        } else {txt="⛔ No Custom List found 👿"}
     }
     showInfo(txt)
-    
 }
 
 
@@ -275,7 +347,7 @@ function setTools(){
     let tb = addEle({dad:tbC,what:"table"})
     let tr = addEle({dad:tb,what:"tr"})
     arr.forEach(it=>{
-        if(cpt % 3===0){tr = addEle({dad:tb,what:"tr"})}
+        if(cpt % tools_P_L ===0){tr = addEle({dad:tb,what:"tr"})}
         let tc = addEle({dad:tb,what:"td"})
         buildTool(tc,it,cpt)
         cpt++
@@ -431,3 +503,21 @@ function round5(val){
     }
     return rVal
 }
+
+function checkAutoLoad(){
+    txt = "Custom List Auto-Load Successfull ✅"
+    let key = "farmRPGCustomConverting"
+    let mySave = localStorage.getItem(key)
+    if(mySave===null)
+        {txt="⛔ No Custom List found 👿"}
+    else{
+        userI=JSON.parse(mySave)
+        if(userI.autoLoad && userI.rateU.length>0){
+            currentRate = "Custom"
+            getID("setToolsBtn").click()
+        } else {{txt=""}}
+    }
+    showInfo(txt,2000)
+}
+
+checkAutoLoad()
