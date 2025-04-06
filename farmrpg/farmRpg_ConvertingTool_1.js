@@ -57,6 +57,9 @@ let userI = {
     },
 }
 
+loadSav()
+
+
 let tempRate = {
     type:undefined,
     rate1:undefined,
@@ -604,8 +607,6 @@ function loadSav(){
         } else {
             console.log("found but down")
 
-
-            /*
             let swapSav = {
                 pageV:pageVer,
                 currentSet:tempUserI.rateU.length > 0 ? "Custom":"Basic",
@@ -640,11 +641,9 @@ function loadSav(){
                 },
             }
             
-
-            */
-
-
-
+            userI = swapSav
+            saveToBrowser("")
+            console.log("sav updated")
         }
 
     } else {
@@ -653,7 +652,6 @@ function loadSav(){
 
 }
 
-loadSav()
 
 function getSavBuild(dady,src){
     let tbM = addEle({dad:dady,what:"table"})
