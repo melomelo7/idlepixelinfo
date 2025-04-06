@@ -74,7 +74,8 @@ function addEle({
     rowSpan = "",
     resize = "",
     url = "",
-    log = false}){
+    log = false,
+    opacity = "", }){
 
     let thisObj = undefined
 
@@ -205,6 +206,8 @@ function addEle({
     if(rowSpan!==""){thisObj.rowSpan = rowSpan}
 
     if(resize!==""){thisObj.style.resize = resize}
+
+    if(opacity!==""){thisObj.style.opacity = opacity}
 
     if(log){
         console.log(setVal)

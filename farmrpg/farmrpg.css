@@ -4,7 +4,6 @@ html,body{
 }
 
 body {
-/*    background-color: black;*/
     margin: 0;
     color: white;
     background-color: black;
@@ -21,10 +20,69 @@ body {
 }
 
 .btn {
-    border:blue solid 3px;
-    border-radius: 20px;
-    padding: 5px;
+    border:rgb(212, 212, 74) solid 2px;
+    background-color: rgb(45, 88, 128);
+    color: white;
+    border-radius: 5px;
+    padding: 3px;
     margin: 5px;
     text-align: center;
     cursor: pointer;
+    width: fit-content;
+    box-shadow: 2px 4px #999;
+}
+.btn:active{
+    box-shadow: 2px 2px #666;
+    transform:translate(2px,2px);
+}
+.btn:hover{
+    opacity: 0.8;
+}
+
+.arrowToggler{
+    border:yellow solid 2px;
+    border-radius: 5px;
+    padding: 1px 1px 2px 1px;
+    cursor: pointer;
+}
+
+.tealCell{
+    border:teal solid 2px;
+    border-radius: 7px;
+    padding: 3px;
+    text-align: center;
+}
+
+.rating{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100px;
+    background-color: teal;
+    padding: 2px;
+    margin-left: 5px;
+    border-radius: 5px;
+}
+
+.crossedTxt{
+    position: relative;
+    display: inline-block;
+    opacity: 0.5;
+}
+.crossedTxt:after{
+    position: absolute;
+    content: '';
+    top: 50%;
+    left: 5%;
+    width: 95%;
+    height: 2px;
+    background: red;
+}
+
+.valChecker{
+    margin: 5px;
+    min-width: 22px;
+    min-height: 22px;
+    text-align: center;
+    margin-right: 10px;
 }
