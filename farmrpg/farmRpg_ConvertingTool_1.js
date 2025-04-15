@@ -727,11 +727,14 @@ function setTools(){
     cleanParent(workC)
     let arr = userI.currentSet === "Basic" ? rateB : userI.rateU
     let cpt = 0
+
+    addEle({dad:workC,setClass:"btn",text:"Reset All",minWidth:"320px",setFunc:setTools})
+
+
     let tbC = addEle({dad:workC})
     let tb = addEle({dad:tbC,what:"table"})
     let tr = addEle({dad:tb,what:"tr"})
     let itm = undefined
-
     for(let i=0;i<arr.length;i++){
         itm = arr.filter(x=>x.ind===i)[0]
         if(cpt % userI.toolPerLine ===0){tr = addEle({dad:tb,what:"tr"})}
