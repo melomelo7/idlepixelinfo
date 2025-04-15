@@ -254,6 +254,12 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content"})
         window.open(lnk,"_self")
     }})
 
+    addEle({dad:cont,setClass:"btn",text:"⇒ Ref Chart for Trade Prices",
+    textC:"lime",margin:"10px",setFunc:()=>{
+        let lnk = "https://farmrpg-pricecheck.free.nf"
+        window.open(lnk,"_self")
+    }})
+
 getID("helpCont").click()
 
 
