@@ -4,30 +4,31 @@ const body = document.querySelector("body")
 const srcImgs = "https://farmrpg.com/img/items/"
 
 const outputs = [
-    {label:"LN",rate:"1000:70",img:"lnet.png"},
-    {label:"OJ",rate:"3:1",img:"orangejuice.png"},
-    {label:"Lemonade",rate:"3:1",img:"lemonade.png"},
-    {label:"AP",rate:"30:1",img:"ap.png"},
-    {label:"Cider",rate:"22:1",img:"8984.png"},
+    {label:"OJ",rate:"3:1",img:"orangejuice.png",chat1:"((Orange))",chat2:"((Orange Juice))"},
+    {label:"Lemonade",rate:"3:1",img:"lemonade.png",chat1:"((Lemon))",chat2:"((Lemonade))"},
+    {label:"AP",rate:"30:1",img:"ap.png",chat1:"((Lemon))",chat2:"((Arnold Palmer))"},
+    {label:"LN",rate:"1000:70",img:"lnet.png",chat1:"((Fishing Net))",chat2:"((Large Net))"},
+    {label:"Cider",rate:"22:1",img:"8984.png",chat1:"((Apple))",chat2:"((Apple Cider))"},
 ]
 
 const roundings = ["Up","Down","Closest 5"]
 
 const rateB =[
-{type:"LN",rate:"1000:70",bonus:0,rounding:roundings[2]},
-{type:"OJ",rate:"3:1",bonus:0,rounding:roundings[2]},
-{type:"Lemonade",rate:"3:1",bonus:0,rounding:roundings[2]},
-{type:"AP",rate:"30:1",bonus:0,rounding:roundings[2]},
-{type:"Cider",rate:"22:1",bonus:0,rounding:roundings[2]},
+{ind:0,type:"OJ",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined},
+{ind:1,type:"Lemonade",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined},
+{ind:2,type:"AP",rate:"30:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined},
+{ind:3,type:"LN",rate:"1000:70",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined},
+{ind:4,type:"Cider",rate:"22:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined},
 ]
 
 let pageVer = "2.0"
+
+let orderCap = 25
 
 let userI = {
     pageV:"2.0",
     currentSet:"Basic",
     rateU:[],
-    autoLoad:false,
     toolPerLine:3,
     inventoryMax:"???",
     fruitsProd:"???",
@@ -37,6 +38,7 @@ let userI = {
     antlersArte:false,
     netsTot:0,
     resSaver:45,
+    resCraft:1.45,
     mms:[
         {label:"OJ",img:"orangejuice.png",progress:"???"},
         {label:"Lemonade",img:"lemonade.png",progress:"???"},
@@ -59,17 +61,6 @@ let userI = {
 
 loadSav()
 
-
-let tempRate = {
-    type:undefined,
-    rate1:undefined,
-    rate2:undefined,
-    bonus:undefined,
-    rounding:undefined,
-}
-
-// let noAutoChange = undefined
-
 let lnk = undefined
 
 let purple = "rgb(226, 72, 226)"
@@ -77,17 +68,16 @@ let green = "rgb(18, 184, 18)"
 let yellow = "rgb(184, 184, 27)"
 
 let help = [
-    spanText("","🤠",24)+`User Settings : Worth a visit ... at least once !! `,
+    ``,
     `Amount of items received divided by [left] value multiplied by [right] value`,
     `For Generous Converters : instead of better ratio (1000:75 etc) try a % of bonus (5% or any)`,
-    `** Find Value at the top of "My Inventory" page **`,
-    `** Find Value on "Workshop" page **`,
-    `** Find Value on page "Home > My Farm > Orchard" **`,
-    `** Find Value on page "Home > My Farm > Raptor Pen" **`,
+    `** Find Value at the top of "My Inventory" page (Important for Outputs !)`,
+    `** Find Value on "Workshop" page`,
+    `** Find Value on page "Home > My Farm > Orchard"`,
+    `** Find Value on page "Home > My Farm > Raptor Pen"`,
 ]
 
 function showInfo(msg,dur=1000,col="",defCont=getID("info")){
-    console.log(msg)
     defCont.innerHTML = col==="" ? msg : spanText(col,msg)
     setTimeout(()=>{defCont.innerHTML=""},dur)
 }
@@ -166,8 +156,26 @@ function setCustomBuilder(){
 
     addEle({dad:workC,marginL:"20px",textC:purple,minHeight:"35px",setID:"info1",setClass:"contRow",alignItems:"center"})
 
-    addEle({dad:workC,text:"Add a Custom Rate",borderB:"solid 2px yellow",width:"fit-content"})
     let cont = addEle({dad:workC,setClass:"contRow",margin:"3px",alignItems:"center"})
+        addEle({dad:cont,text:"Add a Custom Rate",borderB:"solid 2px yellow",width:"fit-content"})
+        addEle({dad:cont,setClass:"btn",text:"Ratios for friends ?",setFunc:()=>{
+            getID("friendsC").style.display = getID("friendsC").style.display === "none" ? "flex" : "none"}})
+
+    addEle({dad:workC,setClass:"contCol",border:"green 2px dotted",radius:"10px",padding:"5px",display:"none",
+        setID:"friendsC",width:"fit-content"})
+        addEle({dad:getID("friendsC"),text:"Ratios for converting friends at little to no loss/benefit :"})
+        let subC = addEle({dad:getID("friendsC"),setClass:"contRow"})
+            addEle({dad:subC,what:"img",imgFullSrc:srcImgs+outputs[0].img,imgSize:20})
+            addEle({dad:subC,what:"img",imgFullSrc:srcImgs+outputs[1].img,imgSize:20})
+            addEle({dad:subC,text:"[4.13 : 1]",marginR:"20px"})
+            addEle({dad:subC,what:"img",imgFullSrc:srcImgs+outputs[2].img,imgSize:20})
+            addEle({dad:subC,text:"[57 : 1]",marginR:"20px"})
+            addEle({dad:subC,what:"img",imgFullSrc:srcImgs+outputs[3].img,imgSize:20})
+            addEle({dad:subC,text:"[1000 : 58]",marginR:"20px"})
+            addEle({dad:subC,what:"img",imgFullSrc:srcImgs+outputs[4].img,imgSize:20})
+            addEle({dad:subC,text:"[27.7 : 1]"})
+
+    cont = addEle({dad:workC,setClass:"contRow",margin:"3px",alignItems:"center"})
         addEle({dad:cont,text:"Type of Converting : "})
         let txt = srcImgs+outputs[0].img
         addEle({dad:cont,what:"img",imgFullSrc:txt,imgSize:20,margin:"5px 5px 0 5px",setID:"customTypeImg"})
@@ -214,42 +222,6 @@ function setCustomBuilder(){
 
     document.getElementsByName("customTypes")[0].click()
     document.getElementsByName("customRoundings")[0].click()
-
-
-    /*
-    
-
-    
-
-
-
-        addEle({dad:cont,text:"Save Custom List to browser",setClass:"btn",backC:"blue",
-        border:"yellow solid 2px",padding:"10px",backC:"green",setFunc:()=>{
-            saveToBrowser()
-        }})
-
-        addEle({dad:cont,text:"Load Custom List",setClass:"btn",backC:"blue",
-        border:"yellow solid 2px",padding:"10px",backC:"green",setFunc:()=>{
-            loadFromBrowser()
-        }})
-
-    document.getElementsByName("outputsR")[0].click()
-    document.getElementsByName("roundingR")[0].click()
-
-    if(tempRate.type !== undefined){
-        document.getElementsByName("outputsR").forEach(it=>{
-            if(it.value===tempRate.type){it.click()}
-        })
-        getID("customR1").value = tempRate.rate1
-        getID("customR2").value = tempRate.rate2
-        getID("customB").value = tempRate.bonus
-        getID("roundingT").innerHTML = tempRate.rounding
-    }
-    if(userI.autoLoad && !getID("autoLoadBox").checked || 
-    !userI.autoLoad && getID("autoLoadBox").checked)
-    {noAutoChange=true ; getID("autoLoadBox").click()}
-*/
-
 }
 
 function addCustomRate(){
@@ -258,17 +230,14 @@ function addCustomRate(){
        testNum(getID("customBonus").value,true)){
 
         userI.rateU.push({
+            ind:userI.rateU.length,
             type:getID("customType").innerHTML,
             rate:getID("customR1").value+":"+getID("customR2").value,
             bonus:getID("customBonus").value,
             rounding:getID("customRounding").innerHTML,
+            orderMem:[],
+            orderIdx:undefined,
         })
-
-        tempRate.type = getID("customType").innerHTML
-        tempRate.rate1 = getID("customR1").value
-        tempRate.rate2 = getID("customR2").value
-        tempRate.bonus = getID("customBonus").value
-        tempRate.rounding = getID("customRounding").innerHTML
 
         getID("customBtn").innerHTML = 
         "Custom rates ("+spanText("lime",userI.rateU.length)+")"+"<br>(Build your own set)"
@@ -278,6 +247,8 @@ function addCustomRate(){
             document.getElementsByName("rateSets")[1].click()
             dispRates(false)
         }
+
+    setTools()
     }
 }
 
@@ -353,22 +324,53 @@ function dispRates(basic=true){
     let from = userI.visuals.preset
 
     let arr = undefined
-    if(basic)
-         {arr = rateB;cleanParent(getID("rateC2Top"))}
-    else {arr = userI.rateU}
-    let cpt=0
-    arr.forEach(it=>{
-        let cont = addEle({dad:workC,setClass:"contRow",margin:"2px"})
-            if(!basic){
-                addEle({dad:cont,text:"Delete",setClass:"btn",marginR:"",backC:"brown",fontS:"14px",
-                backC:from.buttonBackC,setID:"customDel:"+cpt,cursor:"pointer",setFunc:(e)=>{blastRate(e)}})    
-            }
-            addEle({dad:cont,setClass:"rating",text:it.type})
-            addEle({dad:cont,setClass:"rating",text:"rate : "+it.rate})
-            addEle({dad:cont,setClass:"rating",text:"bonus : "+it.bonus+" %"})
-            addEle({dad:cont,setClass:"rating",text:"rounding : "+it.rounding})
-        cpt++
-    })
+    if(basic) {arr = rateB;cleanParent(getID("rateC2Top"))}
+    else      {arr = userI.rateU}
+
+    for(let i = 0;i<arr.length;i++){
+        let itm = arr.filter(x=>x.ind===i)[0]
+        let cont = addEle({dad:workC,setClass:"contRow",margin:"2px 2px 10px 2px"})
+        if(!basic){
+            addEle({dad:cont,text:"Delete",setClass:"btn",marginR:"",backC:"brown",fontS:"14px",
+            display:"flex",alignItems:"center",backC:from.buttonBackC,setID:"customDel:"+i,
+            cursor:"pointer",setFunc:(e)=>{blastRate(e)}})
+
+            let subC = addEle({dad:cont,setClass:"contCol"})
+                addEle({dad:subC,text:"🔼",setClass:"btn",padding:"0",margin:"0",fontS:"12px",
+                setID:"swap:"+i,setFunc:(e)=>{swapUD(e,"U",basic)}})
+                addEle({dad:subC,text:"🔽",setClass:"btn",padding:"0",margin:"0",fontS:"12px",
+                setID:"swap:"+i,setFunc:(e)=>{swapUD(e,"D",basic)}})
+        }
+        addEle({dad:cont,setClass:"rating",text:itm.type})
+        addEle({dad:cont,setClass:"rating",text:"rate : "+itm.rate})
+        addEle({dad:cont,setClass:"rating",text:"bonus : "+itm.bonus+" %"})
+        addEle({dad:cont,setClass:"rating",text:"rounding : "+itm.rounding})
+    }
+}
+
+function swapUD(e,di,bs){
+    let oldI = Number(e.srcElement.id.split(":")[1])
+    let newI = undefined
+    let src = userI.rateU
+    let newA = []
+
+    switch(di){
+        case "U":newI = oldI -1 < 0 ? 0 : oldI - 1 ; break 
+        case "D":newI = oldI +1 > src.length-1 ? src.length -1 : oldI +1 ; break
+    }
+
+    for(let i=0;i<src.length;i++){
+        let srcI = src.filter(it=>it.ind===i)[0]
+        newA.push({ind:srcI.ind,type:srcI.type})
+    }
+
+    let tempo = newA.splice(oldI,1)[0]
+    newA.splice(newI,0,tempo)
+
+    for(let i=0;i<newA.length;i++){src.filter(x=>x.type===newA[i].type)[0].ind = i}
+
+    dispRates(bs)
+    setTools()
 }
 
 function blastRate(e){
@@ -378,6 +380,8 @@ function blastRate(e){
         document.getElementsByName("rateSets")[1].disabled = true
         document.getElementsByName("rateSets")[0].click()
     }
+    if(userI.rateU.length>0){for(let i=0;i<userI.rateU.length;i++){userI.rateU[i].ind=i}}
+    getID("customBtn").innerHTML = "Custom Rates ("+spanText("lime",userI.rateU.length)+")"+"<br>(Build your own set)"
     dispRates(false)
     setTools()
 }
@@ -482,6 +486,7 @@ function testValNum(e,testId,prog=false){
     } 
     updateUserDetails()
     if(getID("savCont").style.display === "flex"){getID("savCont").style.display = "none"}
+    setTools()
 }
 
 function updateUserDetails(){
@@ -499,6 +504,7 @@ function updateUserDetails(){
         val = getID(map[i]).value ; userI.mms[i-4].progress = testNum(val) ? Number(val) : "???"
     }
 
+    userI.resCraft = Number((1 + userI.resSaver/100).toFixed(2))
     userI.fruitsArte = getID("userArte1").checked ? true : false
     userI.antlersArte = getID("userArte2").checked ? true : false
 
@@ -516,6 +522,7 @@ function updateUserDetails(){
             userI.netsTot = Math.floor((resetP+noonP) * (1+(userI.resSaver/100)))
         }
     }
+
 }
 
 function setUserSav(){
@@ -565,13 +572,14 @@ function saveToBrowser(msg=undefined,dur=1000){
 
 
 
-
+/*
 let userI2 = {
-    rateU:[],
+    rateU:[{output:"OJ / Lemonade",rate:"3:1",bonus:0,rounding:roundings[2]},],
     autoLoad : false,
 }
 
 function saveToBrowserOld(msg=undefined,dur=1000){
+    removeKey()
     let txt = msg === undefined ? "Old User Settings Saved ✅" : msg
     let key = "farmRPGCustomConverting"
     let mySave = JSON.stringify(userI2)
@@ -580,33 +588,27 @@ function saveToBrowserOld(msg=undefined,dur=1000){
 }
 
 
-
-/*
+////////////////////////////////////////
 function removeKey(){
     let key = "farmRPGCustomConverting"
     localStorage.removeItem(key)
   //  showInfo("✅ Progress Erased ❗")
 } 
-removeKey()
-*/
-//saveToBrowserOld()
 
-console.log(userI)
+//removeKey()
+///////////////////////////////////////
+
+saveToBrowserOld()
+*/
 
 function loadSav(){
     let key = "farmRPGCustomConverting"
     let mySave = localStorage.getItem(key)
     if(mySave){
         let tempUserI = JSON.parse(mySave)
-        
-        console.log(tempUserI)
-
         if(tempUserI.pageV===pageVer){
-            console.log("found and up")
-            userI = tempUserI
+           userI = tempUserI
         } else {
-            console.log("found but down")
-
             let swapSav = {
                 pageV:pageVer,
                 currentSet:tempUserI.rateU.length > 0 ? "Custom":"Basic",
@@ -621,6 +623,7 @@ function loadSav(){
                 antlersArte:false,
                 netsTot:0,
                 resSaver:45,
+                resCraft:1.45,
                 mms:[
                     {label:"OJ",img:"orangejuice.png",progress:"???"},
                     {label:"Lemonade",img:"lemonade.png",progress:"???"},
@@ -642,14 +645,25 @@ function loadSav(){
             }
             
             userI = swapSav
+
+            let src = userI.rateU
+            if(src.length>0){
+                swapSav = []
+                for(let i=0;i<src.length;i++){
+                    swapSav.push({
+                        ind:i,
+                        type:src[i].output.includes("/") ? "OJ" : src[i].output,
+                        rate:src[i].rate,
+                        bonus:src[i].bonus,
+                        rounding:src[i].rounding,
+                    })
+                }
+                userI.rateU = swapSav                
+            }
             saveToBrowser("")
-            console.log("sav updated")
         }
-
-    } else {
-        console.log("no sav")
     }
-
+    userI.rateU.forEach(rt=>{rt.orderMem = []})
 }
 
 
@@ -672,7 +686,7 @@ function getSavBuild(dady,src){
                 addEle({dad:tr,what:"td",setClass:"tealCell",text:"bonus : "+rt.bonus})
                 addEle({dad:tr,what:"td",setClass:"tealCell",text:"rounding : "+rt.rounding})})}
     else{
-        addEle({dad:tr,what:"td",setClass:"tealCell",text:spanText("fuchsia","---")})
+        addEle({dad:tr,what:"td",setClass:"tealCell",text:spanText(purple,"---")})
     }
 
     tr = addEle({dad:tbM,what:"tr"})
@@ -709,7 +723,515 @@ function getSavBuild(dady,src){
 }
 
 function setTools(){
-    console.log("set tools : "+userI.toolPerLine+" set : "+userI.currentSet)
+    let workC = getID("toolsFr")
+    cleanParent(workC)
+    let arr = userI.currentSet === "Basic" ? rateB : userI.rateU
+    let cpt = 0
+    let tbC = addEle({dad:workC})
+    let tb = addEle({dad:tbC,what:"table"})
+    let tr = addEle({dad:tb,what:"tr"})
+    let itm = undefined
+
+    for(let i=0;i<arr.length;i++){
+        itm = arr.filter(x=>x.ind===i)[0]
+        if(cpt % userI.toolPerLine ===0){tr = addEle({dad:tb,what:"tr"})}
+        let tc = addEle({dad:tr,what:"td"})
+        buildTool(tc,itm,cpt)
+        cpt++
+    }
 }
 
+function buildTool(dad,itm,idx){
+    let tr = undefined
+    let tc = undefined
+    let txt = undefined
+
+    let tbC = addEle({dad:dad,setClass:"contCol",border:"yellow solid 2px",radius:"5px",padding:"5px",margin:"5px"})
+    let tb = addEle({dad:tbC,what:"table"})
+        tr = addEle({dad:tb,what:"tr"})
+          tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
+            let inC = addEle({dad:tc,setClass:"contRow"})
+            addEle({dad:inC,what:"checkbox",isInput:true,accentCol:green,setName:"advertise",setID:"adv:"+idx,
+            setFunc:advertising})
+            addEle({dad:inC,text:"Advertise",marginL:"5px",setID:"advL:"+idx,
+                setFunc:(e)=>{txt = e.srcElement.id.split(":")[1] ; getID("adv:"+txt).click()}})
+            addEle({dad:inC,text:itm.type,minWidth:"110px",textA:"center",setID:"type:"+idx})
+            getID("adv:"+idx).click()
+          
+          tc = addEle({dad:tr,what:"td",border:"solid teal 2px",textA:"center"})
+            let cont = addEle({dad:tc,setClass:"contRow",justifyC:"space-around",alignItems:"center"})
+                txt = outputs.filter(it=>it.label===itm.type)[0].img
+                addEle({dad:cont,what:"img",imgFullSrc:srcImgs+txt,imgSize:25})
+                addEle({dad:cont,setClass:"btn",text:"Reset",setID:"reset:"+idx,setFunc:(e)=>{
+                    let idx = e.srcElement.id.split(":")[1]
+                    getID("order:"+idx).value = 0
+                    getID("mbs:"+idx).value = 0
+                    toolCalc(e.srcElement.id)
+                }})
+
+        tr = addEle({dad:tb,what:"tr"})
+          tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2,justifyC:"center"})
+            cont = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
+            inC = addEle({dad:cont,setClass:"contCol"})
+                txt = "Rate : "+itm.rate+" -- Rounding :"+itm.rounding
+                addEle({dad:inC,text:txt,marginT:"5px"})
+                addEle({dad:inC,text:"Payout Bonus(+%) : "+itm.bonus,marginT:"5px"})
+
+        tr = addEle({dad:tb,what:"tr"}) // "◀" ◀
+          tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
+            inC = addEle({dad:tc,setClass:"contRow",justifyC:"center",alignItems:"center"})
+            addEle({dad:inC,setClass:"btn",text:"◀",fontS:"10px",setID:"memoPrev:"+idx,margin:"0",
+            setFunc:(e)=>{memoPrev(e)}})
+            addEle({dad:inC,setClass:"btn",text:"▶",fontS:"10px",setID:"memoNext:"+idx,margin:"0",
+            setFunc:(e)=>{memoNext(e)}})
+            addEle({dad:inC,setClass:"btn",text:"Del",fontS:"10px",setID:"memDel:"+idx,margin:"0",
+            setFunc:(e)=>{memoDel(e)}})
+            addEle({dad:inC,setClass:"btn",text:"Memo 0/"+orderCap,fontS:"10px",setID:"memAdd:"+idx,
+            marginR:"10px",setFunc:(e)=>{memoAdd(e)}})
+            addEle({dad:inC,what:"td",text:"Order(s)",textA:"center"})
+          tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
+            inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
+            addEle({dad:inC,what:"input",isInput:true,width:"100px",textA:"center",setID:"order:"+idx,
+            setVal:0,setFunc:(e)=>{toolCalc(e.srcElement.id)}})
+
+        tr = addEle({dad:tb,what:"tr"})
+            addEle({dad:tr,what:"td",text:spanText("lime","**")+"Customer MB Size"+spanText("green","<br>(for Payout Detail)"),
+            border:"solid teal 2px",textA:"center"})
+          tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
+            inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
+            addEle({dad:inC,what:"input",isInput:true,width:"100px",textA:"center",setID:"mbs:"+idx,
+            setVal:0,setFunc:(e)=>{toolCalc(e.srcElement.id)}})
+
+        tr = addEle({dad:tb,what:"tr"})
+            addEle({dad:tr,what:"td",text:"Payout (+Bonus):",border:"solid teal 2px",textA:"center"})
+            addEle({dad:tr,what:"td",text:0,border:"solid teal 2px",textA:"center",setID:"payout:"+idx})
+
+        tr = addEle({dad:tb,what:"tr"})
+            addEle({dad:tr,what:"td",text:spanText("lime","**")+"Payout Detail",border:"solid teal 2px",textA:"center"})
+            addEle({dad:tr,what:"td",text:spanText(purple,"---"),border:"solid teal 2px",textA:"center",setID:"payoutD:"+idx})
+
+        tr = addEle({dad:tb,what:"tr"})
+            addEle({dad:tr,what:"td",text:"Craft :",border:"solid teal 2px",textA:"center"})
+            addEle({dad:tr,what:"td",text:0,border:"solid teal 2px",textA:"center",setID:"craft:"+idx})
+
+        tr = addEle({dad:tb,what:"tr"})
+            addEle({dad:tr,what:"td",text:"Lose :",border:"solid teal 2px",textA:"center"})
+            addEle({dad:tr,what:"td",text:0,border:"solid teal 2px",textA:"center",setID:"lose:"+idx})
+
+        tr = addEle({dad:tb,what:"tr"})
+          tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
+            cont = addEle({dad:tc,setClass:"contCol",alignItems:"center",minHeight:"130px",justifyC:"center"})
+        if(itm.type==="LN"){
+            let subC = addEle({dad:cont,setClass:"contCol",alignItems:"center"})
+                addEle({dad:subC,text:"Stone Needed : ",borderB:"yellow solid 2px",width:"fit-content"})
+                txt = testNum(userI.inventoryMax) ? 
+                spanText(purple,"---") : spanText(purple,"Fill User Details in User Settings")
+                addEle({dad:subC,text:txt,setID:"stoneNeed:"+idx,marginL:"5px"})
+
+            inC = addEle({dad:cont,setClass:"contRow",alignItems:"center",borderB:"teal solid 2px",
+            paddingB:"5px"})
+                addEle({dad:inC,text:"Inventory :",textA:"center",marginR:"10px"})
+                addEle({dad:inC,text:"Iron<br>Rings",textA:"center",marginR:"10px"})
+                addEle({dad:inC,what:"range",isInput:true,min:0,max:100,setVal:100,width:"100px",
+                setID:"ringRg:"+idx,setFunc:(e)=>{upNeedRg(e.srcElement.id)}})
+                txt = testNum(userI.inventoryMax) ? "100%<br>"+userI.inventoryMax : spanText(purple,"---")
+                addEle({dad:inC,setID:"ringRgLb:"+idx,text:txt,textA:"center",marginL:"10px"})
+
+            inC = addEle({dad:cont,setClass:"contRow",alignItems:"center",padding:"5px"})
+                addEle({dad:inC,text:"Inventory :",textA:"center",marginR:"10px"})
+                addEle({dad:inC,text:"Stone",textA:"center",marginR:"10px"})
+                addEle({dad:inC,what:"range",isInput:true,min:0,max:100,setVal:100,width:"100px",
+                setID:"stoneRg:"+idx,setFunc:(e)=>{upNeedRg(e.srcElement.id)}})
+                txt = testNum(userI.inventoryMax) ? "100%<br>"+userI.inventoryMax : spanText(purple,"---")
+                addEle({dad:inC,setID:"stoneRgLb:"+idx,text:txt,textA:"center",marginL:"10px"})
+        } else {
+            let subC = addEle({dad:cont,setClass:"contCol",alignItems:"center"})
+                switch(itm.type){
+                    case "AP" : txt = "Iced Tea Used :" ; break
+                    case "Cider" : txt = "Bottles and Oranges Used :" ; break
+                    default : txt = "Bottles Used : "
+                }
+                addEle({dad:subC,text:txt,borderB:"yellow solid 2px",width:"fit-content"})
+                txt = testNum(userI.inventoryMax) ? 
+                spanText(purple,"<br>---") : spanText(purple,"<br>Fill User Details in User Settings")
+                addEle({dad:subC,text:txt,setID:"bottlesNeed:"+idx,marginL:"5px"})
+        }
+
+        tr = addEle({dad:tb,what:"tr"})
+          tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
+            cont = addEle({dad:tc,setClass:"contCol",alignItems:"center",padding:"5px"})
+                let tgtMM = userI.mms.filter(it=>it.label===itm.type)[0].progress
+
+                txt = testNum(tgtMM) ? (1000000-tgtMM).toLocaleString() : spanText(purple,"Fill User Details in User Settings")
+                addEle({dad:cont,text:"Mastery remaining :<br>"+txt,textA:"center"})
+
+                addEle({dad:cont,text:"Evaluate reaching MM",borderB:"teal solid 2px",textA:"center",marginT:"5px"})
+                inC = addEle({dad:cont,setClass:"contRow",justifyC:"center"})
+                    addEle({dad:inC,text:"( current exp ratio :"})
+                    addEle({dad:inC,text:1,setID:"xpRatio:"+idx,margin:"0 5px"})
+                    addEle({dad:inC,text:")"})
+
+            let expC = addEle({dad:cont,setClass:"contCol",padding:"5px",margin:"5px",border:"teal 2px solid",
+                alignItems:"center",radius:"10px"})
+
+                inC = addEle({dad:expC,setClass:"contRow",justifyC:"center"})
+                    addEle({dad:inC,text:"Use Mushroom Stew (Exp Bonus)",setID:"stewBoxLb:"+idx,setFunc:(e)=>{
+                            getID("stewBox:"+e.srcElement.id.split(":")[1]).click()}})
+                    addEle({dad:inC,what:"checkbox",isInput:true,setVal:true,accentCol:green,setID:"stewBox:"+idx,
+                            setFunc:(e)=>{eventXPradio(e)}})
+
+                inC = addEle({dad:expC,setClass:"contRow",justifyC:"center",marginT:"0"})
+                    addEle({dad:inC,setClass:"contCol",justifyC:"center",text:"Event Exp Bonus : ",
+                    setID:"evExpLb:"+idx,marginL:"10px",minWidth:"160px"})
+
+                    addEle({dad:inC,what:"radio",isInput:true,setVal:0,setName:"evXpRads:"+idx,
+                    setID:"evXpRad:"+idx,accentCol:"green",setFunc:(e)=>{eventXPradio(e)}})
+                    addEle({dad:inC,what:"radio",isInput:true,setVal:10,setName:"evXpRads:"+idx,
+                    setID:"evXpRad:"+idx,accentCol:"green",setFunc:(e)=>{eventXPradio(e)}})
+                    addEle({dad:inC,what:"radio",isInput:true,setVal:14,setName:"evXpRads:"+idx,
+                    setID:"evXpRad:"+idx,accentCol:"green",setFunc:(e)=>{eventXPradio(e)}})
+                document.getElementsByName("evXpRads:"+idx)[0].click()
+
+                txt = "From your daily production ("
+                txt+= itm.type === "LN" ? 
+                userI.netsTot.toLocaleString() +" baby nets)" : 
+                userI.fruitsTot.toLocaleString() + " fruits)"
+                addEle({dad:cont,text:txt,textA:"center"})
+
+
+
+
+
+
+/*
+        tr = addEle({dad:tb,what:"tr"})
+            addEle({dad:tr,what:"td",text:spanText("yellow","**")+"[ UsingMeal ]<br>Mushroom stew",
+            border:"solid teal 2px",textA:"center"})
+          tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
+            inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
+            addEle({dad:inC,what:"radio",isInput:true,setVal:"No",setName:"MMmeal:"+idx,setID:"mealRadio:"+idx,setFunc:(e)=>{
+                let idx = e.srcElement.id.split(":")[1]
+                document.getElementsByName("MMmeal:"+idx).forEach(it=>{
+                    if(it.checked){getID("masteryMush:"+idx).innerHTML = it.value}
+                })
+                toolCalc(e.srcElement.id)
+            }})
+            addEle({dad:inC,what:"radio",isInput:true,setVal:"Yes",setName:"MMmeal:"+idx,setID:"mealRadio:"+idx,setFunc:(e)=>{
+                let idx = e.srcElement.id.split(":")[1]
+                document.getElementsByName("MMmeal:"+idx).forEach(it=>{
+                    if(it.checked){getID("masteryMush:"+idx).innerHTML = it.value}
+                })
+                toolCalc(e.srcElement.id)
+            }})
+            addEle({dad:inC,setID:"masteryMush:"+idx,marginL:"10px",textC:"fuchsia"})
+            document.getElementsByName("MMmeal:"+idx)[0].click()
+
+        tr = addEle({dad:tb,what:"tr"})
+            addEle({dad:tr,what:"td",text:spanText("yellow","**")+"Event Mastery Bonus :",
+            border:"solid teal 2px",textA:"center"})
+          tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
+            inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
+            addEle({dad:inC,what:"radio",isInput:true,setVal:"0",setName:"eventN:"+idx,setID:"eventRadio:"+idx,setFunc:(e)=>{
+                let idx = e.srcElement.id.split(":")[1]
+                document.getElementsByName("eventN:"+idx).forEach(it=>{
+                    if(it.checked){getID("MMevent:"+idx).innerHTML = it.value+"%"}
+                })
+                toolCalc(e.srcElement.id)
+            }})
+            addEle({dad:inC,what:"radio",isInput:true,setVal:"10",setName:"eventN:"+idx,setID:"eventRadio:"+idx,setFunc:(e)=>{
+                let idx = e.srcElement.id.split(":")[1]
+                document.getElementsByName("eventN:"+idx).forEach(it=>{
+                    if(it.checked){getID("MMevent:"+idx).innerHTML = it.value+"%"}
+                })
+                toolCalc(e.srcElement.id)
+            }})
+            addEle({dad:inC,what:"radio",isInput:true,setVal:"14",setName:"eventN:"+idx,setID:"eventRadio:"+idx,setFunc:(e)=>{
+                let idx = e.srcElement.id.split(":")[1]
+                document.getElementsByName("eventN:"+idx).forEach(it=>{
+                    if(it.checked){getID("MMevent:"+idx).innerHTML = it.value+"%"}
+                })
+                toolCalc(e.srcElement.id)
+            }})
+            addEle({dad:inC,setID:"MMevent:"+idx,marginL:"10px",textC:"fuchsia"})
+            document.getElementsByName("eventN:"+idx)[0].click()
+
+        tr = addEle({dad:tb,what:"tr"})
+            addEle({dad:tr,what:"td",text:spanText("yellow","**")+"Mastery Remaining(2) :",border:"solid teal 2px",textA:"center"})
+            addEle({dad:tr,what:"td",text:spanText("fuchsia","---"),border:"solid teal 2px",textA:"center",setID:"masteryR2:"+idx})
+
+        tr = addEle({dad:tb,what:"tr"})
+            addEle({dad:tr,what:"td",text:spanText("yellow","**")+"Needed "+txt+" :",border:"solid teal 2px",textA:"center"})
+            addEle({dad:tr,what:"td",text:spanText("fuchsia","---"),border:"solid teal 2px",textA:"center",setID:"mmNeed:"+idx})
+
+        tr = addEle({dad:tb,what:"tr"})
+            addEle({dad:tr,what:"td",text:spanText("yellow","**")+"Reach MM from<br>self production only in",border:"solid teal 2px",textA:"center"})
+            addEle({dad:tr,what:"td",text:spanText("fuchsia","---"),border:"solid teal 2px",textA:"center",setID:"mmReach:"+idx})         
+
+        tr = addEle({dad:tb,what:"tr"})
+            addEle({dad:tr,what:"td",text:spanText("yellow","**")+"Converting to Reach MM<br>Will represent using<br>Current Ratio another :",border:"solid teal 2px",textA:"center"})
+            addEle({dad:tr,what:"td",text:spanText("fuchsia","---"),border:"solid teal 2px",textA:"center",setID:"mmReachC:"+idx})            
+*/
+
+}
+
+function getCurrItem(id){
+    let idx = Number(id.split(":")[1])
+    let rate = undefined
+    let grp = document.getElementsByName("rateSets")
+    grp.forEach(it=>{if(it.checked){rate = it.value}})
+    let src = rate === "Basic" ? rateB : userI.rateU
+    return src.filter(x=>x.ind===idx)[0]
+}
+
+function memoAdd(e){
+    let idx = Number(e.srcElement.id.split(":")[1])
+    let itm = getCurrItem(e.srcElement.id)
+    if(itm.orderMem.length<orderCap && testNum(getID("order:"+idx).value)){
+        itm.orderMem.push({dt:new Date(),val:Number(getID("order:"+idx).value)})
+        itm.orderIdx = itm.orderMem.length-1
+        e.srcElement.innerHTML = "Mem " + itm.orderMem.length+"/"+orderCap
+    }    
+}
+
+function memoDel(e){
+    let idx = Number(e.srcElement.id.split(":")[1])
+    let itm = getCurrItem(e.srcElement.id)
+    itm.orderMem.splice(itm.orderIdx,1)
+    getID("memAdd:"+idx).innerHTML = "Mem " + itm.orderMem.length+"/"+orderCap
+}
+
+function memoPrev(e){
+    let idx = Number(e.srcElement.id.split(":")[1])
+    let itm = getCurrItem(e.srcElement.id)
+    if(itm.orderMem.length === 0 || itm.orderIdx===undefined){return}
+    itm.orderIdx = itm.orderIdx -1 < 0 ? 0 : itm.orderIdx -1
+    getID("order:"+idx).value = itm.orderMem[itm.orderIdx].val
+    toolCalc(e.srcElement.id)
+}
+
+function memoNext(e){
+    let idx = Number(e.srcElement.id.split(":")[1])
+    let itm = getCurrItem(e.srcElement.id)
+    if(itm.orderMem.length === 0 || itm.orderIdx===undefined){return}
+    itm.orderIdx = itm.orderIdx +1 > itm.orderMem.length-1 ? itm.orderMem.length-1 : itm.orderIdx +1
+    getID("order:"+idx).value = itm.orderMem[itm.orderIdx].val
+    toolCalc(e.srcElement.id)
+}
+
+function eventXPradio(e){
+    let idx = e.srcElement.id.split(":")[1]
+    let ratio = 1
+    let evXP = 0
+    let grp = document.getElementsByName("evXpRads:"+idx)
+    grp.forEach(it=>{if(it.checked){evXP = Number(it.value) }})
+    ratio += evXP/100
+    if(getID("stewBox:"+idx).checked){ratio +=.1}
+    getID("evExpLb:"+idx).innerHTML = "Event Exp Bonus : "+evXP+"%"
+    getID("xpRatio:"+idx).innerHTML = ratio.toFixed(2)
+}
+
+function upNeedRg(id){
+    let idx = Number(id.split(":")[1])
+    let pct1 = undefined
+    let pct2 = undefined
+    let inv = undefined
+
+    let rate = undefined
+    let grp = document.getElementsByName("rateSets")
+    grp.forEach(it=>{if(it.checked){rate = it.value}})
+    let src = rate === "Basic" ? rateB : userI.rateU
+    let itm = src.filter(x=>x.ind===idx)[0]
+
+    if(testNum(userI.inventoryMax)){
+        inv = userI.inventoryMax
+        if(itm.type==="LN"){
+            pct1 = Number(getID("ringRg:"+idx).value)
+            getID("ringRgLb:"+idx).innerHTML = pct1 + "%<br>" + (inv * pct1 /100)
+            pct2 = Number(getID("stoneRg:"+idx).value)
+            getID("stoneRgLb:"+idx).innerHTML = pct2 + "%<br>" + (inv * pct2 /100)
+        }
+    } else {
+        if(itm.type==="LN"){
+            getID("ringRgLb:"+idx).innerHTML = spanText(purple,"---")
+            getID("stoneRgLb:"+idx).innerHTML = spanText(purple,"---")
+            getID("stoneNeed:"+idx).innerHTML = spanText(purple,"Fill User Details in User Settings")
+        } else {
+            getID("bottlesNeed:"+idx).innerHTML = spanText(purple,"Fill User Details in User Settings")
+        }
+    }
+
+    let tgtLb = itm.type==="LN" ? getID("stoneNeed:"+idx) : getID("bottlesNeed:"+idx) 
+    let tgtLbT = itm.type==="LN" ? "":"<br>"
+    let val = getID("order:"+idx).value
+
+    if(testNum(val)){
+        let pr = userI.resCraft
+        if(itm.type !=="LN"){
+            switch(itm.type){
+                case "Cider" : tgtLb.innerHTML = tgtLbT + (Math.floor(val/40)).toLocaleString() ; break
+                case "AP" : tgtLb.innerHTML = tgtLbT + (Math.ceil(val/6) + 
+                            Math.floor((Math.ceil(val/6)*pr)/20)).toLocaleString() ; break
+                default : tgtLb.innerHTML = tgtLbT + (Math.floor(val/6)).toLocaleString()
+            }
+        } else {
+            if(inv!==undefined){
+                val = val - Math.floor((inv * pct1 /100))
+                val = val - Math.ceil(Math.floor((inv * pct2 /100))*pr)
+                tgtLb.innerHTML = val > 0 ? tgtLbT + val.toLocaleString() : tgtLbT + "0"
+            } else {tgtLb.innerHTML = tgtLbT + spanText(purple,"Fill User Details in User Settings")}
+        }
+    } else {tgtLb.innerHTML = tgtLbT + spanText(purple,"---")}
+}
+
+function advertising(){
+    let workC = getID("advFr")
+    cleanParent(workC)
+
+    let rate = undefined
+    let grp = document.getElementsByName("rateSets")
+    grp.forEach(it=>{if(it.checked){rate = it.value}})
+    let src = rate === "Basic" ? rateB : userI.rateU
+
+    grp = document.getElementsByName("advertise")
+    let txt = undefined
+    let itm1 = undefined
+    let itm2 = undefined
+    grp.forEach(it=>{
+        if(it.checked){
+            txt = txt === undefined ? "[Converting] " : txt
+            itm1 = src[Number(it.id.split(":")[1])]
+            itm2 = outputs.filter(x=>x.label===itm1.type)[0]
+            txt+= itm2.chat1+" "+itm1.rate+" "+itm2.chat2+" | "
+        }
+    })
+    if(txt!== undefined){
+        txt = txt.slice(0,txt.length-3) + " (pls Ping me amounts and wait for my call Ty)"
+        let cont = addEle({dad:workC,setClass:"contCol",border:"teal 2px solid",radius:"5px",
+        padding:"5px",maxWidth:"450px",margin:"10px 0 0 10px"})
+        addEle({dad:cont,text:txt,setID:"advMsg",marginB:"10px"})
+
+        let subC = addEle({dad:cont,setClass:"contRow",alignItems:"center",width:"fit-content"})
+            txt = `Copy Advertising (to paste in game chat)<br>* to change content you can paste
+            in new message from your message box, ... and then copy-paste in chat *`
+            addEle({dad:subC,setClass:"btn",text:txt,
+            setFunc:()=>{
+                navigator.clipboard.writeText(getID("advMsg").innerHTML)
+                showInfo("✅",2000,"",getID("info4"))
+            }})
+            addEle({dad:subC,marginL:"5px",textC:purple,setID:"info4"})
+    }
+}
+
+function toolCalc(id){
+    let idx = Number(id.split(":")[1])
+    let val = getID("order:"+idx).value
+    let type = getID("type:"+idx).innerHTML
+
+    if(testNum(val,true)){
+        val = Number(val)
+        let rate = undefined
+        let grp = document.getElementsByName("rateSets")
+        grp.forEach(it=>{if(it.checked){rate = it.value}})
+        let arrS = rate === "Basic" ? rateB : userI.rateU 
+        let itm = arrS.filter(x=>x.ind===idx)[0]
+
+        let div = itm.rate.split(":")[0]
+        let mul = itm.rate.split(":")[1]
+        let bon = itm.bonus
+        let rnd = itm.rounding
+        let mbs = getID("mbs:"+idx).value
+
+        let ret = calcConvert(val,div,mul,bon,rnd)
+
+        let payT = ret.payR+ret.bonR
+        getID("payout:"+idx).innerHTML = ret.payR +"(+ "+ ret.bonR +") = "+ payT
+        let craft = undefined
+        switch(type){
+            case "LN" : craft = Math.floor(val/25*1.45) ; break
+            case "OJ" : case "Lemonade" : craft = Math.floor(val/6*1.45) ; break
+            case "AP" : craft = Math.floor(Math.floor(val/6*1.45)/20*1.45) ; break
+            case "Cider" : craft = Math.floor(val/40*1.45) ; break
+            default:console.log(type)
+        }
+        getID("craft:"+idx).innerHTML = craft
+        getID("lose:"+idx).innerHTML = (ret.payR - craft) + "(+ " +ret.bonR + ") = " + (ret.payR - craft + ret.bonR)
+
+        if (testNum(mbs)){
+            let rnds1 = Math.floor(payT/Number(mbs))
+            let rnds2 = Math.floor(ret.payR/Number(mbs))
+            let txt = payT+" ⇒ "+ rnds1 + "x " + mbs + " + " + (payT-(rnds1*Number(mbs))) 
+            if(bon>0)
+              {txt += "<br>"+ ret.payR +" ⇒ "+ rnds2 + "x " + mbs + " + " + (ret.payR-(rnds2*Number(mbs)))}
+            getID("payoutD:"+idx).innerHTML = txt
+        } else { getID("payoutD:"+idx).innerHTML = spanText(purple,"---") }
+
+    }
+
+    /*
+    if(testNum(mmS)){
+        mmS = Number(mmS)
+        let MM = 1000000
+        let meal = undefined
+        let eventB = undefined
+        let baseRatio = 1
+        getID("masteryR1:"+idx).innerHTML = (MM-mmS).toLocaleString()
+        document.getElementsByName("MMmeal:"+idx).forEach(it=>{if(it.checked){meal=it.value}})
+        document.getElementsByName("eventN:"+idx).forEach(it=>{if(it.checked){eventB=it.value}})
+        if(meal==="Yes"){baseRatio+=0.1}
+        baseRatio+=(eventB/100)
+        baseRatio = Number(baseRatio.toFixed(2))
+        let mmS2 = Math.ceil((MM-mmS)/baseRatio)
+        getID("masteryR2:"+idx).innerHTML = mmS2.toLocaleString()
+        let need = Math.ceil(mmS2/1.45)
+        switch(type){
+            case "OJ / Lemonade": need = need * 6 ; break
+            case "Cider" : need = need * 40 ; break
+            case "LN" : need = need * 25 ; break
+            case "AP" : need = Math.ceil((need *20)/1.45*6) ; break
+        }
+        getID("mmNeed:"+idx).innerHTML = need.toLocaleString()
+        let prod = getID("mmProducts:"+idx).value
+        if(testNum(prod)){
+            prod = Number(prod)
+            let len = Math.ceil(need/prod)
+            let txt = len <= 365 ? len + "d" : Math.floor(len/365) + "y " + len % 365 + "d"
+            getID("mmReach:"+idx).innerHTML = txt
+
+        }
+
+
+
+ //       let div = Number(getID("rate:"+idx).innerHTML.split(":")[0])
+  //      let mul = Number(getID("rate:"+idx).innerHTML.split(":")[1])
+   //     let bon = Number(getID("bonus:"+idx).innerHTML)
+    //    let rnd = getID("rounding:"+idx).innerHTML
+     //   let ret = calcConvert(need,div,mul,bon,rnd)
+     //  console.log(ret)
+       // console.log(need)
+
+      //  let payT = ret.payR+ret.bonR
+
+        let craft = undefined
+        switch(type){
+            case "LN" : craft = Math.floor(need/25*1.45) ; break
+            case "OJ / Lemonade" : craft = Math.floor(need/6*1.45) ; break
+            case "AP" : craft = Math.floor(Math.floor(need/6*1.45)/20*1.45) ; break
+            case "Cider" : craft = Math.floor(need/40*1.45) ; break
+        }
+//        let txt = type +" Payout :<br>" + payT.toLocaleString()
+     //   getID("mmReachC:"+idx).innerHTML = txt
+
+    }
+
+    */
+
+upNeedRg(id)
+
+}
+
+
 // body.style.backgroundImage = "URL(https://farmrpg.com/img/pbgs/dark/bg_64.jpg)"
+
+// body.style.backgroundImage = "URL(https://farmrpg.com/img/pbgs/dark/bg_45.jpg)"
+
+ 
