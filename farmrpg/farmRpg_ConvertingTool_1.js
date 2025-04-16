@@ -123,7 +123,6 @@ function changeMemoTime(e){
     else {info.innerHTML = "Input Error" ; setTimeout(()=>{info.innerHTML =""},1000)}
 }
 
-
 function rateSelection(){
     let grp = document.getElementsByName("rateSets")
     grp.forEach(it=>{
@@ -1050,7 +1049,7 @@ function memoHis(e){
             let mn = m.dt.getMinutes().length === 1 ? "0"+m.dt.getMinutes() : m.dt.getMinutes()
             let sc = m.dt.getSeconds().length === 1 ? "0"+m.dt.getSeconds() : m.dt.getSeconds()
             let txt = m.dt.getMonth()+"/"+m.dt.getDate()+" -- "+hr+":"+mn+":"+sc
-            addEle({dad:workC,text:txt + " > " + m.val,paddingL:"40px"})
+            addEle({dad:workC,text:txt + " > " + m.val.toLocaleString(),paddingL:"25px"})
         })
     } else {e.srcElement.innerHTML = "▼" ; workC.style.display = "none"}
 }
