@@ -31,7 +31,7 @@ let userI = {
     memoCap:5,
     memoTimer:3,
     inventoryMax:"???",
-    fruitsProd:"???",
+    fruitsProd:7800,
     fruitsArte:false,
     fruitsTot:0,
     antlersProd:"???",
@@ -482,7 +482,9 @@ function setUserDetails(){
         addEle({dad:cont,width:"100px",height:"10px",border:green+" solid 2px",radius:"30px",setID:mm.label+"pC"})
             addEle({dad:getID(mm.label+"pC"),height:"100%",width:"0%",backC:"yellow",radius:"30px",setID:mm.label+"MMp"})
     })
-
+    
+    if(userI.fruitsArte){getID("userArte1").checked=true}
+    if(userI.antlersArte){getID("userArte2").checked=true}
 }
 
 function testValNum(e,testId,prog=false){
