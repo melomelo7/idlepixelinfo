@@ -14,22 +14,22 @@ const outputs = [
 const roundings = ["Up","Down","Closest 5"]
 
 const rateB =[
-{ind:0,type:"OJ",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined},
-{ind:1,type:"Lemonade",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined},
-{ind:2,type:"AP",rate:"30:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined},
-{ind:3,type:"LN",rate:"1000:70",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined},
-{ind:4,type:"Cider",rate:"22:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined},
+{ind:0,type:"OJ",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined},
+{ind:1,type:"Lemonade",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined},
+{ind:2,type:"AP",rate:"30:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined},
+{ind:3,type:"LN",rate:"1000:70",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined},
+{ind:4,type:"Cider",rate:"22:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined},
 ]
 
 let pageVer = "2.0"
-
-let orderCap = 25
 
 let userI = {
     pageV:"2.0",
     currentSet:"Basic",
     rateU:[],
     toolPerLine:3,
+    memoCap:5,
+    memoTimer:3,
     inventoryMax:"???",
     fruitsProd:"???",
     fruitsArte:false,
@@ -109,6 +109,21 @@ function changeToolsCount(e){
     else {info.innerHTML = "Input Error" ; setTimeout(()=>{info.innerHTML =""},1000)}
 }
 
+function changeMemoCap(e){
+    let val = e.srcElement.value
+    if(testNum(val))
+         {userI.memoCap = Math.floor(Number(val)) ; setTools()}
+    else {info.innerHTML = "Input Error" ; setTimeout(()=>{info.innerHTML =""},1000)}
+}
+
+function changeMemoTime(e){
+    let val = e.srcElement.value
+    if(testNum(val))
+         {userI.memoTimer = Math.floor(Number(val)) ; setTools()}
+    else {info.innerHTML = "Input Error" ; setTimeout(()=>{info.innerHTML =""},1000)}
+}
+
+
 function rateSelection(){
     let grp = document.getElementsByName("rateSets")
     grp.forEach(it=>{
@@ -143,6 +158,11 @@ function setRatesCont(){
     addEle({dad:getID("rateC1"),setClass:"btn",text:txt,minWidth:"160px",margin:"10px",backC:from.buttonBackC,
     setID:"customBtn",setFunc:setCustomBuilder})
 
+    
+    txt = "Delete Save"
+    addEle({dad:getID("rateC1"),setClass:"btn",text:txt,minWidth:"160px",margin:"10px",backC:from.buttonBackC,
+    setFunc:removeKey})
+    
 }
 
 function setCustomBuilder(){
@@ -237,6 +257,7 @@ function addCustomRate(){
             rounding:getID("customRounding").innerHTML,
             orderMem:[],
             orderIdx:undefined,
+            orderTimer:undefined,
         })
 
         getID("customBtn").innerHTML = 
@@ -543,7 +564,7 @@ function setUserSav(){
         addEle({dad:oldSC,backC:"brown",text:"Old User Details",margin:"5px 0"})
         addEle({dad:newSC,backC:"teal",text:"New User Details",margin:"5px 0"})
     
-        let key = "farmRPGCustomConverting"
+        let key = "farmRPGCustomConvertingV2"
         let mySave = localStorage.getItem(key)
         if(mySave){
             let savOld = JSON.parse(mySave)
@@ -564,7 +585,7 @@ function setUserSav(){
 
 function saveToBrowser(msg=undefined,dur=1000){
     let txt = msg === undefined ? "User Settings Saved ✅" : msg
-    let key = "farmRPGCustomConverting"
+    let key = "farmRPGCustomConvertingV2"
     let mySave = JSON.stringify(userI)
     localStorage.setItem(key,mySave)
     showInfo(txt,dur)
@@ -586,23 +607,27 @@ function saveToBrowserOld(msg=undefined,dur=1000){
     localStorage.setItem(key,mySave)
  //   showInfo(txt,dur)
 }
-
+*/
 
 ////////////////////////////////////////
 function removeKey(){
     let key = "farmRPGCustomConverting"
     localStorage.removeItem(key)
+    key = "farmRPGCustomConvertingV2"
+    localStorage.removeItem(key)
+
   //  showInfo("✅ Progress Erased ❗")
 } 
 
 //removeKey()
 ///////////////////////////////////////
 
+/*
 saveToBrowserOld()
 */
 
 function loadSav(){
-    let key = "farmRPGCustomConverting"
+    let key = "farmRPGCustomConvertingV2"
     let mySave = localStorage.getItem(key)
     if(mySave){
         let tempUserI = JSON.parse(mySave)
@@ -782,16 +807,17 @@ function buildTool(dad,itm,idx){
 
         tr = addEle({dad:tb,what:"tr"}) // "◀" ◀
           tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
-            inC = addEle({dad:tc,setClass:"contRow",justifyC:"center",alignItems:"center"})
-            addEle({dad:inC,setClass:"btn",text:"◀",fontS:"10px",setID:"memoPrev:"+idx,margin:"0",
-            setFunc:(e)=>{memoPrev(e)}})
-            addEle({dad:inC,setClass:"btn",text:"▶",fontS:"10px",setID:"memoNext:"+idx,margin:"0",
-            setFunc:(e)=>{memoNext(e)}})
-            addEle({dad:inC,setClass:"btn",text:"Del",fontS:"10px",setID:"memDel:"+idx,margin:"0",
-            setFunc:(e)=>{memoDel(e)}})
-            addEle({dad:inC,setClass:"btn",text:"Memo 0/"+orderCap,fontS:"10px",setID:"memAdd:"+idx,
-            marginR:"10px",setFunc:(e)=>{memoAdd(e)}})
-            addEle({dad:inC,what:"td",text:"Order(s)",textA:"center"})
+            let orderC = addEle({dad:tc,setClass:"contCol"}) 
+            inC = addEle({dad:orderC,setClass:"contRow",justifyC:"center",alignItems:"center"})
+                addEle({dad:inC,setClass:"btn",text:"◀",fontS:"10px",setID:"memoPrev:"+idx,margin:"0",
+                padding:"3px 4px",setFunc:(e)=>{memoPrev(e)}})
+                addEle({dad:inC,setClass:"btn",text:"▶",fontS:"10px",setID:"memoNext:"+idx,margin:"0",
+                padding:"3px 4px",setFunc:(e)=>{memoNext(e)}})
+                addEle({dad:inC,setClass:"btn",text:"▼",fontS:"10px",setID:"memHis:"+idx,margin:"0",
+                padding:"4px 4px",setFunc:(e)=>{memoHis(e)}})
+                addEle({dad:inC,what:"td",text:"Memo "+itm.orderMem.length+"/"+userI.memoCap,textA:"center",setID:"memoInfo:"+idx,margin:"0 5px",fontS:"12px"})
+                addEle({dad:inC,what:"td",text:"Order(s)",textA:"center"})
+            addEle({dad:orderC,setClass:"contCol",marginL:"yellow dotted 2px",display:"none",setID:"orderH:"+idx,paddingT:"5px"})
           tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
             inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
             addEle({dad:inC,what:"input",isInput:true,width:"100px",textA:"center",setID:"order:"+idx,
@@ -986,21 +1012,47 @@ function getCurrItem(id){
     return src.filter(x=>x.ind===idx)[0]
 }
 
-function memoAdd(e){
-    let idx = Number(e.srcElement.id.split(":")[1])
-    let itm = getCurrItem(e.srcElement.id)
-    if(itm.orderMem.length<orderCap && testNum(getID("order:"+idx).value)){
-        itm.orderMem.push({dt:new Date(),val:Number(getID("order:"+idx).value)})
-        itm.orderIdx = itm.orderMem.length-1
-        e.srcElement.innerHTML = "Mem " + itm.orderMem.length+"/"+orderCap
-    }    
+function memoAdd(id){
+    let idx = Number(id.split(":")[1])
+    let itm = getCurrItem(id)
+    let val = undefined 
+    let disp = getID("memoInfo:"+idx)
+    if(itm.orderTimer===undefined){
+        if(getID("orderH:"+idx).style.display==="flex"){getID("memHis:"+idx).click()}
+        itm.orderTimer = setTimeout(()=>{
+            val = getID("order:"+idx).value
+            if(testNum(val)){
+                itm.orderTimer = undefined
+                itm.orderMem.push({dt:new Date(),val:Number(val)})
+                if(itm.orderMem.length>userI.memoCap){itm.orderMem.splice(0,1)}
+                itm.orderIdx = itm.orderMem.length-1
+                disp.style.color = "lime"
+                disp.innerHTML = "Memo "+itm.orderMem.length+"/"+userI.memoCap
+                setTimeout(()=>{disp.style.color = "white"},2000)
+            }
+        },userI.memoTimer*1000)
+    }
 }
 
-function memoDel(e){
+function memoHis(e){
     let idx = Number(e.srcElement.id.split(":")[1])
     let itm = getCurrItem(e.srcElement.id)
-    itm.orderMem.splice(itm.orderIdx,1)
-    getID("memAdd:"+idx).innerHTML = "Mem " + itm.orderMem.length+"/"+orderCap
+    let workC = getID("orderH:"+idx)
+    cleanParent(workC)
+
+    if(itm.orderMem.length===0){return}
+    
+    if(e.srcElement.innerHTML === "▼"){
+        e.srcElement.innerHTML = "▲" 
+        workC.style.display = "flex"
+        itm.orderMem.forEach(m=>{
+            let hr = m.dt.getHours().length === 1 ? "0"+m.dt.getHours() : m.dt.getHours()
+            let mn = m.dt.getMinutes().length === 1 ? "0"+m.dt.getMinutes() : m.dt.getMinutes()
+            let sc = m.dt.getSeconds().length === 1 ? "0"+m.dt.getSeconds() : m.dt.getSeconds()
+            let txt = m.dt.getMonth()+"/"+m.dt.getDate()+" -- "+hr+":"+mn+":"+sc
+            addEle({dad:workC,text:txt + " > " + m.val,paddingL:"40px"})
+        })
+    } else {e.srcElement.innerHTML = "▼" ; workC.style.display = "none"}
 }
 
 function memoPrev(e){
@@ -1009,7 +1061,7 @@ function memoPrev(e){
     if(itm.orderMem.length === 0 || itm.orderIdx===undefined){return}
     itm.orderIdx = itm.orderIdx -1 < 0 ? 0 : itm.orderIdx -1
     getID("order:"+idx).value = itm.orderMem[itm.orderIdx].val
-    toolCalc(e.srcElement.id)
+    toolCalc(e.srcElement.id,false)
 }
 
 function memoNext(e){
@@ -1018,7 +1070,7 @@ function memoNext(e){
     if(itm.orderMem.length === 0 || itm.orderIdx===undefined){return}
     itm.orderIdx = itm.orderIdx +1 > itm.orderMem.length-1 ? itm.orderMem.length-1 : itm.orderIdx +1
     getID("order:"+idx).value = itm.orderMem[itm.orderIdx].val
-    toolCalc(e.srcElement.id)
+    toolCalc(e.srcElement.id,false)
 }
 
 function eventXPradio(e){
@@ -1125,10 +1177,12 @@ function advertising(){
     }
 }
 
-function toolCalc(id){
+function toolCalc(id,memoAd=true){
     let idx = Number(id.split(":")[1])
     let val = getID("order:"+idx).value
     let type = getID("type:"+idx).innerHTML
+
+    if (memoAd){memoAdd(id)}
 
     if(testNum(val,true)){
         val = Number(val)

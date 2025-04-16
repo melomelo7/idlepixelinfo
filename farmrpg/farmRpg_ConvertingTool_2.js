@@ -10,8 +10,6 @@ function setPage(){
         addEle({dad:contR,text:spanText("yellow",last),margin:"10px"})
     
     let settingsFr = addEle({dad:body,setClass:"contCol",padding:"5px",width:"100%"})
-//        addEle({dad:settingsFr,margin:"5px 20px",textC:purple,minHeight:"35px",setClass:"contRow",
-  //      alignItems:"center",setID:"info"})
         let setTop = addEle({dad:settingsFr,setClass:"contRow",alignItems:"center",marginL:"5px"})
             addEle({dad:setTop,text: "User Settings "+spanText("yellow","⚙"),fontS:"20px",margin:"0 5px"})
             addEle({dad:setTop,text: spanText("lime","🔽",20),setClass:"arrowToggler",
@@ -44,6 +42,14 @@ function setSettings(){
         addEle({dad:getID("toolsCont"),text:"Tools per Line",margin:"5px 10px"})
         addEle({dad:getID("toolsCont"),what:"input",isInput:true,setVal: userI.toolPerLine,
                 width:"10px",setFunc:(e)=>{changeToolsCount(e)}})
+
+        addEle({dad:getID("toolsCont"),text:"Orders Memo/History Count :",margin:"5px 10px"})
+        addEle({dad:getID("toolsCont"),what:"input",isInput:true,setVal: userI.memoCap,
+                width:"10px",setFunc:(e)=>{changeMemoCap(e)}})
+
+        addEle({dad:getID("toolsCont"),text:"Orders auto-Memo after X seconds, X =",margin:"5px 10px"})
+        addEle({dad:getID("toolsCont"),what:"input",isInput:true,setVal: userI.memoTimer,
+                width:"10px",setFunc:(e)=>{changeMemoTime(e)}})
 
     addEle({dad:workC,setClass:"contRow",alignItems:"center",marginB:"10px",setID:"ratesTgl"})
         let subC = addEle({dad:getID("ratesTgl"),setClass:"contRow",minWidth:"95px",justifyC:"right",
