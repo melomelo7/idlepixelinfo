@@ -14,11 +14,11 @@ const outputs = [
 const roundings = ["Up","Down","Closest 5"]
 
 const rateB =[
-{ind:0,type:"OJ",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined},
-{ind:1,type:"Lemonade",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined},
-{ind:2,type:"AP",rate:"30:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined},
-{ind:3,type:"LN",rate:"1000:70",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined},
-{ind:4,type:"Cider",rate:"22:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined},
+{ind:0,type:"OJ",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined,advertising:false},
+{ind:1,type:"Lemonade",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined,advertising:false},
+{ind:2,type:"AP",rate:"30:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined,advertising:false},
+{ind:3,type:"LN",rate:"1000:70",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined,advertising:false},
+{ind:4,type:"Cider",rate:"22:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined,advertising:false},
 ]
 
 let pageVer = "2.0"
@@ -257,6 +257,7 @@ function addCustomRate(){
             orderMem:[],
             orderIdx:undefined,
             orderTimer:undefined,
+            advertising:false,
         })
 
         getID("customBtn").innerHTML = 
@@ -482,7 +483,7 @@ function setUserDetails(){
         addEle({dad:cont,width:"100px",height:"10px",border:green+" solid 2px",radius:"30px",setID:mm.label+"pC"})
             addEle({dad:getID(mm.label+"pC"),height:"100%",width:"0%",backC:"yellow",radius:"30px",setID:mm.label+"MMp"})
     })
-    
+
     if(userI.fruitsArte){getID("userArte1").checked=true}
     if(userI.antlersArte){getID("userArte2").checked=true}
 }
@@ -781,11 +782,11 @@ function buildTool(dad,itm,idx){
           tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
             let inC = addEle({dad:tc,setClass:"contRow"})
             addEle({dad:inC,what:"checkbox",isInput:true,accentCol:green,setName:"advertise",setID:"adv:"+idx,
-            setFunc:advertising})
+            setFunc:(e)=>{itm.advertising = e.srcElement.checked ? true : false ; advertising(e) }})
+            if(itm.advertising){getID("adv:"+idx).checked=true}
             addEle({dad:inC,text:"Advertise",marginL:"5px",setID:"advL:"+idx,
                 setFunc:(e)=>{txt = e.srcElement.id.split(":")[1] ; getID("adv:"+txt).click()}})
             addEle({dad:inC,text:itm.type,minWidth:"110px",textA:"center",setID:"type:"+idx})
-            getID("adv:"+idx).click()
           
           tc = addEle({dad:tr,what:"td",border:"solid teal 2px",textA:"center"})
             let cont = addEle({dad:tc,setClass:"contRow",justifyC:"space-around",alignItems:"center"})
@@ -1139,9 +1140,15 @@ function upNeedRg(id){
     } else {tgtLb.innerHTML = tgtLbT + spanText(purple,"---")}
 }
 
-function advertising(){
+function advertising(e){
+
+console.log("adv")
+
     let workC = getID("advFr")
     cleanParent(workC)
+
+//    let idx = Number(e.srcElement.id.split(":")[1])
+  //  getID("adv:"+idx).click()
 
     let rate = undefined
     let grp = document.getElementsByName("rateSets")
@@ -1183,15 +1190,16 @@ function toolCalc(id,memoAd=true){
     let val = getID("order:"+idx).value
     let type = getID("type:"+idx).innerHTML
 
+    let rate = undefined
+    let grp = document.getElementsByName("rateSets")
+    grp.forEach(it=>{if(it.checked){rate = it.value}})
+    let arrS = rate === "Basic" ? rateB : userI.rateU 
+    let itm = arrS.filter(x=>x.ind===idx)[0]
+
     if (memoAd){memoAdd(id)}
 
     if(testNum(val,true)){
         val = Number(val)
-        let rate = undefined
-        let grp = document.getElementsByName("rateSets")
-        grp.forEach(it=>{if(it.checked){rate = it.value}})
-        let arrS = rate === "Basic" ? rateB : userI.rateU 
-        let itm = arrS.filter(x=>x.ind===idx)[0]
 
         let div = itm.rate.split(":")[0]
         let mul = itm.rate.split(":")[1]
@@ -1225,6 +1233,12 @@ function toolCalc(id,memoAd=true){
 
     }
 
+    ////////////////////////
+    let mmSrc = userI.mms.filter(x=>x.label===itm.type)[0]
+    let goal = 1000000-mmSrc.progress
+    console.log(userI)
+    console.log(mmSrc)
+    console.log(goal)
     /*
     if(testNum(mmS)){
         mmS = Number(mmS)
