@@ -613,8 +613,8 @@ function saveToBrowserOld(msg=undefined,dur=1000){
 
 ////////////////////////////////////////
 function removeKey(){
-    let key = "farmRPGCustomConverting"
-    localStorage.removeItem(key)
+//    let key = "farmRPGCustomConverting"
+  //  localStorage.removeItem(key)
     key = "farmRPGCustomConvertingV2"
     localStorage.removeItem(key)
 
