@@ -75,7 +75,7 @@ function setSettings(){
         addEle({dad:cont,setClass:"btn",text:"Check / Save User Settings 🔽",margin:"10px 0",
         backC:from.buttonBackC,setID:"checkSavBtn",setFunc:setUserSav})
 
-        addEle({dad:cont,setClass:"btn",text:"Delete Save",minWidth:"160px",margin:"10px",backC:from.buttonBackC,
+        addEle({dad:cont,setClass:"btn",text:"Delete User Settings",minWidth:"160px",margin:"10px",backC:from.buttonBackC,
         setFunc:removeKey})
     
         addEle({dad:cont,marginL:"20px",textC:purple,setID:"info"})
