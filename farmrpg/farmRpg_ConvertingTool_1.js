@@ -1141,14 +1141,8 @@ function upNeedRg(id){
 }
 
 function advertising(e){
-
-console.log("adv")
-
     let workC = getID("advFr")
     cleanParent(workC)
-
-//    let idx = Number(e.srcElement.id.split(":")[1])
-  //  getID("adv:"+idx).click()
 
     let rate = undefined
     let grp = document.getElementsByName("rateSets")
@@ -1157,18 +1151,36 @@ console.log("adv")
 
     grp = document.getElementsByName("advertise")
     let txt = undefined
-    let itm1 = undefined
-    let itm2 = undefined
+    let itmBase = undefined
+    let itmRate = undefined
+    let arrRaw = []
+    let arrG = []
+    let idx = undefined
+
     grp.forEach(it=>{
         if(it.checked){
-            txt = txt === undefined ? "[Converting] " : txt
-            itm1 = src[Number(it.id.split(":")[1])]
-            itm2 = outputs.filter(x=>x.label===itm1.type)[0]
-            txt+= itm2.chat1+" "+itm1.rate+" "+itm2.chat2+" | "
+            itmRate = src[Number(it.id.split(":")[1])]
+            itmBase = outputs.filter(x=>x.label===itmRate.type)[0]
+            arrRaw.push({from:itmBase.chat1,to:itmBase.chat2,rate:itmRate.rate})
         }
     })
-    if(txt!== undefined){
+
+    if(arrRaw.length>0){
+        arrRaw.forEach(it=>{
+            idx = arrG.findIndex(x=>x.from===it.from)
+            if(idx===-1){
+                arrG.push({from:it.from,text:it.from +" "+it.rate+" "+it.to+" | "})
+            } 
+            else {
+                arrG[idx].text = arrG[idx].text.slice(0,arrG[idx].text.length-3) + " *and* " + it.rate + it.to + " | " 
+            }
+        })
+        txt = "[Converting]"
+        arrG.forEach(it=>{
+            txt+=it.text
+        })
         txt = txt.slice(0,txt.length-3) + " (pls Ping me amounts and wait for my call Ty)"
+
         let cont = addEle({dad:workC,setClass:"contCol",border:"teal 2px solid",radius:"5px",
         padding:"5px",maxWidth:"450px",margin:"10px 0 0 10px"})
         addEle({dad:cont,text:txt,setID:"advMsg",marginB:"10px"})
@@ -1183,6 +1195,7 @@ console.log("adv")
             }})
             addEle({dad:subC,marginL:"5px",textC:purple,setID:"info4"})
     }
+
 }
 
 function toolCalc(id,memoAd=true){
