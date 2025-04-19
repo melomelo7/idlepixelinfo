@@ -155,13 +155,7 @@ function setRatesCont(){
 
     txt = "Custom Rates ("+spanText("lime",userI.rateU.length)+")"+"<br>(Build your own set)"
     addEle({dad:getID("rateC1"),setClass:"btn",text:txt,minWidth:"160px",margin:"10px",backC:from.buttonBackC,
-    setID:"customBtn",setFunc:setCustomBuilder})
-
-    
-    txt = "Delete Save"
-    addEle({dad:getID("rateC1"),setClass:"btn",text:txt,minWidth:"160px",margin:"10px",backC:from.buttonBackC,
-    setFunc:removeKey})
-    
+    setID:"customBtn",setFunc:setCustomBuilder})    
 }
 
 function setCustomBuilder(){
@@ -883,9 +877,7 @@ function buildTool(dad,itm,idx){
                     default : txt = "Bottles Used : "
                 }
                 addEle({dad:subC,text:txt,borderB:"yellow solid 2px",width:"fit-content"})
-                txt = testNum(userI.inventoryMax) ? 
-                spanText(purple,"<br>---") : spanText(purple,"<br>Fill User Details in User Settings")
-                addEle({dad:subC,text:txt,setID:"bottlesNeed:"+idx,marginL:"5px"})
+                addEle({dad:subC,text:spanText(purple,"<br>---"),setID:"bottlesNeed:"+idx,marginL:"5px"})
         }
 
         tr = addEle({dad:tb,what:"tr"})
@@ -912,7 +904,7 @@ function buildTool(dad,itm,idx){
                             setFunc:(e)=>{eventXPradio(e)}})
 
                 inC = addEle({dad:expC,setClass:"contRow",justifyC:"center",marginT:"0"})
-                    addEle({dad:inC,setClass:"contCol",justifyC:"center",text:"Event Exp Bonus : ",
+                    addEle({dad:inC,setClass:"contCol",justifyC:"center",text:"Event Item Mastery Bonus : ",
                     setID:"evExpLb:"+idx,marginL:"10px",minWidth:"160px"})
 
                     addEle({dad:inC,what:"radio",isInput:true,setVal:0,setName:"evXpRads:"+idx,
@@ -1083,7 +1075,7 @@ function eventXPradio(e){
     grp.forEach(it=>{if(it.checked){evXP = Number(it.value) }})
     ratio += evXP/100
     if(getID("stewBox:"+idx).checked){ratio +=.1}
-    getID("evExpLb:"+idx).innerHTML = "Event Exp Bonus : "+evXP+"%"
+    getID("evExpLb:"+idx).innerHTML = "Event Item Mastery Bonus : "+evXP+"%"
     getID("xpRatio:"+idx).innerHTML = ratio.toFixed(2)
 }
 
