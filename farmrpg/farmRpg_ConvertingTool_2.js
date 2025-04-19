@@ -1,7 +1,7 @@
 
 
 function setPage(){
-    let last = "Last up 2025 04/19 13:10"
+    let last = "Last up 2025 04/19 13:15"
     let from = userI.visuals.preset
 
     let contR = addEle({dad:body,setClass:"contRow",alignItems:"center",margin:"5px"})
@@ -74,6 +74,10 @@ function setSettings(){
     let cont = addEle({dad:workC,setClass:"contRow",alignItems:"center",width:"fit-content"})
         addEle({dad:cont,setClass:"btn",text:"Check / Save User Settings 🔽",margin:"10px 0",
         backC:from.buttonBackC,setID:"checkSavBtn",setFunc:setUserSav})
+
+        addEle({dad:cont,setClass:"btn",text:"Delete Save",minWidth:"160px",margin:"10px",backC:from.buttonBackC,
+        setFunc:removeKey})
+    
         addEle({dad:cont,marginL:"20px",textC:purple,setID:"info"})
 
 
