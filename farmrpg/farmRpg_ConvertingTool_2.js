@@ -44,8 +44,8 @@ function setSettings(){
                 width:"10px",setFunc:(e)=>{changeToolsCount(e)}})
 
         addEle({dad:getID("toolsCont"),text:"Orders Memo/History Count :",margin:"5px 10px"})
-        addEle({dad:getID("toolsCont"),what:"input",isInput:true,setVal: userI.memoCap,
-                width:"10px",setFunc:(e)=>{changeMemoCap(e)}})
+        addEle({dad:getID("toolsCont"),what:"input",isInput:true,setVal: userI.memoCap,textA:"center",
+                width:"20px",setFunc:(e)=>{changeMemoCap(e)}})
 
         addEle({dad:getID("toolsCont"),text:"Orders auto-Memo after X seconds<br>you started typing amount, X =",
         margin:"5px 10px",textA:"right"})
@@ -75,7 +75,7 @@ function setSettings(){
         addEle({dad:cont,setClass:"btn",text:"Check / Save User Settings 🔽",margin:"10px 0",
         backC:from.buttonBackC,setID:"checkSavBtn",setFunc:setUserSav})
 
-        addEle({dad:cont,setClass:"btn",text:"Delete User Settings",minWidth:"160px",margin:"10px",backC:from.buttonBackC,
+        addEle({dad:cont,setClass:"btn",text:"Delete User Settings",minWidth:"160px",marginL:"50px",backC:from.buttonBackC,
         setFunc:removeKey})
     
         addEle({dad:cont,marginL:"20px",textC:purple,setID:"info"})

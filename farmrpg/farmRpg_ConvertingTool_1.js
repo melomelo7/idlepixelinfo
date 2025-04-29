@@ -4,21 +4,23 @@ const body = document.querySelector("body")
 const srcImgs = "https://farmrpg.com/img/items/"
 
 const outputs = [
-    {label:"OJ",rate:"3:1",img:"orangejuice.png",chat1:"((Orange))",chat2:"((Orange Juice))"},
-    {label:"Lemonade",rate:"3:1",img:"lemonade.png",chat1:"((Lemon))",chat2:"((Lemonade))"},
-    {label:"AP",rate:"30:1",img:"ap.png",chat1:"((Lemon))",chat2:"((Arnold Palmer))"},
-    {label:"LN",rate:"1000:70",img:"lnet.png",chat1:"((Fishing Net))",chat2:"((Large Net))"},
-    {label:"Cider",rate:"22:1",img:"8984.png",chat1:"((Apple))",chat2:"((Apple Cider))"},
+    {label:"OJ",type:"OJ from Oranges",rate:"3:1",img1:"orange.png",img2:"orangejuice.png",chat1:"((Orange))",chat2:"((Orange Juice))"},
+    {label:"Lemonade",type:"Lemonade from Lemons",rate:"3:1",img1:"8251.PNG",img2:"lemonade.png",chat1:"((Lemon))",chat2:"((Lemonade))"},
+    {label:"AP",type:"AP from Lemons",rate:"30:1",img1:"8251.PNG",img2:"ap.png",chat1:"((Lemon))",chat2:"((Arnold Palmer))"},
+    {label:"AP",type:"AP from Lemonades",rate:"1000:80",img1:"lemonade.png",img2:"ap.png",chat1:"((Lemonade))",chat2:"((Arnold Palmer))"},
+    {label:"LN",type:"LN from FN (fishing nets)",rate:"1000:70",img1:"7748.png",img2:"lnet.png",chat1:"((Fishing Net))",chat2:"((Large Net))"},
+    {label:"Cider",type:"Cider from Apples (and Oranges)",rate:"22:1",img1:"8297.png",img2:"8984.png",chat1:"((Apple))",chat2:"((Apple Cider))"},
 ]
 
 const roundings = ["Up","Down","Closest 5"]
 
 const rateB =[
-{ind:0,type:"OJ",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined,advertising:false},
-{ind:1,type:"Lemonade",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined,advertising:false},
-{ind:2,type:"AP",rate:"30:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined,advertising:false},
-{ind:3,type:"LN",rate:"1000:70",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined,advertising:false},
-{ind:4,type:"Cider",rate:"22:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined,advertising:false},
+{ind:0,label:"OJ",type:"OJ from Oranges",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined,advertising:false},
+{ind:1,label:"Lemonade",type:"Lemonade from Lemons",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined,advertising:false},
+{ind:2,label:"AP",type:"AP from Lemons",rate:"30:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined,advertising:false},
+{ind:3,label:"LN",type:"LN from FN (fishing nets)",rate:"1000:70",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined,advertising:false},
+{ind:4,label:"Cider",type:"Cider from Apples (and Oranges)",rate:"22:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined,advertising:false},
+{ind:5,label:"AP",type:"AP from Lemonades",rate:"1000:80",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined,advertising:false},
 ]
 
 let pageVer = "2.0"
@@ -28,23 +30,23 @@ let userI = {
     currentSet:"Basic",
     rateU:[],
     toolPerLine:3,
-    memoCap:5,
+    memoCap:10,
     memoTimer:3,
-    inventoryMax:"???",
+    inventoryMax:200,
     fruitsProd:7800,
     fruitsArte:false,
     fruitsTot:0,
-    antlersProd:"???",
+    antlersProd:0,
     antlersArte:false,
     netsTot:0,
     resSaver:45,
     resCraft:1.45,
     mms:[
-        {label:"OJ",img:"orangejuice.png",progress:"???"},
-        {label:"Lemonade",img:"lemonade.png",progress:"???"},
-        {label:"LN",img:"lnet.png",progress:"???"},
-        {label:"Cider",img:"8984.png",progress:"???"},
-        {label:"AP",img:"ap.png",progress:"???"},
+        {label:"OJ",img:"orangejuice.png",progress:0},
+        {label:"Lemonade",img:"lemonade.png",progress:0},
+        {label:"LN",img:"lnet.png",progress:0},
+        {label:"Cider",img:"8984.png",progress:0},
+        {label:"AP",img:"ap.png",progress:0},
     ],
     visuals:{
         preset:{
@@ -66,6 +68,7 @@ let lnk = undefined
 let purple = "rgb(226, 72, 226)"
 let green = "rgb(18, 184, 18)"
 let yellow = "rgb(184, 184, 27)"
+let brown = "rgb(160, 107, 9)"
 
 let help = [
     ``,
@@ -178,22 +181,23 @@ function setCustomBuilder(){
         setID:"friendsC",width:"fit-content"})
         addEle({dad:getID("friendsC"),text:"Ratios for converting friends at little to no loss/benefit :"})
         let subC = addEle({dad:getID("friendsC"),setClass:"contRow"})
-            addEle({dad:subC,what:"img",imgFullSrc:srcImgs+outputs[0].img,imgSize:20})
-            addEle({dad:subC,what:"img",imgFullSrc:srcImgs+outputs[1].img,imgSize:20})
+            addEle({dad:subC,what:"img",imgFullSrc:srcImgs+outputs[0].img2,imgSize:20})
+            addEle({dad:subC,what:"img",imgFullSrc:srcImgs+outputs[1].img2,imgSize:20})
             addEle({dad:subC,text:"[4.13 : 1]",marginR:"20px"})
-            addEle({dad:subC,what:"img",imgFullSrc:srcImgs+outputs[2].img,imgSize:20})
-            addEle({dad:subC,text:"[57 : 1]",marginR:"20px"})
-            addEle({dad:subC,what:"img",imgFullSrc:srcImgs+outputs[3].img,imgSize:20})
+            addEle({dad:subC,what:"img",imgFullSrc:srcImgs+outputs[2].img2,imgSize:20})
+            addEle({dad:subC,text:"[57 : 1 || 1000 : 72.5]",marginR:"20px"})
+            addEle({dad:subC,what:"img",imgFullSrc:srcImgs+outputs[4].img2,imgSize:20})
             addEle({dad:subC,text:"[1000 : 58]",marginR:"20px"})
-            addEle({dad:subC,what:"img",imgFullSrc:srcImgs+outputs[4].img,imgSize:20})
+            addEle({dad:subC,what:"img",imgFullSrc:srcImgs+outputs[5].img2,imgSize:20})
             addEle({dad:subC,text:"[27.7 : 1]"})
 
     cont = addEle({dad:workC,setClass:"contRow",margin:"3px",alignItems:"center"})
         addEle({dad:cont,text:"Type of Converting : "})
         let txt = srcImgs+outputs[0].img
-        addEle({dad:cont,what:"img",imgFullSrc:txt,imgSize:20,margin:"5px 5px 0 5px",setID:"customTypeImg"})
+        addEle({dad:cont,what:"img",imgFullSrc:txt,imgSize:20,margin:"5px 5px 0 5px",setID:"customTypeImg1"})
+        addEle({dad:cont,what:"img",imgFullSrc:txt,imgSize:20,margin:"5px 5px 0 5px",setID:"customTypeImg2"})
         outputs.forEach(out=>{
-            addEle({dad:cont,what:"radio",isInput:true,setVal:out.label,setName:"customTypes",
+            addEle({dad:cont,what:"radio",isInput:true,setVal:out.type,setName:"customTypes",
             setFunc:customTypeSelection})
         })
         addEle({dad:cont,setID:"customType",marginL:"5px",textC:green,minWidth:"70px"})
@@ -244,6 +248,7 @@ function addCustomRate(){
 
         userI.rateU.push({
             ind:userI.rateU.length,
+            label: outputs.filter(x=>x.type===getID("customType").innerHTML)[0].label,
             type:getID("customType").innerHTML,
             rate:getID("customR1").value+":"+getID("customR2").value,
             bonus:getID("customBonus").value,
@@ -270,12 +275,13 @@ function addCustomRate(){
 function customTypeSelection(){
     let grp = document.getElementsByName("customTypes")
     grp.forEach(it=>{
-        if(it.checked){ 
+        if(it.checked){
             getID("customType").innerHTML = it.value
-            let txt = outputs.filter(x=>x.label===it.value)[0].rate
+            let txt = outputs.filter(x=>x.type===it.value)[0].rate
             getID("customR1").value = txt.split(":")[0]
             getID("customR2").value = txt.split(":")[1]
-            getID("customTypeImg").src = srcImgs + outputs.filter(x=>x.label===it.value)[0].img
+            getID("customTypeImg1").src = srcImgs + outputs.filter(x=>x.type===it.value)[0].img2
+            getID("customTypeImg2").src = srcImgs + outputs.filter(x=>x.type===it.value)[0].img1
         }
     })
 }
@@ -439,13 +445,14 @@ function setUserDetails(){
         addEle({dad:cont,what:"input",isInput:true,width:"70px",setID:"userFruitsP",setVal:userI.fruitsProd,
         border:"solid 1px yellow",textA:"center",textC:green,backC:"black",setFunc:(e)=>{testValNum(e,"userFruitsPT")}})
         addEle({dad:cont,setClass:"valChecker",setID:"userFruitsPT"})
-        addEle({dad:cont,what:"checkbox",isInput:true,setID:"userArte1",accentCol:green,margin:"0 -5px 0 -5px",
+        addEle({dad:cont,what:"checkbox",isInput:true,setID:"userArte1",accentCol:brown,margin:"0 -5px 0 -5px",
         setFunc:updateUserDetails})
         let subC = addEle({dad:cont,setClass:"contRow",border:"solid teal 1px",width:"fit-content",cursor:"pointer",
         padding:"1px",alignItems:"center",marginL:"5px",radius:"15px",setFunc:()=>{getID("userArte1").click()}})
             addEle({dad:subC,what:"img",imgFullSrc:srcImgs+"615.png",imgSize:20,margin:"0 5px",})
             addEle({dad:subC,text:"Using the "+spanText("yellow","Tree Shaker") +"<br>(T170 Artefact)",
             marginR:"5px",textA:"center"})
+        addEle({dad:cont,text:"Fruits total production :",marginL:"10px",textA:"center",minWidth:titleL+"px",setID:"userTFruitsP"})
 
     cont = addEle({dad:workC,setClass:"contRow",margin:"5px",alignItems:"center"})
         addEle({dad:cont,setClass:"btn",text:"?",backC:green,width:"16px",textC:"lime",margin:"0 5px",backC:from.buttonBackC,
@@ -455,14 +462,16 @@ function setUserDetails(){
         addEle({dad:cont,what:"input",isInput:true,width:"70px",setID:"userAntlersP",setVal:userI.antlersProd,
         border:"solid 1px yellow",textA:"center",textC:green,backC:"black",setFunc:(e)=>{testValNum(e,"userAntlersPT")}})
         addEle({dad:cont,setClass:"valChecker",setID:"userAntlersPT"})
-        addEle({dad:cont,what:"checkbox",isInput:true,setID:"userArte2",accentCol:green,margin:"0 -5px 0 -5px",
+        addEle({dad:cont,what:"checkbox",isInput:true,setID:"userArte2",accentCol:brown,margin:"0 -5px 0 -5px",
         setFunc:updateUserDetails})
         subC = addEle({dad:cont,setClass:"contRow",border:"solid teal 1px",width:"fit-content",cursor:"pointer",
         padding:"1px",alignItems:"center",marginL:"5px",radius:"15px",setFunc:()=>{getID("userArte2").click()}})
             addEle({dad:subC,what:"img",imgFullSrc:srcImgs+"3320.png",imgSize:20,margin:"0 5px",})
             addEle({dad:subC,text:"Using the "+spanText("yellow","Antler Snare") +"<br>(T160 Artefact)",
             marginR:"5px",textA:"center"})
-        
+        txt = testNum(userI.netsTot) ? "Baby Nets total production :<br>" + userI.netsTot : "Baby Nets total production :<br>0" 
+        addEle({dad:cont,text:txt,marginL:"10px",textA:"center",minWidth:titleL+"px",setID:"userTAntlersP"})        
+
     addEle({dad:workC,text:"Masteries Progression (to MM tier)",borderB:"solid 2px teal",width:"fit-content",
     margin:"0 0 5px 10px"})
     titleL = 80
@@ -501,44 +510,54 @@ function testValNum(e,testId,prog=false){
             getID(e.srcElement.id+"lb").setAttribute("class","")
         }
     } 
-    updateUserDetails()
     if(getID("savCont").style.display === "flex"){getID("savCont").style.display = "none"}
-    setTools()
+    updateUserDetails()
 }
 
 function updateUserDetails(){
-    let map = ["userInv","userResSav","userFruitsP","userAntlersP"]
-    userI.mms.forEach(mm=>{map.push(mm.label+"MM")})
     let val = undefined
+    let inv = undefined
     let resetP = undefined
     let noonP = undefined
 
-    val = getID(map[0]).value ; userI.inventoryMax = testNum(val) ? Number(val) : "???"
-    val = getID(map[1]).value ; userI.resSaver = testNum(val) ? Number(val) : 0
-    val = getID(map[2]).value ; userI.fruitsProd = testNum(val) ? Number(val) : "???"
-    val = getID(map[3]).value ; userI.antlersProd = testNum(val) ? Number(val) : "???"
-    for(let i=4;i<map.length;i++){
-        val = getID(map[i]).value ; userI.mms[i-4].progress = testNum(val) ? Number(val) : "???"
-    }
-
-    userI.resCraft = Number((1 + userI.resSaver/100).toFixed(2))
     userI.fruitsArte = getID("userArte1").checked ? true : false
     userI.antlersArte = getID("userArte2").checked ? true : false
 
-    if(userI.inventoryMax !=="???"){
-        if(userI.fruitsProd !=="???"){
-            resetP = userI.fruitsProd > userI.inventoryMax ? userI.inventoryMax : userI.fruitsProd
-            noonP = userI.fruitsArte ? Math.floor(userI.fruitsProd*.1) : 0
-            noonP = noonP > userI.inventoryMax ? userI.inventoryMax : noonP
-            userI.fruitsTot = resetP+noonP
-        }
-        if(userI.antlersProd !=="???"){
-            resetP = userI.antlersProd > userI.inventoryMax ? userI.inventoryMax : userI.antlersProd
-            noonP = userI.antlersArte ? Math.floor(userI.antlersProd*.1) : 0
-            noonP = noonP > userI.inventoryMax ? userI.inventoryMax : noonP
-            userI.netsTot = Math.floor((resetP+noonP) * (1+(userI.resSaver/100)))
-        }
+    if(testNum(getID("userInv").value)){
+        inv = Number(getID("userInv").value)
+        userI.inventoryMax = inv
+    } else {userI.inventoryMax = 200}
+
+    if(testNum(getID("userResSav").value)){
+        val = Number(getID("userResSav").value)
+        userI.resSaver = val
+        userI.resCraft = Number((1 + val/100).toFixed(2))
     }
+
+    if(testNum(getID("userFruitsP").value)){
+        let fruitsCap = 7800
+        val = Number(getID("userFruitsP").value)
+        userI.fruitsProd = val > fruitsCap ? fruitsCap : val
+        resetP = userI.fruitsProd > userI.inventoryMax ? userI.inventoryMax : userI.fruitsProd
+        noonP = userI.fruitsArte ? Math.floor(userI.fruitsProd*.1) : 0
+        noonP = noonP > userI.inventoryMax ? userI.inventoryMax : noonP
+        userI.fruitsTot = resetP+noonP
+        getID("userTFruitsP").innerHTML = "Fruits total production :<br>" + userI.fruitsTot.toLocaleString()
+    } else {getID("userTFruitsP").innerHTML = "Fruits total production :<br>0"}
+
+    if(testNum(getID("userAntlersP").value)){
+        val = Number(getID("userAntlersP").value)
+        userI.antlersProd = val
+        resetP = userI.antlersProd > userI.inventoryMax ? userI.inventoryMax : userI.antlersProd
+        noonP = userI.antlersArte ? Math.floor(userI.antlersProd*.1) : 0
+        noonP = noonP > userI.inventoryMax ? userI.inventoryMax : noonP
+        userI.netsTot = Math.floor((resetP+noonP) * (1+(userI.resSaver/100)))
+        getID("userTAntlersP").innerHTML = "Baby Nets total production :<br>" + userI.netsTot.toLocaleString()
+    } else {getID("userTAntlersP").innerHTML = "Baby Nets total production :<br>0"}
+
+    userI.mms.forEach(mm=>{mm.progress = testNum(getID(mm.label+"MM").value) ? Number(getID(mm.label+"MM").value) : 0 })
+
+    setTools()
 
 }
 
@@ -557,9 +576,11 @@ function setUserSav(){
             let newSC = addEle({dad:fork,setClass:"contCol",textA:"center",border:"teal solid 2px",
             radius:"10px",marginL:"10px"})
     
-        addEle({dad:oldSC,backC:"brown",text:"Old User Details",margin:"5px 0"})
-        addEle({dad:newSC,backC:"teal",text:"New User Details",margin:"5px 0"})
+        addEle({dad:oldSC,backC:"brown",text:"Old User Settings",margin:"5px 0"})
+        addEle({dad:newSC,backC:"teal",text:"New User Settings",margin:"5px 0"})
     
+        
+
         let key = "farmRPGCustomConvertingV2"
         let mySave = localStorage.getItem(key)
         if(mySave){
@@ -573,7 +594,7 @@ function setUserSav(){
         
         getSavBuild(newSC,userI)
 
-        addEle({dad:workC,setClass:"btn",backC:"teal",text:"Save New User Details",width:"90%",backC:from.buttonBackC,
+        addEle({dad:workC,setClass:"btn",backC:"teal",text:"Save New User Settings",width:"100%",backC:from.buttonBackC,
         marginT:"10px",setFunc:()=>{getID("checkSavBtn").click() ; saveToBrowser(undefined,4000)}})
     
     } else {workC.style.display="none"}
@@ -780,28 +801,64 @@ function buildTool(dad,itm,idx){
             if(itm.advertising){getID("adv:"+idx).checked=true}
             addEle({dad:inC,text:"Advertise",marginL:"5px",setID:"advL:"+idx,
                 setFunc:(e)=>{txt = e.srcElement.id.split(":")[1] ; getID("adv:"+txt).click()}})
-            addEle({dad:inC,text:itm.type,minWidth:"110px",textA:"center",setID:"type:"+idx})
+            addEle({dad:inC,text:itm.label,minWidth:"110px",textA:"center",setID:"type:"+idx})
           
           tc = addEle({dad:tr,what:"td",border:"solid teal 2px",textA:"center"})
             let cont = addEle({dad:tc,setClass:"contRow",justifyC:"space-around",alignItems:"center"})
-                txt = outputs.filter(it=>it.label===itm.type)[0].img
+                txt = outputs.filter(it=>it.type===itm.type)[0].img1
+                addEle({dad:cont,what:"img",imgFullSrc:srcImgs+txt,imgSize:25})
+                txt = outputs.filter(it=>it.type===itm.type)[0].img2
                 addEle({dad:cont,what:"img",imgFullSrc:srcImgs+txt,imgSize:25})
                 addEle({dad:cont,setClass:"btn",text:"Reset",setID:"reset:"+idx,setFunc:(e)=>{
                     let idx = e.srcElement.id.split(":")[1]
                     getID("order:"+idx).value = 0
                     getID("mbs:"+idx).value = 0
+                    getID("farmer:"+idx).value = "Farmer X"
                     toolCalc(e.srcElement.id)
                 }})
 
         tr = addEle({dad:tb,what:"tr"})
           tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2,justifyC:"center"})
             cont = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
-            inC = addEle({dad:cont,setClass:"contCol"})
-                txt = "Rate : "+itm.rate+" -- Rounding :"+itm.rounding
-                addEle({dad:inC,text:txt,marginT:"5px"})
-                addEle({dad:inC,text:"Payout Bonus(+%) : "+itm.bonus,marginT:"5px"})
+                txt = testNum(itm.bonus) ? 
+                "Rate : "+itm.rate+spanText("teal"," | ",20)+"Rounding :"+itm.rounding+
+                spanText("teal"," | ",20)+"Bonus :"+itm.bonus+"%" :
+                "Rate : "+itm.rate+spanText("teal"," | ",20)+"Rounding :"+itm.rounding
+                addEle({dad:cont,text:txt,marginT:"5px"})
 
-        tr = addEle({dad:tb,what:"tr"}) // "◀" ◀
+        tr = addEle({dad:tb,what:"tr"})
+            addEle({dad:tr,what:"td",text:spanText("lime","**")+"Customer MB Size"+spanText("green","<br>(for Payout Detail)"),
+            border:"solid teal 2px",textA:"center"})
+          tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
+            inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
+            addEle({dad:inC,what:"input",isInput:true,width:"100px",textA:"center",setID:"mbs:"+idx,
+            setVal:0,setFunc:(e)=>{toolCalc(e.srcElement.id)}})
+    
+        tr = addEle({dad:tb,what:"tr"})
+          tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
+            inC = addEle({dad:tc,setClass:"contCol",alignItems:"center"})        
+            addEle({dad:inC,text:spanText("lime","**")+"Customer Name",textA:"center"})
+            let subC = addEle({dad:inC,setClass:"contRow",alignItems:"center"})
+            addEle({dad:subC,text:spanText("green","(for Memo Details / "),textA:"center"})
+            addEle({dad:subC,setClass:"btn",text:"Ping",fontS:"11px",padding:"1px",margin:"3px",
+            setID:"ping:"+idx,setFunc:(e)=>{
+                let idx = e.srcElement.id.split(":")[1]
+                txt = getID("farmer:"+idx).value
+                txt = txt.replace("@","")
+                txt = txt.replace(":","")
+                txt = "@"+txt+":"
+                navigator.clipboard.writeText(txt)
+                showInfo("✅",2000,"",getID("info:"+idx))
+            }})
+            addEle({dad:subC,text:spanText("green",")"),textA:"center"})
+            addEle({dad:subC,setID:"info:"+idx})
+
+          tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
+            inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
+            addEle({dad:inC,what:"input",isInput:true,width:"100px",textA:"center",setID:"farmer:"+idx,
+            setVal:"Farmer X"})
+
+        tr = addEle({dad:tb,what:"tr"})
           tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
             let orderC = addEle({dad:tc,setClass:"contCol"}) 
             inC = addEle({dad:orderC,setClass:"contRow",justifyC:"center",alignItems:"center"})
@@ -813,26 +870,19 @@ function buildTool(dad,itm,idx){
                 padding:"4px 4px",setFunc:(e)=>{memoHis(e)}})
                 addEle({dad:inC,what:"td",text:"Memo "+itm.orderMem.length+"/"+userI.memoCap,textA:"center",setID:"memoInfo:"+idx,margin:"0 5px",fontS:"12px"})
                 addEle({dad:inC,what:"td",text:"Order(s)",textA:"center"})
-            addEle({dad:orderC,setClass:"contCol",marginL:"yellow dotted 2px",display:"none",setID:"orderH:"+idx,paddingT:"5px"})
+            addEle({dad:orderC,setClass:"contCol",display:"none",setID:"orderH:"+idx,paddingT:"5px"})
           tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
             inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
             addEle({dad:inC,what:"input",isInput:true,width:"100px",textA:"center",setID:"order:"+idx,
             setVal:0,setFunc:(e)=>{toolCalc(e.srcElement.id)}})
 
         tr = addEle({dad:tb,what:"tr"})
-            addEle({dad:tr,what:"td",text:spanText("lime","**")+"Customer MB Size"+spanText("green","<br>(for Payout Detail)"),
-            border:"solid teal 2px",textA:"center"})
-          tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
-            inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
-            addEle({dad:inC,what:"input",isInput:true,width:"100px",textA:"center",setID:"mbs:"+idx,
-            setVal:0,setFunc:(e)=>{toolCalc(e.srcElement.id)}})
-
-        tr = addEle({dad:tb,what:"tr"})
-            addEle({dad:tr,what:"td",text:"Payout (+Bonus):",border:"solid teal 2px",textA:"center"})
+            txt = testNum(itm.bonus) ? "Payout (+Bonus) :" : "Payout :"
+            addEle({dad:tr,what:"td",text:txt,border:"solid teal 2px",textA:"center"})
             addEle({dad:tr,what:"td",text:0,border:"solid teal 2px",textA:"center",setID:"payout:"+idx})
 
         tr = addEle({dad:tb,what:"tr"})
-            addEle({dad:tr,what:"td",text:spanText("lime","**")+"Payout Detail",border:"solid teal 2px",textA:"center"})
+            addEle({dad:tr,what:"td",text:spanText("lime","**")+"Payout Detail :",border:"solid teal 2px",textA:"center"})
             addEle({dad:tr,what:"td",text:spanText(purple,"---"),border:"solid teal 2px",textA:"center",setID:"payoutD:"+idx})
 
         tr = addEle({dad:tb,what:"tr"})
@@ -848,7 +898,7 @@ function buildTool(dad,itm,idx){
             cont = addEle({dad:tc,setClass:"contCol",alignItems:"center",minHeight:"130px",justifyC:"center"})
         if(itm.type==="LN"){
             let subC = addEle({dad:cont,setClass:"contCol",alignItems:"center"})
-                addEle({dad:subC,text:"Stone Needed : ",borderB:"yellow solid 2px",width:"fit-content"})
+                addEle({dad:subC,text:"Stone Needed (inventory cap "+userI.inventoryMax+") :",borderB:"yellow solid 2px",width:"fit-content"})
                 txt = testNum(userI.inventoryMax) ? 
                 spanText(purple,"---") : spanText(purple,"Fill User Details in User Settings")
                 addEle({dad:subC,text:txt,setID:"stoneNeed:"+idx,marginL:"5px"})
@@ -883,15 +933,18 @@ function buildTool(dad,itm,idx){
         tr = addEle({dad:tb,what:"tr"})
           tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
             cont = addEle({dad:tc,setClass:"contCol",alignItems:"center",padding:"5px"})
-                let tgtMM = userI.mms.filter(it=>it.label===itm.type)[0].progress
+                let tgtMM = userI.mms.filter(it=>it.label===itm.label)[0].progress
 
-                txt = testNum(tgtMM) ? (1000000-tgtMM).toLocaleString() : spanText(purple,"Fill User Details in User Settings")
+                txt = testNum(tgtMM) ? (1000000-tgtMM).toLocaleString() : 
+                spanText(purple,"Fill User Details in User Settings :<br>Mastery progression for "+itm.label)
                 addEle({dad:cont,text:"Mastery remaining :<br>"+txt,textA:"center"})
 
-                addEle({dad:cont,text:"Evaluate reaching MM",borderB:"teal solid 2px",textA:"center",marginT:"5px"})
-                inC = addEle({dad:cont,setClass:"contRow",justifyC:"center"})
-                    addEle({dad:inC,text:"( current exp ratio :"})
-                    addEle({dad:inC,text:1,setID:"xpRatio:"+idx,margin:"0 5px"})
+                inC = addEle({dad:cont,setClass:"contRow",justifyC:"center",alignItems:"center",})
+        
+                    addEle({dad:inC,text:"Evaluate reaching MM",textA:"center",marginT:"5px"})
+
+                    addEle({dad:inC,text:"(current exp ratio :",marginL:"5px"})
+                    addEle({dad:inC,text:1,setID:"xpRatio:"+idx,margin:"0 0 0 5px"})
                     addEle({dad:inC,text:")"})
 
             let expC = addEle({dad:cont,setClass:"contCol",padding:"5px",margin:"5px",border:"teal 2px solid",
@@ -901,100 +954,22 @@ function buildTool(dad,itm,idx){
                     addEle({dad:inC,text:"Use Mushroom Stew (Exp Bonus)",setID:"stewBoxLb:"+idx,setFunc:(e)=>{
                             getID("stewBox:"+e.srcElement.id.split(":")[1]).click()}})
                     addEle({dad:inC,what:"checkbox",isInput:true,setVal:true,accentCol:green,setID:"stewBox:"+idx,
-                            setFunc:(e)=>{eventXPradio(e)}})
+                            setFunc:(e)=>{eventXPradio(e.srcElement.id)}})
 
                 inC = addEle({dad:expC,setClass:"contRow",justifyC:"center",marginT:"0"})
                     addEle({dad:inC,setClass:"contCol",justifyC:"center",text:"Event Item Mastery Bonus : ",
-                    setID:"evExpLb:"+idx,marginL:"10px",minWidth:"160px"})
+                    setID:"evExpLb:"+idx,minWidth:"220px"})
 
                     addEle({dad:inC,what:"radio",isInput:true,setVal:0,setName:"evXpRads:"+idx,
-                    setID:"evXpRad:"+idx,accentCol:"green",setFunc:(e)=>{eventXPradio(e)}})
+                    setID:"evXpRad:"+idx,accentCol:"green",setFunc:(e)=>{eventXPradio(e.srcElement.id)}})
                     addEle({dad:inC,what:"radio",isInput:true,setVal:10,setName:"evXpRads:"+idx,
-                    setID:"evXpRad:"+idx,accentCol:"green",setFunc:(e)=>{eventXPradio(e)}})
+                    setID:"evXpRad:"+idx,accentCol:"green",setFunc:(e)=>{eventXPradio(e.srcElement.id)}})
                     addEle({dad:inC,what:"radio",isInput:true,setVal:14,setName:"evXpRads:"+idx,
-                    setID:"evXpRad:"+idx,accentCol:"green",setFunc:(e)=>{eventXPradio(e)}})
+                    setID:"evXpRad:"+idx,accentCol:"green",setFunc:(e)=>{eventXPradio(e.srcElement.id)}})
+
+                addEle({dad:cont,textA:"left",text:spanText(purple,"---"),setID:"MMsumUp:"+idx})
+
                 document.getElementsByName("evXpRads:"+idx)[0].click()
-
-                txt = "From your daily production ("
-                txt+= itm.type === "LN" ? 
-                userI.netsTot.toLocaleString() +" baby nets)" : 
-                userI.fruitsTot.toLocaleString() + " fruits)"
-                addEle({dad:cont,text:txt,textA:"center"})
-
-
-
-
-
-
-/*
-        tr = addEle({dad:tb,what:"tr"})
-            addEle({dad:tr,what:"td",text:spanText("yellow","**")+"[ UsingMeal ]<br>Mushroom stew",
-            border:"solid teal 2px",textA:"center"})
-          tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
-            inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
-            addEle({dad:inC,what:"radio",isInput:true,setVal:"No",setName:"MMmeal:"+idx,setID:"mealRadio:"+idx,setFunc:(e)=>{
-                let idx = e.srcElement.id.split(":")[1]
-                document.getElementsByName("MMmeal:"+idx).forEach(it=>{
-                    if(it.checked){getID("masteryMush:"+idx).innerHTML = it.value}
-                })
-                toolCalc(e.srcElement.id)
-            }})
-            addEle({dad:inC,what:"radio",isInput:true,setVal:"Yes",setName:"MMmeal:"+idx,setID:"mealRadio:"+idx,setFunc:(e)=>{
-                let idx = e.srcElement.id.split(":")[1]
-                document.getElementsByName("MMmeal:"+idx).forEach(it=>{
-                    if(it.checked){getID("masteryMush:"+idx).innerHTML = it.value}
-                })
-                toolCalc(e.srcElement.id)
-            }})
-            addEle({dad:inC,setID:"masteryMush:"+idx,marginL:"10px",textC:"fuchsia"})
-            document.getElementsByName("MMmeal:"+idx)[0].click()
-
-        tr = addEle({dad:tb,what:"tr"})
-            addEle({dad:tr,what:"td",text:spanText("yellow","**")+"Event Mastery Bonus :",
-            border:"solid teal 2px",textA:"center"})
-          tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
-            inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
-            addEle({dad:inC,what:"radio",isInput:true,setVal:"0",setName:"eventN:"+idx,setID:"eventRadio:"+idx,setFunc:(e)=>{
-                let idx = e.srcElement.id.split(":")[1]
-                document.getElementsByName("eventN:"+idx).forEach(it=>{
-                    if(it.checked){getID("MMevent:"+idx).innerHTML = it.value+"%"}
-                })
-                toolCalc(e.srcElement.id)
-            }})
-            addEle({dad:inC,what:"radio",isInput:true,setVal:"10",setName:"eventN:"+idx,setID:"eventRadio:"+idx,setFunc:(e)=>{
-                let idx = e.srcElement.id.split(":")[1]
-                document.getElementsByName("eventN:"+idx).forEach(it=>{
-                    if(it.checked){getID("MMevent:"+idx).innerHTML = it.value+"%"}
-                })
-                toolCalc(e.srcElement.id)
-            }})
-            addEle({dad:inC,what:"radio",isInput:true,setVal:"14",setName:"eventN:"+idx,setID:"eventRadio:"+idx,setFunc:(e)=>{
-                let idx = e.srcElement.id.split(":")[1]
-                document.getElementsByName("eventN:"+idx).forEach(it=>{
-                    if(it.checked){getID("MMevent:"+idx).innerHTML = it.value+"%"}
-                })
-                toolCalc(e.srcElement.id)
-            }})
-            addEle({dad:inC,setID:"MMevent:"+idx,marginL:"10px",textC:"fuchsia"})
-            document.getElementsByName("eventN:"+idx)[0].click()
-
-        tr = addEle({dad:tb,what:"tr"})
-            addEle({dad:tr,what:"td",text:spanText("yellow","**")+"Mastery Remaining(2) :",border:"solid teal 2px",textA:"center"})
-            addEle({dad:tr,what:"td",text:spanText("fuchsia","---"),border:"solid teal 2px",textA:"center",setID:"masteryR2:"+idx})
-
-        tr = addEle({dad:tb,what:"tr"})
-            addEle({dad:tr,what:"td",text:spanText("yellow","**")+"Needed "+txt+" :",border:"solid teal 2px",textA:"center"})
-            addEle({dad:tr,what:"td",text:spanText("fuchsia","---"),border:"solid teal 2px",textA:"center",setID:"mmNeed:"+idx})
-
-        tr = addEle({dad:tb,what:"tr"})
-            addEle({dad:tr,what:"td",text:spanText("yellow","**")+"Reach MM from<br>self production only in",border:"solid teal 2px",textA:"center"})
-            addEle({dad:tr,what:"td",text:spanText("fuchsia","---"),border:"solid teal 2px",textA:"center",setID:"mmReach:"+idx})         
-
-        tr = addEle({dad:tb,what:"tr"})
-            addEle({dad:tr,what:"td",text:spanText("yellow","**")+"Converting to Reach MM<br>Will represent using<br>Current Ratio another :",border:"solid teal 2px",textA:"center"})
-            addEle({dad:tr,what:"td",text:spanText("fuchsia","---"),border:"solid teal 2px",textA:"center",setID:"mmReachC:"+idx})            
-*/
-
 }
 
 function getCurrItem(id){
@@ -1017,7 +992,7 @@ function memoAdd(id){
             val = getID("order:"+idx).value
             if(testNum(val)){
                 itm.orderTimer = undefined
-                itm.orderMem.push({dt:new Date(),val:Number(val)})
+                itm.orderMem.push({dt:new Date(),val:Number(val),name:getID("farmer:"+idx).value})
                 if(itm.orderMem.length>userI.memoCap){itm.orderMem.splice(0,1)}
                 itm.orderIdx = itm.orderMem.length-1
                 disp.style.color = "lime"
@@ -1040,11 +1015,12 @@ function memoHis(e){
         e.srcElement.innerHTML = "▲" 
         workC.style.display = "flex"
         itm.orderMem.forEach(m=>{
-            let hr = m.dt.getHours().length === 1 ? "0"+m.dt.getHours() : m.dt.getHours()
-            let mn = m.dt.getMinutes().length === 1 ? "0"+m.dt.getMinutes() : m.dt.getMinutes()
-            let sc = m.dt.getSeconds().length === 1 ? "0"+m.dt.getSeconds() : m.dt.getSeconds()
-            let txt = m.dt.getMonth()+"/"+m.dt.getDate()+" -- "+hr+":"+mn+":"+sc
-            addEle({dad:workC,text:txt + " > " + m.val.toLocaleString(),paddingL:"25px"})
+            let hr = m.dt.getHours() < 10  ? "0"+m.dt.getHours() : m.dt.getHours()
+            let mn = m.dt.getMinutes() < 10 ? "0"+m.dt.getMinutes() : m.dt.getMinutes()
+            let sc = m.dt.getSeconds() < 10 ? "0"+m.dt.getSeconds() : m.dt.getSeconds()
+            let txt = m.dt.getMonth()+"/"+m.dt.getDate()+" | "+hr+":"+mn+":"+sc +
+            " | " +m.val.toLocaleString() +" | " +m.name
+            addEle({dad:workC,text:txt ,marginR:"5px",fontS:"12px"})
         })
     } else {e.srcElement.innerHTML = "▼" ; workC.style.display = "none"}
 }
@@ -1054,6 +1030,7 @@ function memoPrev(e){
     let itm = getCurrItem(e.srcElement.id)
     if(itm.orderMem.length === 0 || itm.orderIdx===undefined){return}
     itm.orderIdx = itm.orderIdx -1 < 0 ? 0 : itm.orderIdx -1
+    getID("farmer:"+idx).value = itm.orderMem[itm.orderIdx].name
     getID("order:"+idx).value = itm.orderMem[itm.orderIdx].val
     toolCalc(e.srcElement.id,false)
 }
@@ -1067,8 +1044,8 @@ function memoNext(e){
     toolCalc(e.srcElement.id,false)
 }
 
-function eventXPradio(e){
-    let idx = e.srcElement.id.split(":")[1]
+function eventXPradio(id){
+    let idx = id.split(":")[1]
     let ratio = 1
     let evXP = 0
     let grp = document.getElementsByName("evXpRads:"+idx)
@@ -1077,6 +1054,8 @@ function eventXPradio(e){
     if(getID("stewBox:"+idx).checked){ratio +=.1}
     getID("evExpLb:"+idx).innerHTML = "Event Item Mastery Bonus : "+evXP+"%"
     getID("xpRatio:"+idx).innerHTML = ratio.toFixed(2)
+    mmEstimate(id,ratio)
+//    return ratio
 }
 
 function upNeedRg(id){
@@ -1152,7 +1131,7 @@ function advertising(e){
     grp.forEach(it=>{
         if(it.checked){
             itmRate = src[Number(it.id.split(":")[1])]
-            itmBase = outputs.filter(x=>x.label===itmRate.type)[0]
+            itmBase = outputs.filter(x=>x.type===itmRate.type)[0]
             arrRaw.push({from:itmBase.chat1,to:itmBase.chat2,rate:itmRate.rate})
         }
     })
@@ -1193,7 +1172,6 @@ function advertising(e){
 function toolCalc(id,memoAd=true){
     let idx = Number(id.split(":")[1])
     let val = getID("order:"+idx).value
-    let type = getID("type:"+idx).innerHTML
 
     let rate = undefined
     let grp = document.getElementsByName("rateSets")
@@ -1211,21 +1189,27 @@ function toolCalc(id,memoAd=true){
         let bon = itm.bonus
         let rnd = itm.rounding
         let mbs = getID("mbs:"+idx).value
+        let txt = ""
 
         let ret = calcConvert(val,div,mul,bon,rnd)
 
         let payT = ret.payR+ret.bonR
-        getID("payout:"+idx).innerHTML = ret.payR +"(+ "+ ret.bonR +") = "+ payT
+
+        txt = testNum(bon) ? ret.payR +"(+ "+ ret.bonR +") = "+ payT : ret.payR
+        getID("payout:"+idx).innerHTML = txt
         let craft = undefined
-        switch(type){
-            case "LN" : craft = Math.floor(val/25*1.45) ; break
-            case "OJ" : case "Lemonade" : craft = Math.floor(val/6*1.45) ; break
-            case "AP" : craft = Math.floor(Math.floor(val/6*1.45)/20*1.45) ; break
-            case "Cider" : craft = Math.floor(val/40*1.45) ; break
-            default:console.log(type)
+        switch(itm.type){
+            case outputs[0].type : case outputs[1].type : craft = Math.floor(val/6*1.45) ; break
+            case outputs[2].type : craft = Math.floor(Math.floor(val/6*1.45)/20*1.45) ; break
+            case outputs[3].type : craft = Math.floor(val/20*1.45) ; break
+            case outputs[4].type : craft = Math.floor(val/25*1.45) ; break
+            case outputs[5].type : craft = Math.floor(val/40*1.45) ; break
+            default:console.log(itm.type)
         }
+
         getID("craft:"+idx).innerHTML = craft
-        getID("lose:"+idx).innerHTML = (ret.payR - craft) + "(+ " +ret.bonR + ") = " + (ret.payR - craft + ret.bonR)
+        getID("lose:"+idx).innerHTML = !testNum(itm.bonus) ? (ret.payR - craft) :
+        (ret.payR - craft) + "(+ " +ret.bonR + ") = " + (ret.payR - craft + ret.bonR)
 
         if (testNum(mbs)){
             let rnds1 = Math.floor(payT/Number(mbs))
@@ -1238,71 +1222,82 @@ function toolCalc(id,memoAd=true){
 
     }
 
-    ////////////////////////
-    let mmSrc = userI.mms.filter(x=>x.label===itm.type)[0]
-    let goal = 1000000-mmSrc.progress
-    console.log(userI)
-    console.log(mmSrc)
-    console.log(goal)
-    /*
-    if(testNum(mmS)){
-        mmS = Number(mmS)
-        let MM = 1000000
-        let meal = undefined
-        let eventB = undefined
-        let baseRatio = 1
-        getID("masteryR1:"+idx).innerHTML = (MM-mmS).toLocaleString()
-        document.getElementsByName("MMmeal:"+idx).forEach(it=>{if(it.checked){meal=it.value}})
-        document.getElementsByName("eventN:"+idx).forEach(it=>{if(it.checked){eventB=it.value}})
-        if(meal==="Yes"){baseRatio+=0.1}
-        baseRatio+=(eventB/100)
-        baseRatio = Number(baseRatio.toFixed(2))
-        let mmS2 = Math.ceil((MM-mmS)/baseRatio)
-        getID("masteryR2:"+idx).innerHTML = mmS2.toLocaleString()
-        let need = Math.ceil(mmS2/1.45)
-        switch(type){
-            case "OJ / Lemonade": need = need * 6 ; break
-            case "Cider" : need = need * 40 ; break
-            case "LN" : need = need * 25 ; break
-            case "AP" : need = Math.ceil((need *20)/1.45*6) ; break
-        }
-        getID("mmNeed:"+idx).innerHTML = need.toLocaleString()
-        let prod = getID("mmProducts:"+idx).value
-        if(testNum(prod)){
-            prod = Number(prod)
-            let len = Math.ceil(need/prod)
-            let txt = len <= 365 ? len + "d" : Math.floor(len/365) + "y " + len % 365 + "d"
-            getID("mmReach:"+idx).innerHTML = txt
+upNeedRg(id)
 
-        }
+}
+
+function mmEstimate(id,ratio=undefined){
+    let idx = Number(id.split(":")[1])
+    let tgtLb = getID("MMsumUp:"+idx)
+
+    let rate = undefined
+    let grp = document.getElementsByName("rateSets")
+    grp.forEach(it=>{if(it.checked){rate = it.value}})
+    let arrS = rate === "Basic" ? rateB : userI.rateU 
+    let itm = arrS.filter(x=>x.ind===idx)[0]
+    if(ratio === undefined){ratio = eventXPradio(id)}  
 
 
+    let bad = undefined
+    let prod = undefined
+    let prodLb = undefined
 
- //       let div = Number(getID("rate:"+idx).innerHTML.split(":")[0])
-  //      let mul = Number(getID("rate:"+idx).innerHTML.split(":")[1])
-   //     let bon = Number(getID("bonus:"+idx).innerHTML)
-    //    let rnd = getID("rounding:"+idx).innerHTML
-     //   let ret = calcConvert(need,div,mul,bon,rnd)
-     //  console.log(ret)
-       // console.log(need)
+    if(itm.label === "LN")
+         {prod = userI.netsTot ; prodLb = " baby nets)"}
+    else {prod = userI.fruitsTot ; prodLb = " fruits)"}
 
-      //  let payT = ret.payR+ret.bonR
+    let mmSrc = userI.mms.filter(x=>x.label===itm.label)[0]
+    let bad1 = "Fill User Details in User Settings :"
 
-        let craft = undefined
-        switch(type){
-            case "LN" : craft = Math.floor(need/25*1.45) ; break
-            case "OJ / Lemonade" : craft = Math.floor(need/6*1.45) ; break
-            case "AP" : craft = Math.floor(Math.floor(need/6*1.45)/20*1.45) ; break
-            case "Cider" : craft = Math.floor(need/40*1.45) ; break
-        }
-//        let txt = type +" Payout :<br>" + payT.toLocaleString()
-     //   getID("mmReachC:"+idx).innerHTML = txt
-
+    if(!testNum(prod)){
+        bad = itm.label === "LN" ? 
+        bad1+"<br>Antlers daily production" :
+        bad1+"<br>Fruits daily production"
     }
 
-    */
+    if(!testNum(mmSrc.progress)){
+        if(bad===undefined)
+             {bad  = bad1+"<br>Mastery Progression for "+itm.label} 
+        else {bad += "<br>Mastery Progression for "+itm.label}
+    }
 
-upNeedRg(id)
+    if (bad===undefined){
+        let goal = 1000000-mmSrc.progress
+        goal = Math.ceil(goal/ratio/userI.resCraft)
+
+        switch(itm.type){
+            case outputs[0].type : case outputs[1].type : goal = goal * 6 ; break
+            case outputs[2].type : goal = Math.ceil((goal *20)/1.45*6) ; break
+            case outputs[3].type : goal = goal * 20 ; break
+            case outputs[4].type : goal = goal * 25 ; break
+            case outputs[5].type : goal = goal * 40 ; break
+        }
+
+        txt = `From your daily production only (` + prod.toLocaleString() + prodLb +`<br>
+               with current exp ratio, it would take another ...<br>~ `
+        let len = Math.ceil(goal/prod)
+        txt += len <= 365 ? len + " Days to finish." : Math.floor(len/365) + " Year " + (len % 365) + " Days to finish."
+        txt += "<br>OR...To convert another "+goal.toLocaleString()
+        txt += itm.type === outputs[4].type ? " nets" : " fruits"
+        txt += "<br>With current rate, it means another :"
+
+        let ret = calcConvert(goal,itm.rate.split(":")[0],itm.rate.split(":")[1],itm.bonus,itm.rounding)
+        let totPay = ret.payR+ret.bonR
+        let craft = undefined
+        switch(itm.type){
+            case outputs[0].type : case outputs[1].type : craft = goal / 6 ; break
+            case outputs[2].type : craft = Math.ceil((goal /20)*1.45/6) ; break
+            case outputs[3].type : craft = goal / 20 ; break
+            case outputs[4].type : craft = goal / 25 ; break
+            case outputs[5].type : craft = goal / 40 ; break
+        }
+
+        txt += "<br>Pay " + totPay.toLocaleString() +" | "
+        txt += "Craft " + craft.toLocaleString()+" | "
+        txt += "Lose " + (totPay-craft).toLocaleString()
+        tgtLb.innerHTML = txt
+
+    } else {tgtLb.innerHTML = spanText(purple,bad);tgtLb.style.textAlign = "center"}
 
 }
 
