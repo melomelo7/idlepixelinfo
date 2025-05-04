@@ -47,7 +47,7 @@ function setSettings(){
         addEle({dad:getID("toolsCont"),what:"input",isInput:true,setVal: userI.memoCap,textA:"center",
                 width:"20px",setFunc:(e)=>{changeMemoCap(e)}})
 
-        addEle({dad:getID("toolsCont"),text:"Orders auto-Memo after X seconds<br>you started typing amount, X =",
+        addEle({dad:getID("toolsCont"),text:"Orders auto-Memo after X seconds<br>you started typing Order, X =",
         margin:"5px 10px",textA:"right"})
         addEle({dad:getID("toolsCont"),what:"input",isInput:true,setVal: userI.memoTimer,
                 width:"10px",setFunc:(e)=>{changeMemoTime(e)}})
