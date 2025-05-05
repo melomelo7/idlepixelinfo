@@ -62,7 +62,8 @@ let helpArr =[
     {label:"Use Tools : Memo & Order",text:
     `Memo/History is auto-saved after 3 seconds you start typing the Order ( = amount sent by customer )<br>
      change speed of memo and max memos saved under "Settings" if you need more or if speed doesnt fit<br>
-     your typing speed. Memo taken includes : Date/Hour/Order Amount/customer Name/customer MB size.
+     your typing speed. Memo taken includes : Date/Hour/Order Amount/customer Name/customer MB size.<br><br>
+     ** Memos are wiped out when you reload the webpage, use the reset buttons if you need clean inputs**
     `},
     {label:"Settings : Rates / Ratios",text:
     `Basic Rates :<br> Only for display cannot be modified<br><br>
