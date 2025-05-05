@@ -35,6 +35,13 @@ function setPage(){
 }
 
 let helpArr =[
+    {label:"For a basic simple use of this webpage",text:
+    `all you need for a converting is to :<br>
+     - input the "Order" amount (3rd white input area)<br>
+     - read the "payout" that will show on next line<br>
+     - and send payout to the customer<br>
+     everything else is additional tools and infos 🤠
+    `},
     {label:"Tool Sets",text:
     `The basic tool set gives the current options to allow every type of conversions at standard<br>
      rates common to all players. If its too many tools to see at once OR if you would rather use<br>
@@ -57,7 +64,7 @@ let helpArr =[
     `},
     {label:"Use Tools : Customer Name",text:
     `optional (part of Memo), like advertising its another information that can be saved<br>
-     into the clipboard and then used with the "PING" to msg your customer in chat.
+    into the clipboard and then used with the "PING" to msg your customer in chat.
     `},
     {label:"Use Tools : Memo & Order",text:
     `Memo/History is auto-saved after 3 seconds you start typing the Order ( = amount sent by customer )<br>
@@ -91,7 +98,7 @@ function dispHelp(){
             let helpForkB = addEle({dad:helpFork,setClass:"contCol"})
                             addEle({dad:helpForkB,setID:"helpContFr",margin:"20px 10px"})
                             helpArr.forEach(itm=>{addEle({dad:helpForkA,setClass:"btn",text:itm.label,backC:"green",
-                            minWidth:"220px",setFunc:()=>{getID("helpContFr").innerHTML=itm.text}}) })
+                            minWidth:"260px",setFunc:()=>{getID("helpContFr").innerHTML=itm.text}}) })
                             getID("dispHelpBtn").innerHTML = "Infos 🔼"
     } else {workC.style.display = "none" ; getID("dispHelpBtn").innerHTML = "Infos 🔽" }
     console.log("disp help")
