@@ -15,12 +15,18 @@ const outputs = [
 const roundings = ["Up","Down","Closest 5"]
 
 const rateB =[
-{ind:0,label:"OJ",type:"OJ from Oranges",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined,advertising:false},
-{ind:1,label:"Lemonade",type:"Lemonade from Lemons",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined,advertising:false},
-{ind:2,label:"AP",type:"AP from Lemons",rate:"30:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined,advertising:false},
-{ind:3,label:"LN",type:"LN from FN (fishing nets)",rate:"1000:70",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined,advertising:false},
-{ind:4,label:"Cider",type:"Cider from Apples (and Oranges)",rate:"22:1",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined,advertising:false},
-{ind:5,label:"AP",type:"AP from Lemonades",rate:"1000:80",bonus:0,rounding:roundings[0],orderMem:[],orderIdx:undefined,orderTimer:undefined,advertising:false},
+{ind:0,label:"OJ",type:"OJ from Oranges",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],
+orderIdx:undefined,orderTimer:undefined,advertising:false},
+{ind:1,label:"Lemonade",type:"Lemonade from Lemons",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],
+orderIdx:undefined,orderTimer:undefined,advertising:false},
+{ind:2,label:"AP",type:"AP from Lemons",rate:"30:1",bonus:0,rounding:roundings[0],orderMem:[],
+orderIdx:undefined,orderTimer:undefined,advertising:false},
+{ind:3,label:"LN",type:"LN from FN (fishing nets)",rate:"1000:70",bonus:0,rounding:roundings[0],orderMem:[],
+orderIdx:undefined,orderTimer:undefined,advertising:false},
+{ind:4,label:"Cider",type:"Cider from Apples (and Oranges)",rate:"22:1",bonus:0,rounding:roundings[0],orderMem:[],
+orderIdx:undefined,orderTimer:undefined,advertising:false},
+{ind:5,label:"AP",type:"AP from Lemonades",rate:"1000:80",bonus:0,rounding:roundings[0],orderMem:[],
+orderIdx:undefined,orderTimer:undefined,advertising:false},
 ]
 
 let pageVer = "2.0"
@@ -807,6 +813,7 @@ function buildTool(dad,itm,idx){
             let cont = addEle({dad:tc,setClass:"contRow",justifyC:"space-around",alignItems:"center"})
                 txt = outputs.filter(it=>it.type===itm.type)[0].img1
                 addEle({dad:cont,what:"img",imgFullSrc:srcImgs+txt,imgSize:25})
+                addEle({dad:cont,text:"➜"})
                 txt = outputs.filter(it=>it.type===itm.type)[0].img2
                 addEle({dad:cont,what:"img",imgFullSrc:srcImgs+txt,imgSize:25})
                 addEle({dad:cont,setClass:"btn",text:"Reset",setID:"reset:"+idx,setFunc:(e)=>{
@@ -814,7 +821,7 @@ function buildTool(dad,itm,idx){
                     getID("order:"+idx).value = 0
                     getID("mbs:"+idx).value = 0
                     getID("farmer:"+idx).value = "Farmer X"
-                    toolCalc(e.srcElement.id)
+                    toolCalc(e.srcElement.id,false)
                 }})
 
         tr = addEle({dad:tb,what:"tr"})
@@ -827,21 +834,18 @@ function buildTool(dad,itm,idx){
                 addEle({dad:cont,text:txt,marginT:"5px"})
 
         tr = addEle({dad:tb,what:"tr"})
-            addEle({dad:tr,what:"td",text:spanText("lime","**")+"Customer MB Size"+spanText("green","<br>(for Payout Detail)"),
-            border:"solid teal 2px",textA:"center"})
+            addEle({dad:tr,what:"td",text:"Customer MB Size",border:"solid teal 2px",textA:"center"})
           tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
             inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
             addEle({dad:inC,what:"input",isInput:true,width:"100px",textA:"center",setID:"mbs:"+idx,
-            setVal:0,setFunc:(e)=>{toolCalc(e.srcElement.id)}})
+            setVal:0,setFunc:(e)=>{toolCalc(e.srcElement.id,false)}})
     
         tr = addEle({dad:tb,what:"tr"})
           tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
-            inC = addEle({dad:tc,setClass:"contCol",alignItems:"center"})        
-            addEle({dad:inC,text:spanText("lime","**")+"Customer Name",textA:"center"})
-            let subC = addEle({dad:inC,setClass:"contRow",alignItems:"center"})
-            addEle({dad:subC,text:spanText("green","(for Memo Details / "),textA:"center"})
-            addEle({dad:subC,setClass:"btn",text:"Ping",fontS:"11px",padding:"1px",margin:"3px",
-            setID:"ping:"+idx,setFunc:(e)=>{
+            inC = addEle({dad:tc,setClass:"contRow",alignItems:"center"})        
+            addEle({dad:inC,text:"Customer Name",textA:"center",marginL:"25px"})
+            addEle({dad:inC,setClass:"btn",text:"Ping",fontS:"11px",padding:"1px",margin:"3px",
+            setID:"ping:"+idx,marginL:"15px",setFunc:(e)=>{
                 let idx = e.srcElement.id.split(":")[1]
                 txt = getID("farmer:"+idx).value
                 txt = txt.replace("@","")
@@ -850,8 +854,7 @@ function buildTool(dad,itm,idx){
                 navigator.clipboard.writeText(txt)
                 showInfo("✅",2000,"",getID("info:"+idx))
             }})
-            addEle({dad:subC,text:spanText("green",")"),textA:"center"})
-            addEle({dad:subC,setID:"info:"+idx})
+            addEle({dad:inC,setID:"info:"+idx})
 
           tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
             inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
@@ -868,8 +871,9 @@ function buildTool(dad,itm,idx){
                 padding:"3px 4px",setFunc:(e)=>{memoNext(e)}})
                 addEle({dad:inC,setClass:"btn",text:"▼",fontS:"10px",setID:"memHis:"+idx,margin:"0",
                 padding:"4px 4px",setFunc:(e)=>{memoHis(e)}})
-                addEle({dad:inC,what:"td",text:"Memo "+itm.orderMem.length+"/"+userI.memoCap,textA:"center",setID:"memoInfo:"+idx,margin:"0 5px",fontS:"12px"})
-                addEle({dad:inC,what:"td",text:"Order(s)",textA:"center"})
+                addEle({dad:inC,what:"td",text:"Memo<br>"+itm.orderMem.length+"/"+userI.memoCap,textA:"center",setID:"memoInfo:"+idx,
+                margin:"0 20px 0 10px",fontS:"12px"})
+                addEle({dad:inC,what:"td",text:"Order",textA:"center"})
             addEle({dad:orderC,setClass:"contCol",display:"none",setID:"orderH:"+idx,paddingT:"5px"})
           tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
             inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
@@ -882,7 +886,7 @@ function buildTool(dad,itm,idx){
             addEle({dad:tr,what:"td",text:0,border:"solid teal 2px",textA:"center",setID:"payout:"+idx})
 
         tr = addEle({dad:tb,what:"tr"})
-            addEle({dad:tr,what:"td",text:spanText("lime","**")+"Payout Detail :",border:"solid teal 2px",textA:"center"})
+            addEle({dad:tr,what:"td",text:"Payout Detail :",border:"solid teal 2px",textA:"center"})
             addEle({dad:tr,what:"td",text:spanText(purple,"---"),border:"solid teal 2px",textA:"center",setID:"payoutD:"+idx})
 
         tr = addEle({dad:tb,what:"tr"})
@@ -896,7 +900,7 @@ function buildTool(dad,itm,idx){
         tr = addEle({dad:tb,what:"tr"})
           tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
             cont = addEle({dad:tc,setClass:"contCol",alignItems:"center",minHeight:"130px",justifyC:"center"})
-        if(itm.type==="LN"){
+        if(itm.label==="LN"){
             let subC = addEle({dad:cont,setClass:"contCol",alignItems:"center"})
                 addEle({dad:subC,text:"Stone Needed (inventory cap "+userI.inventoryMax+") :",borderB:"yellow solid 2px",width:"fit-content"})
                 txt = testNum(userI.inventoryMax) ? 
@@ -921,9 +925,9 @@ function buildTool(dad,itm,idx){
                 addEle({dad:inC,setID:"stoneRgLb:"+idx,text:txt,textA:"center",marginL:"10px"})
         } else {
             let subC = addEle({dad:cont,setClass:"contCol",alignItems:"center"})
-                switch(itm.type){
-                    case "AP" : txt = "Iced Tea Used :" ; break
-                    case "Cider" : txt = "Bottles and Oranges Used :" ; break
+                switch(itm.label){
+                    case "AP" : txt = "Bottles / Iced Tea Used :" ; break
+                    case "Cider" : txt = "Bottles / Oranges Used :" ; break
                     default : txt = "Bottles Used : "
                 }
                 addEle({dad:subC,text:txt,borderB:"yellow solid 2px",width:"fit-content"})
@@ -941,7 +945,7 @@ function buildTool(dad,itm,idx){
 
                 inC = addEle({dad:cont,setClass:"contRow",justifyC:"center",alignItems:"center",})
         
-                    addEle({dad:inC,text:"Evaluate reaching MM",textA:"center",marginT:"5px"})
+                    addEle({dad:inC,text:"Eval. reaching MM",textA:"center",})//marginT:"5px"
 
                     addEle({dad:inC,text:"(current exp ratio :",marginL:"5px"})
                     addEle({dad:inC,text:1,setID:"xpRatio:"+idx,margin:"0 0 0 5px"})
@@ -986,17 +990,18 @@ function memoAdd(id){
     let itm = getCurrItem(id)
     let val = undefined 
     let disp = getID("memoInfo:"+idx)
+
     if(itm.orderTimer===undefined){
         if(getID("orderH:"+idx).style.display==="flex"){getID("memHis:"+idx).click()}
         itm.orderTimer = setTimeout(()=>{
             val = getID("order:"+idx).value
             if(testNum(val)){
                 itm.orderTimer = undefined
-                itm.orderMem.push({dt:new Date(),val:Number(val),name:getID("farmer:"+idx).value})
+                itm.orderMem.push({dt:new Date(),val:Number(val),name:getID("farmer:"+idx).value,mbs:getID("mbs:"+idx).value})
                 if(itm.orderMem.length>userI.memoCap){itm.orderMem.splice(0,1)}
                 itm.orderIdx = itm.orderMem.length-1
                 disp.style.color = "lime"
-                disp.innerHTML = "Memo "+itm.orderMem.length+"/"+userI.memoCap
+                disp.innerHTML = "Memo<br>"+itm.orderMem.length+"/"+userI.memoCap
                 setTimeout(()=>{disp.style.color = "white"},2000)
             }
         },userI.memoTimer*1000)
@@ -1032,6 +1037,7 @@ function memoPrev(e){
     itm.orderIdx = itm.orderIdx -1 < 0 ? 0 : itm.orderIdx -1
     getID("farmer:"+idx).value = itm.orderMem[itm.orderIdx].name
     getID("order:"+idx).value = itm.orderMem[itm.orderIdx].val
+    getID("mbs:"+idx).value = itm.orderMem[itm.orderIdx].mbs
     toolCalc(e.srcElement.id,false)
 }
 
@@ -1041,6 +1047,7 @@ function memoNext(e){
     if(itm.orderMem.length === 0 || itm.orderIdx===undefined){return}
     itm.orderIdx = itm.orderIdx +1 > itm.orderMem.length-1 ? itm.orderMem.length-1 : itm.orderIdx +1
     getID("order:"+idx).value = itm.orderMem[itm.orderIdx].val
+    getID("mbs:"+idx).value = itm.orderMem[itm.orderIdx].mbs
     toolCalc(e.srcElement.id,false)
 }
 
@@ -1088,8 +1095,8 @@ function upNeedRg(id){
         }
     }
 
-    let tgtLb = itm.type==="LN" ? getID("stoneNeed:"+idx) : getID("bottlesNeed:"+idx) 
-    let tgtLbT = itm.type==="LN" ? "":"<br>"
+    let tgtLb = itm.label==="LN" ? getID("stoneNeed:"+idx) : getID("bottlesNeed:"+idx) 
+    let tgtLbT = itm.label==="LN" ? "":"<br>"
     let val = getID("order:"+idx).value
 
     if(testNum(val)){
@@ -1157,9 +1164,8 @@ function advertising(e){
         addEle({dad:cont,text:txt,setID:"advMsg",marginB:"10px"})
 
         let subC = addEle({dad:cont,setClass:"contRow",alignItems:"center",width:"fit-content"})
-            txt = `Copy Advertising (to paste in game chat)<br>* to change content you can paste
-            in new message from your message box, ... and then copy-paste in chat *`
-            addEle({dad:subC,setClass:"btn",text:txt,
+            txt = `Copy Advertising (to paste in game chat)`
+            addEle({dad:subC,setClass:"btn",text:txt,padding:"5px 10px",
             setFunc:()=>{
                 navigator.clipboard.writeText(getID("advMsg").innerHTML)
                 showInfo("✅",2000,"",getID("info4"))
@@ -1179,7 +1185,7 @@ function toolCalc(id,memoAd=true){
     let arrS = rate === "Basic" ? rateB : userI.rateU 
     let itm = arrS.filter(x=>x.ind===idx)[0]
 
-    if (memoAd){memoAdd(id)}
+    if (memoAd && testNum(val)){memoAdd(id)}
 
     if(testNum(val,true)){
         val = Number(val)
