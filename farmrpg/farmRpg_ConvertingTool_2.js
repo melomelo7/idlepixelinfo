@@ -56,8 +56,8 @@ let helpArr =[
      will be displayed in the "Payout Details" IF you provided the Customer MB size.
     `},
     {label:"Use Tools : Customer Name",text:
-    `optional (part of Memo), like advertising its another information that can be saved into<br>
-     the clipboard and then used with the "PING" to msg your customer in chat.
+    `optional (part of Memo), like advertising its another information that can be saved<br>
+     into the clipboard and then used with the "PING" to msg your customer in chat.
     `},
     {label:"Use Tools : Memo & Order",text:
     `Memo/History is auto-saved after 3 seconds you start typing the Order ( = amount sent by customer )<br>
