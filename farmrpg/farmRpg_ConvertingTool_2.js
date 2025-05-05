@@ -53,7 +53,7 @@ let helpArr =[
     {label:"Use Tools : Customer MB size",text:
     `optional (part of Memo), when you need to pay goods back to customer, how<br>
      many full mailboxes and how much remaining on the final mailbox sending<br>
-     ( shown in the "Payout Details" )
+     will be displayed in the "Payout Details" IF you provided the Customer MB size.
     `},
     {label:"Use Tools : Customer Name",text:
     `optional (part of Memo), like advertising its another information that can be saved into<br>
