@@ -74,7 +74,8 @@ let helpArr =[
      Practical use ? If you see several people asking a convertion now, you put information for every one<br>
      MB size + Name + Order (order is when the memo is saved so always type at the end)<br><br>
      Remember to use the settings if more memos are needed or if speed is not good for you.<br><br>
-     ** IF auto-Memos does not respond well enough you can switch to manual memos anytime. **
+     ** IF auto-Memos does not respond well enough you can switch to manual memos anytime. **<br>
+     ** (New update from 05/07 you might need to [Delete user settings] & reload to have this working) ** )
     `},
     {label:"Settings : Rates / Ratios",text:
     `Basic Rates :<br> Only for display cannot be modified<br><br>
