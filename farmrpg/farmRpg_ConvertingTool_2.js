@@ -148,7 +148,7 @@ function setSettings(){
                 inC = addEle({dad:cont,setClass:"contRow"})
                     addEle({dad:inC,what:"radio",isInput:true,setName:"memoType",setVal:"manual",accentCol:"green",
                     setFunc:(e)=>{userI.memoType = e.srcElement.value ; setTools()}})
-                    addEle({dad:inC,text:"Add a button to manualy take Memos",margin:"5px 10px",textA:"center"})
+                    addEle({dad:inC,text:"Add a button to Manualy Save Memos",margin:"5px 10px",textA:"center"})
             document.getElementsByName("memoType").forEach(el=>{if(el.value === userI.memoType){el.checked = true}})
 
     addEle({dad:workC,setClass:"contRow",alignItems:"center",marginB:"10px",setID:"ratesTgl"})
