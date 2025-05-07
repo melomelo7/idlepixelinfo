@@ -73,7 +73,8 @@ let helpArr =[
      ** Memos are wiped out when you reload the webpage, use the reset buttons if you need clean inputs**<br><br>
      Practical use ? If you see several people asking a convertion now, you put information for every one<br>
      MB size + Name + Order (order is when the memo is saved so always type at the end)<br><br>
-     Remember to use the settings if more memos are needed or if speed is not good for you.
+     Remember to use the settings if more memos are needed or if speed is not good for you.<br><br>
+     ** IF auto-Memos does not respond well enough you can switch to manual memos anytime. **
     `},
     {label:"Settings : Rates / Ratios",text:
     `Basic Rates :<br> Only for display cannot be modified<br><br>
