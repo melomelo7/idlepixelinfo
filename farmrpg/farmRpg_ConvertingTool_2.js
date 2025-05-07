@@ -1,6 +1,6 @@
 
 function setPage(){
-    let last = "Last up 2025 05/05 21:00"
+    let last = "Last up 2025 05/07 23:30"
     let from = userI.visuals.preset
 
     let contR = addEle({dad:body,setClass:"contRow",alignItems:"center",margin:"5px"})
@@ -70,7 +70,10 @@ let helpArr =[
     `Memo/History is auto-saved after 3 seconds you start typing the Order ( = amount sent by customer )<br>
      change speed of memo and max memos saved under "Settings" if you need more or if speed doesnt fit<br>
      your typing speed. Memo taken includes : Date/Hour/Order Amount/customer Name/customer MB size.<br><br>
-     ** Memos are wiped out when you reload the webpage, use the reset buttons if you need clean inputs**
+     ** Memos are wiped out when you reload the webpage, use the reset buttons if you need clean inputs**<br><br>
+     Practical use ? If you see several people asking a convertion now, you put information for every one<br>
+     MB size + Name + Order (order is when the memo is saved so always type at the end)<br><br>
+     Remember to use the settings if more memos are needed or if speed is not good for you.
     `},
     {label:"Settings : Rates / Ratios",text:
     `Basic Rates :<br> Only for display cannot be modified<br><br>
@@ -107,6 +110,9 @@ function dispHelp(){
 function setSettings(){
     let workC = getID("settingsCont")
     cleanParent(workC)
+    let subC = undefined
+    let inC = undefined
+    let cont = undefined
 
     let from = userI.visuals.preset
     addEle({dad:workC,setClass:"contRow",alignItems:"center",margin:"5px",
@@ -115,17 +121,36 @@ function setSettings(){
         addEle({dad:getID("toolsCont"),what:"input",isInput:true,setVal: userI.toolPerLine,
                 width:"10px",setFunc:(e)=>{changeToolsCount(e)}})
 
-        addEle({dad:getID("toolsCont"),text:"Orders Memo/History Count :",margin:"5px 10px"})
-        addEle({dad:getID("toolsCont"),what:"input",isInput:true,setVal: userI.memoCap,textA:"center",
-                width:"20px",setFunc:(e)=>{changeMemoCap(e)}})
+        subC = addEle({dad:getID("toolsCont"),setClass:"contRow",border:"teal solid 2px",
+        radius:"10px",marginL:"10px",paddingR:"10px"})
+            addEle({dad:subC,text:"Order<br>Memos",backC:"rgb(45, 88, 128)",radiusTL:"7px",radiusBL:"7px",
+            padding:"5px",display:"flex",alignItems:"center",textA:"center",borderR:"teal solid 2px"})
 
-        addEle({dad:getID("toolsCont"),text:"Orders auto-Memo after X seconds<br>you started typing Order, X =",
-        margin:"5px 10px",textA:"right"})
-        addEle({dad:getID("toolsCont"),what:"input",isInput:true,setVal: userI.memoTimer,
-                width:"10px",setFunc:(e)=>{changeMemoTime(e)}})
+            cont = addEle({dad:subC,setClass:"contRow",alignItems:"center"})
+                inC = addEle({dad:cont,setClass:"contRow",marginL:"10px",alignItems:"center",
+                border:"teal dotted 2px",radius:"10px",height:"fit-content",paddingR:"10px"})
+                    addEle({dad:inC,text:"History<br>Count :",padding:"5px",display:"flex",alignItems:"center",
+                    textA:"center",marginL:"10px"})
+                    addEle({dad:inC,what:"input",isInput:true,setVal: userI.memoCap,textA:"center",height:"20px",
+                    width:"30px",setFunc:(e)=>{changeMemoCap(e)}})
+
+            cont = addEle({dad:subC,setClass:"contCol",marginL:"10px",borderL:"teal dotted 2px",paddingL:"5px"})
+                inC = addEle({dad:cont,setClass:"contRow",alignItems:"center"})
+                    addEle({dad:inC,what:"radio",isInput:true,setName:"memoType",setVal:"auto",accentCol:"green",
+                    setFunc:(e)=>{userI.memoType = e.srcElement.value ; setTools()}})
+                    addEle({dad:inC,text:"Auto-Memo after X seconds<br>you started typing Order, X =",
+                    margin:"5px 10px",textA:"center"})
+                    addEle({dad:inC,what:"input",isInput:true,setVal: userI.memoTimer,textA:"center",
+                    width:"20px",height:"20px",setFunc:(e)=>{changeMemoTime(e)}})
+
+                inC = addEle({dad:cont,setClass:"contRow"})
+                    addEle({dad:inC,what:"radio",isInput:true,setName:"memoType",setVal:"manual",accentCol:"green",
+                    setFunc:(e)=>{userI.memoType = e.srcElement.value ; setTools()}})
+                    addEle({dad:inC,text:"Add a button to manualy take Memos",margin:"5px 10px",textA:"center"})
+            document.getElementsByName("memoType").forEach(el=>{if(el.value === userI.memoType){el.checked = true}})
 
     addEle({dad:workC,setClass:"contRow",alignItems:"center",marginB:"10px",setID:"ratesTgl"})
-        let subC = addEle({dad:getID("ratesTgl"),setClass:"contRow",minWidth:"95px",justifyC:"right",
+            subC = addEle({dad:getID("ratesTgl"),setClass:"contRow",minWidth:"95px",justifyC:"right",
             padding:"5px"})
             addEle({dad:subC,text: "Rates / Ratios",borderB:purple+" 2px dotted"})
         addEle({dad:getID("ratesTgl"),text: spanText("lime","🔽",16),setClass:"arrowToggler",
@@ -143,7 +168,7 @@ function setSettings(){
     addEle({dad:workC,setClass:"contCol",margin:"5px",borderL:"dotted 3px teal",
     display:"none",setID:"userDcont",width:"fit-content"})
 
-    let cont = addEle({dad:workC,setClass:"contRow",alignItems:"center",width:"fit-content"})
+        cont = addEle({dad:workC,setClass:"contRow",alignItems:"center",width:"fit-content"})
         addEle({dad:cont,setClass:"btn",text:"Check / Save User Settings 🔽",margin:"10px 0",
         backC:from.buttonBackC,setID:"checkSavBtn",setFunc:setUserSav})
 

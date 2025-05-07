@@ -38,6 +38,7 @@ let userI = {
     toolPerLine:3,
     memoCap:10,
     memoTimer:3,
+    memoType:"auto",
     inventoryMax:200,
     fruitsProd:7800,
     fruitsArte:false,
@@ -874,6 +875,24 @@ function buildTool(dad,itm,idx){
                 addEle({dad:inC,what:"td",text:"Memo<br>"+itm.orderMem.length+"/"+userI.memoCap,textA:"center",setID:"memoInfo:"+idx,
                 margin:"0 20px 0 10px",fontS:"12px"})
                 addEle({dad:inC,what:"td",text:"Order",textA:"center"})
+                if(userI.memoType === "manual"){
+                    addEle({dad:inC,setClass:"btn",text:"M",fontS:"11px",padding:"1px 2px",
+                    setID:"manualM:"+idx,marginL:"5px",setFunc:(e)=>{
+                        let idx = Number(e.srcElement.id.split(":")[1])
+                        let itm = getCurrItem(e.srcElement.id)
+                        let val = getID("order:"+idx).value 
+                        let disp = getID("memoInfo:"+idx)
+                        if(getID("orderH:"+idx).style.display==="flex"){getID("memHis:"+idx).click()}
+                        if(testNum(val)){
+                            itm.orderMem.push({dt:new Date(),val:Number(val),name:getID("farmer:"+idx).value,mbs:getID("mbs:"+idx).value})
+                            if(itm.orderMem.length>userI.memoCap){itm.orderMem.splice(0,1)}
+                            itm.orderIdx = itm.orderMem.length-1
+                            disp.style.color = "lime"
+                            disp.innerHTML = "Memo<br>"+itm.orderMem.length+"/"+userI.memoCap
+                            setTimeout(()=>{disp.style.color = "white"},2000)
+                        }
+                    }})
+                }
             addEle({dad:orderC,setClass:"contCol",display:"none",setID:"orderH:"+idx,paddingT:"5px"})
           tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
             inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
@@ -1185,7 +1204,7 @@ function toolCalc(id,memoAd=true){
     let arrS = rate === "Basic" ? rateB : userI.rateU 
     let itm = arrS.filter(x=>x.ind===idx)[0]
 
-    if (memoAd && testNum(val)){memoAdd(id)}
+    if (memoAd && testNum(val) && userI.memoType === "auto"){memoAdd(id)}
 
     if(testNum(val,true)){
         val = Number(val)
