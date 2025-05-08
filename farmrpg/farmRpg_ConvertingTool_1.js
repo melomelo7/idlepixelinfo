@@ -1065,6 +1065,7 @@ function memoNext(e){
     let itm = getCurrItem(e.srcElement.id)
     if(itm.orderMem.length === 0 || itm.orderIdx===undefined){return}
     itm.orderIdx = itm.orderIdx +1 > itm.orderMem.length-1 ? itm.orderMem.length-1 : itm.orderIdx +1
+    getID("farmer:"+idx).value = itm.orderMem[itm.orderIdx].name
     getID("order:"+idx).value = itm.orderMem[itm.orderIdx].val
     getID("mbs:"+idx).value = itm.orderMem[itm.orderIdx].mbs
     toolCalc(e.srcElement.id,false)
