@@ -982,14 +982,19 @@ function buildTool(dad,itm,idx){
                 inC = addEle({dad:expC,setClass:"contRow",justifyC:"center",marginT:"0"})
                     addEle({dad:inC,setClass:"contCol",justifyC:"center",text:"Event Item Mastery Bonus : ",
                     setID:"evExpLb:"+idx,minWidth:"220px"})
-
+                    eventRatio.forEach(er=>{
+                        addEle({dad:inC,what:"radio",isInput:true,setVal:er,setName:"evXpRads:"+idx,
+                        setID:"evXpRad:"+idx,accentCol:"green",setFunc:(e)=>{eventXPradio(e.srcElement.id)}})                        
+                    })
+                    /*
                     addEle({dad:inC,what:"radio",isInput:true,setVal:0,setName:"evXpRads:"+idx,
                     setID:"evXpRad:"+idx,accentCol:"green",setFunc:(e)=>{eventXPradio(e.srcElement.id)}})
                     addEle({dad:inC,what:"radio",isInput:true,setVal:10,setName:"evXpRads:"+idx,
                     setID:"evXpRad:"+idx,accentCol:"green",setFunc:(e)=>{eventXPradio(e.srcElement.id)}})
                     addEle({dad:inC,what:"radio",isInput:true,setVal:14,setName:"evXpRads:"+idx,
                     setID:"evXpRad:"+idx,accentCol:"green",setFunc:(e)=>{eventXPradio(e.srcElement.id)}})
-
+                    */
+    
                 addEle({dad:cont,textA:"left",text:spanText(purple,"---"),setID:"MMsumUp:"+idx})
 
                 document.getElementsByName("evXpRads:"+idx)[0].click()
