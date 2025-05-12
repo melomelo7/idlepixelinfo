@@ -14,6 +14,8 @@ const outputs = [
 
 const roundings = ["Up","Down","Closest 5"]
 
+let eventRatio = [0,10,14,20]
+
 const rateB =[
 {ind:0,label:"OJ",type:"OJ from Oranges",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],
 orderIdx:undefined,orderTimer:undefined,advertising:false},
