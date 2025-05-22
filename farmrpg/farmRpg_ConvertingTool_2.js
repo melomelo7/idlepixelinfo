@@ -184,13 +184,4 @@ function setSettings(){
     width:"fit-content",display:"none",setID:"savCont",alignItems:"center"})
 }
 
-
-
-addEle({dad:body,what:"select",setID:"myselect"})
-addEle({dad:getID("myselect"),what:"option",text:"None"})
-addEle({dad:getID("myselect"),what:"option",text:"option 1",setFunc:()=>{getID("myselected").innerHTML = getID("myselect").value}})
-addEle({dad:getID("myselect"),what:"option",text:"option 2",setFunc:()=>{getID("myselected").innerHTML = getID("myselect").value}})
-addEle({dad:getID("myselect"),what:"option",text:"option 3",setFunc:()=>{getID("myselected").innerHTML = getID("myselect").value}})
-addEle({dad:body,setID:"myselected"})
-
 setPage()
