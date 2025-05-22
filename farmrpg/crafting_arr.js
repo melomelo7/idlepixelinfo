@@ -118,7 +118,7 @@ function addEle({
 
     if(setFunc){
         switch(what){
-            case "div" : case "td" : thisObj.addEventListener("click",setFunc) ; break
+            case "div" : case "td" : case "option" : thisObj.addEventListener("click",setFunc) ; break
             case "radio" : case "range" : case "checkbox" : thisObj.addEventListener("change",setFunc) ; break
             case "input" : thisObj.addEventListener("input",setFunc) ; break
             case "img" : thisObj.addEventListener("click",setFunc) ; break
