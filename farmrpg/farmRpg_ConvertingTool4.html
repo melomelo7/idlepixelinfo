@@ -1,0 +1,16 @@
+<select id="mySelect">
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+    <option value="3">Option 3</option>
+  </select>
+  
+<div id="mydiv"></div>
+
+  <script>
+    document.getElementById('mySelect').addEventListener('change', function() {
+      alert('Selected value: ' + this.value);
+      // You can add your custom handling code here
+      document.getElementById('mydiv').innerHTML = this.value
+    });
+  </script>
+  
