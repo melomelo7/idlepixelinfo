@@ -88,9 +88,10 @@ let cont = addEle({dad:body,setClass:"contCol",alignItems:"center",marginT:"40px
     let subC = addEle({dad:cont,setClass:"contRow",alignItems:"center"})
         addEle({dad:subC,what:"select",setID:"mySelect",fontS:fonts+"px",marginR:"10px"})
         addEle({dad:subC,setClass:"btn",text:"確認",textC:"yellow",fontS:fonts+"px",setFunc:quizCheck})
+
+    subC = addEle({dad:cont,setClass:"contRow",alignItems:"center",marginT:"20px"})
         addEle({dad:subC,setID:"answerM",fontS:fonts+"px",marginL:"10px"})
         addEle({dad:subC,setID:"answer",fontS:fonts+"px",marginL:"10px"})
-
 
 function roll(){
     getID("answer").innerHTML = ""
@@ -139,7 +140,7 @@ function quizCheck(){
 
     if(rep === gRep)
          {getID("answerM").innerHTML = "✅" ; txt = "あたり！"}
-    else {getID("answerM").innerHTML = "⛔" ; txt = "はずれ...<br>"+gRep+" でした"}
+    else {getID("answerM").innerHTML = "⛔" ; txt = "はずれ... "+gRep+" でした"}
 
     getID("answer").innerHTML = txt
 }
