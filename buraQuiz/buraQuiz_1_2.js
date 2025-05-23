@@ -74,17 +74,17 @@ const body = document.querySelector("body")
 let quizByNumbers = undefined
 
 let cont = addEle({dad:body,setClass:"contCol",alignItems:"center",marginT:"40px"})
-    addEle({dad:cont,setClass:"btn",text:"番号から当ててみよう",textC:"yellow",minWidth:"800px",
+    addEle({dad:cont,setClass:"btn",text:"番号から当ててみよう",textC:"yellow",width:"90%",
     margin:"20px",setFunc:()=>{quizByNumbers = true ; roll()}})
 
-    addEle({dad:cont,setClass:"btn",text:"商品名から当ててみよう",textC:"yellow",minWidth:"800px",
+    addEle({dad:cont,setClass:"btn",text:"商品名から当ててみよう",textC:"yellow",width:"90%",
     margin:"20px",setFunc:()=>{quizByNumbers = false ; roll()}})
 
     addEle({dad:cont,text:"? ? ?",setID:"quiz",padding:"10px",border:"teal solid 2px",
     radius:"20px",margin:"30px"})
 
     let subC = addEle({dad:cont,setClass:"contRow",alignItems:"center"})
-        addEle({dad:subC,what:"select",setID:"mySelect",marginR:"10px"})
+        addEle({dad:subC,what:"select",setID:"mySelect",marginR:"10px",fonts:"18px"})
         addEle({dad:subC,setClass:"btn",text:"確認",textC:"yellow",setFunc:quizCheck})
 
     subC = addEle({dad:cont,setClass:"contRow",alignItems:"center",marginT:"20px"})
