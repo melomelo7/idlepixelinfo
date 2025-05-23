@@ -73,6 +73,10 @@ const body = document.querySelector("body")
 
 let quizByNumbers = undefined
 
+let up = "24/052025 08:55"
+
+addEle({dad:body,margin:"10px",text:spanText("lime",up)})
+
 let cont = addEle({dad:body,setClass:"contCol",alignItems:"center",marginT:"40px"})
     addEle({dad:cont,setClass:"btn",text:"番号から当ててみよう",textC:"yellow",width:"90%",
     margin:"20px",setFunc:()=>{quizByNumbers = true ; roll()}})
