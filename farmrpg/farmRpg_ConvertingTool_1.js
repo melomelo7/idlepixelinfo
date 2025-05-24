@@ -89,6 +89,16 @@ let help = [
     `** Find Value on page "Home > My Farm > Raptor Pen"`,
 ]
 
+function infoBox(info,txtCol=""){
+    let pop = addEle({dad:body,what:"dialog",maxWidth:"70%",radius:"20px",
+    backC:"black",textC:"white",display:"flex",flDir:"column",opacity:0.9,
+    alignItems:"center"})
+        addEle({dad:pop,text:info,textC:txtCol})
+        addEle({dad:pop,setClass:"btn",text:"OK",width:"50%",
+        marginT:"20px", setFunc:()=>{pop.remove()}})
+    pop.showModal()
+}
+
 function showInfo(msg,dur=1000,col="",defCont=getID("info")){
     defCont.innerHTML = col==="" ? msg : spanText(col,msg)
     setTimeout(()=>{defCont.innerHTML=""},dur)
@@ -984,10 +994,12 @@ function buildTool(dad,itm,idx){
                 inC = addEle({dad:expC,setClass:"contRow",justifyC:"center",marginT:"0"})
                     addEle({dad:inC,setClass:"contCol",justifyC:"center",text:"Event Item Mastery Bonus : ",
                     setID:"evExpLb:"+idx,minWidth:"220px"})
+
                     eventRatio.forEach(er=>{
                         addEle({dad:inC,what:"radio",isInput:true,setVal:er,setName:"evXpRads:"+idx,
                         setID:"evXpRad:"+idx,accentCol:"green",setFunc:(e)=>{eventXPradio(e.srcElement.id)}})                        
                     })
+
                     /*
                     addEle({dad:inC,what:"radio",isInput:true,setVal:0,setName:"evXpRads:"+idx,
                     setID:"evXpRad:"+idx,accentCol:"green",setFunc:(e)=>{eventXPradio(e.srcElement.id)}})
@@ -996,7 +1008,7 @@ function buildTool(dad,itm,idx){
                     addEle({dad:inC,what:"radio",isInput:true,setVal:14,setName:"evXpRads:"+idx,
                     setID:"evXpRad:"+idx,accentCol:"green",setFunc:(e)=>{eventXPradio(e.srcElement.id)}})
                     */
-    
+                   
                 addEle({dad:cont,textA:"left",text:spanText(purple,"---"),setID:"MMsumUp:"+idx})
 
                 document.getElementsByName("evXpRads:"+idx)[0].click()

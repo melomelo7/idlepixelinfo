@@ -1,13 +1,15 @@
 
 function setPage(){
-    let last = "Last up 2025 05/24 21:50"
+    let last = "Last up 2025 05/24 22:25"
     let from = userI.visuals.preset
 
     let contR = addEle({dad:body,setClass:"contRow",alignItems:"center",margin:"5px"})
     lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmRpg_Bob1_Farm.html"
         addEle({dad:contR,setClass:"btn",text:"⇦ Go Back",backC:from.buttonBackC,setFunc:()=>{window.open(lnk,"_self")}})
         addEle({dad:contR,text:spanText("yellow",last),margin:"10px"})
-        addEle({dad:contR,text: "infos 🔽",padding:"3px 10px",setClass:"btn",setID:"dispHelpBtn",backC:"green",setFunc:dispHelp})
+
+    addEle({dad:body,text: "infos 🔽",padding:"3px 10px",setClass:"btn",setID:"dispHelpBtn",
+    backC:"green",margin:"10px",setFunc:dispHelp})
     addEle({dad:body,setClass:"contRow",border:"teal solid 2px",radius:"20px",setID:"helpCont",padding:"10px 5px",
         display:"none",width:"fit-content"})        
     
@@ -16,16 +18,17 @@ function setPage(){
             addEle({dad:setTop,text: "User Settings "+spanText("yellow","⚙"),fontS:"20px",margin:"0 5px"})
             addEle({dad:setTop,text: spanText("lime","🔽",20),setClass:"arrowToggler",
                     setFunc:(e)=>{arrowContToggler(e,"settingsCont",setSettings)}})
-    
-            addEle({dad:setTop,text:"Rate Set Currently Used : ",marginL:"10px"})
-            addEle({dad:setTop,what:"radio",isInput:true,setVal:"Basic",setName:"rateSets",
-            accentCol:"green",setFunc:rateSelection})
-            addEle({dad:setTop,what:"radio",isInput:true,setVal:"Custom",setName:"rateSets",
-            accentCol:"green",setFunc:rateSelection})
-            addEle({dad:setTop,setID:"currentSet",marginL:"5px"})
             
         addEle({dad:settingsFr,setClass:"contCol",borderL:"yellow solid 3px",minHeight:"30px",
         padding:"5px",display:"none",margin:"",setID:"settingsCont"})
+
+    let setTop2 = addEle({dad:settingsFr,setClass:"contRow",alignItems:"center",margin:"10px 0"})
+        addEle({dad:setTop2,text:"Rate Set Currently Used : ",marginL:"10px",fontS:"20px"})
+        addEle({dad:setTop2,what:"radio",isInput:true,setVal:"Basic",setName:"rateSets",
+        accentCol:"green",setFunc:rateSelection})
+        addEle({dad:setTop2,what:"radio",isInput:true,setVal:"Custom",setName:"rateSets",
+        accentCol:"green",setFunc:rateSelection})
+        addEle({dad:setTop2,setID:"currentSet",marginL:"5px",fontS:"20px"})
 
     addEle({dad:body,setClass:"contCol",padding:"5px",width:"100%",setID:"advFr"})        
 
@@ -100,15 +103,7 @@ function dispHelp(){
         workC.style.display = "flex"
         let helpList = addEle({dad:workC,setClass:"contCol"})
             helpArr.forEach(itm=>{addEle({dad:helpList,setClass:"btn",text:itm.label,backC:"green",
-            minWidth:"260px",setFunc:()=>{
-                let pop = addEle({dad:body,what:"dialog",maxWidth:"60%",radius:"20px",
-                    backC:"black",textC:"white",display:"flex",flDir:"column",opacity:0.9,
-                    alignItems:"center"})
-                    addEle({dad:pop,text:itm.text})
-                    addEle({dad:pop,setClass:"btn",text:"OK",width:"50%",
-                    marginT:"20px", setFunc:()=>{pop.remove()}})
-                    pop.showModal()
-            }}) })
+            minWidth:"260px",setFunc:()=>{infoBox(itm.text)}}) })
             getID("dispHelpBtn").innerHTML = "Infos 🔼"
     } else {workC.style.display = "none" ; getID("dispHelpBtn").innerHTML = "Infos 🔽" }
     console.log("disp help")
