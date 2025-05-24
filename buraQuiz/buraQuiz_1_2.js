@@ -73,7 +73,7 @@ const body = document.querySelector("body")
 
 let quizByNumbers = undefined
 
-let up = "24/052025 12:30"
+let up = "24/052025 20:15"
 
 let ftS = 20 + "px"
 
@@ -96,6 +96,14 @@ let cont = addEle({dad:body,setClass:"contCol",alignItems:"center",marginT:"40px
     subC = addEle({dad:cont,setClass:"contRow",alignItems:"center",marginT:"20px"})
         addEle({dad:subC,setID:"answerM",marginL:"10px",fontS:ftS})
         addEle({dad:subC,setID:"answer",marginL:"10px",fontS:ftS})
+
+
+    addEle({dad:cont,setClass:"btn",text:"test dialog",textC:"lime",setFunc:()=>{
+        let pop = addEle({dad:body,what:"dialog",setID:"popWin"})
+            addEle({dad:pop,text:"hello "+new Date(),textC:"lime"})
+            addEle({dad:pop,setClass:"btn",text:"close",setFunc:()=>{pop.close()}})
+            pop.showModal()
+    }})
 
 function roll(){
     getID("answer").innerHTML = ""
