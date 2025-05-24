@@ -1,6 +1,6 @@
 
 function setPage(){
-    let last = "Last up 2025 05/24 21:15"
+    let last = "Last up 2025 05/24 21:50"
     let from = userI.visuals.preset
 
     let contR = addEle({dad:body,setClass:"contRow",alignItems:"center",margin:"5px"})
@@ -8,8 +8,8 @@ function setPage(){
         addEle({dad:contR,setClass:"btn",text:"⇦ Go Back",backC:from.buttonBackC,setFunc:()=>{window.open(lnk,"_self")}})
         addEle({dad:contR,text:spanText("yellow",last),margin:"10px"})
         addEle({dad:contR,text: "infos 🔽",padding:"3px 10px",setClass:"btn",setID:"dispHelpBtn",backC:"green",setFunc:dispHelp})
-    addEle({dad:body,setClass:"contRow",border:"teal solid 2px",radius:"20px",setID:"helpCont",padding:"5px 10px 5px 5px",
-        display:"none",width:""})        
+    addEle({dad:body,setClass:"contRow",border:"teal solid 2px",radius:"20px",setID:"helpCont",padding:"10px 5px",
+        display:"none",width:"fit-content"})        
     
     let settingsFr = addEle({dad:body,setClass:"contCol",padding:"5px",width:"100%"})
         let setTop = addEle({dad:settingsFr,setClass:"contRow",alignItems:"center",marginL:"5px"})
@@ -98,13 +98,18 @@ function dispHelp(){
     if(workC.style.display==="none"){
         cleanParent(workC) 
         workC.style.display = "flex"
-        let helpFork = addEle({dad:workC,setClass:"contRow"})
-            let helpForkA = addEle({dad:helpFork,setClass:"contCol"})
-            let helpForkB = addEle({dad:helpFork,setClass:"contCol"})
-                            addEle({dad:helpForkB,setID:"helpContFr",margin:"20px 10px"})
-                            helpArr.forEach(itm=>{addEle({dad:helpForkA,setClass:"btn",text:itm.label,backC:"green",
-                            minWidth:"260px",setFunc:()=>{getID("helpContFr").innerHTML=itm.text}}) })
-                            getID("dispHelpBtn").innerHTML = "Infos 🔼"
+        let helpList = addEle({dad:workC,setClass:"contCol"})
+            helpArr.forEach(itm=>{addEle({dad:helpList,setClass:"btn",text:itm.label,backC:"green",
+            minWidth:"260px",setFunc:()=>{
+                let pop = addEle({dad:body,what:"dialog",maxWidth:"60%",radius:"20px",
+                    backC:"black",textC:"white",display:"flex",flDir:"column",opacity:0.9,
+                    alignItems:"center"})
+                    addEle({dad:pop,text:itm.text})
+                    addEle({dad:pop,setClass:"btn",text:"OK",width:"50%",
+                    marginT:"20px", setFunc:()=>{pop.remove()}})
+                    pop.showModal()
+            }}) })
+            getID("dispHelpBtn").innerHTML = "Infos 🔼"
     } else {workC.style.display = "none" ; getID("dispHelpBtn").innerHTML = "Infos 🔽" }
     console.log("disp help")
 }
