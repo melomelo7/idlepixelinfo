@@ -37,7 +37,7 @@ let userI = {
     pageV:"2.0",
     currentSet:"Basic",
     rateU:[],
-    toolPerLine:3,
+    toolPerLine:2,
     memoCap:10,
     memoTimer:3,
     memoType:"auto",
@@ -92,7 +92,7 @@ let help = [
 function infoBox(info,txtCol=""){
     let pop = addEle({dad:body,what:"dialog",maxWidth:"70%",radius:"20px",
     backC:"black",textC:"white",display:"flex",flDir:"column",opacity:0.9,
-    alignItems:"center"})
+    alignItems:"center",border:"teal solid 3px"})
         addEle({dad:pop,text:info,textC:txtCol})
         addEle({dad:pop,setClass:"btn",text:"OK",width:"50%",
         marginT:"20px", setFunc:()=>{pop.remove()}})

@@ -1,6 +1,6 @@
 
 function setPage(){
-    let last = "Last up 2025 05/24 22:25"
+    let last = "Last up 2025 05/25 18:30"
     let from = userI.visuals.preset
 
     let contR = addEle({dad:body,setClass:"contRow",alignItems:"center",margin:"5px"})
@@ -117,39 +117,41 @@ function setSettings(){
     let cont = undefined
 
     let from = userI.visuals.preset
-    addEle({dad:workC,setClass:"contRow",alignItems:"center",margin:"5px",
-    borderL:"dotted 3px teal",setID:"toolsCont"})
-        addEle({dad:getID("toolsCont"),text:"Tools per Line",margin:"5px 10px"})
-        addEle({dad:getID("toolsCont"),what:"input",isInput:true,setVal: userI.toolPerLine,
-                width:"10px",setFunc:(e)=>{changeToolsCount(e)}})
 
-        subC = addEle({dad:getID("toolsCont"),setClass:"contRow",border:"teal solid 2px",
-        radius:"10px",marginL:"10px",paddingR:"10px"})
-            addEle({dad:subC,text:"Order<br>Memos",backC:"rgb(45, 88, 128)",radiusTL:"7px",radiusBL:"7px",
-            padding:"5px",display:"flex",alignItems:"center",textA:"center",borderR:"teal solid 2px"})
 
-            cont = addEle({dad:subC,setClass:"contRow",alignItems:"center"})
-                inC = addEle({dad:cont,setClass:"contRow",marginL:"10px",alignItems:"center",
-                border:"teal dotted 2px",radius:"10px",height:"fit-content",paddingR:"10px"})
-                    addEle({dad:inC,text:"History<br>Count :",padding:"5px",display:"flex",alignItems:"center",
-                    textA:"center",marginL:"10px"})
-                    addEle({dad:inC,what:"input",isInput:true,setVal: userI.memoCap,textA:"center",height:"20px",
-                    width:"30px",setFunc:(e)=>{changeMemoCap(e)}})
+    cont = addEle({dad:workC,setClass:"contCol",alignItems:"center",margin:"5px 10px",width:"fit-content",
+    border:"teal solid 2px",radius:"10px"})
+        addEle({dad:cont,text:"Tools per Line",backC:"rgb(45, 88, 128)",padding:"5px",
+        radiusTL:"8px",radiusTR:"8px",borderB:"teal solid 2px"})
+        addEle({dad:cont,what:"input",isInput:true,setVal: userI.toolPerLine,textA:"center",
+        margin:"5px 0",width:"50px",setFunc:(e)=>{changeToolsCount(e)}})
 
-            cont = addEle({dad:subC,setClass:"contCol",marginL:"10px",borderL:"teal dotted 2px",paddingL:"5px"})
-                inC = addEle({dad:cont,setClass:"contRow",alignItems:"center"})
-                    addEle({dad:inC,what:"radio",isInput:true,setName:"memoType",setVal:"auto",accentCol:"green",
-                    setFunc:(e)=>{userI.memoType = e.srcElement.value ; setTools()}})
-                    addEle({dad:inC,text:"Auto-Memo after X seconds<br>you started typing Order, X =",
-                    margin:"5px 10px",textA:"center"})
-                    addEle({dad:inC,what:"input",isInput:true,setVal: userI.memoTimer,textA:"center",
-                    width:"20px",height:"20px",setFunc:(e)=>{changeMemoTime(e)}})
+    subC = addEle({dad:workC,setClass:"contCol",border:"teal solid 2px",
+    radius:"10px",margin:"10px",width:"fit-content"})
+        addEle({dad:subC,text:"Order Memos",backC:"rgb(45, 88, 128)",radiusTL:"7px",radiusTR:"7px",
+        padding:"5px",textA:"center",borderB:"teal solid 2px"})
 
-                inC = addEle({dad:cont,setClass:"contRow"})
-                    addEle({dad:inC,what:"radio",isInput:true,setName:"memoType",setVal:"manual",accentCol:"green",
-                    setFunc:(e)=>{userI.memoType = e.srcElement.value ; setTools()}})
-                    addEle({dad:inC,text:"Add a button to Manualy Save Memos",margin:"5px 10px",textA:"center"})
-            document.getElementsByName("memoType").forEach(el=>{if(el.value === userI.memoType){el.checked = true}})
+        cont = addEle({dad:subC,setClass:"contRow",justifyC:"center",borderB:"teal dotted 2px",padding:"10px 0 5px 0"})
+            addEle({dad:cont,text:"History Count :",padding:"5px",display:"flex",alignItems:"center",
+            textA:"center",marginL:"10px"})
+            addEle({dad:cont,what:"input",isInput:true,setVal: userI.memoCap,textA:"center",height:"20px",
+            width:"30px",setFunc:(e)=>{changeMemoCap(e)}})
+
+        cont = addEle({dad:subC,setClass:"contCol",marginL:"10px",paddingL:"5px"})
+            inC = addEle({dad:cont,setClass:"contRow",alignItems:"center"})
+                addEle({dad:inC,what:"radio",isInput:true,setName:"memoType",setVal:"auto",accentCol:"green",
+                setFunc:(e)=>{userI.memoType = e.srcElement.value ; setTools()}})
+                addEle({dad:inC,text:"Auto-Memo after X seconds<br>you started typing Order, X =",
+                margin:"5px 10px",textA:"center"})
+                addEle({dad:inC,what:"input",isInput:true,setVal: userI.memoTimer,textA:"center",
+                width:"20px",height:"20px",setFunc:(e)=>{changeMemoTime(e)}})
+
+            inC = addEle({dad:cont,setClass:"contRow"})
+                addEle({dad:inC,what:"radio",isInput:true,setName:"memoType",setVal:"manual",accentCol:"green",
+                setFunc:(e)=>{userI.memoType = e.srcElement.value ; setTools()}})
+                addEle({dad:inC,text:"Add a button to Manualy Save Memos",margin:"5px 10px",textA:"center"})
+        document.getElementsByName("memoType").forEach(el=>{if(el.value === userI.memoType){el.checked = true}})
+
 
     addEle({dad:workC,setClass:"contRow",alignItems:"center",marginB:"10px",setID:"ratesTgl"})
             subC = addEle({dad:getID("ratesTgl"),setClass:"contRow",minWidth:"95px",justifyC:"right",
