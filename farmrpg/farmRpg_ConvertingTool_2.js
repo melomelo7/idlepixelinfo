@@ -1,12 +1,12 @@
 
 function setPage(){
-    let last = "Last up 2025 05/26 20:20"
+    let last = "Last up 2025 05/26 20:21"
     let from = userI.visuals.preset
 
     let contR = addEle({dad:body,setClass:"contRow",alignItems:"center",margin:"5px"})
     lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmRpg_Bob1_Farm.html"
         addEle({dad:contR,setClass:"btn",text:"⇦ Go Back",backC:from.buttonBackC,setFunc:()=>{window.open(lnk,"_self")}})
-        addEle({dad:contR,text:spanText("yellow",last),margin:"10px"})
+        addEle({dad:contR,text:spanText("yellow",last)+"📅",margin:"10px"})
 
     addEle({dad:body,text: "infos 🔽",padding:"3px 10px",setClass:"btn",setID:"dispHelpBtn",
     backC:"green",margin:"10px",setFunc:dispHelp})
