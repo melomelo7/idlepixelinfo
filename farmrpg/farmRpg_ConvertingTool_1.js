@@ -1240,7 +1240,10 @@ function toolCalc(id,memoAd=true){
 
         let payT = ret.payR+ret.bonR
 
-        txt = testNum(bon) ? ret.payR +"(+ "+ ret.bonR +") = "+ payT : ret.payR
+        txt = testNum(bon) ? 
+        ret.payR.toLocaleString() +"(+ "+ ret.bonR +")<br> = "+ payT.toLocaleString() 
+        : ret.payR.toLocaleString()
+
         getID("payout:"+idx).innerHTML = txt
         let craft = undefined
         switch(itm.type){
@@ -1252,9 +1255,11 @@ function toolCalc(id,memoAd=true){
             default:console.log(itm.type)
         }
 
-        getID("craft:"+idx).innerHTML = craft
-        getID("lose:"+idx).innerHTML = !testNum(itm.bonus) ? (ret.payR - craft) :
-        (ret.payR - craft) + "(+ " +ret.bonR + ") = " + (ret.payR - craft + ret.bonR)
+        getID("craft:"+idx).innerHTML = craft.toLocaleString()
+        getID("lose:"+idx).innerHTML = !testNum(itm.bonus) ? 
+        (ret.payR - craft).toLocaleString() :
+        (ret.payR - craft).toLocaleString() + "(+ " +ret.bonR + ")<br> = " + 
+        (ret.payR - craft + ret.bonR).toLocaleString()
 
         if (testNum(mbs)){
             let rnds1 = Math.floor(payT/Number(mbs))
@@ -1327,14 +1332,15 @@ function mmEstimate(id,ratio=undefined){
         txt += "<br>With current rate, it means another :"
 
         let ret = calcConvert(goal,itm.rate.split(":")[0],itm.rate.split(":")[1],itm.bonus,itm.rounding)
+
         let totPay = ret.payR+ret.bonR
         let craft = undefined
         switch(itm.type){
-            case outputs[0].type : case outputs[1].type : craft = goal / 6 ; break
-            case outputs[2].type : craft = Math.ceil((goal /20)*1.45/6) ; break
-            case outputs[3].type : craft = goal / 20 ; break
-            case outputs[4].type : craft = goal / 25 ; break
-            case outputs[5].type : craft = goal / 40 ; break
+            case outputs[0].type : case outputs[1].type : craft = Math.floor((goal/6)*userI.resCraft) ; break
+            case outputs[2].type : craft = Math.floor((Math.floor((goal/6)*userI.resCraft)/20)*userI.resCraft) ; break
+            case outputs[3].type : craft = Math.floor((goal/20)*userI.resCraft) ; break
+            case outputs[4].type : craft = Math.floor((goal/25)*userI.resCraft) ; break
+            case outputs[5].type : craft = Math.floor((goal/40)*userI.resCraft) ; break
         }
 
         txt += "<br>Pay " + totPay.toLocaleString() +" | "
