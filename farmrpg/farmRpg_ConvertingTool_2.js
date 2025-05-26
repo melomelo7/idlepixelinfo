@@ -1,6 +1,6 @@
 
 function setPage(){
-    let last = "Last up 2025 05/26 20:21"
+    let last = "Last up 2025 05/26 20:20"
     let from = userI.visuals.preset
 
     let contR = addEle({dad:body,setClass:"contRow",alignItems:"center",margin:"5px"})
