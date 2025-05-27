@@ -1,6 +1,6 @@
 
 function setPage(){
-    let last = "Last up 2025 05/26 20:20"
+    let last = "Last up 2025 05/27 23:20"
     let from = userI.visuals.preset
 
     let contR = addEle({dad:body,setClass:"contRow",alignItems:"center",margin:"5px"})
@@ -9,7 +9,7 @@ function setPage(){
         addEle({dad:contR,text:spanText("yellow",last),margin:"10px"})
 
     addEle({dad:body,text: "infos 🔽",padding:"3px 10px",setClass:"btn",setID:"dispHelpBtn",
-    backC:"green",margin:"10px",setFunc:dispHelp})
+    backC:"darkgreen",margin:"10px",setFunc:dispHelp})
     addEle({dad:body,setClass:"contRow",border:"teal solid 2px",radius:"20px",setID:"helpCont",padding:"10px 5px",
         display:"none",width:"fit-content"})        
     
@@ -40,7 +40,7 @@ function setPage(){
 let helpArr =[
     {label:"For a basic simple use of this webpage",text:
     `all you need for a converting is to :<br>
-     - input the "Order" amount (3rd white input area)<br>
+     - input the "Order Amount" (3rd white input area)<br>
      - read the "payout" that will show on next line<br>
      - and send payout to the customer<br>
      everything else is additional tools and infos 🤠
@@ -70,7 +70,7 @@ let helpArr =[
     into the clipboard and then used with the "PING" to msg your customer in chat.
     `},
     {label:"Use Tools : Memo & Order",text:
-    `Memo/History is auto-saved after 3 seconds you start typing the Order ( = amount sent by customer )<br>
+    `Memo/History is auto-saved after 3 seconds you start typing the Order Amount ( sent by customer )<br>
      change speed of memo and max memos saved under "Settings" if you need more or if speed doesnt fit<br>
      your typing speed. Memo taken includes : Date/Hour/Order Amount/customer Name/customer MB size.<br><br>
      ** Memos are wiped out when you reload the webpage, use the reset buttons if you need clean inputs**<br><br>
@@ -102,11 +102,10 @@ function dispHelp(){
         cleanParent(workC) 
         workC.style.display = "flex"
         let helpList = addEle({dad:workC,setClass:"contCol"})
-            helpArr.forEach(itm=>{addEle({dad:helpList,setClass:"btn",text:itm.label,backC:"green",
+            helpArr.forEach(itm=>{addEle({dad:helpList,setClass:"btn",text:itm.label,backC:"darkgreen",
             minWidth:"260px",setFunc:()=>{infoBox(itm.text)}}) })
             getID("dispHelpBtn").innerHTML = "Infos 🔼"
     } else {workC.style.display = "none" ; getID("dispHelpBtn").innerHTML = "Infos 🔽" }
-    console.log("disp help")
 }
 
 function setSettings(){

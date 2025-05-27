@@ -9,7 +9,7 @@ const outputs = [
     {label:"AP",type:"AP from Lemons",rate:"30:1",img1:"8251.PNG",img2:"ap.png",chat1:"((Lemon))",chat2:"((Arnold Palmer))"},
     {label:"AP",type:"AP from Lemonades",rate:"1000:80",img1:"lemonade.png",img2:"ap.png",chat1:"((Lemonade))",chat2:"((Arnold Palmer))"},
     {label:"LN",type:"LN from FN (fishing nets)",rate:"1000:70",img1:"7748.png",img2:"lnet.png",chat1:"((Fishing Net))",chat2:"((Large Net))"},
-    {label:"Cider",type:"Cider from Apples (and Oranges)",rate:"22:1",img1:"8297.png",img2:"8984.png",chat1:"((Apple))",chat2:"((Apple Cider))"},
+    {label:"Cider",type:"Cider from Apples (and Oranges)",rate:"20:1",img1:"8297.png",img2:"8984.png",chat1:"((Apple))",chat2:"((Apple Cider))"},
 ]
 
 const roundings = ["Up","Down","Closest 5"]
@@ -25,7 +25,7 @@ orderIdx:undefined,orderTimer:undefined,advertising:false},
 orderIdx:undefined,orderTimer:undefined,advertising:false},
 {ind:3,label:"LN",type:"LN from FN (fishing nets)",rate:"1000:70",bonus:0,rounding:roundings[0],orderMem:[],
 orderIdx:undefined,orderTimer:undefined,advertising:false},
-{ind:4,label:"Cider",type:"Cider from Apples (and Oranges)",rate:"22:1",bonus:0,rounding:roundings[0],orderMem:[],
+{ind:4,label:"Cider",type:"Cider from Apples (and Oranges)",rate:"20:1",bonus:0,rounding:roundings[0],orderMem:[],
 orderIdx:undefined,orderTimer:undefined,advertising:false},
 {ind:5,label:"AP",type:"AP from Lemonades",rate:"1000:80",bonus:0,rounding:roundings[0],orderMem:[],
 orderIdx:undefined,orderTimer:undefined,advertising:false},
@@ -81,12 +81,12 @@ let brown = "rgb(160, 107, 9)"
 
 let help = [
     ``,
-    `Amount of items received divided by [left] value multiplied by [right] value`,
-    `For Generous Converters : instead of better ratio (1000:75 etc) try a % of bonus (5% or any)`,
-    `** Find Value at the top of "My Inventory" page (Important for Outputs !)`,
+    `Amount of items received divided by [left]<br> value multiplied by [right] value`,
+    `For Generous Converters :<br> instead of better ratio (1000:75 etc)<br> try a % of bonus (5% or any)`,
+    `** Find Value at the top of "My Inventory" page<br> (Important for Outputs !)`,
     `** Find Value on "Workshop" page`,
-    `** Find Value on page "Home > My Farm > Orchard"`,
-    `** Find Value on page "Home > My Farm > Raptor Pen"`,
+    `** Find Value on page<br> "Home > My Farm > Orchard"`,
+    `** Find Value on page<br> "Home > My Farm > Raptor Pen"`,
 ]
 
 function infoBox(info,txtCol=""){
@@ -164,19 +164,19 @@ function setRatesCont(){
     let workC = getID("ratesCont")
     cleanParent(workC)
 
-    addEle({dad:workC,setClass:"contRow",setID:"ratesFork"})
+    addEle({dad:workC,setClass:"contCol",setID:"ratesFork"})
         addEle({dad:getID("ratesFork"),setClass:"contCol",setID:"rateC1"})
-        addEle({dad:getID("ratesFork"),setClass:"contCol",setID:"rateC2"})
-            addEle({dad:getID("rateC2"),setClass:"contCol",setID:"rateC2Top",margin:"5px"})
-            addEle({dad:getID("rateC2"),setClass:"contCol",setID:"rateC2Btm",margin:"5px"})
+        addEle({dad:getID("ratesFork"),setClass:"contCol",setID:"rateC2Top",margin:"5px",
+        borderL:"yellow dashed 2px",paddingL:"10px"})
+        addEle({dad:getID("ratesFork"),setClass:"contCol",setID:"rateC2Btm",margin:"10px"})
 
-
+    let cont = addEle({dad:getID("rateC1"),setClass:"contRow"})
     let txt = "Basic set of ("+spanText("lime",rateB.length)+") Rates"+"<br>(common standard rates)"
-    addEle({dad:getID("rateC1"),setClass:"btn",text:txt,minWidth:"160px",margin:"10px",backC:from.buttonBackC,
+    addEle({dad:cont,setClass:"btn",text:txt,minWidth:"160px",margin:"10px",backC:from.buttonBackC,
     setFunc:()=>{dispRates()}})
 
     txt = "Custom Rates ("+spanText("lime",userI.rateU.length)+")"+"<br>(Build your own set)"
-    addEle({dad:getID("rateC1"),setClass:"btn",text:txt,minWidth:"160px",margin:"10px",backC:from.buttonBackC,
+    addEle({dad:cont,setClass:"btn",text:txt,minWidth:"160px",margin:"10px 0",backC:from.buttonBackC,
     setID:"customBtn",setFunc:setCustomBuilder})    
 }
 
@@ -188,8 +188,6 @@ function setCustomBuilder(){
     let from = userI.visuals.preset
 
     if(userI.rateU.length > 0){dispRates(basic=false)}
-
-    addEle({dad:workC,marginL:"20px",textC:purple,minHeight:"35px",setID:"info1",setClass:"contRow",alignItems:"center"})
 
     let cont = addEle({dad:workC,setClass:"contRow",margin:"3px",alignItems:"center"})
         addEle({dad:cont,text:"Add a Custom Rate",borderB:"solid 2px yellow",width:"fit-content"})
@@ -212,9 +210,8 @@ function setCustomBuilder(){
 
     cont = addEle({dad:workC,setClass:"contRow",margin:"3px",alignItems:"center"})
         addEle({dad:cont,text:"Type of Converting : "})
-        let txt = srcImgs+outputs[0].img
-        addEle({dad:cont,what:"img",imgFullSrc:txt,imgSize:20,margin:"5px 5px 0 5px",setID:"customTypeImg1"})
-        addEle({dad:cont,what:"img",imgFullSrc:txt,imgSize:20,margin:"5px 5px 0 5px",setID:"customTypeImg2"})
+        addEle({dad:cont,what:"img",imgFullSrc:srcImgs+outputs[0].img2,imgSize:20,margin:"5px 5px 0 5px",setID:"customTypeImg1"})
+        addEle({dad:cont,what:"img",imgFullSrc:srcImgs+outputs[0].img1,imgSize:20,margin:"5px 5px 0 5px",setID:"customTypeImg2"})
         outputs.forEach(out=>{
             addEle({dad:cont,what:"radio",isInput:true,setVal:out.type,setName:"customTypes",
             setFunc:customTypeSelection})
@@ -223,7 +220,8 @@ function setCustomBuilder(){
 
     cont = addEle({dad:workC,setClass:"contRow",margin:"3px",alignItems:"center"})
         addEle({dad:cont,setClass:"btn",text:"?",backC:green,width:"16px",textC:"lime",backC:from.buttonBackC,
-        fontS:"14px",fontB:"bolder",marginR:"10px",setFunc:()=>{showInfo(help[1],10000,"",getID("info1"))}})
+        fontS:"14px",fontB:"bolder",marginR:"10px",setFunc:()=>{infoBox(help[1])}})
+  
         addEle({dad:cont,text:"Rate of Converting =",marginR:"5px"})
         addEle({dad:cont,what:"input",isInput:true,width:"50px",setID:"customR1",setVal:1000,
         border:"solid 1px yellow",textA:"center",textC:green,backC:"black",setFunc:calcTestR})
@@ -233,7 +231,7 @@ function setCustomBuilder(){
 
     cont = addEle({dad:workC,setClass:"contRow",margin:"3px",alignItems:"center"})
         addEle({dad:cont,setClass:"btn",text:"?",backC:green,width:"16px",textC:"lime",backC:from.buttonBackC,
-        fontS:"14px",fontB:"bolder",marginR:"10px",setFunc:()=>{showInfo(help[2],10000,"",getID("info1"))}})
+        fontS:"14px",fontB:"bolder",marginR:"10px",setFunc:()=>{infoBox(help[2])}})
 
         addEle({dad:cont,text:"Bonus(+%) Payout =",marginR:"5px"})
         addEle({dad:cont,what:"input",isInput:true,width:"50px",setID:"customBonus",setVal:0,
@@ -254,7 +252,8 @@ function setCustomBuilder(){
         addEle({dad:cont,setID:"customTestR",text:0,textC:green,backC:"black"})
 
     cont = addEle({dad:workC,setClass:"contRow"})
-        addEle({dad:cont,text:"Add to Custom Rates List",setClass:"btn",backC:from.buttonBackC,setFunc:addCustomRate})
+        addEle({dad:cont,text:"Add to Custom Rates List",setClass:"btn",backC:from.buttonBackC,
+        padding:"7px 20px",setFunc:addCustomRate})
 
     document.getElementsByName("customTypes")[0].click()
     document.getElementsByName("customRoundings")[0].click()
@@ -434,13 +433,10 @@ function setUserDetails(){
     cleanParent(workC)
     let from = userI.visuals.preset
 
-
-    addEle({dad:workC,marginL:"20px",textC:purple,minHeight:"35px",setID:"info2",setClass:"contRow",alignItems:"center"})
-
     let titleL = 170
     let cont = addEle({dad:workC,setClass:"contRow",margin:"5px",alignItems:"center"})
         addEle({dad:cont,setClass:"btn",text:"?",backC:green,width:"16px",textC:"lime",margin:"0 5px",backC:from.buttonBackC,
-        fontS:"14px",fontB:"bolder",setFunc:()=>{showInfo(help[3],4000,"",getID("info2"))}})
+        fontS:"14px",fontB:"bolder",setFunc:()=>{infoBox(help[3])}})
 
         addEle({dad:cont,text:"Current Max Inventory : ",marginR:"10px",textA:"center",minWidth:titleL+"px"})
         addEle({dad:cont,what:"input",isInput:true,width:"70px",setID:"userInv",setVal:userI.inventoryMax,
@@ -449,7 +445,7 @@ function setUserDetails(){
 
     cont = addEle({dad:workC,setClass:"contRow",margin:"5px",alignItems:"center"})
         addEle({dad:cont,setClass:"btn",text:"?",backC:green,width:"16px",textC:"lime",margin:"0 5px",backC:from.buttonBackC,
-        fontS:"14px",fontB:"bolder",setFunc:()=>{showInfo(help[4],4000,"",getID("info2"))}}) 
+        fontS:"14px",fontB:"bolder",setFunc:()=>{infoBox(help[4])}}) 
 
         addEle({dad:cont,text:`Resource Saver Perk :<br>(do not type " % ") `,marginR:"10px",textA:"center",minWidth:titleL+"px"})
         addEle({dad:cont,what:"input",isInput:true,width:"70px",setID:"userResSav",setVal:userI.resSaver,
@@ -458,7 +454,7 @@ function setUserDetails(){
 
     cont = addEle({dad:workC,setClass:"contRow",margin:"5px",alignItems:"center"})
         addEle({dad:cont,setClass:"btn",text:"?",backC:green,width:"16px",textC:"lime",margin:"0 5px",backC:from.buttonBackC,
-        fontS:"14px",fontB:"bolder",setFunc:()=>{showInfo(help[5],4000,"",getID("info2"))}})
+        fontS:"14px",fontB:"bolder",setFunc:()=>{infoBox(help[5])}})
 
         addEle({dad:cont,text:"Fruits daily production :",marginR:"10px",textA:"center",minWidth:titleL+"px"})
         addEle({dad:cont,what:"input",isInput:true,width:"70px",setID:"userFruitsP",setVal:userI.fruitsProd,
@@ -475,7 +471,7 @@ function setUserDetails(){
 
     cont = addEle({dad:workC,setClass:"contRow",margin:"5px",alignItems:"center"})
         addEle({dad:cont,setClass:"btn",text:"?",backC:green,width:"16px",textC:"lime",margin:"0 5px",backC:from.buttonBackC,
-        fontS:"14px",fontB:"bolder",setFunc:()=>{showInfo(help[6],4000,"",getID("info2"))}})
+        fontS:"14px",fontB:"bolder",setFunc:()=>{infoBox(help[6])}})
 
         addEle({dad:cont,text:"Antlers daily production :",marginR:"10px",textA:"center",minWidth:titleL+"px"})
         addEle({dad:cont,what:"input",isInput:true,width:"70px",setID:"userAntlersP",setVal:userI.antlersProd,
@@ -886,7 +882,7 @@ function buildTool(dad,itm,idx){
                 padding:"4px 4px",setFunc:(e)=>{memoHis(e)}})
                 addEle({dad:inC,what:"td",text:"Memo<br>"+itm.orderMem.length+"/"+userI.memoCap,textA:"center",setID:"memoInfo:"+idx,
                 margin:"0 20px 0 10px",fontS:"12px"})
-                addEle({dad:inC,what:"td",text:"Order",textA:"center"})
+                addEle({dad:inC,what:"td",text:"Order<br>Amount",textA:"center"})
                 if(userI.memoType === "manual"){
                     addEle({dad:inC,setClass:"btn",text:"M",fontS:"11px",padding:"1px 2px",
                     setID:"manualM:"+idx,marginL:"5px",setFunc:(e)=>{
@@ -999,15 +995,6 @@ function buildTool(dad,itm,idx){
                         addEle({dad:inC,what:"radio",isInput:true,setVal:er,setName:"evXpRads:"+idx,
                         setID:"evXpRad:"+idx,accentCol:"green",setFunc:(e)=>{eventXPradio(e.srcElement.id)}})                        
                     })
-
-                    /*
-                    addEle({dad:inC,what:"radio",isInput:true,setVal:0,setName:"evXpRads:"+idx,
-                    setID:"evXpRad:"+idx,accentCol:"green",setFunc:(e)=>{eventXPradio(e.srcElement.id)}})
-                    addEle({dad:inC,what:"radio",isInput:true,setVal:10,setName:"evXpRads:"+idx,
-                    setID:"evXpRad:"+idx,accentCol:"green",setFunc:(e)=>{eventXPradio(e.srcElement.id)}})
-                    addEle({dad:inC,what:"radio",isInput:true,setVal:14,setName:"evXpRads:"+idx,
-                    setID:"evXpRad:"+idx,accentCol:"green",setFunc:(e)=>{eventXPradio(e.srcElement.id)}})
-                    */
                    
                 addEle({dad:cont,textA:"left",text:spanText(purple,"---"),setID:"MMsumUp:"+idx})
 
