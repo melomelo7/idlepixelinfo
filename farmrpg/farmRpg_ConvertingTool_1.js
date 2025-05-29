@@ -164,19 +164,18 @@ function setRatesCont(){
     let workC = getID("ratesCont")
     cleanParent(workC)
 
-    addEle({dad:workC,setClass:"contCol",setID:"ratesFork"})
-        addEle({dad:getID("ratesFork"),setClass:"contCol",setID:"rateC1"})
-        addEle({dad:getID("ratesFork"),setClass:"contCol",setID:"rateC2Top",margin:"5px",
+    let cont = addEle({dad:workC,setClass:"contCol"})
+        let subC1 = addEle({dad:cont,setClass:"contRow",setID:"rateC1"})
+        addEle({dad:cont,setClass:"contCol",setID:"rateC2Top",margin:"0 5px",
         borderL:"yellow dashed 2px",paddingL:"10px"})
-        addEle({dad:getID("ratesFork"),setClass:"contCol",setID:"rateC2Btm",margin:"10px"})
+        addEle({dad:cont,setClass:"contCol",setID:"rateC2Btm"})
 
-    let cont = addEle({dad:getID("rateC1"),setClass:"contRow"})
     let txt = "Basic set of ("+spanText("lime",rateB.length)+") Rates"+"<br>(common standard rates)"
-    addEle({dad:cont,setClass:"btn",text:txt,minWidth:"160px",margin:"10px",backC:from.buttonBackC,
+    addEle({dad:subC1,setClass:"btn",text:txt,minWidth:"160px",margin:"10px",backC:from.buttonBackC,
     setFunc:()=>{dispRates()}})
 
     txt = "Custom Rates ("+spanText("lime",userI.rateU.length)+")"+"<br>(Build your own set)"
-    addEle({dad:cont,setClass:"btn",text:txt,minWidth:"160px",margin:"10px 0",backC:from.buttonBackC,
+    addEle({dad:subC1,setClass:"btn",text:txt,minWidth:"160px",margin:"10px 0",backC:from.buttonBackC,
     setID:"customBtn",setFunc:setCustomBuilder})    
 }
 
@@ -189,7 +188,7 @@ function setCustomBuilder(){
 
     if(userI.rateU.length > 0){dispRates(basic=false)}
 
-    let cont = addEle({dad:workC,setClass:"contRow",margin:"3px",alignItems:"center"})
+    let cont = addEle({dad:workC,setClass:"contRow",margin:"10px 5px",alignItems:"center"})
         addEle({dad:cont,text:"Add a Custom Rate",borderB:"solid 2px yellow",width:"fit-content"})
         addEle({dad:cont,setClass:"btn",text:"Ratios for friends ?",setFunc:()=>{
             getID("friendsC").style.display = getID("friendsC").style.display === "none" ? "flex" : "none"}})
@@ -360,6 +359,7 @@ function round5(val){
 function dispRates(basic=true){
     let workC = getID("rateC2Btm")
     cleanParent(workC)
+    workC.style.marginTop = "20px"
     let from = userI.visuals.preset
 
     let arr = undefined
