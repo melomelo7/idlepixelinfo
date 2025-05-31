@@ -38,8 +38,8 @@ let noAutoChange = undefined
 let tools_P_L = 3
 
 last = "Last info 2025 05/31 08:40" +
-spanText("teal",`<br>This old version will be trashed someday, so I<br>
-suggest you add in favorite the new version too asap<br>and maybe get used to it ? 🤠`)
+spanText("teal",`<br>⚠️ This old version will be trashed someday, so I<br>
+⚠️ suggest you add in favorite the new version too asap<br>⚠️ ... and maybe get used to it ? 🤠`)
 
 addEle({dad:body,text:spanText("lime",last),margin:"10px"})
 
