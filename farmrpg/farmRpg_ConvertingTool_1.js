@@ -78,6 +78,7 @@ let purple = "rgb(226, 72, 226)"
 let green = "rgb(18, 184, 18)"
 let yellow = "rgb(184, 184, 27)"
 let brown = "rgb(160, 107, 9)"
+let yellowL = "rgb(212, 212, 74)"
 
 let help = [
     ``,
