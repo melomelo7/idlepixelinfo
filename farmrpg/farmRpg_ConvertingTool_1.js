@@ -190,7 +190,7 @@ function setCustomBuilder(){
     if(userI.rateU.length > 0){dispRates(basic=false)}
 
     let cont = addEle({dad:workC,setClass:"contRow",margin:"10px 5px",alignItems:"center"})
-        addEle({dad:cont,text:"Add a Custom Rate",borderB:"solid 2px yellow",width:"fit-content"})
+        addEle({dad:cont,text:"Add a Custom Rate",borderB:"solid 2px "+yellowL,width:"fit-content"})
         addEle({dad:cont,setClass:"btn",text:"Ratios for friends ?",setFunc:()=>{
             getID("friendsC").style.display = getID("friendsC").style.display === "none" ? "flex" : "none"}})
 
@@ -247,7 +247,7 @@ function setCustomBuilder(){
     cont = addEle({dad:workC,setClass:"contRow",margin:"3px",alignItems:"center"})
         addEle({dad:cont,text:"Test Amount",marginR:"10px"})
         addEle({dad:cont,what:"input",isInput:true,width:"80px",setID:"customTest",setVal:0,
-        border:"solid 1px yellow",textA:"center",textC:green,backC:"black",setFunc:calcTestR})
+        border:"solid 1px "+yellowL,textA:"center",textC:green,backC:"black",setFunc:calcTestR})
         addEle({dad:cont,text:"⇒",margin:"5px"})
         addEle({dad:cont,setID:"customTestR",text:0,textC:green,backC:"black"})
 
@@ -441,7 +441,7 @@ function setUserDetails(){
 
         addEle({dad:cont,text:"Current Max Inventory : ",marginR:"10px",textA:"center",minWidth:titleL+"px"})
         addEle({dad:cont,what:"input",isInput:true,width:"70px",setID:"userInv",setVal:userI.inventoryMax,
-        border:"solid 1px yellow",textA:"center",textC:green,backC:"black",setFunc:(e)=>{testValNum(e,"userInvT")}})
+        border:"solid 1px "+yellowL,textA:"center",textC:green,backC:"black",setFunc:(e)=>{testValNum(e,"userInvT")}})
         addEle({dad:cont,setClass:"valChecker",setID:"userInvT"})
 
     cont = addEle({dad:workC,setClass:"contRow",margin:"5px",alignItems:"center"})
@@ -450,7 +450,7 @@ function setUserDetails(){
 
         addEle({dad:cont,text:`Resource Saver Perk :<br>(do not type " % ") `,marginR:"10px",textA:"center",minWidth:titleL+"px"})
         addEle({dad:cont,what:"input",isInput:true,width:"70px",setID:"userResSav",setVal:userI.resSaver,
-        border:"solid 1px yellow",textA:"center",textC:green,backC:"black",setFunc:(e)=>{testValNum(e,"userResSavT")}})
+        border:"solid 1px "+yellowL,textA:"center",textC:green,backC:"black",setFunc:(e)=>{testValNum(e,"userResSavT")}})
         addEle({dad:cont,setClass:"valChecker",setID:"userResSavT"})
 
     cont = addEle({dad:workC,setClass:"contRow",margin:"5px",alignItems:"center"})
@@ -459,14 +459,14 @@ function setUserDetails(){
 
         addEle({dad:cont,text:"Fruits daily production :",marginR:"10px",textA:"center",minWidth:titleL+"px"})
         addEle({dad:cont,what:"input",isInput:true,width:"70px",setID:"userFruitsP",setVal:userI.fruitsProd,
-        border:"solid 1px yellow",textA:"center",textC:green,backC:"black",setFunc:(e)=>{testValNum(e,"userFruitsPT")}})
+        border:"solid 1px "+yellowL,textA:"center",textC:green,backC:"black",setFunc:(e)=>{testValNum(e,"userFruitsPT")}})
         addEle({dad:cont,setClass:"valChecker",setID:"userFruitsPT"})
         addEle({dad:cont,what:"checkbox",isInput:true,setID:"userArte1",accentCol:brown,margin:"0 -5px 0 -5px",
         setFunc:updateUserDetails})
         let subC = addEle({dad:cont,setClass:"contRow",border:"solid teal 1px",width:"fit-content",cursor:"pointer",
         padding:"1px",alignItems:"center",marginL:"5px",radius:"15px",setFunc:()=>{getID("userArte1").click()}})
             addEle({dad:subC,what:"img",imgFullSrc:srcImgs+"615.png",imgSize:20,margin:"0 5px",})
-            addEle({dad:subC,text:"Using the "+spanText("yellow","Tree Shaker") +"<br>(T170 Artefact)",
+            addEle({dad:subC,text:"Using the "+spanText(yellowL,"Tree Shaker") +"<br>(T170 Artefact)",
             marginR:"5px",textA:"center"})
         addEle({dad:cont,text:"Fruits total production :",marginL:"10px",textA:"center",minWidth:titleL+"px",setID:"userTFruitsP"})
 
@@ -476,14 +476,14 @@ function setUserDetails(){
 
         addEle({dad:cont,text:"Antlers daily production :",marginR:"10px",textA:"center",minWidth:titleL+"px"})
         addEle({dad:cont,what:"input",isInput:true,width:"70px",setID:"userAntlersP",setVal:userI.antlersProd,
-        border:"solid 1px yellow",textA:"center",textC:green,backC:"black",setFunc:(e)=>{testValNum(e,"userAntlersPT")}})
+        border:"solid 1px "+yellowL,textA:"center",textC:green,backC:"black",setFunc:(e)=>{testValNum(e,"userAntlersPT")}})
         addEle({dad:cont,setClass:"valChecker",setID:"userAntlersPT"})
         addEle({dad:cont,what:"checkbox",isInput:true,setID:"userArte2",accentCol:brown,margin:"0 -5px 0 -5px",
         setFunc:updateUserDetails})
         subC = addEle({dad:cont,setClass:"contRow",border:"solid teal 1px",width:"fit-content",cursor:"pointer",
         padding:"1px",alignItems:"center",marginL:"5px",radius:"15px",setFunc:()=>{getID("userArte2").click()}})
             addEle({dad:subC,what:"img",imgFullSrc:srcImgs+"3320.png",imgSize:20,margin:"0 5px",})
-            addEle({dad:subC,text:"Using the "+spanText("yellow","Antler Snare") +"<br>(T160 Artefact)",
+            addEle({dad:subC,text:"Using the "+spanText(yellowL,"Antler Snare") +"<br>(T160 Artefact)",
             marginR:"5px",textA:"center"})
         txt = testNum(userI.netsTot) ? "Baby Nets total production :<br>" + userI.netsTot : "Baby Nets total production :<br>0" 
         addEle({dad:cont,text:txt,marginL:"10px",textA:"center",minWidth:titleL+"px",setID:"userTAntlersP"})        
