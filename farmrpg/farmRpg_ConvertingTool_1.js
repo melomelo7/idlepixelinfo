@@ -150,7 +150,7 @@ function rateSelection(){
     let grp = document.getElementsByName("rateSets")
     grp.forEach(it=>{
         if(it.checked){
-            getID("currentSet").innerHTML = spanText("yellow",it.value)
+            getID("currentSet").innerHTML = spanText(yellowL,it.value)
             userI.currentSet = it.value
         }})
     if(userI.rateU.length===0){grp[1].disabled = true}
@@ -168,7 +168,7 @@ function setRatesCont(){
     let cont = addEle({dad:workC,setClass:"contCol"})
         let subC1 = addEle({dad:cont,setClass:"contRow",setID:"rateC1"})
         addEle({dad:cont,setClass:"contCol",setID:"rateC2Top",margin:"0 5px",
-        borderL:"yellow dashed 2px",paddingL:"10px"})
+        borderL:yellowL+" dashed 2px",paddingL:"10px"})
         addEle({dad:cont,setClass:"contCol",setID:"rateC2Btm"})
 
     let txt = "Basic set of ("+spanText("lime",rateB.length)+") Rates"+"<br>(common standard rates)"
