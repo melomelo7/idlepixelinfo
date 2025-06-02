@@ -224,10 +224,10 @@ function setCustomBuilder(){
   
         addEle({dad:cont,text:"Rate of Converting =",marginR:"5px"})
         addEle({dad:cont,what:"input",isInput:true,width:"50px",setID:"customR1",setVal:1000,
-        border:"solid 1px yellow",textA:"center",textC:green,backC:"black",setFunc:calcTestR})
+        border:"solid 1px "+yellowL,textA:"center",textC:green,backC:"black",setFunc:calcTestR})
         addEle({dad:cont,text:":",fontS:"22px",margin:"0 10px"})
         addEle({dad:cont,what:"input",isInput:true,width:"50px",setID:"customR2",setVal:70,
-        border:"solid 1px yellow",textA:"center",textC:green,backC:"black",setFunc:calcTestR})
+        border:"solid 1px "+yellowL,textA:"center",textC:green,backC:"black",setFunc:calcTestR})
 
     cont = addEle({dad:workC,setClass:"contRow",margin:"3px",alignItems:"center"})
         addEle({dad:cont,setClass:"btn",text:"?",backC:green,width:"16px",textC:"lime",backC:from.buttonBackC,
@@ -235,7 +235,7 @@ function setCustomBuilder(){
 
         addEle({dad:cont,text:"Bonus(+%) Payout =",marginR:"5px"})
         addEle({dad:cont,what:"input",isInput:true,width:"50px",setID:"customBonus",setVal:0,
-        border:"solid 1px yellow",textA:"center",textC:green,backC:"black",setFunc:calcTestR})
+        border:"solid 1px "+yellowL,textA:"center",textC:green,backC:"black",setFunc:calcTestR})
 
         addEle({dad:cont,text:"Type of Rounding :",marginL:"20px"})
         roundings.forEach(out=>{
