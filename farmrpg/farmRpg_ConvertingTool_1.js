@@ -74,7 +74,7 @@ loadSav()
 
 let lnk = undefined
 
-let purple = "rgb(226, 72, 226)"
+let purple = "rgb(185, 76, 185)"//"rgb(226, 72, 226)"
 let green = "rgb(18, 184, 18)"
 let yellow = "rgb(184, 184, 27)"
 let brown = "rgb(160, 107, 9)"
