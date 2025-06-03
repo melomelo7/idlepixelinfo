@@ -40,7 +40,7 @@ body {
 }
 
 .arrowToggler{
-    border:yellow solid 2px;
+    border: rgb(212, 212, 74) solid 2px;
     border-radius: 5px;
     padding: 1px 1px 2px 1px;
     cursor: pointer;
