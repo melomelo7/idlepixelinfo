@@ -43,7 +43,9 @@ let helpArr =[
      - input the "Order Amount" (3rd white input area)<br>
      - read the "payout" that will show on next line<br>
      - and send payout to the customer<br>
-     everything else is additional tools and infos 🤠
+     everything else is additional tools and infos 🤠<br><br>
+     ** Mobile users might want to set tools per line 1<br>
+     ** (under User Settings)
     `},
     {label:"Tool Sets",text:
     `The basic tool set gives the current options to allow every type of conversions at standard<br>
