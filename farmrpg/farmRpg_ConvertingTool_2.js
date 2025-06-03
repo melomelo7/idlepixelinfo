@@ -15,11 +15,11 @@ function setPage(){
     
     let settingsFr = addEle({dad:body,setClass:"contCol",padding:"5px",width:"100%"})
         let setTop = addEle({dad:settingsFr,setClass:"contRow",alignItems:"center",marginL:"5px"})
-            addEle({dad:setTop,text: "User Settings "+spanText("yellow","⚙"),fontS:"20px",margin:"0 5px"})
+            addEle({dad:setTop,text: "User Settings "+spanText(yellowL,"⚙"),fontS:"20px",margin:"0 5px"})
             addEle({dad:setTop,text: spanText("lime","🔽",20),setClass:"arrowToggler",
                     setFunc:(e)=>{arrowContToggler(e,"settingsCont",setSettings)}})
             
-        addEle({dad:settingsFr,setClass:"contCol",borderL:"yellow solid 3px",minHeight:"30px",
+        addEle({dad:settingsFr,setClass:"contCol",borderL:yellowL+"solid 3px",minHeight:"30px",
         padding:"5px",display:"none",margin:"",setID:"settingsCont"})
 
     let setTop2 = addEle({dad:settingsFr,setClass:"contRow",alignItems:"center",margin:"10px 0"})
