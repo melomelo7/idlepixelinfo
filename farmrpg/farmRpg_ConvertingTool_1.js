@@ -1106,14 +1106,14 @@ function upNeedRg(id){
 
     if(testNum(userI.inventoryMax)){
         inv = userI.inventoryMax
-        if(itm.type==="LN"){
+        if(itm.label==="LN"){
             pct1 = Number(getID("ringRg:"+idx).value)
             getID("ringRgLb:"+idx).innerHTML = pct1 + "%<br>" + (inv * pct1 /100)
             pct2 = Number(getID("stoneRg:"+idx).value)
             getID("stoneRgLb:"+idx).innerHTML = pct2 + "%<br>" + (inv * pct2 /100)
         }
     } else {
-        if(itm.type==="LN"){
+        if(itm.label==="LN"){
             getID("ringRgLb:"+idx).innerHTML = spanText(purple,"---")
             getID("stoneRgLb:"+idx).innerHTML = spanText(purple,"---")
             getID("stoneNeed:"+idx).innerHTML = spanText(purple,"Fill User Details in User Settings")
@@ -1128,7 +1128,7 @@ function upNeedRg(id){
 
     if(testNum(val)){
         let pr = userI.resCraft
-        if(itm.type !=="LN"){
+        if(itm.label !=="LN"){
             switch(itm.type){
                 case "Cider" : tgtLb.innerHTML = tgtLbT + (Math.floor(val/40)).toLocaleString() ; break
                 case "AP" : tgtLb.innerHTML = tgtLbT + (Math.ceil(val/6) + 

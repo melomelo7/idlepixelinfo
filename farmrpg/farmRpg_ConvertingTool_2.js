@@ -1,6 +1,6 @@
 
 function setPage(){
-    let last = "Last up 2025 05/27 23:20"
+    let last = "Last up 2025 06/03 22:40"
     let from = userI.visuals.preset
 
     let contR = addEle({dad:body,setClass:"contRow",alignItems:"center",margin:"5px"})
@@ -46,6 +46,7 @@ let helpArr =[
      everything else is additional tools and infos 🤠<br><br>
      ** Mobile users might want to set tools per line 1<br>
      ** (under User Settings)
+
     `},
     {label:"Tool Sets",text:
     `The basic tool set gives the current options to allow every type of conversions at standard<br>
