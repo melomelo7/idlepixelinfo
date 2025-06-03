@@ -496,7 +496,7 @@ function setUserDetails(){
         addEle({dad:cont,setClass:mm.progress >= 1000000 ? "crossedTxt":"",text:mm.label,marginR:"10px",
         textA:"center",minWidth:titleL+"px",setID:mm.label+"MMlb"})
         addEle({dad:cont,what:"input",isInput:true,width:"100px",setID:mm.label+"MM",setVal:mm.progress,
-        border:"solid 1px yellow",textA:"center",textC:green,backC:"black",
+        border:"solid 1px "+yellowL,textA:"center",textC:green,backC:"black",
         setFunc:(e)=>{testValNum(e,mm.label+"MMT",true)}})
         addEle({dad:cont,setClass:"valChecker",setID:mm.label+"MMT"})
         addEle({dad:cont,width:"100px",height:"10px",border:green+" solid 2px",radius:"30px",setID:mm.label+"pC"})
@@ -807,7 +807,7 @@ function buildTool(dad,itm,idx){
     let tc = undefined
     let txt = undefined
 
-    let tbC = addEle({dad:dad,setClass:"contCol",border:"yellow solid 2px",radius:"5px",padding:"5px",margin:"5px"})
+    let tbC = addEle({dad:dad,setClass:"contCol",border:yellowL+" solid 2px",radius:"5px",padding:"5px",margin:"5px"})
     let tb = addEle({dad:tbC,what:"table"})
         tr = addEle({dad:tb,what:"tr"})
           tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
@@ -930,7 +930,7 @@ function buildTool(dad,itm,idx){
             cont = addEle({dad:tc,setClass:"contCol",alignItems:"center",minHeight:"130px",justifyC:"center"})
         if(itm.label==="LN"){
             let subC = addEle({dad:cont,setClass:"contCol",alignItems:"center"})
-                addEle({dad:subC,text:"Stone Needed (inventory cap "+userI.inventoryMax+") :",borderB:"yellow solid 2px",width:"fit-content"})
+                addEle({dad:subC,text:"Stone Needed (inventory cap "+userI.inventoryMax+") :",borderB:yellowL+" solid 2px",width:"fit-content"})
                 txt = testNum(userI.inventoryMax) ? 
                 spanText(purple,"---") : spanText(purple,"Fill User Details in User Settings")
                 addEle({dad:subC,text:txt,setID:"stoneNeed:"+idx,marginL:"5px"})
@@ -958,7 +958,7 @@ function buildTool(dad,itm,idx){
                     case "Cider" : txt = "Bottles / Oranges Used :" ; break
                     default : txt = "Bottles Used : "
                 }
-                addEle({dad:subC,text:txt,borderB:"yellow solid 2px",width:"fit-content"})
+                addEle({dad:subC,text:txt,borderB:yellowL+" solid 2px",width:"fit-content"})
                 addEle({dad:subC,text:spanText(purple,"<br>---"),setID:"bottlesNeed:"+idx,marginL:"5px"})
         }
 
