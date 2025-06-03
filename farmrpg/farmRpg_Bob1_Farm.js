@@ -273,6 +273,7 @@ getID("helpCont").click()
         {label:"Apple Pie",active:false,buyV:"300",buyC:"G",sellV:"---",sellC:""}
     ]
 
+    /*
     cont = addEle({dad:body,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
     addEle({dad:cont,text:"🟡 Gold Corner ["+ spanText("yellow",goldArr.filter(it=>it.active===true).length,20)+"]",margin:"0 20px"})
     addEle({dad:cont,text:"🔽",border:"lime solid 2px",radius:"5px",
@@ -307,7 +308,7 @@ getID("helpCont").click()
                 border:"teal solid 2px",textA:"center",radius:"5px"})
             }
         })
-
+    */
 
 cont = addEle({dad:body,setClass:"contRow",margin:"10px 30px",alignItems:"center"})
     addEle({dad:cont,text:"🟢 Conversion Shop "+spanText("yellow","V"+shopV,20)+spanText("fuchsia","<br> (Not Working Anymore, Info only)"),margin:"0 20px"})
