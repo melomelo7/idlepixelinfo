@@ -975,10 +975,15 @@ function buildTool(dad,itm,idx){
         
                     addEle({dad:inC,text:"Eval. reaching MM",textA:"center",})//marginT:"5px"
 
+                    txt = "(current exp ratio :"+`<span id="xpRatio:`+idx+`"></span>`+")"
+                    addEle({dad:inC,text:txt,marginL:"5px"})
+
+                    /*
                     addEle({dad:inC,text:"(current exp ratio :",marginL:"5px"})
                     addEle({dad:inC,text:1,setID:"xpRatio:"+idx,margin:"0 0 0 5px"})
                     addEle({dad:inC,text:")"})
-
+                    */
+    
             let expC = addEle({dad:cont,setClass:"contCol",padding:"5px",margin:"5px",border:"teal 2px solid",
                 alignItems:"center",radius:"10px"})
 
