@@ -1249,11 +1249,12 @@ function toolCalc(id,memoAd=true){
         (ret.payR - craft + ret.bonR).toLocaleString()
 
         if (testNum(mbs)){
-            let rnds1 = Math.floor(payT/Number(mbs))
-            let rnds2 = Math.floor(ret.payR/Number(mbs))
-            let txt = payT+" ⇒ "+ rnds1 + "x " + mbs + " + " + (payT-(rnds1*Number(mbs))) 
+            mbs = Number(mbs)
+            let rnds1 = Math.floor(payT/mbs)
+            let rnds2 = Math.floor(ret.payR/mbs)
+            let txt = payT+" ⇒ "+ rnds1 + "x " + mbs + " + " + (payT-(rnds1*mbs)) 
             if(bon>0)
-              {txt += "<br>"+ ret.payR +" ⇒ "+ rnds2 + "x " + mbs + " + " + (ret.payR-(rnds2*Number(mbs)))}
+              {txt += "<br>"+ ret.payR +" ⇒ "+ rnds2 + "x " + mbs + " + " + (ret.payR-(rnds2*mbs))}
             getID("payoutD:"+idx).innerHTML = txt
         } else { getID("payoutD:"+idx).innerHTML = spanText(purple,"---") }
 
