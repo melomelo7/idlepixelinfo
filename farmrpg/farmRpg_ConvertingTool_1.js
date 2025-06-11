@@ -1252,9 +1252,9 @@ function toolCalc(id,memoAd=true){
             mbs = Number(mbs)
             let rnds1 = Math.floor(payT/mbs)
             let rnds2 = Math.floor(ret.payR/mbs)
-            let txt = payT+" ⇒ "+ rnds1 + "x " + mbs + " + " + (payT-(rnds1*mbs)) 
+            let txt = payT+" ⇒ "+ rnds1 + "x " + mbs + "=" +(rnds1*mbs)+ " + " + (payT-(rnds1*mbs)) 
             if(bon>0)
-              {txt += "<br>"+ ret.payR +" ⇒ "+ rnds2 + "x " + mbs + " + " + (ret.payR-(rnds2*mbs))}
+              {txt += "<br>"+ ret.payR +" ⇒ "+ rnds2 + "x " + mbs + "=" +(rnds2*mbs)  + " + " + (ret.payR-(rnds2*mbs))}
             getID("payoutD:"+idx).innerHTML = txt
         } else { getID("payoutD:"+idx).innerHTML = spanText(purple,"---") }
 
