@@ -4,12 +4,23 @@ const body = document.querySelector("body")
 const srcImgs = "https://farmrpg.com/img/items/"
 
 const outputs = [
-    {label:"OJ",type:"OJ from Oranges",rate:"3:1",img1:"orange.png",img2:"orangejuice.png",chat1:"((Orange))",chat2:"((Orange Juice))"},
-    {label:"Lemonade",type:"Lemonade from Lemons",rate:"3:1",img1:"8251.PNG",img2:"lemonade.png",chat1:"((Lemon))",chat2:"((Lemonade))"},
-    {label:"AP",type:"AP from Lemons",rate:"30:1",img1:"8251.PNG",img2:"ap.png",chat1:"((Lemon))",chat2:"((Arnold Palmer))"},
-    {label:"AP",type:"AP from Lemonades",rate:"1000:80",img1:"lemonade.png",img2:"ap.png",chat1:"((Lemonade))",chat2:"((Arnold Palmer))"},
-    {label:"LN",type:"LN from FN (fishing nets)",rate:"1000:70",img1:"7748.png",img2:"lnet.png",chat1:"((Fishing Net))",chat2:"((Large Net))"},
-    {label:"Cider",type:"Cider from Apples (and Oranges)",rate:"20:1",img1:"8297.png",img2:"8984.png",chat1:"((Apple))",chat2:"((Apple Cider))"},
+    {label:"OJ",type:"OJ from Oranges",rate:"3:1",img1:"orange.png",img2:"orangejuice.png",
+    chat1:"((Orange))",chat2:"((Orange Juice))",loopBase:10},
+
+    {label:"Lemonade",type:"Lemonade from Lemons",rate:"3:1",img1:"8251.PNG",img2:"lemonade.png",
+    chat1:"((Lemon))",chat2:"((Lemonade))",loopBase:10},
+
+    {label:"AP",type:"AP from Lemons",rate:"30:1",img1:"8251.PNG",img2:"ap.png",
+    chat1:"((Lemon))",chat2:"((Arnold Palmer))",loopBase:63},
+
+    {label:"AP",type:"AP from Lemonades",rate:"1000:80",img1:"lemonade.png",img2:"ap.png",
+    chat1:"((Lemonade))",chat2:"((Arnold Palmer))",loopBase:133},
+
+    {label:"LN",type:"LN from FN (fishing nets)",rate:"1000:70",img1:"7748.png",img2:"lnet.png",
+    chat1:"((Fishing Net))",chat2:"((Large Net))",loopBase:83},
+
+    {label:"Cider",type:"Cider from Apples (and Oranges)",rate:"20:1",img1:"8297.png",img2:"8984.png",
+    chat1:"((Apple))",chat2:"((Apple Cider))",loopBase:72},
 ]
 
 const roundings = ["Up","Down","Closest 5"]
@@ -833,15 +844,24 @@ function buildTool(dad,itm,idx){
                     getID("farmer:"+idx).value = "Farmer X"
                     toolCalc(e.srcElement.id,false)
                 }})
-
+       
         tr = addEle({dad:tb,what:"tr"})
           tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2,justifyC:"center"})
-            cont = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
+            cont = addEle({dad:tc,setClass:"contRow",justifyC:"space-around"})
                 txt = testNum(itm.bonus) ? 
                 "Rate : "+itm.rate+spanText("teal"," | ",20)+"Rounding :"+itm.rounding+
                 spanText("teal"," | ",20)+"Bonus :"+itm.bonus+"%" :
                 "Rate : "+itm.rate+spanText("teal"," | ",20)+"Rounding :"+itm.rounding
                 addEle({dad:cont,text:txt,marginT:"5px"})
+
+                
+                txt = outputs.filter(it=>it.type===itm.type)[0]
+                let subC = addEle({dad:cont,setClass:"btn",padding:"0",display:"flex",flDir:"row",
+                alignItems:"center",setID:"convertProBtn:"+idx,setFunc:(e)=>{convertProject(e)}})
+                    addEle({dad:subC,what:"img",imgFullSrc:srcImgs+txt.img2,imgSize:25,setID:"convertProImg1:"+idx})
+                    addEle({dad:subC,text:"?",margin:"0 5px",setID:"convertProTxt:"+idx})
+                    addEle({dad:subC,what:"img",imgFullSrc:srcImgs+txt.img1,imgSize:25,setID:"convertProImg2:"+idx})
+                
 
         tr = addEle({dad:tb,what:"tr"})
             addEle({dad:tr,what:"td",text:"Customer MB Size",border:"solid teal 2px",textA:"center"})
@@ -978,7 +998,7 @@ function buildTool(dad,itm,idx){
                     txt = "(current exp ratio :"+`<span id="xpRatio:`+idx+`"></span>`+")"
                     addEle({dad:inC,text:txt,marginL:"5px"})
 
-        let expC = addEle({dad:cont,setClass:"contCol",padding:"5px",margin:"5px",border:"teal 2px solid",
+            let expC = addEle({dad:cont,setClass:"contCol",padding:"5px",margin:"5px",border:"teal 2px solid",
                 alignItems:"center",radius:"10px"})
 
                 inC = addEle({dad:expC,setClass:"contRow",justifyC:"center"})
@@ -999,6 +1019,106 @@ function buildTool(dad,itm,idx){
                 addEle({dad:cont,textA:"left",text:spanText(purple,"---"),setID:"MMsumUp:"+idx})
 
                 document.getElementsByName("evXpRads:"+idx)[0].click()
+}
+
+function convertProject(e){
+    let cont = undefined
+    let idx = e.srcElement.id.split(":")[1]
+    let itm = getCurrItem(e.srcElement.id)
+    let itmSrc = outputs.filter(x=>x.type === itm.type)[0]
+
+    let pop = addEle({dad:body,what:"dialog",maxWidth:"70%",radius:"20px",
+    backC:"black",textC:"white",display:"flex",flDir:"column",opacity:0.9,
+    alignItems:"center",border:"teal solid 3px"})
+
+        cont = addEle({dad:pop,setClass:"contRow",alignItems:"center"})
+            addEle({dad:cont,text:"Using current inventory of",marginR:"5px"})
+            addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img2,imgSize:25})
+        cont = addEle({dad:pop,setClass:"contRow",alignItems:"center",
+            borderB:"teal dotted 2px",paddingB:"10px"})
+            addEle({dad:cont,text:"Estimate convertible quantity of",marginR:"5px"})
+            addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img1,imgSize:25})
+
+        cont = addEle({dad:pop,setClass:"contRow",alignItems:"center",margin:"10px 0"})
+            addEle({dad:cont,text:"Inventory :"})
+            addEle({dad:cont,what:"input",isInput:true,width:"100px",textA:"center",
+            margin:"0 5px",setID:"inputforEst:"+idx,setFunc:(e)=>{
+                let el = e.srcElement
+                if(testNum(el.value)){
+                    let invItm = Number(el.value)
+                    getID("projectionRes").innerHTML = convertProjectLooper(itm,itmSrc,invItm).toLocaleString()
+                } else {getID("projectionRes").innerHTML = spanText(purple,"---")}
+            }})
+            addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img2,imgSize:25})
+        
+        cont = addEle({dad:pop,setClass:"contRow",alignItems:"center",marginT:"10px"})
+            addEle({dad:cont,text:"Inventory :",margin:"0 10px",setID:"projectionRes",
+            text:spanText(purple,"---")})
+            addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img1,imgSize:25})
+
+        addEle({dad:pop,text:spanText(green,"** Estimate only so not 100% accurate **"),
+        borderT:"dotted 2px teal",marginT:"10px",paddingT:"10px"})
+
+        
+
+        addEle({dad:pop,setClass:"btn",text:"Close",width:"50%",
+        marginT:"20px", setFunc:()=>{pop.remove()}})
+
+
+    pop.showModal()
+
+
+}
+
+function convertProjectLooper(itm, itmSrc,invQt){
+    let cpt = 0
+    let maxCpt = 5000
+    let currVal = invQt * itmSrc.loopBase
+    let runLoop = true
+
+    let div = itm.rate.split(":")[0]
+    let mul = itm.rate.split(":")[1]
+    let bon = itm.bonus
+    let rnd = itm.rounding
+    let craft = undefined
+    let found = false
+    let dif = undefined
+
+    while(runLoop){
+        cpt++
+        let ret = calcConvert(currVal,div,mul,bon,rnd)
+        let payT = ret.payR+ret.bonR
+        switch(itm.type){
+            case outputs[0].type : case outputs[1].type : craft = Math.floor(currVal/6*1.45) ; break
+            case outputs[2].type : craft = Math.floor(Math.floor(currVal/6*1.45)/20*1.45) ; break
+            case outputs[3].type : craft = Math.floor(currVal/20*1.45) ; break
+            case outputs[4].type : craft = Math.floor(currVal/25*1.45) ; break
+            case outputs[5].type : craft = Math.floor(currVal/40*1.45) ; break
+            default:console.log(itm.type)
+        }
+
+        let currLoss = payT-craft 
+        if(currLoss === invQt || currLoss+1 === invQt || currLoss-1 === invQt){
+            runLoop = false ; found = true ; //console.log("found at cpt:"+cpt)
+        } else {
+            if(currLoss < invQt){
+                dif = invQt-currLoss 
+                if(dif > itmSrc.loopBase)
+                    {currVal+= itmSrc.loopBase * (Math.ceil(dif/itmSrc.loopBase))} 
+                    else {currVal++}
+                }
+            else{
+                dif = currLoss - invQt
+                if(dif > itmSrc.loopBase)
+                    {currVal-= itmSrc.loopBase * (Math.ceil(dif/itmSrc.loopBase))} 
+                    else {currVal--}
+            }
+        }
+
+        if(cpt >= maxCpt){runLoop = false ; console.log("end loop cpt "+cpt+" --found:"+found)}
+    }
+
+    return currVal
 }
 
 function getCurrItem(id){
@@ -1088,7 +1208,6 @@ function eventXPradio(id){
     getID("evExpLb:"+idx).innerHTML = "Event Item Mastery Bonus : "+evXP+"%"
     getID("xpRatio:"+idx).innerHTML = ratio.toFixed(2)
     mmEstimate(id,ratio)
-//    return ratio
 }
 
 function upNeedRg(id){
@@ -1204,12 +1323,7 @@ function advertising(e){
 function toolCalc(id,memoAd=true){
     let idx = Number(id.split(":")[1])
     let val = getID("order:"+idx).value
-
-    let rate = undefined
-    let grp = document.getElementsByName("rateSets")
-    grp.forEach(it=>{if(it.checked){rate = it.value}})
-    let arrS = rate === "Basic" ? rateB : userI.rateU 
-    let itm = arrS.filter(x=>x.ind===idx)[0]
+    let itm = getCurrItem(id)
 
     if (memoAd && testNum(val) && userI.memoType === "auto"){memoAdd(id)}
 
@@ -1250,8 +1364,8 @@ function toolCalc(id,memoAd=true){
 
         if (testNum(mbs)){
             mbs = Number(mbs)
-            let rnds1 = Math.floor(payT/mbs)
-            let rnds2 = Math.floor(ret.payR/mbs)
+            let rnds1 = Math.floor(payT/Number(mbs))
+            let rnds2 = Math.floor(ret.payR/Number(mbs))
             let txt = payT+" ⇒ "+ rnds1 + "x " + mbs + "=" +(rnds1*mbs)+ " + " + (payT-(rnds1*mbs)) 
             if(bon>0)
               {txt += "<br>"+ ret.payR +" ⇒ "+ rnds2 + "x " + mbs + "=" +(rnds2*mbs)  + " + " + (ret.payR-(rnds2*mbs))}
