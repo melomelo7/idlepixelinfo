@@ -1046,14 +1046,16 @@ function convertProject(e){
                 let el = e.srcElement
                 if(testNum(el.value)){
                     let invItm = Number(el.value)
-                    getID("projectionRes").innerHTML = convertProjectLooper(itm,itmSrc,invItm).toLocaleString()
+                    getID("projectionRes").innerHTML =convertProjectLooper(itm,itmSrc,invItm).toLocaleString()
                 } else {getID("projectionRes").innerHTML = spanText(purple,"---")}
             }})
             addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img2,imgSize:25})
         
+        addEle({dad:pop,text:"you can convert about ..."})
+
         cont = addEle({dad:pop,setClass:"contRow",alignItems:"center",marginT:"10px"})
             addEle({dad:cont,text:"Inventory :",margin:"0 10px",setID:"projectionRes",
-            text:spanText(purple,"---")})
+            text:spanText(purple,"---"),textA:"center"})
             addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img1,imgSize:25})
 
         addEle({dad:pop,text:spanText(green,"** Estimate only, not 100% accurate **"),
