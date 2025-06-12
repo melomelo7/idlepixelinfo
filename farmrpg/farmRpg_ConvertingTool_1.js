@@ -1056,7 +1056,7 @@ function convertProject(e){
             text:spanText(purple,"---")})
             addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img1,imgSize:25})
 
-        addEle({dad:pop,text:spanText(green,"** Estimate only so not 100% accurate **"),
+        addEle({dad:pop,text:spanText(green,"** Estimate only, not 100% accurate **"),
         borderT:"dotted 2px teal",marginT:"10px",paddingT:"10px"})
 
         
