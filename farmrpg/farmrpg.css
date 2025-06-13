@@ -91,12 +91,12 @@ body {
     width: 100%;
     cursor: pointer;
     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-    background: #3071a9;
+    background: #917979;
     border-radius: 1px;
     border: 0.2px solid #010101;
     border-radius: 20px
 }
 
 .rangeSt:focus::-webkit-slider-runnable-track{
-    background: #367ebd;
+    background: #917979;
 }
