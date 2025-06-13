@@ -959,7 +959,7 @@ function buildTool(dad,itm,idx){
             paddingB:"5px"})
                 addEle({dad:inC,text:"Inventory :",textA:"center",marginR:"10px"})
                 addEle({dad:inC,text:"Iron<br>Rings",textA:"center",marginR:"10px"})
-                addEle({dad:inC,what:"range",isInput:true,min:0,max:100,setVal:100,width:"100px",
+                addEle({dad:inC,setClass:"rangeSt",what:"range",isInput:true,min:0,max:100,setVal:100,width:"100px",
                 setID:"ringRg:"+idx,setFunc:(e)=>{upNeedRg(e.srcElement.id)}})
                 txt = testNum(userI.inventoryMax) ? "100%<br>"+userI.inventoryMax : spanText(purple,"---")
                 addEle({dad:inC,setID:"ringRgLb:"+idx,text:txt,textA:"center",marginL:"10px"})
@@ -967,7 +967,7 @@ function buildTool(dad,itm,idx){
             inC = addEle({dad:cont,setClass:"contRow",alignItems:"center",padding:"5px"})
                 addEle({dad:inC,text:"Inventory :",textA:"center",marginR:"10px"})
                 addEle({dad:inC,text:"Stone",textA:"center",marginR:"10px"})
-                addEle({dad:inC,what:"range",isInput:true,min:0,max:100,setVal:100,width:"100px",
+                addEle({dad:inC,setClass:"rangeSt",what:"range",isInput:true,min:0,max:100,setVal:100,width:"100px",
                 setID:"stoneRg:"+idx,setFunc:(e)=>{upNeedRg(e.srcElement.id)}})
                 txt = testNum(userI.inventoryMax) ? "100%<br>"+userI.inventoryMax : spanText(purple,"---")
                 addEle({dad:inC,setID:"stoneRgLb:"+idx,text:txt,textA:"center",marginL:"10px"})
