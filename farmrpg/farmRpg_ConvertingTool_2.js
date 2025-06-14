@@ -17,12 +17,14 @@ function setPage(){
         display:"none",width:"fit-content"})
     ///////////////////////////////////////////////////////////////////////////////////////////
   
+    /*
     addEle({dad:body,what:"select",margin:"10px",fontS:"16px",setID:"infosSelect",padding:"5px",
     backC:"darkgreen",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white",
     setFunc:()=>{ if(getID("infosSelect").value !=="-- Infos --")
                 { infoBox(helpArr.filter(x=>x.label===getID("infosSelect").value)[0].text) } }})
         addEle({dad:getID("infosSelect"),what:"option",text:"-- Infos --"})
         helpArr.forEach(itm=>{ addEle({dad:getID("infosSelect"),what:"option",text:itm.label}) })
+    */
 
     let settingsFr = addEle({dad:body,setClass:"contCol",padding:"5px",width:"100%"})
         let setTop = addEle({dad:settingsFr,setClass:"contRow",alignItems:"center",marginL:"5px"})
@@ -202,7 +204,9 @@ function setSettings(){
 
 setPage()
 
+/*
 txt = `Dear Users,<br><br>I plan to change `+spanText(green,"[ Infos ]")+` display type...<br><br>
 Currently `+spanText(green,"Type1 (Top Version)")+`<br>-- Would Change for --<br>`+spanText("yellow","*New")+` `+spanText(green,"Type2 (Bottom Version)")+`
 <br><br>kindly `+spanText("crimson","[DM]")+` me ingame your preference ?<br><br>@ Apple Lord<br><br>`+spanText("","🤠",16)
 infoBox(txt)
+*/
