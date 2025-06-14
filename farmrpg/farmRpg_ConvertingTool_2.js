@@ -1,6 +1,6 @@
 
 function setPage(){
-    let last = "Last up 2025 06/14 15:35"
+    let last = "Last up 2025 06/14 17:40"
     let from = userI.visuals.preset
 
     let contR = addEle({dad:body,setClass:"contRow",alignItems:"center",margin:"5px"})
@@ -21,7 +21,8 @@ function setPage(){
     addEle({dad:body,what:"select",margin:"10px",fontS:"16px",setID:"infosSelect",padding:"5px",
     backC:"darkgreen",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white",
     setFunc:()=>{ if(getID("infosSelect").value !=="-- Infos --")
-                { infoBox(helpArr.filter(x=>x.label===getID("infosSelect").value)[0].text) } }})
+                { infoBox(helpArr.filter(x=>x.label===getID("infosSelect").value)[0].text,"",()=>{
+                    getID("infosSelect").selectedIndex = 0 }) } }})
         addEle({dad:getID("infosSelect"),what:"option",text:"-- Infos --"})
         helpArr.forEach(itm=>{ addEle({dad:getID("infosSelect"),what:"option",text:itm.label}) })
     

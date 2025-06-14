@@ -101,13 +101,13 @@ let help = [
     `** Find Value on page<br> "Home > My Farm > Raptor Pen"`,
 ]
 
-function infoBox(info,txtCol=""){
+function infoBox(info,txtCol="",closeFunc=undefined){
     let pop = addEle({dad:body,what:"dialog",maxWidth:"70%",radius:"20px",
     backC:"black",textC:"white",display:"flex",flDir:"column",opacity:0.9,
     alignItems:"center",border:"teal solid 3px"})
         addEle({dad:pop,text:info,textC:txtCol})
         addEle({dad:pop,setClass:"btn",text:"OK",width:"50%",
-        marginT:"20px", setFunc:()=>{pop.remove()}})
+        marginT:"20px", setFunc:()=>{if(closeFunc){closeFunc()} ; pop.remove()}})
     pop.showModal()
 }
 
