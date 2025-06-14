@@ -1,7 +1,10 @@
 
-let blackList = [
-    "gumpygazebo"
-]
+function isSafari() {
+    const ua = navigator.userAgent;
+    const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
+    return isSafari;
+  }
+
 
 function addEle({
     addToTop = false,
@@ -119,9 +122,10 @@ function addEle({
     if(setFunc){
         switch(what){
             case "div" : case "td" : case "option" : thisObj.addEventListener("click",setFunc) ; break
-            case "radio" : case "range" : case "checkbox" : thisObj.addEventListener("change",setFunc) ; break
+            case "select" : case "radio" : case "range" : case "checkbox" : thisObj.addEventListener("change",setFunc) ; break
             case "input" : thisObj.addEventListener("input",setFunc) ; break
             case "img" : thisObj.addEventListener("click",setFunc) ; break
+            case "select" : thisObj.addEventListener("input",setFunc) ; break
             default : console.log("missing correct addeventlistener here")
             } 
         }
