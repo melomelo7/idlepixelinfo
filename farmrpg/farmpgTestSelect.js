@@ -13,11 +13,11 @@ addEle({dad:body,what:"select",margin:"10px",fontS:"16px",setID:"infosSelect",pa
 backC:"darkgreen",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white",
 setFunc:()=>{ 
     if(getID("infosSelect").value !=="-- Infos --"){
-        getID("result1").innerHTML = getID("infosSelect").value
+        getID("result1").innerHTML = "common : " + getID("infosSelect").value
     } 
 }})
 getID("infosSelect").addEventListener("input",()=>{
-    getID("result2").innerHTML = getID("infosSelect").value
+    getID("result2").innerHTML = "safari :" + getID("infosSelect").value
 })
 
     addEle({dad:getID("infosSelect"),what:"option",text:"-- Infos --"})
