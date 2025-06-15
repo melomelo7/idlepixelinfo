@@ -70,7 +70,7 @@ let global = addEle({dad:body,setClass:"contCol",alignItems:"center"})
         cont = addEle({dad:quizzC,setClass:"contRow",fontS:"18px",margin:"20px",alignItems:"center"})
             addEle({dad:cont,what:"select",fontS:"16px",setID:"ansSelect",padding:"5px",
             backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white",
-            width:"fit-content",height:"fit-content",minWidth:"240px"})
+            width:"fit-content",height:"fit-content",minHeight:"26px",minWidth:"240px"})
         
             addEle({dad:cont,text:"Final Answer !!",setClass:"btn",setFunc:answerQ,setID:"answerBtn",
             fontS:"18px",padding:"5px",marginL:"10px"})
