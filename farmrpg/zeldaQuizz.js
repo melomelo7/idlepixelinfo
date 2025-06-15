@@ -61,7 +61,7 @@ let global = addEle({dad:body,setClass:"contCol",alignItems:"center"})
     let quizzC = addEle({dad:global,setID:"quizzC",setClass:"contCol",alignItems:"center",visibility:"hidden"})
 
         addEle({dad:quizzC,setID:"questionTxt",fontS:"18px",backC:"teal",padding:"5px",marginL:"5px",
-        border:"rgb(212, 212, 74) solid 2px",radius:"5px",width:"380px",minHeight:"80px"})
+        border:"rgb(212, 212, 74) solid 2px",radius:"5px",width:"300px",minHeight:"80px"})
 
         let progC = addEle({dad:quizzC,height:"20px",width:"300px",border:"solid 2px yellow",
         radius:"5px",margin:"20px 0 0 20px",setID:"progC"})
@@ -76,8 +76,8 @@ let global = addEle({dad:body,setClass:"contCol",alignItems:"center"})
             fontS:"18px",padding:"5px",marginL:"10px"})
     
     cont = addEle({dad:global,setClass:"contCol",border:"teal solid 3px",padding:"10px",
-    setID:"scoring",radius:"20px",minWidth:"380px",minHeight:"80px",marginL:"5px",display:"none"})
-        addEle({dad:cont,setID:"dispAns",maxWidth:"380px",minHeight:"40px"})
+    setID:"scoring",radius:"20px",minWidth:"300px",minHeight:"80px",marginL:"5px",display:"none"})
+        addEle({dad:cont,setID:"dispAns",maxWidth:"300px",minHeight:"40px"})
         addEle({dad:cont,setID:"dispScore",margin:"10px 0",text:"Score : 0"})
         let rewC = addEle({dad:cont,setClass:"contRow",setID:"dispRewards"})
             let isrc = "https://farmrpg.com/img/items/"
