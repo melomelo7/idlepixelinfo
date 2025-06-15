@@ -231,7 +231,7 @@ cont = addEle({dad:body,margin:"10px 30px",setID:"infosCont",border:"lime solid 
 radius:"30px",display:"none",padding:"10px",width:"fit-content"})
 
     addEle({dad:cont,setClass:"btn",text:"⇒ Zelda Quizz (Schoolhouse Training)",
-    textC:"lime",backC:"brown",margin:"10px",setFunc:()=>{
+    textC:"white",backC:"brown",margin:"10px",setFunc:()=>{
         let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/zeldaQuizz.html"
         window.open(lnk,"_self")
     }})
