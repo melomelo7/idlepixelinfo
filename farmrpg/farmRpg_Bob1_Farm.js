@@ -230,7 +230,7 @@ cont = addEle({dad:body,setClass:"contRow",margin:"5px 30px",alignItems:"center"
 cont = addEle({dad:body,margin:"10px 30px",setID:"infosCont",border:"lime solid 2px",
 radius:"30px",display:"none",padding:"10px",width:"fit-content"})
 
-    addEle({dad:cont,setClass:"btn",text:"⇒ Zelda Quizz (Schoolhouse Training)",
+    addEle({dad:cont,setClass:"btn",text:"⇒ Zelda Quiz (Schoolhouse Training)",
     textC:"white",backC:"brown",margin:"10px",setFunc:()=>{
         let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/zeldaQuiz.html"
         window.open(lnk,"_self")

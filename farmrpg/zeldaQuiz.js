@@ -54,6 +54,11 @@ let player = {
 }
 
 let global = addEle({dad:body,setClass:"contCol",alignItems:"center"})
+
+    lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmRpg_Bob1_Farm.html"
+    addEle({dad:global,setClass:"btn",text:"⇦ Go Back",backC:"rgb(45, 88, 128)",marginT:"20px",
+    setFunc:()=>{window.open(lnk,"_self")}})
+
     addEle({dad:global,text:"Start Zelda Quiz",setClass:"btn",setFunc:startQuiz,
     setID:"startBtn",width:"200px",margin:"20px"})
 
