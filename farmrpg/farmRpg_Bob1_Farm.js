@@ -56,7 +56,7 @@ let CIM = 100868
 let APM = 100000
 
 
-let lastUp = "06/15 19:05 🇯🇵"
+let lastUp = "06/18 01:10 🇯🇵"
 
 const body = document.querySelector("body")
 
@@ -232,10 +232,9 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content"})
 
     addEle({dad:cont,setClass:"btn",text:"⇒ Zelda Quizz (Schoolhouse Training)",
     textC:"white",backC:"brown",margin:"10px",setFunc:()=>{
-        let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/zeldaQuizz.html"
+        let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/zeldaQuiz.html"
         window.open(lnk,"_self")
     }})
-
 
     addEle({dad:cont,setClass:"btn",text:"⇒ Buddy Farm",
     textC:"lime",margin:"10px",setFunc:()=>{
