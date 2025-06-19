@@ -178,3 +178,7 @@ function answerQ(){
         }
     }
 }
+
+addEle({dad:global,text:spanText("crimson","T*E*S*T",24)})
+addEle({dad:global,text:spanText("orange","T*E*S*T",24)})
+addEle({dad:global,text:spanText("tomato","T*E*S*T",24)})
