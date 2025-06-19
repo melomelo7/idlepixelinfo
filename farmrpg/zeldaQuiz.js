@@ -137,7 +137,7 @@ function answerQ(){
         if(src.correct === Ans.value){
             player.good++
             col = "green"
-        } else {player.bad++ ; col = "tomato"}
+        } else {player.bad++ ; col = "orange"}
 
 
         player.answers += spanText(col,Ans.value) +" | "
@@ -178,6 +178,3 @@ function answerQ(){
         }
     }
 }
-
-addEle({dad:global,text:spanText("orange","T*E*S*T",24)})
-// addEle({dad:global,text:spanText("tomato","T*E*S*T",24)})
