@@ -137,7 +137,7 @@ function answerQ(){
         if(src.correct === Ans.value){
             player.good++
             col = "green"
-        } else {player.bad++ ; col = "orange"}
+        } else {player.bad++ ; col = "tomato"}
 
 
         player.answers += spanText(col,Ans.value) +" | "
