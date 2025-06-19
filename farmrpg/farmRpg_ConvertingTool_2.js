@@ -1,6 +1,6 @@
 
 function setPage(){
-    let last = "Last up 2025 06/14 20:25"
+    let last = "Last up 2025 06/19 18:10"
     let from = userI.visuals.preset
 
     let contR = addEle({dad:body,setClass:"contRow",alignItems:"center",margin:"5px"})
@@ -8,16 +8,7 @@ function setPage(){
         addEle({dad:contR,setClass:"btn",text:"⇦ Go Back",backC:from.buttonBackC,setFunc:()=>{window.open(lnk,"_self")}})
         addEle({dad:contR,text:spanText(yellowL,last),margin:"10px"})
 
-
-    /*
-    //////////////////////////////////////////////////////////////////////////////////////////
-    addEle({dad:body,text: "infos 🔽",padding:"3px 10px",setClass:"btn",setID:"dispHelpBtn",
-    backC:"darkgreen",margin:"10px",setFunc:dispHelp})
-    addEle({dad:body,setClass:"contCol",border:"teal solid 2px",radius:"20px",setID:"helpCont",padding:"10px 5px",
-        display:"none",width:"fit-content"})
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    */
-    
+   
     addEle({dad:body,what:"select",margin:"10px",fontS:"16px",setID:"infosSelect",padding:"5px",
     backC:"darkgreen",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white",
     setFunc:()=>{ if(getID("infosSelect").value !=="-- Infos --")
@@ -112,21 +103,6 @@ let helpArr =[
        */
 
     ]
-
-/*
-//////////////////////////////////////////////////////////////////////////////////
-function dispHelp(){
-    let workC = getID("helpCont")
-    if(workC.style.display==="none"){
-        cleanParent(workC) 
-        workC.style.display = "flex"
-        helpArr.forEach(itm=>{addEle({dad:workC,setClass:"btn",text:itm.label,backC:"darkgreen",
-        minWidth:"260px",setFunc:()=>{infoBox(itm.text)}}) })
-        getID("dispHelpBtn").innerHTML = "Infos 🔼"
-    } else {workC.style.display = "none" ; getID("dispHelpBtn").innerHTML = "Infos 🔽" }
-}
-/////////////////////////////////////////////////////////////////////////////////////
-*/
 
 
 function setSettings(){

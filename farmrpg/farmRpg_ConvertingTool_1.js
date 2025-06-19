@@ -380,6 +380,10 @@ function dispRates(basic=true){
 
     for(let i = 0;i<arr.length;i++){
         let itm = arr.filter(x=>x.ind===i)[0]
+
+//console.log(arr)
+//console.log(itm)
+
         let cont = addEle({dad:workC,setClass:"contRow",margin:"2px 2px 10px 2px"})
         if(!basic){
             addEle({dad:cont,text:"Delete",setClass:"btn",marginR:"",backC:"brown",fontS:"14px",
@@ -410,15 +414,37 @@ function swapUD(e,di,bs){
         case "D":newI = oldI +1 > src.length-1 ? src.length -1 : oldI +1 ; break
     }
 
+    /*
     for(let i=0;i<src.length;i++){
         let srcI = src.filter(it=>it.ind===i)[0]
         newA.push({ind:srcI.ind,type:srcI.type})
     }
+*/
+
+    for(let i=0;i<src.length;i++){
+        let srcI = src.filter(it=>it.ind===i)[0]
+        newA.push(srcI)
+    }
+
 
     let tempo = newA.splice(oldI,1)[0]
     newA.splice(newI,0,tempo)
 
-    for(let i=0;i<newA.length;i++){src.filter(x=>x.type===newA[i].type)[0].ind = i}
+//console.log(tempo)
+
+for(let i=0;i<newA.length;i++){
+    newA[i].ind = i
+//    src.filter(x=>x.type===newA[i].type)[0].ind = i
+}
+
+//    for(let i=0;i<newA.length;i++){src.filter(x=>x.type===newA[i].type)[0].ind = i}
+
+//console.log(di)
+//console.log(bs)
+//console.log(oldI)
+//console.log(newI)
+//console.log(src)
+//console.log(newA)
 
     dispRates(bs)
     setTools()
