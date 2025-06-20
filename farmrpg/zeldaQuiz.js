@@ -144,7 +144,8 @@ function answerQ(){
         getID("dispAns").innerHTML = player.answers
 
         player.score = player.good * addScore
-        getID("dispScore").innerHTML = "Score : " + player.score.toFixed(2) + " %"
+        getID("dispScore").innerHTML = "Score : " + player.score.toFixed(2) + 
+        " % --- ( ✅ : " + player.good + " || ❌ : "+player.bad+" )"
 
         if(player.bad === 0 && player.progress > questions.length){player.score = 100}
         if(player.score>=  80){getID("rwd1").style.display = "block"}
@@ -178,3 +179,5 @@ function answerQ(){
         }
     }
 }
+
+// ❌✅
