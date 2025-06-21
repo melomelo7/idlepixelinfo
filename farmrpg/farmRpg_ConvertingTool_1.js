@@ -381,9 +381,6 @@ function dispRates(basic=true){
     for(let i = 0;i<arr.length;i++){
         let itm = arr.filter(x=>x.ind===i)[0]
 
-//console.log(arr)
-//console.log(itm)
-
         let cont = addEle({dad:workC,setClass:"contRow",margin:"2px 2px 10px 2px"})
         if(!basic){
             addEle({dad:cont,text:"Delete",setClass:"btn",marginR:"",backC:"brown",fontS:"14px",
@@ -430,7 +427,6 @@ function swapUD(e,di,bs){
     let tempo = newA.splice(oldI,1)[0]
     newA.splice(newI,0,tempo)
 
-//console.log(tempo)
 
 for(let i=0;i<newA.length;i++){
     newA[i].ind = i
@@ -439,12 +435,7 @@ for(let i=0;i<newA.length;i++){
 
 //    for(let i=0;i<newA.length;i++){src.filter(x=>x.type===newA[i].type)[0].ind = i}
 
-//console.log(di)
-//console.log(bs)
-//console.log(oldI)
-//console.log(newI)
-//console.log(src)
-//console.log(newA)
+
 
     dispRates(bs)
     setTools()
@@ -892,9 +883,11 @@ function buildTool(dad,itm,idx){
         tr = addEle({dad:tb,what:"tr"})
             addEle({dad:tr,what:"td",text:"Customer MB Size",border:"solid teal 2px",textA:"center"})
           tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
-            inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
+            inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"}) // ,setID:"mbSizeCont",position:"relative" 
             addEle({dad:inC,what:"input",isInput:true,width:"100px",textA:"center",setID:"mbs:"+idx,
             setVal:0,setFunc:(e)=>{toolCalc(e.srcElement.id,false)}})
+            txt = "⛔ Calculations stopped, only<br>allowed "+spanText("yellow","Numbers")+" from 0 to 9"
+            setWarnTip(getID("mbs:"+idx),"mbWarn:"+idx,txt,-50)
     
         tr = addEle({dad:tb,what:"tr"})
           tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
@@ -953,6 +946,8 @@ function buildTool(dad,itm,idx){
             inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
             addEle({dad:inC,what:"input",isInput:true,width:"100px",textA:"center",setID:"order:"+idx,
             setVal:0,setFunc:(e)=>{toolCalc(e.srcElement.id)}})
+            txt = "⛔ Calculations stopped, only<br>allowed "+spanText("yellow","Numbers")+" from 0 to 9"
+            setWarnTip(getID("order:"+idx),"orderWarn:"+idx,txt,-50)
 
         tr = addEle({dad:tb,what:"tr"})
             txt = testNum(itm.bonus) ? "Payout (+Bonus) :" : "Payout :"
@@ -1355,6 +1350,12 @@ function toolCalc(id,memoAd=true){
 
     if (memoAd && testNum(val) && userI.memoType === "auto"){memoAdd(id)}
 
+    getID("mbWarn:"+idx).style.visibility = 
+    !testNum(getID("mbs:"+idx).value,true) && id.includes("mbs") ? "visible" : "hidden"
+
+    getID("orderWarn:"+idx).style.visibility = 
+    !testNum(getID("order:"+idx).value,true) && id.includes("order") ? "visible" : "hidden"
+
     if(testNum(val,true)){
         val = Number(val)
 
@@ -1404,6 +1405,20 @@ function toolCalc(id,memoAd=true){
 
 upNeedRg(id)
 
+}
+
+function setWarnTip(refEl=undefined,id=undefined,msg="message",posTop=-30){
+    let dad = refEl.parentElement
+    dad.style.position = "relative"
+
+    addEle({dad:dad,setID:id,what:"span",visibility:"hidden",backC:"#333",textC:"#fff",
+    padding:"5px 8px",radius:"6px",fontS:"14px",position:"absolute",textA:"center",text:msg,
+    top:posTop+"px",whiteSpace:"nowrap"})
+
+    refEl.addEventListener("mouseover",()=>{
+        if(!testNum(refEl.value,true) && getID(id).style.visibility === "hidden"){getID(id).style.visibility = "visible"}
+    })
+    refEl.addEventListener("mouseout",()=>{getID(id).style.visibility = "hidden"})
 }
 
 function mmEstimate(id,ratio=undefined){

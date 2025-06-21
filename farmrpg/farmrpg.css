@@ -30,6 +30,9 @@ body {
     cursor: pointer;
     width: fit-content;
     box-shadow: 2px 4px #999;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 .btn:active{
     box-shadow: 2px 2px #666;
