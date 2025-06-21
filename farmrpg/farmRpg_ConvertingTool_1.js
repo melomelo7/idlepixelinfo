@@ -1401,6 +1401,11 @@ function toolCalc(id,memoAd=true){
             getID("payoutD:"+idx).innerHTML = txt
         } else { getID("payoutD:"+idx).innerHTML = spanText(purple,"---") }
 
+    } else {
+        getID("payout:"+idx).innerHTML = 0
+        getID("craft:"+idx).innerHTML = 0
+        getID("lose:"+idx).innerHTML = 0 
+        getID("payoutD:"+idx).innerHTML = spanText(purple,"---")
     }
 
 upNeedRg(id)
