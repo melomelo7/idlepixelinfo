@@ -1305,7 +1305,7 @@ function advertising(e){
 
     grp.forEach(it=>{
         if(it.checked){
-            itmRate = src[Number(it.id.split(":")[1])]
+            itmRate = src.filter(x=>x.ind===Number(it.id.split(":")[1]))[0]
             itmBase = outputs.filter(x=>x.type===itmRate.type)[0]
             arrRaw.push({from:itmBase.chat1,to:itmBase.chat2,rate:itmRate.rate})
         }
