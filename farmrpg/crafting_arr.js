@@ -16,6 +16,7 @@ function addEle({
     isInput = false,
     disabled = false,
     setName = "",
+    setFor = "",
     setVal = "",
     min = "",
     max = "",
@@ -61,6 +62,7 @@ function addEle({
     flDir = "",
     flWrap = "",
     justifyC = "",
+    float = "",
     cursor = "",
     tableLayout = "",
     imgSize = "",
@@ -114,6 +116,8 @@ function addEle({
     if(setClass!=="none"){thisObj.setAttribute("class",setClass)}
 
     if(setName!==""){thisObj.setAttribute("name",setName)}
+
+    if(setFor!==""){thisObj.setAttribute("for",setFor)}
 
     if(setVal!==""){thisObj.setAttribute("value",setVal)}
 
@@ -193,6 +197,8 @@ function addEle({
     if(flWrap !== ""){thisObj.style.flexWrap = flWrap}
 
     if(justifyC !== ""){thisObj.style.justifyContent = justifyC}
+
+    if(float !== ""){thisObj.style.float = float}
 
     if(cursor !== ""){thisObj.style.cursor = cursor}
 
