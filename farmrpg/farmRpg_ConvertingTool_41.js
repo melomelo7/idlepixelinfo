@@ -1426,16 +1426,12 @@ function setWarnTip(refEl=undefined,id=undefined,msg="message",posTop=-30){
 }
 
 function mmEstimate(id,ratio=undefined){
+
     let idx = Number(id.split(":")[1])
     let tgtLb = getID("MMsumUp:"+idx)
-
-    let rate = undefined
-    let grp = document.getElementsByName("rateSets")
-    grp.forEach(it=>{if(it.checked){rate = it.value}})
-    let arrS = rate === "Basic" ? rateB : userI.rateU 
+    let arrS = getID("toggleCurrRate").checked ? userI.rateU : rateB
     let itm = arrS.filter(x=>x.ind===idx)[0]
     if(ratio === undefined){ratio = eventXPradio(id)}  
-
 
     let bad = undefined
     let prod = undefined

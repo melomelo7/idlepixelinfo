@@ -38,27 +38,30 @@ function setPage(){
     //////////////////////////////////////////////////////////////////////////////////////
 
 
+    let subC = addEle({dad:settingsFr,setClass:"contRow",padding:"5px",alignItems:"center"})
+        addEle({dad:subC,text:"Rate Set Currently Used : ",marginL:"5px",fontS:"20px"})
+        addEle({dad:subC,setID:"currentRate",margin:"0 20px 0 10px",minWidth:"60px",fontS:"20px"})
+        addEle({dad:subC,what:"checkbox",isInput:true,setID:"toggleCurrRate",setClass:"toggle-checkbox",
+        margin:"50px",setFunc:()=>{
+            let ref = getID("toggleCurrRate") ; let disp = getID("currentRate") ; let txt = undefined
+            if(ref.checked)
+                {txt = "Custom" ; disp.innerHTML = spanText(yellow,txt) ; userI.currentSet = txt}
+            else {txt = "Basic" ; disp.innerHTML = spanText(yellow,txt) ; userI.currentSet = txt}
+            setTools()
+        }})
+        addEle({dad:subC,what:"label",setFor:"toggleCurrRate",setClass:"toggle-label",marginR:"10px"})
 
-
-
-
-
-    let setTop2 = addEle({dad:settingsFr,setClass:"contRow",alignItems:"center",margin:"10px 0"})
-        addEle({dad:setTop2,text:"Rate Set Currently Used : ",marginL:"10px",fontS:"20px"})
-        addEle({dad:setTop2,what:"radio",isInput:true,setVal:"Basic",setName:"rateSets",
-        accentCol:"green",setFunc:rateSelection})
-        addEle({dad:setTop2,what:"radio",isInput:true,setVal:"Custom",setName:"rateSets",
-        accentCol:"green",setFunc:rateSelection})
-        addEle({dad:setTop2,setID:"currentSet",marginL:"5px",fontS:"20px"})
 
     addEle({dad:body,setClass:"contCol",padding:"5px",width:"100%",setID:"advFr"})        
 
     addEle({dad:body,setClass:"contCol",padding:"5px",width:"100%",setID:"toolsFr"})        
-    
-    document.getElementsByName("rateSets").forEach(it=>{if(it.value===userI.currentSet){it.click()}})
+  
+    if(userI.currentSet === "Custom"){getID("toggleCurrRate").checked = true}
+    let ev = new Event("change") ; getID("toggleCurrRate").dispatchEvent(ev)
+
 }
 
-let settingsArr = ["-- User Settings --","Tools per Line","Order Memos","Rates / Ratios",
+let settingsArr = ["-- User Settings --","Tools per Line & Order Memos","Rates / Ratios",
                    "User Details","Check / Save User Settings","Delete User Settings"]
 
 let helpArr =[
@@ -124,9 +127,15 @@ let helpArr =[
     ]
 
 function getDialogTopFrame(cxlEsc=true){
+
+    /*
     let Obj = addEle({dad:body,what:"dialog",maxWidth:"70%",radius:"20px",
     backC:"black",textC:"white",display:"flex",flDir:"column",opacity:0.9,
     alignItems:"center",border:"teal solid 3px",padding:"5px 0"})
+    */
+
+    let Obj = addEle({dad:body,what:"dialog",setClass:"myDialog"})
+
 
     if(cxlEsc){ Obj.addEventListener('keydown', (e)=>{ if (e.key === 'Escape'){e.preventDefault()} }) }
 
@@ -137,9 +146,7 @@ function getDialogTopFrame(cxlEsc=true){
 function userSettingPick(){
     if(getID("settingsSelect").value !=="-- User Settings --"){
         switch(getID("settingsSelect").value){
-            case "Tools per Line" : setToolPerLine()
-                break
-            case "Order Memos" : setMemos()
+            case "Tools per Line & Order Memos" : setToolsMemos()
                 break
             case "Rates / Ratios" : setRates()
                 break
@@ -154,46 +161,31 @@ function userSettingPick(){
 }
 
 
-function setToolPerLine(){
+function setToolsMemos(){
+
     let pop = getDialogTopFrame()
-    let cont = addEle({dad:pop,setClass:"contCol",margin:"5px 10px",width:"fit-content",
-        border:"teal solid 2px",radius:"10px"})
+    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",radius:"10px"})
 
-        let subC = addEle({dad:cont,setClass:"contRow",backC:"rgb(45, 88, 128)",padding:"5px",
-        borderB:"teal solid 2px",radiusTL:"7px",radiusTR:"7px",alignItems:"center",justifyC:"space-around"})
+        addEle({dad:cont,backC:"rgb(45, 88, 128)",padding:"5px",text:"Tools per Line",
+        border:"teal solid 2px",radius:"8px",textA:"center"})
 
-            addEle({dad:subC,text:"Tools per Line",fontS:"20px"})
-
+        let subC = addEle({dad:cont,setClass:"contRow",padding:"5px",
+        alignItems:"center",justifyC:"space-around"})
+            let txt =` 
+            Each tool is an item you convert<br>
+            PC screen to display more per line<br>
+            For mobile, rather set 1 only  ...
+            `
+            addEle({dad:subC,text:txt,padding:"5px",})
             addEle({dad:subC,what:"select",fontS:"16px",setID:"tplSelect",padding:"5px",
             backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white"})
             for(let i=1;i<11;i++){addEle({dad:getID("tplSelect"),what:"option",text:i})}
             getID("tplSelect").selectedIndex = userI.toolPerLine -1
 
-        let txt =` 
-        Each tool is an item you convert<br><br>
-        PC screen to display more per line<br><br>
-        Or rather set 1 only for mobile ...
-        `
-        addEle({dad:cont,text:txt,padding:"5px",})
-        
-        addEle({dad:pop,setClass:"btn",text:"OK",width:"50%",marginT:"20px", 
-        setFunc:()=>{ userI.toolPerLine = Number(getID("tplSelect").value) ; 
-        getID("settingsSelect").selectedIndex = 0 ; setTools() ; pop.remove()}})
 
-    pop.showModal()
-}
+        addEle({dad:cont,backC:"rgb(45, 88, 128)",padding:"5px",text:"Order Memos",
+        margin:"10px 0",border:"teal solid 2px",radius:"8px",textA:"center"})
     
-function setMemos(){
-
-    let pop = getDialogTopFrame()
-    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",
-        border:"teal solid 2px",radius:"10px"})
-
-        let subC = addEle({dad:cont,setClass:"contRow",backC:"rgb(45, 88, 128)",padding:"5px",
-        borderB:"teal solid 2px",radiusTL:"7px",radiusTR:"7px",alignItems:"center",justifyC:"space-around"})
-
-            addEle({dad:subC,text:"Order Memos",fontS:"20px"})
-
         subC = addEle({dad:cont,setClass:"contRow",padding:"5px",
         borderB:"teal dotted 2px",alignItems:"center",justifyC:"space-around"})
 
@@ -207,7 +199,7 @@ function setMemos(){
         subC = addEle({dad:cont,setClass:"contRow",padding:"5px",
         alignItems:"center",justifyC:"space-around"})
 
-            let txt = `
+            txt = `
             Auto-Save a Memo after `+spanText("cyan","X")+` seconds<br>
             you started typing the order amount<br><br>
             ( If the Auto-Save doesnt work well<br>
@@ -223,6 +215,9 @@ function setMemos(){
 
         addEle({dad:pop,setClass:"btn",text:"OK",width:"50%",marginT:"20px", 
         setFunc:()=>{
+
+            userI.toolPerLine = Number(getID("tplSelect").value)
+
             userI.memoCap = Number(getID("memoCselect").value)
             userI.memoTimer = Number(getID("memoSselect").value)
             userI.memoType = userI.memoTimer === 0 ? "manual" : "auto"
@@ -237,43 +232,56 @@ function setMemos(){
 
 function setRates(){
     let pop = getDialogTopFrame()
-    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",
-        border:"teal solid 2px",radius:"10px"})
+    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px"})
 
-        let subC = addEle({dad:cont,setClass:"contRow",backC:"rgb(45, 88, 128)",padding:"5px",
-        borderB:"teal solid 2px",radiusTL:"7px",radiusTR:"7px",alignItems:"center",justifyC:"space-around"})
-            addEle({dad:subC,text:"Rates / Ratios",fontS:"20px",marginR:"5px"})
+        addEle({dad:cont,backC:"rgb(45, 88, 128)",padding:"10px",border:"teal solid 2px",setID:"rateLbl",
+        radius:"8px",textA:"center",text:"xxxx"})
 
-            addEle({dad:subC,what:"select",fontS:"16px",setID:"rateSelect",padding:"5px",margin:"0 10px",
-            backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white",setFunc:dispSelectedRate})
-                addEle({dad:getID("rateSelect"),what:"option",text:"--Select--"})
-                addEle({dad:getID("rateSelect"),what:"option",text:"Basic ("+rateB.length+")"})
-                addEle({dad:getID("rateSelect"),what:"option",text:"Custom ("+ userI.rateU.length+")"})
-
+        let subC = addEle({dad:cont,setClass:"contRow",padding:"5px",alignItems:"center"})
+            addEle({dad:subC,text:"Rate",setID:"rateCheck",margin:"0 10px",minWidth:"150px"})
+            addEle({dad:subC,what:"checkbox",isInput:true,setID:"toggleRate",setClass:"toggle-checkbox",
+            margin:"50px",setFunc:()=>{
+                let disp = getID("rateCheck")
+                if(getID("toggleRate").checked){
+                    disp.innerHTML = "Custome Rate ("+userI.rateU.length+")"
+                    getID("addRbtn").style.visibility = "visible"
+                    dispRateSet(userI.rateU)
+                } else {
+                    disp.innerHTML = "Basic Rate (6)"
+                    getID("addRbtn").style.visibility = "hidden"
+                    dispRateSet(rateB)
+                }
+                
+                getID("rateLbl").innerHTML = "Rates / Ratios (Basic : 6 | Custom : "+userI.rateU.length+")"
+            }})
+            addEle({dad:subC,what:"label",setFor:"toggleRate",setClass:"toggle-label",marginR:"10px"})
             addEle({dad:subC,setClass:"btn",text:"Add",visibility:"hidden",setID:"addRbtn",setFunc:addRateSetup})
 
-        addEle({dad:cont,setClass:"contCol",setID:"dispRates",minHeight:"400px",maxHeight:"500px",overflowX:"hidden"})
+
+
+
+            addEle({dad:cont,setClass:"contCol",setID:"dispRates",minHeight:"300px",maxHeight:"350px",overflowX:"hidden"})
+
+
+
 
         addEle({dad:pop,setClass:"btn",text:"Close",width:"80%",setFunc:()=>{getID("settingsSelect").selectedIndex = 0 ; pop.remove()}})
+
+        if(userI.rateU.length>0){getID("toggleRate").checked = true}
+        let ev = new Event("change") ; getID("toggleRate").dispatchEvent(ev)
 
     pop.showModal()    
 }
 
-function dispSelectedRate(){
+function dispRateSet(arr){
     let workC = getID("dispRates")
     cleanParent(workC)
-    let arr = undefined
-
-    switch(getID("rateSelect").selectedIndex){
-        case 1 : arr = rateB ; getID("addRbtn").style.visibility = "hidden" ; break
-        case 2 : arr = userI.rateU ; getID("addRbtn").style.visibility = "visible" ; break
-    }
 
     if(arr){
         for(let i=0;i<arr.length;i++){
             buildRate(arr.filter(x=>x.ind===i)[0],workC,i)
 
-            if(getID("rateSelect").selectedIndex===2){
+            if(getID("toggleRate").checked){
                 subC = addEle({dad: getID("rateC:"+i),setClass:"contRow",alignItems:"center"})
                 if(userI.rateU.length>1){
                     addEle({dad:subC,text:"🔼",setClass:"btn",padding:"0",margin:"0",fontS:"12px",
@@ -287,6 +295,58 @@ function dispSelectedRate(){
         }
     }
 }
+
+function swapUD(e,di){
+    let oldI = Number(e.srcElement.id.split(":")[1])
+    let newI = undefined
+    let src = userI.rateU
+    let newA = []
+
+    switch(di){
+        case "U":newI = oldI -1 < 0 ? 0 : oldI - 1 ; break 
+        case "D":newI = oldI +1 > src.length-1 ? src.length -1 : oldI +1 ; break
+    }
+
+    for(let i=0;i<src.length;i++){
+        let srcI = src.filter(it=>it.ind===i)[0]
+        newA.push(srcI)
+    }
+
+
+    let tempo = newA.splice(oldI,1)[0]
+    newA.splice(newI,0,tempo)
+
+
+    for(let i=0;i<newA.length;i++){
+        newA[i].ind = i
+    }
+
+    let ev = new Event("change") ; getID("toggleRate").dispatchEvent(ev)
+    setTools()
+}
+
+function blastRate(e){
+    let idx = Number(e.srcElement.id.split(":")[1])
+    userI.rateU.splice(idx,1)
+
+    let ev = undefined
+    if(userI.rateU.length === 0){
+        getID("toggleCurrRate").checked = false // userI.currentSet = "Custom" ; 
+        ev = new Event("change") ; getID("toggleCurrRate").dispatchEvent(ev)
+
+        getID("toggleRate").checked = false
+        ev = new Event("change") ; getID("toggleRate").dispatchEvent(ev)
+
+        setTools()
+    }
+    
+    if(userI.rateU.length>0){for(let i=0;i<userI.rateU.length;i++){userI.rateU[i].ind=i}}
+
+    ev = new Event("change") ; getID("toggleRate").dispatchEvent(ev)
+    setTools()
+}
+
+
 
 function buildRate(itm,dad,idx){
     let itmO = outputs.filter(x=>x.type === itm.type)[0]
@@ -332,8 +392,7 @@ function addRateSetup(){
                 width:"60px",disabled:true,textC:"blue",setVal:0,setFunc:testCalcAmt})
                 addEle({dad:subC,text:"[B]",textA:"center",fontS:"18px",marginL:"5px"})
 
-        let txt = spanText("teal","** Input your own ratio if you prefer **",18) +
-                "<br>(Order amount divided by [A] multiplied by [B])"
+        let txt = "(Order amount divided by [A] multiplied by [B])"
         addEle({dad:cont,text:txt,textA:"center",
         fontS:"16px",margin:"10px 0",borderB:"teal dotted 3px",paddingB:"10px"})
         subC = addEle({dad:cont,setClass:"contRow",alignItems:"center"})
@@ -386,16 +445,10 @@ function addRateSetup(){
                         advertising:false,
                     })
 
-                    cleanParent(getID("rateSelect"))
-                    addEle({dad:getID("rateSelect"),what:"option",text:"--Select--"})
-                    addEle({dad:getID("rateSelect"),what:"option",text:"Basic ("+rateB.length+")"})
-                    addEle({dad:getID("rateSelect"),what:"option",text:"Custom ("+ userI.rateU.length+")"})
-                    getID("rateSelect").selectedIndex = 2
+                    let ev = new Event("change") ; getID("toggleRate").dispatchEvent(ev)
 
-                    dispSelectedRate()
-
-                    document.getElementsByName("rateSets")[1].disabled = false
-                    document.getElementsByName("rateSets")[1].click()
+                    getID("toggleCurrRate").checked = true // userI.currentSet = "Custom" ; 
+                    ev = new Event("change") ; getID("toggleCurrRate").dispatchEvent(ev)
                     setTools()
 
                     getID("addGood").innerHTML = "✅"
