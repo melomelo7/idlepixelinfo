@@ -1,6 +1,6 @@
 
 function setPage(){
-    let last = "Last up 2025 07/03 00:25"
+    let last = "Last up 2025 07/06 04:05"
     let from = userI.visuals.preset
 
     let contR = addEle({dad:body,setClass:"contRow",alignItems:"center",margin:"5px"})
@@ -153,6 +153,8 @@ function userSettingPick(){
             case "User Details" : setUserDetails2()
                 break
             case "Check / Save User Settings" : compareSaves()
+                break
+            case "Delete User Settings" : setDeleteFrame()
                 break
             default : alert("Under Construction")
         }
@@ -528,64 +530,72 @@ function setUserDetails2(){
     let txt = undefined
     let pop = getDialogTopFrame()
     let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",
-        border:"teal solid 2px",radius:"10px",alignItems:"center"})
+        border:"teal solid 2px",radius:"10px",alignItems:"center",minWidth:"360px"})
 
         let subC = addEle({dad:cont,setClass:"contCol",backC:"rgb(45, 88, 128)",width:"100%",
         borderB:"teal solid 2px",radiusTL:"7px",radiusTR:"7px",alignItems:"center",justifyC:"space-around"})
-            addEle({dad:subC,text:"User Details",fontS:"20px",margin:"5px"})
+            addEle({dad:subC,text:"User Details (Production & Masteries)",fontS:"20px",margin:"5px"})
 
-            addEle({dad:subC,what:"select",fontS:"16px",setID:"userSelect",padding:"5px",margin:"10px",
-            backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white",setFunc:()=>{
+        let subC2 = addEle({dad:subC,setClass:"contRow",alignItems:"center",marginB:"10px"})
+            addEle({dad:subC2,text:"Rate",setID:"detailsLbl",margin:"0 10px",minWidth:"150px",
+            minWidth:"180px",textA:"right"})
+            addEle({dad:subC2,what:"checkbox",isInput:true,setID:"detailsCheck",setClass:"toggle-checkbox",
+            margin:"50px",setFunc:()=>{
                 let workC = getID("dispUser")
                 cleanParent(workC)
-                switch(getID("userSelect").selectedIndex){
-                    case 1 : arr = [
-                            {label:"Current Max Inventory",val:userI.inventoryMax},
-                            {label:"Resource Saver Perk",val:userI.resSaver+" %"},
-                            {label:"Fruits daily production",val:userI.fruitsProd},
-                            {label:"Fruits total production",val:userI.fruitsTot},
-                            {label:"Antlers daily production",val:userI.antlersProd},
-                            {label:"Baby Nets total production",val:userI.netsTot}
-                            ]
-                        arr.forEach(itm=>{
-                            let subC = addEle({dad:workC,setClass:"contRow"})
-                                txt = itm.label.includes("total") ? "---- " : "🟢 "
-                                addEle({dad:subC,text:txt})
-                                addEle({dad:subC,text:itm.label+" : ",minWidth:"200px",textA:"right",paddingR:"10px"})
-                                addEle({dad:subC,text:itm.val,minWidth:"60px",textA:"center"})
-                        })
-                        break
-                    case 2 : arr = userI.mms
-                        arr.forEach(itm=>{
-                            let subC = addEle({dad:workC,setClass:"contRow"})
-                                addEle({dad:subC,text:"[MM]🟢 "})
-                                addEle({dad:subC,text:itm.label + " : ",minWidth:"80px",textA:"center"})
-                                addEle({dad:subC,text:itm.progress.toLocaleString(),minWidth:"80px",textA:"center"})
-                                addEle({dad:subC,text:"/"+(1000000).toLocaleString()})
-                        })
-                        break
+
+                let disp = getID("detailsLbl")
+                if(getID("detailsCheck").checked){
+                    disp.innerHTML = "Mega Masteries"
+                    arr = userI.mms
+                    arr.forEach(itm=>{
+                        let subC = addEle({dad:workC,setClass:"contRow"})
+                            addEle({dad:subC,text:"[MM]🟢 "})
+                            addEle({dad:subC,text:itm.label + " : ",minWidth:"85px",textA:"center"})
+                            addEle({dad:subC,text:itm.progress.toLocaleString(),minWidth:"80px",textA:"center"})
+                            addEle({dad:subC,text:"/"+(1000000).toLocaleString()})
+                    })
+                } else {
+                    disp.innerHTML = "Inventory & Production"
+                    arr = [
+                        {label:"Current Max Inventory",val:userI.inventoryMax},
+                        {label:"Resource Saver Perk",val:userI.resSaver+" %"},
+                        {label:"Fruits daily production",val:userI.fruitsProd},
+                        {label:"Fruits total production",val:userI.fruitsTot},
+                        {label:"Antlers daily production",val:userI.antlersProd},
+                        {label:"Nets total production",val:userI.netsTot}
+                        ]
+                    arr.forEach(itm=>{
+                        let subC = addEle({dad:workC,setClass:"contRow"})
+                            txt = itm.label.includes("total") ? "---- " : "🟢 "
+                            addEle({dad:subC,text:txt})
+                            addEle({dad:subC,text:itm.label+" : ",minWidth:"200px",textA:"right",paddingR:"10px"})
+                            addEle({dad:subC,text:itm.val,minWidth:"60px",textA:"center"})
+                    })
                 }
-                getID("upDetailsBtn").style.visibility = getID("userSelect").selectedIndex > 0 ? "visible" : "hidden"
             }})
-                addEle({dad:getID("userSelect"),what:"option",text:"--Select--"})
-                addEle({dad:getID("userSelect"),what:"option",text:"Inventory & Production"})
-                addEle({dad:getID("userSelect"),what:"option",text:"Mega Masteries"})
+            addEle({dad:subC2,what:"label",setFor:"detailsCheck",setClass:"toggle-label",marginR:"10px"})
 
 
             subC = addEle({dad:cont,setClass:"contCol",padding:"20px",setID:"dispUser",minHeight:"150px",minWidth:"280px"})
 
        
             addEle({dad:cont,setClass:"btn",text:"Update",marginB:"20px",width:"50%",setID:"upDetailsBtn",
-            visibility:"hidden",setFunc:()=>{userUpdate(getID("userSelect").value)}})
+            setFunc:userUpdate})
 
         addEle({dad:pop,setClass:"btn",text:"Close",width:"80%",setFunc:()=>{getID("settingsSelect").selectedIndex = 0 ; pop.remove()}})
+
+        let ev = new Event("change") ; getID("detailsCheck").dispatchEvent(ev)
+
 
     pop.showModal() 
 }
 
-function userUpdate(info){
-
-    console.log(info)
+function userUpdate(){
+    let info = undefined
+    if(getID("detailsCheck").checked)
+         {info = "Mega Masteries"}
+    else {info = "Inventory & Production"}
 
     let invo = [
         {txt:"Current Max Inventory :<br>(found in [My Inventory])",val:userI.inventoryMax,ref:"inventory"},
@@ -596,19 +606,19 @@ function userUpdate(info){
 
     let pop2 = getDialogTopFrame()
     let cont = addEle({dad:pop2,setClass:"contCol",width:"fit-content",margin:"5px 10px",
-        border:"teal solid 2px",radius:"10px",alignItems:"center",minWidth:"300px"})
+        border:"teal solid 2px",radius:"10px",alignItems:"center",minWidth:"340px"})
 
         let subC = addEle({dad:cont,setClass:"contCol",backC:"rgb(45, 88, 128)",width:"100%",
         borderB:"teal solid 2px",radiusTL:"7px",radiusTR:"7px",alignItems:"center",justifyC:"space-around"})
             addEle({dad:subC,text:"Update "+info,margin:"10px"})
 
         let frm = addEle({dad:cont,setClass:"contCol"})
-        let len = 170
+        let len = 200
         let cpt = 0
         if(info === "Inventory & Production"){
             invo.forEach(inv=>{
                 subC = addEle({dad:frm,setClass:"contRow",marginT:"10px",alignItems:"center"})
-                    addEle({dad:subC,text:inv.txt,margin:"0 5px",minWidth:len+"px",textA:"right"})
+                    addEle({dad:subC,text:inv.txt,margin:"0 5px",minWidth:len+"px",textA:"right",marginR:"5px"})
                     addEle({dad:subC,what:"input",isInput:true,width:"60px",textA:"center",setVal:inv.val,setID:inv.ref+":"+cpt,
                     setFunc:(e)=>{
                         let disp = getID(e.srcElement.id+"G") 
@@ -618,7 +628,7 @@ function userUpdate(info){
                         } else {disp.innerHTML = "⛔"}
                         setTimeout(()=>{disp.innerHTML = ""},1000)
                         }})
-                    addEle({dad:subC,minWidth:"20px",margin:"0 5px",setID:inv.ref+":"+cpt+"G"})
+                    addEle({dad:subC,minWidth:"30px",margin:"0 5px",setID:inv.ref+":"+cpt+"G"})
                     
                 cpt++
             })
@@ -627,29 +637,28 @@ function userUpdate(info){
             backC:"rgb(45, 88, 128)"})
             subC = addEle({dad:frm,setClass:"contRow",marginT:"10px",alignItems:"center"})
                 addEle({dad:subC,what:"img",imgFullSrc:srcImgs+"615.png",imgSize:20,margin:"0 20px"})
-                addEle({dad:subC,text:spanText("yellow","Tree Shaker")+" (T170)",margin:"0 5px",minWidth:"140px"})
+                addEle({dad:subC,text:spanText("yellow","Tree Shaker")+" (T170)",margin:"0 5px",minWidth:"160px"})
                 addEle({dad:subC,what:"checkbox",isInput:true,setID:"toggleArti1",setClass:"toggle-checkbox"
                 ,setFunc:reviewProductionChg})
                 addEle({dad:subC,what:"label",setFor:"toggleArti1",setClass:"toggle-label"})
 
             subC = addEle({dad:frm,setClass:"contRow",marginT:"10px",alignItems:"center",borderB:"teal solid 2px",paddingB:"10px"})
                 addEle({dad:subC,what:"img",imgFullSrc:srcImgs+"3320.png",imgSize:20,margin:"0 20px"})
-                addEle({dad:subC,text:spanText("yellow","Antler Snare")+" (T160)",margin:"0 5px",minWidth:"140px"})
+                addEle({dad:subC,text:spanText("yellow","Antler Snare")+" (T160)",margin:"0 5px",minWidth:"160px"})
                 addEle({dad:subC,what:"checkbox",isInput:true,setID:"toggleArti2",setClass:"toggle-checkbox"
                 ,setFunc:reviewProductionChg})
                 addEle({dad:subC,what:"label",setFor:"toggleArti2",setClass:"toggle-label"})
             
-            console.log(userI)
             if(userI.fruitsArte){getID("toggleArti1").checked=true}
             if(userI.antlersArte){getID("toggleArti2").checked=true}
 
             subC = addEle({dad:frm,setClass:"contCol",margin:"10px 0",justifyC:"center"})
             let subC1 = addEle({dad:frm,setClass:"contRow"})
-                    addEle({dad:subC1,text:"Fruits total production :",textA:"right",minWidth:"190px"})
+                    addEle({dad:subC1,text:"Fruits total production :",textA:"right",minWidth:"220px"})
                     addEle({dad:subC1,setID:"dispTotFr",text:userI.fruitsTot,marginL:"5px"})
 
                 subC1 = addEle({dad:frm,setClass:"contRow"})
-                    addEle({dad:subC1,text:"Baby Nets total production :",textA:"right",minWidth:"190px"})
+                    addEle({dad:subC1,text:"Baby Nets total production :",textA:"right",minWidth:"220px"})
                     addEle({dad:subC1,setID:"dispTotNe",text:userI.netsTot,marginL:"5px"})
         } else {
             len = 100
@@ -665,16 +674,17 @@ function userUpdate(info){
                         } else {disp.innerHTML = "⛔"}
                         setTimeout(()=>{disp.innerHTML = ""},1000)
                         }})
-                    addEle({dad:subC,minWidth:"20px",margin:"0 5px",setID:"mm:"+cpt+"G"})
+                    addEle({dad:subC,minWidth:"25px",minHeight:"25px",margin:"0 5px",setID:"mm:"+cpt+"G"})
                 cpt++
             })
         }
         
     subC = addEle({dad:cont,setClass:"contRow",justifyC:"space-around",width:"100%",margin:"10px 0"})
-        addEle({dad:subC,setClass:"btn",text:"Update",minWidth:"100px",
-        setFunc:(e)=>{updateInvProdMM(e,info)}})
+        addEle({dad:subC,setClass:"btn",text:"Update",minWidth:"100px",setFunc:(e)=>{updateInvProdMM(e,info)}})
         addEle({dad:subC,setClass:"btn",text:"Cancel / Close",minWidth:"100px",
-        setFunc:()=>{let event = new Event("change") ; getID("userSelect").dispatchEvent(event) ; pop2.remove()}})
+        setFunc:()=>{pop2.remove()}})
+
+        
 
     pop2.showModal()
 
@@ -720,13 +730,8 @@ function calcProds(invo=200,saverPerk=45,fruits=7800,antlers=0,arti1=false,arti2
 }
 
 function updateInvProdMM(e,info){
-
-    console.log(info)
-
     let cpt = 0
-
     if(info === "Inventory & Production"){
-
         let calc = calcProds(
             Number(getID("inventory:0").value),
             Number(getID("perk:1").value),        
@@ -736,15 +741,12 @@ function updateInvProdMM(e,info){
             getID("toggleArti2").checked
         )
 
-console.log(calc)
-
         let txt = "inventory:0" // perk
         getID(txt+"G").innerHTML = ""
         if(testNum(getID(txt).value)){
             if(userI.inventoryMax !== Number(getID(txt).value)){
                 getID(txt+"G").innerHTML = "✅"
                 cpt++
-                console.log("invo "+userI.inventoryMax + " > " + Number(getID(txt).value))
                 userI.inventoryMax = Number(getID(txt).value)
             }
         } else {getID(txt+"G").innerHTML = "⛔"}
@@ -755,11 +757,9 @@ console.log(calc)
             if(userI.resSaver !== Number(getID(txt).value)){
                 getID(txt+"G").innerHTML = "✅"
                 cpt++
-                console.log("res sav "+userI.resSaver + " > " + Number(getID(txt).value))
                 userI.resSaver = Number(getID(txt).value)
             }            
         } else {getID(txt+"G").innerHTML = "⛔"}
-    
     
         txt = "fruits:2"
         getID(txt+"G").innerHTML = ""
@@ -767,12 +767,10 @@ console.log(calc)
             if(userI.fruitsProd !== Number(getID(txt).value)){
                 getID(txt+"G").innerHTML = "✅"
                 cpt++
-                console.log("fruits prod "+userI.fruitsProd + " > " + Number(getID(txt).value))
                 userI.fruitsProd = Number(getID(txt).value)
             }            
         } else {getID(txt+"G").innerHTML = "⛔"}
         if(calc.prod1>userI.fruitsTot){
-            console.log("fruits tot "+userI.fruitsTot + " > " + calc.prod1)
             userI.fruitsTot = calc.prod1
         }
 
@@ -782,10 +780,8 @@ console.log(calc)
             if(userI.antlersProd !== Number(getID(txt).value)){
                 getID(txt+"G").innerHTML = "✅"
                 cpt++
-                console.log("antlers prod"+userI.antlersProd + " > " + Number(getID(txt).value))
                 userI.antlersProd = Number(getID(txt).value)
                 if(calc.prod2>0){
-                    console.log(userI.netsTot + " > " + calc.prod2)
                     userI.netsTot = calc.prod2
                 }
             }            
@@ -798,13 +794,11 @@ console.log(calc)
 
         if(getID("toggleArti1").checked !== userI.fruitsArte){
             cpt++
-            console.log(userI.fruitsArte +" > "+ getID("toggleArti1").checked )
             userI.fruitsArte = getID("toggleArti1").checked
         }
 
         if(getID("toggleArti2").checked !== userI.antlersArte){
             cpt++
-            console.log(userI.antlersArte +" > "+ getID("toggleArti2").checked )
             userI.antlersArte = getID("toggleArti2").checked
         }
 
@@ -818,7 +812,6 @@ console.log(calc)
                 if(userI.mms[i].progress !== Number(getID(txt).value)){
                     getID(txt+"G").innerHTML = "✅"
                     cpt++
-                    console.log( userI.mms[i].label +  " "+userI.mms[i].progress + " > " + Number(getID(txt).value))
                     userI.mms[i].progress = Number(getID(txt).value)
                 }            
             } else {getID(txt+"G").innerHTML = "⛔"}
@@ -829,25 +822,23 @@ console.log(calc)
     }
 
  e.srcElement.innerHTML = "Updates ["+cpt+"]"
- console.log(userI)
-
 }
 
 
 function compareSaves(){
-
     let savOld = undefined
     let key = "farmRPGCustomConvertingV2"
     let mySave = localStorage.getItem(key)
     if(mySave){savOld = JSON.parse(mySave)}
+    let txt = undefined
 
     let pop = getDialogTopFrame()
     let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",
-        border:"teal solid 2px",radius:"10px",minWidth:"330px",minHeight:"500px"})
+        border:"teal solid 2px",radius:"10px",minWidth:"330px"}) // ,minHeight:"500px"
 
         let subC = addEle({dad:cont,setClass:"contRow",backC:"rgb(45, 88, 128)",padding:"5px",
         borderB:"teal solid 2px",radiusTL:"7px",radiusTR:"7px",alignItems:"center",justifyC:"space-around"})
-            addEle({dad:subC,text:"Check / Save User Settings",fontS:"20px",marginR:"5px"})
+            addEle({dad:subC,text:"Check / Save User Settings",fontS:"20px",marginR:"5px",width:"100%",textA:"center"})
         
 
         subC = addEle({dad:cont,setClass:"contRow",minWidth:"95px",padding:"5px",alignItems:"center"})
@@ -858,27 +849,72 @@ function compareSaves(){
         display:"none",setID:"savRatesCont",width:"fit-content",minWidth:"290px",minHeight:"200px",
         maxHeight:"300px",overflowX:"hidden"})
 
-        let txt = savOld.inventoryMax === userI.inventoryMax ? userI.inventoryMax.toLocaleString() :
-        savOld.inventoryMax.toLocaleString() + " => " + spanText(green,userI.inventoryMax.toLocaleString())
-        addEle({dad:cont,text:"max Inventory : "+txt,margin:"10px"})
+ 
+        if(savOld){
+            txt = savOld.toolPerLine === userI.toolPerLine ? userI.toolPerLine.toLocaleString() :
+            savOld.toolPerLine.toLocaleString() + " => " + spanText(green,userI.toolPerLine.toLocaleString())
+        } else{txt = userI.toolPerLine.toLocaleString()}
+        addEle({dad:cont,text:"Tools per line : "+txt,margin:"5px 10px 0 10px"})
 
+        if(savOld){
+            txt = savOld.memoCap === userI.memoCap ? userI.memoCap.toLocaleString() :
+            savOld.memoCap.toLocaleString() + " => " + spanText(green,userI.memoCap.toLocaleString())
+        } else{txt = userI.memoCap.toLocaleString()}
+        addEle({dad:cont,text:"Memos Cap : "+txt,margin:"5px 10px 0 10px"})
 
+        if(savOld){
+            txt = savOld.memoTimer === userI.memoTimer ? userI.memoTimer.toLocaleString() :
+            savOld.memoTimer.toLocaleString() + " => " + spanText(green,userI.memoTimer.toLocaleString())
+        } else{txt = userI.memoCap.toLocaleString()}
+        addEle({dad:cont,text:"Memos save timer : "+txt+" sec",margin:"5px 10px 0 10px"})
 
+        if(savOld){
+            txt = savOld.inventoryMax === userI.inventoryMax ? userI.inventoryMax.toLocaleString() :
+            savOld.inventoryMax.toLocaleString() + " => " + spanText(green,userI.inventoryMax.toLocaleString())
+        } else{txt = userI.inventoryMax.toLocaleString()}
+        addEle({dad:cont,text:"max Inventory : "+txt,margin:"5px 10px 0 10px"})
 
+        if(savOld){
+            txt = savOld.resSaver === userI.resSaver ? userI.resSaver.toLocaleString() :
+            savOld.resSaver.toLocaleString() + " => " + spanText(green,userI.resSaver.toLocaleString())
+        } else{txt = userI.resSaver.toLocaleString()}
+        addEle({dad:cont,text:"res Saver perk : "+txt+" %",margin:"5px 10px 0 10px"})
 
+        if(savOld){
+            txt = savOld.fruitsProd === userI.fruitsProd ? userI.fruitsProd.toLocaleString() :
+            savOld.fruitsProd.toLocaleString() + " => " + spanText(green,userI.fruitsProd.toLocaleString())
+        } else{txt = userI.fruitsProd.toLocaleString()}
+        addEle({dad:cont,text:"Fruits daily production : "+txt,margin:"5px 10px 0 10px"})
 
+        if(savOld){
+            txt = savOld.antlersProd === userI.antlersProd ? userI.antlersProd.toLocaleString() :
+            savOld.antlersProd.toLocaleString() + " => " + spanText(green,userI.antlersProd.toLocaleString())
+        } else{txt = userI.antlersProd.toLocaleString()}
+        addEle({dad:cont,text:"Antlers daily production : "+txt,margin:"5px 10px 0 10px"})
 
+        userI.mms.forEach(mm=>{
+            if(savOld){
+                txt = savOld.mms.filter(x=>x.label===mm.label)[0].progress === mm.progress ? mm.progress.toLocaleString() :
+                savOld.mms.filter(x=>x.label===mm.label)[0].progress.toLocaleString() + " => " + 
+                spanText(green,mm.progress.toLocaleString())
+            } else{txt = mm.progress.toLocaleString()}
+            addEle({dad:cont,text:"[MM] "+ mm.label +" : "+txt+" /"+(1000000).toLocaleString(),margin:"5px 10px 0 10px"})
+        })
 
+        subC = addEle({dad:cont,setClass:"contRow",alignItems:"center",margin:"20px 0 10px 0"})
+            addEle({dad:subC,setClass:"btn",text:"Save User Details",width:"80%",setFunc:()=>{
+                let key = "farmRPGCustomConvertingV2"
+                let mySave = JSON.stringify(userI)
+                localStorage.setItem(key,mySave)
+                getID("savG").innerHTML = "✅"
+                setTimeout(()=>{getID("savG").innerHTML = ""},1000)
+            }})
+            addEle({dad:subC,setID:"savG",marginL:"5px"})
 
-
-
-
-
-
-        addEle({dad:pop,setClass:"btn",text:"Close",width:"80%",setFunc:()=>{
-
-            pop.remove()
-        }})
+    addEle({dad:pop,setClass:"btn",text:"Close",width:"80%",setFunc:()=>{
+        getID("settingsSelect").selectedIndex = 0
+        pop.remove()
+    }})
 
     pop.showModal()
 }
@@ -922,7 +958,25 @@ function compSavRates(savOld){
     }
 }
 
+function setDeleteFrame(){
+    let pop = getDialogTopFrame()
+    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px"})
 
+    let subC = addEle({dad:cont,setClass:"contCol",marginT:"40px"})
+        let subC2 = addEle({dad:subC,setClass:"contRow",margin:"40px 0",alignItems:"center"})
+            addEle({dad:subC2,setClass:"btn",text:"❌ Delete User Settings",margin:"20px 5px 20px 20px",
+            minWidth:"200px",setFunc:()=>{
+                let key = "farmRPGCustomConvertingV2"
+                localStorage.removeItem(key)
+                getID("deleteG").innerHTML = "✅"
+                setTimeout(()=>{getID("deleteG").innerHTML = ""},1000)
+            }})
+            addEle({dad:subC2,setID:"deleteG",minWidth:"25px"})
+        addEle({dad:subC,setClass:"btn",text:"Cancel / Close",margin:"20px",minWidth:"200px",
+        setFunc:()=>{getID("settingsSelect").selectedIndex = 0 ; pop.remove()}})
+
+    pop.showModal()    
+}
 
 
 
