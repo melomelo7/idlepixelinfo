@@ -1,6 +1,6 @@
 
 function setPage(){
-    let last = "Last up 2025 07/06 13:05"
+    let last = "Last up 2025 07/07 01:30"
     let from = userI.visuals.preset
 
     let contR = addEle({dad:body,setClass:"contRow",alignItems:"center",margin:"5px"})
@@ -37,6 +37,7 @@ function setPage(){
         padding:"5px",display:"none",margin:"",setID:"settingsCont"})
     //////////////////////////////////////////////////////////////////////////////////////
 
+    
 
     let subC = addEle({dad:settingsFr,setClass:"contRow",padding:"5px",alignItems:"center"})
         addEle({dad:subC,text:"Rate Set Currently Used : ",marginL:"5px",fontS:"20px"})

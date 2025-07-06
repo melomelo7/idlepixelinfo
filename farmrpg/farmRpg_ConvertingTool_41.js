@@ -405,53 +405,8 @@ function dispRates(basic=true){
     }
 }
 
-function swapUD(e,di){
-    let oldI = Number(e.srcElement.id.split(":")[1])
-    let newI = undefined
-    let src = userI.rateU
-    let newA = []
-
-    switch(di){
-        case "U":newI = oldI -1 < 0 ? 0 : oldI - 1 ; break 
-        case "D":newI = oldI +1 > src.length-1 ? src.length -1 : oldI +1 ; break
-    }
-
-    for(let i=0;i<src.length;i++){
-        let srcI = src.filter(it=>it.ind===i)[0]
-        newA.push(srcI)
-    }
 
 
-    let tempo = newA.splice(oldI,1)[0]
-    newA.splice(newI,0,tempo)
-
-
-    for(let i=0;i<newA.length;i++){
-        newA[i].ind = i
-    }
-
-    dispSelectedRate()
-    setTools()
-}
-
-function blastRate(e){
-    let idx = Number(e.srcElement.id.split(":")[1])
-    userI.rateU.splice(idx,1)
-    if(userI.rateU.length === 0){
-        document.getElementsByName("rateSets")[1].disabled = true
-        document.getElementsByName("rateSets")[0].click()
-    }
-    if(userI.rateU.length>0){for(let i=0;i<userI.rateU.length;i++){userI.rateU[i].ind=i}}
-
-    cleanParent(getID("rateSelect"))
-    addEle({dad:getID("rateSelect"),what:"option",text:"--Select--"})
-    addEle({dad:getID("rateSelect"),what:"option",text:"Basic ("+rateB.length+")"})
-    addEle({dad:getID("rateSelect"),what:"option",text:"Custom ("+ userI.rateU.length+")"})
-    getID("rateSelect").selectedIndex = userI.rateU.length > 0 ? 2 : 0
-
-    dispSelectedRate()
-    setTools()
-}
 
 function setUserDetails(){
 
@@ -1145,10 +1100,7 @@ function convertProjectLooper(itm, itmSrc,invQt){
 
 function getCurrItem(id){
     let idx = Number(id.split(":")[1])
-    let rate = undefined
-    let grp = document.getElementsByName("rateSets")
-    grp.forEach(it=>{if(it.checked){rate = it.value}})
-    let src = rate === "Basic" ? rateB : userI.rateU
+    src = getID("toggleCurrRate").checked ? userI.rateU : rateB
     return src.filter(x=>x.ind===idx)[0]
 }
 
@@ -1200,6 +1152,9 @@ function memoHis(e){
 function memoPrev(e){
     let idx = Number(e.srcElement.id.split(":")[1])
     let itm = getCurrItem(e.srcElement.id)
+
+   console.log(itm)
+    
     if(itm.orderMem.length === 0 || itm.orderIdx===undefined){return}
     itm.orderIdx = itm.orderIdx -1 < 0 ? 0 : itm.orderIdx -1
     getID("farmer:"+idx).value = itm.orderMem[itm.orderIdx].name
@@ -1237,12 +1192,7 @@ function upNeedRg(id){
     let pct1 = undefined
     let pct2 = undefined
     let inv = undefined
-
-    let rate = undefined
-    let grp = document.getElementsByName("rateSets")
-    grp.forEach(it=>{if(it.checked){rate = it.value}})
-    let src = rate === "Basic" ? rateB : userI.rateU
-    let itm = src.filter(x=>x.ind===idx)[0]
+    let itm = getCurrItem(id)
 
     if(testNum(userI.inventoryMax)){
         inv = userI.inventoryMax
