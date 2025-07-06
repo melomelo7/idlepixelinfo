@@ -1,6 +1,6 @@
 
 function setPage(){
-    let last = "Last up 2025 07/06 04:05"
+    let last = "Last up 2025 07/06 13:05"
     let from = userI.visuals.preset
 
     let contR = addEle({dad:body,setClass:"contRow",alignItems:"center",margin:"5px"})
@@ -234,10 +234,10 @@ function setToolsMemos(){
 
 function setRates(){
     let pop = getDialogTopFrame()
-    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px"})
+    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",minHeight:"450px"})
 
         addEle({dad:cont,backC:"rgb(45, 88, 128)",padding:"10px",border:"teal solid 2px",setID:"rateLbl",
-        radius:"8px",textA:"center",text:"xxxx"})
+        radius:"8px",textA:"center",minWidth:"320px"})
 
         let subC = addEle({dad:cont,setClass:"contRow",padding:"5px",alignItems:"center"})
             addEle({dad:subC,text:"Rate",setID:"rateCheck",margin:"0 10px",minWidth:"150px"})
@@ -534,7 +534,7 @@ function setUserDetails2(){
 
         let subC = addEle({dad:cont,setClass:"contCol",backC:"rgb(45, 88, 128)",width:"100%",
         borderB:"teal solid 2px",radiusTL:"7px",radiusTR:"7px",alignItems:"center",justifyC:"space-around"})
-            addEle({dad:subC,text:"User Details (Production & Masteries)",fontS:"20px",margin:"5px"})
+            addEle({dad:subC,text:"User Details (Production | Masteries)",fontS:"20px",margin:"5px"})
 
         let subC2 = addEle({dad:subC,setClass:"contRow",alignItems:"center",marginB:"10px"})
             addEle({dad:subC2,text:"Rate",setID:"detailsLbl",margin:"0 10px",minWidth:"150px",
