@@ -775,7 +775,7 @@ function setTools(){
     let tb = addEle({dad:tbC,what:"table"})
     let tr = addEle({dad:tb,what:"tr"})
     let itm = undefined
-    for(let i=0;i<arr.length;i++){
+    for(let i=0;i<arr.length;i++){ // for(let i=0;i<arr.length;i++){
         itm = arr.filter(x=>x.ind===i)[0]
         if(cpt % userI.toolPerLine ===0){tr = addEle({dad:tb,what:"tr"})}
         let tc = addEle({dad:tr,what:"td"})

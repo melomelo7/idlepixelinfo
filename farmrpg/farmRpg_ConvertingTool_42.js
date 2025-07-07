@@ -26,8 +26,10 @@ function setPage(){
 
 
 
-    //////////////////////////////////////////////////////////////////////////////////////
     let settingsFr = addEle({dad:body,setClass:"contCol",padding:"5px",width:"100%"})
+/*
+    //////////////////////////////////////////////////////////////////////////////////////
+
         let setTop = addEle({dad:settingsFr,setClass:"contRow",alignItems:"center",marginL:"5px"})
             addEle({dad:setTop,text: "User Settings "+spanText(yellowL,"⚙"),fontS:"20px",margin:"0 5px"})
             addEle({dad:setTop,text: spanText("lime","🔽",20),setClass:"arrowToggler",
@@ -36,7 +38,7 @@ function setPage(){
         addEle({dad:settingsFr,setClass:"contCol",borderL:yellowL+"solid 3px",minHeight:"30px",
         padding:"5px",display:"none",margin:"",setID:"settingsCont"})
     //////////////////////////////////////////////////////////////////////////////////////
-
+*/
     
 
     let subC = addEle({dad:settingsFr,setClass:"contRow",padding:"5px",alignItems:"center"})
@@ -77,27 +79,27 @@ let helpArr =[
 
     `},
     {label:"Tool Sets",text:
-    `The basic tool set gives the current options to allow every type of conversions at standard<br>
-     rates common to all players. If its too many tools to see at once OR if you would rather use<br>
-     a different rate than the usuals, make your own custom tool set under :<br>
+    `The basic tool set gives the current options to allow every type of conversions at standard
+     rates common to all players. If its too many tools to see at once OR if you would rather use
+     a different rate than the usuals, make your own custom tool set under :
      "User Settings" > "Rates/Ratios" > "Custom Rates"<br><br>
      You can Also try changing the Tools per Line under Settings ...`},
      {label:"Use Tools : Advertise",text:
      `Click one or more "Advertise" will generate a message you can bring in game chat.<br><br>
-      (Saved to clipboard, only need to paste in chat. Modify content if needed in any text tool<br>
-       or by opening a new message in your ingame message box, paste info and change it there ...<br>
+      (Saved to clipboard, only need to paste in chat. Modify content if needed in any text tool
+       or by opening a new message in your ingame message box, paste info and change it there ...
        then copy-paste again into the chat)`},
     {label:"Use Tools : Reset/all",text:
-    `Use the reset buttons to clean inputs rather than reloading (F5)<br>
+    `Use the reset buttons to clean inputs rather than reloading (F5)
     the webpage, as reloading the webpage will wipe out the Memos.
     `},
     {label:"Use Tools : Customer MB size",text:
-    `optional (part of Memo), when you need to pay goods back to customer, how<br>
-     many full MailBoxes and how much remaining on the final mailbox sending<br>
+    `optional (part of Memo), when you need to pay goods back to customer, how
+     many full Mailboxes and how much remaining on the final mailbox sending
      will be displayed in the "Payout Details" IF you provided the Customer MB size.
     `},
     {label:"Use Tools : Customer Name",text:
-    `optional (part of Memo), like advertising its another information that can be saved<br>
+    `optional (part of Memo), like advertising its another information that can be saved
     into the clipboard and then used with the "PING" to msg your customer in chat.
     `},
     {label:"Use Tools : Memo & Order",text:
@@ -175,8 +177,8 @@ function setToolsMemos(){
         let subC = addEle({dad:cont,setClass:"contRow",padding:"5px",
         alignItems:"center",justifyC:"space-around"})
             let txt =` 
-            Each tool is an item you convert<br>
-            PC screen to display more per line<br>
+            Each tool is an item you convert
+            PC screen to display more per line
             For mobile, rather set 1 only  ...
             `
             addEle({dad:subC,text:txt,padding:"5px",})
@@ -189,7 +191,7 @@ function setToolsMemos(){
         addEle({dad:cont,backC:"rgb(45, 88, 128)",padding:"5px",text:"Order Memos",
         margin:"10px 0",border:"teal solid 2px",radius:"8px",textA:"center"})
     
-        subC = addEle({dad:cont,setClass:"contRow",padding:"5px",
+        subC = addEle({dad:cont,setClass:"contRow",padding:"10px 5px",
         borderB:"teal dotted 2px",alignItems:"center",justifyC:"space-around"})
 
             addEle({dad:subC,text:"How many Memos you can keep",marginR:"10px"})
@@ -203,13 +205,13 @@ function setToolsMemos(){
         alignItems:"center",justifyC:"space-around"})
 
             txt = `
-            Auto-Save a Memo after `+spanText("cyan","X")+` seconds<br>
-            you started typing the order amount<br><br>
-            ( If the Auto-Save doesnt work well<br>
-            on your device or you prefer to<br>
+            Auto-Save a Memo after `+spanText("cyan","X")+` seconds
+            you started typing the order amount<br>
+            ( If the Auto-Save doesnt work well
+            on your device or you prefer to
             save manualy with a button, set to 0 )
             `
-            addEle({dad:subC,text:txt,marginR:"10px",textA:"center"})
+            addEle({dad:subC,text:txt,marginR:"10px",textA:""})
 
             addEle({dad:subC,what:"select",fontS:"16px",setID:"memoSselect",padding:"5px",
             backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white"})
