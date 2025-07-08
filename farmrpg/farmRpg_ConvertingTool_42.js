@@ -1,6 +1,6 @@
 
 function setPage(){
-    let last = "Last up 2025 07/07 01:30"
+    let last = "Last up 2025 07/08 14:10"
     let from = userI.visuals.preset
 
     let contR = addEle({dad:body,setClass:"contRow",alignItems:"center",margin:"5px"})
@@ -248,7 +248,7 @@ function setRates(){
             margin:"50px",setFunc:()=>{
                 let disp = getID("rateCheck")
                 if(getID("toggleRate").checked){
-                    disp.innerHTML = "Custome Rate ("+userI.rateU.length+")"
+                    disp.innerHTML = "Custom Rate ("+userI.rateU.length+")"
                     getID("addRbtn").style.visibility = "visible"
                     dispRateSet(userI.rateU)
                 } else {
@@ -375,7 +375,7 @@ function addRateSetup(){
 
         addEle({dad:cont,what:"select",fontS:"16px",setID:"rateTSelect",padding:"5px",marginT:"0",
         backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white",setFunc:testCalcAmt})
-            addEle({dad:getID("rateTSelect"),what:"option",text:"-- Convert What ? --"})
+            addEle({dad:getID("rateTSelect"),what:"option",text:"-- Select an Item to Convert --"})
             outputs.forEach(out=>{addEle({dad:getID("rateTSelect"),what:"option",text:out.type})})
 
         let subC = addEle({dad:cont,setClass:"contRow",alignItems:"center",justifyC:"space-around",
@@ -537,28 +537,30 @@ function setUserDetails2(){
 
         let subC = addEle({dad:cont,setClass:"contCol",backC:"rgb(45, 88, 128)",width:"100%",
         borderB:"teal solid 2px",radiusTL:"7px",radiusTR:"7px",alignItems:"center",justifyC:"space-around"})
-            addEle({dad:subC,text:"User Details (Production | Masteries)",fontS:"20px",margin:"5px"})
+            addEle({dad:subC,text:"",fontS:"20px",margin:"5px",setID:"userDTop"})
 
         let subC2 = addEle({dad:subC,setClass:"contRow",alignItems:"center",marginB:"10px"})
-            addEle({dad:subC2,text:"Rate",setID:"detailsLbl",margin:"0 10px",minWidth:"150px",
+            addEle({dad:subC2,text:"Rate",setID:"detailsLbl",margin:"5px 10px",minWidth:"150px",
             minWidth:"180px",textA:"right"})
             addEle({dad:subC2,what:"checkbox",isInput:true,setID:"detailsCheck",setClass:"toggle-checkbox",
             margin:"50px",setFunc:()=>{
                 let workC = getID("dispUser")
                 cleanParent(workC)
-
+                let top = getID("userDTop")
                 let disp = getID("detailsLbl")
                 if(getID("detailsCheck").checked){
+                    top.innerHTML = "User Details (Production | "+spanText("yellow","Masteries","",false,"dotted yellow 2px")+")"
                     disp.innerHTML = "Mega Masteries"
                     arr = userI.mms
                     arr.forEach(itm=>{
                         let subC = addEle({dad:workC,setClass:"contRow"})
-                            addEle({dad:subC,text:"[MM]🟢 "})
-                            addEle({dad:subC,text:itm.label + " : ",minWidth:"85px",textA:"center"})
+                            addEle({dad:subC,text:"[MM]"})
+                            addEle({dad:subC,text:itm.label + " : ",minWidth:"85px",textA:"right",padding:"0 5px"})
                             addEle({dad:subC,text:itm.progress.toLocaleString(),minWidth:"80px",textA:"center"})
                             addEle({dad:subC,text:"/"+(1000000).toLocaleString()})
                     })
                 } else {
+                    top.innerHTML = "User Details ("+spanText("yellow","Production","",false,"dotted yellow 2px")+" | Masteries)"
                     disp.innerHTML = "Inventory & Production"
                     arr = [
                         {label:"Current Max Inventory",val:userI.inventoryMax},
@@ -570,8 +572,8 @@ function setUserDetails2(){
                         ]
                     arr.forEach(itm=>{
                         let subC = addEle({dad:workC,setClass:"contRow"})
-                            txt = itm.label.includes("total") ? "---- " : "🟢 "
-                            addEle({dad:subC,text:txt})
+                    //        txt = itm.label.includes("total") ? "---- " : "🟢 "
+                      //      addEle({dad:subC,text:txt})
                             addEle({dad:subC,text:itm.label+" : ",minWidth:"200px",textA:"right",paddingR:"10px"})
                             addEle({dad:subC,text:itm.val,minWidth:"60px",textA:"center"})
                     })
@@ -684,10 +686,9 @@ function userUpdate(){
         
     subC = addEle({dad:cont,setClass:"contRow",justifyC:"space-around",width:"100%",margin:"10px 0"})
         addEle({dad:subC,setClass:"btn",text:"Update",minWidth:"100px",setFunc:(e)=>{updateInvProdMM(e,info)}})
-        addEle({dad:subC,setClass:"btn",text:"Cancel / Close",minWidth:"100px",
-        setFunc:()=>{pop2.remove()}})
-
-        
+        addEle({dad:subC,setClass:"btn",text:"Cancel / Close",minWidth:"100px",setFunc:()=>{
+            let ev = new Event("change") ; getID("detailsCheck").dispatchEvent(ev)
+            pop2.remove()}})
 
     pop2.showModal()
 
