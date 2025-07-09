@@ -214,7 +214,7 @@ function infoBox(info,txtCol="",closeFunc=undefined){
 }
 
 function setPage(){
-    let last = "Last up 2025 07/10 02:10"
+    let last = "Last up 2025 07/10 06:35"
     let from = userI.visuals.preset
 
     let contR = addEle({dad:body,setClass:"contRow",alignItems:"center",margin:"5px"})
@@ -735,6 +735,7 @@ function setUserDetails2(){
         let subC0 = addEle({dad:subC,setClass:"contRow",padding:"5px",alignItems:"center",justifyC:"space-around"})
             addEle({dad:subC0,text:"",fontS:"20px",margin:"5px",setID:"userDTop"})
             addEle({dad:subC0,setClass:"btn",text:"❌",setFunc:()=>{
+                setTools()
                 getID("settingsSelect").selectedIndex = 0 ; 
                 pop.remove()
             }})
@@ -763,12 +764,12 @@ function setUserDetails2(){
                     top.innerHTML = "User Details ("+spanText("yellow","Production","",false,"dotted yellow 2px")+" | Masteries)"
                     disp.innerHTML = "Inventory & Production"
                     arr = [
-                        {label:"Current Max Inventory",val:userI.inventoryMax},
+                        {label:"Current Max Inventory",val:userI.inventoryMax.toLocaleString()},
                         {label:"Resource Saver Perk",val:userI.resSaver+" %"},
-                        {label:"Fruits daily production",val:userI.fruitsProd},
-                        {label:"Fruits total production",val:userI.fruitsTot},
-                        {label:"Antlers daily production",val:userI.antlersProd},
-                        {label:"Nets total production",val:userI.netsTot}
+                        {label:"Fruits daily production",val:userI.fruitsProd.toLocaleString()},
+                        {label:"Fruits total production",val:userI.fruitsTot.toLocaleString()},
+                        {label:"Antlers daily production",val:userI.antlersProd.toLocaleString()},
+                        {label:"Nets total production",val:userI.netsTot.toLocaleString()}
                         ]
                     arr.forEach(itm=>{
                         let subC = addEle({dad:workC,setClass:"contRow"})
@@ -1048,7 +1049,7 @@ function compareSaves(){
             }})
 
             addEle({dad:subC,setClass:"btn",text:"❌",setFunc:()=>{
-                getID("settingsSelect").selectedIndex = 0 ; 
+                getID("settingsSelect").selectedIndex = 0 ;
                 pop.remove()
             }})
 
