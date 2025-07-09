@@ -214,7 +214,7 @@ function infoBox(info,txtCol="",closeFunc=undefined){
 }
 
 function setPage(){
-    let last = "Last up 2025 07/10 02:00"
+    let last = "Last up 2025 07/10 02:10"
     let from = userI.visuals.preset
 
     let contR = addEle({dad:body,setClass:"contRow",alignItems:"center",margin:"5px"})
