@@ -364,8 +364,6 @@ function setToolsMemos(){
         let subC = addEle({dad:cont,setClass:"contRow",padding:"5px",border:"teal solid 2px",radius:"8px",
         alignItems:"center",justifyC:"space-around",backC:"rgb(45, 88, 128)"})
             addEle({dad:subC,text:"Tools per Line",textA:"center",marginL:"150px"})
-
-
             addEle({dad:subC,setClass:"btn",text:"Update",marginT:"0", 
             setFunc:()=>{
     
@@ -378,8 +376,6 @@ function setToolsMemos(){
                 setTools() ;
                 pop.remove()
             }})
-    
-
             addEle({dad:subC,setClass:"btn",text:"❌",margin:"0 0 5px 0",setFunc:()=>{
                 getID("settingsSelect").selectedIndex = 0 ; 
                 pop.remove()
