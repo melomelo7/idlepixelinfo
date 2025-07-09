@@ -214,7 +214,7 @@ function infoBox(info,txtCol="",closeFunc=undefined){
 }
 
 function setPage(){
-    let last = "Last up 2025 07/10 01:45"
+    let last = "Last up 2025 07/10 01:55"
     let from = userI.visuals.preset
 
     let contR = addEle({dad:body,setClass:"contRow",alignItems:"center",margin:"5px"})
@@ -363,7 +363,23 @@ function setToolsMemos(){
 
         let subC = addEle({dad:cont,setClass:"contRow",padding:"5px",border:"teal solid 2px",radius:"8px",
         alignItems:"center",justifyC:"space-around",backC:"rgb(45, 88, 128)"})
-            addEle({dad:subC,text:"Tools per Line",width:"90%",textA:"center"})
+            addEle({dad:subC,text:"Tools per Line",textA:"center",marginL:"150px"})
+
+
+            addEle({dad:subC,setClass:"btn",text:"Update",marginT:"0", 
+            setFunc:()=>{
+    
+                userI.toolPerLine = Number(getID("tplSelect").value)
+    
+                userI.memoCap = Number(getID("memoCselect").value)
+                userI.memoTimer = Number(getID("memoSselect").value)
+                userI.memoType = userI.memoTimer === 0 ? "manual" : "auto"
+                getID("settingsSelect").selectedIndex = 0 ; 
+                setTools() ;
+                pop.remove()
+            }})
+    
+
             addEle({dad:subC,setClass:"btn",text:"❌",margin:"0 0 5px 0",setFunc:()=>{
                 getID("settingsSelect").selectedIndex = 0 ; 
                 pop.remove()
@@ -413,18 +429,6 @@ function setToolsMemos(){
             for(let i=0;i<=10;i++){addEle({dad:getID("memoSselect"),what:"option",text:i})}
             getID("memoSselect").selectedIndex = userI.memoTimer
 
-        addEle({dad:pop,setClass:"btn",text:"Update",width:"50%",marginT:"20px", 
-        setFunc:()=>{
-
-            userI.toolPerLine = Number(getID("tplSelect").value)
-
-            userI.memoCap = Number(getID("memoCselect").value)
-            userI.memoTimer = Number(getID("memoSselect").value)
-            userI.memoType = userI.memoTimer === 0 ? "manual" : "auto"
-            getID("settingsSelect").selectedIndex = 0 ; 
-            setTools() ;
-            pop.remove()
-        }})
 
     pop.showModal()
 
