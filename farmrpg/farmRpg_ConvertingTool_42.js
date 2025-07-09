@@ -1188,7 +1188,7 @@ function setDeleteFrame(){
 
     let subC = addEle({dad:cont,setClass:"contCol",marginT:"40px"})
         let subC2 = addEle({dad:subC,setClass:"contRow",margin:"40px 0",alignItems:"center"})
-            addEle({dad:subC2,setClass:"btn",text:"⚠️ Delete User Settings ⚠️",margin:"20px 5px 20px 20px",
+            addEle({dad:subC2,setClass:"btn",padding:"10px",text:"⚠️<br>Delete User Settings<br>⚠️",margin:"20px 5px 20px 20px",
             minWidth:"200px",fontS:"26px",setFunc:()=>{
                 let key = "farmRPGCustomConvertingV2"
                 localStorage.removeItem(key)
