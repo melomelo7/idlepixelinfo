@@ -214,7 +214,7 @@ function infoBox(info,txtCol="",closeFunc=undefined){
 }
 
 function setPage(){
-    let last = "Last up 2025 07/09 23:30"
+    let last = "Last up 2025 07/10 01:15"
     let from = userI.visuals.preset
 
     let contR = addEle({dad:body,setClass:"contRow",alignItems:"center",margin:"5px"})
@@ -241,19 +241,6 @@ function setPage(){
 
 
     let settingsFr = addEle({dad:body,setClass:"contCol",padding:"5px",width:"100%"})
-
-    //////////////////////////////////////////////////////////////////////////////////////
-/*
-        let setTop = addEle({dad:settingsFr,setClass:"contRow",alignItems:"center",marginL:"5px"})
-            addEle({dad:setTop,text: "User Settings "+spanText(yellowL,"⚙"),fontS:"20px",margin:"0 5px"})
-            addEle({dad:setTop,text: spanText("lime","🔽",20),setClass:"arrowToggler",
-                    setFunc:(e)=>{arrowContToggler(e,"settingsCont",setSettings)}})
-            
-        addEle({dad:settingsFr,setClass:"contCol",borderL:yellowL+"solid 3px",minHeight:"30px",
-        padding:"5px",display:"none",margin:"",setID:"settingsCont"})
-    //////////////////////////////////////////////////////////////////////////////////////
-*/
-    
 
     let subC = addEle({dad:settingsFr,setClass:"contRow",padding:"5px",alignItems:"center"})
         addEle({dad:subC,text:"Rate Set Currently Used : ",marginL:"5px",fontS:"20px"})
@@ -344,18 +331,8 @@ let helpArr =[
     ]
 
 function getDialogTopFrame(cxlEsc=true){
-
-    /*
-    let Obj = addEle({dad:body,what:"dialog",maxWidth:"70%",radius:"20px",
-    backC:"black",textC:"white",display:"flex",flDir:"column",opacity:0.9,
-    alignItems:"center",border:"teal solid 3px",padding:"5px 0"})
-    */
-
     let Obj = addEle({dad:body,what:"dialog",setClass:"myDialog"})
-
-
     if(cxlEsc){ Obj.addEventListener('keydown', (e)=>{ if (e.key === 'Escape'){e.preventDefault()} }) }
-
     return Obj
 }
 
@@ -459,7 +436,7 @@ function setRates(){
         
         let subC = addEle({dad:cont,setClass:"contRow",padding:"0 0 5px 0",alignItems:"center",justifyC:"space-around",
         backC:"rgb(45, 88, 128)",border:"teal solid 2px",radius:"8px",})
-            addEle({dad:subC,padding:"10px",setID:"rateLbl",textA:"center",minWidth:"320px"})
+            addEle({dad:subC,padding:"10px",setID:"rateLbl",textA:"center",}) //minWidth:"320px"
             
             addEle({dad:subC,setClass:"btn",text:"❌",setFunc:()=>{
                 getID("settingsSelect").selectedIndex = 0 ; 
@@ -898,7 +875,6 @@ function userUpdate(){
                         let disp = getID(e.srcElement.id+"G") 
                         if(testNum(e.srcElement.value)){
                             disp.innerHTML = "✅"
-//                            reviewProductionChg()
                         } else {disp.innerHTML = "⛔"}
                         setTimeout(()=>{disp.innerHTML = ""},1000)
                         }})
@@ -1061,7 +1037,6 @@ function compareSaves(){
         borderB:"teal solid 2px",radiusTL:"7px",radiusTR:"7px",alignItems:"center",justifyC:"space-around"})
             addEle({dad:subC,text:"Check User Settings",fontS:"20px",marginR:"5px",width:"100%",textA:"center"})
 
-
             addEle({dad:subC,setClass:"btn",text:"Save",textA:"left",paddingL:"5px",minWidth:"70px",
             minHeight:"26px",display:"flex",alignItems:"center" ,setFunc:(e)=>{ //  User Details
                 let bt = e.srcElement
@@ -1070,10 +1045,7 @@ function compareSaves(){
                 localStorage.setItem(key,mySave)
                 bt.innerHTML = "Save ✅"
                 setTimeout(()=>{bt.innerHTML = "Save"},1000)
-
             }})
-
-
 
             addEle({dad:subC,setClass:"btn",text:"❌",setFunc:()=>{
                 getID("settingsSelect").selectedIndex = 0 ; 
@@ -1205,117 +1177,8 @@ function setDeleteFrame(){
         pop.showModal()    
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-function setSettings(){
-    let workC = getID("settingsCont")
-    cleanParent(workC)
-    let subC = undefined
-    let inC = undefined
-    let cont = undefined
-
-    let from = userI.visuals.preset
-
-
-    cont = addEle({dad:workC,setClass:"contCol",alignItems:"center",margin:"5px 10px",width:"fit-content",
-    border:"teal solid 2px",radius:"10px"})
-        addEle({dad:cont,text:"Tools per Line",backC:"rgb(45, 88, 128)",padding:"5px",
-        radiusTL:"8px",radiusTR:"8px",borderB:"teal solid 2px"})
-        addEle({dad:cont,what:"input",isInput:true,setVal: userI.toolPerLine,textA:"center",
-        margin:"5px 0",width:"50px",setFunc:(e)=>{changeToolsCount(e)}})
-
-    subC = addEle({dad:workC,setClass:"contCol",border:"teal solid 2px",
-    radius:"10px",margin:"10px",width:"fit-content"})
-        addEle({dad:subC,text:"Order Memos",backC:"rgb(45, 88, 128)",radiusTL:"7px",radiusTR:"7px",
-        padding:"5px",textA:"center",borderB:"teal solid 2px"})
-
-        cont = addEle({dad:subC,setClass:"contRow",justifyC:"center",borderB:"teal dotted 2px",padding:"10px 0 5px 0"})
-            addEle({dad:cont,text:"History Count :",padding:"5px",display:"flex",alignItems:"center",
-            textA:"center",marginL:"10px"})
-            addEle({dad:cont,what:"input",isInput:true,setVal: userI.memoCap,textA:"center",height:"20px",
-            width:"30px",setFunc:(e)=>{changeMemoCap(e)}})
-
-        cont = addEle({dad:subC,setClass:"contCol",marginL:"10px",paddingL:"5px"})
-            inC = addEle({dad:cont,setClass:"contRow",alignItems:"center"})
-                addEle({dad:inC,what:"radio",isInput:true,setName:"memoType",setVal:"auto",accentCol:"green",
-                setFunc:(e)=>{userI.memoType = e.srcElement.value ; setTools()}})
-                addEle({dad:inC,text:"Auto-Memo after X seconds<br>you started typing Order, X =",
-                margin:"5px 10px",textA:"center"})
-                addEle({dad:inC,what:"input",isInput:true,setVal: userI.memoTimer,textA:"center",
-                width:"20px",height:"20px",setFunc:(e)=>{changeMemoTime(e)}})
-
-            inC = addEle({dad:cont,setClass:"contRow"})
-                addEle({dad:inC,what:"radio",isInput:true,setName:"memoType",setVal:"manual",accentCol:"green",
-                setFunc:(e)=>{userI.memoType = e.srcElement.value ; setTools()}})
-                addEle({dad:inC,text:"Add a button to Manualy Save Memos",margin:"5px 10px",textA:"center"})
-        document.getElementsByName("memoType").forEach(el=>{if(el.value === userI.memoType){el.checked = true}})
-
-
-    addEle({dad:workC,setClass:"contRow",alignItems:"center",marginB:"10px",setID:"ratesTgl"})
-            subC = addEle({dad:getID("ratesTgl"),setClass:"contRow",minWidth:"95px",justifyC:"right",
-            padding:"5px"})
-            addEle({dad:subC,text: "Rates / Ratios",borderB:purple+" 2px dotted"})
-        addEle({dad:getID("ratesTgl"),text: spanText("lime","🔽",16),setClass:"arrowToggler",
-        border:purple+" solid 2px",margin:"0 10px",setFunc:(e)=>{arrowContToggler(e,"ratesCont",setRatesCont)}})
-    addEle({dad:workC,setClass:"contCol",alignItems:"center",margin:"5px",borderL:"dotted 3px teal",
-    display:"none",setID:"ratesCont",width:"fit-content"})
-
-    
-    addEle({dad:workC,setClass:"contRow",alignItems:"center",marginL:"",setID:"userDTgl"})
-        subC = addEle({dad:getID("userDTgl"),setClass:"contRow",minWidth:"95px",justifyC:"right",
-            padding:"5px"})
-            addEle({dad:subC,text: "User Details",borderB:purple+" 2px dotted"})
-        addEle({dad:getID("userDTgl"),text: spanText("lime","🔽",16),setClass:"arrowToggler",
-        border:purple+" solid 2px",margin:"0 10px",setFunc:(e)=>{arrowContToggler(e,"userDcont",setUserDetails)}})
-    addEle({dad:workC,setClass:"contCol",margin:"5px",borderL:"dotted 3px teal",
-    display:"none",setID:"userDcont",width:"fit-content"})
-
-        cont = addEle({dad:workC,setClass:"contRow",alignItems:"center",width:"fit-content"})
-        addEle({dad:cont,setClass:"btn",text:"Check / Save User Settings 🔽",margin:"10px 0",
-        backC:from.buttonBackC,setID:"checkSavBtn",setFunc:setUserSav})
-
-        addEle({dad:cont,setClass:"btn",text:"Delete User Settings",minWidth:"160px",marginL:"50px",backC:from.buttonBackC,
-        setFunc:removeKey})
-    
-        addEle({dad:cont,marginL:"20px",textC:purple,setID:"info"})
-
-
-    addEle({dad:workC,setClass:"contCol",marginL:"10px",padding:"5px",height:"fit-content",
-    width:"fit-content",display:"none",setID:"savCont",alignItems:"center"})
-}
-*/
-
-
-
-
-
-
-
-
-
 loadSav()
 setPage()
-
-
 
 /*
 txt = `Dear Users,<br><br>I plan to change `+spanText(green,"[ Infos ]")+` display type...<br><br>
