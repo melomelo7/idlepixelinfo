@@ -363,7 +363,7 @@ function setToolsMemos(){
 
         let subC = addEle({dad:cont,setClass:"contRow",padding:"5px",border:"teal solid 2px",radius:"8px",
         alignItems:"center",justifyC:"space-around",backC:"rgb(45, 88, 128)"})
-            addEle({dad:subC,text:"Tools per Line",textA:"center",marginL:"100px"})
+            addEle({dad:subC,text:"Tools per Line",textA:"center",marginL:"80px"})
             addEle({dad:subC,setClass:"btn",text:"Update",marginT:"0", 
             setFunc:()=>{
     
