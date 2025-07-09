@@ -214,7 +214,7 @@ function infoBox(info,txtCol="",closeFunc=undefined){
 }
 
 function setPage(){
-    let last = "Last up 2025 07/10 01:15"
+    let last = "Last up 2025 07/10 01:35"
     let from = userI.visuals.preset
 
     let contR = addEle({dad:body,setClass:"contRow",alignItems:"center",margin:"5px"})
@@ -446,7 +446,7 @@ function setRates(){
         subC = addEle({dad:cont,setClass:"contRow",padding:"5px",alignItems:"center"})
             addEle({dad:subC,text:"Rate",setID:"rateCheck",margin:"0 10px",minWidth:"150px"})
             addEle({dad:subC,what:"checkbox",isInput:true,setID:"toggleRate",setClass:"toggle-checkbox",
-            margin:"50px",setFunc:()=>{
+            margin:"0 20px",setFunc:()=>{
                 let disp = getID("rateCheck")
                 if(getID("toggleRate").checked){
                     disp.innerHTML = "Custom Rate ("+userI.rateU.length+")"
@@ -458,10 +458,10 @@ function setRates(){
                     dispRateSet(rateB)
                 }
                 
-                getID("rateLbl").innerHTML = "Rates / Ratios (Basic : 6 | Custom : "+userI.rateU.length+")"
+                getID("rateLbl").innerHTML = "Rates (Basic : 6 | Custom : "+userI.rateU.length+")"
             }})
             addEle({dad:subC,what:"label",setFor:"toggleRate",setClass:"toggle-label",marginR:"30px"})
-            addEle({dad:subC,setClass:"btn",text:"Add new rate",visibility:"hidden",setID:"addRbtn",setFunc:addRateSetup})
+            addEle({dad:subC,setClass:"btn",text:"Add",visibility:"hidden",setID:"addRbtn",setFunc:addRateSetup})
 
             addEle({dad:cont,setClass:"contCol",setID:"dispRates",minHeight:"300px",maxHeight:"350px",overflowX:"hidden"})
 
