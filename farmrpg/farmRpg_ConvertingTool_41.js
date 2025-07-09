@@ -1,96 +1,11 @@
 
-const body = document.querySelector("body")
 
-const srcImgs = "https://farmrpg.com/img/items/"
 
-const outputs = [
-    {label:"OJ",type:"OJ from Oranges",rate:"3:1",friend:"4.13:1",img1:"orange.png",img2:"orangejuice.png",
-    chat1:"((Orange))",chat2:"((Orange Juice))",loopBase:10},
 
-    {label:"Lemonade",type:"Lemonade from Lemons",rate:"3:1",friend:"4.13:1",img1:"8251.PNG",img2:"lemonade.png",
-    chat1:"((Lemon))",chat2:"((Lemonade))",loopBase:10},
 
-    {label:"AP",type:"AP from Lemons",rate:"30:1",friend:"57:1",img1:"8251.PNG",img2:"ap.png",
-    chat1:"((Lemon))",chat2:"((Arnold Palmer))",loopBase:63},
 
-    {label:"AP",type:"AP from Lemonades",rate:"1000:80",friend:"1000:72.5",img1:"lemonade.png",img2:"ap.png",
-    chat1:"((Lemonade))",chat2:"((Arnold Palmer))",loopBase:133},
 
-    {label:"LN",type:"LN from FN (fishing nets)",rate:"1000:70",friend:"1000:58",img1:"7748.png",img2:"lnet.png",
-    chat1:"((Fishing Net))",chat2:"((Large Net))",loopBase:83},
-
-    {label:"Cider",type:"Cider from Apples (and Oranges)",rate:"20:1",friend:"27.7:1",img1:"8297.png",img2:"8984.png",
-    chat1:"((Apple))",chat2:"((Apple Cider))",loopBase:72},
-]
-
-const roundings = ["Up","Down","Closest 5"]
-
-let eventRatio = [0,10,14,20]
-
-const rateB =[
-{ind:0,label:"OJ",type:"OJ from Oranges",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false},
-{ind:1,label:"Lemonade",type:"Lemonade from Lemons",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false},
-{ind:2,label:"AP",type:"AP from Lemons",rate:"30:1",bonus:0,rounding:roundings[0],orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false},
-{ind:3,label:"LN",type:"LN from FN (fishing nets)",rate:"1000:70",bonus:0,rounding:roundings[0],orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false},
-{ind:4,label:"Cider",type:"Cider from Apples (and Oranges)",rate:"20:1",bonus:0,rounding:roundings[0],orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false},
-{ind:5,label:"AP",type:"AP from Lemonades",rate:"1000:80",bonus:0,rounding:roundings[0],orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false},
-]
-
-let pageVer = "2.0"
-
-let userI = {
-    pageV:"2.0",
-    currentSet:"Basic",
-    rateU:[],
-    toolPerLine:2,
-    memoCap:10,
-    memoTimer:3,
-    memoType:"auto",
-    inventoryMax:200,
-    fruitsProd:7800,
-    fruitsArte:false,
-    fruitsTot:0,
-    antlersProd:0,
-    antlersArte:false,
-    netsTot:0,
-    resSaver:45,
-    resCraft:1.45,
-    mms:[
-        {label:"OJ",img:"orangejuice.png",progress:0},
-        {label:"Lemonade",img:"lemonade.png",progress:0},
-        {label:"LN",img:"lnet.png",progress:0},
-        {label:"Cider",img:"8984.png",progress:0},
-        {label:"AP",img:"ap.png",progress:0},
-    ],
-    visuals:{
-        preset:{
-            pageBackC:"black",
-            pagebackG:"",
-            text:"white",
-            buttonBackC:"rgb(49,75,134)",
-            buttonTextC:"white",
-            inputTextC:"green",
-        },
-
-    },
-}
-
-loadSav()
-
-let lnk = undefined
-
-let purple = "rgb(185, 76, 185)"//"rgb(226, 72, 226)"
-let green = "rgb(18, 184, 18)"
-let yellow = "rgb(184, 184, 27)"
-let brown = "rgb(160, 107, 9)"
-let yellowL = "rgb(212, 212, 74)"
-
+/*
 let help = [
     ``,
     `Amount of items received divided by [left]<br> value multiplied by [right] value`,
@@ -100,43 +15,43 @@ let help = [
     `** Find Value on page<br> "Home > My Farm > Orchard"`,
     `** Find Value on page<br> "Home > My Farm > Raptor Pen"`,
 ]
+*/
 
-function infoBox(info,txtCol="",closeFunc=undefined){
-    let pop = addEle({dad:body,what:"dialog",maxWidth:"70%",radius:"20px",
-    backC:"black",textC:"white",display:"flex",flDir:"column",opacity:0.9,
-    alignItems:"center",border:"teal solid 3px"})
-        addEle({dad:pop,text:info,textC:txtCol})
-        addEle({dad:pop,setClass:"btn",text:"OK",width:"50%",
-        marginT:"20px", setFunc:()=>{if(closeFunc){closeFunc()} ; pop.remove()}})
-    pop.showModal()
-}
 
+/*
 function showInfo(msg,dur=1000,col="",defCont=getID("info")){
     defCont.innerHTML = col==="" ? msg : spanText(col,msg)
     setTimeout(()=>{defCont.innerHTML=""},dur)
 }
+*/
 
 
-function testNum(num,zeroGood=false){
-    let test = true
 
-    if(!isNaN(num)){
-        let val = Number(num)
-        if(val===0 && !zeroGood){test=false}
-    } else {test=false}
 
-    return test
+/*
+function testValNum(e,testId,prog=false){
+    let val = e.srcElement.value
+    if(testNum(val)){
+        getID(testId).innerHTML = "✅"
+        if(prog){
+            val = Number(val) / 1000000 *100
+            val = val > 100 ? 100 : val
+            getID(e.srcElement.id+"p").style.width = val.toFixed(2)+"px"
+            getID(e.srcElement.id+"p").style.backgroundColor = val === 100 ? "brown" : yellow
+            getID(e.srcElement.id+"lb").setAttribute("class",val===100?"crossedTxt":"")
+        }
+    } else {
+        getID(testId).innerHTML = "⛔"
+        if(prog){
+            getID(e.srcElement.id+"p").style,width = "0px"
+            getID(e.srcElement.id+"p").style.backgroundColor = yellow
+            getID(e.srcElement.id+"lb").setAttribute("class","")
+        }
+    } 
+    if(getID("savCont").style.display === "flex"){getID("savCont").style.display = "none"}
+    updateUserDetails()
 }
-
-function arrowContToggler(e,tgtId,tgtFunc=undefined){
-    let el = e.srcElement ; let disp = el.innerHTML ; let tgt = getID(tgtId)
-    switch(disp){
-        case "🔽":tgt.style.display = "flex" ; el.innerHTML = "🔼" ; if(tgtFunc){tgtFunc()} ;break
-        case "🔼":tgt.style.display = "none" ; el.innerHTML = "🔽" ; break
-    }
-}
-
-
+*/
 
 /*
 function changeToolsCount(e){
@@ -147,21 +62,25 @@ function changeToolsCount(e){
 }
 */
 
-
+/*
 function changeMemoCap(e){
     let val = e.srcElement.value
     if(testNum(val))
          {userI.memoCap = Math.floor(Number(val)) ; setTools()}
     else {info.innerHTML = "Input Error" ; setTimeout(()=>{info.innerHTML =""},1000)}
 }
+*/
 
+/*
 function changeMemoTime(e){
     let val = e.srcElement.value
     if(testNum(val))
          {userI.memoTimer = Math.floor(Number(val)) ; setTools()}
     else {info.innerHTML = "Input Error" ; setTimeout(()=>{info.innerHTML =""},1000)}
 }
+*/
 
+/*
 function rateSelection(){
     let grp = document.getElementsByName("rateSets")
     grp.forEach(it=>{
@@ -172,7 +91,8 @@ function rateSelection(){
     if(userI.rateU.length===0){grp[1].disabled = true}
     setTools()
 }
-
+*/
+/*
 function setRatesCont(){
 
     let from = userI.visuals.preset
@@ -195,7 +115,8 @@ function setRatesCont(){
     addEle({dad:subC1,setClass:"btn",text:txt,minWidth:"160px",margin:"10px 0",backC:from.buttonBackC,
     setID:"customBtn",setFunc:setCustomBuilder})    
 }
-
+*/
+/*
 function setCustomBuilder(){
     let workC = getID("rateC2Top")
     cleanParent(workC)
@@ -274,7 +195,9 @@ function setCustomBuilder(){
     document.getElementsByName("customTypes")[0].click()
     document.getElementsByName("customRoundings")[0].click()
 }
+*/
 
+/*
 function addCustomRate(){
     if(testNum(getID("customR1").value) && 
        testNum(getID("customR2").value) && 
@@ -305,7 +228,9 @@ function addCustomRate(){
     setTools()
     }
 }
+*/
 
+/*
 function customTypeSelection(){
     let grp = document.getElementsByName("customTypes")
     grp.forEach(it=>{
@@ -319,7 +244,9 @@ function customTypeSelection(){
         }
     })
 }
+*/
 
+/*
 function customRoundingSelection(){
     let grp = document.getElementsByName("customRoundings")
     grp.forEach(it=>{
@@ -327,7 +254,9 @@ function customRoundingSelection(){
         calcTestR()
     })
 }
+*/
 
+/*
 function calcTestR(){
     let val = Number(getID("customTest").value)
     let valD = Number(getID("customR1").value)
@@ -343,36 +272,12 @@ function calcTestR(){
     else
         {getID("customTestR").innerHTML = spanText(purple,"Input Error")}
 }
+*/
 
-function calcConvert(amtV,amtD,amtM,amtB,amtR){
-    let send = {pay:undefined,bon:undefined,payR:undefined,bonR:undefined}
-    send.pay = amtV / amtD * amtM
-    send.bon = send.pay * amtB /100
-    switch(amtR)
-       {case "Up" : send.payR = Math.ceil(send.pay) ; send.bonR = Math.ceil(send.bon) ; break
-        case "Down" : send.payR = Math.floor(send.pay) ; send.bonR = Math.floor(send.bon) ; break
-        case "Closest 5" : send.payR = round5(send.pay) ; send.bonR = round5(send.bon) ; break}
-    return send
-}
 
-function round5(val){
-    let rVal = Math.floor(Number(val))
-    if(rVal!==0){
-        let nbStr = rVal.toString()
-        let dgt = Number(nbStr.slice(-1))
-            
-        if(dgt>0){
-            switch(dgt){
-                case 1 : case 2 : rVal = (rVal-dgt); break
-                case 3 : case 4 : rVal = (rVal+(5-dgt)); break
-                case 6 : case 7 : rVal = (rVal+(5-dgt)); break
-                case 8 : case 9 : rVal = (rVal+(10-dgt)); break
-            }
-        }
-    }
-    return rVal
-}
 
+
+/*
 function dispRates(basic=true){
     let workC = getID("rateC2Btm")
     cleanParent(workC)
@@ -404,10 +309,10 @@ function dispRates(basic=true){
         addEle({dad:cont,setClass:"rating",text:"rounding : "+itm.rounding})
     }
 }
+*/
 
 
-
-
+/*
 function setUserDetails(){
 
     if(getID("savCont").style.display==="flex"){getID("savCont").style.display="none"}
@@ -488,30 +393,12 @@ function setUserDetails(){
     if(userI.fruitsArte){getID("userArte1").checked=true}
     if(userI.antlersArte){getID("userArte2").checked=true}
 }
+*/
 
-function testValNum(e,testId,prog=false){
-    let val = e.srcElement.value
-    if(testNum(val)){
-        getID(testId).innerHTML = "✅"
-        if(prog){
-            val = Number(val) / 1000000 *100
-            val = val > 100 ? 100 : val
-            getID(e.srcElement.id+"p").style.width = val.toFixed(2)+"px"
-            getID(e.srcElement.id+"p").style.backgroundColor = val === 100 ? "brown" : yellow
-            getID(e.srcElement.id+"lb").setAttribute("class",val===100?"crossedTxt":"")
-        }
-    } else {
-        getID(testId).innerHTML = "⛔"
-        if(prog){
-            getID(e.srcElement.id+"p").style,width = "0px"
-            getID(e.srcElement.id+"p").style.backgroundColor = yellow
-            getID(e.srcElement.id+"lb").setAttribute("class","")
-        }
-    } 
-    if(getID("savCont").style.display === "flex"){getID("savCont").style.display = "none"}
-    updateUserDetails()
-}
 
+
+
+/*
 function updateUserDetails(){
     let val = undefined
     let inv = undefined
@@ -558,7 +445,9 @@ function updateUserDetails(){
     setTools()
 
 }
+*/
 
+/*
 function setUserSav(){
     let workC = getID("savCont")
     let from = userI.visuals.preset
@@ -583,21 +472,22 @@ function setUserSav(){
         let mySave = localStorage.getItem(key)
         if(mySave){
             let savOld = JSON.parse(mySave)
-            getSavBuild(oldSC,savOld)
+       //     getSavBuild(oldSC,savOld)
         } else {
             let cont = addEle({dad:oldSC,setClass:"contCol",justifyC:"center",height:"100%"})
                 let txt = "No<br><br>Previous<br><br>Save"
                 addEle({dad:cont,text:txt,textC:purple,fontS:"30px",width:"280px"})
         }
         
-        getSavBuild(newSC,userI)
+     //   getSavBuild(newSC,userI)
 
         addEle({dad:workC,setClass:"btn",backC:"teal",text:"Save New User Settings",width:"100%",backC:from.buttonBackC,
         marginT:"10px",setFunc:()=>{getID("checkSavBtn").click() ; saveToBrowser(undefined,4000)}})
     
     } else {workC.style.display="none"}
 }
-
+*/
+/*
 function saveToBrowser(msg=undefined,dur=1000){
     let txt = msg === undefined ? "User Settings Saved ✅" : msg
     let key = "farmRPGCustomConvertingV2"
@@ -605,7 +495,7 @@ function saveToBrowser(msg=undefined,dur=1000){
     localStorage.setItem(key,mySave)
     showInfo(txt,dur)
 }
-
+*/
 
 
 /*
@@ -623,7 +513,7 @@ function saveToBrowserOld(msg=undefined,dur=1000){
  //   showInfo(txt,dur)
 }
 */
-
+/*
 ////////////////////////////////////////
 function removeKey(){
 //    let key = "farmRPGCustomConverting"
@@ -633,7 +523,7 @@ function removeKey(){
 
   //  showInfo("✅ Progress Erased ❗")
 } 
-
+*/
 //removeKey()
 ///////////////////////////////////////
 
@@ -641,72 +531,12 @@ function removeKey(){
 saveToBrowserOld()
 */
 
-function loadSav(){
-    let key = "farmRPGCustomConvertingV2"
-    let mySave = localStorage.getItem(key)
-    if(mySave){
-        let tempUserI = JSON.parse(mySave)
-        if(tempUserI.pageV===pageVer){
-           userI = tempUserI
-        } else {
-            let swapSav = {
-                pageV:pageVer,
-                currentSet:tempUserI.rateU.length > 0 ? "Custom":"Basic",
-                rateU:tempUserI.rateU,
-                autoLoad:false,
-                toolPerLine:3,
-                inventoryMax:"???",
-                fruitsProd:"???",
-                fruitsArte:false,
-                fruitsTot:0,
-                antlersProd:"???",
-                antlersArte:false,
-                netsTot:0,
-                resSaver:45,
-                resCraft:1.45,
-                mms:[
-                    {label:"OJ",img:"orangejuice.png",progress:"???"},
-                    {label:"Lemonade",img:"lemonade.png",progress:"???"},
-                    {label:"LN",img:"lnet.png",progress:"???"},
-                    {label:"Cider",img:"8984.png",progress:"???"},
-                    {label:"AP",img:"ap.png",progress:"???"},
-                ],
-                visuals:{
-                    preset:{
-                        pageBackC:"black",
-                        pagebackG:"",
-                        text:"white",
-                        buttonBackC:"rgb(49,75,134)",
-                        buttonTextC:"white",
-                        inputTextC:"green",
-                    },
-            
-                },
-            }
-            
-            userI = swapSav
-
-            let src = userI.rateU
-            if(src.length>0){
-                swapSav = []
-                for(let i=0;i<src.length;i++){
-                    swapSav.push({
-                        ind:i,
-                        type:src[i].output.includes("/") ? "OJ" : src[i].output,
-                        rate:src[i].rate,
-                        bonus:src[i].bonus,
-                        rounding:src[i].rounding,
-                    })
-                }
-                userI.rateU = swapSav                
-            }
-            saveToBrowser("")
-        }
-    }
-    userI.rateU.forEach(rt=>{rt.orderMem = []})
-}
 
 
+
+
+
+/*
 function getSavBuild(dady,src){
     let tbM = addEle({dad:dady,what:"table"})
     let tbS = undefined
@@ -761,6 +591,10 @@ function getSavBuild(dady,src){
        src.mms.forEach(mm=>{txt += mm.label + " : " + mm.progress.toLocaleString()+"<br>"})
        addEle({dad:tr,what:"td",setClass:"tealCell",text:txt})
 }
+*/
+
+
+
 
 function setTools(){
     let workC = getID("toolsFr")
@@ -855,7 +689,9 @@ function buildTool(dad,itm,idx){
                 txt = txt.replace(":","")
                 txt = "@"+txt+":"
                 navigator.clipboard.writeText(txt)
-                showInfo("✅",2000,"",getID("info:"+idx))
+                getID("info:"+idx).innerHTML = "✅"
+                setTimeout(() => {getID("info:"+idx).innerHTML = ""}, 2000);
+//                showInfo("✅",2000,"",getID("info:"+idx))
             }})
             addEle({dad:inC,setID:"info:"+idx})
 
@@ -1285,7 +1121,10 @@ function advertising(e){
             addEle({dad:subC,setClass:"btn",text:txt,padding:"5px 10px",
             setFunc:()=>{
                 navigator.clipboard.writeText(getID("advMsg").innerHTML)
-                showInfo("✅",2000,"",getID("info4"))
+                getID("info4").innerHTML = "✅"
+                setTimeout(() => {getID("info4").innerHTML = ""}, 2000);
+
+//                showInfo("✅",2000,"",getID("info4"))
             }})
             addEle({dad:subC,marginL:"5px",textC:purple,setID:"info4"})
     }

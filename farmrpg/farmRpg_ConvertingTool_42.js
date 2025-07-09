@@ -1,6 +1,220 @@
 
+const body = document.querySelector("body")
+
+const srcImgs = "https://farmrpg.com/img/items/"
+
+const outputs = [
+    {label:"OJ",type:"OJ from Oranges",rate:"3:1",friend:"4.13:1",img1:"orange.png",img2:"orangejuice.png",
+    chat1:"((Orange))",chat2:"((Orange Juice))",loopBase:10},
+
+    {label:"Lemonade",type:"Lemonade from Lemons",rate:"3:1",friend:"4.13:1",img1:"8251.PNG",img2:"lemonade.png",
+    chat1:"((Lemon))",chat2:"((Lemonade))",loopBase:10},
+
+    {label:"AP",type:"AP from Lemons",rate:"30:1",friend:"57:1",img1:"8251.PNG",img2:"ap.png",
+    chat1:"((Lemon))",chat2:"((Arnold Palmer))",loopBase:63},
+
+    {label:"AP",type:"AP from Lemonades",rate:"1000:80",friend:"1000:72.5",img1:"lemonade.png",img2:"ap.png",
+    chat1:"((Lemonade))",chat2:"((Arnold Palmer))",loopBase:133},
+
+    {label:"LN",type:"LN from FN (fishing nets)",rate:"1000:70",friend:"1000:58",img1:"7748.png",img2:"lnet.png",
+    chat1:"((Fishing Net))",chat2:"((Large Net))",loopBase:83},
+
+    {label:"Cider",type:"Cider from Apples (and Oranges)",rate:"20:1",friend:"27.7:1",img1:"8297.png",img2:"8984.png",
+    chat1:"((Apple))",chat2:"((Apple Cider))",loopBase:72},
+]
+
+const roundings = ["Up","Down","Closest 5"]
+
+let eventRatio = [0,10,14,20]
+
+const rateB =[
+{ind:0,label:"OJ",type:"OJ from Oranges",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],
+orderIdx:undefined,orderTimer:undefined,advertising:false},
+{ind:1,label:"Lemonade",type:"Lemonade from Lemons",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],
+orderIdx:undefined,orderTimer:undefined,advertising:false},
+{ind:2,label:"AP",type:"AP from Lemons",rate:"30:1",bonus:0,rounding:roundings[0],orderMem:[],
+orderIdx:undefined,orderTimer:undefined,advertising:false},
+{ind:3,label:"LN",type:"LN from FN (fishing nets)",rate:"1000:70",bonus:0,rounding:roundings[0],orderMem:[],
+orderIdx:undefined,orderTimer:undefined,advertising:false},
+{ind:4,label:"Cider",type:"Cider from Apples (and Oranges)",rate:"20:1",bonus:0,rounding:roundings[0],orderMem:[],
+orderIdx:undefined,orderTimer:undefined,advertising:false},
+{ind:5,label:"AP",type:"AP from Lemonades",rate:"1000:80",bonus:0,rounding:roundings[0],orderMem:[],
+orderIdx:undefined,orderTimer:undefined,advertising:false},
+]
+
+let pageVer = "2.0"
+
+let userI = {
+    pageV:"2.0",
+    currentSet:"Basic",
+    rateU:[],
+    toolPerLine:2,
+    memoCap:10,
+    memoTimer:3,
+    memoType:"auto",
+    inventoryMax:200,
+    fruitsProd:7800,
+    fruitsArte:false,
+    fruitsTot:0,
+    antlersProd:0,
+    antlersArte:false,
+    netsTot:0,
+    resSaver:45,
+    resCraft:1.45,
+    mms:[
+        {label:"OJ",img:"orangejuice.png",progress:0},
+        {label:"Lemonade",img:"lemonade.png",progress:0},
+        {label:"LN",img:"lnet.png",progress:0},
+        {label:"Cider",img:"8984.png",progress:0},
+        {label:"AP",img:"ap.png",progress:0},
+    ],
+    visuals:{
+        preset:{
+            pageBackC:"black",
+            pagebackG:"",
+            text:"white",
+            buttonBackC:"rgb(49,75,134)",
+            buttonTextC:"white",
+            inputTextC:"green",
+        },
+
+    },
+}
+
+let lnk = undefined
+
+let purple = "rgb(185, 76, 185)"//"rgb(226, 72, 226)"
+let green = "rgb(18, 184, 18)"
+let yellow = "rgb(184, 184, 27)"
+let brown = "rgb(160, 107, 9)"
+let yellowL = "rgb(212, 212, 74)"
+
+
+function arrowContToggler(e,tgtId,tgtFunc=undefined){
+    let el = e.srcElement ; let disp = el.innerHTML ; let tgt = getID(tgtId)
+    switch(disp){
+        case "🔽":tgt.style.display = "flex" ; el.innerHTML = "🔼" ; if(tgtFunc){tgtFunc()} ;break
+        case "🔼":tgt.style.display = "none" ; el.innerHTML = "🔽" ; break
+    }
+}
+
+function testNum(num,zeroGood=false){
+    let test = true
+
+    if(!isNaN(num)){
+        let val = Number(num)
+        if(val===0 && !zeroGood){test=false}
+    } else {test=false}
+
+    return test
+}
+
+function round5(val){
+    let rVal = Math.floor(Number(val))
+    if(rVal!==0){
+        let nbStr = rVal.toString()
+        let dgt = Number(nbStr.slice(-1))
+            
+        if(dgt>0){
+            switch(dgt){
+                case 1 : case 2 : rVal = (rVal-dgt); break
+                case 3 : case 4 : rVal = (rVal+(5-dgt)); break
+                case 6 : case 7 : rVal = (rVal+(5-dgt)); break
+                case 8 : case 9 : rVal = (rVal+(10-dgt)); break
+            }
+        }
+    }
+    return rVal
+}
+
+function calcConvert(amtV,amtD,amtM,amtB,amtR){
+    let send = {pay:undefined,bon:undefined,payR:undefined,bonR:undefined}
+    send.pay = amtV / amtD * amtM
+    send.bon = send.pay * amtB /100
+    switch(amtR)
+       {case "Up" : send.payR = Math.ceil(send.pay) ; send.bonR = Math.ceil(send.bon) ; break
+        case "Down" : send.payR = Math.floor(send.pay) ; send.bonR = Math.floor(send.bon) ; break
+        case "Closest 5" : send.payR = round5(send.pay) ; send.bonR = round5(send.bon) ; break}
+    return send
+}
+
+function loadSav(){
+    let key = "farmRPGCustomConvertingV2"
+    let mySave = localStorage.getItem(key)
+    if(mySave){
+        let tempUserI = JSON.parse(mySave)
+        if(tempUserI.pageV===pageVer){
+           userI = tempUserI
+        } else {
+            let swapSav = {
+                pageV:pageVer,
+                currentSet:tempUserI.rateU.length > 0 ? "Custom":"Basic",
+                rateU:tempUserI.rateU,
+                autoLoad:false,
+                toolPerLine:3,
+                inventoryMax:"???",
+                fruitsProd:"???",
+                fruitsArte:false,
+                fruitsTot:0,
+                antlersProd:"???",
+                antlersArte:false,
+                netsTot:0,
+                resSaver:45,
+                resCraft:1.45,
+                mms:[
+                    {label:"OJ",img:"orangejuice.png",progress:"???"},
+                    {label:"Lemonade",img:"lemonade.png",progress:"???"},
+                    {label:"LN",img:"lnet.png",progress:"???"},
+                    {label:"Cider",img:"8984.png",progress:"???"},
+                    {label:"AP",img:"ap.png",progress:"???"},
+                ],
+                visuals:{
+                    preset:{
+                        pageBackC:"black",
+                        pagebackG:"",
+                        text:"white",
+                        buttonBackC:"rgb(49,75,134)",
+                        buttonTextC:"white",
+                        inputTextC:"green",
+                    },
+            
+                },
+            }
+            
+            userI = swapSav
+
+            let src = userI.rateU
+            if(src.length>0){
+                swapSav = []
+                for(let i=0;i<src.length;i++){
+                    swapSav.push({
+                        ind:i,
+                        type:src[i].output.includes("/") ? "OJ" : src[i].output,
+                        rate:src[i].rate,
+                        bonus:src[i].bonus,
+                        rounding:src[i].rounding,
+                    })
+                }
+                userI.rateU = swapSav                
+            }
+            saveToBrowser("")
+        }
+    }
+    userI.rateU.forEach(rt=>{rt.orderMem = []})
+}
+
+function infoBox(info,txtCol="",closeFunc=undefined){
+    let pop = addEle({dad:body,what:"dialog",maxWidth:"70%",radius:"20px",
+    backC:"black",textC:"white",display:"flex",flDir:"column",opacity:0.9,
+    alignItems:"center",border:"teal solid 3px"})
+        addEle({dad:pop,text:info,textC:txtCol})
+        addEle({dad:pop,setClass:"btn",text:"OK",width:"50%",
+        marginT:"20px", setFunc:()=>{if(closeFunc){closeFunc()} ; pop.remove()}})
+    pop.showModal()
+}
+
 function setPage(){
-    let last = "Last up 2025 07/08 14:10"
+    let last = "Last up 2025 07/09 23:30"
     let from = userI.visuals.preset
 
     let contR = addEle({dad:body,setClass:"contRow",alignItems:"center",margin:"5px"})
@@ -27,9 +241,9 @@ function setPage(){
 
 
     let settingsFr = addEle({dad:body,setClass:"contCol",padding:"5px",width:"100%"})
-/*
-    //////////////////////////////////////////////////////////////////////////////////////
 
+    //////////////////////////////////////////////////////////////////////////////////////
+/*
         let setTop = addEle({dad:settingsFr,setClass:"contRow",alignItems:"center",marginL:"5px"})
             addEle({dad:setTop,text: "User Settings "+spanText(yellowL,"⚙"),fontS:"20px",margin:"0 5px"})
             addEle({dad:setTop,text: spanText("lime","🔽",20),setClass:"arrowToggler",
@@ -161,7 +375,6 @@ function userSettingPick(){
                 break
             default : alert("Under Construction")
         }
-        console.log(getID("settingsSelect").value)
     }
 }
 
@@ -171,15 +384,20 @@ function setToolsMemos(){
     let pop = getDialogTopFrame()
     let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",radius:"10px"})
 
-        addEle({dad:cont,backC:"rgb(45, 88, 128)",padding:"5px",text:"Tools per Line",
-        border:"teal solid 2px",radius:"8px",textA:"center"})
+        let subC = addEle({dad:cont,setClass:"contRow",padding:"5px",border:"teal solid 2px",radius:"8px",
+        alignItems:"center",justifyC:"space-around",backC:"rgb(45, 88, 128)"})
+            addEle({dad:subC,text:"Tools per Line",width:"90%",textA:"center"})
+            addEle({dad:subC,setClass:"btn",text:"❌",margin:"0 0 5px 0",setFunc:()=>{
+                getID("settingsSelect").selectedIndex = 0 ; 
+                pop.remove()
+            }})
 
-        let subC = addEle({dad:cont,setClass:"contRow",padding:"5px",
+        subC = addEle({dad:cont,setClass:"contRow",padding:"5px",
         alignItems:"center",justifyC:"space-around"})
             let txt =` 
-            Each tool is an item you convert
-            PC screen to display more per line
-            For mobile, rather set 1 only  ...
+            Each tool is an item you convert.
+            PC screen to display more per line,
+            for mobile : rather set 1 only  ...
             `
             addEle({dad:subC,text:txt,padding:"5px",})
             addEle({dad:subC,what:"select",fontS:"16px",setID:"tplSelect",padding:"5px",
@@ -192,9 +410,9 @@ function setToolsMemos(){
         margin:"10px 0",border:"teal solid 2px",radius:"8px",textA:"center"})
     
         subC = addEle({dad:cont,setClass:"contRow",padding:"10px 5px",
-        borderB:"teal dotted 2px",alignItems:"center",justifyC:"space-around"})
+        borderB:"teal dotted 2px",alignItems:"center",justifyC:"space-between"})
 
-            addEle({dad:subC,text:"How many Memos you can keep",marginR:"10px"})
+            addEle({dad:subC,text:"How many Memos you can keep",paddingL:"100px"})
 
             addEle({dad:subC,what:"select",fontS:"16px",setID:"memoCselect",padding:"5px",
             backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white"})
@@ -205,8 +423,8 @@ function setToolsMemos(){
         alignItems:"center",justifyC:"space-around"})
 
             txt = `
-            Auto-Save a Memo after `+spanText("cyan","X")+` seconds
-            you started typing the order amount<br>
+            Auto-Save a Memo (mb size / name / order) after `+spanText("cyan","X")+` seconds
+            you started typing the order amount.<br>
             ( If the Auto-Save doesnt work well
             on your device or you prefer to
             save manualy with a button, set to 0 )
@@ -218,7 +436,7 @@ function setToolsMemos(){
             for(let i=0;i<=10;i++){addEle({dad:getID("memoSselect"),what:"option",text:i})}
             getID("memoSselect").selectedIndex = userI.memoTimer
 
-        addEle({dad:pop,setClass:"btn",text:"OK",width:"50%",marginT:"20px", 
+        addEle({dad:pop,setClass:"btn",text:"Update",width:"50%",marginT:"20px", 
         setFunc:()=>{
 
             userI.toolPerLine = Number(getID("tplSelect").value)
@@ -238,11 +456,17 @@ function setToolsMemos(){
 function setRates(){
     let pop = getDialogTopFrame()
     let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",minHeight:"450px"})
+        
+        let subC = addEle({dad:cont,setClass:"contRow",padding:"0 0 5px 0",alignItems:"center",justifyC:"space-around",
+        backC:"rgb(45, 88, 128)",border:"teal solid 2px",radius:"8px",})
+            addEle({dad:subC,padding:"10px",setID:"rateLbl",textA:"center",minWidth:"320px"})
+            
+            addEle({dad:subC,setClass:"btn",text:"❌",setFunc:()=>{
+                getID("settingsSelect").selectedIndex = 0 ; 
+                pop.remove()
+            }})
 
-        addEle({dad:cont,backC:"rgb(45, 88, 128)",padding:"10px",border:"teal solid 2px",setID:"rateLbl",
-        radius:"8px",textA:"center",minWidth:"320px"})
-
-        let subC = addEle({dad:cont,setClass:"contRow",padding:"5px",alignItems:"center"})
+        subC = addEle({dad:cont,setClass:"contRow",padding:"5px",alignItems:"center"})
             addEle({dad:subC,text:"Rate",setID:"rateCheck",margin:"0 10px",minWidth:"150px"})
             addEle({dad:subC,what:"checkbox",isInput:true,setID:"toggleRate",setClass:"toggle-checkbox",
             margin:"50px",setFunc:()=>{
@@ -259,18 +483,10 @@ function setRates(){
                 
                 getID("rateLbl").innerHTML = "Rates / Ratios (Basic : 6 | Custom : "+userI.rateU.length+")"
             }})
-            addEle({dad:subC,what:"label",setFor:"toggleRate",setClass:"toggle-label",marginR:"10px"})
-            addEle({dad:subC,setClass:"btn",text:"Add",visibility:"hidden",setID:"addRbtn",setFunc:addRateSetup})
-
-
-
+            addEle({dad:subC,what:"label",setFor:"toggleRate",setClass:"toggle-label",marginR:"30px"})
+            addEle({dad:subC,setClass:"btn",text:"Add new rate",visibility:"hidden",setID:"addRbtn",setFunc:addRateSetup})
 
             addEle({dad:cont,setClass:"contCol",setID:"dispRates",minHeight:"300px",maxHeight:"350px",overflowX:"hidden"})
-
-
-
-
-        addEle({dad:pop,setClass:"btn",text:"Close",width:"80%",setFunc:()=>{getID("settingsSelect").selectedIndex = 0 ; pop.remove()}})
 
         if(userI.rateU.length>0){getID("toggleRate").checked = true}
         let ev = new Event("change") ; getID("toggleRate").dispatchEvent(ev)
@@ -428,7 +644,7 @@ function addRateSetup(){
 
         subC = addEle({dad:cont,setClass:"contRow",justifyC:"space-around",borderT:brown+" dotted 3px",paddingT:"10px"})
             let subC2 = addEle({dad:subC,setClass:"contRow",alignItems:"center"})
-            addEle({dad:subC2,setClass:"btn",text:"Add new rate",minWidth:"100px",setFunc:()=>{
+            addEle({dad:subC2,setClass:"btn",text:"Add this rate",minWidth:"100px",setFunc:()=>{
                 let rateL = getID("rateApart")
                 let rateR = getID("rateBpart")
                 let itmO = outputs.filter(x=>x.type === getID("rateTSelect").value)[0]
@@ -469,7 +685,7 @@ function addRateSetup(){
                 }
             }})
             addEle({dad:subC2,setID:"addGood",minWidth:"20px"})
-            addEle({dad:subC,setClass:"btn",text:"Cancel / Close",minWidth:"100px",setFunc:()=>{pop2.remove()}})
+            addEle({dad:subC,setClass:"btn",text:"❌",minWidth:"100px",setFunc:()=>{pop2.remove()}})
 
     pop2.showModal()
 }
@@ -532,15 +748,22 @@ function setUserDetails2(){
     let arr = undefined
     let txt = undefined
     let pop = getDialogTopFrame()
-    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",
+    let topC = addEle({dad:pop,setClass:"contRow"})
+    let cont = addEle({dad:topC,setClass:"contCol",width:"fit-content",margin:"5px 0 5px 10px",
         border:"teal solid 2px",radius:"10px",alignItems:"center",minWidth:"360px"})
 
         let subC = addEle({dad:cont,setClass:"contCol",backC:"rgb(45, 88, 128)",width:"100%",
         borderB:"teal solid 2px",radiusTL:"7px",radiusTR:"7px",alignItems:"center",justifyC:"space-around"})
-            addEle({dad:subC,text:"",fontS:"20px",margin:"5px",setID:"userDTop"})
 
-        let subC2 = addEle({dad:subC,setClass:"contRow",alignItems:"center",marginB:"10px"})
-            addEle({dad:subC2,text:"Rate",setID:"detailsLbl",margin:"5px 10px",minWidth:"150px",
+        let subC0 = addEle({dad:subC,setClass:"contRow",padding:"5px",alignItems:"center",justifyC:"space-around"})
+            addEle({dad:subC0,text:"",fontS:"20px",margin:"5px",setID:"userDTop"})
+            addEle({dad:subC0,setClass:"btn",text:"❌",setFunc:()=>{
+                getID("settingsSelect").selectedIndex = 0 ; 
+                pop.remove()
+            }})
+
+        let subC2 = addEle({dad:subC,setClass:"contRow",alignItems:"center",marginB:"10px",width:"100%"})
+            addEle({dad:subC2,text:"Rate",setID:"detailsLbl",margin:"5px 10px 5px 30px",minWidth:"150px",
             minWidth:"180px",textA:"right"})
             addEle({dad:subC2,what:"checkbox",isInput:true,setID:"detailsCheck",setClass:"toggle-checkbox",
             margin:"50px",setFunc:()=>{
@@ -572,8 +795,6 @@ function setUserDetails2(){
                         ]
                     arr.forEach(itm=>{
                         let subC = addEle({dad:workC,setClass:"contRow"})
-                    //        txt = itm.label.includes("total") ? "---- " : "🟢 "
-                      //      addEle({dad:subC,text:txt})
                             addEle({dad:subC,text:itm.label+" : ",minWidth:"200px",textA:"right",paddingR:"10px"})
                             addEle({dad:subC,text:itm.val,minWidth:"60px",textA:"center"})
                     })
@@ -588,10 +809,7 @@ function setUserDetails2(){
             addEle({dad:cont,setClass:"btn",text:"Update",marginB:"20px",width:"50%",setID:"upDetailsBtn",
             setFunc:userUpdate})
 
-        addEle({dad:pop,setClass:"btn",text:"Close",width:"80%",setFunc:()=>{getID("settingsSelect").selectedIndex = 0 ; pop.remove()}})
-
         let ev = new Event("change") ; getID("detailsCheck").dispatchEvent(ev)
-
 
     pop.showModal() 
 }
@@ -611,13 +829,18 @@ function userUpdate(){
 
     let pop2 = getDialogTopFrame()
     let cont = addEle({dad:pop2,setClass:"contCol",width:"fit-content",margin:"5px 10px",
-        border:"teal solid 2px",radius:"10px",alignItems:"center",minWidth:"340px"})
+        border:"teal solid 2px",radius:"10px",minWidth:"340px"})
 
-        let subC = addEle({dad:cont,setClass:"contCol",backC:"rgb(45, 88, 128)",width:"100%",
-        borderB:"teal solid 2px",radiusTL:"7px",radiusTR:"7px",alignItems:"center",justifyC:"space-around"})
-            addEle({dad:subC,text:"Update "+info,margin:"10px"})
+        let subC = addEle({dad:cont,setClass:"contRow",backC:"rgb(45, 88, 128)",justifyC:"space-around",
+        borderB:"teal solid 2px",radiusTL:"7px",radiusTR:"7px",alignItems:"center",padding:"5px"})
+            addEle({dad:subC,text:info,margin:"10px"})
+            addEle({dad:subC,setClass:"btn",text:"Update",margin:"0 20px 0 15px",setFunc:(e)=>{updateInvProdMM(e,info)}})
+            addEle({dad:subC,setClass:"btn",text:"❌",margin:"0 0 5px 0",setFunc:()=>{
+                let ev = new Event("change") ; getID("detailsCheck").dispatchEvent(ev)
+                pop2.remove()
+            }})
 
-        let frm = addEle({dad:cont,setClass:"contCol"})
+        let frm = addEle({dad:cont,setClass:"contCol",marginB:"10px"})
         let len = 200
         let cpt = 0
         if(info === "Inventory & Production"){
@@ -683,12 +906,6 @@ function userUpdate(){
                 cpt++
             })
         }
-        
-    subC = addEle({dad:cont,setClass:"contRow",justifyC:"space-around",width:"100%",margin:"10px 0"})
-        addEle({dad:subC,setClass:"btn",text:"Update",minWidth:"100px",setFunc:(e)=>{updateInvProdMM(e,info)}})
-        addEle({dad:subC,setClass:"btn",text:"Cancel / Close",minWidth:"100px",setFunc:()=>{
-            let ev = new Event("change") ; getID("detailsCheck").dispatchEvent(ev)
-            pop2.remove()}})
 
     pop2.showModal()
 
@@ -838,12 +1055,30 @@ function compareSaves(){
 
     let pop = getDialogTopFrame()
     let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",
-        border:"teal solid 2px",radius:"10px",minWidth:"330px"}) // ,minHeight:"500px"
+        border:"teal solid 2px",radius:"10px",minWidth:"320px"}) // ,minHeight:"500px"
 
-        let subC = addEle({dad:cont,setClass:"contRow",backC:"rgb(45, 88, 128)",padding:"5px",
+        let subC = addEle({dad:cont,setClass:"contRow",backC:"rgb(45, 88, 128)",padding:"-10px",
         borderB:"teal solid 2px",radiusTL:"7px",radiusTR:"7px",alignItems:"center",justifyC:"space-around"})
-            addEle({dad:subC,text:"Check / Save User Settings",fontS:"20px",marginR:"5px",width:"100%",textA:"center"})
-        
+            addEle({dad:subC,text:"Check User Settings",fontS:"20px",marginR:"5px",width:"100%",textA:"center"})
+
+
+            addEle({dad:subC,setClass:"btn",text:"Save",textA:"left",paddingL:"5px",minWidth:"70px",
+            minHeight:"26px",display:"flex",alignItems:"center" ,setFunc:(e)=>{ //  User Details
+                let bt = e.srcElement
+                let key = "farmRPGCustomConvertingV2"
+                let mySave = JSON.stringify(userI)
+                localStorage.setItem(key,mySave)
+                bt.innerHTML = "Save ✅"
+                setTimeout(()=>{bt.innerHTML = "Save"},1000)
+
+            }})
+
+
+
+            addEle({dad:subC,setClass:"btn",text:"❌",setFunc:()=>{
+                getID("settingsSelect").selectedIndex = 0 ; 
+                pop.remove()
+            }})
 
         subC = addEle({dad:cont,setClass:"contRow",minWidth:"95px",padding:"5px",alignItems:"center"})
             addEle({dad:subC,text: "Custom Rates",marginL:"10px"})
@@ -853,72 +1088,64 @@ function compareSaves(){
         display:"none",setID:"savRatesCont",width:"fit-content",minWidth:"290px",minHeight:"200px",
         maxHeight:"300px",overflowX:"hidden"})
 
- 
-        if(savOld){
-            txt = savOld.toolPerLine === userI.toolPerLine ? userI.toolPerLine.toLocaleString() :
-            savOld.toolPerLine.toLocaleString() + " => " + spanText(green,userI.toolPerLine.toLocaleString())
-        } else{txt = userI.toolPerLine.toLocaleString()}
-        addEle({dad:cont,text:"Tools per line : "+txt,margin:"5px 10px 0 10px"})
+        subC = addEle({dad:cont,setClass:"contCol",padding:"5px 10px"})
 
-        if(savOld){
-            txt = savOld.memoCap === userI.memoCap ? userI.memoCap.toLocaleString() :
-            savOld.memoCap.toLocaleString() + " => " + spanText(green,userI.memoCap.toLocaleString())
-        } else{txt = userI.memoCap.toLocaleString()}
-        addEle({dad:cont,text:"Memos Cap : "+txt,margin:"5px 10px 0 10px"})
-
-        if(savOld){
-            txt = savOld.memoTimer === userI.memoTimer ? userI.memoTimer.toLocaleString() :
-            savOld.memoTimer.toLocaleString() + " => " + spanText(green,userI.memoTimer.toLocaleString())
-        } else{txt = userI.memoCap.toLocaleString()}
-        addEle({dad:cont,text:"Memos save timer : "+txt+" sec",margin:"5px 10px 0 10px"})
-
-        if(savOld){
-            txt = savOld.inventoryMax === userI.inventoryMax ? userI.inventoryMax.toLocaleString() :
-            savOld.inventoryMax.toLocaleString() + " => " + spanText(green,userI.inventoryMax.toLocaleString())
-        } else{txt = userI.inventoryMax.toLocaleString()}
-        addEle({dad:cont,text:"max Inventory : "+txt,margin:"5px 10px 0 10px"})
-
-        if(savOld){
-            txt = savOld.resSaver === userI.resSaver ? userI.resSaver.toLocaleString() :
-            savOld.resSaver.toLocaleString() + " => " + spanText(green,userI.resSaver.toLocaleString())
-        } else{txt = userI.resSaver.toLocaleString()}
-        addEle({dad:cont,text:"res Saver perk : "+txt+" %",margin:"5px 10px 0 10px"})
-
-        if(savOld){
-            txt = savOld.fruitsProd === userI.fruitsProd ? userI.fruitsProd.toLocaleString() :
-            savOld.fruitsProd.toLocaleString() + " => " + spanText(green,userI.fruitsProd.toLocaleString())
-        } else{txt = userI.fruitsProd.toLocaleString()}
-        addEle({dad:cont,text:"Fruits daily production : "+txt,margin:"5px 10px 0 10px"})
-
-        if(savOld){
-            txt = savOld.antlersProd === userI.antlersProd ? userI.antlersProd.toLocaleString() :
-            savOld.antlersProd.toLocaleString() + " => " + spanText(green,userI.antlersProd.toLocaleString())
-        } else{txt = userI.antlersProd.toLocaleString()}
-        addEle({dad:cont,text:"Antlers daily production : "+txt,margin:"5px 10px 0 10px"})
-
-        userI.mms.forEach(mm=>{
             if(savOld){
-                txt = savOld.mms.filter(x=>x.label===mm.label)[0].progress === mm.progress ? mm.progress.toLocaleString() :
-                savOld.mms.filter(x=>x.label===mm.label)[0].progress.toLocaleString() + " => " + 
-                spanText(green,mm.progress.toLocaleString())
-            } else{txt = mm.progress.toLocaleString()}
-            addEle({dad:cont,text:"[MM] "+ mm.label +" : "+txt+" /"+(1000000).toLocaleString(),margin:"5px 10px 0 10px"})
-        })
+                txt = savOld.currentSet === userI.currentSet ? userI.currentSet :
+                savOld.currentSet + " => " + spanText(green,userI.currentSet)
+            } else{txt = userI.currentSet}
+            addEle({dad:subC,text:"Current Rate set : "+txt,margin:"5px 10px 0 10px"})
+            
+            if(savOld){
+                txt = savOld.toolPerLine === userI.toolPerLine ? userI.toolPerLine.toLocaleString() :
+                savOld.toolPerLine.toLocaleString() + " => " + spanText(green,userI.toolPerLine.toLocaleString())
+            } else{txt = userI.toolPerLine.toLocaleString()}
+            addEle({dad:subC,text:"Tools per line : "+txt,margin:"5px 10px 0 10px"})
 
-        subC = addEle({dad:cont,setClass:"contRow",alignItems:"center",margin:"20px 0 10px 0"})
-            addEle({dad:subC,setClass:"btn",text:"Save User Details",width:"80%",setFunc:()=>{
-                let key = "farmRPGCustomConvertingV2"
-                let mySave = JSON.stringify(userI)
-                localStorage.setItem(key,mySave)
-                getID("savG").innerHTML = "✅"
-                setTimeout(()=>{getID("savG").innerHTML = ""},1000)
-            }})
-            addEle({dad:subC,setID:"savG",marginL:"5px"})
+            if(savOld){
+                txt = savOld.memoCap === userI.memoCap ? userI.memoCap.toLocaleString() :
+                savOld.memoCap.toLocaleString() + " => " + spanText(green,userI.memoCap.toLocaleString())
+            } else{txt = userI.memoCap.toLocaleString()}
+            addEle({dad:subC,text:"Memos Cap : "+txt,margin:"5px 10px 0 10px"})
 
-    addEle({dad:pop,setClass:"btn",text:"Close",width:"80%",setFunc:()=>{
-        getID("settingsSelect").selectedIndex = 0
-        pop.remove()
-    }})
+            if(savOld){
+                txt = savOld.memoTimer === userI.memoTimer ? userI.memoTimer.toLocaleString() :
+                savOld.memoTimer.toLocaleString() + " => " + spanText(green,userI.memoTimer.toLocaleString())
+            } else{txt = userI.memoCap.toLocaleString()}
+            addEle({dad:subC,text:"Memos save timer : "+txt+" sec",margin:"5px 10px 0 10px"})
+
+            if(savOld){
+                txt = savOld.inventoryMax === userI.inventoryMax ? userI.inventoryMax.toLocaleString() :
+                savOld.inventoryMax.toLocaleString() + " => " + spanText(green,userI.inventoryMax.toLocaleString())
+            } else{txt = userI.inventoryMax.toLocaleString()}
+            addEle({dad:subC,text:"max Inventory : "+txt,margin:"5px 10px 0 10px"})
+
+            if(savOld){
+                txt = savOld.resSaver === userI.resSaver ? userI.resSaver.toLocaleString() :
+                savOld.resSaver.toLocaleString() + " => " + spanText(green,userI.resSaver.toLocaleString())
+            } else{txt = userI.resSaver.toLocaleString()}
+            addEle({dad:subC,text:"res Saver perk : "+txt+" %",margin:"5px 10px 0 10px"})
+
+            if(savOld){
+                txt = savOld.fruitsProd === userI.fruitsProd ? userI.fruitsProd.toLocaleString() :
+                savOld.fruitsProd.toLocaleString() + " => " + spanText(green,userI.fruitsProd.toLocaleString())
+            } else{txt = userI.fruitsProd.toLocaleString()}
+            addEle({dad:subC,text:"Fruits daily production : "+txt,margin:"5px 10px 0 10px"})
+
+            if(savOld){
+                txt = savOld.antlersProd === userI.antlersProd ? userI.antlersProd.toLocaleString() :
+                savOld.antlersProd.toLocaleString() + " => " + spanText(green,userI.antlersProd.toLocaleString())
+            } else{txt = userI.antlersProd.toLocaleString()}
+            addEle({dad:subC,text:"Antlers daily production : "+txt,margin:"5px 10px 0 10px"})
+
+            userI.mms.forEach(mm=>{
+                if(savOld){
+                    txt = savOld.mms.filter(x=>x.label===mm.label)[0].progress === mm.progress ? mm.progress.toLocaleString() :
+                    savOld.mms.filter(x=>x.label===mm.label)[0].progress.toLocaleString() + " => " + 
+                    spanText(green,mm.progress.toLocaleString())
+                } else{txt = mm.progress.toLocaleString()}
+                addEle({dad:subC,text:"[MM] "+ mm.label +" : "+txt+" /"+(1000000).toLocaleString(),margin:"5px 10px 0 10px"})
+            })
 
     pop.showModal()
 }
@@ -937,21 +1164,14 @@ function compSavRates(savOld){
         margin:"50px",setFunc:()=>{
             cleanParent(getID("dispSavRates"))
 
-            console.log(userI.rateU)
-            console.log(savOld.rateU)
-
-            console.log("check box on : "+getID("toggleRates").checked)
             let arr = undefined
             if(getID("toggleRates").checked){
-                console.log("yes")
                 getID("ratelbl").innerHTML = "Custom Rates : New"
                 arr = userI.rateU
             } else {
-                console.log("no")
                 getID("ratelbl").innerHTML = "Custom Rates : Old"
                 arr = savOld.rateU
             }
-            console.log(arr)
             let cpt = 0
             arr.forEach(rt=>{buildRate(rt,getID("dispSavRates"),cpt) ; cpt++})
         }})
@@ -968,18 +1188,21 @@ function setDeleteFrame(){
 
     let subC = addEle({dad:cont,setClass:"contCol",marginT:"40px"})
         let subC2 = addEle({dad:subC,setClass:"contRow",margin:"40px 0",alignItems:"center"})
-            addEle({dad:subC2,setClass:"btn",text:"❌ Delete User Settings",margin:"20px 5px 20px 20px",
-            minWidth:"200px",setFunc:()=>{
+            addEle({dad:subC2,setClass:"btn",text:"⚠️ Delete User Settings ⚠️",margin:"20px 5px 20px 20px",
+            minWidth:"200px",fontS:"26px",setFunc:()=>{
                 let key = "farmRPGCustomConvertingV2"
                 localStorage.removeItem(key)
                 getID("deleteG").innerHTML = "✅"
                 setTimeout(()=>{getID("deleteG").innerHTML = ""},1000)
             }})
             addEle({dad:subC2,setID:"deleteG",minWidth:"25px"})
-        addEle({dad:subC,setClass:"btn",text:"Cancel / Close",margin:"20px",minWidth:"200px",
-        setFunc:()=>{getID("settingsSelect").selectedIndex = 0 ; pop.remove()}})
 
-    pop.showModal()    
+            addEle({dad:subC2,setClass:"btn",text:"❌",setFunc:()=>{
+                getID("settingsSelect").selectedIndex = 0 ; 
+                pop.remove()
+            }})
+
+        pop.showModal()    
 }
 
 
@@ -1002,7 +1225,7 @@ function setDeleteFrame(){
 
 
 
-
+/*
 function setSettings(){
     let workC = getID("settingsCont")
     cleanParent(workC)
@@ -1079,8 +1302,20 @@ function setSettings(){
     addEle({dad:workC,setClass:"contCol",marginL:"10px",padding:"5px",height:"fit-content",
     width:"fit-content",display:"none",setID:"savCont",alignItems:"center"})
 }
+*/
 
+
+
+
+
+
+
+
+
+loadSav()
 setPage()
+
+
 
 /*
 txt = `Dear Users,<br><br>I plan to change `+spanText(green,"[ Infos ]")+` display type...<br><br>
