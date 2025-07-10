@@ -292,7 +292,7 @@ let helpArr =[
     `The basic tool set gives the current options to allow every type of conversions at standard
      rates common to all players. If its too many tools to see at once OR if you would rather use
      a different rate than the usuals, make your own custom tool set under :
-     "User Settings" > "Rates/Ratios" > "Custom Rates"<br><br>
+     "User Settings" > "Rates/Ratios"<br><br>
      You can Also try changing the Tools per Line under Settings ...`},
      {label:"Use Tools : Advertise",text:
      `Click one or more "Advertise" will generate a message you can bring in game chat.<br><br>
