@@ -3,6 +3,8 @@ const body = document.querySelector("body")
 
 const srcImgs = "https://farmrpg.com/img/items/"
 
+let lastUpd = "Last up 2025 07/10 21:15"
+
 const outputs = [
     {label:"OJ",type:"OJ from Oranges",rate:"3:1",friend:"4.13:1",img1:"orange.png",img2:"orangejuice.png",
     chat1:"((Orange))",chat2:"((Orange Juice))",loopBase:10},
@@ -138,6 +140,13 @@ function calcConvert(amtV,amtD,amtM,amtB,amtR){
     return send
 }
 
+function savUserI(info=""){
+    if(info!==""){console.log("save : "+info)}
+    let key = "farmRPGCustomConvertingV2"
+    let mySave = JSON.stringify(userI)
+    localStorage.setItem(key,mySave)
+}
+
 function loadSav(){
     let key = "farmRPGCustomConvertingV2"
     let mySave = localStorage.getItem(key)
@@ -214,13 +223,12 @@ function infoBox(info,txtCol="",closeFunc=undefined){
 }
 
 function setPage(){
-    let last = "Last up 2025 07/10 06:35"
     let from = userI.visuals.preset
 
     let contR = addEle({dad:body,setClass:"contRow",alignItems:"center",margin:"5px"})
     lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmRpg_Bob1_Farm.html"
         addEle({dad:contR,setClass:"btn",text:"⇦ Go Back",backC:from.buttonBackC,setFunc:()=>{window.open(lnk,"_self")}})
-        addEle({dad:contR,text:spanText(yellowL,last),margin:"10px"})
+        addEle({dad:contR,text:spanText(yellowL,lastUpd),margin:"10px"})
 
    
     addEle({dad:body,what:"select",margin:"10px",fontS:"16px",setID:"infosSelect",padding:"5px",
@@ -266,7 +274,7 @@ function setPage(){
 }
 
 let settingsArr = ["-- User Settings --","Tools per Line & Order Memos","Rates / Ratios",
-                   "User Details","Check / Save User Settings","Delete User Settings"]
+                   "User Details","Delete User Settings"] // "Check / Save User Settings",
 
 let helpArr =[
     {label:"For a basic simple use of this webpage",text:
@@ -346,8 +354,8 @@ function userSettingPick(){
                 break
             case "User Details" : setUserDetails2()
                 break
-            case "Check / Save User Settings" : compareSaves()
-                break
+//            case "Check / Save User Settings" : compareSaves()
+  //              break
             case "Delete User Settings" : setDeleteFrame()
                 break
             default : alert("Under Construction")
@@ -362,9 +370,9 @@ function setToolsMemos(){
     let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",radius:"10px"})
 
         let subC = addEle({dad:cont,setClass:"contRow",padding:"5px",border:"teal solid 2px",radius:"8px",
-        alignItems:"center",justifyC:"space-around",backC:"rgb(45, 88, 128)"})
+        alignItems:"center",backC:"rgb(45, 88, 128)"})
             addEle({dad:subC,text:"Tools per Line",textA:"center",marginL:"80px"})
-            addEle({dad:subC,setClass:"btn",text:"Update",marginT:"0", 
+            addEle({dad:subC,setClass:"btn",text:"Update",marginL:"40px", 
             setFunc:()=>{
     
                 userI.toolPerLine = Number(getID("tplSelect").value)
@@ -372,10 +380,15 @@ function setToolsMemos(){
                 userI.memoCap = Number(getID("memoCselect").value)
                 userI.memoTimer = Number(getID("memoSselect").value)
                 userI.memoType = userI.memoTimer === 0 ? "manual" : "auto"
+                getID("uptoolMemo").innerHTML = "✅"
+                setTimeout(()=>{
+                    if(getID("uptoolMemo")){getID("uptoolMemo").innerHTML = ""}
+                },1000)
                 getID("settingsSelect").selectedIndex = 0 ; 
                 setTools() ;
-                pop.remove()
+                savUserI()
             }})
+            addEle({dad:subC,setID:"uptoolMemo",minWidth:"35px"})
             addEle({dad:subC,setClass:"btn",text:"❌",margin:"0 0 5px 0",setFunc:()=>{
                 getID("settingsSelect").selectedIndex = 0 ; 
                 pop.remove()
@@ -439,7 +452,8 @@ function setRates(){
             addEle({dad:subC,padding:"10px",setID:"rateLbl",textA:"center",}) //minWidth:"320px"
             
             addEle({dad:subC,setClass:"btn",text:"❌",setFunc:()=>{
-                getID("settingsSelect").selectedIndex = 0 ; 
+                getID("settingsSelect").selectedIndex = 0 ;
+                savUserI() 
                 pop.remove()
             }})
 
@@ -653,7 +667,6 @@ function addRateSetup(){
                     setTimeout(()=>{
                         if(getID("addGood")){getID("addGood").innerHTML = ""}
                     },2000)
-
                 } else {
                     getID("addGood").innerHTML = "⛔"
                     setTimeout(()=>{
@@ -812,7 +825,7 @@ function userUpdate(){
         let subC = addEle({dad:cont,setClass:"contRow",backC:"rgb(45, 88, 128)",justifyC:"space-around",
         borderB:"teal solid 2px",radiusTL:"7px",radiusTR:"7px",alignItems:"center",padding:"5px"})
             addEle({dad:subC,text:info,margin:"10px"})
-            addEle({dad:subC,setClass:"btn",text:"Update",margin:"0 20px 0 15px",setFunc:(e)=>{updateInvProdMM(e,info)}})
+            addEle({dad:subC,setClass:"btn",text:"Save",margin:"0 20px 0 15px",setFunc:(e)=>{updateInvProdMM(e,info)}})
             addEle({dad:subC,setClass:"btn",text:"❌",margin:"0 0 5px 0",setFunc:()=>{
                 let ev = new Event("change") ; getID("detailsCheck").dispatchEvent(ev)
                 pop2.remove()
@@ -1019,7 +1032,9 @@ function updateInvProdMM(e,info){
 
     }
 
- e.srcElement.innerHTML = "Updates ["+cpt+"]"
+    savUserI()
+
+ e.srcElement.innerHTML = "Saved ["+cpt+"]"
 }
 
 
