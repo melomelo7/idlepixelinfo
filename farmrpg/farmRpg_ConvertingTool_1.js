@@ -604,8 +604,6 @@ function setTools(){
 
     addEle({dad:workC,setClass:"btn",text:"Reset All",minWidth:"320px",setFunc:setTools})
 
-console.log(userI.mms)
-
     let tbC = addEle({dad:workC})
     let tb = addEle({dad:tbC,what:"table"})
     let tr = addEle({dad:tb,what:"tr"})
@@ -631,7 +629,7 @@ function buildTool(dad,itm,idx){
             let inC = addEle({dad:tc,setClass:"contRow"})
             addEle({dad:inC,what:"checkbox",isInput:true,accentCol:green,setName:"advertise",setID:"adv:"+idx,
             setFunc:(e)=>{itm.advertising = e.srcElement.checked ? true : false ; advertising(e) }})
-            if(itm.advertising){getID("adv:"+idx).checked=true}
+            if(itm.advertising){getID("adv:"+idx).checked=true ; let ev = new Event("change") ; getID("adv:"+idx).dispatchEvent(ev) }
             addEle({dad:inC,text:"Advertise",marginL:"5px",setID:"advL:"+idx,
                 setFunc:(e)=>{txt = e.srcElement.id.split(":")[1] ; getID("adv:"+txt).click()}})
             addEle({dad:inC,text:itm.label,minWidth:"110px",textA:"center",setID:"type:"+idx})
@@ -1125,12 +1123,10 @@ function advertising(e){
                 navigator.clipboard.writeText(getID("advMsg").innerHTML)
                 getID("info4").innerHTML = "✅"
                 setTimeout(() => {getID("info4").innerHTML = ""}, 2000);
-
-//                showInfo("✅",2000,"",getID("info4"))
             }})
             addEle({dad:subC,marginL:"5px",textC:purple,setID:"info4"})
     }
-
+    savUserI()
 }
 
 function toolCalc(id,memoAd=true){
