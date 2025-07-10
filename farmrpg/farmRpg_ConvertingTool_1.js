@@ -604,6 +604,7 @@ function setTools(){
 
     addEle({dad:workC,setClass:"btn",text:"Reset All",minWidth:"320px",setFunc:setTools})
 
+console.log(userI.mms)
 
     let tbC = addEle({dad:workC})
     let tb = addEle({dad:tbC,what:"table"})
@@ -761,7 +762,8 @@ function buildTool(dad,itm,idx){
             cont = addEle({dad:tc,setClass:"contCol",alignItems:"center",minHeight:"130px",justifyC:"center"})
         if(itm.label==="LN"){
             let subC = addEle({dad:cont,setClass:"contCol",alignItems:"center"})
-                addEle({dad:subC,text:"Stone Needed (inventory cap "+userI.inventoryMax+") :",borderB:yellowL+" solid 2px",width:"fit-content"})
+                addEle({dad:subC,text:"Stone Needed (inventory cap "+userI.inventoryMax.toLocaleString()+") :",
+                borderB:yellowL+" solid 2px",width:"fit-content"})
                 txt = testNum(userI.inventoryMax) ? 
                 spanText(purple,"---") : spanText(purple,"Fill User Details in User Settings")
                 addEle({dad:subC,text:txt,setID:"stoneNeed:"+idx,marginL:"5px"})
