@@ -3,7 +3,7 @@ const body = document.querySelector("body")
 
 const srcImgs = "https://farmrpg.com/img/items/"
 
-let lastUpd = "Last up 2025 07/10 21:15"
+let lastUpd = "Last up 2025 07/12 03:10"
 
 const outputs = [
     {label:"OJ",type:"OJ from Oranges",rate:"3:1",friend:"4.13:1",img1:"orange.png",img2:"orangejuice.png",
@@ -91,14 +91,15 @@ let yellow = "rgb(184, 184, 27)"
 let brown = "rgb(160, 107, 9)"
 let yellowL = "rgb(212, 212, 74)"
 
-
+/*
 function arrowContToggler(e,tgtId,tgtFunc=undefined){
     let el = e.srcElement ; let disp = el.innerHTML ; let tgt = getID(tgtId)
     switch(disp){
-        case "🔽":tgt.style.display = "flex" ; el.innerHTML = "🔼" ; if(tgtFunc){tgtFunc()} ;break
+        case "🔽":tgt.style.display = "flex" ; el.innerHTML = addEmo("🔼","emoji up arrow") ; if(tgtFunc){tgtFunc()} ;break
         case "🔼":tgt.style.display = "none" ; el.innerHTML = "🔽" ; break
     }
 }
+*/
 
 function testNum(num,zeroGood=false){
     let test = true
@@ -227,7 +228,8 @@ function setPage(){
 
     let contR = addEle({dad:body,setClass:"contRow",alignItems:"center",margin:"5px"})
     lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmRpg_Bob1_Farm.html"
-        addEle({dad:contR,setClass:"btn",text:"⇦ Go Back",backC:from.buttonBackC,setFunc:()=>{window.open(lnk,"_self")}})
+        addEle({dad:contR,setClass:"btn",text:addEmo("⇦","emoji arrow pointing left")+
+        " Go Back",backC:from.buttonBackC,setFunc:()=>{window.open(lnk,"_self")}})
         addEle({dad:contR,text:spanText(yellowL,lastUpd),margin:"10px"})
 
    
@@ -271,10 +273,9 @@ function setPage(){
   
     if(userI.currentSet === "Custom"){getID("toggleCurrRate").checked = true}
     let ev = new Event("change") ; getID("toggleCurrRate").dispatchEvent(ev)
-
 }
 
-let settingsArr = ["-- User Settings --","Tools per Line & Order Memos","Rates / Ratios",
+let settingsArr = ["-- User Settings --","Display Options","Tools per Line & Order Memos","Rates / Ratios",
                    "User Details","Delete User Settings"] // "Check / Save User Settings",
 
 let helpArr =[
@@ -283,10 +284,9 @@ let helpArr =[
      - input the "Order Amount" (3rd white input area)<br>
      - read the "payout" that will show on next line<br>
      - and send payout to the customer<br>
-     everything else is additional tools and infos 🤠<br><br>
+     everything else is additional tools and infos `+ addEmo("🤠","emoji smiling farmer") +`<br><br>
      ** Mobile users might want to set tools per line 1<br>
      ** (under User Settings)
-
     `},
     {label:"Tool Sets",text:
     `The basic tool set gives the current options to allow every type of conversions at standard
@@ -349,21 +349,51 @@ function getDialogTopFrame(cxlEsc=true){
 function userSettingPick(){
     if(getID("settingsSelect").value !=="-- User Settings --"){
         switch(getID("settingsSelect").value){
-            case "Tools per Line & Order Memos" : setToolsMemos()
+            case settingsArr[1] : setDispOptions()
                 break
-            case "Rates / Ratios" : setRates()
+            case settingsArr[2] : setToolsMemos()
                 break
-            case "User Details" : setUserDetails2()
+            case settingsArr[3] : setRates()
+                break
+            case settingsArr[4] : setUserDetails()
                 break
 //            case "Check / Save User Settings" : compareSaves()
   //              break
-            case "Delete User Settings" : setDeleteFrame()
+            case settingsArr[5] : setDeleteFrame()
                 break
             default : alert("Under Construction")
         }
     }
 }
 
+function setDispOptions(){
+    let pop = getDialogTopFrame()
+    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",minHeight:"450px"})
+        let subC = addEle({dad:cont,setClass:"contRow",justifyC:"flex-end"})
+            addEle({dad:subC,text:spanText(green,"Under Construction...",30),marginT:"50px"})
+
+            addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),height:"fit-content",setFunc:()=>{
+                getID("settingsSelect").selectedIndex = 0 ;
+                savUserI() 
+                pop.remove()
+            }})
+
+
+        /*
+        subC = addEle({dad:cont,setClass:"contRow",justifyC:"flex-end"})
+            addEle({dad:subC,what:"checkbox",isInput:true,setID:"toggleCurrRate",setClass:"toggle-checkbox",
+            margin:"50px",setFunc:()=>{
+                let ref = getID("toggleCurrRate") ; let disp = getID("currentRate") ; let txt = undefined
+                if(ref.checked)
+                    {txt = "Custom" ; disp.innerHTML = spanText(yellow,txt) ; userI.currentSet = txt}
+                else {txt = "Basic" ; disp.innerHTML = spanText(yellow,txt) ; userI.currentSet = txt}
+                savUserI()
+                setTools()
+            }})
+            addEle({dad:subC,what:"label",setFor:"toggleCurrRate",setClass:"toggle-label",marginR:"10px"})
+        */
+    pop.showModal()
+}
 
 function setToolsMemos(){
 
@@ -381,7 +411,7 @@ function setToolsMemos(){
                 userI.memoCap = Number(getID("memoCselect").value)
                 userI.memoTimer = Number(getID("memoSselect").value)
                 userI.memoType = userI.memoTimer === 0 ? "manual" : "auto"
-                getID("uptoolMemo").innerHTML = "✅"
+                getID("uptoolMemo").innerHTML = addEmo("✅","emoji green OK sign")  
                 setTimeout(()=>{
                     if(getID("uptoolMemo")){getID("uptoolMemo").innerHTML = ""}
                 },1000)
@@ -390,7 +420,7 @@ function setToolsMemos(){
                 savUserI()
             }})
             addEle({dad:subC,setID:"uptoolMemo",minWidth:"35px"})
-            addEle({dad:subC,setClass:"btn",text:"❌",margin:"0 0 5px 0",setFunc:()=>{
+            addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),margin:"0 0 5px 0",setFunc:()=>{
                 getID("settingsSelect").selectedIndex = 0 ; 
                 pop.remove()
             }})
@@ -452,7 +482,7 @@ function setRates(){
         backC:"rgb(45, 88, 128)",border:"teal solid 2px",radius:"8px",})
             addEle({dad:subC,padding:"10px",setID:"rateLbl",textA:"center",}) //minWidth:"320px"
             
-            addEle({dad:subC,setClass:"btn",text:"❌",setFunc:()=>{
+            addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),setFunc:()=>{
                 getID("settingsSelect").selectedIndex = 0 ;
                 savUserI() 
                 pop.remove()
@@ -483,7 +513,7 @@ function setRates(){
         if(userI.rateU.length>0){getID("toggleRate").checked = true}
         let ev = new Event("change") ; getID("toggleRate").dispatchEvent(ev)
 
-    pop.showModal()    
+    pop.showModal()
 }
 
 function dispRateSet(arr){
@@ -497,12 +527,12 @@ function dispRateSet(arr){
             if(getID("toggleRate").checked){
                 subC = addEle({dad: getID("rateC:"+i),setClass:"contRow",alignItems:"center"})
                 if(userI.rateU.length>1){
-                    addEle({dad:subC,text:"🔼",setClass:"btn",padding:"0",margin:"0",fontS:"12px",
+                    addEle({dad:subC,text:addEmo("🔼","emoji arrow pointing up"),setClass:"btn",padding:"0",margin:"0",fontS:"12px", 
                     setID:"swap:"+i,setFunc:(e)=>{swapUD(e,"U")}})
-                    addEle({dad:subC,text:"🔽",setClass:"btn",padding:"0",margin:"0",fontS:"12px",
+                    addEle({dad:subC,text:addEmo("🔽","emoji arrow pointing down"),setClass:"btn",padding:"0",margin:"0",fontS:"12px",
                     setID:"swap:"+i,setFunc:(e)=>{swapUD(e,"D")}})
                 }
-                addEle({dad:subC,text:"❌ Delete",setClass:"btn",padding:"0 5px",marginL:"20px",fontS:"12px",
+                addEle({dad:subC,text:addEmo("❌","emoji red cross")+" Delete",setClass:"btn",padding:"0 5px",marginL:"20px",fontS:"12px",
                 setID:"customDel:"+i,setFunc:(e)=>{blastRate(e)}})
             }
         }
@@ -565,14 +595,17 @@ function buildRate(itm,dad,idx){
     let itmO = outputs.filter(x=>x.type === itm.type)[0]
     let rateC = addEle({dad:dad,setClass:"contCol",border:"teal solid 2px",margin:"5px",padding:"3px",setID:"rateC:"+idx})
         let subC = addEle({dad:rateC,setClass:"contRow",alignItems:"center"})
-            addEle({dad:subC,what:"img",imgFullSrc:srcImgs+itmO.img2,imgSize:20})
-            addEle({dad:subC,text:"➜"})
-            addEle({dad:subC,what:"img",imgFullSrc:srcImgs+itmO.img1,imgSize:20})
+            addEle({dad:subC,what:"img",imgFullSrc:srcImgs+itmO.img2,imgSize:20,imgAlt:itmO.chat2+"icon"})
+            addEle({dad:subC,text: addEmo("➜","emoji arrow pointing right") })
+            addEle({dad:subC,what:"img",imgFullSrc:srcImgs+itmO.img1,imgSize:20,imgAlt:itmO.chat1+"icon"})
             addEle({dad:subC,text:itm.type,marginL:"10px"})
         let txt = "Rate : "+itm.rate + " | Bonus : " + itm.bonus+"% | Rounding : " +itm.rounding
         addEle({dad:rateC,text:txt})
 }
 
+function addEmo(emoji="emoji",lbl="emoji label"){
+    return `<span role="img" aria-label="`+lbl+`">`+emoji+`</span>`
+}
 
 function addRateSetup(){
     let pop2 = getDialogTopFrame()
@@ -664,24 +697,25 @@ function addRateSetup(){
                     ev = new Event("change") ; getID("toggleCurrRate").dispatchEvent(ev)
                     setTools()
 
-                    getID("addGood").innerHTML = "✅"
+                    getID("addGood").innerHTML = addEmo("✅","emoji green OK sign")
                     setTimeout(()=>{
                         if(getID("addGood")){getID("addGood").innerHTML = ""}
                     },2000)
                 } else {
-                    getID("addGood").innerHTML = "⛔"
+                    getID("addGood").innerHTML = addEmo("⛔","emoji prohibited sign")
                     setTimeout(()=>{
                         if(getID("addGood")){getID("addGood").innerHTML = ""}
                     },2000)
                 }
             }})
             addEle({dad:subC2,setID:"addGood",minWidth:"20px"})
-            addEle({dad:subC,setClass:"btn",text:"❌",minWidth:"100px",setFunc:()=>{pop2.remove()}})
+            addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),minWidth:"100px",setFunc:()=>{pop2.remove()}})
 
     pop2.showModal()
 }
 
 function testCalcAmt(){
+
     cleanParent(getID("newRate"))
     let rateL = getID("rateApart")
     let rateR = getID("rateBpart")
@@ -704,9 +738,9 @@ function testCalcAmt(){
         let rateC = addEle({dad:getID("newRate"),setClass:"contCol",border:"teal solid 2px",
         margin:"0",padding:"3px"})
         let subC = addEle({dad:rateC,setClass:"contRow",alignItems:"center"})
-            addEle({dad:subC,what:"img",imgFullSrc:srcImgs+itmO.img2,imgSize:20})
-            addEle({dad:subC,text:"➜"})
-            addEle({dad:subC,what:"img",imgFullSrc:srcImgs+itmO.img1,imgSize:20})
+            addEle({dad:subC,what:"img",imgFullSrc:srcImgs+itmO.img2,imgSize:20,imgAlt:itmO.chat2+"icon"})
+            addEle({dad:subC,text:addEmo("➜","emoji arrow pointing right")})
+            addEle({dad:subC,what:"img",imgFullSrc:srcImgs+itmO.img1,imgSize:20,imgAlt:itmO.chat1+"icon"})
             addEle({dad:subC,text:getID("rateTSelect").value,marginL:"10px"})
         let txt = "Rate : "
         txt += testNum(rateL.value) ? rateL.value +":" : spanText(purple,"??") +":"
@@ -735,7 +769,7 @@ function testCalcAmt(){
     }
 }
 
-function setUserDetails2(){
+function setUserDetails(){
     let arr = undefined
     let txt = undefined
     let pop = getDialogTopFrame()
@@ -748,7 +782,7 @@ function setUserDetails2(){
 
         let subC0 = addEle({dad:subC,setClass:"contRow",padding:"5px",alignItems:"center",justifyC:"space-around"})
             addEle({dad:subC0,text:"",fontS:"20px",margin:"5px",setID:"userDTop"})
-            addEle({dad:subC0,setClass:"btn",text:"❌",setFunc:()=>{
+            addEle({dad:subC0,setClass:"btn",text:addEmo("❌","emoji red cross"),setFunc:()=>{
                 setTools()
                 getID("settingsSelect").selectedIndex = 0 ; 
                 pop.remove()
@@ -827,7 +861,7 @@ function userUpdate(){
         borderB:"teal solid 2px",radiusTL:"7px",radiusTR:"7px",alignItems:"center",padding:"5px"})
             addEle({dad:subC,text:info,margin:"10px"})
             addEle({dad:subC,setClass:"btn",text:"Save",margin:"0 20px 0 15px",setFunc:(e)=>{updateInvProdMM(e,info)}})
-            addEle({dad:subC,setClass:"btn",text:"❌",margin:"0 0 5px 0",setFunc:()=>{
+            addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),margin:"0 0 5px 0",setFunc:()=>{
                 let ev = new Event("change") ; getID("detailsCheck").dispatchEvent(ev)
                 pop2.remove()
             }})
@@ -843,9 +877,9 @@ function userUpdate(){
                     setFunc:(e)=>{
                         let disp = getID(e.srcElement.id+"G") 
                         if(testNum(e.srcElement.value)){
-                            disp.innerHTML = "✅"
+                            disp.innerHTML = addEmo("✅","emoji green OK sign")
                             reviewProductionChg()
-                        } else {disp.innerHTML = "⛔"}
+                        } else {disp.innerHTML = addEmo("⛔","emoji prohibited sign")}
                         setTimeout(()=>{disp.innerHTML = ""},1000)
                         }})
                     addEle({dad:subC,minWidth:"30px",margin:"0 5px",setID:inv.ref+":"+cpt+"G"})
@@ -856,14 +890,14 @@ function userUpdate(){
             addEle({dad:frm,text:"Owned / Used Artifacts",textA:"center",border:"teal solid 2px",marginT:"10px",
             backC:"rgb(45, 88, 128)"})
             subC = addEle({dad:frm,setClass:"contRow",marginT:"10px",alignItems:"center"})
-                addEle({dad:subC,what:"img",imgFullSrc:srcImgs+"615.png",imgSize:20,margin:"0 20px"})
+                addEle({dad:subC,what:"img",imgFullSrc:srcImgs+"615.png",imgSize:20,margin:"0 20px",imgAlt:"Tree Shaker artifact icon"})
                 addEle({dad:subC,text:spanText("yellow","Tree Shaker")+" (T170)",margin:"0 5px",minWidth:"160px"})
                 addEle({dad:subC,what:"checkbox",isInput:true,setID:"toggleArti1",setClass:"toggle-checkbox"
                 ,setFunc:reviewProductionChg})
                 addEle({dad:subC,what:"label",setFor:"toggleArti1",setClass:"toggle-label"})
 
             subC = addEle({dad:frm,setClass:"contRow",marginT:"10px",alignItems:"center",borderB:"teal solid 2px",paddingB:"10px"})
-                addEle({dad:subC,what:"img",imgFullSrc:srcImgs+"3320.png",imgSize:20,margin:"0 20px"})
+                addEle({dad:subC,what:"img",imgFullSrc:srcImgs+"3320.png",imgSize:20,margin:"0 20px",imgAlt:"Antler Snare artifact icon"})
                 addEle({dad:subC,text:spanText("yellow","Antler Snare")+" (T160)",margin:"0 5px",minWidth:"160px"})
                 addEle({dad:subC,what:"checkbox",isInput:true,setID:"toggleArti2",setClass:"toggle-checkbox"
                 ,setFunc:reviewProductionChg})
@@ -889,8 +923,8 @@ function userUpdate(){
                     setFunc:(e)=>{
                         let disp = getID(e.srcElement.id+"G") 
                         if(testNum(e.srcElement.value)){
-                            disp.innerHTML = "✅"
-                        } else {disp.innerHTML = "⛔"}
+                            disp.innerHTML = addEmo("✅","emoji green OK sign")
+                        } else {disp.innerHTML = addEmo("⛔","emoji prohibited sign")}
                         setTimeout(()=>{disp.innerHTML = ""},1000)
                         }})
                     addEle({dad:subC,minWidth:"25px",minHeight:"25px",margin:"0 5px",setID:"mm:"+cpt+"G"})
@@ -957,31 +991,31 @@ function updateInvProdMM(e,info){
         getID(txt+"G").innerHTML = ""
         if(testNum(getID(txt).value)){
             if(userI.inventoryMax !== Number(getID(txt).value)){
-                getID(txt+"G").innerHTML = "✅"
+                getID(txt+"G").innerHTML = addEmo("✅","emoji green OK sign")
                 cpt++
                 userI.inventoryMax = Number(getID(txt).value)
             }
-        } else {getID(txt+"G").innerHTML = "⛔"}
+        } else {getID(txt+"G").innerHTML = addEmo("⛔","emoji prohibited sign")}
     
         txt = "perk:1"
         getID(txt+"G").innerHTML = ""
         if(testNum(getID(txt).value)){
             if(userI.resSaver !== Number(getID(txt).value)){
-                getID(txt+"G").innerHTML = "✅"
+                getID(txt+"G").innerHTML = addEmo("✅","emoji green OK sign")
                 cpt++
                 userI.resSaver = Number(getID(txt).value)
             }            
-        } else {getID(txt+"G").innerHTML = "⛔"}
+        } else {getID(txt+"G").innerHTML = addEmo("⛔","emoji prohibited sign")}
     
         txt = "fruits:2"
         getID(txt+"G").innerHTML = ""
         if(testNum(getID(txt).value)){
             if(userI.fruitsProd !== Number(getID(txt).value)){
-                getID(txt+"G").innerHTML = "✅"
+                getID(txt+"G").innerHTML = addEmo("✅","emoji green OK sign")
                 cpt++
                 userI.fruitsProd = Number(getID(txt).value)
             }            
-        } else {getID(txt+"G").innerHTML = "⛔"}
+        } else {getID(txt+"G").innerHTML = addEmo("⛔","emoji prohibited sign")}
         if(calc.prod1>userI.fruitsTot){
             userI.fruitsTot = calc.prod1
         }
@@ -990,14 +1024,14 @@ function updateInvProdMM(e,info){
         getID(txt+"G").innerHTML = ""
         if(testNum(getID(txt).value)){
             if(userI.antlersProd !== Number(getID(txt).value)){
-                getID(txt+"G").innerHTML = "✅"
+                getID(txt+"G").innerHTML = addEmo("✅","emoji green OK sign")
                 cpt++
                 userI.antlersProd = Number(getID(txt).value)
                 if(calc.prod2>0){
                     userI.netsTot = calc.prod2
                 }
             }            
-        } else {getID(txt+"G").innerHTML = "⛔"}
+        } else {getID(txt+"G").innerHTML = addEmo("⛔","emoji prohibited sign")}
         if(calc.prod2>userI.netsTot){
             console.log("nets tot "+userI.netsTot + " > " + calc.prod2)
             userI.netsTot = calc.prod2
@@ -1022,11 +1056,11 @@ function updateInvProdMM(e,info){
             getID(txt+"G").innerHTML = ""
             if(testNum(getID(txt).value)){
                 if(userI.mms[i].progress !== Number(getID(txt).value)){
-                    getID(txt+"G").innerHTML = "✅"
+                    getID(txt+"G").innerHTML = addEmo("✅","emoji green OK sign")
                     cpt++
                     userI.mms[i].progress = Number(getID(txt).value)
                 }            
-            } else {getID(txt+"G").innerHTML = "⛔"}
+            } else {getID(txt+"G").innerHTML = addEmo("⛔","emoji prohibited sign")}
 
 
         }
@@ -1038,7 +1072,7 @@ function updateInvProdMM(e,info){
  e.srcElement.innerHTML = "Saved ["+cpt+"]"
 }
 
-
+/*
 function compareSaves(){
     let savOld = undefined
     let key = "farmRPGCustomConvertingV2"
@@ -1138,7 +1172,9 @@ function compareSaves(){
 
     pop.showModal()
 }
+*/
 
+/*
 function compSavRates(savOld){
     let workC = getID("savRatesCont")
     cleanParent(workC)
@@ -1170,6 +1206,7 @@ function compSavRates(savOld){
         getID("toggleRates").dispatchEvent(ev)
     }
 }
+*/
 
 function setDeleteFrame(){
     let pop = getDialogTopFrame()
@@ -1177,16 +1214,17 @@ function setDeleteFrame(){
 
     let subC = addEle({dad:cont,setClass:"contCol",marginT:"40px"})
         let subC2 = addEle({dad:subC,setClass:"contRow",margin:"40px 0",alignItems:"center"})
-            addEle({dad:subC2,setClass:"btn",padding:"10px",text:"⚠️<br>Delete User Settings<br>⚠️",margin:"20px 5px 20px 20px",
+            addEle({dad:subC2,setClass:"btn",padding:"10px",text:addEmo("⚠️","emoji exclamation mark in yellow triangle")+
+            "<br>Delete User Settings<br>"+addEmo("⚠️","emoji exclamation mark in yellow triangle"),margin:"20px 5px 20px 20px",
             minWidth:"200px",fontS:"26px",setFunc:()=>{
                 let key = "farmRPGCustomConvertingV2"
                 localStorage.removeItem(key)
-                getID("deleteG").innerHTML = "✅"
+                getID("deleteG").innerHTML = addEmo("✅","emoji green OK sign")
                 setTimeout(()=>{getID("deleteG").innerHTML = ""},1000)
             }})
             addEle({dad:subC2,setID:"deleteG",minWidth:"25px"})
 
-            addEle({dad:subC2,setClass:"btn",text:"❌",setFunc:()=>{
+            addEle({dad:subC2,setClass:"btn",text:addEmo("❌","emoji red cross"),setFunc:()=>{
                 getID("settingsSelect").selectedIndex = 0 ; 
                 pop.remove()
             }})

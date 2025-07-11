@@ -69,6 +69,7 @@ function addEle({
     img2Sizes = "",
     imgSrc = "",
     imgFullSrc = "",
+    imgAlt = "",
     accentCol = "",
     position = "",
     top = "",
@@ -94,6 +95,8 @@ function addEle({
             
             if(imgFullSrc!==""){thisObj.src = imgFullSrc}
             else{thisObj.src = path1 + imgSrc + path2}
+
+            if(imgAlt!==""){thisObj.alt = imgAlt}
             }
         else
             {thisObj = document.createElement(what)}
