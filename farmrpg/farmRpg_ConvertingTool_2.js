@@ -193,6 +193,7 @@ function loadSav(){
             
             userI = swapSav
 
+            /*
             let src = userI.rateU
             if(src.length>0){
                 swapSav = []
@@ -208,6 +209,7 @@ function loadSav(){
                 userI.rateU = swapSav                
             }
             saveToBrowser("")
+            */
         }
     }
     userI.rateU.forEach(rt=>{rt.orderMem = []})
