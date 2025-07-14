@@ -6,23 +6,23 @@ const srcImgs = "https://farmrpg.com/img/items/"
 let lastUpd = "Last up 2025 07/12 03:10"
 
 const outputs = [
-    {label:"OJ",type:"OJ from Oranges",rate:"3:1",friend:"4.13:1",img1:"orange.png",img2:"orangejuice.png",
-    chat1:"((Orange))",chat2:"((Orange Juice))",loopBase:10},
+    {label:"OJ",type:"Oranges to OJ",rate:"3:1",friend:"4.13:1",img1:"orange.png",img2:"orangejuice.png",
+    chat1:"((Orange))",chat2:"((Orange Juice))",loopBase:10,oType:"OJ from Oranges"},
 
-    {label:"Lemonade",type:"Lemonade from Lemons",rate:"3:1",friend:"4.13:1",img1:"8251.PNG",img2:"lemonade.png",
-    chat1:"((Lemon))",chat2:"((Lemonade))",loopBase:10},
+    {label:"Lemonade",type:"Lemons to Lemonade",rate:"3:1",friend:"4.13:1",img1:"8251.PNG",img2:"lemonade.png",
+    chat1:"((Lemon))",chat2:"((Lemonade))",loopBase:10,oType:"Lemonade from Lemons"},
 
-    {label:"AP",type:"AP from Lemons",rate:"30:1",friend:"57:1",img1:"8251.PNG",img2:"ap.png",
-    chat1:"((Lemon))",chat2:"((Arnold Palmer))",loopBase:63},
+    {label:"AP",type:"Lemons to AP",rate:"30:1",friend:"57:1",img1:"8251.PNG",img2:"ap.png",
+    chat1:"((Lemon))",chat2:"((Arnold Palmer))",loopBase:63,oType:"AP from Lemons"},
 
-    {label:"AP",type:"AP from Lemonades",rate:"1000:80",friend:"1000:72.5",img1:"lemonade.png",img2:"ap.png",
-    chat1:"((Lemonade))",chat2:"((Arnold Palmer))",loopBase:133},
+    {label:"AP",type:"Lemonades to AP",rate:"1000:80",friend:"1000:72.5",img1:"lemonade.png",img2:"ap.png",
+    chat1:"((Lemonade))",chat2:"((Arnold Palmer))",loopBase:133,oType:"AP from Lemonades"},
 
-    {label:"LN",type:"LN from FN (fishing nets)",rate:"1000:70",friend:"1000:58",img1:"7748.png",img2:"lnet.png",
-    chat1:"((Fishing Net))",chat2:"((Large Net))",loopBase:83},
+    {label:"LN",type:"FN (fishing nets) to LN",rate:"1000:70",friend:"1000:58",img1:"7748.png",img2:"lnet.png",
+    chat1:"((Fishing Net))",chat2:"((Large Net))",loopBase:83,oType:"LN from FN (fishing nets)"},
 
-    {label:"Cider",type:"Cider from Apples (and Oranges)",rate:"20:1",friend:"27.7:1",img1:"8297.png",img2:"8984.png",
-    chat1:"((Apple))",chat2:"((Apple Cider))",loopBase:72},
+    {label:"Cider",type:"Apples (and Oranges) to Cider",rate:"20:1",friend:"27.7:1",img1:"8297.png",img2:"8984.png",
+    chat1:"((Apple))",chat2:"((Apple Cider))",loopBase:72,oType:"Cider from Apples (and Oranges)"},
 ]
 
 const roundings = ["Up","Down","Closest 5"]
