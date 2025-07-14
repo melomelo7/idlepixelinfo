@@ -29,21 +29,21 @@ const roundings = ["Up","Down","Closest 5"]
 
 let eventRatio = [0,10,14,20]
 
-const rateB =[
-{ind:0,label:"OJ",type:"OJ from Oranges",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],
+let rateB =[
+{ind:0,label:"OJ",type:outputs[0].type,rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],
 orderIdx:undefined,orderTimer:undefined,advertising:false},
-{ind:1,label:"Lemonade",type:"Lemonade from Lemons",rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],
+{ind:1,label:"Lemonade",type:outputs[1].type,rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],
 orderIdx:undefined,orderTimer:undefined,advertising:false},
-{ind:2,label:"AP",type:"AP from Lemons",rate:"30:1",bonus:0,rounding:roundings[0],orderMem:[],
+{ind:2,label:"AP",type:outputs[2].type,rate:"30:1",bonus:0,rounding:roundings[0],orderMem:[],
 orderIdx:undefined,orderTimer:undefined,advertising:false},
-{ind:3,label:"LN",type:"LN from FN (fishing nets)",rate:"1000:70",bonus:0,rounding:roundings[0],orderMem:[],
+{ind:3,label:"LN",type:outputs[4].type,rate:"1000:70",bonus:0,rounding:roundings[0],orderMem:[],
 orderIdx:undefined,orderTimer:undefined,advertising:false},
-{ind:4,label:"Cider",type:"Cider from Apples (and Oranges)",rate:"20:1",bonus:0,rounding:roundings[0],orderMem:[],
+{ind:4,label:"Cider",type:outputs[5].type,rate:"20:1",bonus:0,rounding:roundings[0],orderMem:[],
 orderIdx:undefined,orderTimer:undefined,advertising:false},
-{ind:5,label:"AP",type:"AP from Lemonades",rate:"1000:80",bonus:0,rounding:roundings[0],orderMem:[],
+{ind:5,label:"AP",type:outputs[3].type,rate:"1000:80",bonus:0,rounding:roundings[0],orderMem:[],
 orderIdx:undefined,orderTimer:undefined,advertising:false},
 ]
-
+    
 let pageVer = "2.0"
 
 let userI = {
