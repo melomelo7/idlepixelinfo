@@ -213,6 +213,14 @@ function loadSav(){
         }
     }
     userI.rateU.forEach(rt=>{rt.orderMem = []})
+
+    userI.rateU.forEach(x=>{
+        if(x.type.includes("from")){
+          x.type = outputs.filter(y=>y.oType === x.type)[0].type   
+        }
+    })
+
+    
 }
 
 function infoBox(info,txtCol="",closeFunc=undefined){
