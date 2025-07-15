@@ -210,7 +210,7 @@ function addEle({
     if(position !==""){thisObj.style.position = position}
 
     if(top !==""){thisObj.style.top = top}
-    if(left !==""){thisObj.style.left = top}
+    if(left !==""){thisObj.style.left = left}
 
     if(zIdx!==""){thisObj.style.zIndex = zIdx}
 

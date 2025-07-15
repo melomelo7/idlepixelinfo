@@ -609,7 +609,7 @@ function buildTool(dad,itm,idx){
         tr = addEle({dad:tb,what:"tr"})
             tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
             let inC = addEle({dad:tc,setClass:"contRow",alignItems:"center",justifyC:"space-between"})
-                buildRate(itm,inC,idx,"")
+                buildRate(itm,inC,idx,"",0)
                 addEle({dad:inC,setClass:"btn",text:"Reset",setID:"reset:"+idx,height:"fit-content",setFunc:(e)=>{
                     let idx = e.srcElement.id.split(":")[1]
                     console.log("reset")
@@ -623,25 +623,27 @@ function buildTool(dad,itm,idx){
         tr = addEle({dad:tb,what:"tr"})
             tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
 
-            let cr = addEle({dad:tc,setClass:"contRow",justifyC:"space-around"}) 
-                inC = addEle({dad:cr,setClass:"contCol",alignItems:"center"})
-                    addEle({dad:inC,text:"Advertise in chat",marginB:"5px"})
+            let cr = addEle({dad:tc,setClass:"contRow",justifyC:"space-around",padding:"2px"}) 
+                inC = addEle({dad:cr,setClass:"contRow",alignItems:"center"})
+                    addEle({dad:inC,text:"Adv",marginR:"5px",padding:"5px 8px",border:"teal solid 3px",radius:"50px"})
 
                     addEle({dad:inC,what:"checkbox",isInput:true,accentCol:green,setName:"advertise",setClass:"toggle-checkbox",
                     setID:"adv:"+idx,setFunc:(e)=>{itm.advertising = e.srcElement.checked ? true : false ; advertising(e) }})
-                    addEle({dad:inC,what:"label",setFor:"adv:"+idx,setClass:"toggle-label",marginB:"5px"})
+                    addEle({dad:inC,what:"label",setFor:"adv:"+idx,setClass:"toggle-label",setID:"advL:"+idx})
                     if(itm.advertising){getID("adv:"+idx).checked=true ; let ev = new Event("change") ; getID("adv:"+idx).dispatchEvent(ev) }
+                    setInfoTip(getID("advL:"+idx),"advTip:"+idx,"Advertise in Chat",-25)
 
-                inC = addEle({dad:cr,setClass:"contCol",alignItems:"center"})
-                    addEle({dad:inC,text:"Estimate conversion"})
+                inC = addEle({dad:cr,setClass:"contRow",alignItems:"center"})
+                    addEle({dad:inC,text:"E.C.",marginR:"5px",padding:"5px 8px",border:"teal solid 3px",radius:"50px"})
                     txt = outputs.filter(it=>it.type===itm.type)[0]
                     let subC = addEle({dad:inC,setClass:"btn",padding:"0",display:"flex",flDir:"row",
                     alignItems:"center",setID:"convertProBtn:"+idx,setFunc:(e)=>{convertProject(e)}})
-                        addEle({dad:subC,what:"img",imgFullSrc:srcImgs+txt.img2,imgSize:25,
+                        addEle({dad:subC,what:"img",imgFullSrc:srcImgs+txt.img2,imgSize:20,
                         setID:"convertProImg1:"+idx,imgAlt:txt.chat2})
                         addEle({dad:subC,text:"?",margin:"0 5px",setID:"convertProTxt:"+idx})
-                        addEle({dad:subC,what:"img",imgFullSrc:srcImgs+txt.img1,imgSize:25,
+                        addEle({dad:subC,what:"img",imgFullSrc:srcImgs+txt.img1,imgSize:20,
                         setID:"convertProImg2:"+idx,imgAlt:txt.chat1})
+                    setInfoTip(getID("convertProBtn:"+idx),"convTip:"+idx,"Estimate conversion",-25)
     }
 
 
@@ -735,13 +737,13 @@ function buildTool(dad,itm,idx){
             addEle({dad:inC,what:"input",isInput:true,width:"100px",textA:"center",setID:"mbs:"+idx,
             setVal:0,setFunc:(e)=>{
                 let idx = e.srcElement.id.split(":")[1] ; let dispG = getID("mbsG:"+idx)
-                if(testNum(e.srcElement.value,true)){
-                    toolCalc(e.srcElement.id,false)
-                    dispG.innerHTML = addEmo("✅","emoji green OK sign")                    
-                } else {dispG.innerHTML = addEmo("⛔","emoji prohibited sign")}
-
-                }})
-    
+                if(testNum(e.srcElement.value,true))
+                     {dispG.innerHTML = addEmo("✅","emoji green OK sign")}
+                else {dispG.innerHTML = addEmo("⛔","emoji prohibited sign")}
+                toolCalc(e.srcElement.id,false)
+            }})
+            txt = "⛔ Calculations stopped, only<br>allowed "+spanText("yellow","Numbers")+" from 0 to 9"
+            setWarnTip(getID("mbs:"+idx),"mbWarn:"+idx,txt,-50,-10)
     }
 
 
@@ -753,24 +755,7 @@ function buildTool(dad,itm,idx){
                     if(userI.memoType === "manual" && userI.displayOptions.memos){
                         inC.style.justifyContent = "flex-end"
                         addEle({dad:inC,setClass:"btn",text:"Memo",fontS:"11px",padding:"1px 2px",
-                        setID:"manualM:"+idx,marginL:"20px",setFunc:(e)=>{
-                            addSelectMemo(e.srcElement.id)
-                            /*
-                            let idx = Number(e.srcElement.id.split(":")[1])
-                            let itm = getCurrItem(e.srcElement.id)
-                            let val = getID("order:"+idx).value 
-                            let disp = getID("memoInfo:"+idx)
-                            if(getID("orderH:"+idx).style.display==="flex"){getID("memHis:"+idx).click()}
-                            if(testNum(val)){
-                                itm.orderMem.push({dt:new Date(),val:Number(val),name:getID("farmer:"+idx).value,mbs:getID("mbs:"+idx).value})
-                                if(itm.orderMem.length>userI.memoCap){itm.orderMem.splice(0,1)}
-                                itm.orderIdx = itm.orderMem.length-1
-                                disp.style.color = "lime"
-                                disp.innerHTML = "Memo<br>"+itm.orderMem.length+"/"+userI.memoCap
-                                setTimeout(()=>{disp.style.color = "white"},2000)
-                            }
-                            */
-                        }})
+                        setID:"manualM:"+idx,marginL:"20px",setFunc:(e)=>{addSelectMemo(e.srcElement.id)}})
                     }
             tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
                 inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
@@ -778,37 +763,44 @@ function buildTool(dad,itm,idx){
                     addEle({dad:inC,what:"input",isInput:true,width:"100px",textA:"center",setID:"order:"+idx,
                     setVal:0,setFunc:(e)=>{
                         let idx = e.srcElement.id.split(":")[1] ; let dispG = getID("orderG:"+idx)
-                        if(testNum(e.srcElement.value)){
-                            toolCalc(e.srcElement.id,false)
-                            dispG.innerHTML = addEmo("✅","emoji green OK sign")                    
-                        } else {dispG.innerHTML = addEmo("⛔","emoji prohibited sign")}
+                        if(testNum(e.srcElement.value))
+                             {dispG.innerHTML = addEmo("✅","emoji green OK sign")} 
+                        else {dispG.innerHTML = addEmo("⛔","emoji prohibited sign")}
+                        toolCalc(e.srcElement.id,true)
                     }})
                     getID("order:"+idx).addEventListener('keydown', function(event) 
                         {if (event.key === 'Enter' && userI.memoType ==="manual" ) 
                             {getID("manualM:"+idx).click()}});
+                    txt = "⛔ Calculations stopped, only<br>allowed "+spanText("yellow","Numbers")+
+                    " from 0 to 9<br>and order > zero"
+                    setWarnTip(getID("order:"+idx),"orderWarn:"+idx,txt,-65,-10)
+
+
                     
     if(userI.displayOptions.memos){
         tr = addEle({dad:tb,what:"tr"})
             tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
                 inC = addEle({dad:tc,setClass:"contRow",alignItems:"center"})
+                    addEle({dad:inC,setClass:"btn",text:addEmo("❌","emoji red cross","memoX:"+idx),
+                    fontS:"10px",setID:"memoX:"+idx,setFunc:(e)=>{memoDel(e.srcElement.id)}})
+                    txt = "Delete"
+                    setInfoTip(getID("memoX:"+idx),"delMemoTip:"+idx,txt,-25,-8)
+
                     addEle({dad:inC,what:"select",fontS:"12px",setID:"memoSelect:"+idx,padding:"5px",
                     backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white",
-                    minWidth:"300px",marginL:"15px",setFunc:(e)=>{
+                    minWidth:"280px",marginL:"5px",setFunc:(e)=>{
                         let sx = e.srcElement.selectedIndex 
                         if(sx!==0){
                             let itm = getCurrItem(e.srcElement.id)
                             getID("farmer:"+idx).value = itm.orderMem[sx-1].name
                             getID("mbs:"+idx).value = itm.orderMem[sx-1].mbs
                             getID("order:"+idx).value = itm.orderMem[sx-1].val
-                            let ev = new Event("input") ; getID("order:"+idx).dispatchEvent(ev) 
+                            toolCalc(e.srcElement.id,false)
                         }
                     }})
                         txt = "Memos 0/"+userI.memoCap + " -- Select --"
                         addEle({dad:getID("memoSelect:"+idx),what:"option",text:txt})
                     addEle({dad:inC,setID:"memoG:"+idx,minWidth:"25px"})
-
-
-
     }
 
 
@@ -870,7 +862,7 @@ function buildTool(dad,itm,idx){
                     getID("payout:"+idx).innerHTML = "0"
 
     if(userI.displayOptions.customerMB){
-                addEle({dad:inC,text:"Payout Detail : " + `<span id="payoutD:`+idx+`"> </span>`,marginL:"10px"})
+                addEle({dad:inC,text:"Detail : " + `<span id="payoutD:`+idx+`"> </span>`,marginL:"10px"})
                 getID("payoutD:"+idx).innerHTML = spanText(purple,"---")
     }
 
@@ -970,24 +962,45 @@ function buildTool(dad,itm,idx){
             let expC = addEle({dad:cont,setClass:"contCol",padding:"5px",margin:"5px",border:"teal 2px solid",
                 alignItems:"center",radius:"10px"})
 
-                inC = addEle({dad:expC,setClass:"contRow",justifyC:"center"})
-                    addEle({dad:inC,text:"Use Mushroom Stew (Exp Bonus)",setID:"stewBoxLb:"+idx,setFunc:(e)=>{
-                            getID("stewBox:"+e.srcElement.id.split(":")[1]).click()}})
-                    addEle({dad:inC,what:"checkbox",isInput:true,setVal:true,accentCol:green,setID:"stewBox:"+idx,
-                            setFunc:(e)=>{eventXPradio(e.srcElement.id)}})
+                inC = addEle({dad:expC,setClass:"contRow",justifyC:"center",alignItems:"center"})
+                    addEle({dad:inC,text:"Use",setID:"stewBoxLb:"+idx,})
+                    addEle({dad:inC,what:"img",imgFullSrc:srcImgs+"mushroomstew.png",imgSize:20,margin:"0 5px",setID:"mush:"+idx})
+                    setInfoTip(getID("mush:"+idx),"mushT:"+idx,"Mushroom Stew",-20,-10)
+                    addEle({dad:inC,text:"(Exp Bonus)",setID:"stewBoxLb:"+idx,})
 
-                inC = addEle({dad:expC,setClass:"contRow",justifyC:"center",marginT:"0"})
+             //       addEle({dad:inC,text:"Use Mushroom Stew (Exp Bonus)",setID:"stewBoxLb:"+idx,})//setFunc:(e)=>{
+                            //getID("stewBox:"+e.srcElement.id.split(":")[1]).click()}})
+      //              addEle({dad:inC,what:"checkbox",isInput:true,setVal:true,accentCol:green,setID:"stewBox:"+idx,
+        //                    setFunc:(e)=>{eventXPradio(e.srcElement.id)}})
+
+
+                    addEle({dad:inC,what:"checkbox",isInput:true,accentCol:green,setClass:"toggle-checkbox",
+                    setID:"stewBox:"+idx,setFunc:(e)=>{eventXPradio(e.srcElement.id)}})
+                    addEle({dad:inC,what:"label",setFor:"stewBox:"+idx,setClass:"toggle-label",marginL:"10px"})
+        
+
+
+                inC = addEle({dad:expC,setClass:"contRow",justifyC:"center",marginT:"5px"})
                     addEle({dad:inC,setClass:"contCol",justifyC:"center",text:"Event Item Mastery Bonus : ",
-                    setID:"evExpLb:"+idx,minWidth:"220px"})
+                    setID:"evExpLb:"+idx})
 
-                    eventRatio.forEach(er=>{
+                    addEle({dad:inC,what:"select",fontS:"12px",setID:"eventSelect:"+idx,padding:"5px",
+                    backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white",
+                    marginL:"5px",setFunc:(e)=>{eventXPradio(e.srcElement.id)}})
+                    eventMastery.forEach(e=>{addEle({dad:getID("eventSelect:"+idx),what:"option",text:e+"%"})})
+
+
+                    /*
+                    eventMastery.forEach(er=>{
                         addEle({dad:inC,what:"radio",isInput:true,setVal:er,setName:"evXpRads:"+idx,
                         setID:"evXpRad:"+idx,accentCol:"green",setFunc:(e)=>{eventXPradio(e.srcElement.id)}})                        
                     })
-                   
+                    */
+
                 addEle({dad:cont,textA:"left",text:spanText(purple,"---"),setID:"MMsumUp:"+idx})
 
-                document.getElementsByName("evXpRads:"+idx)[0].click()
+            //    document.getElementsByName("evXpRads:"+idx)[0].click()
+            let ev = new Event("change") ; getID("eventSelect:"+idx).dispatchEvent(ev)
 
     }
 
@@ -1112,7 +1125,7 @@ function getCurrItem(id){
 
 
 
-
+/*
 //////////////////////////////
 function memoAdd(id){
     let idx = Number(id.split(":")[1])
@@ -1136,7 +1149,44 @@ function memoAdd(id){
         },userI.memoTimer*1000)
     }
 }
+*/
 
+
+function memoDel(id){
+    let idx = id.split(":")[1]
+    let itm = getCurrItem(id)
+    let sel = getID("memoSelect:"+idx)
+    let sx = sel.selectedIndex 
+    if( sx!==0){
+        itm.orderMem.splice((sx-1),1)
+        cleanParent(sel)
+        txt = "Memos "+itm.orderMem.length+"/"+userI.memoCap + " -- Select --"
+        addEle({dad:sel,what:"option",text:txt})
+
+        itm.orderMem.forEach(m=>{
+            let hr = m.dt.getHours() < 10  ? "0"+m.dt.getHours() : m.dt.getHours()
+            let mn = m.dt.getMinutes() < 10 ? "0"+m.dt.getMinutes() : m.dt.getMinutes()
+            let sc = m.dt.getSeconds() < 10 ? "0"+m.dt.getSeconds() : m.dt.getSeconds()
+            let txt = (m.dt.getMonth()+1)+"/"+m.dt.getDate()+" | "+hr+":"+mn+":"+sc +
+            " | " + m.name +" | " +m.mbs + " | " + m.val.toLocaleString() 
+            addEle({dad:sel,what:"option",text:txt})
+        })
+    }
+}
+
+
+function delayMemo(id){
+    let idx = id.split(":")[1]
+    let order = getID("order:"+idx).value
+    let itm = getCurrItem(id)
+
+    if(itm.orderTimer===undefined && testNum(order)){
+        itm.orderTimer = setTimeout(()=>{
+            itm.orderTimer = undefined
+            addSelectMemo(id)
+        },userI.memoTimer*1000)
+    }
+}
 
 /////////////*********************
 function addSelectMemo(id){
@@ -1174,6 +1224,9 @@ function addSelectMemo(id){
 //////////////////////******************
 
 
+
+
+/*
 function memoHis(e){
     let idx = Number(e.srcElement.id.split(":")[1])
     let itm = getCurrItem(e.srcElement.id)
@@ -1220,66 +1273,71 @@ function memoNext(e){
     getID("mbs:"+idx).value = itm.orderMem[itm.orderIdx].mbs
     toolCalc(e.srcElement.id,false)
 }
+*/
+
+
 
 function eventXPradio(id){
     let idx = id.split(":")[1]
     let ratio = 1
     let evXP = 0
-    let grp = document.getElementsByName("evXpRads:"+idx)
-    grp.forEach(it=>{if(it.checked){evXP = Number(it.value) }})
+    evXP = eventMastery[getID("eventSelect:"+idx).selectedIndex]
     ratio += evXP/100
     if(getID("stewBox:"+idx).checked){ratio +=.1}
-    getID("evExpLb:"+idx).innerHTML = "Event Item Mastery Bonus : "+evXP+"%"
     getID("xpRatio:"+idx).innerHTML = ratio.toFixed(2)
     mmEstimate(id,ratio)
 }
 
 function upNeedRg(id){
-    let idx = Number(id.split(":")[1])
-    let pct1 = undefined
-    let pct2 = undefined
-    let inv = undefined
-    let itm = getCurrItem(id)
 
-    if(testNum(userI.inventoryMax)){
-        inv = userI.inventoryMax
-        if(itm.label==="LN"){
-            pct1 = Number(getID("ringRg:"+idx).value)
-            getID("ringRgLb:"+idx).innerHTML = pct1 + "%<br>" + (inv * pct1 /100)
-            pct2 = Number(getID("stoneRg:"+idx).value)
-            getID("stoneRgLb:"+idx).innerHTML = pct2 + "%<br>" + (inv * pct2 /100)
-        }
-    } else {
-        if(itm.label==="LN"){
-            getID("ringRgLb:"+idx).innerHTML = spanText(purple,"---")
-            getID("stoneRgLb:"+idx).innerHTML = spanText(purple,"---")
-            getID("stoneNeed:"+idx).innerHTML = spanText(purple,"Fill User Details in User Settings")
-        } else {
-            getID("bottlesNeed:"+idx).innerHTML = spanText(purple,"Fill User Details in User Settings")
-        }
-    }
+    if(userI.displayOptions.usedNeeds){
 
-    let tgtLb = itm.label==="LN" ? getID("stoneNeed:"+idx) : getID("bottlesNeed:"+idx) 
-    let tgtLbT = itm.label==="LN" ? "":"<br>"
-    let val = getID("order:"+idx).value
+        let idx = Number(id.split(":")[1])
+        let pct1 = undefined
+        let pct2 = undefined
+        let inv = undefined
+        let itm = getCurrItem(id)
 
-    if(testNum(val)){
-        let pr = userI.resCraft
-        if(itm.label !=="LN"){
-            switch(itm.type){
-                case "Cider" : tgtLb.innerHTML = tgtLbT + (Math.floor(val/40)).toLocaleString() ; break
-                case "AP" : tgtLb.innerHTML = tgtLbT + (Math.ceil(val/6) + 
-                            Math.floor((Math.ceil(val/6)*pr)/20)).toLocaleString() ; break
-                default : tgtLb.innerHTML = tgtLbT + (Math.floor(val/6)).toLocaleString()
+        if(testNum(userI.inventoryMax)){
+            inv = userI.inventoryMax
+            if(itm.label==="LN"){
+                pct1 = Number(getID("ringRg:"+idx).value)
+                getID("ringRgLb:"+idx).innerHTML = pct1 + "%<br>" + (inv * pct1 /100)
+                pct2 = Number(getID("stoneRg:"+idx).value)
+                getID("stoneRgLb:"+idx).innerHTML = pct2 + "%<br>" + (inv * pct2 /100)
             }
         } else {
-            if(inv!==undefined){
-                val = val - Math.floor((inv * pct1 /100))
-                val = val - Math.ceil(Math.floor((inv * pct2 /100))*pr)
-                tgtLb.innerHTML = val > 0 ? tgtLbT + val.toLocaleString() : tgtLbT + "0"
-            } else {tgtLb.innerHTML = tgtLbT + spanText(purple,"Fill User Details in User Settings")}
+            if(itm.label==="LN"){
+                getID("ringRgLb:"+idx).innerHTML = spanText(purple,"---")
+                getID("stoneRgLb:"+idx).innerHTML = spanText(purple,"---")
+                getID("stoneNeed:"+idx).innerHTML = spanText(purple,"Fill User Details in User Settings")
+            } else {
+                getID("bottlesNeed:"+idx).innerHTML = spanText(purple,"Fill User Details in User Settings")
+            }
         }
-    } else {tgtLb.innerHTML = tgtLbT + spanText(purple,"---")}
+
+        let tgtLb = itm.label==="LN" ? getID("stoneNeed:"+idx) : getID("bottlesNeed:"+idx) 
+        let tgtLbT = itm.label==="LN" ? "":"<br>"
+        let val = getID("order:"+idx).value
+
+        if(testNum(val)){
+            let pr = userI.resCraft
+            if(itm.label !=="LN"){
+                switch(itm.type){
+                    case "Cider" : tgtLb.innerHTML = tgtLbT + (Math.floor(val/40)).toLocaleString() ; break
+                    case "AP" : tgtLb.innerHTML = tgtLbT + (Math.ceil(val/6) + 
+                                Math.floor((Math.ceil(val/6)*pr)/20)).toLocaleString() ; break
+                    default : tgtLb.innerHTML = tgtLbT + (Math.floor(val/6)).toLocaleString()
+                }
+            } else {
+                if(inv!==undefined){
+                    val = val - Math.floor((inv * pct1 /100))
+                    val = val - Math.ceil(Math.floor((inv * pct2 /100))*pr)
+                    tgtLb.innerHTML = val > 0 ? tgtLbT + val.toLocaleString() : tgtLbT + "0"
+                } else {tgtLb.innerHTML = tgtLbT + spanText(purple,"Fill User Details in User Settings")}
+            }
+        } else {tgtLb.innerHTML = tgtLbT + spanText(purple,"---")}
+    }
 }
 
 function advertising(e){
@@ -1295,8 +1353,6 @@ function advertising(e){
     let arrRaw = []
     let arrG = []
     let idx = undefined
-
-console.log(src)
 
     grp.forEach(it=>{
         if(it.checked){
@@ -1350,18 +1406,12 @@ function toolCalc(id,memoAd=true){
     let val = getID("order:"+idx).value
     let itm = getCurrItem(id)
 
+    if (memoAd && testNum(val) && userI.memoType === "auto"){delayMemo(id)}
 
-console.log(itm)
-
-
-
-
-/*
-
-    if (memoAd && testNum(val) && userI.memoType === "auto"){memoAdd(id)}
-
-    getID("mbWarn:"+idx).style.visibility = 
-    !testNum(getID("mbs:"+idx).value,true) && id.includes("mbs") ? "visible" : "hidden"
+    if(userI.displayOptions.customerMB){
+        getID("mbWarn:"+idx).style.visibility = 
+        !testNum(getID("mbs:"+idx).value,true) && id.includes("mbs") ? "visible" : "hidden"
+    }
 
     getID("orderWarn:"+idx).style.visibility = 
     !testNum(getID("order:"+idx).value,true) && id.includes("order") ? "visible" : "hidden"
@@ -1373,7 +1423,6 @@ console.log(itm)
         let mul = itm.rate.split(":")[1]
         let bon = itm.bonus
         let rnd = itm.rounding
-        let mbs = getID("mbs:"+idx).value
         let txt = ""
 
         let ret = calcConvert(val,div,mul,bon,rnd)
@@ -1401,15 +1450,19 @@ console.log(itm)
         (ret.payR - craft).toLocaleString() + "(+ " +ret.bonR + ")<br> = " + 
         (ret.payR - craft + ret.bonR).toLocaleString()
 
-        if (testNum(mbs)){
-            mbs = Number(mbs)
-            let rnds1 = Math.floor(payT/Number(mbs))
-            let rnds2 = Math.floor(ret.payR/Number(mbs))
-            let txt = payT+" ⇒ "+ rnds1 + "x " + mbs + "=" +(rnds1*mbs)+ " + " + (payT-(rnds1*mbs)) 
-            if(bon>0)
-              {txt += "<br>"+ ret.payR +" ⇒ "+ rnds2 + "x " + mbs + "=" +(rnds2*mbs)  + " + " + (ret.payR-(rnds2*mbs))}
-            getID("payoutD:"+idx).innerHTML = txt
-        } else { getID("payoutD:"+idx).innerHTML = spanText(purple,"---") }
+        if(userI.displayOptions.customerMB){
+            let mbs = getID("mbs:"+idx).value
+
+            if (testNum(mbs)){
+                mbs = Number(mbs)
+                let rnds1 = Math.floor(payT/Number(mbs))
+                let rnds2 = Math.floor(ret.payR/Number(mbs))
+                let txt = payT+" ⇒ "+ rnds1 + "x " + mbs + "=" +(rnds1*mbs)+ " + " + (payT-(rnds1*mbs)) 
+                if(bon>0)
+                {txt += "<br>"+ ret.payR +" ⇒ "+ rnds2 + "x " + mbs + "=" +(rnds2*mbs)  + " + " + (ret.payR-(rnds2*mbs))}
+                getID("payoutD:"+idx).innerHTML = txt
+            } else { getID("payoutD:"+idx).innerHTML = spanText(purple,"---") }
+        }
 
     } else {
         getID("payout:"+idx).innerHTML = 0
@@ -1419,30 +1472,29 @@ console.log(itm)
     }
 
 upNeedRg(id)
-*/
-
-
-
 }
 
-
-
-
-
-
-
-
-
-
-
-
-function setWarnTip(refEl=undefined,id=undefined,msg="message",posTop=-30){
+function setInfoTip(refEl=undefined,id=undefined,msg="message",posTop=-30,posLeft=0){
     let dad = refEl.parentElement
     dad.style.position = "relative"
 
     addEle({dad:dad,setID:id,what:"span",visibility:"hidden",backC:"#333",textC:"#fff",
     padding:"5px 8px",radius:"6px",fontS:"14px",position:"absolute",textA:"center",text:msg,
-    top:posTop+"px",whiteSpace:"nowrap"})
+    top:posTop+"px",left:posLeft+"px",whiteSpace:"nowrap"})
+
+    refEl.addEventListener("mouseover",()=>{
+        if(getID(id).style.visibility === "hidden"){getID(id).style.visibility = "visible"}
+    })
+    refEl.addEventListener("mouseout",()=>{getID(id).style.visibility = "hidden"})
+}
+
+function setWarnTip(refEl=undefined,id=undefined,msg="message",posTop=-30,posLeft=0){
+    let dad = refEl.parentElement
+    dad.style.position = "relative"
+
+    addEle({dad:dad,setID:id,what:"span",visibility:"hidden",backC:"#333",textC:"#fff",
+    padding:"5px 8px",radius:"6px",fontS:"14px",position:"absolute",textA:"center",text:msg,
+    top:posTop+"px",left:posLeft+"px",whiteSpace:"nowrap"})
 
     refEl.addEventListener("mouseover",()=>{
         if(!testNum(refEl.value,true) && getID(id).style.visibility === "hidden"){getID(id).style.visibility = "visible"}

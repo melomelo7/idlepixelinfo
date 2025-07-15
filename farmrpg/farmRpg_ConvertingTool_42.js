@@ -3,7 +3,7 @@ const body = document.querySelector("body")
 
 const srcImgs = "https://farmrpg.com/img/items/"
 
-let lastUpd = "Last up 2025 07/12 03:10"
+let lastUpd = "Last up 2025 07/15 21:40"
 
 const outputs = [
     {label:"OJ",type:"Oranges to OJ",rate:"3:1",friend:"4.13:1",img1:"orange.png",img2:"orangejuice.png",
@@ -27,9 +27,9 @@ const outputs = [
 
 const roundings = ["Up","Down","Closest 5"]
 
-let eventRatio = [0,10,14,20]
+let eventMastery = [0,10,14,20]
 
-const rateB =[
+let rateB =[
 {ind:0,label:"OJ",type:outputs[0].type,rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],
 orderIdx:undefined,orderTimer:undefined,advertising:false},
 {ind:1,label:"Lemonade",type:outputs[1].type,rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],
@@ -257,13 +257,14 @@ function setPage(){
             if(ref.checked)
                 {txt = "Custom" ; disp.innerHTML = spanText(yellow,txt) ; userI.currentSet = txt}
             else {txt = "Basic" ; disp.innerHTML = spanText(yellow,txt) ; userI.currentSet = txt}
+            cleanParent(getID("advFr"))
             savUserI()
             setTools()
         }})
         addEle({dad:subC,what:"label",setFor:"toggleCurrRate",setClass:"toggle-label",marginR:"10px"})
 
 
-    addEle({dad:body,setClass:"contCol",padding:"5px",width:"100%",setID:"advFr"})        
+    addEle({dad:body,setClass:"contCol",padding:"5px",width:"100%",setID:"advFr",maxWidth:"340px"})        
 
     addEle({dad:body,setClass:"contCol",padding:"5px",width:"100%",setID:"toolsFr"})        
   
@@ -422,7 +423,7 @@ function setDispOptions(){
 
     let dispOptionsC = addEle({dad:cont,setClass:"contCol",maxHeight:"500px",overflowX:"hidden",marginT:"10px"})
 
-        let mW = 260 ; let spd = 5000 ; testC = ""//green
+        let mW = 260 ; testC = ""//green
 
         let lbl = "AdvEval" ; let infoLb = "Advertise and Estimate Converting" ; let infoT = `
         Option to Auto-build advertising message to use in game chat and Estimate
@@ -446,14 +447,15 @@ function setDispOptions(){
                 addEle({dad:subC2,what:"label",setFor:"toggle"+lbl,setClass:"toggle-label"})
                 addEle({dad:subC2,setClass:"btn",text:"?",padding:"0 5px",setID:lbl+":C",setFunc:(e)=>{
                     let tgt = getID(e.srcElement.id.split(":")[0]) ; 
-                    tgt.style.display = tgt.style.display === "none" ? "block" : "none"
-                    setTimeout(()=>{tgt.style.display ="none"},spd)
+                    let status = tgt.style.display 
+                    document.getElementsByName("displayTips").forEach(d=>{d.style.display="none"})
+                    tgt.style.display = status === "none" ? "block" : "none"
                 }})
                 getID("toggle"+lbl).checked = options.advertiseEstimate ? true : false
 
-                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"320px",setID:lbl,display:"none"})
+                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"320px",setID:lbl,display:"none",setName:"displayTips"})
 
-        lbl = "custName" ; infoLb = "Customer Name" ; spd = 5000 ; infoT = `
+        lbl = "custName" ; infoLb = "Customer Name" ; infoT = `
         Optional Information that will be included in the [Memo] ... and also, if spelling is right 
         can be used to ping someone in chat`
         inC = addEle({dad:dispOptionsC,setClass:"contCol",marginT:"10px",border:"teal solid 2px",radius:"8px"})
@@ -473,15 +475,16 @@ function setDispOptions(){
                 }})
                 addEle({dad:subC2,what:"label",setFor:"toggle"+lbl,setClass:"toggle-label"})
                 addEle({dad:subC2,setClass:"btn",text:"?",padding:"0 5px",setID:lbl+":C",setFunc:(e)=>{
-                    let tgt = getID(e.srcElement.id.split(":")[0]) ; 
-                    tgt.style.display = tgt.style.display === "none" ? "block" : "none"
-                    setTimeout(()=>{tgt.style.display ="none"},spd)
+                    let tgt = getID(e.srcElement.id.split(":")[0])
+                    let status = tgt.style.display 
+                    document.getElementsByName("displayTips").forEach(d=>{d.style.display="none"})
+                    tgt.style.display = status === "none" ? "block" : "none"
                 }})
                 getID("toggle"+lbl).checked = options.customerName ? true : false
 
-                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"320px",setID:lbl,display:"none"})
+                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"320px",setID:lbl,display:"none",setName:"displayTips"})
 
-        lbl = "custMB" ; infoLb = "Customer [MB](Mailbox) Size" ; spd = 5000 ; infoT = `
+        lbl = "custMB" ; infoLb = "Customer [MB](Mailbox) Size" ; infoT = `
         Optional, yet recommended Information, that will be included in the [Memo] ... 
         and also allow to view the Payout Details like how many MB needed and what
         remains to pay for the last MB`
@@ -502,16 +505,17 @@ function setDispOptions(){
                 }})
                 addEle({dad:subC2,what:"label",setFor:"toggle"+lbl,setClass:"toggle-label"})
                 addEle({dad:subC2,setClass:"btn",text:"?",padding:"0 5px",setID:lbl+":C",setFunc:(e)=>{
-                    let tgt = getID(e.srcElement.id.split(":")[0]) ; 
-                    tgt.style.display = tgt.style.display === "none" ? "block" : "none"
-                    setTimeout(()=>{tgt.style.display ="none"},spd)
+                    let tgt = getID(e.srcElement.id.split(":")[0])
+                    let status = tgt.style.display 
+                    document.getElementsByName("displayTips").forEach(d=>{d.style.display="none"})
+                    tgt.style.display = status === "none" ? "block" : "none"
                 }})
                 getID("toggle"+lbl).checked = options.customerMB ? true : false
 
-                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"320px",setID:lbl,display:"none"})
+                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"320px",setID:lbl,display:"none",setName:"displayTips"})
 
 
-        lbl = "memos" ; infoLb = "Memos (or order history)" ; spd = 20000 ; infoT = `
+        lbl = "memos" ; infoLb = "Memos (or order history)" ; infoT = `
         Memos are composed of "Order Amount" and if available +"Customer Name" +"Customer MB size".<br>
         The auto save is triggered after you started typing the Order Amount + X seconds. (Or you do
         manualy the Memo saving with a button) <br>Practical use is when many people request conversion
@@ -535,16 +539,17 @@ function setDispOptions(){
                 }})
                 addEle({dad:subC2,what:"label",setFor:"toggle"+lbl,setClass:"toggle-label"})
                 addEle({dad:subC2,setClass:"btn",text:"?",padding:"0 5px",setID:lbl+":C",setFunc:(e)=>{
-                    let tgt = getID(e.srcElement.id.split(":")[0]) ; 
-                    tgt.style.display = tgt.style.display === "none" ? "block" : "none"
-                    setTimeout(()=>{tgt.style.display ="none"},spd)
+                    let tgt = getID(e.srcElement.id.split(":")[0])
+                    let status = tgt.style.display 
+                    document.getElementsByName("displayTips").forEach(d=>{d.style.display="none"})
+                    tgt.style.display = status === "none" ? "block" : "none"
                 }})
                 getID("toggle"+lbl).checked = options.memos ? true : false
 
-                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"320px",setID:lbl,display:"none"})
+                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"320px",setID:lbl,display:"none",setName:"displayTips"})
                 
                 
-        lbl = "useNeed" ; infoLb = "Used and Needed" ; spd = 8000 ; infoT = `
+        lbl = "useNeed" ; infoLb = "Used and Needed" ; infoT = `
         Roughly this is what will be consumed during the conversion.<br>Think of Bottles mainly ...
         or in the case of nets conversion : Stone.<br>Dont forget to fill the Production details
         in the User Settings > User Details to have this running for the nets conversions !
@@ -562,20 +567,20 @@ function setDispOptions(){
                          {options.usedNeeds = true}
                     else {options.usedNeeds = false}
                     savUserI() ; setTools()
-                    console.log(userI.displayOptions)
                 }})
                 addEle({dad:subC2,what:"label",setFor:"toggle"+lbl,setClass:"toggle-label"})
                 addEle({dad:subC2,setClass:"btn",text:"?",padding:"0 5px",setID:lbl+":C",setFunc:(e)=>{
-                    let tgt = getID(e.srcElement.id.split(":")[0]) ; 
-                    tgt.style.display = tgt.style.display === "none" ? "block" : "none"
-                    setTimeout(()=>{tgt.style.display ="none"},spd)
+                    let tgt = getID(e.srcElement.id.split(":")[0])
+                    let status = tgt.style.display 
+                    document.getElementsByName("displayTips").forEach(d=>{d.style.display="none"})
+                    tgt.style.display = status === "none" ? "block" : "none"
                 }})
                 getID("toggle"+lbl).checked = options.usedNeeds ? true : false
 
-                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"320px",setID:lbl,display:"none"})
+                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"320px",setID:lbl,display:"none",setName:"displayTips"})
 
 
-        lbl = "megas" ; infoLb = "MMs (Mega Masteries)" ; spd = 15000 ; infoT = `
+        lbl = "megas" ; infoLb = "MMs (Mega Masteries)" ; infoT = `
         This is an estimated calculation / information of what remains until you reach the MM for
         a given item.<br>If you wish this option to be displayed correctly, all the informations will
         be needed in the User Settings > User Details area (Inventory & Production + Mastery for this item).
@@ -597,17 +602,14 @@ function setDispOptions(){
                 }})
                 addEle({dad:subC2,what:"label",setFor:"toggle"+lbl,setClass:"toggle-label"})
                 addEle({dad:subC2,setClass:"btn",text:"?",padding:"0 5px",setID:lbl+":C",setFunc:(e)=>{
-                    let tgt = getID(e.srcElement.id.split(":")[0]) ; 
-                    tgt.style.display = tgt.style.display === "none" ? "block" : "none"
-                    setTimeout(()=>{tgt.style.display ="none"},spd)
+                    let tgt = getID(e.srcElement.id.split(":")[0])
+                    let status = tgt.style.display 
+                    document.getElementsByName("displayTips").forEach(d=>{d.style.display="none"})
+                    tgt.style.display = status === "none" ? "block" : "none"
                 }})
                 getID("toggle"+lbl).checked = options.mms ? true : false
 
-                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"320px",setID:lbl,display:"none"})
-
-
-console.log(options)
-
+                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"320px",setID:lbl,display:"none",setName:"displayTips"})
 
     pop.showModal()
 }
@@ -810,9 +812,9 @@ function blastRate(e){
 
 
 
-function buildRate(itm,dad,idx,border="teal solid 2px"){
+function buildRate(itm,dad,idx,border="teal solid 2px",margin=5){
     let itmO = outputs.filter(x=>x.type === itm.type)[0]
-    let rateC = addEle({dad:dad,setClass:"contCol",border:border,margin:"5px",padding:"3px",setID:"rateC:"+idx})
+    let rateC = addEle({dad:dad,setClass:"contCol",border:border,margin:margin+"px",padding:"3px",setID:"rateC:"+idx})
         let subC = addEle({dad:rateC,setClass:"contRow",alignItems:"center"})
             addEle({dad:subC,what:"img",imgFullSrc:srcImgs+itmO.img1,imgSize:20,imgAlt:itmO.chat1+"icon"})
             addEle({dad:subC,text: addEmo("➜","emoji arrow pointing right") })
@@ -822,8 +824,8 @@ function buildRate(itm,dad,idx,border="teal solid 2px"){
         addEle({dad:rateC,text:txt})
 }
 
-function addEmo(emoji="emoji",lbl="emoji label"){
-    return `<span role="img" aria-label="`+lbl+`">`+emoji+`</span>`
+function addEmo(emoji="emoji",lbl="emoji label",id=""){
+    return `<span id="`+id+`" role="img" aria-label="`+lbl+`">`+emoji+`</span>`
 }
 
 function addRateSetup(){
