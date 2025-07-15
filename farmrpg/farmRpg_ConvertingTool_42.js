@@ -3,7 +3,7 @@ const body = document.querySelector("body")
 
 const srcImgs = "https://farmrpg.com/img/items/"
 
-let lastUpd = "Last up 2025 07/15 21:55"
+let lastUpd = "Last up 2025 07/15 23:10"
 
 const outputs = [
     {label:"OJ",type:"Oranges to OJ",rate:"3:1",friend:"4.13:1",img1:"orange.png",img2:"orangejuice.png",
@@ -228,7 +228,19 @@ function setPage(){
         " Go Back",backC:from.buttonBackC,setFunc:()=>{window.open(lnk,"_self")}})
         addEle({dad:contR,text:spanText(yellowL,lastUpd),margin:"10px"})
 
-   
+
+    addEle({dad:body,setClass:"btn",text:"-- Starting Infos --",backC:"darkgreen",
+    border:"rgb(212, 212, 74) solid 2px",margin:"10px",setFunc:()=>{
+        let pop = addEle({dad:body,what:"dialog",maxWidth:"60%",radius:"20px",
+        backC:"black",textC:"white",display:"flex",flDir:"column",opacity:0.9,
+        alignItems:"center",border:"teal solid 3px",fontS:"18px"})
+            addEle({dad:pop,text:startInfos})
+            addEle({dad:pop,setClass:"btn",text:"OK",width:"50%",
+            marginT:"20px", setFunc:()=>{pop.remove()}})
+        pop.showModal()
+    }}) 
+
+    /*
     addEle({dad:body,what:"select",margin:"10px",fontS:"16px",setID:"infosSelect",padding:"5px",
     backC:"darkgreen",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white",
     setFunc:()=>{ if(getID("infosSelect").value !=="-- Infos --")
@@ -236,6 +248,9 @@ function setPage(){
                     getID("infosSelect").selectedIndex = 0 }) } }})
         addEle({dad:getID("infosSelect"),what:"option",text:"-- Infos --"})
         helpArr.forEach(itm=>{ addEle({dad:getID("infosSelect"),what:"option",text:itm.label}) })
+    */
+
+
 
     contR = addEle({dad:body,setClass:"contRow",margin:"0 10px",alignItems:"center"})
         addEle({dad:contR,what:"select",fontS:"16px",setID:"settingsSelect",padding:"5px",
@@ -275,31 +290,52 @@ function setPage(){
 let settingsArr = ["-- User Settings --","Display Options","Tools per Line & Order Memos","Rates / Ratios",
                    "User Details","Delete User Settings"] // "Check / Save User Settings",
 
+let startInfos = `
+    For a basic simple use of this webpage<br>
+    all you need for a converting is to :<br>
+     - input the "Order Amount" (3rd white input area)<br>
+     - read the "payout" that will show below<br>
+     - and send payout to the customer<br>
+     everything else is additional tools and infos `+ addEmo("🤠","emoji smiling farmer") +`<br><br>
+     Review the User Settings, in particular Display Options !<br><br>
+     You start with the Basic full set of tools, but you can<br>
+     make your own under --User Settings-- >> Rates / Ratios
+`
+
+/*
 let helpArr =[
     {label:"For a basic simple use of this webpage",text:
     `all you need for a converting is to :<br>
      - input the "Order Amount" (3rd white input area)<br>
-     - read the "payout" that will show on next line<br>
+     - read the "payout" that will show below<br>
      - and send payout to the customer<br>
      everything else is additional tools and infos `+ addEmo("🤠","emoji smiling farmer") +`<br><br>
-     ** Mobile users might want to set tools per line 1<br>
-     ** (under User Settings)
+     Review the User Settings, in particular Display Options !<br><br>
+     You start with the Basic full set of tools, but you can<br>
+     make your own under --User Settings-- >> Rates / Ratios<br>
+
+
     `},
+    /*
     {label:"Tool Sets",text:
     `The basic tool set gives the current options to allow every type of conversions at standard
      rates common to all players. If its too many tools to see at once OR if you would rather use
      a different rate than the usuals, make your own custom tool set under :
      "User Settings" > "Rates/Ratios"<br><br>
      You can Also try changing the Tools per Line under Settings ...`},
+    /*
      {label:"Use Tools : Advertise",text:
      `Click one or more "Advertise" will generate a message you can bring in game chat.<br><br>
       (Saved to clipboard, only need to paste in chat. Modify content if needed in any text tool
        or by opening a new message in your ingame message box, paste info and change it there ...
        then copy-paste again into the chat)`},
+    */
+   /*
     {label:"Use Tools : Reset/all",text:
     `Use the reset buttons to clean inputs rather than reloading (F5)
     the webpage, as reloading the webpage will wipe out the Memos.
     `},
+    /*
     {label:"Use Tools : Customer MB size",text:
     `optional (part of Memo), when you need to pay goods back to customer, how
      many full Mailboxes and how much remaining on the final mailbox sending
@@ -309,6 +345,8 @@ let helpArr =[
     `optional (part of Memo), like advertising its another information that can be saved
     into the clipboard and then used with the "PING" to msg your customer in chat.
     `},
+    */
+   /*
     {label:"Use Tools : Memo & Order",text:
     `Memo/History is auto-saved after 3 seconds you start typing the Order Amount ( sent by customer )<br>
      change speed of memo and max memos saved under "Settings" if you need more or if speed doesnt fit<br>
@@ -320,6 +358,8 @@ let helpArr =[
      ** IF auto-Memos does not respond well enough you can switch to manual memos anytime. **<br>
      ** (New update from 05/07 you might need to [Delete user settings] & reload to have this working) ** )
     `},
+    */
+   /*
     {label:"Settings : Rates / Ratios",text:
     `Basic Rates :<br> Only for display cannot be modified<br><br>
      Custom Rates :<br> Set your own tools at your own rates in the display order you like.
@@ -332,9 +372,10 @@ let helpArr =[
        {label:"",text:
        `
        `},
-       */
+       
 
     ]
+*/
 
 function getDialogTopFrame(cxlEsc=true){
     let Obj = addEle({dad:body,what:"dialog",setClass:"myDialog"})
@@ -426,8 +467,9 @@ function setDispOptions(){
         let mW = 260 ; testC = ""//green
 
         let lbl = "AdvEval" ; let infoLb = "Advertise | Estimate Converting" ; let infoT = `
-        Option to Auto-build advertising message to use in game chat.<br><br>Tool to Estimate
-        how far you can convert with current inventory
+        Option to Auto-build advertising message to use in game chat. (Change content if needed 
+        in any text tool or by opening a new message in your ingame message box, paste info and modify it there)
+        <br><br> ... and a Tool to Estimate how far you can convert with current inventory
         `
         inC = addEle({dad:dispOptionsC,setClass:"contCol",marginT:"10px",border:"teal solid 2px",radius:"8px"})
             subC = addEle({dad:inC,setClass:"contRow",alignItems:"center",borderB:"teal solid 2px",radiusTR:"6px",
@@ -440,9 +482,8 @@ function setDispOptions(){
                     let options = userI.displayOptions
                     if(e.srcElement.checked)
                          {options.advertiseEstimate = true}
-                    else {options.advertiseEstimate = false}
+                    else {options.advertiseEstimate = false ; getID("advFr").style.display = "none"}
                     savUserI() ; setTools()
-                    console.log(userI.displayOptions)
                 }})
                 addEle({dad:subC2,what:"label",setFor:"toggle"+lbl,setClass:"toggle-label"})
                 addEle({dad:subC2,setClass:"btn",text:"?",padding:"0 5px",setID:lbl+":C",setFunc:(e)=>{
@@ -471,7 +512,6 @@ function setDispOptions(){
                          {options.customerName = true}
                     else {options.customerName = false}
                     savUserI() ; setTools()
-                    console.log(userI.displayOptions)
                 }})
                 addEle({dad:subC2,what:"label",setFor:"toggle"+lbl,setClass:"toggle-label"})
                 addEle({dad:subC2,setClass:"btn",text:"?",padding:"0 5px",setID:lbl+":C",setFunc:(e)=>{
@@ -501,7 +541,6 @@ function setDispOptions(){
                          {options.customerMB = true}
                     else {options.customerMB = false}
                     savUserI() ; setTools()
-                    console.log(userI.displayOptions)
                 }})
                 addEle({dad:subC2,what:"label",setFor:"toggle"+lbl,setClass:"toggle-label"})
                 addEle({dad:subC2,setClass:"btn",text:"?",padding:"0 5px",setID:lbl+":C",setFunc:(e)=>{
@@ -516,12 +555,13 @@ function setDispOptions(){
 
 
         lbl = "memos" ; infoLb = "Memos (or order history)" ; infoT = `
-        Memos are composed of "Order Amount" and if available +"Customer Name" +"Customer MB size".<br>
+        Memos are composed of "Order Amount" and if available +"Customer Name" +"Customer MB size".<br><br>
         The auto save is triggered after you started typing the Order Amount + X seconds. (Or you do
         manualy the Memo saving with a button) <br>Practical use is when many people request conversion
-        and chat goes so fast you have a hard time keeping track of details.<br> Good practice : 
+        and chat goes so fast you have a hard time keeping track of details.<br><br> Good practice : 
         post advertising, if you see many conversion requests, fill memos of all people details you
-        can see then start converting from first memo.`
+        can see then start converting from first memo.<br><br>** Refreshing/Loading the page will erase Memos, 
+        Use [Reset] buttons available **`
         inC = addEle({dad:dispOptionsC,setClass:"contCol",marginT:"10px",border:"teal solid 2px",radius:"8px"})
             subC = addEle({dad:inC,setClass:"contRow",alignItems:"center",borderB:"teal solid 2px",radiusTR:"6px",
             radiusTL:"6px",backC:"rgb(45, 88, 128)",justifyC:"space-between"})
@@ -535,7 +575,6 @@ function setDispOptions(){
                          {options.memos = true}
                     else {options.memos = false}
                     savUserI() ; setTools()
-                    console.log(userI.displayOptions)
                 }})
                 addEle({dad:subC2,what:"label",setFor:"toggle"+lbl,setClass:"toggle-label"})
                 addEle({dad:subC2,setClass:"btn",text:"?",padding:"0 5px",setID:lbl+":C",setFunc:(e)=>{
@@ -551,7 +590,7 @@ function setDispOptions(){
                 
         lbl = "useNeed" ; infoLb = "Used and Needed" ; infoT = `
         Roughly this is what will be consumed during the conversion.<br>Think of Bottles mainly ...
-        or in the case of nets conversion : Stone.<br>Dont forget to fill the Production details
+        or in the case of nets conversion : Stone.<br><br>Dont forget to fill the Production details
         in the User Settings > User Details to have this running for the nets conversions !
         `
         inC = addEle({dad:dispOptionsC,setClass:"contCol",marginT:"10px",border:"teal solid 2px",radius:"8px"})
@@ -598,7 +637,6 @@ function setDispOptions(){
                          {options.mms = true}
                     else {options.mms = false}
                     savUserI() ; setTools()
-                    console.log(userI.displayOptions)
                 }})
                 addEle({dad:subC2,what:"label",setFor:"toggle"+lbl,setClass:"toggle-label"})
                 addEle({dad:subC2,setClass:"btn",text:"?",padding:"0 5px",setID:lbl+":C",setFunc:(e)=>{
@@ -743,10 +781,11 @@ function dispRateSet(arr){
 
     if(arr){
         for(let i=0;i<arr.length;i++){
-            buildRate(arr.filter(x=>x.ind===i)[0],workC,i)
+            let area = "rateSets"
+            buildRate(arr.filter(x=>x.ind===i)[0],workC,i,"teal solid 2px",5,area)
 
             if(getID("toggleRate").checked){
-                subC = addEle({dad: getID("rateC:"+i),setClass:"contRow",alignItems:"center"})
+                subC = addEle({dad: getID(area+":"+i),setClass:"contRow",alignItems:"center"})
                 if(userI.rateU.length>1){
                     addEle({dad:subC,text:addEmo("🔼","emoji arrow pointing up"),setClass:"btn",padding:"0",margin:"0",fontS:"12px", 
                     setID:"swap:"+i,setFunc:(e)=>{swapUD(e,"U")}})
@@ -812,9 +851,9 @@ function blastRate(e){
 
 
 
-function buildRate(itm,dad,idx,border="teal solid 2px",margin=5){
+function buildRate(itm,dad,idx,border="teal solid 2px",margin=5,area="tool"){
     let itmO = outputs.filter(x=>x.type === itm.type)[0]
-    let rateC = addEle({dad:dad,setClass:"contCol",border:border,margin:margin+"px",padding:"3px",setID:"rateC:"+idx})
+    let rateC = addEle({dad:dad,setClass:"contCol",border:border,margin:margin+"px",padding:"3px",setID:area+":"+idx})
         let subC = addEle({dad:rateC,setClass:"contRow",alignItems:"center"})
             addEle({dad:subC,what:"img",imgFullSrc:srcImgs+itmO.img1,imgSize:20,imgAlt:itmO.chat1+"icon"})
             addEle({dad:subC,text: addEmo("➜","emoji arrow pointing right") })
