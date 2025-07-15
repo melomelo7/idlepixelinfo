@@ -3,7 +3,7 @@ const body = document.querySelector("body")
 
 const srcImgs = "https://farmrpg.com/img/items/"
 
-let lastUpd = "Last up 2025 07/15 21:40"
+let lastUpd = "Last up 2025 07/15 21:55"
 
 const outputs = [
     {label:"OJ",type:"Oranges to OJ",rate:"3:1",friend:"4.13:1",img1:"orange.png",img2:"orangejuice.png",
@@ -425,8 +425,8 @@ function setDispOptions(){
 
         let mW = 260 ; testC = ""//green
 
-        let lbl = "AdvEval" ; let infoLb = "Advertise and Estimate Converting" ; let infoT = `
-        Option to Auto-build advertising message to use in game chat and Estimate
+        let lbl = "AdvEval" ; let infoLb = "Advertise | Estimate Converting" ; let infoT = `
+        Option to Auto-build advertising message to use in game chat.<br><br>Tool to Estimate
         how far you can convert with current inventory
         `
         inC = addEle({dad:dispOptionsC,setClass:"contCol",marginT:"10px",border:"teal solid 2px",radius:"8px"})
