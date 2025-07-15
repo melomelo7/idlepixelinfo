@@ -612,10 +612,9 @@ function buildTool(dad,itm,idx){
                 buildRate(itm,inC,idx,"",0)
                 addEle({dad:inC,setClass:"btn",text:"Reset",setID:"reset:"+idx,height:"fit-content",setFunc:(e)=>{
                     let idx = e.srcElement.id.split(":")[1]
-                    console.log("reset")
                     getID("order:"+idx).value = 0
-                    getID("mbs:"+idx).value = 0
-                    getID("farmer:"+idx).value = "Farmer X"
+                    if(userI.displayOptions.customerMB){getID("mbs:"+idx).value = 0}
+                    if(userI.displayOptions.customerName){getID("farmer:"+idx).value = "Farmer X"}
                     toolCalc(e.srcElement.id,false)
                 }})
 
