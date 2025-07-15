@@ -624,7 +624,8 @@ function buildTool(dad,itm,idx){
 
             let cr = addEle({dad:tc,setClass:"contRow",justifyC:"space-around",padding:"2px"}) 
                 inC = addEle({dad:cr,setClass:"contRow",alignItems:"center"})
-                    addEle({dad:inC,text:"Adv",marginR:"5px",padding:"5px 8px",border:"teal solid 3px",radius:"50px"})
+                    addEle({dad:inC,text:"Adv",marginR:"5px",padding:"5px 8px",border:"teal solid 3px",radius:"50px",setID:"advT:"+idx})
+                    setInfoTip(getID("advT:"+idx),"advTtip:"+idx,"Advertise in Chat",-25)
 
                     addEle({dad:inC,what:"checkbox",isInput:true,accentCol:green,setName:"advertise",setClass:"toggle-checkbox",
                     setID:"adv:"+idx,setFunc:(e)=>{itm.advertising = e.srcElement.checked ? true : false ; advertising(e) }})
@@ -633,7 +634,9 @@ function buildTool(dad,itm,idx){
                     setInfoTip(getID("advL:"+idx),"advTip:"+idx,"Advertise in Chat",-25)
 
                 inC = addEle({dad:cr,setClass:"contRow",alignItems:"center"})
-                    addEle({dad:inC,text:"E.C.",marginR:"5px",padding:"5px 8px",border:"teal solid 3px",radius:"50px"})
+                    addEle({dad:inC,text:"E.C.",marginR:"5px",padding:"5px 8px",border:"teal solid 3px",radius:"50px",setID:"ECT:"+idx})
+                    setInfoTip(getID("ECT:"+idx),"ECTtip:"+idx,"Estimate conversion",-25)
+
                     txt = outputs.filter(it=>it.type===itm.type)[0]
                     let subC = addEle({dad:inC,setClass:"btn",padding:"0",display:"flex",flDir:"row",
                     alignItems:"center",setID:"convertProBtn:"+idx,setFunc:(e)=>{convertProject(e)}})
@@ -711,6 +714,7 @@ function buildTool(dad,itm,idx){
                 getID("farmerG:"+idx).innerHTML = addEmo("✅","emoji green OK sign")
                 setTimeout(() => {getID("farmerG:"+idx).innerHTML = ""}, 2000);
             }})
+            setInfoTip(getID("ping:"+idx),"pingTip:"+idx,"Ping people",-25,130)
             addEle({dad:inC,setID:"info:"+idx})
 
         tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
