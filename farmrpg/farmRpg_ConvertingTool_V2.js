@@ -3,7 +3,7 @@ const body = document.querySelector("body")
 
 const srcImgs = "https://farmrpg.com/img/items/"
 
-let lastUpd = "Last up 2025 07/16 06:40"
+let lastUpd = "Last up 2025 07/17 16:45"
 
 const outputs = [
     {label:"OJ",type:"Oranges to OJ",rate:"3:1",friend:"4.13:1",img1:"orange.png",img2:"orangejuice.png",
