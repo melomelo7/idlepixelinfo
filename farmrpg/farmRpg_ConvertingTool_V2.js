@@ -3,7 +3,22 @@ const body = document.querySelector("body")
 
 const srcImgs = "https://farmrpg.com/img/items/"
 
-let lastUpd = "Last up 2025 07/17 16:45"
+let lnk = undefined
+
+let purple = "rgb(185, 76, 185)"//"rgb(226, 72, 226)"
+let green = "rgb(18, 184, 18)"
+let yellow = "rgb(184, 184, 27)"
+let brown = "rgb(160, 107, 9)"
+let yellowL = "rgb(212, 212, 74)"
+
+
+let lastUpd = `
+Last up 2025 07/17 17:05
+<br>`+spanText(green,`
+Users coming from Old version may<br>
+get similar tools by changing <br>
+"Tools Display-Use Options" under<br>
+-- User Settings --`)
 
 const outputs = [
     {label:"OJ",type:"Oranges to OJ",rate:"3:1",friend:"4.13:1",img1:"orange.png",img2:"orangejuice.png",
@@ -91,14 +106,6 @@ let userI = {
 
     },
 }
-
-let lnk = undefined
-
-let purple = "rgb(185, 76, 185)"//"rgb(226, 72, 226)"
-let green = "rgb(18, 184, 18)"
-let yellow = "rgb(184, 184, 27)"
-let brown = "rgb(160, 107, 9)"
-let yellowL = "rgb(212, 212, 74)"
 
 function getCurrItem(id){
     let idx = Number(id.split(":")[1])
