@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/18 22:15
+Last up 2025 07/18 22:25
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -293,6 +293,7 @@ let startInfos = `
 
 function getDialogTopFrame(cxlEsc=true){
     let Obj = addEle({dad:body,what:"dialog",setClass:"myDialog"})
+    Obj.style.maxWidth = "380px"
     if(cxlEsc){ Obj.addEventListener('keydown', (e)=>{ if (e.key === 'Escape'){e.preventDefault()} }) }
     return Obj
 }
