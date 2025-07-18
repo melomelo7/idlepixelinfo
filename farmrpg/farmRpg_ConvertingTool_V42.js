@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/18 18:10
+Last up 2025 07/18 18:15
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -617,7 +617,7 @@ function setToolsMemos(){
         subC = addEle({dad:cont,setClass:"contRow",padding:"10px 5px",
         borderB:"teal dotted 2px",alignItems:"center",justifyC:"space-between"})
 
-            addEle({dad:subC,text:"How many Memos you can keep",paddingL:"100px"})
+            addEle({dad:subC,text:"How many Memos you can keep",paddingL:"0px"})
 
             addEle({dad:subC,what:"select",fontS:"16px",setID:"memoCselect",padding:"5px",
             backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white"})
