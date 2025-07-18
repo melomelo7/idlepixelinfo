@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/18 19:00
+Last up 2025 07/18 19:20
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -574,7 +574,7 @@ function setToolsMemos(){
         alignItems:"center",backC:"rgb(45, 88, 128)"}) // ,justifyC:"space-between"
             addEle({dad:subC,text:"Tools per Line",textA:"center",width:"100%"})
          let subC1 = addEle({dad:subC,setClass:"contRow"})
-            addEle({dad:subC1,setClass:"btn",text:"Update", 
+            let myS = addEle({dad:subC1,setClass:"btn",text:"Update", 
             setFunc:()=>{
     
                 userI.toolPerLine = Number(getID("tplSelect").value)
@@ -595,6 +595,10 @@ function setToolsMemos(){
                 getID("settingsSelect").selectedIndex = 0 ; 
                 pop.remove()
             }})
+
+            myS.addEventListener('focus', function() {
+                this.blur(); // Sends focus away immediately
+              });
 
         subC = addEle({dad:cont,setClass:"contRow",padding:"5px",
         alignItems:"center",justifyC:"space-around"})
