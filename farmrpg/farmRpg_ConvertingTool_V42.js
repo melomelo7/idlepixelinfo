@@ -318,7 +318,7 @@ function userSettingPick(){
 
 function setDispOptions(){
     let pop = getDialogTopFrame()
-    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",minHeight:"450px",maxWidth:"400px"})
+    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",minHeight:"450px",maxWidth:"360px"})
 
         let subC = addEle({dad:cont,setClass:"contRow",padding:"5px",border:"teal solid 2px",radius:"8px",
         alignItems:"center",backC:"rgb(45, 88, 128)",justifyC:"space-between"})
