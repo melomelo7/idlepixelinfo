@@ -81,6 +81,7 @@ function addEle({
     resize = "",
     url = "",
     whiteSpace = "",
+    noFocus = false,
     log = false,
     opacity = "", }){
 
@@ -137,6 +138,10 @@ function addEle({
             default : console.log("missing correct addeventlistener here")
             } 
         }
+
+    if(what==="select" && noFocus){
+        thisObj.addEventListener("focus",()=>{this.blur()})
+    }
 
     if(textC!==""){thisObj.style.color = textC}
 

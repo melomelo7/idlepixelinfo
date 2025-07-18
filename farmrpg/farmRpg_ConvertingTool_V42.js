@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/18 19:25
+Last up 2025 07/18 19:45
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -605,13 +605,13 @@ function setToolsMemos(){
             `
             addEle({dad:subC,text:txt,padding:"5px",})
             let myS = addEle({dad:subC,what:"select",fontS:"16px",setID:"tplSelect",padding:"5px",
-            backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white"})
+            backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white",noFocus:true})
             for(let i=1;i<11;i++){addEle({dad:getID("tplSelect"),what:"option",text:i})}
             getID("tplSelect").selectedIndex = userI.toolPerLine -1
 
-            myS.addEventListener('focus', function() {
-                this.blur(); // Sends focus away immediately
-              });
+//            myS.addEventListener('focus', function() {
+  //              this.blur(); // Sends focus away immediately
+    //          });
 
 
         addEle({dad:cont,backC:"rgb(45, 88, 128)",padding:"5px",text:"Order Memos",
