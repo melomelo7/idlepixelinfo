@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/18 18:45
+Last up 2025 07/18 19:00
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -376,7 +376,7 @@ function setDispOptions(){
 
     let dispOptionsC = addEle({dad:cont,setClass:"contCol",maxHeight:"500px",overflowX:"hidden",marginT:"10px",minWidth:"300px"})
 
-        let mW = 240 ; testC = ""//green
+        let mW = 220 ; testC = ""//green
 
         let lbl = "AdvEval" ; let infoLb = "Advertise | Estimate Converting" ; let infoT = `
         Option to Auto-build advertising message to use in game chat. (Change content if needed 
