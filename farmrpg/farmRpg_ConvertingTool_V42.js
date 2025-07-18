@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/18 21:00
+Last up 2025 07/18 21:30
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -953,8 +953,11 @@ function setUserDetails(){
         let subC = addEle({dad:cont,setClass:"contCol",backC:"rgb(45, 88, 128)",width:"100%",
         borderB:"teal solid 2px",radiusTL:"7px",radiusTR:"7px",alignItems:"center",justifyC:"space-around"})
 
-        let subC0 = addEle({dad:subC,setClass:"contRow",padding:"5px",alignItems:"center",justifyC:"space-around"})
-            addEle({dad:subC0,text:"",fontS:"20px",margin:"5px",setID:"userDTop"})
+        let subC0 = addEle({dad:subC,setClass:"contRow",padding:"5px",alignItems:"center"
+        ,justifyC:"space-between",width:"90%"})
+            let inC = addEle({dad:subC0,setClass:"contCol"})
+                addEle({dad:inC,text:"User Details",fontS:"20px",margin:"5px",textA:"center"})
+                addEle({dad:inC,text:"",fontS:"20px",margin:"5px",setID:"userDTop"})
             addEle({dad:subC0,setClass:"btn",text:addEmo("❌","emoji red cross"),setFunc:()=>{
                 setTools()
                 getID("settingsSelect").selectedIndex = 0 ; 
@@ -971,7 +974,7 @@ function setUserDetails(){
                 let top = getID("userDTop")
                 let disp = getID("detailsLbl")
                 if(getID("detailsCheck").checked){
-                    top.innerHTML = "User Details (Production | "+spanText("yellow","Masteries","",false,"dotted yellow 2px")+")"
+                    top.innerHTML = "(Production | "+spanText("yellow","Masteries","",false,"dotted yellow 2px")+")"
                     disp.innerHTML = "Mega Masteries"
                     arr = userI.mms
                     arr.forEach(itm=>{
@@ -982,7 +985,7 @@ function setUserDetails(){
                             addEle({dad:subC,text:"/"+(1000000).toLocaleString()})
                     })
                 } else {
-                    top.innerHTML = "User Details ("+spanText("yellow","Production","",false,"dotted yellow 2px")+" | Masteries)"
+                    top.innerHTML = "("+spanText("yellow","Production","",false,"dotted yellow 2px")+" | Masteries)"
                     disp.innerHTML = "Inventory & Production"
                     arr = [
                         {label:"Current Max Inventory",val:userI.inventoryMax.toLocaleString()},
@@ -1046,7 +1049,8 @@ function userUpdate(){
             invo.forEach(inv=>{
                 subC = addEle({dad:frm,setClass:"contRow",marginT:"10px",alignItems:"center"})
                     addEle({dad:subC,text:inv.txt,margin:"0 5px",minWidth:len+"px",textA:"right",marginR:"5px"})
-                    addEle({dad:subC,what:"input",isInput:true,width:"60px",textA:"center",setVal:inv.val,setID:inv.ref+":"+cpt,
+                    addEle({dad:subC,what:"input",isInput:true,width:"60px",textA:"center",setVal:inv.val,
+                    setID:inv.ref+":"+cpt,noFocus:true,
                     setFunc:(e)=>{
                         let disp = getID(e.srcElement.id+"G") 
                         if(testNum(e.srcElement.value)){
@@ -1092,7 +1096,8 @@ function userUpdate(){
             userI.mms.forEach(mm=>{
                 subC = addEle({dad:frm,setClass:"contRow",marginT:"10px",alignItems:"center"})
                     addEle({dad:subC,text:mm.label+" :",margin:"0 5px",minWidth:len+"px",textA:"right",paddingR:"30px"})
-                    addEle({dad:subC,what:"input",isInput:true,width:"60px",textA:"center",setVal:mm.progress,setID:"mm:"+cpt,
+                    addEle({dad:subC,what:"input",isInput:true,width:"60px",textA:"center",setVal:mm.progress,
+                    setID:"mm:"+cpt,noFocus:true,
                     setFunc:(e)=>{
                         let disp = getID(e.srcElement.id+"G") 
                         if(testNum(e.srcElement.value)){
