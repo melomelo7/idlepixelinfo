@@ -141,7 +141,7 @@ function addEle({
 
     if(what==="select" && noFocus){
         thisObj.addEventListener("focus",()=>{this.blur()})
-        alert("done")
+      //  alert("done")
     }
 
     if(textC!==""){thisObj.style.color = textC}
