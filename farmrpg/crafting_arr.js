@@ -143,6 +143,11 @@ function addEle({
         thisObj.addEventListener("focus",()=>{thisObj.blur()})
     }
 
+    if(what==="input" && noFocus){
+        thisObj.blur()
+        thisObj.addEventListener("focus",()=>{thisObj.blur()})
+    }
+
     if(textC!==""){thisObj.style.color = textC}
 
     if(fontS!==""){thisObj.style.fontSize = fontS}
