@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/17 17:05
+Last up 2025 07/18 22:25
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -234,7 +234,7 @@ function setPage(){
 
     addEle({dad:body,setClass:"btn",text:"-- Starting Infos --",backC:"darkgreen",
     border:"rgb(212, 212, 74) solid 2px",margin:"10px",setFunc:()=>{
-        let pop = addEle({dad:body,what:"dialog",maxWidth:"60%",radius:"20px",
+        let pop = addEle({dad:body,what:"dialog",maxWidth:"300px",radius:"20px",
         backC:"black",textC:"white",display:"flex",flDir:"column",opacity:0.9,
         alignItems:"center",border:"teal solid 3px",fontS:"18px"})
             addEle({dad:pop,text:startInfos})
@@ -293,6 +293,7 @@ let startInfos = `
 
 function getDialogTopFrame(cxlEsc=true){
     let Obj = addEle({dad:body,what:"dialog",setClass:"myDialog"})
+    Obj.style.maxWidth = "380px"
     if(cxlEsc){ Obj.addEventListener('keydown', (e)=>{ if (e.key === 'Escape'){e.preventDefault()} }) }
     return Obj
 }
@@ -318,66 +319,65 @@ function userSettingPick(){
 
 function setDispOptions(){
     let pop = getDialogTopFrame()
-    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",minHeight:"450px",maxWidth:"400px"})
+    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",minHeight:"450px",maxWidth:"360px"})
 
-        let subC = addEle({dad:cont,setClass:"contRow",padding:"5px",border:"teal solid 2px",radius:"8px",
-        alignItems:"center",backC:"rgb(45, 88, 128)",justifyC:"space-between"})
+        let subC = addEle({dad:cont,setClass:"contRow",padding:"10px 5px",border:"teal solid 2px",radius:"8px",
+        alignItems:"center",backC:"rgb(45, 88, 128)",justifyC:"space-between",minWidth:"300px"})
 
             let inC = addEle({dad:subC,setClass:"contCol"})
             let options = userI.displayOptions
+                addEle({dad:inC,text:"Display & Use",margin:"0 10px 0 10px"})
 
-            addEle({dad:inC,text:"Display & Use",margin:"0 10px 0 10px"})
-
-            let inC2 = addEle({dad:inC,setClass:"contRow"})
             let txt = options.all ?
             "(Minimum | " + spanText("yellow","Maximum",18,"",yellow+" solid 2px")+")" :
             "("+ spanText("yellow","Minimum",18,"",yellow+" solid 2px") + " | Maximum)" 
-            addEle({dad:inC2,text:txt,setID:"toggleDispAllLbl",marginR:"10px"})
+            addEle({dad:inC,text:txt,setID:"toggleDispAllLbl",marginR:"10px"})
 
-            addEle({dad:inC2,what:"checkbox",isInput:true,setID:"toggleDispAll",setClass:"toggle-checkbox",
-            margin:"50px",setFunc:(e)=>{
-                let options = userI.displayOptions
-                let disp = getID("toggleDispAllLbl")
-                if(e.srcElement.checked){
-                    disp.innerHTML = "(Minimum | " + spanText("yellow","Maximum",18,"",yellow+" solid 2px")+")"
-                    options.all = true
-                    options.advertiseEstimate = true
-                    options.customerName = true
-                    options.customerMB = true
-                    options.memos = true
-                    options.usedNeeds = true
-                    options.mms = true
-                    document.getElementsByName("dispToggles").forEach(it=>{it.checked = true})
+            let inC2 = addEle({dad:subC,setClass:"contRow",alignItems:"center"})
+                addEle({dad:inC2,what:"checkbox",isInput:true,setID:"toggleDispAll",setClass:"toggle-checkbox",
+                margin:"0px",setFunc:(e)=>{
+                    let options = userI.displayOptions
+                    let disp = getID("toggleDispAllLbl")
+                    if(e.srcElement.checked){
+                        disp.innerHTML = "(Minimum | " + spanText("yellow","Maximum",18,"",yellow+" solid 2px")+")"
+                        options.all = true
+                        options.advertiseEstimate = true
+                        options.customerName = true
+                        options.customerMB = true
+                        options.memos = true
+                        options.usedNeeds = true
+                        options.mms = true
+                        document.getElementsByName("dispToggles").forEach(it=>{it.checked = true})
+                        }
+                    else {
+                        disp.innerHTML = "("+ spanText("yellow","Minimum",18,"",yellow+" solid 2px") + " | Maximum)" 
+                        options.all = false
+                        options.advertiseEstimate = false
+                        options.customerName = false
+                        options.customerMB = false
+                        options.memos = false
+                        options.usedNeeds = false
+                        options.mms = false
+                        document.getElementsByName("dispToggles").forEach(it=>{it.checked = false})
                     }
-                else {
-                    disp.innerHTML = "("+ spanText("yellow","Minimum",18,"",yellow+" solid 2px") + " | Maximum)" 
-                    options.all = false
-                    options.advertiseEstimate = false
-                    options.customerName = false
-                    options.customerMB = false
-                    options.memos = false
-                    options.usedNeeds = false
-                    options.mms = false
-                    document.getElementsByName("dispToggles").forEach(it=>{it.checked = false})
-                }
-                getID("advFr").style.display = e.srcElement.checked ? "flex" : "none"
-                savUserI()
-                setTools()
-            }})
-            addEle({dad:inC2,what:"label",setFor:"toggleDispAll",setClass:"toggle-label",marginR:"10px"})
-            getID("toggleDispAll").checked = options.all ? true : false
-
-            addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),height:"fit-content",setFunc:()=>{
-                getID("settingsSelect").selectedIndex = 0 ;
-                savUserI() 
-                pop.remove()
-            }})
+                    getID("advFr").style.display = e.srcElement.checked ? "flex" : "none"
+                    savUserI()
+                    setTools()
+                }})
+                addEle({dad:inC2,what:"label",setFor:"toggleDispAll",setClass:"toggle-label",marginR:"0px"})
+                getID("toggleDispAll").checked = options.all ? true : false
+                addEle({dad:inC2,setClass:"btn",text:addEmo("❌","emoji red cross"),fontS:"16px",height:"fit-content",
+                marginL:"20px",setFunc:()=>{
+                    getID("settingsSelect").selectedIndex = 0 ;
+                    savUserI() 
+                    pop.remove()
+                }})
 
 
 
-    let dispOptionsC = addEle({dad:cont,setClass:"contCol",maxHeight:"500px",overflowX:"hidden",marginT:"10px"})
+    let dispOptionsC = addEle({dad:cont,setClass:"contCol",maxHeight:"500px",overflowX:"hidden",marginT:"10px",minWidth:"300px"})
 
-        let mW = 260 ; testC = ""//green
+        let mW = 220 ; testC = ""//green
 
         let lbl = "AdvEval" ; let infoLb = "Advertise | Estimate Converting" ; let infoT = `
         Option to Auto-build advertising message to use in game chat. (Change content if needed 
@@ -408,7 +408,7 @@ function setDispOptions(){
                 }})
                 getID("toggle"+lbl).checked = options.advertiseEstimate ? true : false
 
-                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"320px",setID:lbl,display:"none",setName:"displayTips"})
+                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"300px",paddingL:"5px",setID:lbl,display:"none",setName:"displayTips"})
 
         lbl = "custName" ; infoLb = "Customer Name" ; infoT = `
         Optional Information that will be included in the [Memo] ... and also, if spelling is right 
@@ -436,7 +436,7 @@ function setDispOptions(){
                 }})
                 getID("toggle"+lbl).checked = options.customerName ? true : false
 
-                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"320px",setID:lbl,display:"none",setName:"displayTips"})
+                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"300px",paddingL:"5px",setID:lbl,display:"none",setName:"displayTips"})
 
         lbl = "custMB" ; infoLb = "Customer [MB](Mailbox) Size" ; infoT = `
         Optional, yet recommended Information, that will be included in the [Memo] ... 
@@ -465,7 +465,7 @@ function setDispOptions(){
                 }})
                 getID("toggle"+lbl).checked = options.customerMB ? true : false
 
-                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"320px",setID:lbl,display:"none",setName:"displayTips"})
+                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"300px",paddingL:"5px",setID:lbl,display:"none",setName:"displayTips"})
 
 
         lbl = "memos" ; infoLb = "Memos (or order history)" ; infoT = `
@@ -499,7 +499,7 @@ function setDispOptions(){
                 }})
                 getID("toggle"+lbl).checked = options.memos ? true : false
 
-                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"320px",setID:lbl,display:"none",setName:"displayTips"})
+                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"300px",paddingL:"5px",setID:lbl,display:"none",setName:"displayTips"})
                 
                 
         lbl = "useNeed" ; infoLb = "Used and Needed" ; infoT = `
@@ -530,7 +530,7 @@ function setDispOptions(){
                 }})
                 getID("toggle"+lbl).checked = options.usedNeeds ? true : false
 
-                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"320px",setID:lbl,display:"none",setName:"displayTips"})
+                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"300px",paddingL:"5px",setID:lbl,display:"none",setName:"displayTips"})
 
 
         lbl = "megas" ; infoLb = "MMs (Mega Masteries)" ; infoT = `
@@ -561,7 +561,7 @@ function setDispOptions(){
                 }})
                 getID("toggle"+lbl).checked = options.mms ? true : false
 
-                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"320px",setID:lbl,display:"none",setName:"displayTips"})
+                addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"300px",paddingL:"5px",setID:lbl,display:"none",setName:"displayTips"})
 
     pop.showModal()
 }
@@ -572,9 +572,10 @@ function setToolsMemos(){
     let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",radius:"10px"})
 
         let subC = addEle({dad:cont,setClass:"contRow",padding:"5px",border:"teal solid 2px",radius:"8px",
-        alignItems:"center",backC:"rgb(45, 88, 128)"})
-            addEle({dad:subC,text:"Tools per Line",textA:"center",marginL:"80px"})
-            addEle({dad:subC,setClass:"btn",text:"Update",marginL:"40px", 
+        alignItems:"center",backC:"rgb(45, 88, 128)"}) // ,justifyC:"space-between"
+            addEle({dad:subC,text:"Tools per Line",textA:"center",width:"100%"})
+         let subC1 = addEle({dad:subC,setClass:"contRow"})
+            addEle({dad:subC1,setClass:"btn",text:"Update", 
             setFunc:()=>{
     
                 userI.toolPerLine = Number(getID("tplSelect").value)
@@ -590,8 +591,8 @@ function setToolsMemos(){
                 setTools() ;
                 savUserI()
             }})
-            addEle({dad:subC,setID:"uptoolMemo",minWidth:"35px"})
-            addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),margin:"0 0 5px 0",setFunc:()=>{
+            addEle({dad:subC1,setID:"uptoolMemo",minWidth:"35px"})
+            addEle({dad:subC1,setClass:"btn",text:addEmo("❌","emoji red cross"),margin:"0 0 5px 0",setFunc:()=>{
                 getID("settingsSelect").selectedIndex = 0 ; 
                 pop.remove()
             }})
@@ -605,10 +606,9 @@ function setToolsMemos(){
             `
             addEle({dad:subC,text:txt,padding:"5px",})
             addEle({dad:subC,what:"select",fontS:"16px",setID:"tplSelect",padding:"5px",
-            backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white"})
+            backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white",noFocus:true})
             for(let i=1;i<11;i++){addEle({dad:getID("tplSelect"),what:"option",text:i})}
             getID("tplSelect").selectedIndex = userI.toolPerLine -1
-
 
         addEle({dad:cont,backC:"rgb(45, 88, 128)",padding:"5px",text:"Order Memos",
         margin:"10px 0",border:"teal solid 2px",radius:"8px",textA:"center"})
@@ -616,7 +616,7 @@ function setToolsMemos(){
         subC = addEle({dad:cont,setClass:"contRow",padding:"10px 5px",
         borderB:"teal dotted 2px",alignItems:"center",justifyC:"space-between"})
 
-            addEle({dad:subC,text:"How many Memos you can keep",paddingL:"100px"})
+            addEle({dad:subC,text:"How many Memos you can keep",paddingL:"0px"})
 
             addEle({dad:subC,what:"select",fontS:"16px",setID:"memoCselect",padding:"5px",
             backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white"})
@@ -954,8 +954,11 @@ function setUserDetails(){
         let subC = addEle({dad:cont,setClass:"contCol",backC:"rgb(45, 88, 128)",width:"100%",
         borderB:"teal solid 2px",radiusTL:"7px",radiusTR:"7px",alignItems:"center",justifyC:"space-around"})
 
-        let subC0 = addEle({dad:subC,setClass:"contRow",padding:"5px",alignItems:"center",justifyC:"space-around"})
-            addEle({dad:subC0,text:"",fontS:"20px",margin:"5px",setID:"userDTop"})
+        let subC0 = addEle({dad:subC,setClass:"contRow",padding:"5px",alignItems:"center"
+        ,justifyC:"space-between",width:"90%"})
+            let inC = addEle({dad:subC0,setClass:"contCol"})
+                addEle({dad:inC,text:"User Details",fontS:"20px",margin:"5px",textA:"center"})
+                addEle({dad:inC,text:"",fontS:"20px",margin:"5px",setID:"userDTop"})
             addEle({dad:subC0,setClass:"btn",text:addEmo("❌","emoji red cross"),setFunc:()=>{
                 setTools()
                 getID("settingsSelect").selectedIndex = 0 ; 
@@ -972,7 +975,7 @@ function setUserDetails(){
                 let top = getID("userDTop")
                 let disp = getID("detailsLbl")
                 if(getID("detailsCheck").checked){
-                    top.innerHTML = "User Details (Production | "+spanText("yellow","Masteries","",false,"dotted yellow 2px")+")"
+                    top.innerHTML = "(Production | "+spanText("yellow","Masteries","",false,"dotted yellow 2px")+")"
                     disp.innerHTML = "Mega Masteries"
                     arr = userI.mms
                     arr.forEach(itm=>{
@@ -983,7 +986,7 @@ function setUserDetails(){
                             addEle({dad:subC,text:"/"+(1000000).toLocaleString()})
                     })
                 } else {
-                    top.innerHTML = "User Details ("+spanText("yellow","Production","",false,"dotted yellow 2px")+" | Masteries)"
+                    top.innerHTML = "("+spanText("yellow","Production","",false,"dotted yellow 2px")+" | Masteries)"
                     disp.innerHTML = "Inventory & Production"
                     arr = [
                         {label:"Current Max Inventory",val:userI.inventoryMax.toLocaleString()},
@@ -1047,7 +1050,8 @@ function userUpdate(){
             invo.forEach(inv=>{
                 subC = addEle({dad:frm,setClass:"contRow",marginT:"10px",alignItems:"center"})
                     addEle({dad:subC,text:inv.txt,margin:"0 5px",minWidth:len+"px",textA:"right",marginR:"5px"})
-                    addEle({dad:subC,what:"input",isInput:true,width:"60px",textA:"center",setVal:inv.val,setID:inv.ref+":"+cpt,
+                    addEle({dad:subC,what:"input",isInput:true,width:"60px",textA:"center",setVal:inv.val,
+                    setID:inv.ref+":"+cpt,noFocus:true,
                     setFunc:(e)=>{
                         let disp = getID(e.srcElement.id+"G") 
                         if(testNum(e.srcElement.value)){
@@ -1093,7 +1097,8 @@ function userUpdate(){
             userI.mms.forEach(mm=>{
                 subC = addEle({dad:frm,setClass:"contRow",marginT:"10px",alignItems:"center"})
                     addEle({dad:subC,text:mm.label+" :",margin:"0 5px",minWidth:len+"px",textA:"right",paddingR:"30px"})
-                    addEle({dad:subC,what:"input",isInput:true,width:"60px",textA:"center",setVal:mm.progress,setID:"mm:"+cpt,
+                    addEle({dad:subC,what:"input",isInput:true,width:"60px",textA:"center",setVal:mm.progress,
+                    setID:"mm:"+cpt,noFocus:true,
                     setFunc:(e)=>{
                         let disp = getID(e.srcElement.id+"G") 
                         if(testNum(e.srcElement.value)){
