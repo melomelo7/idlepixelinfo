@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/18 18:15
+Last up 2025 07/18 18:45
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -320,64 +320,63 @@ function setDispOptions(){
     let pop = getDialogTopFrame()
     let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",minHeight:"450px",maxWidth:"360px"})
 
-        let subC = addEle({dad:cont,setClass:"contRow",padding:"5px",border:"teal solid 2px",radius:"8px",
-        alignItems:"center",backC:"rgb(45, 88, 128)",justifyC:"space-between"})
+        let subC = addEle({dad:cont,setClass:"contRow",padding:"10px 5px",border:"teal solid 2px",radius:"8px",
+        alignItems:"center",backC:"rgb(45, 88, 128)",justifyC:"space-between",minWidth:"300px"})
 
             let inC = addEle({dad:subC,setClass:"contCol"})
             let options = userI.displayOptions
+                addEle({dad:inC,text:"Display & Use",margin:"0 10px 0 10px"})
 
-            addEle({dad:inC,text:"Display & Use",margin:"0 10px 0 10px"})
-
-            let inC2 = addEle({dad:inC,setClass:"contRow"})
             let txt = options.all ?
             "(Minimum | " + spanText("yellow","Maximum",18,"",yellow+" solid 2px")+")" :
             "("+ spanText("yellow","Minimum",18,"",yellow+" solid 2px") + " | Maximum)" 
-            addEle({dad:inC2,text:txt,setID:"toggleDispAllLbl",marginR:"10px"})
+            addEle({dad:inC,text:txt,setID:"toggleDispAllLbl",marginR:"10px"})
 
-            addEle({dad:inC2,what:"checkbox",isInput:true,setID:"toggleDispAll",setClass:"toggle-checkbox",
-            margin:"50px",setFunc:(e)=>{
-                let options = userI.displayOptions
-                let disp = getID("toggleDispAllLbl")
-                if(e.srcElement.checked){
-                    disp.innerHTML = "(Minimum | " + spanText("yellow","Maximum",18,"",yellow+" solid 2px")+")"
-                    options.all = true
-                    options.advertiseEstimate = true
-                    options.customerName = true
-                    options.customerMB = true
-                    options.memos = true
-                    options.usedNeeds = true
-                    options.mms = true
-                    document.getElementsByName("dispToggles").forEach(it=>{it.checked = true})
+            let inC2 = addEle({dad:subC,setClass:"contRow",alignItems:"center"})
+                addEle({dad:inC2,what:"checkbox",isInput:true,setID:"toggleDispAll",setClass:"toggle-checkbox",
+                margin:"0px",setFunc:(e)=>{
+                    let options = userI.displayOptions
+                    let disp = getID("toggleDispAllLbl")
+                    if(e.srcElement.checked){
+                        disp.innerHTML = "(Minimum | " + spanText("yellow","Maximum",18,"",yellow+" solid 2px")+")"
+                        options.all = true
+                        options.advertiseEstimate = true
+                        options.customerName = true
+                        options.customerMB = true
+                        options.memos = true
+                        options.usedNeeds = true
+                        options.mms = true
+                        document.getElementsByName("dispToggles").forEach(it=>{it.checked = true})
+                        }
+                    else {
+                        disp.innerHTML = "("+ spanText("yellow","Minimum",18,"",yellow+" solid 2px") + " | Maximum)" 
+                        options.all = false
+                        options.advertiseEstimate = false
+                        options.customerName = false
+                        options.customerMB = false
+                        options.memos = false
+                        options.usedNeeds = false
+                        options.mms = false
+                        document.getElementsByName("dispToggles").forEach(it=>{it.checked = false})
                     }
-                else {
-                    disp.innerHTML = "("+ spanText("yellow","Minimum",18,"",yellow+" solid 2px") + " | Maximum)" 
-                    options.all = false
-                    options.advertiseEstimate = false
-                    options.customerName = false
-                    options.customerMB = false
-                    options.memos = false
-                    options.usedNeeds = false
-                    options.mms = false
-                    document.getElementsByName("dispToggles").forEach(it=>{it.checked = false})
-                }
-                getID("advFr").style.display = e.srcElement.checked ? "flex" : "none"
-                savUserI()
-                setTools()
-            }})
-            addEle({dad:inC2,what:"label",setFor:"toggleDispAll",setClass:"toggle-label",marginR:"10px"})
-            getID("toggleDispAll").checked = options.all ? true : false
-
-            addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),height:"fit-content",setFunc:()=>{
-                getID("settingsSelect").selectedIndex = 0 ;
-                savUserI() 
-                pop.remove()
-            }})
+                    getID("advFr").style.display = e.srcElement.checked ? "flex" : "none"
+                    savUserI()
+                    setTools()
+                }})
+                addEle({dad:inC2,what:"label",setFor:"toggleDispAll",setClass:"toggle-label",marginR:"0px"})
+                getID("toggleDispAll").checked = options.all ? true : false
+                addEle({dad:inC2,setClass:"btn",text:addEmo("❌","emoji red cross"),fontS:"16px",height:"fit-content",
+                marginL:"20px",setFunc:()=>{
+                    getID("settingsSelect").selectedIndex = 0 ;
+                    savUserI() 
+                    pop.remove()
+                }})
 
 
 
-    let dispOptionsC = addEle({dad:cont,setClass:"contCol",maxHeight:"500px",overflowX:"hidden",marginT:"10px"})
+    let dispOptionsC = addEle({dad:cont,setClass:"contCol",maxHeight:"500px",overflowX:"hidden",marginT:"10px",minWidth:"300px"})
 
-        let mW = 260 ; testC = ""//green
+        let mW = 240 ; testC = ""//green
 
         let lbl = "AdvEval" ; let infoLb = "Advertise | Estimate Converting" ; let infoT = `
         Option to Auto-build advertising message to use in game chat. (Change content if needed 
