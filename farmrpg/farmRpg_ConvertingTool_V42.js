@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/18 18:00
+Last up 2025 07/18 18:10
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -572,9 +572,10 @@ function setToolsMemos(){
     let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",radius:"10px"})
 
         let subC = addEle({dad:cont,setClass:"contRow",padding:"5px",border:"teal solid 2px",radius:"8px",
-        alignItems:"center",backC:"rgb(45, 88, 128)"})
-            addEle({dad:subC,text:"Tools per Line",textA:"center",marginL:"80px"})
-            addEle({dad:subC,setClass:"btn",text:"Update",marginL:"40px", 
+        alignItems:"center",backC:"rgb(45, 88, 128)"}) // ,justifyC:"space-between"
+            addEle({dad:subC,text:"Tools per Line",textA:"center",width:"100%"})
+         let subC1 = addEle({dad:subC,setClass:"contRow"})
+            addEle({dad:subC1,setClass:"btn",text:"Update", 
             setFunc:()=>{
     
                 userI.toolPerLine = Number(getID("tplSelect").value)
@@ -590,8 +591,8 @@ function setToolsMemos(){
                 setTools() ;
                 savUserI()
             }})
-            addEle({dad:subC,setID:"uptoolMemo",minWidth:"35px"})
-            addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),margin:"0 0 5px 0",setFunc:()=>{
+            addEle({dad:subC1,setID:"uptoolMemo",minWidth:"35px"})
+            addEle({dad:subC1,setClass:"btn",text:addEmo("❌","emoji red cross"),margin:"0 0 5px 0",setFunc:()=>{
                 getID("settingsSelect").selectedIndex = 0 ; 
                 pop.remove()
             }})
