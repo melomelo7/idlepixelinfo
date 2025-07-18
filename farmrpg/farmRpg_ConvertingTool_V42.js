@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/18 20:40
+Last up 2025 07/18 21:00
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -234,7 +234,7 @@ function setPage(){
 
     addEle({dad:body,setClass:"btn",text:"-- Starting Infos --",backC:"darkgreen",
     border:"rgb(212, 212, 74) solid 2px",margin:"10px",setFunc:()=>{
-        let pop = addEle({dad:body,what:"dialog",maxWidth:"60%",radius:"20px",
+        let pop = addEle({dad:body,what:"dialog",maxWidth:"300px",radius:"20px",
         backC:"black",textC:"white",display:"flex",flDir:"column",opacity:0.9,
         alignItems:"center",border:"teal solid 3px",fontS:"18px"})
             addEle({dad:pop,text:startInfos})
@@ -604,15 +604,10 @@ function setToolsMemos(){
             for mobile : rather set 1 only  ...
             `
             addEle({dad:subC,text:txt,padding:"5px",})
-            let myS = addEle({dad:subC,what:"select",fontS:"16px",setID:"tplSelect",padding:"5px",
+            addEle({dad:subC,what:"select",fontS:"16px",setID:"tplSelect",padding:"5px",
             backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white",noFocus:true})
             for(let i=1;i<11;i++){addEle({dad:getID("tplSelect"),what:"option",text:i})}
             getID("tplSelect").selectedIndex = userI.toolPerLine -1
-
-//            myS.addEventListener('focus', function() {
-  //              this.blur(); // Sends focus away immediately
-    //          });
-
 
         addEle({dad:cont,backC:"rgb(45, 88, 128)",padding:"5px",text:"Order Memos",
         margin:"10px 0",border:"teal solid 2px",radius:"8px",textA:"center"})
