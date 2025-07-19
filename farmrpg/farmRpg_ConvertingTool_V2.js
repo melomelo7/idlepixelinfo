@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/19 18:30
+Last up 2025 07/19 20:15
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -1037,7 +1037,8 @@ function userUpdate(){
         let subC = addEle({dad:cont,setClass:"contRow",backC:"rgb(45, 88, 128)",justifyC:"space-around",
         borderB:"teal solid 2px",radiusTL:"7px",radiusTR:"7px",alignItems:"center",padding:"5px"})
             addEle({dad:subC,text:info,margin:"10px"})
-            addEle({dad:subC,setClass:"btn",text:"Save",margin:"0 20px 0 15px",setFunc:(e)=>{updateInvProdMM(e,info)}})
+            addEle({dad:subC,setClass:"btn",text:"Save",margin:"0 20px 0 15px",
+            setID:"updSavBtn",setFunc:(e)=>{updateInvProdMM(e,info)}})
             addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),margin:"0 0 5px 0",setFunc:()=>{
                 let ev = new Event("change") ; getID("detailsCheck").dispatchEvent(ev)
                 pop2.remove()
@@ -1051,7 +1052,7 @@ function userUpdate(){
                 subC = addEle({dad:frm,setClass:"contRow",marginT:"10px",alignItems:"center"})
                     addEle({dad:subC,text:inv.txt,margin:"0 5px",minWidth:len+"px",textA:"right",marginR:"5px"})
                     addEle({dad:subC,what:"input",isInput:true,width:"60px",textA:"center",setVal:inv.val,
-                    setID:inv.ref+":"+cpt,noFocus:true,
+                    setID:inv.ref+":"+cpt,
                     setFunc:(e)=>{
                         let disp = getID(e.srcElement.id+"G") 
                         if(testNum(e.srcElement.value)){
@@ -1098,7 +1099,7 @@ function userUpdate(){
                 subC = addEle({dad:frm,setClass:"contRow",marginT:"10px",alignItems:"center"})
                     addEle({dad:subC,text:mm.label+" :",margin:"0 5px",minWidth:len+"px",textA:"right",paddingR:"30px"})
                     addEle({dad:subC,what:"input",isInput:true,width:"60px",textA:"center",setVal:mm.progress,
-                    setID:"mm:"+cpt,noFocus:true,
+                    setID:"mm:"+cpt,
                     setFunc:(e)=>{
                         let disp = getID(e.srcElement.id+"G") 
                         if(testNum(e.srcElement.value)){
