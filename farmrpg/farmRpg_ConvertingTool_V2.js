@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/18 22:25
+Last up 2025 07/19 18:25
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -1458,7 +1458,7 @@ function buildTool(dad,itm,idx){
                 let inC1 = addEle({dad:inC,setClass:"contRow",justifyC:"space-around"})
                     addEle({dad:inC1,text:"Craft : " + `<span id="craft:`+idx+`"> </span>`})
                     addEle({dad:inC1,text:"Lose : " + `<span id="lose:`+idx+`"> </span>`})
-                    addEle({dad:inC1,text:"Payout : " + `<span id="payout:`+idx+`"> </span>`})
+                    addEle({dad:inC1,setClass,text:"Payout : " + `<span id="payout:`+idx+`"> </span>`})
 
                     getID("craft:"+idx).innerHTML = "0"
                     getID("lose:"+idx).innerHTML = "0"
