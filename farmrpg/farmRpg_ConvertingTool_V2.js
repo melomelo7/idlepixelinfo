@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/19 20:15
+Last up 2025 07/20 00:40
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -1317,6 +1317,7 @@ function buildTool(dad,itm,idx){
                     getID("order:"+idx).value = 0
                     if(userI.displayOptions.customerMB){getID("mbs:"+idx).value = 0}
                     if(userI.displayOptions.customerName){getID("farmer:"+idx).value = "Farmer X"}
+                    getID("orderG:"+idx).innerHTML = ""
                     toolCalc(e.srcElement.id,false)
                 }})
 
@@ -1441,9 +1442,10 @@ function buildTool(dad,itm,idx){
                     minWidth:"280px",marginL:"5px",setFunc:(e)=>{
                         let sx = e.srcElement.selectedIndex 
                         if(sx!==0){
+                            let dp = userI.displayOptions
                             let itm = getCurrItem(e.srcElement.id)
-                            getID("farmer:"+idx).value = itm.orderMem[sx-1].name
-                            getID("mbs:"+idx).value = itm.orderMem[sx-1].mbs
+                            if(dp.customerName){getID("farmer:"+idx).value = itm.orderMem[sx-1].name}
+                            if(dp.customerMB){getID("mbs:"+idx).value = itm.orderMem[sx-1].mbs}
                             getID("order:"+idx).value = itm.orderMem[sx-1].val
                             toolCalc(e.srcElement.id,false)
                         }
@@ -1451,6 +1453,7 @@ function buildTool(dad,itm,idx){
                         txt = "Memos 0/"+userI.memoCap + " -- Select --"
                         addEle({dad:getID("memoSelect:"+idx),what:"option",text:txt})
                     addEle({dad:inC,setID:"memoG:"+idx,minWidth:"25px"})
+                    loadMemos("id:"+idx)
     }
 
         tr = addEle({dad:tb,what:"tr"})
@@ -1871,7 +1874,6 @@ function addSelectMemo(id){
     let dispG = getID("memoG:"+idx)    
     let order = getID("order:"+idx).value
     let itm = getCurrItem(id)
-    let sel = getID("memoSelect:"+idx)
 
     if(testNum(order)){
         order = Number(order)
@@ -1882,21 +1884,33 @@ function addSelectMemo(id){
         itm.orderMem.push({dt:new Date(),val:order,name:custNm,mbs:custMB})
         if(itm.orderMem.length>userI.memoCap){itm.orderMem.splice(0,1)}
 
-        cleanParent(sel)
-        txt = "Memos "+itm.orderMem.length+"/"+userI.memoCap + " -- Select --"
-        addEle({dad:sel,what:"option",text:txt})
-
-        itm.orderMem.forEach(m=>{
-            let hr = m.dt.getHours() < 10  ? "0"+m.dt.getHours() : m.dt.getHours()
-            let mn = m.dt.getMinutes() < 10 ? "0"+m.dt.getMinutes() : m.dt.getMinutes()
-            let sc = m.dt.getSeconds() < 10 ? "0"+m.dt.getSeconds() : m.dt.getSeconds()
-            let txt = (m.dt.getMonth()+1)+"/"+m.dt.getDate()+" | "+hr+":"+mn+":"+sc +
-            " | " + m.name +" | " +m.mbs + " | " + m.val.toLocaleString() 
-            addEle({dad:sel,what:"option",text:txt})
-        })
+        loadMemos(id)
+        
         dispG.innerHTML = addEmo("✅","emoji green OK sign")
     } else {dispG.innerHTML = addEmo("⛔","emoji prohibited sign")}
     setTimeout(() => {dispG.innerHTML =""}, 1000);
+}
+
+function loadMemos(id){
+    let idx = id.split(":")[1]
+    let itm = getCurrItem(id)
+    let sel = getID("memoSelect:"+idx)
+    let dp = userI.displayOptions
+
+    cleanParent(sel)
+    txt = "Memos "+itm.orderMem.length+"/"+userI.memoCap + " -- Select --"
+    addEle({dad:sel,what:"option",text:txt})
+
+    itm.orderMem.forEach(m=>{
+        let hr = m.dt.getHours() < 10  ? "0"+m.dt.getHours() : m.dt.getHours()
+        let mn = m.dt.getMinutes() < 10 ? "0"+m.dt.getMinutes() : m.dt.getMinutes()
+        let sc = m.dt.getSeconds() < 10 ? "0"+m.dt.getSeconds() : m.dt.getSeconds()
+        let txt = (m.dt.getMonth()+1)+"/"+m.dt.getDate()+" | "+hr+":"+mn+":"+sc
+        if(dp.customerName){txt += m.name !=="" ? " | " + m.name : " | ???"}
+        if(dp.customerMB){txt += " | " +m.mbs }
+        txt += " | " + m.val.toLocaleString() 
+        addEle({dad:sel,what:"option",text:txt})
+    })
 }
 
 
@@ -1922,18 +1936,10 @@ function memoDel(id){
     let disp = getID("memoG:"+idx)
     if( sx!==0){
         itm.orderMem.splice((sx-1),1)
-        cleanParent(sel)
-        txt = "Memos "+itm.orderMem.length+"/"+userI.memoCap + " -- Select --"
-        addEle({dad:sel,what:"option",text:txt})
+        getID("reset:"+idx).click()
 
-        itm.orderMem.forEach(m=>{
-            let hr = m.dt.getHours() < 10  ? "0"+m.dt.getHours() : m.dt.getHours()
-            let mn = m.dt.getMinutes() < 10 ? "0"+m.dt.getMinutes() : m.dt.getMinutes()
-            let sc = m.dt.getSeconds() < 10 ? "0"+m.dt.getSeconds() : m.dt.getSeconds()
-            let txt = (m.dt.getMonth()+1)+"/"+m.dt.getDate()+" | "+hr+":"+mn+":"+sc +
-            " | " + m.name +" | " +m.mbs + " | " + m.val.toLocaleString() 
-            addEle({dad:sel,what:"option",text:txt})
-        })
+        loadMemos(id)
+
         disp.innerHTML = addEmo("✅","emoji green OK sign")
         setTimeout(()=>{disp.innerHTML = ""}, 1000)
     } else {
