@@ -1458,7 +1458,7 @@ function buildTool(dad,itm,idx){
                 let inC1 = addEle({dad:inC,setClass:"contRow",justifyC:"space-around"})
                     addEle({dad:inC1,text:"Craft : " + `<span id="craft:`+idx+`"> </span>`})
                     addEle({dad:inC1,text:"Lose : " + `<span id="lose:`+idx+`"> </span>`})
-                    addEle({dad:inC1,setClass,text:"Payout : " + `<span id="payout:`+idx+`"> </span>`})
+                    addEle({dad:inC1,text:"Payout : " + `<span id="payout:`+idx+`"> </span>`})
 
                     getID("craft:"+idx).innerHTML = "0"
                     getID("lose:"+idx).innerHTML = "0"
