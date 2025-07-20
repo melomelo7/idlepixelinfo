@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/20 00:40
+Last up 2025 07/20 14:00
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -1950,12 +1950,14 @@ function memoDel(id){
 
 
 function eventXPradio(id){
+    // formula Multiplicative Vs Additive
+    let formulaMultiplicative = true 
+
     let idx = id.split(":")[1]
-    let ratio = 1
-    let evXP = 0
-    evXP = eventMastery[getID("eventSelect:"+idx).selectedIndex]
-    ratio += evXP/100
-    if(getID("stewBox:"+idx).checked){ratio +=.1}
+    let stewXP = getID("stewBox:"+idx).checked ? 1.1 : 1
+    let evXP = 1 +(eventMastery[getID("eventSelect:"+idx).selectedIndex]/100)
+    let ratio = formulaMultiplicative ? evXP * stewXP : evXP + stewXP -1
+    ratio = Math.round(ratio * 100) / 100
     getID("xpRatio:"+idx).innerHTML = ratio.toFixed(2)
     mmEstimate(id,ratio)
 }
