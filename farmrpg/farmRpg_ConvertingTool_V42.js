@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/21 21:10
+Last up 2025 07/21 21:30
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -1015,7 +1015,7 @@ function setUserDetails(){
     let pop = getDialogTopFrame()
     let topC = addEle({dad:pop,setClass:"contRow"})
     let cont = addEle({dad:topC,setClass:"contCol",width:"fit-content",
-        border:"teal solid 2px",radius:"10px",alignItems:"center",minWidth:"360px"})
+        border:"teal solid 2px",radius:"10px",alignItems:"center",maxWidth:"360px"})
 
         let subC = addEle({dad:cont,setClass:"contCol",backC:"rgb(45, 88, 128)",width:"100%",
         borderB:"teal solid 2px",radiusTL:"7px",radiusTR:"7px",alignItems:"center",justifyC:"space-around"})
@@ -1046,7 +1046,6 @@ function setUserDetails(){
                     arr = userI.mms
                     arr.forEach(itm=>{
                         let subC = addEle({dad:workC,setClass:"contRow"})
-                            addEle({dad:subC,text:"[MM]"})
                             addEle({dad:subC,text:itm.label + " : ",minWidth:"85px",textA:"right",padding:"0 5px"})
                             addEle({dad:subC,text:itm.progress.toLocaleString(),minWidth:"80px",textA:"center"})
                             addEle({dad:subC,text:"/"+(1000000).toLocaleString()})
