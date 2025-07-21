@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/20 21:35
+Last up 2025 07/21 13:25
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -1662,7 +1662,7 @@ function payOptions(e){
                 addEle({dad:inC,setID:"topLbl2",textA:"right",marginL:"5px"})
             addEle({dad:inC,what:"img",imgFullSrc:srcImgs+itmO.img2,imgSize:20,display:"none",setID:"topImg",marginL:"5px"})
 
-            addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),marginL:"20px",
+            addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),marginL:"5px",
             setFunc:()=>{ pop.remove() }})
 
         if(testNum(val)){
@@ -1701,7 +1701,7 @@ function payOptions(e){
                 addEle({dad:tr,what:"td",textA:"center",setID:"altPayout",setClass:"tealCell"})
 
 
-            let subC = addEle({dad:cont,setClass:"contRow",justifyC:"space-between",alignItems:"center",margin:"5px 0"})
+            let subC = addEle({dad:cont,setClass:"contRow",justifyC:"center",alignItems:"center",margin:"5px 0"})
                 addEle({dad:subC,what:"input",isInput:true,width:"100px",setID:"loseInput",textA:"center",setFunc:(e,ret)=>{
                     let src = e.srcElement ; let rg = getID("loseRange") ; let disp = getID("loseInputG") ; let dispT = getID("loseItip")
                     if(testNum(src.value,true) && src.value!=="" && Number(src.value) >= 0 && Number(src.value) <= rg.max){
@@ -1722,6 +1722,24 @@ function payOptions(e){
 
                 addEle({dad:subC,setClass:"rangeSt",what:"range",isInput:true,width:"150px",setID:"loseRange",
                 setFunc:(e)=>{getID("loseInput").value = e.srcElement.value}})
+
+                addEle({dad:subC,setClass:"btn",text:"?",marginL:"10px",padding:"0 5px",setFunc:()=>{
+                    let dsp=getID("altI")
+                    dsp.style.display = dsp.style.display === "none" ? "block" : "none" 
+                }})
+
+                txt = `
+                The idea is to negociate with customer how
+                you will pay for the goods received. The amount
+                you set here can be the `+spanText("","Lose",18,false,"teal solid 2px")+` 
+                part only as you can return the `+spanText("","Craft",18,false,"teal solid 2px")+`
+                 part ...<br> or more up to full payout.
+                `
+                addEle({dad:cont,text:txt,padding:"8px",border:"teal solid 2px",radius:"15px",
+                maxWidth:"310px",setID:"altI",display:"none"})
+
+                addEle({dad:cont,text:"Payout :",borderT:"teal solid 3px",width:"100%",paddingT:"10px",
+                margin:"10px 0"})//,backC:"green"
 
 
 
@@ -1784,11 +1802,11 @@ function calcAlts(e,ret,init=false){
     getID("altPayout").innerHTML = payT
 
     if(init){
-        loseR.min = 0
+        loseR.min = Number(getID("altLose").innerHTML)
         loseR.max = Number(getID("altPayout").innerHTML)
         loseR.value = Number(getID("altLose").innerHTML)
         loseI.value = loseR.value
-        getID("loseItip").innerHTML = "Allowed Value 0 ~ " + getID("altPayout").innerHTML
+        getID("loseItip").innerHTML = "Allowed Value "+loseR.min+" ~ " + getID("altPayout").innerHTML
 
     }
 
