@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/21 22:00
+Last up 2025 07/21 22:30
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -540,7 +540,7 @@ function setDispOptions(){
         When you decide to take an order not having enough inventory items for the payout.<br><br>
         Based on a gold-evaluation, try to estimate other ways to payout.<br><br>
         This is not conventional converting, more a negociation-like practice.<br>
-        If you dont feel comfortable with this, just turn it off and forget about it.
+        If you dont feel comfortable with this, maybe just turn it off.
         `
         inC = addEle({dad:dispOptionsC,setClass:"contCol",marginT:"10px",border:"teal solid 2px",radius:"8px"})
             subC = addEle({dad:inC,setClass:"contRow",alignItems:"center",borderB:"teal solid 2px",radiusTR:"6px",
@@ -715,7 +715,7 @@ function setToolsMemos(){
 
 function setRates(){
     let pop = getDialogTopFrame()
-    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",minHeight:"450px"})
+    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",minHeight:"460px",minWidth:"360px"})
         
         let subC = addEle({dad:cont,setClass:"contRow",padding:"0 0 5px 0",alignItems:"center",justifyC:"space-around",
         backC:"rgb(45, 88, 128)",border:"teal solid 2px",radius:"8px",})
@@ -849,7 +849,7 @@ function addEmo(emoji="emoji",lbl="emoji label",id=""){
 
 function addRateSetup(){
     let pop2 = getDialogTopFrame()
-    let cont = addEle({dad:pop2,setClass:"contCol",width:"fit-content",margin:"5px 10px",
+    let cont = addEle({dad:pop2,setClass:"contCol",width:"fit-content",
     border:"teal solid 2px",radius:"10px",padding:"5px"})
 
         addEle({dad:cont,setID:"newRate",minHeight:"60px"})
@@ -1096,8 +1096,7 @@ function userUpdate(){
         ]
 
     let pop2 = getDialogTopFrame()
-    let cont = addEle({dad:pop2,setClass:"contCol",width:"fit-content",margin:"5px 10px",
-        border:"teal solid 2px",radius:"10px",minWidth:"340px"})
+    let cont = addEle({dad:pop2,setClass:"contCol",width:"fit-content",border:"teal solid 2px",radius:"10px",})
 
         let subC = addEle({dad:cont,setClass:"contRow",backC:"rgb(45, 88, 128)",justifyC:"space-around",
         borderB:"teal solid 2px",radiusTL:"7px",radiusTR:"7px",alignItems:"center",padding:"5px"})
@@ -1815,13 +1814,18 @@ function calcAlts(e,init=false){
     getID("balance").innerHTML = bal
 
     goldV = (bal/1000) * userI.payouts.filter(x=>x.label===itm.label)[0].val
+
+console.log(userI)
+console.log("bal : "+bal)
+console.log("userI.payouts.filter > gold val of item : "+userI.payouts.filter(x=>x.label===itm.label)[0].val)
+console.log("goldV : "+goldV)
+
     getID("balanceG1").innerHTML = goldV.toFixed(2)
     getID("balanceG2").innerHTML = goldV.toFixed(2)
 
     let arr = userI.payouts.filter(x=> x.label !== itm.label)
     for(let i=0;i<arr.length;i++){getID("tcVal:"+i).innerHTML = Math.ceil((goldV / arr[i].val) * 1000)}
 
-    console.log(userI)
 }
 
 
@@ -1836,11 +1840,16 @@ function setTradeValues(e){
     let tc = undefined
 
 
-    let pop = getDialogTopFrame()
-    pop.style.height = "fit-content"
-    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",maxWidth:"320px",
+    let pop2 = getDialogTopFrame()
+
+
+
+    
+    let cont = addEle({dad:pop2,setClass:"contCol",width:"fit-content",margin:"5px 10px",maxWidth:"320px",
     height:"fit-content",backC:"green"})
         
+
+
         let subC = addEle({dad:cont,setClass:"contRow",padding:"0 0 5px 0",alignItems:"center",justifyC:"space-around",
         backC:"rgb(45, 88, 128)",border:"teal solid 2px",radius:"8px",minWidth:"300px"})
             let inC = addEle({dad:subC,setClass:"contRow",alignItems:"center"})
@@ -1850,7 +1859,7 @@ function setTradeValues(e){
             addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),setFunc:()=>{
                 getID("settingsSelect").selectedIndex = 0 ;
                 savUserI() 
-                pop.remove()
+                pop2.remove()
             }})
 
             inC = addEle({dad:cont,display:"flex",justifyC:"center"})
@@ -1871,7 +1880,7 @@ function setTradeValues(e){
 
 
 
-    pop.showModal()
+    pop2.showModal()
 
 }
 
