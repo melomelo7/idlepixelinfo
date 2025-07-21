@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/22 00:15
+Last up 2025 07/22 00:20
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -239,13 +239,7 @@ function loadSav(){
     })
 
     if(!userI.hasOwnProperty("payouts")){
-        userI.payouts=[
-            {label:"OJ",val:8.75},
-            {label:"Lemonade",val:8.75},
-            {label:"AP",val:75},
-            {label:"LN",val:12.5},
-            {label:"Cider",val:17.5},
-        ]
+        userI.payouts=basePayouts
     }
 
     if(!userI.displayOptions.hasOwnProperty("alternatePayouts")){
