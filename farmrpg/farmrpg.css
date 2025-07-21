@@ -56,6 +56,19 @@ body {
     text-align: center;
 }
 
+.tealCellBt{
+    border:teal dotted 2px;
+
+    /*
+    border-bottom: teal solid 2px;
+    border-left: teal solid 2px;
+    border-right: teal solid 2px;
+    */
+
+    padding: 3px;
+    text-align: center;
+}
+
 .rating{
     display: flex;
     justify-content: center;
@@ -145,11 +158,6 @@ body {
 
 
 .myDialog{
-    width: 90%;
-    max-width: 500px;
-    /*height: auto;*/
-    min-height: 400px;
-    max-height: 500px;
     padding: 10px;
     border-radius: 20px;
     background-color: black;
