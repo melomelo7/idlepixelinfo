@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/21 22:30
+Last up 2025 07/21 23:05
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -1774,6 +1774,9 @@ function payOptions(e){
 }
 
 function calcAlts(e,init=false){
+
+console.log(e.srcElement.id)
+
     let idx = Number(e.srcElement.id.split(":")[1])
     let itm = getCurrItem(e.srcElement.id)
     let payT = undefined
@@ -1815,7 +1818,8 @@ function calcAlts(e,init=false){
 
     goldV = (bal/1000) * userI.payouts.filter(x=>x.label===itm.label)[0].val
 
-console.log(userI)
+console.log(userI.payouts)
+console.log(itm)
 console.log("bal : "+bal)
 console.log("userI.payouts.filter > gold val of item : "+userI.payouts.filter(x=>x.label===itm.label)[0].val)
 console.log("goldV : "+goldV)
@@ -1845,8 +1849,8 @@ function setTradeValues(e){
 
 
     
-    let cont = addEle({dad:pop2,setClass:"contCol",width:"fit-content",margin:"5px 10px",maxWidth:"320px",
-    height:"fit-content",backC:"green"})
+    let cont = addEle({dad:pop2,setClass:"contCol",width:"fit-content",maxWidth:"320px",
+    height:"fit-content"})
         
 
 
@@ -1856,11 +1860,8 @@ function setTradeValues(e){
                 addEle({dad:inC,text:"Any valid change <br>will be saved",textA:"center",})
                 addEle({dad:inC,marginL:"10px",text:addEmo("✅","emoji green OK sign"),}) //minWidth:"320px"
 
-            addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),setFunc:()=>{
-                getID("settingsSelect").selectedIndex = 0 ;
-                savUserI() 
-                pop2.remove()
-            }})
+            addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross","closeEmo:"+idx),setID:"close:"+idx,
+            setFunc:(e)=>{calcAlts(e) ; pop2.remove()}})
 
             inC = addEle({dad:cont,display:"flex",justifyC:"center"})
             tb = addEle({dad:inC,what:"table",margin:"5px 0"})
@@ -1872,9 +1873,19 @@ function setTradeValues(e){
                     tc = addEle({dad:tb,what:"td",text:itmO.label,textA:"center"})
                     tc = addEle({dad:tb,what:"td"})
                         addEle({dad:tc,what:"input",isInput:true,setVal:userI.payouts[i].val,
-                        width:"100px",textA:"center"})
+                        width:"100px",textA:"center",setID:"tradeV:"+i,setFunc:(e)=>{
+                            let src = e.srcElement ; let refIdx = src.id.split(":")[1]
+                            let dsp = getID(src.id.split(":")[0]+"G:"+src.id.split(":")[1])
+                            if(testNum(src.value) && src.value !==""){
+                                dsp.innerHTML = addEmo("✅","emoji green OK sign")
+                                userI.payouts[refIdx].val = Number(Number(src.value).toFixed(2))
+                                savUserI() 
+                            } else {
+                                dsp.innerHTML = addEmo("⛔","emoji prohibited sign")
+                            }
+                        }})
+                    tc = addEle({dad:tb,what:"td",setID:"tradeVG:"+i,minWidth:"30px"})
             }
-            userI.payouts
 
 
 
