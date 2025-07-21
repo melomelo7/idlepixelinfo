@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/21 23:30
+Last up 2025 07/22 00:15
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -1318,24 +1318,23 @@ function updateInvProdMM(e,info){
 
 function setDeleteFrame(){
     let pop = getDialogTopFrame()
-    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px"})
+    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content"})
 
-    let subC = addEle({dad:cont,setClass:"contCol",marginT:"40px"})
-        let subC2 = addEle({dad:subC,setClass:"contRow",margin:"40px 0",alignItems:"center"})
-            addEle({dad:subC2,setClass:"btn",padding:"10px",text:addEmo("⚠️","emoji exclamation mark in yellow triangle")+
-            "<br>Delete User Settings<br>"+addEmo("⚠️","emoji exclamation mark in yellow triangle"),margin:"20px 5px 20px 20px",
-            minWidth:"200px",fontS:"26px",setFunc:()=>{
-                let key = "farmRPGCustomConvertingV2"
-                localStorage.removeItem(key)
-                getID("deleteG").innerHTML = addEmo("✅","emoji green OK sign")
-                setTimeout(()=>{getID("deleteG").innerHTML = ""},1000)
-            }})
-            addEle({dad:subC2,setID:"deleteG",minWidth:"25px"})
+        let subC = addEle({dad:cont,setClass:"contRow",marginT:"10px 0",justifyC:"flex-end"})
+        addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),setFunc:()=>{
+            getID("settingsSelect").selectedIndex = 0 ; 
+            pop.remove()
+        }})
 
-            addEle({dad:subC2,setClass:"btn",text:addEmo("❌","emoji red cross"),setFunc:()=>{
-                getID("settingsSelect").selectedIndex = 0 ; 
-                pop.remove()
-            }})
+        let txt = addEmo("⚠️","emoji exclamation mark in yellow triangle")+
+        "<br>Delete User Settings<br>"+addEmo("⚠️","emoji exclamation mark in yellow triangle")
+
+        addEle({dad:cont,setClass:"btn",padding:"10px",text:txt,margin:"40px",
+        minWidth:"200px",fontS:"26px",setFunc:()=>{
+            let key = "farmRPGCustomConvertingV2"
+            localStorage.removeItem(key)
+            location.reload()
+        }})
 
         pop.showModal()    
 }
@@ -1774,9 +1773,6 @@ function payOptions(e){
 }
 
 function calcAlts(e,init=false){
-
-console.log(e.srcElement.id)
-
     let idx = Number(e.srcElement.id.split(":")[1])
     let itm = getCurrItem(e.srcElement.id)
     let payT = undefined
@@ -1817,13 +1813,6 @@ console.log(e.srcElement.id)
     getID("balance").innerHTML = bal
 
     goldV = (bal/1000) * userI.payouts.filter(x=>x.label===itm.label)[0].val
-
-console.log(userI.payouts)
-console.log(itm)
-console.log("bal : "+bal)
-console.log("userI.payouts.filter > gold val of item : "+userI.payouts.filter(x=>x.label===itm.label)[0].val)
-console.log("goldV : "+goldV)
-
     getID("balanceG1").innerHTML = goldV.toFixed(2)
     getID("balanceG2").innerHTML = goldV.toFixed(2)
 
@@ -1843,25 +1832,20 @@ function setTradeValues(e){
     let tr = undefined
     let tc = undefined
 
-
     let pop2 = getDialogTopFrame()
-
-
-
-    
     let cont = addEle({dad:pop2,setClass:"contCol",width:"fit-content",maxWidth:"320px",
     height:"fit-content"})
-        
-
 
         let subC = addEle({dad:cont,setClass:"contRow",padding:"0 0 5px 0",alignItems:"center",justifyC:"space-around",
         backC:"rgb(45, 88, 128)",border:"teal solid 2px",radius:"8px",minWidth:"300px"})
             let inC = addEle({dad:subC,setClass:"contRow",alignItems:"center"})
                 addEle({dad:inC,text:"Any valid change <br>will be saved",textA:"center",})
-                addEle({dad:inC,marginL:"10px",text:addEmo("✅","emoji green OK sign"),}) //minWidth:"320px"
+                addEle({dad:inC,marginL:"10px",text:addEmo("✅","emoji green OK sign"),})
 
             addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross","closeEmo:"+idx),setID:"close:"+idx,
             setFunc:(e)=>{calcAlts(e) ; pop2.remove()}})
+
+        addEle({dad:cont,text:"Value of items in gold per K (1000 units)",margin:"10px 0 5px 0"})
 
             inC = addEle({dad:cont,display:"flex",justifyC:"center"})
             tb = addEle({dad:inC,what:"table",margin:"5px 0"})
@@ -1886,10 +1870,6 @@ function setTradeValues(e){
                         }})
                     tc = addEle({dad:tb,what:"td",setID:"tradeVG:"+i,minWidth:"30px"})
             }
-
-
-
-
 
     pop2.showModal()
 
