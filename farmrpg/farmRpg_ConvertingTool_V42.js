@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/21 21:30
+Last up 2025 07/21 22:00
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -1820,6 +1820,8 @@ function calcAlts(e,init=false){
 
     let arr = userI.payouts.filter(x=> x.label !== itm.label)
     for(let i=0;i<arr.length;i++){getID("tcVal:"+i).innerHTML = Math.ceil((goldV / arr[i].val) * 1000)}
+
+    console.log(userI)
 }
 
 
