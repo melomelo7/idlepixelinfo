@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/21 13:25
+Last up 2025 07/21 21:10
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -41,11 +41,11 @@ const outputs = [
 ]
 
 const basePayouts = [
-    {label:"OJ",defaultV:8.75},
-    {label:"Lemonade",defaultV:8.75},
-    {label:"AP",defaultV:75},
-    {label:"LN",defaultV:12.5},
-    {label:"Cider",defaultV:17.5},
+    {label:"OJ",val:8.75},
+    {label:"Lemonade",val:8.75},
+    {label:"AP",val:75},
+    {label:"LN",val:12.5},
+    {label:"Cider",val:17.5},
 ]
 
 const roundings = ["Up","Down","Closest 5"]
@@ -115,11 +115,11 @@ let userI = {
 
     },
     payouts:[
-        {label:"OJ",userV:0},
-        {label:"Lemonade",userV:0},
-        {label:"AP",userV:0},
-        {label:"LN",userV:0},
-        {label:"Cider",userV:0},
+        {label:"OJ",val:8.75},
+        {label:"Lemonade",val:8.75},
+        {label:"AP",val:75},
+        {label:"LN",val:12.5},
+        {label:"Cider",val:17.5},
     ]
 }
 
@@ -240,11 +240,11 @@ function loadSav(){
 
     if(!userI.hasOwnProperty("payouts")){
         userI.payouts=[
-            {label:"OJ",userV:8.75},
-            {label:"Lemonade",userV:8.75},
-            {label:"AP",userV:75},
-            {label:"LN",userV:12.5},
-            {label:"Cider",userV:17.5},
+            {label:"OJ",val:8.75},
+            {label:"Lemonade",val:8.75},
+            {label:"AP",val:75},
+            {label:"LN",val:12.5},
+            {label:"Cider",val:17.5},
         ]
     }
 
@@ -255,13 +255,13 @@ function loadSav(){
 }
 
 function infoBox(info,txtCol="",closeFunc=undefined){
-    let pop = addEle({dad:body,what:"dialog",maxWidth:"70%",radius:"20px",
-    backC:"black",textC:"white",display:"flex",flDir:"column",opacity:0.9,
+    let infoPop = addEle({dad:body,what:"dialog",maxWidth:"300px",radius:"20px",
+    backC:"black",fontS:18+"px",textC:"white",display:"flex",flDir:"column",opacity:0.9,
     alignItems:"center",border:"teal solid 3px"})
-        addEle({dad:pop,text:info,textC:txtCol})
-        addEle({dad:pop,setClass:"btn",text:"OK",width:"50%",
-        marginT:"20px", setFunc:()=>{if(closeFunc){closeFunc()} ; pop.remove()}})
-    pop.showModal()
+        addEle({dad:infoPop,text:info,textC:txtCol})
+        addEle({dad:infoPop,setClass:"btn",text:"OK",width:"50%",
+        marginT:"20px", setFunc:()=>{if(closeFunc){closeFunc()} ; infoPop.remove()}})
+        infoPop.showModal()
 }
 
 function setPage(){
@@ -275,15 +275,7 @@ function setPage(){
 
 
     addEle({dad:body,setClass:"btn",text:"-- Starting Infos --",backC:"darkgreen",
-    border:"rgb(212, 212, 74) solid 2px",margin:"10px",setFunc:()=>{
-        let pop = addEle({dad:body,what:"dialog",maxWidth:"300px",radius:"20px",
-        backC:"black",textC:"white",display:"flex",flDir:"column",opacity:0.9,
-        alignItems:"center",border:"teal solid 3px",fontS:"18px"})
-            addEle({dad:pop,text:startInfos})
-            addEle({dad:pop,setClass:"btn",text:"OK",width:"50%",
-            marginT:"20px", setFunc:()=>{pop.remove()}})
-        pop.showModal()
-    }}) 
+    border:"rgb(212, 212, 74) solid 2px",margin:"10px",setFunc:()=>{infoBox(startInfos)}}) 
 
     contR = addEle({dad:body,setClass:"contRow",margin:"0 10px",alignItems:"center"})
         addEle({dad:contR,what:"select",fontS:"16px",setID:"settingsSelect",padding:"5px",
@@ -334,8 +326,8 @@ let startInfos = `
 `
 
 function getDialogTopFrame(cxlEsc=true){
-    let Obj = addEle({dad:body,what:"dialog",setClass:"myDialog"})
-    Obj.style.maxWidth = "380px"
+    let Obj = addEle({dad:body,what:"dialog",setClass:"myDialog",width:"fit-content",height:"fit-content"})
+//    Obj.style.maxWidth = "380px"
     if(cxlEsc){ Obj.addEventListener('keydown', (e)=>{ if (e.key === 'Escape'){e.preventDefault()} }) }
     return Obj
 }
@@ -361,7 +353,7 @@ function userSettingPick(){
 
 function setDispOptions(){
     let pop = getDialogTopFrame()
-    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",minHeight:"450px",maxWidth:"360px"})
+    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",minHeight:"450px",maxWidth:"360px"})
 
         let subC = addEle({dad:cont,setClass:"contRow",padding:"10px 5px",border:"teal solid 2px",radius:"8px",
         alignItems:"center",backC:"rgb(45, 88, 128)",justifyC:"space-between",minWidth:"300px"})
@@ -643,7 +635,7 @@ function setDispOptions(){
 function setToolsMemos(){
 
     let pop = getDialogTopFrame()
-    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",radius:"10px"})
+    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",radius:"10px",maxWidth:"340px"})
 
         let subC = addEle({dad:cont,setClass:"contRow",padding:"5px",border:"teal solid 2px",radius:"8px",
         alignItems:"center",backC:"rgb(45, 88, 128)"}) // ,justifyC:"space-between"
@@ -723,7 +715,7 @@ function setToolsMemos(){
 
 function setRates(){
     let pop = getDialogTopFrame()
-    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",minHeight:"450px"})
+    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",minHeight:"450px"})
         
         let subC = addEle({dad:cont,setClass:"contRow",padding:"0 0 5px 0",alignItems:"center",justifyC:"space-around",
         backC:"rgb(45, 88, 128)",border:"teal solid 2px",radius:"8px",})
@@ -1022,7 +1014,7 @@ function setUserDetails(){
     let txt = undefined
     let pop = getDialogTopFrame()
     let topC = addEle({dad:pop,setClass:"contRow"})
-    let cont = addEle({dad:topC,setClass:"contCol",width:"fit-content",margin:"5px 0 5px 10px",
+    let cont = addEle({dad:topC,setClass:"contCol",width:"fit-content",
         border:"teal solid 2px",radius:"10px",alignItems:"center",minWidth:"360px"})
 
         let subC = addEle({dad:cont,setClass:"contCol",backC:"rgb(45, 88, 128)",width:"100%",
@@ -1666,15 +1658,6 @@ function payOptions(e){
             setFunc:()=>{ pop.remove() }})
 
         if(testNum(val)){
-
-            let ret = calcConvert(
-                Number(getID("order:"+idx).value),
-                Number(itm.rate.split(":")[0]),
-                Number(itm.rate.split(":")[1]),
-                Number(itm.bonus),itm.rounding,
-                itm.type
-            )
-        
             getID("topLbl1").innerHTML = "Alternate Payouts for"
             getID("topLbl2").innerHTML = itm.label
             getID("topImg").style.display = "block"
@@ -1685,31 +1668,37 @@ function payOptions(e){
                     addEle({dad:subC,display:"flex",alignItems:"center",text:txt,textA:"center"})
 
                     addEle({dad:subC,what:"checkbox",isInput:true,accentCol:green,setClass:"toggle-checkbox",
-                    setID:"calcB:"+idx,setFunc:(e)=>{getID("calcBLb").innerHTML = e.srcElement.checked ? "Yes" : "No";calcAlts(e,ret,true)}})
+                    setID:"calcB:"+idx,setFunc:(e)=>{getID("calcBLb").innerHTML = e.srcElement.checked ? "Yes" : "No";calcAlts(e,true)}})
                     addEle({dad:subC,what:"label",setFor:"calcB:"+idx,setClass:"toggle-label"})
             }
 
         tb = addEle({dad:cont,what:"table",margin:"5px 0"})
             tr = addEle({dad:tb,what:"tr"})
                 addEle({dad:tr,what:"td",textA:"center",text:"Craft :"})
-                addEle({dad:tr,what:"td",textA:"center",setID:"altCraft",setClass:"tealCell"})
+                addEle({dad:tr,what:"td",textA:"center",setID:"altCraft",setClass:"tealCellBt"})
 
                 addEle({dad:tr,what:"td",textA:"center",text:"Lose :"})
-                addEle({dad:tr,what:"td",textA:"center",setID:"altLose",setClass:"tealCell"})
+                addEle({dad:tr,what:"td",textA:"center",setID:"altLose",setClass:"tealCellBt"})
 
                 addEle({dad:tr,what:"td",textA:"center",text:"Payout :"})
-                addEle({dad:tr,what:"td",textA:"center",setID:"altPayout",setClass:"tealCell"})
+                addEle({dad:tr,what:"td",textA:"center",setID:"altPayout",setClass:"tealCellBt"})
 
 
             let subC = addEle({dad:cont,setClass:"contRow",justifyC:"center",alignItems:"center",margin:"5px 0"})
-                addEle({dad:subC,what:"input",isInput:true,width:"100px",setID:"loseInput",textA:"center",setFunc:(e,ret)=>{
-                    let src = e.srcElement ; let rg = getID("loseRange") ; let disp = getID("loseInputG") ; let dispT = getID("loseItip")
-                    if(testNum(src.value,true) && src.value!=="" && Number(src.value) >= 0 && Number(src.value) <= rg.max){
+                addEle({dad:subC,what:"input",isInput:true,width:"100px",setID:"loseInput:"+idx,
+                textA:"center",radius:"5px",setFunc:(e)=>{
+                    let idx = Number(e.srcElement.id.split(":")[1])
+                    let src = e.srcElement
+                    let rg = getID("loseRange:"+idx)
+                    let disp = getID("loseInputG")
+                    let dispT = getID("loseItip")
+                    if(testNum(src.value,true) && src.value!=="" && Number(src.value) >= rg.min && Number(src.value) <= rg.max){
                         disp.innerHTML = addEmo("✅","emoji green OK sign")
                         dispT.style.visibility = "hidden"
                         setTimeout(() => {disp.innerHTML =""}, 1000)
 
                         rg.value = Number(src.value)
+                        calcAlts(e)
                     } else {
                         rg.value = 0
                         dispT.style.visibility = "visible"
@@ -1717,79 +1706,91 @@ function payOptions(e){
                     }
                     console.log("input change")
                 }})
-                setWarnTip(getID("loseInput"),"loseItip","here",-25,-20)
+                setWarnTip(getID("loseInput:"+idx),"loseItip","here",-25,-20)
                 addEle({dad:subC,minWidth:"30px",setID:"loseInputG",marginL:"5px"})
 
-                addEle({dad:subC,setClass:"rangeSt",what:"range",isInput:true,width:"150px",setID:"loseRange",
-                setFunc:(e)=>{getID("loseInput").value = e.srcElement.value}})
+                addEle({dad:subC,setClass:"rangeSt",what:"range",isInput:true,width:"150px",setID:"loseRange:"+idx,
+                setFunc:(e)=>{getID("loseInput:"+idx).value = e.srcElement.value ; calcAlts(e)}})
 
                 addEle({dad:subC,setClass:"btn",text:"?",marginL:"10px",padding:"0 5px",setFunc:()=>{
-                    let dsp=getID("altI")
-                    dsp.style.display = dsp.style.display === "none" ? "block" : "none" 
+                    infoBox(
+                    `The idea is to negociate with the customer how
+                    you will pay for the goods received. The amount
+                    you set here can be the `+spanText("","Lose",18,false,"teal solid 2px")+` 
+                    part only as you can return the `+spanText("","Craft",18,false,"teal solid 2px")+`
+                    part ... or more up to full `+spanText("","Payout",18,false,yellow+" solid 2px")+`
+                    (meaning you keep and pay for all received / crafted items)
+                    <br><br> You will need to know about current rates 
+                    in trade to change `+spanText("","Trade Values",18,false,green+" solid 2px")
+                        )
                 }})
 
-                txt = `
-                The idea is to negociate with customer how
-                you will pay for the goods received. The amount
-                you set here can be the `+spanText("","Lose",18,false,"teal solid 2px")+` 
-                part only as you can return the `+spanText("","Craft",18,false,"teal solid 2px")+`
-                 part ...<br> or more up to full payout.
-                `
-                addEle({dad:cont,text:txt,padding:"8px",border:"teal solid 2px",radius:"15px",
-                maxWidth:"310px",setID:"altI",display:"none"})
-
-                addEle({dad:cont,text:"Payout :",borderT:"teal solid 3px",width:"100%",paddingT:"10px",
-                margin:"10px 0"})//,backC:"green"
+                subC = addEle({dad:cont,setClass:"contRow",justifyC:"center",alignItems:"center",
+                borderB:"teal solid 3px",borderT:"teal solid 3px",width:"100%",padding:"5px 0"})
+                addEle({dad:subC,text:"Reference :",marginR:"20px"})
+                addEle({dad:subC,setClass:"btn",text:"Trade Values",setID:"tradeV:"+idx,setFunc:(e)=>{setTradeValues(e)}})
 
 
+        tb = addEle({dad:cont,what:"table",margin:"5px 0"})
+            tr = addEle({dad:tb,what:"tr"})
+
+                addEle({dad:tr,what:"td",textA:"center",text:"Payout :"})
+
+                addEle({dad:tr,what:"td",textA:"center",text:"Craft"})
+                addEle({dad:tr,what:"td",textA:"center",setID:"payCraft",setClass:"tealCellBt"})
+
+                addEle({dad:tr,what:"td",textA:"center",text:"Balance"})
+                addEle({dad:tr,what:"td",textA:"center",setID:"payBal",setClass:"tealCellBt"})
 
 
+            subC = addEle({dad:cont,setClass:"contRow",justifyC:"center",alignItems:"center",margin:"5px 0"})
+                addEle({dad:subC,text:"Balance of "+`<span style="margin:0 5px;" id="balance"></span>`,})
+                addEle({dad:subC,what:"img",imgFullSrc:srcImgs+itmO.img2,imgSize:20,marginR:"5px"})
+                addEle({dad:subC,text:"estimated to"+`<span style="margin:0 5px;" id="balanceG1"></span>`,})
+                addEle({dad:subC,what:"img",imgFullSrc:srcImgs+"5gold.png",imgSize:20,marginR:"5px"})
+
+            addEle({dad:cont,marginT:"20px",text:`Pay the `+`<span  id="balanceG2"></span>`+
+            `g or use any of these items :<br>(amount calculated based on their gold value)`})
+
+        inC = addEle({dad:cont,display:"flex",justifyC:"center"})
+        tb = addEle({dad:inC,what:"table",margin:"5px 0",width:"100%"})
+            let arr = userI.payouts.filter(x=> x.label !== itm.label)
+            for(let i=0;i<arr.length;i++){
+                itmO = outputs.filter(x=>x.label===arr[i].label)[0]
+                tr = addEle({dad:tb,what:"tr"})
+                    tc = addEle({dad:tr,what:"td",setClass:"tealCell",display:"flex",justifyC:"center"})
+                        subC = addEle({dad:tc,setClass:"contRow"})
+                        addEle({dad:subC,what:"img",imgFullSrc:srcImgs+itmO.img2,imgSize:20})
+                        addEle({dad:subC,text:itmO.label,setID:"tcLbl:"+i,minWidth:"100px"})
+                        addEle({dad:subC,text:0,setID:"tcVal:"+i})
+            }
 
 
-
-
-
-            if(itm.bonus > 0){
-                getID("calcB:"+idx).checked = true
-            } 
-
-            calcAlts(e,ret,true)
+            if(itm.bonus > 0){getID("calcB:"+idx).checked = true} 
+            calcAlts(e,true)
 
         } else { getID("topLbl1").innerHTML = "Alternate Payouts for "+itm.label+"<br>Shown from Payout result" }
 
     pop.showModal()
 
-
-/*
-                addEle({dad:inC,setClass:"rangeSt",what:"range",isInput:true,min:0,max:100,setVal:100,width:"100px",
-                setID:"ringRg:"+idx,setFunc:(e)=>{upNeedRg(e.srcElement.id)}})
-*/
-
-
-
-
 }
 
-function calcAlts(e,ret,init=false){
-
-    console.log("run calcAlts")
-
-
+function calcAlts(e,init=false){
     let idx = Number(e.srcElement.id.split(":")[1])
     let itm = getCurrItem(e.srcElement.id)
-    let itmO = outputs.filter(x=>x.type === itm.type)[0]
     let payT = undefined
+    let bal = undefined
+    let goldV = undefined
+    let loseR = getID("loseRange:"+idx)
+    let loseI = getID("loseInput:"+idx)
 
-    let loseR = getID("loseRange")
-    let loseI = getID("loseInput")
-
-    let txt = undefined
-
-
-
-    console.log(itm)
-    console.log(itmO)
-    console.log(ret)
+    let ret = calcConvert(
+        Number(getID("order:"+idx).value),
+        Number(itm.rate.split(":")[0]),
+        Number(itm.rate.split(":")[1]),
+        Number(itm.bonus),itm.rounding,
+        itm.type
+    )
 
     if(getID("calcB:"+idx)){
         payT = getID("calcB:"+idx).checked ? ret.payR + ret.bonR : ret.payR
@@ -1807,8 +1808,69 @@ function calcAlts(e,ret,init=false){
         loseR.value = Number(getID("altLose").innerHTML)
         loseI.value = loseR.value
         getID("loseItip").innerHTML = "Allowed Value "+loseR.min+" ~ " + getID("altPayout").innerHTML
-
     }
+
+    getID("payCraft").innerHTML = payT - loseR.value
+    bal = payT -(payT - loseR.value)
+    getID("payBal").innerHTML = bal
+    getID("balance").innerHTML = bal
+
+    goldV = (bal/1000) * userI.payouts.filter(x=>x.label===itm.label)[0].val
+    getID("balanceG1").innerHTML = goldV.toFixed(2)
+    getID("balanceG2").innerHTML = goldV.toFixed(2)
+
+    let arr = userI.payouts.filter(x=> x.label !== itm.label)
+    for(let i=0;i<arr.length;i++){getID("tcVal:"+i).innerHTML = Math.ceil((goldV / arr[i].val) * 1000)}
+}
+
+
+
+
+function setTradeValues(e){
+    let idx = Number(e.srcElement.id.split(":")[1])
+    let itm = getCurrItem(e.srcElement.id)
+    let itmO = outputs.filter(x=>x.type === itm.type)[0]
+    let tb = undefined
+    let tr = undefined
+    let tc = undefined
+
+
+    let pop = getDialogTopFrame()
+    pop.style.height = "fit-content"
+    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",margin:"5px 10px",maxWidth:"320px",
+    height:"fit-content",backC:"green"})
+        
+        let subC = addEle({dad:cont,setClass:"contRow",padding:"0 0 5px 0",alignItems:"center",justifyC:"space-around",
+        backC:"rgb(45, 88, 128)",border:"teal solid 2px",radius:"8px",minWidth:"300px"})
+            let inC = addEle({dad:subC,setClass:"contRow",alignItems:"center"})
+                addEle({dad:inC,text:"Any valid change <br>will be saved",textA:"center",})
+                addEle({dad:inC,marginL:"10px",text:addEmo("✅","emoji green OK sign"),}) //minWidth:"320px"
+
+            addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),setFunc:()=>{
+                getID("settingsSelect").selectedIndex = 0 ;
+                savUserI() 
+                pop.remove()
+            }})
+
+            inC = addEle({dad:cont,display:"flex",justifyC:"center"})
+            tb = addEle({dad:inC,what:"table",margin:"5px 0"})
+            for(let i=0;i<userI.payouts.length;i++){
+                itmO = outputs.filter(x=>x.label=== userI.payouts[i].label)[0]
+                tr = addEle({dad:tb,what:"tr"})
+                    tc = addEle({dad:tb,what:"td"})
+                        addEle({dad:tc,what:"img",imgFullSrc:srcImgs+itmO.img2,imgSize:20})
+                    tc = addEle({dad:tb,what:"td",text:itmO.label,textA:"center"})
+                    tc = addEle({dad:tb,what:"td"})
+                        addEle({dad:tc,what:"input",isInput:true,setVal:userI.payouts[i].val,
+                        width:"100px",textA:"center"})
+            }
+            userI.payouts
+
+
+
+
+
+    pop.showModal()
 
 }
 
@@ -2270,8 +2332,6 @@ function mmEstimate(id,ratio=undefined){
 loadSav()
 setPage()
 
-
-console.log(userI)
 
 /*
 txt = `Dear Users,<br><br>I plan to change `+spanText(green,"[ Infos ]")+` display type...<br><br>
