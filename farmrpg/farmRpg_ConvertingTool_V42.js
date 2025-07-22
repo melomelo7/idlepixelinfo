@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/22 00:20
+Last up 2025 07/23 00:00
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -254,8 +254,9 @@ function infoBox(info,txtCol="",closeFunc=undefined){
     alignItems:"center",border:"teal solid 3px"})
         addEle({dad:infoPop,text:info,textC:txtCol})
         addEle({dad:infoPop,setClass:"btn",text:"OK",width:"50%",
-        marginT:"20px", setFunc:()=>{if(closeFunc){closeFunc()} ; infoPop.remove()}})
+        marginT:"20px", setFunc:()=>{if(closeFunc){closeFunc()} ; infoPop.remove() ; lockScroll(false)}})
         infoPop.showModal()
+        lockScroll()
 }
 
 function setPage(){
@@ -321,11 +322,14 @@ let startInfos = `
 
 function getDialogTopFrame(cxlEsc=true){
     let Obj = addEle({dad:body,what:"dialog",setClass:"myDialog",width:"fit-content",height:"fit-content"})
-//    Obj.style.maxWidth = "380px"
     if(cxlEsc){ Obj.addEventListener('keydown', (e)=>{ if (e.key === 'Escape'){e.preventDefault()} }) }
     return Obj
 }
 
+function lockScroll(lock=true){
+    document.body.style.overflow = lock ? "hidden" : ""
+    document.body.style.touchAction = lock ? 'none' : ""
+}
 
 function userSettingPick(){
     if(getID("settingsSelect").value !=="-- User Settings --"){
@@ -399,6 +403,7 @@ function setDispOptions(){
                     getID("settingsSelect").selectedIndex = 0 ;
                     savUserI() 
                     pop.remove()
+                    lockScroll(false)
                 }})
 
 
@@ -624,6 +629,7 @@ function setDispOptions(){
                 addEle({dad:inC,text:infoT,margin:"5px",maxWidth:"300px",paddingL:"5px",setID:lbl,display:"none",setName:"displayTips"})
 
     pop.showModal()
+    lockScroll()
 }
 
 function setToolsMemos(){
@@ -655,6 +661,7 @@ function setToolsMemos(){
             addEle({dad:subC1,setClass:"btn",text:addEmo("❌","emoji red cross"),margin:"0 0 5px 0",setFunc:()=>{
                 getID("settingsSelect").selectedIndex = 0 ; 
                 pop.remove()
+                lockScroll(false)
             }})
 
         subC = addEle({dad:cont,setClass:"contRow",padding:"5px",
@@ -704,6 +711,7 @@ function setToolsMemos(){
 
 
     pop.showModal()
+    lockScroll()
 
 }
 
@@ -719,6 +727,7 @@ function setRates(){
                 getID("settingsSelect").selectedIndex = 0 ;
                 savUserI() 
                 pop.remove()
+                lockScroll(false)
             }})
 
         subC = addEle({dad:cont,setClass:"contRow",padding:"5px",alignItems:"center"})
@@ -747,6 +756,7 @@ function setRates(){
         let ev = new Event("change") ; getID("toggleRate").dispatchEvent(ev)
 
     pop.showModal()
+    lockScroll()
 }
 
 function dispRateSet(arr){
@@ -943,7 +953,9 @@ function addRateSetup(){
                 }
             }})
             addEle({dad:subC2,setID:"addGood",minWidth:"20px"})
-            addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),minWidth:"100px",setFunc:()=>{pop2.remove()}})
+            addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),minWidth:"100px",setFunc:()=>{
+                pop2.remove()
+            }})
 
     pop2.showModal()
 }
@@ -1023,6 +1035,7 @@ function setUserDetails(){
                 setTools()
                 getID("settingsSelect").selectedIndex = 0 ; 
                 pop.remove()
+                lockScroll(false)
             }})
 
         let subC2 = addEle({dad:subC,setClass:"contRow",alignItems:"center",marginB:"10px",width:"100%"})
@@ -1073,7 +1086,8 @@ function setUserDetails(){
 
         let ev = new Event("change") ; getID("detailsCheck").dispatchEvent(ev)
 
-    pop.showModal() 
+    pop.showModal()
+    lockScroll()
 }
 
 function userUpdate(){
@@ -1318,6 +1332,7 @@ function setDeleteFrame(){
         addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),setFunc:()=>{
             getID("settingsSelect").selectedIndex = 0 ; 
             pop.remove()
+            lockScroll(false)
         }})
 
         let txt = addEmo("⚠️","emoji exclamation mark in yellow triangle")+
@@ -1330,7 +1345,8 @@ function setDeleteFrame(){
             location.reload()
         }})
 
-        pop.showModal()    
+        pop.showModal()
+        lockScroll()  
 }
 
 
@@ -1646,10 +1662,10 @@ function payOptions(e){
             addEle({dad:inC,what:"img",imgFullSrc:srcImgs+itmO.img2,imgSize:20,display:"none",setID:"topImg",marginL:"5px"})
 
             addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),marginL:"5px",
-            setFunc:()=>{ pop.remove() }})
+            setFunc:()=>{ pop.remove() ; lockScroll(false) }})
 
         if(testNum(val)){
-            getID("topLbl1").innerHTML = "Alternate Payouts for"
+            getID("topLbl1").innerHTML = "Split Payout for"
             getID("topLbl2").innerHTML = itm.label
             getID("topImg").style.display = "block"
 
@@ -1663,6 +1679,7 @@ function payOptions(e){
                     addEle({dad:subC,what:"label",setFor:"calcB:"+idx,setClass:"toggle-label"})
             }
 
+
         tb = addEle({dad:cont,what:"table",margin:"5px 0"})
             tr = addEle({dad:tb,what:"tr"})
                 addEle({dad:tr,what:"td",textA:"center",text:"Craft :"})
@@ -1675,7 +1692,24 @@ function payOptions(e){
                 addEle({dad:tr,what:"td",textA:"center",setID:"altPayout",setClass:"tealCellBt"})
 
 
-            let subC = addEle({dad:cont,setClass:"contRow",justifyC:"center",alignItems:"center",margin:"5px 0"})
+            let subC = addEle({dad:cont,setClass:"contRow",justifyC:"center",alignItems:"center",
+                borderB:"teal solid 3px",borderT:"teal solid 3px",width:"100%",padding:"5px 0"})
+                addEle({dad:subC,text:"Alternate Payouts :",marginR:"20px"})
+                addEle({dad:subC,setClass:"btn",text:"Trade Values",setID:"tradeV:"+idx,setFunc:(e)=>{setTradeValues(e)}})
+
+        tb = addEle({dad:cont,what:"table",margin:"5px 0"})
+            tr = addEle({dad:tb,what:"tr"})
+
+                addEle({dad:tr,what:"td",textA:"center",text:"Payout :"})
+
+                addEle({dad:tr,what:"td",textA:"center",text:"Craft"})
+                addEle({dad:tr,what:"td",textA:"center",setID:"payCraft",setClass:"tealCellBt"})
+
+                addEle({dad:tr,what:"td",textA:"center",text:"Balance"})
+                addEle({dad:tr,what:"td",textA:"center",setID:"payBal",setClass:"tealCellBt"})
+    
+
+            subC = addEle({dad:cont,setClass:"contRow",justifyC:"center",alignItems:"center",margin:"5px 0"})
                 addEle({dad:subC,what:"input",isInput:true,width:"100px",setID:"loseInput:"+idx,
                 textA:"center",radius:"5px",setFunc:(e)=>{
                     let idx = Number(e.srcElement.id.split(":")[1])
@@ -1716,23 +1750,6 @@ function payOptions(e){
                         )
                 }})
 
-                subC = addEle({dad:cont,setClass:"contRow",justifyC:"center",alignItems:"center",
-                borderB:"teal solid 3px",borderT:"teal solid 3px",width:"100%",padding:"5px 0"})
-                addEle({dad:subC,text:"Reference :",marginR:"20px"})
-                addEle({dad:subC,setClass:"btn",text:"Trade Values",setID:"tradeV:"+idx,setFunc:(e)=>{setTradeValues(e)}})
-
-
-        tb = addEle({dad:cont,what:"table",margin:"5px 0"})
-            tr = addEle({dad:tb,what:"tr"})
-
-                addEle({dad:tr,what:"td",textA:"center",text:"Payout :"})
-
-                addEle({dad:tr,what:"td",textA:"center",text:"Craft"})
-                addEle({dad:tr,what:"td",textA:"center",setID:"payCraft",setClass:"tealCellBt"})
-
-                addEle({dad:tr,what:"td",textA:"center",text:"Balance"})
-                addEle({dad:tr,what:"td",textA:"center",setID:"payBal",setClass:"tealCellBt"})
-
 
             subC = addEle({dad:cont,setClass:"contRow",justifyC:"center",alignItems:"center",margin:"5px 0"})
                 addEle({dad:subC,text:"Balance of "+`<span style="margin:0 5px;" id="balance"></span>`,})
@@ -1762,7 +1779,8 @@ function payOptions(e){
 
         } else { getID("topLbl1").innerHTML = "Alternate Payouts for "+itm.label+"<br>Shown from Payout result" }
 
-    pop.showModal()
+    pop.showModal() 
+    lockScroll()
 
 }
 
@@ -2119,9 +2137,10 @@ function convertProject(e){
         borderT:"dotted 2px teal",marginT:"10px",paddingT:"10px"})
 
         addEle({dad:pop,setClass:"btn",text:"Close",width:"50%",
-        marginT:"20px", setFunc:()=>{pop.remove()}})
+        marginT:"20px", setFunc:()=>{pop.remove() ; lockScroll(false)}})
 
     pop.showModal()
+    lockScroll()
 }
 
 function convertProjectLooper(itm, itmSrc,invQt){
