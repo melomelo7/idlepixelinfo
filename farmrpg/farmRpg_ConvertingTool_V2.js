@@ -13,12 +13,21 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/23 00:35
+Last up 2025 07/23 16:15
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
 "Tools Display-Use Options" under<br>
 -- User Settings --`)
+
+
+let recentChanges = `
+- the multiple green infos have been replaced
+by the --User Settings > Tools Display-Use so
+you both get some info (=>[?]) and switch on-off
+every functionality
+ 
+`
 
 const outputs = [
     {label:"OJ",type:"Oranges to OJ",rate:"3:1",friend:"4.13:1",img1:"orange.png",img2:"orangejuice.png",
@@ -379,6 +388,7 @@ function setDispOptions(){
                         options.memos = true
                         options.usedNeeds = true
                         options.mms = true
+                        options.alternatePayouts = true
                         document.getElementsByName("dispToggles").forEach(it=>{it.checked = true})
                         }
                     else {
@@ -390,6 +400,7 @@ function setDispOptions(){
                         options.memos = false
                         options.usedNeeds = false
                         options.mms = false
+                        options.alternatePayouts = false
                         document.getElementsByName("dispToggles").forEach(it=>{it.checked = false})
                     }
                     getID("advFr").style.display = e.srcElement.checked ? "flex" : "none"
