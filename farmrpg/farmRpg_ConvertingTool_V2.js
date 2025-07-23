@@ -381,26 +381,12 @@ function setDispOptions(){
                     let disp = getID("toggleDispAllLbl")
                     if(e.srcElement.checked){
                         disp.innerHTML = "(Minimum | " + spanText("yellow","Maximum",18,"",yellow+" solid 2px")+")"
-                        options.all = true
-                        options.advertiseEstimate = true
-                        options.customerName = true
-                        options.customerMB = true
-                        options.memos = true
-                        options.usedNeeds = true
-                        options.mms = true
-                        options.alternatePayouts = true
+                        for(let key in options){options[key]=true}
                         document.getElementsByName("dispToggles").forEach(it=>{it.checked = true})
                         }
                     else {
                         disp.innerHTML = "("+ spanText("yellow","Minimum",18,"",yellow+" solid 2px") + " | Maximum)" 
-                        options.all = false
-                        options.advertiseEstimate = false
-                        options.customerName = false
-                        options.customerMB = false
-                        options.memos = false
-                        options.usedNeeds = false
-                        options.mms = false
-                        options.alternatePayouts = false
+                        for(let key in options){options[key]=false}
                         document.getElementsByName("dispToggles").forEach(it=>{it.checked = false})
                     }
                     getID("advFr").style.display = e.srcElement.checked ? "flex" : "none"
@@ -421,7 +407,7 @@ function setDispOptions(){
 
     let dispOptionsC = addEle({dad:cont,setClass:"contCol",maxHeight:"500px",overflowX:"hidden",marginT:"10px",minWidth:"300px"})
 
-        let mW = 220 ; testC = ""//green
+        let mW = 220
 
         let lbl = "AdvEval" ; let infoLb = "Advertise | Estimate Converting" ; let infoT = `
         Option to Auto-build advertising message to use in game chat. (Change content if needed 
@@ -432,7 +418,7 @@ function setDispOptions(){
             subC = addEle({dad:inC,setClass:"contRow",alignItems:"center",borderB:"teal solid 2px",radiusTR:"6px",
             radiusTL:"6px",backC:"rgb(45, 88, 128)",justifyC:"space-between"})
             let subC1=addEle({dad:subC})
-                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px",backC:testC})
+                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px"})
             let subC2=addEle({dad:subC,setClass:"contRow",alignItems:"center"})
                 addEle({dad:subC2,what:"checkbox",isInput:true,setID:"toggle"+lbl,setClass:"toggle-checkbox",
                 margin:"50px",setName:"dispToggles",setFunc:(e)=>{
@@ -461,7 +447,7 @@ function setDispOptions(){
             subC = addEle({dad:inC,setClass:"contRow",alignItems:"center",borderB:"teal solid 2px",radiusTR:"6px",
             radiusTL:"6px",backC:"rgb(45, 88, 128)",justifyC:"space-between"})
                 subC1=addEle({dad:subC})
-                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px",backC:testC})
+                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px"})
                 subC2=addEle({dad:subC,setClass:"contRow",alignItems:"center"})
                 addEle({dad:subC2,what:"checkbox",isInput:true,setID:"toggle"+lbl,setClass:"toggle-checkbox",
                 margin:"50px",setName:"dispToggles",setFunc:(e)=>{
@@ -490,7 +476,7 @@ function setDispOptions(){
             subC = addEle({dad:inC,setClass:"contRow",alignItems:"center",borderB:"teal solid 2px",radiusTR:"6px",
             radiusTL:"6px",backC:"rgb(45, 88, 128)",justifyC:"space-between"})
                 subC1=addEle({dad:subC})
-                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px",backC:testC})
+                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px"})
                 subC2=addEle({dad:subC,setClass:"contRow",alignItems:"center"})
                 addEle({dad:subC2,what:"checkbox",isInput:true,setID:"toggle"+lbl,setClass:"toggle-checkbox",
                 margin:"50px",setName:"dispToggles",setFunc:(e)=>{
@@ -524,7 +510,7 @@ function setDispOptions(){
             subC = addEle({dad:inC,setClass:"contRow",alignItems:"center",borderB:"teal solid 2px",radiusTR:"6px",
             radiusTL:"6px",backC:"rgb(45, 88, 128)",justifyC:"space-between"})
                 subC1=addEle({dad:subC})
-                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px",backC:testC})
+                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px"})
                 subC2=addEle({dad:subC,setClass:"contRow",alignItems:"center"})
                 addEle({dad:subC2,what:"checkbox",isInput:true,setID:"toggle"+lbl,setClass:"toggle-checkbox",
                 margin:"50px",setName:"dispToggles",setFunc:(e)=>{
@@ -556,7 +542,7 @@ function setDispOptions(){
             subC = addEle({dad:inC,setClass:"contRow",alignItems:"center",borderB:"teal solid 2px",radiusTR:"6px",
             radiusTL:"6px",backC:"rgb(45, 88, 128)",justifyC:"space-between"})
                 subC1=addEle({dad:subC})
-                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px",backC:testC})
+                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px"})
                 subC2=addEle({dad:subC,setClass:"contRow",alignItems:"center"})
                 addEle({dad:subC2,what:"checkbox",isInput:true,setID:"toggle"+lbl,setClass:"toggle-checkbox",
                 margin:"50px",setName:"dispToggles",setFunc:(e)=>{
@@ -587,7 +573,7 @@ function setDispOptions(){
             subC = addEle({dad:inC,setClass:"contRow",alignItems:"center",borderB:"teal solid 2px",radiusTR:"6px",
             radiusTL:"6px",backC:"rgb(45, 88, 128)",justifyC:"space-between"})
                 subC1=addEle({dad:subC})
-                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px",backC:testC})
+                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px"})
                 subC2=addEle({dad:subC,setClass:"contRow",alignItems:"center"})
                 addEle({dad:subC2,what:"checkbox",isInput:true,setID:"toggle"+lbl,setClass:"toggle-checkbox",
                 margin:"50px",setName:"dispToggles",setFunc:(e)=>{
@@ -618,7 +604,7 @@ function setDispOptions(){
             subC = addEle({dad:inC,setClass:"contRow",alignItems:"center",borderB:"teal solid 2px",radiusTR:"6px",
             radiusTL:"6px",backC:"rgb(45, 88, 128)",justifyC:"space-between"})
                 subC1=addEle({dad:subC})
-                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px",backC:testC})
+                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px"})
                 subC2=addEle({dad:subC,setClass:"contRow",alignItems:"center"})
                 addEle({dad:subC2,what:"checkbox",isInput:true,setID:"toggle"+lbl,setClass:"toggle-checkbox",
                 margin:"50px",setName:"dispToggles",setFunc:(e)=>{
@@ -2344,14 +2330,5 @@ function mmEstimate(id,ratio=undefined){
 
 }
 
-
 loadSav()
 setPage()
-
-
-/*
-txt = `Dear Users,<br><br>I plan to change `+spanText(green,"[ Infos ]")+` display type...<br><br>
-Currently `+spanText(green,"Type1 (Top Version)")+`<br>-- Would Change for --<br>`+spanText("yellow","*New")+` `+spanText(green,"Type2 (Bottom Version)")+`
-<br><br>kindly `+spanText("crimson","[DM]")+` me ingame your preference ?<br><br>@ Apple Lord<br><br>`+spanText("","🤠",16)
-infoBox(txt)
-*/
