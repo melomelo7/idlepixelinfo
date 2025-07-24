@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/23 16:15
+Last up 2025 07/24 19:15
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -768,10 +768,10 @@ function dispRateSet(arr){
             if(getID("toggleRate").checked){
                 subC = addEle({dad: getID(area+":"+i),setClass:"contRow",alignItems:"center"})
                 if(userI.rateU.length>1){
-                    addEle({dad:subC,text:addEmo("🔼","emoji arrow pointing up"),setClass:"btn",padding:"0",margin:"0",fontS:"12px", 
-                    setID:"swap:"+i,setFunc:(e)=>{swapUD(e,"U")}})
-                    addEle({dad:subC,text:addEmo("🔽","emoji arrow pointing down"),setClass:"btn",padding:"0",margin:"0",fontS:"12px",
-                    setID:"swap:"+i,setFunc:(e)=>{swapUD(e,"D")}})
+                    addEle({dad:subC,text:addEmo("🔼","emoji arrow pointing up","swapE:"+i),setClass:"btn",
+                    padding:"0",margin:"0",fontS:"12px", setID:"swap:"+i,setFunc:(e)=>{swapUD(e,"U")}})
+                    addEle({dad:subC,text:addEmo("🔽","emoji arrow pointing down","swapE:"+i),setClass:"btn",
+                    padding:"0",margin:"0",fontS:"12px", setID:"swap:"+i,setFunc:(e)=>{swapUD(e,"D")}})
                 }
                 addEle({dad:subC,text:addEmo("❌","emoji red cross")+" Delete",setClass:"btn",padding:"0 5px",marginL:"20px",fontS:"12px",
                 setID:"customDel:"+i,setFunc:(e)=>{blastRate(e)}})
