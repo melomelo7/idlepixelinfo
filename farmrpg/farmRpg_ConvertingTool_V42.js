@@ -13,12 +13,25 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/23 00:00
+Last up 2025 07/24 21:50
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
 "Tools Display-Use Options" under<br>
 -- User Settings --`)
+
+
+let recentChanges = `
+🟢 the multiple green infos have been replaced
+by the --User Settings > `+spanText(green,"Tools Display-Use")+` so
+you both get some info (click on `+spanText(green,"[?]")+`) and can switch on-off
+every functionality of the tools.<br><br> 
+🟢 new functionality : Alternate Split payouts
+also something you can switch on-off on Displays.<br><br>
+🟢 Hide this tool / show all tools if you wish
+to have more or less tools on the page.
+(available on both sets Basic & Custom)
+`
 
 const outputs = [
     {label:"OJ",type:"Oranges to OJ",rate:"3:1",friend:"4.13:1",img1:"orange.png",img2:"orangejuice.png",
@@ -54,17 +67,17 @@ let eventMastery = [0,10,14,20]
 
 let rateB =[
 {ind:0,label:"OJ",type:outputs[0].type,rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false},
+orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
 {ind:1,label:"Lemonade",type:outputs[1].type,rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false},
+orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
 {ind:2,label:"AP",type:outputs[2].type,rate:"30:1",bonus:0,rounding:roundings[0],orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false},
+orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
 {ind:3,label:"LN",type:outputs[4].type,rate:"1000:70",bonus:0,rounding:roundings[0],orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false},
+orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
 {ind:4,label:"Cider",type:outputs[5].type,rate:"20:1",bonus:0,rounding:roundings[0],orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false},
+orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
 {ind:5,label:"AP",type:outputs[3].type,rate:"1000:80",bonus:0,rounding:roundings[0],orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false},
+orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
 ]
 
 let pageVer = "3.0"
@@ -72,6 +85,7 @@ let pageVer = "3.0"
 let userI = {
     pageV:pageVer,
     currentSet:"Basic",
+    basicDisplays:[],
     rateU:[],
     toolPerLine:2,
     memoCap:10,
@@ -246,6 +260,24 @@ function loadSav(){
         userI.alternatePayouts = true
     }
 
+    userI.rateU.forEach(r=>{
+        if(!r.hasOwnProperty("display")){
+            r.display = true
+        }
+    })
+
+    if(!userI.hasOwnProperty("basicDisplays")){
+        let arr = []
+        rateB.forEach(r=>{arr.push(true)})
+        userI.basicDisplays=arr
+    } else {
+        for(let i=0;i<rateB.length;i++){
+            rateB[i].display = userI.basicDisplays[i] 
+        }
+    }
+
+console.log(userI)
+
 }
 
 function infoBox(info,txtCol="",closeFunc=undefined){
@@ -268,9 +300,12 @@ function setPage(){
         " Go Back",backC:from.buttonBackC,setFunc:()=>{window.open(lnk,"_self")}})
         addEle({dad:contR,text:spanText(yellowL,lastUpd),margin:"10px"})
 
+    let subC = addEle({dad:body,setClass:"contRow",padding:"5px"})
+        addEle({dad:subC,setClass:"btn",text:"-- Starting Infos --",backC:"darkgreen",
+        border:"rgb(212, 212, 74) solid 2px",margin:"10px",setFunc:()=>{infoBox(startInfos)}}) 
 
-    addEle({dad:body,setClass:"btn",text:"-- Starting Infos --",backC:"darkgreen",
-    border:"rgb(212, 212, 74) solid 2px",margin:"10px",setFunc:()=>{infoBox(startInfos)}}) 
+        addEle({dad:subC,setClass:"btn",text:"Recent Changes "+addEmo("👀","eyes looking to the left"),backC:"darkgreen",
+        border:"rgb(212, 212, 74) solid 2px",margin:"10px",setFunc:()=>{infoBox(recentChanges)}})
 
     contR = addEle({dad:body,setClass:"contRow",margin:"0 10px",alignItems:"center"})
         addEle({dad:contR,what:"select",fontS:"16px",setID:"settingsSelect",padding:"5px",
@@ -281,7 +316,7 @@ function setPage(){
 
     let settingsFr = addEle({dad:body,setClass:"contCol",padding:"5px",width:"100%"})
 
-    let subC = addEle({dad:settingsFr,setClass:"contRow",padding:"5px",alignItems:"center"})
+    subC = addEle({dad:settingsFr,setClass:"contRow",padding:"5px",alignItems:"center"})
         addEle({dad:subC,text:"Rate Set Currently Used : ",marginL:"5px",fontS:"20px"})
         addEle({dad:subC,setID:"currentRate",margin:"0 20px 0 10px",minWidth:"60px",fontS:"20px"})
         addEle({dad:subC,what:"checkbox",isInput:true,setID:"toggleCurrRate",setClass:"toggle-checkbox",
@@ -372,24 +407,12 @@ function setDispOptions(){
                     let disp = getID("toggleDispAllLbl")
                     if(e.srcElement.checked){
                         disp.innerHTML = "(Minimum | " + spanText("yellow","Maximum",18,"",yellow+" solid 2px")+")"
-                        options.all = true
-                        options.advertiseEstimate = true
-                        options.customerName = true
-                        options.customerMB = true
-                        options.memos = true
-                        options.usedNeeds = true
-                        options.mms = true
+                        for(let key in options){options[key]=true}
                         document.getElementsByName("dispToggles").forEach(it=>{it.checked = true})
                         }
                     else {
                         disp.innerHTML = "("+ spanText("yellow","Minimum",18,"",yellow+" solid 2px") + " | Maximum)" 
-                        options.all = false
-                        options.advertiseEstimate = false
-                        options.customerName = false
-                        options.customerMB = false
-                        options.memos = false
-                        options.usedNeeds = false
-                        options.mms = false
+                        for(let key in options){options[key]=false}
                         document.getElementsByName("dispToggles").forEach(it=>{it.checked = false})
                     }
                     getID("advFr").style.display = e.srcElement.checked ? "flex" : "none"
@@ -410,7 +433,7 @@ function setDispOptions(){
 
     let dispOptionsC = addEle({dad:cont,setClass:"contCol",maxHeight:"500px",overflowX:"hidden",marginT:"10px",minWidth:"300px"})
 
-        let mW = 220 ; testC = ""//green
+        let mW = 220
 
         let lbl = "AdvEval" ; let infoLb = "Advertise | Estimate Converting" ; let infoT = `
         Option to Auto-build advertising message to use in game chat. (Change content if needed 
@@ -421,7 +444,7 @@ function setDispOptions(){
             subC = addEle({dad:inC,setClass:"contRow",alignItems:"center",borderB:"teal solid 2px",radiusTR:"6px",
             radiusTL:"6px",backC:"rgb(45, 88, 128)",justifyC:"space-between"})
             let subC1=addEle({dad:subC})
-                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px",backC:testC})
+                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px"})
             let subC2=addEle({dad:subC,setClass:"contRow",alignItems:"center"})
                 addEle({dad:subC2,what:"checkbox",isInput:true,setID:"toggle"+lbl,setClass:"toggle-checkbox",
                 margin:"50px",setName:"dispToggles",setFunc:(e)=>{
@@ -450,7 +473,7 @@ function setDispOptions(){
             subC = addEle({dad:inC,setClass:"contRow",alignItems:"center",borderB:"teal solid 2px",radiusTR:"6px",
             radiusTL:"6px",backC:"rgb(45, 88, 128)",justifyC:"space-between"})
                 subC1=addEle({dad:subC})
-                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px",backC:testC})
+                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px"})
                 subC2=addEle({dad:subC,setClass:"contRow",alignItems:"center"})
                 addEle({dad:subC2,what:"checkbox",isInput:true,setID:"toggle"+lbl,setClass:"toggle-checkbox",
                 margin:"50px",setName:"dispToggles",setFunc:(e)=>{
@@ -479,7 +502,7 @@ function setDispOptions(){
             subC = addEle({dad:inC,setClass:"contRow",alignItems:"center",borderB:"teal solid 2px",radiusTR:"6px",
             radiusTL:"6px",backC:"rgb(45, 88, 128)",justifyC:"space-between"})
                 subC1=addEle({dad:subC})
-                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px",backC:testC})
+                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px"})
                 subC2=addEle({dad:subC,setClass:"contRow",alignItems:"center"})
                 addEle({dad:subC2,what:"checkbox",isInput:true,setID:"toggle"+lbl,setClass:"toggle-checkbox",
                 margin:"50px",setName:"dispToggles",setFunc:(e)=>{
@@ -513,7 +536,7 @@ function setDispOptions(){
             subC = addEle({dad:inC,setClass:"contRow",alignItems:"center",borderB:"teal solid 2px",radiusTR:"6px",
             radiusTL:"6px",backC:"rgb(45, 88, 128)",justifyC:"space-between"})
                 subC1=addEle({dad:subC})
-                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px",backC:testC})
+                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px"})
                 subC2=addEle({dad:subC,setClass:"contRow",alignItems:"center"})
                 addEle({dad:subC2,what:"checkbox",isInput:true,setID:"toggle"+lbl,setClass:"toggle-checkbox",
                 margin:"50px",setName:"dispToggles",setFunc:(e)=>{
@@ -545,7 +568,7 @@ function setDispOptions(){
             subC = addEle({dad:inC,setClass:"contRow",alignItems:"center",borderB:"teal solid 2px",radiusTR:"6px",
             radiusTL:"6px",backC:"rgb(45, 88, 128)",justifyC:"space-between"})
                 subC1=addEle({dad:subC})
-                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px",backC:testC})
+                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px"})
                 subC2=addEle({dad:subC,setClass:"contRow",alignItems:"center"})
                 addEle({dad:subC2,what:"checkbox",isInput:true,setID:"toggle"+lbl,setClass:"toggle-checkbox",
                 margin:"50px",setName:"dispToggles",setFunc:(e)=>{
@@ -576,7 +599,7 @@ function setDispOptions(){
             subC = addEle({dad:inC,setClass:"contRow",alignItems:"center",borderB:"teal solid 2px",radiusTR:"6px",
             radiusTL:"6px",backC:"rgb(45, 88, 128)",justifyC:"space-between"})
                 subC1=addEle({dad:subC})
-                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px",backC:testC})
+                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px"})
                 subC2=addEle({dad:subC,setClass:"contRow",alignItems:"center"})
                 addEle({dad:subC2,what:"checkbox",isInput:true,setID:"toggle"+lbl,setClass:"toggle-checkbox",
                 margin:"50px",setName:"dispToggles",setFunc:(e)=>{
@@ -607,7 +630,7 @@ function setDispOptions(){
             subC = addEle({dad:inC,setClass:"contRow",alignItems:"center",borderB:"teal solid 2px",radiusTR:"6px",
             radiusTL:"6px",backC:"rgb(45, 88, 128)",justifyC:"space-between"})
                 subC1=addEle({dad:subC})
-                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px",backC:testC})
+                addEle({dad:subC1,text:infoLb,padding:"5px",textA:"center",marginR:"20px",minWidth:mW+"px"})
                 subC2=addEle({dad:subC,setClass:"contRow",alignItems:"center"})
                 addEle({dad:subC2,what:"checkbox",isInput:true,setID:"toggle"+lbl,setClass:"toggle-checkbox",
                 margin:"50px",setName:"dispToggles",setFunc:(e)=>{
@@ -734,6 +757,7 @@ function setRates(){
             addEle({dad:subC,text:"Rate",setID:"rateCheck",margin:"0 10px",minWidth:"150px"})
             addEle({dad:subC,what:"checkbox",isInput:true,setID:"toggleRate",setClass:"toggle-checkbox",
             margin:"0 20px",setFunc:()=>{
+
                 let disp = getID("rateCheck")
                 if(getID("toggleRate").checked){
                     disp.innerHTML = "Custom Rate ("+userI.rateU.length+")"
@@ -771,10 +795,10 @@ function dispRateSet(arr){
             if(getID("toggleRate").checked){
                 subC = addEle({dad: getID(area+":"+i),setClass:"contRow",alignItems:"center"})
                 if(userI.rateU.length>1){
-                    addEle({dad:subC,text:addEmo("🔼","emoji arrow pointing up"),setClass:"btn",padding:"0",margin:"0",fontS:"12px", 
-                    setID:"swap:"+i,setFunc:(e)=>{swapUD(e,"U")}})
-                    addEle({dad:subC,text:addEmo("🔽","emoji arrow pointing down"),setClass:"btn",padding:"0",margin:"0",fontS:"12px",
-                    setID:"swap:"+i,setFunc:(e)=>{swapUD(e,"D")}})
+                    addEle({dad:subC,text:addEmo("🔼","emoji arrow pointing up","swapE:"+i),setClass:"btn",
+                    padding:"0",margin:"0",fontS:"12px", setID:"swap:"+i,setFunc:(e)=>{swapUD(e,"U")}})
+                    addEle({dad:subC,text:addEmo("🔽","emoji arrow pointing down","swapE:"+i),setClass:"btn",
+                    padding:"0",margin:"0",fontS:"12px", setID:"swap:"+i,setFunc:(e)=>{swapUD(e,"D")}})
                 }
                 addEle({dad:subC,text:addEmo("❌","emoji red cross")+" Delete",setClass:"btn",padding:"0 5px",marginL:"20px",fontS:"12px",
                 setID:"customDel:"+i,setFunc:(e)=>{blastRate(e)}})
@@ -784,6 +808,7 @@ function dispRateSet(arr){
 }
 
 function swapUD(e,di){
+
     let oldI = Number(e.srcElement.id.split(":")[1])
     let newI = undefined
     let src = userI.rateU
@@ -933,6 +958,7 @@ function addRateSetup(){
                         orderIdx:undefined,
                         orderTimer:undefined,
                         advertising:false,
+                        display:true,
                     })
 
                     let ev = new Event("change") ; getID("toggleRate").dispatchEvent(ev)
@@ -1356,7 +1382,19 @@ function setTools(){
     let arr = userI.currentSet === "Basic" ? rateB : userI.rateU
     let cpt = 0
 
-    addEle({dad:workC,setClass:"btn",text:"Reset All",minWidth:"320px",setFunc:setTools})
+    let subC = addEle({dad:workC,setClass:"contRow"})
+        addEle({dad:subC,setClass:"btn",text:"Reset All",marginR:"20px",minWidth:"140px",setFunc:setTools})
+        addEle({dad:subC,setClass:"btn",text:"Show all tools",minWidth:"140px",setFunc:()=>{
+            let arr = userI.currentSet === "Basic" ? rateB : userI.rateU
+            arr.forEach(x=>x.display = true)
+            if(userI.currentSet ==="Basic"){
+                let arr = []
+                rateB.forEach(r=>{arr.push(r.display)})
+                userI.basicDisplays = arr
+            }
+            savUserI()
+            setTools()
+        }})
 
     let tbC = addEle({dad:workC})
     let tb = addEle({dad:tbC,what:"table"})
@@ -1364,11 +1402,16 @@ function setTools(){
     let itm = undefined
     for(let i=0;i<arr.length;i++){
         itm = arr.filter(x=>x.ind===i)[0]
-        if(cpt % userI.toolPerLine ===0){tr = addEle({dad:tb,what:"tr"})}
-        let tc = addEle({dad:tr,what:"td"})
-        buildTool(tc,itm,cpt)
-        cpt++
+        if(itm.display){
+            console.log(itm.display)
+            if(cpt % userI.toolPerLine ===0){tr = addEle({dad:tb,what:"tr"})}
+            let tc = addEle({dad:tr,what:"td"})
+            buildTool(tc,itm,itm.ind)
+            cpt++
+        }
     }
+
+//    console.log(arr)
 }
 
 
@@ -1382,16 +1425,36 @@ function buildTool(dad,itm,idx){
     
         tr = addEle({dad:tb,what:"tr"})
             tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
-            let inC = addEle({dad:tc,setClass:"contRow",alignItems:"center",justifyC:"space-between"})
-                buildRate(itm,inC,idx,"",0)
-                addEle({dad:inC,setClass:"btn",text:"Reset",setID:"reset:"+idx,height:"fit-content",setFunc:(e)=>{
-                    let idx = e.srcElement.id.split(":")[1]
-                    getID("order:"+idx).value = 0
-                    if(userI.displayOptions.customerMB){getID("mbs:"+idx).value = 0}
-                    if(userI.displayOptions.customerName){getID("farmer:"+idx).value = "Farmer X"}
-                    getID("orderG:"+idx).innerHTML = ""
-                    toolCalc(e.srcElement.id,false)
-                }})
+            let inC = addEle({dad:tc,setClass:"contRow",alignItems:"center",justifyC:"space-around"})
+
+            addEle({dad:inC,setClass:"btn",text:spanText("","👀",14,true) +" Hide this tool",setID:"hide:"+idx,
+            height:"fit-content",setFunc:(e)=>{
+                let itm = getCurrItem(e.srcElement.id)
+                itm.display = false
+                if(userI.currentSet ==="Basic"){
+                    let arr = []
+                    rateB.forEach(r=>{arr.push(r.display)})
+                    userI.basicDisplays = arr
+                }
+                savUserI()
+                setTools()
+            }})
+
+
+            addEle({dad:inC,setClass:"btn",text:"Reset",setID:"reset:"+idx,height:"fit-content",setFunc:(e)=>{
+                let idx = e.srcElement.id.split(":")[1]
+                getID("order:"+idx).value = 0
+                if(userI.displayOptions.customerMB){getID("mbs:"+idx).value = 0}
+                if(userI.displayOptions.customerName){getID("farmer:"+idx).value = "Farmer X"}
+                getID("orderG:"+idx).innerHTML = ""
+                toolCalc(e.srcElement.id,false)
+            }})
+
+
+
+        tr = addEle({dad:tb,what:"tr"})
+            tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
+                buildRate(itm,tc,idx,"",0)
 
     if(userI.displayOptions.advertiseEstimate){
         tr = addEle({dad:tb,what:"tr"})
@@ -1511,7 +1574,7 @@ function buildTool(dad,itm,idx){
 
                     addEle({dad:inC,what:"select",fontS:"12px",setID:"memoSelect:"+idx,padding:"5px",
                     backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white",
-                    minWidth:"280px",marginL:"5px",setFunc:(e)=>{
+                    minWidth:"260px",marginL:"5px",setFunc:(e)=>{
                         let sx = e.srcElement.selectedIndex 
                         if(sx!==0){
                             let dp = userI.displayOptions
@@ -1525,6 +1588,11 @@ function buildTool(dad,itm,idx){
                         txt = "Memos 0/"+userI.memoCap + " -- Select --"
                         addEle({dad:getID("memoSelect:"+idx),what:"option",text:txt})
                     addEle({dad:inC,setID:"memoG:"+idx,minWidth:"25px"})
+
+                    let ham = addEle({dad:inC,setClass:"hamburger-button"})
+                        addEle({dad:ham,setClass:"line"})
+                        addEle({dad:ham,setClass:"line"})
+                        addEle({dad:ham,setClass:"line"})
     }
 
         tr = addEle({dad:tb,what:"tr"})
@@ -1834,8 +1902,6 @@ function calcAlts(e,init=false){
 }
 
 
-
-
 function setTradeValues(e){
     let idx = Number(e.srcElement.id.split(":")[1])
     let itm = getCurrItem(e.srcElement.id)
@@ -1886,13 +1952,6 @@ function setTradeValues(e){
     pop2.showModal()
 
 }
-
-
-
-
-
-
-
 
 
 function setInfoTip(refEl=undefined,id=undefined,msg="message",posTop=-30,posLeft=0){
@@ -2342,14 +2401,7 @@ function mmEstimate(id,ratio=undefined){
 
 }
 
-
 loadSav()
 setPage()
 
-
-/*
-txt = `Dear Users,<br><br>I plan to change `+spanText(green,"[ Infos ]")+` display type...<br><br>
-Currently `+spanText(green,"Type1 (Top Version)")+`<br>-- Would Change for --<br>`+spanText("yellow","*New")+` `+spanText(green,"Type2 (Bottom Version)")+`
-<br><br>kindly `+spanText("crimson","[DM]")+` me ingame your preference ?<br><br>@ Apple Lord<br><br>`+spanText("","🤠",16)
-infoBox(txt)
-*/
+//console.log(userI.rateU)

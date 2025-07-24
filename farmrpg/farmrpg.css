@@ -174,3 +174,21 @@ body {
     background: rgba(0, 0, 0, 0.5);
 }
 
+.hamburger-button {
+    background: transparent;
+    border: rgb(212, 212, 74) solid 2px;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .line {
+    width: 20px;
+    height: 3px;
+    background-color: teal;
+    margin: 2px 0;
+    transition: none; /* Ensures no animation */
+  }
