@@ -372,8 +372,8 @@ let startInfos = `
      - and send payout to the customer<br>
      everything else is additional tools and infos `+ addEmo("🤠","emoji smiling farmer") +`<br><br>
      Review the User Settings, in particular Display Options !<br><br>
-     You start with the Basic full set of tools, but you can<br>
-     make your own under --User Settings-- >> Rates / Ratios
+     You start with the Basic full set of tools, but you can
+     make your own "Custom" under --User Settings-- >> Rates / Ratios
 `
 
 function getDialogTopFrame(cxlEsc=true){
