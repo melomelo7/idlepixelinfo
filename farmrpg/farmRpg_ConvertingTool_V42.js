@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/28 22:20
+Last up 2025 07/28 23:30
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
