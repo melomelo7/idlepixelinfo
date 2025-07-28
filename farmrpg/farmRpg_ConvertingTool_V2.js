@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/24 19:15
+Last up 2025 07/28 21:35
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -21,12 +21,29 @@ get similar tools by changing <br>
 -- User Settings --`)
 
 
+
+
 let recentChanges = `
-- the multiple green infos have been replaced
-by the --User Settings > Tools Display-Use so
-you both get some info (=>[?]) and switch on-off
-every functionality
- 
+`+addEmo("🟢","emoji green sphere")+` the multiple green infos have been replaced
+by the --User Settings > `+spanText(green,"Tools Display-Use")+` so
+you both get some info (click on `+spanText(green,"[?]")+`) and can switch on-off
+every functionality of the tools.<br><br> 
+`+addEmo("🟢","emoji green sphere")+` new functionality : Alternate Split payouts
+also something you can switch on-off in : Settings \\ Tools-Displays.<br><br>
+`+addEmo("🟢","emoji green sphere")+` Hide this tool / show all tools if you wish
+to have more or less tools on the page.
+(available on both sets Basic & Custom)
+`
+
+let lemonConv = `
+Lemon converting is 2 options being LEMONADE or AP...<br><br>
+Lemonades represens a loss for yourself of 27% while
+AP represents 47% (with old standard 30:1 ratio)<br>
+This is huge and in my Opinion, evolution should happen.
+I suggest you go for 35:1 (38% loss) anytime possible unless if your
+desperate for whatever reason. <br><br>
+Old stubborn players will have to learn flexibility while other
+players already are fine about it.
 `
 
 const outputs = [
@@ -63,17 +80,17 @@ let eventMastery = [0,10,14,20]
 
 let rateB =[
 {ind:0,label:"OJ",type:outputs[0].type,rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false},
+orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
 {ind:1,label:"Lemonade",type:outputs[1].type,rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false},
+orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
 {ind:2,label:"AP",type:outputs[2].type,rate:"30:1",bonus:0,rounding:roundings[0],orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false},
+orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
 {ind:3,label:"LN",type:outputs[4].type,rate:"1000:70",bonus:0,rounding:roundings[0],orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false},
+orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
 {ind:4,label:"Cider",type:outputs[5].type,rate:"20:1",bonus:0,rounding:roundings[0],orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false},
+orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
 {ind:5,label:"AP",type:outputs[3].type,rate:"1000:80",bonus:0,rounding:roundings[0],orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false},
+orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
 ]
 
 let pageVer = "3.0"
@@ -81,6 +98,7 @@ let pageVer = "3.0"
 let userI = {
     pageV:pageVer,
     currentSet:"Basic",
+    basicDisplays:[],
     rateU:[],
     toolPerLine:2,
     memoCap:10,
@@ -112,6 +130,7 @@ let userI = {
         {label:"Cider",img:"8984.png",progress:0},
         {label:"AP",img:"ap.png",progress:0},
     ],
+    multiOrders:[],
     visuals:{
         preset:{
             pageBackC:"black",
@@ -255,6 +274,28 @@ function loadSav(){
         userI.alternatePayouts = true
     }
 
+    userI.rateU.forEach(r=>{
+        if(!r.hasOwnProperty("display")){
+            r.display = true
+        }
+    })
+
+    if(!userI.hasOwnProperty("basicDisplays")){
+        let arr = []
+        rateB.forEach(r=>{arr.push(true)})
+        userI.basicDisplays=arr
+    } else {
+        for(let i=0;i<rateB.length;i++){
+            rateB[i].display = userI.basicDisplays[i] 
+        }
+    }
+
+    if(!userI.hasOwnProperty("multiOrders")){
+        userI.multiOrders = []
+    } userI.multiOrders = []
+
+//console.log(userI)
+
 }
 
 function infoBox(info,txtCol="",closeFunc=undefined){
@@ -265,7 +306,7 @@ function infoBox(info,txtCol="",closeFunc=undefined){
         addEle({dad:infoPop,setClass:"btn",text:"OK",width:"50%",
         marginT:"20px", setFunc:()=>{if(closeFunc){closeFunc()} ; infoPop.remove() ; lockScroll(false)}})
         infoPop.showModal()
-        lockScroll()
+     //   lockScroll()
 }
 
 function setPage(){
@@ -277,9 +318,15 @@ function setPage(){
         " Go Back",backC:from.buttonBackC,setFunc:()=>{window.open(lnk,"_self")}})
         addEle({dad:contR,text:spanText(yellowL,lastUpd),margin:"10px"})
 
+    let subC = addEle({dad:body,setClass:"contRow",padding:"5px"})
+        addEle({dad:subC,setClass:"btn",text:"-- Starting Infos --",backC:"darkgreen",
+        border:"rgb(212, 212, 74) solid 2px",margin:"10px",setFunc:()=>{infoBox(startInfos)}}) 
 
-    addEle({dad:body,setClass:"btn",text:"-- Starting Infos --",backC:"darkgreen",
-    border:"rgb(212, 212, 74) solid 2px",margin:"10px",setFunc:()=>{infoBox(startInfos)}}) 
+        addEle({dad:subC,setClass:"btn",text:"Recent Changes "+addEmo("👀","eyes looking to the left"),backC:"darkgreen",
+        border:"rgb(212, 212, 74) solid 2px",margin:"10px",setFunc:()=>{infoBox(recentChanges)}})
+        
+    addEle({dad:body,setClass:"btn",text:addEmo("📉","chart")+" Advice for LEMONS Converters "+addEmo("🤓","smiling face with glasses"),
+    backC:"rgb(97, 97, 64)",border:"rgb(212, 212, 74) solid 2px",margin:"5px 20px",setFunc:()=>{infoBox(lemonConv)}})
 
     contR = addEle({dad:body,setClass:"contRow",margin:"0 10px",alignItems:"center"})
         addEle({dad:contR,what:"select",fontS:"16px",setID:"settingsSelect",padding:"5px",
@@ -290,7 +337,7 @@ function setPage(){
 
     let settingsFr = addEle({dad:body,setClass:"contCol",padding:"5px",width:"100%"})
 
-    let subC = addEle({dad:settingsFr,setClass:"contRow",padding:"5px",alignItems:"center"})
+    subC = addEle({dad:settingsFr,setClass:"contRow",padding:"5px",alignItems:"center"})
         addEle({dad:subC,text:"Rate Set Currently Used : ",marginL:"5px",fontS:"20px"})
         addEle({dad:subC,setID:"currentRate",margin:"0 20px 0 10px",minWidth:"60px",fontS:"20px"})
         addEle({dad:subC,what:"checkbox",isInput:true,setID:"toggleCurrRate",setClass:"toggle-checkbox",
@@ -731,6 +778,7 @@ function setRates(){
             addEle({dad:subC,text:"Rate",setID:"rateCheck",margin:"0 10px",minWidth:"150px"})
             addEle({dad:subC,what:"checkbox",isInput:true,setID:"toggleRate",setClass:"toggle-checkbox",
             margin:"0 20px",setFunc:()=>{
+
                 let disp = getID("rateCheck")
                 if(getID("toggleRate").checked){
                     disp.innerHTML = "Custom Rate ("+userI.rateU.length+")"
@@ -781,6 +829,7 @@ function dispRateSet(arr){
 }
 
 function swapUD(e,di){
+
     let oldI = Number(e.srcElement.id.split(":")[1])
     let newI = undefined
     let src = userI.rateU
@@ -930,6 +979,7 @@ function addRateSetup(){
                         orderIdx:undefined,
                         orderTimer:undefined,
                         advertising:false,
+                        display:true,
                     })
 
                     let ev = new Event("change") ; getID("toggleRate").dispatchEvent(ev)
@@ -1353,7 +1403,19 @@ function setTools(){
     let arr = userI.currentSet === "Basic" ? rateB : userI.rateU
     let cpt = 0
 
-    addEle({dad:workC,setClass:"btn",text:"Reset All",minWidth:"320px",setFunc:setTools})
+    let subC = addEle({dad:workC,setClass:"contRow"})
+        addEle({dad:subC,setClass:"btn",text:"Reset All",marginR:"20px",minWidth:"140px",setFunc:setTools})
+        addEle({dad:subC,setClass:"btn",text:"Show all tools",minWidth:"140px",setFunc:()=>{
+            let arr = userI.currentSet === "Basic" ? rateB : userI.rateU
+            arr.forEach(x=>x.display = true)
+            if(userI.currentSet ==="Basic"){
+                let arr = []
+                rateB.forEach(r=>{arr.push(r.display)})
+                userI.basicDisplays = arr
+            }
+            savUserI()
+            setTools()
+        }})
 
     let tbC = addEle({dad:workC})
     let tb = addEle({dad:tbC,what:"table"})
@@ -1361,10 +1423,12 @@ function setTools(){
     let itm = undefined
     for(let i=0;i<arr.length;i++){
         itm = arr.filter(x=>x.ind===i)[0]
-        if(cpt % userI.toolPerLine ===0){tr = addEle({dad:tb,what:"tr"})}
-        let tc = addEle({dad:tr,what:"td"})
-        buildTool(tc,itm,cpt)
-        cpt++
+        if(itm.display){
+            if(cpt % userI.toolPerLine ===0){tr = addEle({dad:tb,what:"tr"})}
+            let tc = addEle({dad:tr,what:"td"})
+            buildTool(tc,itm,itm.ind)
+            cpt++
+        }
     }
 }
 
@@ -1379,16 +1443,43 @@ function buildTool(dad,itm,idx){
     
         tr = addEle({dad:tb,what:"tr"})
             tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
-            let inC = addEle({dad:tc,setClass:"contRow",alignItems:"center",justifyC:"space-between"})
-                buildRate(itm,inC,idx,"",0)
-                addEle({dad:inC,setClass:"btn",text:"Reset",setID:"reset:"+idx,height:"fit-content",setFunc:(e)=>{
-                    let idx = e.srcElement.id.split(":")[1]
-                    getID("order:"+idx).value = 0
-                    if(userI.displayOptions.customerMB){getID("mbs:"+idx).value = 0}
-                    if(userI.displayOptions.customerName){getID("farmer:"+idx).value = "Farmer X"}
-                    getID("orderG:"+idx).innerHTML = ""
-                    toolCalc(e.srcElement.id,false)
-                }})
+            let inC = addEle({dad:tc,setClass:"contRow",alignItems:"center",justifyC:"space-around"})
+
+            addEle({dad:inC,setClass:"btn",text:spanText("","👀",14,true) +" Hide this tool",setID:"hide:"+idx,
+            height:"fit-content",setFunc:(e)=>{
+                let itm = getCurrItem(e.srcElement.id)
+                itm.display = false
+                if(userI.currentSet ==="Basic"){
+                    let arr = []
+                    rateB.forEach(r=>{arr.push(r.display)})
+                    userI.basicDisplays = arr
+                }
+                savUserI()
+                setTools()
+            }})
+
+
+            addEle({dad:inC,setClass:"btn",text:"Reset",setID:"reset:"+idx,height:"fit-content",setFunc:(e)=>{
+                let idx = e.srcElement.id.split(":")[1]
+                getID("order:"+idx).value = 0
+                if(userI.displayOptions.customerMB){getID("mbs:"+idx).value = 0}
+                if(userI.displayOptions.customerName){getID("farmer:"+idx).value = "Farmer X"}
+                getID("orderG:"+idx).innerHTML = ""
+                toolCalc(e.srcElement.id,false)
+            }})
+
+            /*
+            let ham = addEle({dad:inC,setClass:"hamburger-button",setID:"hamBtn:"+idx,setFunc:multiOfunc})
+                addEle({dad:ham,setClass:"line1",setFunc:multiOfunc})
+                addEle({dad:ham,setClass:"line2",setFunc:multiOfunc})
+                addEle({dad:ham,setClass:"line3",setFunc:multiOfunc})
+            setInfoTip(getID("hamBtn:"+idx),"hamBtnT:"+idx,"Multi<br>Orders",-40,266)
+            */
+
+
+        tr = addEle({dad:tb,what:"tr"})
+            tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
+                buildRate(itm,tc,idx,"",0)
 
     if(userI.displayOptions.advertiseEstimate){
         tr = addEle({dad:tb,what:"tr"})
@@ -1508,7 +1599,7 @@ function buildTool(dad,itm,idx){
 
                     addEle({dad:inC,what:"select",fontS:"12px",setID:"memoSelect:"+idx,padding:"5px",
                     backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white",
-                    minWidth:"280px",marginL:"5px",setFunc:(e)=>{
+                    minWidth:"260px",marginL:"5px",setFunc:(e)=>{
                         let sx = e.srcElement.selectedIndex 
                         if(sx!==0){
                             let dp = userI.displayOptions
@@ -2328,6 +2419,30 @@ function mmEstimate(id,ratio=undefined){
 
     } else {tgtLb.innerHTML = spanText(purple,bad);tgtLb.style.textAlign = "center"}
 
+}
+
+function multiOfunc(){
+
+    let pop = getDialogTopFrame()
+    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",maxWidth:"340px"})
+
+        let subC = addEle({dad:cont,setClass:"contRow",justifyC:"space-between",minWidth:"300px"})
+            addEle({dad:subC,text:"Multi-orders quick window",borderB:"teal solid 3px",
+            width:"fit-content",display:"flex",flDir:"column",justifyC:"flex-end",fontS:"20px"})
+
+            addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),margin:"0",setFunc:()=>{
+                pop.remove()
+                lockScroll(false)
+            }})
+
+
+        addEle({dad:cont,text:"under construction",fontS:"30px",marginT:"20px"})
+
+
+
+
+        pop.showModal()
+        lockScroll()
 }
 
 loadSav()
