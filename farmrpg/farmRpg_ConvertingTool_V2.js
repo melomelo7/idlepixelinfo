@@ -306,7 +306,7 @@ function infoBox(info,txtCol="",closeFunc=undefined){
         addEle({dad:infoPop,setClass:"btn",text:"OK",width:"50%",
         marginT:"20px", setFunc:()=>{if(closeFunc){closeFunc()} ; infoPop.remove() ; lockScroll(false)}})
         infoPop.showModal()
-     //   lockScroll()
+        lockScroll()
 }
 
 function setPage(){
