@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/24 21:50
+Last up 2025 07/28 22:20
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -21,14 +21,16 @@ get similar tools by changing <br>
 -- User Settings --`)
 
 
+
+
 let recentChanges = `
-🟢 the multiple green infos have been replaced
+`+addEmo("🟢","emoji green sphere")+` the multiple green infos have been replaced
 by the --User Settings > `+spanText(green,"Tools Display-Use")+` so
 you both get some info (click on `+spanText(green,"[?]")+`) and can switch on-off
 every functionality of the tools.<br><br> 
-🟢 new functionality : Alternate Split payouts
-also something you can switch on-off on Displays.<br><br>
-🟢 Hide this tool / show all tools if you wish
+`+addEmo("🟢","emoji green sphere")+` new functionality : Alternate Split payouts
+also something you can switch on-off in : Settings \\ Tools-Displays.<br><br>
+`+addEmo("🟢","emoji green sphere")+` Hide this tool / show all tools if you wish
 to have more or less tools on the page.
 (available on both sets Basic & Custom)
 `
@@ -61,22 +63,26 @@ const basePayouts = [
     {label:"Cider",val:17.5},
 ]
 
-const roundings = ["Up","Down","Closest 5"]
+const roundings = [
+    {label:"Up",alt:addEmo("⇑","emoji arrow pointing up")},
+    {label:"Down",alt:addEmo("⇓","emoji arrow pointing down")},
+    {label:"Closest 5",alt:5},
+    ]
 
 let eventMastery = [0,10,14,20]
 
 let rateB =[
-{ind:0,label:"OJ",type:outputs[0].type,rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],
+{ind:0,label:"OJ",type:outputs[0].type,rate:"3:1",bonus:0,rounding:roundings[0].label,orderMem:[],
 orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
-{ind:1,label:"Lemonade",type:outputs[1].type,rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],
+{ind:1,label:"Lemonade",type:outputs[1].type,rate:"3:1",bonus:0,rounding:roundings[0].label,orderMem:[],
 orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
-{ind:2,label:"AP",type:outputs[2].type,rate:"30:1",bonus:0,rounding:roundings[0],orderMem:[],
+{ind:2,label:"AP",type:outputs[2].type,rate:"30:1",bonus:0,rounding:roundings[0].label,orderMem:[],
 orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
-{ind:3,label:"LN",type:outputs[4].type,rate:"1000:70",bonus:0,rounding:roundings[0],orderMem:[],
+{ind:3,label:"LN",type:outputs[4].type,rate:"1000:70",bonus:0,rounding:roundings[0].label,orderMem:[],
 orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
-{ind:4,label:"Cider",type:outputs[5].type,rate:"20:1",bonus:0,rounding:roundings[0],orderMem:[],
+{ind:4,label:"Cider",type:outputs[5].type,rate:"20:1",bonus:0,rounding:roundings[0].label,orderMem:[],
 orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
-{ind:5,label:"AP",type:outputs[3].type,rate:"1000:80",bonus:0,rounding:roundings[0],orderMem:[],
+{ind:5,label:"AP",type:outputs[3].type,rate:"1000:80",bonus:0,rounding:roundings[0].label,orderMem:[],
 orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
 ]
 
@@ -117,6 +123,7 @@ let userI = {
         {label:"Cider",img:"8984.png",progress:0},
         {label:"AP",img:"ap.png",progress:0},
     ],
+    multiOrders:[],
     visuals:{
         preset:{
             pageBackC:"black",
@@ -276,7 +283,11 @@ function loadSav(){
         }
     }
 
-console.log(userI)
+    if(!userI.hasOwnProperty("multiOrders")){
+        userI.multiOrders = []
+    } userI.multiOrders = []
+
+//console.log(userI)
 
 }
 
@@ -860,16 +871,43 @@ function blastRate(e){
 
 
 
-function buildRate(itm,dad,idx,border="teal solid 2px",margin=5,area="tool"){
+function buildRate(itm,dad,idx,border="teal solid 2px",margin=5,area="tool",amtID=""){
+    let fS = 15+"px"
     let itmO = outputs.filter(x=>x.type === itm.type)[0]
     let rateC = addEle({dad:dad,setClass:"contCol",border:border,margin:margin+"px",padding:"3px",setID:area+":"+idx})
         let subC = addEle({dad:rateC,setClass:"contRow",alignItems:"center"})
+        if(amtID!==""){
+            console.log(amtID)
+            addEle({dad:subC,what:"input",isInput:true,setID:amtID,marginL:"5px",width:"100px",textA:"center",
+            setVal:0,setName:"multiAmts"})
+            addEle({dad:subC,minWidth:"25px",fontS:fS,setID:amtID.split(":")[0] + "G:" + amtID.split(":")[1]})
+        }
             addEle({dad:subC,what:"img",imgFullSrc:srcImgs+itmO.img1,imgSize:20,imgAlt:itmO.chat1+"icon"})
             addEle({dad:subC,text: addEmo("➜","emoji arrow pointing right") })
             addEle({dad:subC,what:"img",imgFullSrc:srcImgs+itmO.img2,imgSize:20,imgAlt:itmO.chat2+"icon"})
-            addEle({dad:subC,text:itm.type,marginL:"10px"})
-        let txt = "Rate : "+itm.rate + " | Bonus : " + itm.bonus+"% | Rounding : " +itm.rounding
-        addEle({dad:rateC,text:txt})
+            if(amtID==="")
+                 {addEle({dad:subC,text:itm.type,marginL:"10px",fontS:fS})}
+            else {
+                addEle({dad:subC,text:itm.rate,fontS:fS,borderL:"teal dotted 2px",padding:"5px",marginL:"10px"})
+                addEle({dad:subC,text:itm.bonus+"%",fontS:fS,borderL:"teal dotted 2px",padding:"5px"})
+                txt = roundings.filter(r=>r.label===itm.rounding)[0]
+                addEle({dad:subC,text:txt.alt,fontS:fS,borderL:"teal dotted 2px",padding:"5px"})
+
+                
+                 }
+        if(amtID===""){
+            let txt = "Rate : "+itm.rate + " | Bonus : " + itm.bonus+"% | Rounding : " +itm.rounding
+            addEle({dad:rateC,text:txt,fontS:fS})
+        }
+        if(amtID!==""){
+            subC = addEle({dad:rateC,setClass:"contRow",justifyC:"space-around",alignItems:"center"})
+                addEle({dad:subC,text:"Craft : " + `<span id="craft:`+idx+`"> </span>`,fontS:fS})
+                addEle({dad:subC,text:"Lose : " + `<span id="lose:`+idx+`"> </span>`,fontS:fS})
+                addEle({dad:subC,text:"Payout : " + `<span id="payout:`+idx+`"> </span>`,fontS:fS})
+
+
+        }
+
 }
 
 function addEmo(emoji="emoji",lbl="emoji label",id=""){
@@ -925,7 +963,7 @@ function addRateSetup(){
             addEle({dad:subC,text:"Type of Rounding :",textA:"center",fontS:"18px"})
             addEle({dad:subC,what:"select",fontS:"16px",setID:"rateROSelect",padding:"5px",textA:"center",
             backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white",setFunc:testCalcAmt})
-                roundings.forEach(ro=>{addEle({dad:getID("rateROSelect"),what:"option",text:ro})})
+                roundings.forEach(ro=>{addEle({dad:getID("rateROSelect"),what:"option",text:ro.label})})
                 
         subC = addEle({dad:cont,setClass:"contRow",alignItems:"center",justifyC:"space-around",
         marginB:"5px",paddingT:"5px"})
@@ -1403,15 +1441,12 @@ function setTools(){
     for(let i=0;i<arr.length;i++){
         itm = arr.filter(x=>x.ind===i)[0]
         if(itm.display){
-            console.log(itm.display)
             if(cpt % userI.toolPerLine ===0){tr = addEle({dad:tb,what:"tr"})}
             let tc = addEle({dad:tr,what:"td"})
             buildTool(tc,itm,itm.ind)
             cpt++
         }
     }
-
-//    console.log(arr)
 }
 
 
@@ -1449,6 +1484,12 @@ function buildTool(dad,itm,idx){
                 getID("orderG:"+idx).innerHTML = ""
                 toolCalc(e.srcElement.id,false)
             }})
+
+            let ham = addEle({dad:inC,setClass:"hamburger-button",setID:"hamBtn:"+idx,setFunc:multiOfunc})
+                addEle({dad:ham,setClass:"line1",setFunc:multiOfunc})
+                addEle({dad:ham,setClass:"line2",setFunc:multiOfunc})
+                addEle({dad:ham,setClass:"line3",setFunc:multiOfunc})
+            setInfoTip(getID("hamBtn:"+idx),"hamBtnT:"+idx,"Multi<br>Orders",-40,266)
 
 
 
@@ -1588,11 +1629,6 @@ function buildTool(dad,itm,idx){
                         txt = "Memos 0/"+userI.memoCap + " -- Select --"
                         addEle({dad:getID("memoSelect:"+idx),what:"option",text:txt})
                     addEle({dad:inC,setID:"memoG:"+idx,minWidth:"25px"})
-
-                    let ham = addEle({dad:inC,setClass:"hamburger-button"})
-                        addEle({dad:ham,setClass:"line"})
-                        addEle({dad:ham,setClass:"line"})
-                        addEle({dad:ham,setClass:"line"})
     }
 
         tr = addEle({dad:tb,what:"tr"})
@@ -2401,7 +2437,66 @@ function mmEstimate(id,ratio=undefined){
 
 }
 
+function multiOfunc(){
+
+    let pop = getDialogTopFrame()
+    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",maxWidth:"340px"})
+
+        let subC = addEle({dad:cont,setClass:"contRow",justifyC:"space-between",minWidth:"300px"})
+            addEle({dad:subC,text:"Multi-orders quick window",borderB:"teal solid 3px",
+            width:"fit-content",display:"flex",flDir:"column",justifyC:"flex-end",fontS:"20px"})
+
+            addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),margin:"0",setFunc:()=>{
+                pop.remove()
+                lockScroll(false)
+            }})
+
+        subC = addEle({dad:cont,setClass:"contRow",margin:"10px 0",alignItems:"center"})
+            addEle({dad:subC,text:"Rate Set :",minWidth:"90px",textA:"right",paddingL:"5px"})
+            addEle({dad:subC,setID:"multiSet",textC:yellow,marginL:"5px",minWidth:"60px",textA:"center"})
+
+            addEle({dad:subC,what:"checkbox",isInput:true,setID:"toggleMultiSet",setClass:"toggle-checkbox"
+            ,setFunc:(e)=>{
+                let workC = getID("multiFr")
+                cleanParent(workC)
+                getID("multiSet").innerHTML = e.srcElement.checked ? "Custom" : "Basic" 
+                let arr = getID("toggleMultiSet").checked ? userI.rateU : rateB
+                arr = arr.filter(it=>it.display === true)
+                arr.forEach(it=>{
+                    buildRate(it,workC,it.ind,"solid teal 2px",5,"multPop","multiAmt:"+it.ind)
+                })
+    
+            }})
+            addEle({dad:subC,what:"label",setFor:"toggleMultiSet",setClass:"toggle-label",marginL:"10px"})
+            getID("toggleMultiSet").checked = userI.currentSet === "Basic" ? false : true
+        addEle({dad:cont,text:"(Does not show hidden tools)",margin:"0 0 10px 10px"})
+
+        subC = addEle({dad:cont,setClass:"contRow",marginT:"5px",alignItems:"center"})
+            addEle({dad:subC,text:"Customer Name :",marginR:"10px",minWidth:"160px",textA:"right",paddingL:"5px"})
+            addEle({dad:subC,what:"input",isInput:true,width:"100px",textA:"center",setID:"multiName"})
+
+        subC = addEle({dad:cont,setClass:"contRow",marginT:"10px",alignItems:"center"})
+            addEle({dad:subC,text:"Customer MB size :",marginR:"10px",minWidth:"160px",textA:"right",paddingL:"5px"})
+            addEle({dad:subC,what:"input",isInput:true,width:"100px",textA:"center",setID:"multiMB"})
+
+
+        subC = addEle({dad:cont,setClass:"contCol",marginT:"10px",maxHeight:"200px",overflowX:"hidden",setID:"multiFr"})
+
+
+        let ev = new Event("change") ; getID("toggleMultiSet").dispatchEvent(ev)
+
+
+
+
+
+//        addEle({dad:cont,text:"under construction",fontS:"30px",marginT:"20px"})
+
+
+
+
+        pop.showModal()
+        lockScroll()
+}
+
 loadSav()
 setPage()
-
-//console.log(userI.rateU)
