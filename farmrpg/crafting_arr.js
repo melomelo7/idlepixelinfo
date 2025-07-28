@@ -257,7 +257,7 @@ function centerScreen(element){
 
 }
 
-function spanText(spanColor="",spanTxt,sz=undefined,striked=false,underL=""){
+function spanText(spanColor="",spanTxt,sz=undefined,striked=false,underL="",setID="",setAlt=""){
 
     let rbc = ["#ef5350","#f48fb1","#7e57c2","#2196f3","#26c6da",
     "#43a047","#eeff41","#f9a825","#ff5722"]
@@ -271,7 +271,10 @@ function spanText(spanColor="",spanTxt,sz=undefined,striked=false,underL=""){
     else {for(let i=0;i<spanTxt.length;i++){txtA.push(spanTxt[i])}}
 
     txtA.forEach(ch=>{
-        txt = `<span style="`
+        txt = `<span `
+        if(setID!==""){txt+=` id="`+setID+`" `}
+        if(setAlt!==""){txt+=`role="img" aria-label="`+setAlt+`"`}
+        txt += `style="`
         if(spanColor!==""){
             txt+=`color:`
             if(spanColor === "rainbow"){
@@ -281,8 +284,8 @@ function spanText(spanColor="",spanTxt,sz=undefined,striked=false,underL=""){
         }
         if(sz!==undefined){txt+= ` font-size:`+sz+`px;`}
         if(striked){txt+= ` text-decoration:red 2px line-through;`}
-        if(underL!==""){txt+=` border-bottom:`+underL} 
-        txt+= `">` + ch + `</span>`
+        if(underL!==""){txt+=` border-bottom:`+underL}
+         txt+= `">` + ch + `</span>`
         ret+= txt
     })
     return ret

@@ -34,6 +34,16 @@ also something you can switch on-off in : Settings \\ Tools-Displays.<br><br>
 to have more or less tools on the page.
 (available on both sets Basic & Custom)
 `
+let lemonConv = `
+Lemon converting is 2 options being LEMONADE or AP...<br><br>
+Lemonades represens a loss for yourself of 27% while
+AP represents 47% (with old standard 30:1 ratio)<br>
+This is huge and in my Opinion, evolution should happen.
+I suggest you go for 35:1 (38% loss) anytime possible unless if your
+desperate for whatever reason. <br><br>
+Old stubborn players will have to learn flexibility while other
+players already are fine about it.
+`
 
 const outputs = [
     {label:"OJ",type:"Oranges to OJ",rate:"3:1",friend:"4.13:1",img1:"orange.png",img2:"orangejuice.png",
@@ -317,6 +327,10 @@ function setPage(){
 
         addEle({dad:subC,setClass:"btn",text:"Recent Changes "+addEmo("👀","eyes looking to the left"),backC:"darkgreen",
         border:"rgb(212, 212, 74) solid 2px",margin:"10px",setFunc:()=>{infoBox(recentChanges)}})
+
+    addEle({dad:body,setClass:"btn",text:addEmo("📉","chart")+" Advice for LEMONS Converters "+addEmo("🤓","smiling face with glasses"),
+    backC:"rgb(97, 97, 64)",border:"rgb(212, 212, 74) solid 2px",margin:"5px 20px",setFunc:()=>{infoBox(lemonConv)}})
+    
 
     contR = addEle({dad:body,setClass:"contRow",margin:"0 10px",alignItems:"center"})
         addEle({dad:contR,what:"select",fontS:"16px",setID:"settingsSelect",padding:"5px",
@@ -879,7 +893,7 @@ function buildRate(itm,dad,idx,border="teal solid 2px",margin=5,area="tool",amtI
         if(amtID!==""){
             console.log(amtID)
             addEle({dad:subC,what:"input",isInput:true,setID:amtID,marginL:"5px",width:"100px",textA:"center",
-            setVal:0,setName:"multiAmts"})
+            setVal:0,setName:"multiAmts",setFunc:(e)=>{calcMultiAmt(e.srcElement.id)}})
             addEle({dad:subC,minWidth:"25px",fontS:fS,setID:amtID.split(":")[0] + "G:" + amtID.split(":")[1]})
         }
             addEle({dad:subC,what:"img",imgFullSrc:srcImgs+itmO.img1,imgSize:20,imgAlt:itmO.chat1+"icon"})
@@ -904,7 +918,9 @@ function buildRate(itm,dad,idx,border="teal solid 2px",margin=5,area="tool",amtI
                 addEle({dad:subC,text:"Craft : " + `<span id="craft:`+idx+`"> </span>`,fontS:fS})
                 addEle({dad:subC,text:"Lose : " + `<span id="lose:`+idx+`"> </span>`,fontS:fS})
                 addEle({dad:subC,text:"Payout : " + `<span id="payout:`+idx+`"> </span>`,fontS:fS})
-
+            if(userI.displayOptions.customerMB){
+                addEle({dad:rateC,text:"Detail : " + `<span id="detail:`+idx+`"> </span>`,fontS:fS})
+            }
 
         }
 
@@ -1462,8 +1478,8 @@ function buildTool(dad,itm,idx){
             tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
             let inC = addEle({dad:tc,setClass:"contRow",alignItems:"center",justifyC:"space-around"})
 
-            addEle({dad:inC,setClass:"btn",text:spanText("","👀",14,true) +" Hide this tool",setID:"hide:"+idx,
-            height:"fit-content",setFunc:(e)=>{
+            txt = spanText("","👀",14,true,"","hideE:"+idx,"eyes crossed with red line")+" Hide this tool"
+            addEle({dad:inC,setClass:"btn",text:txt,setID:"hide:"+idx,height:"fit-content",setFunc:(e)=>{
                 let itm = getCurrItem(e.srcElement.id)
                 itm.display = false
                 if(userI.currentSet ==="Basic"){
@@ -2469,7 +2485,8 @@ function multiOfunc(){
             }})
             addEle({dad:subC,what:"label",setFor:"toggleMultiSet",setClass:"toggle-label",marginL:"10px"})
             getID("toggleMultiSet").checked = userI.currentSet === "Basic" ? false : true
-        addEle({dad:cont,text:"(Does not show hidden tools)",margin:"0 0 10px 10px"})
+        addEle({dad:cont,text:"( "+spanText("","Does not show hidden tools","16px",false,yellow+"3px dotted")+" )",
+        margin:"0 0 10px 10px"})
 
         subC = addEle({dad:cont,setClass:"contRow",marginT:"5px",alignItems:"center"})
             addEle({dad:subC,text:"Customer Name :",marginR:"10px",minWidth:"160px",textA:"right",paddingL:"5px"})
@@ -2496,6 +2513,12 @@ function multiOfunc(){
 
         pop.showModal()
         lockScroll()
+}
+
+function calcMultiAmt(id){
+    console.log(id)
+    let idG = id.split(":")[0] + "G:" + id.split(":")[1]
+    console.log(idG)
 }
 
 loadSav()
