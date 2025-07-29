@@ -43,8 +43,21 @@ This is huge and in my opinion, evolution should happen.
 I suggest you go for 35:1 (38% loss) anytime possible unless if your
 desperate for whatever reason. <br><br>
 Old stubborn players will have to learn flexibility while other
-players already are fine about 35:1 ratio.
+players already are fine with 35:1 ratio.
 `
+
+let startInfos = `
+    For a basic simple use of this webpage<br>
+    all you need for a converting is to :<br>
+     - input the "Order Amount" (3rd white input area)<br>
+     - read the "payout" that will show below<br>
+     - and send payout to the customer<br>
+     everything else is additional tools and infos `+ addEmo("🤠","emoji smiling farmer") +`<br><br>
+     Review the User Settings, in particular Tools Display-Use Options !<br><br>
+     You start with the Basic full set of tools, but you can
+     make your own "Custom" under --User Settings-- >> Rates / Ratios
+`
+
 
 const outputs = [
     {label:"OJ",type:"Oranges to OJ",rate:"3:1",friend:"4.13:1",img1:"orange.png",img2:"orangejuice.png",
@@ -368,17 +381,6 @@ function setPage(){
 let settingsArr = ["-- User Settings --","Tools Display-Use Options","Tools per Line & Order Memos","Rates / Ratios",
                    "User Details","Delete User Settings"]
 
-let startInfos = `
-    For a basic simple use of this webpage<br>
-    all you need for a converting is to :<br>
-     - input the "Order Amount" (3rd white input area)<br>
-     - read the "payout" that will show below<br>
-     - and send payout to the customer<br>
-     everything else is additional tools and infos `+ addEmo("🤠","emoji smiling farmer") +`<br><br>
-     Review the User Settings, in particular Tools Display-Use Options !<br><br>
-     You start with the Basic full set of tools, but you can
-     make your own "Custom" under --User Settings-- >> Rates / Ratios
-`
 
 function getDialogTopFrame(cxlEsc=true){
     let Obj = addEle({dad:body,what:"dialog",setClass:"myDialog",width:"fit-content",height:"fit-content"})
