@@ -37,13 +37,13 @@ to have more or less tools on the page.
 
 let lemonConv = `
 Lemon converting is 2 options being LEMONADE or AP...<br><br>
-Lemonades represens a loss for yourself of 27% while
+Lemonades represents a loss for yourself of 27% while
 AP represents 47% (with old standard 30:1 ratio)<br>
-This is huge and in my Opinion, evolution should happen.
+This is huge and in my opinion, evolution should happen.
 I suggest you go for 35:1 (38% loss) anytime possible unless if your
 desperate for whatever reason. <br><br>
 Old stubborn players will have to learn flexibility while other
-players already are fine about it.
+players already are fine about 35:1 ratio.
 `
 
 const outputs = [
@@ -149,6 +149,10 @@ let userI = {
         {label:"LN",val:12.5},
         {label:"Cider",val:17.5},
     ]
+}
+
+function addEmo(emoji="emoji",lbl="emoji label",id=""){
+    return `<span id="`+id+`" role="img" aria-label="`+lbl+`">`+emoji+`</span>`
 }
 
 function getCurrItem(id){
@@ -371,7 +375,7 @@ let startInfos = `
      - read the "payout" that will show below<br>
      - and send payout to the customer<br>
      everything else is additional tools and infos `+ addEmo("🤠","emoji smiling farmer") +`<br><br>
-     Review the User Settings, in particular Display Options !<br><br>
+     Review the User Settings, in particular Tools Display-Use Options !<br><br>
      You start with the Basic full set of tools, but you can
      make your own "Custom" under --User Settings-- >> Rates / Ratios
 `
@@ -893,9 +897,6 @@ function buildRate(itm,dad,idx,border="teal solid 2px",margin=5,area="tool"){
         addEle({dad:rateC,text:txt})
 }
 
-function addEmo(emoji="emoji",lbl="emoji label",id=""){
-    return `<span id="`+id+`" role="img" aria-label="`+lbl+`">`+emoji+`</span>`
-}
 
 function addRateSetup(){
     let pop2 = getDialogTopFrame()
@@ -1445,8 +1446,8 @@ function buildTool(dad,itm,idx){
             tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
             let inC = addEle({dad:tc,setClass:"contRow",alignItems:"center",justifyC:"space-around"})
 
-            addEle({dad:inC,setClass:"btn",text:spanText("","👀",14,true) +" Hide this tool",setID:"hide:"+idx,
-            height:"fit-content",setFunc:(e)=>{
+            txt = spanText("","👀",14,true,"","hideE:"+idx,"eyes crossed with red line")+" Hide this tool"
+            addEle({dad:inC,setClass:"btn",text:txt,setID:"hide:"+idx,height:"fit-content",setFunc:(e)=>{
                 let itm = getCurrItem(e.srcElement.id)
                 itm.display = false
                 if(userI.currentSet ==="Basic"){
@@ -1460,6 +1461,7 @@ function buildTool(dad,itm,idx){
 
 
             addEle({dad:inC,setClass:"btn",text:"Reset",setID:"reset:"+idx,height:"fit-content",setFunc:(e)=>{
+                console.log("what")
                 let idx = e.srcElement.id.split(":")[1]
                 getID("order:"+idx).value = 0
                 if(userI.displayOptions.customerMB){getID("mbs:"+idx).value = 0}
