@@ -2494,8 +2494,12 @@ function multiOfunc(){
 
         subC = addEle({dad:cont,setClass:"contRow",marginT:"10px",alignItems:"center"})
             addEle({dad:subC,text:"Customer MB size :",marginR:"10px",minWidth:"160px",textA:"right",paddingL:"5px"})
-            addEle({dad:subC,what:"input",isInput:true,width:"100px",textA:"center",setID:"multiMB"})
-
+            addEle({dad:subC,what:"input",isInput:true,width:"100px",textA:"center",setID:"multiMB",setFunc:(e)=>{
+                getID("multiMBG").innerHTML = testNum(e.srcElement.value,true) && e.srcElement.value !=="" ?
+                addEmo("✅","emoji green OK sign") : addEmo("⛔","emoji prohibited sign")
+                calcMultiAmt()
+            }})
+            addEle({dad:subC,minWidth:"25px",setID:"multiMBG"})
 
         subC = addEle({dad:cont,setClass:"contCol",marginT:"10px",maxHeight:"200px",overflowX:"hidden",setID:"multiFr"})
 
@@ -2516,9 +2520,24 @@ function multiOfunc(){
 }
 
 function calcMultiAmt(id){
+
+    let grp = document.getElementsByName("multiAmts")
+
+    console.log(grp)
+
+    /*
     console.log(id)
-    let idG = id.split(":")[0] + "G:" + id.split(":")[1]
-    console.log(idG)
+    let srcV = getID(id).value
+    let dispG = getID(id.split(":")[0] + "G:" + id.split(":")[1]) 
+
+
+    if(testNum(srcV) && srcV !=="" ){
+
+        dispG.innerHTML = addEmo("✅","emoji green OK sign")
+    } else {dispG.innerHTML = addEmo("⛔","emoji prohibited sign")}
+    */
+
+
 }
 
 loadSav()
