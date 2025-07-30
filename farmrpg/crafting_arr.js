@@ -283,7 +283,9 @@ function spanText(spanColor="",spanTxt,sz=undefined,striked=false,underL="",setI
             } else {txt+= spanColor +`;`}
         }
         if(sz!==undefined){txt+= ` font-size:`+sz+`px;`}
-        if(striked){txt+= ` text-decoration:red 2px line-through;`}
+//        if(striked){txt+= ` text-decoration:red 2px line-through;`}
+        if(striked){txt+= ` text-decoration:red 2px line-through; -webkit-text-decoration: line-through;`}
+
         if(underL!==""){txt+=` border-bottom:`+underL}
          txt+= `">` + ch + `</span>`
         ret+= txt
