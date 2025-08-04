@@ -179,16 +179,44 @@ body {
     border: rgb(212, 212, 74) solid 2px;
     border-radius: 8px;
     cursor: pointer;
-    padding: 5px;
+    padding: 3px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-  }
+/*    align-items: center;*/
+    box-shadow: 2px 4px #999;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.hamburger-button:active{
+    box-shadow: 2px 2px #666;
+    transform:translate(2px,2px);
+}
+.hamburger-button:hover{
+    opacity: 0.8;
+}
   
-  .line {
-    width: 20px;
-    height: 3px;
+  .line1 {
+    width: 7px;
+    height: 2px;
     background-color: teal;
     margin: 2px 0;
     transition: none; /* Ensures no animation */
+  }
+
+  .line2 {
+    width: 12px;
+    height: 2px;
+    background-color: teal;
+    margin: 2px 0;
+    transition: none; /* Ensures no animation */
+  }
+
+  .line3 {
+    width: 17px;
+    height: 2px;
+    background-color: teal;
+    margin: 2px 0;
+    transition: none; /* Ensures no animation */
+    justify-content: baseline;
   }
