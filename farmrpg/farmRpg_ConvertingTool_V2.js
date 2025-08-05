@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 07/30 20:30
+Last up 2025 08/05 21:45
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -32,32 +32,20 @@ every functionality of the tools.<br><br>
 also something you can switch on-off in : Settings \\ Tools-Displays.<br><br>
 `+addEmo("🟢","emoji green sphere")+` Hide this tool / show all tools if you wish
 to have more or less tools on the page.
-(available on both sets Basic & Custom)
+(available on both sets Basic & Custom)<br><br>
+`+addEmo("🟢","emoji green sphere")+` Input fields are now more formated to receive
+actual numbers which should display smarter on mobiles. (no more full keyboard)
 `
-
 let lemonConv = `
 Lemon converting is 2 options being LEMONADE or AP...<br><br>
-Lemonades represents a loss for yourself of 27% while
+Lemonades represens a loss for yourself of 27% while
 AP represents 47% (with old standard 30:1 ratio)<br>
-This is huge and in my opinion, evolution should happen.
+This is huge and in my Opinion, evolution should happen.
 I suggest you go for 35:1 (38% loss) anytime possible unless if your
 desperate for whatever reason. <br><br>
 Old stubborn players will have to learn flexibility while other
-players already are fine with 35:1 ratio.
+players already are fine about it.
 `
-
-let startInfos = `
-    For a basic simple use of this webpage<br>
-    all you need for a converting is to :<br>
-     - input the "Order Amount" (3rd white input area)<br>
-     - read the "payout" that will show below<br>
-     - and send payout to the customer<br>
-     everything else is additional tools and infos `+ addEmo("🤠","emoji smiling farmer") +`<br><br>
-     Review the User Settings, in particular Tools Display-Use Options !<br><br>
-     You start with the Basic full set of tools, but you can
-     make your own "Custom" under --User Settings-- >> Rates / Ratios
-`
-
 
 const outputs = [
     {label:"OJ",type:"Oranges to OJ",rate:"3:1",friend:"4.13:1",img1:"orange.png",img2:"orangejuice.png",
@@ -87,22 +75,26 @@ const basePayouts = [
     {label:"Cider",val:17.5},
 ]
 
-const roundings = ["Up","Down","Closest 5"]
+const roundings = [
+    {label:"Up",alt:addEmo("⇑","emoji arrow pointing up")},
+    {label:"Down",alt:addEmo("⇓","emoji arrow pointing down")},
+    {label:"Closest 5",alt:5},
+    ]
 
 let eventMastery = [0,10,14,20]
 
 let rateB =[
-{ind:0,label:"OJ",type:outputs[0].type,rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],
+{ind:0,label:"OJ",type:outputs[0].type,rate:"3:1",bonus:0,rounding:roundings[0].label,orderMem:[],
 orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
-{ind:1,label:"Lemonade",type:outputs[1].type,rate:"3:1",bonus:0,rounding:roundings[0],orderMem:[],
+{ind:1,label:"Lemonade",type:outputs[1].type,rate:"3:1",bonus:0,rounding:roundings[0].label,orderMem:[],
 orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
-{ind:2,label:"AP",type:outputs[2].type,rate:"30:1",bonus:0,rounding:roundings[0],orderMem:[],
+{ind:2,label:"AP",type:outputs[2].type,rate:"30:1",bonus:0,rounding:roundings[0].label,orderMem:[],
 orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
-{ind:3,label:"LN",type:outputs[4].type,rate:"1000:70",bonus:0,rounding:roundings[0],orderMem:[],
+{ind:3,label:"LN",type:outputs[4].type,rate:"1000:70",bonus:0,rounding:roundings[0].label,orderMem:[],
 orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
-{ind:4,label:"Cider",type:outputs[5].type,rate:"20:1",bonus:0,rounding:roundings[0],orderMem:[],
+{ind:4,label:"Cider",type:outputs[5].type,rate:"20:1",bonus:0,rounding:roundings[0].label,orderMem:[],
 orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
-{ind:5,label:"AP",type:outputs[3].type,rate:"1000:80",bonus:0,rounding:roundings[0],orderMem:[],
+{ind:5,label:"AP",type:outputs[3].type,rate:"1000:80",bonus:0,rounding:roundings[0].label,orderMem:[],
 orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
 ]
 
@@ -164,13 +156,10 @@ let userI = {
     ]
 }
 
-function addEmo(emoji="emoji",lbl="emoji label",id=""){
-    return `<span id="`+id+`" role="img" aria-label="`+lbl+`">`+emoji+`</span>`
-}
-
-function getCurrItem(id){
+function getCurrItem(id,multiOrder=false){
     let idx = Number(id.split(":")[1])
-    src = getID("toggleCurrRate").checked ? userI.rateU : rateB
+    let checkB = multiOrder ? "toggleMultiSet" : "toggleCurrRate" 
+    src = getID(checkB).checked ? userI.rateU : rateB
     return src.filter(x=>x.ind===idx)[0]
 }
 
@@ -319,7 +308,7 @@ function infoBox(info,txtCol="",closeFunc=undefined){
     let infoPop = addEle({dad:body,what:"dialog",maxWidth:"300px",radius:"20px",
     backC:"black",fontS:18+"px",textC:"white",display:"flex",flDir:"column",opacity:0.9,
     alignItems:"center",border:"teal solid 3px"})
-        addEle({dad:infoPop,text:info,textC:txtCol})
+        addEle({dad:infoPop,text:info,textC:txtCol,maxHeight:"400px",overflowX:"hidden",paddingR:"20px"})
         addEle({dad:infoPop,setClass:"btn",text:"OK",width:"50%",
         marginT:"20px", setFunc:()=>{if(closeFunc){closeFunc()} ; infoPop.remove() ; lockScroll(false)}})
         infoPop.showModal()
@@ -341,9 +330,10 @@ function setPage(){
 
         addEle({dad:subC,setClass:"btn",text:"Recent Changes "+addEmo("👀","eyes looking to the left"),backC:"darkgreen",
         border:"rgb(212, 212, 74) solid 2px",margin:"10px",setFunc:()=>{infoBox(recentChanges)}})
-        
+
     addEle({dad:body,setClass:"btn",text:addEmo("📉","chart")+" Advice for LEMONS Converters "+addEmo("🤓","smiling face with glasses"),
     backC:"rgb(97, 97, 64)",border:"rgb(212, 212, 74) solid 2px",margin:"5px 20px",setFunc:()=>{infoBox(lemonConv)}})
+    
 
     contR = addEle({dad:body,setClass:"contRow",margin:"0 10px",alignItems:"center"})
         addEle({dad:contR,what:"select",fontS:"16px",setID:"settingsSelect",padding:"5px",
@@ -381,6 +371,17 @@ function setPage(){
 let settingsArr = ["-- User Settings --","Tools Display-Use Options","Tools per Line & Order Memos","Rates / Ratios",
                    "User Details","Delete User Settings"]
 
+let startInfos = `
+    For a basic simple use of this webpage<br>
+    all you need for a converting is to :<br>
+     - input the "Order Amount" (3rd white input area)<br>
+     - read the "payout" that will show below<br>
+     - and send payout to the customer<br>
+     everything else is additional tools and infos `+ addEmo("🤠","emoji smiling farmer") +`<br><br>
+     Review the User Settings, in particular Display Options !<br><br>
+     You start with the Basic full set of tools, but you can<br>
+     make your own under --User Settings-- >> Rates / Ratios
+`
 
 function getDialogTopFrame(cxlEsc=true){
     let Obj = addEle({dad:body,what:"dialog",setClass:"myDialog",width:"fit-content",height:"fit-content"})
@@ -887,18 +888,49 @@ function blastRate(e){
 
 
 
-function buildRate(itm,dad,idx,border="teal solid 2px",margin=5,area="tool"){
+function buildRate(itm,dad,idx,border="teal solid 2px",margin=5,area="tool",amtID=""){
+    let fS = 15+"px"
     let itmO = outputs.filter(x=>x.type === itm.type)[0]
     let rateC = addEle({dad:dad,setClass:"contCol",border:border,margin:margin+"px",padding:"3px",setID:area+":"+idx})
         let subC = addEle({dad:rateC,setClass:"contRow",alignItems:"center"})
+        if(amtID!==""){
+            addEle({dad:subC,what:"input",isInput:true,setID:amtID,margin:"0 3px 0 5px",width:"100px",textA:"center",
+            setVal:0,setName:"multiAmts",setFunc:(e)=>{calcMultiAmt(e.srcElement.id)}})
+            addEle({dad:subC,minWidth:"25px",fontS:fS,setID:amtID.split(":")[0] + "G:" + amtID.split(":")[1]})
+        }
             addEle({dad:subC,what:"img",imgFullSrc:srcImgs+itmO.img1,imgSize:20,imgAlt:itmO.chat1+"icon"})
             addEle({dad:subC,text: addEmo("➜","emoji arrow pointing right") })
             addEle({dad:subC,what:"img",imgFullSrc:srcImgs+itmO.img2,imgSize:20,imgAlt:itmO.chat2+"icon"})
-            addEle({dad:subC,text:itm.type,marginL:"10px"})
-        let txt = "Rate : "+itm.rate + " | Bonus : " + itm.bonus+"% | Rounding : " +itm.rounding
-        addEle({dad:rateC,text:txt})
+            if(amtID==="")
+                 {addEle({dad:subC,text:itm.type,marginL:"10px",fontS:fS})}
+            else {
+                addEle({dad:subC,text:itm.rate,fontS:fS,borderL:"teal dotted 2px",padding:"5px",marginL:"10px"})
+                addEle({dad:subC,text:itm.bonus+"%",fontS:fS,borderL:"teal dotted 2px",padding:"5px"})
+                txt = roundings.filter(r=>r.label===itm.rounding)[0]
+                addEle({dad:subC,text:txt.alt,fontS:fS,borderL:"teal dotted 2px",padding:"5px"})
+
+                
+                 }
+        if(amtID===""){
+            let txt = "Rate : "+itm.rate + " | Bonus : " + itm.bonus+"% | Rounding : " +itm.rounding
+            addEle({dad:rateC,text:txt,fontS:fS})
+        }
+        if(amtID!==""){
+            subC = addEle({dad:rateC,setClass:"contRow",justifyC:"space-around",alignItems:"center"})
+                addEle({dad:subC,text:"Craft : " + `<span id="craft:`+idx+`"> </span>`,fontS:fS})
+                addEle({dad:subC,text:"Lose : " + `<span id="lose:`+idx+`"> </span>`,fontS:fS})
+                addEle({dad:subC,text:"Payout : " + `<span id="payout:`+idx+`"> </span>`,fontS:fS})
+            if(userI.displayOptions.customerMB){
+                addEle({dad:rateC,text:"Detail : " + `<span id="detail:`+idx+`"> </span>`,fontS:fS})
+            }
+
+        }
+
 }
 
+function addEmo(emoji="emoji",lbl="emoji label",id=""){
+    return `<span id="`+id+`" role="img" aria-label="`+lbl+`">`+emoji+`</span>`
+}
 
 function addRateSetup(){
     let pop2 = getDialogTopFrame()
@@ -924,11 +956,11 @@ function addRateSetup(){
             subC = addEle({dad:cont,setClass:"contRow",alignItems:"center",justifyC:"space-around",
             marginT:"10px"})
                 addEle({dad:subC,text:"[A]",textA:"center",fontS:"18px",marginR:"5px"})
-                addEle({dad:subC,what:"input",isInput:true,textA:"center",fontS:"14px",setID:"rateApart",
-                width:"60px",disabled:true,textC:"blue",setVal:0,setFunc:testCalcAmt})
+                addEle({dad:subC,what:"input",isInput:true,numInput:true,textA:"center",fontS:"14px",
+                setID:"rateApart",width:"70px",disabled:true,textC:"blue",setVal:0,setFunc:testCalcAmt})
                 addEle({dad:subC,text:":",textA:"center",fontS:"18px",margin:"0 5px"})
-                addEle({dad:subC,what:"input",isInput:true,textA:"center",fontS:"14px",setID:"rateBpart",
-                width:"60px",disabled:true,textC:"blue",setVal:0,setFunc:testCalcAmt})
+                addEle({dad:subC,what:"input",isInput:true,numInput:true,textA:"center",fontS:"14px",
+                setID:"rateBpart",width:"70px",disabled:true,textC:"blue",setVal:0,setFunc:testCalcAmt})
                 addEle({dad:subC,text:"[B]",textA:"center",fontS:"18px",marginL:"5px"})
 
         let txt = "(Order amount divided by [A] multiplied by [B])"
@@ -949,13 +981,13 @@ function addRateSetup(){
             addEle({dad:subC,text:"Type of Rounding :",textA:"center",fontS:"18px"})
             addEle({dad:subC,what:"select",fontS:"16px",setID:"rateROSelect",padding:"5px",textA:"center",
             backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white",setFunc:testCalcAmt})
-                roundings.forEach(ro=>{addEle({dad:getID("rateROSelect"),what:"option",text:ro})})
+                roundings.forEach(ro=>{addEle({dad:getID("rateROSelect"),what:"option",text:ro.label})})
                 
         subC = addEle({dad:cont,setClass:"contRow",alignItems:"center",justifyC:"space-around",
         marginB:"5px",paddingT:"5px"})
             addEle({dad:subC,text:"Test Converting ? Amount =",textA:"center",fontS:"18px"})
-            addEle({dad:subC,what:"input",isInput:true,textA:"center",fontS:"14px",setID:"testAmt",
-            width:"90px",setVal:0,setFunc:testCalcAmt})
+            addEle({dad:subC,what:"input",isInput:true,numInput:true,textA:"center",fontS:"14px",
+            setID:"testAmt",width:"90px",setVal:0,setFunc:testCalcAmt})
         subC = addEle({dad:cont,setClass:"contRow",marginB:"5px"})
         addEle({dad:subC,text:"=>",fontS:"18px",marginR:"5px"})
         addEle({dad:subC,text:0,fontS:"16px",marginR:"5px",setID:"dispCalc",minHeight:"40px"})
@@ -1172,9 +1204,8 @@ function userUpdate(){
             invo.forEach(inv=>{
                 subC = addEle({dad:frm,setClass:"contRow",marginT:"10px",alignItems:"center"})
                     addEle({dad:subC,text:inv.txt,margin:"0 5px",minWidth:len+"px",textA:"right",marginR:"5px"})
-                    addEle({dad:subC,what:"input",isInput:true,width:"60px",textA:"center",setVal:inv.val,
-                    setID:inv.ref+":"+cpt,
-                    setFunc:(e)=>{
+                    addEle({dad:subC,what:"input",isInput:true,numInput:true,width:"70px",textA:"center",
+                    setVal:inv.val,setID:inv.ref+":"+cpt,setFunc:(e)=>{
                         let disp = getID(e.srcElement.id+"G") 
                         if(testNum(e.srcElement.value)){
                             disp.innerHTML = addEmo("✅","emoji green OK sign")
@@ -1219,9 +1250,8 @@ function userUpdate(){
             userI.mms.forEach(mm=>{
                 subC = addEle({dad:frm,setClass:"contRow",marginT:"10px",alignItems:"center"})
                     addEle({dad:subC,text:mm.label+" :",margin:"0 5px",minWidth:len+"px",textA:"right",paddingR:"30px"})
-                    addEle({dad:subC,what:"input",isInput:true,width:"60px",textA:"center",setVal:mm.progress,
-                    setID:"mm:"+cpt,
-                    setFunc:(e)=>{
+                    addEle({dad:subC,what:"input",isInput:true,numInput:true,width:"80px",textA:"center",
+                    setVal:mm.progress,setID:"mm:"+cpt,setFunc:(e)=>{
                         let disp = getID(e.srcElement.id+"G") 
                         if(testNum(e.srcElement.value)){
                             disp.innerHTML = addEmo("✅","emoji green OK sign")
@@ -1463,7 +1493,6 @@ function buildTool(dad,itm,idx){
 
 
             addEle({dad:inC,setClass:"btn",text:"Reset",setID:"reset:"+idx,height:"fit-content",setFunc:(e)=>{
-                console.log("what")
                 let idx = e.srcElement.id.split(":")[1]
                 getID("order:"+idx).value = 0
                 if(userI.displayOptions.customerMB){getID("mbs:"+idx).value = 0}
@@ -1472,13 +1501,13 @@ function buildTool(dad,itm,idx){
                 toolCalc(e.srcElement.id,false)
             }})
 
-            /*
+        /*
             let ham = addEle({dad:inC,setClass:"hamburger-button",setID:"hamBtn:"+idx,setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line1",setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line2",setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line3",setFunc:multiOfunc})
             setInfoTip(getID("hamBtn:"+idx),"hamBtnT:"+idx,"Multi<br>Orders",-40,266)
-            */
+        */
 
 
         tr = addEle({dad:tb,what:"tr"})
@@ -1552,8 +1581,8 @@ function buildTool(dad,itm,idx){
             inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
             addEle({dad:inC,setID:"mbsG:"+idx,minWidth:"25px"})
 
-            addEle({dad:inC,what:"input",isInput:true,width:"100px",textA:"center",setID:"mbs:"+idx,
-            setVal:0,setFunc:(e)=>{
+            addEle({dad:inC,what:"input",isInput:true,numInput:true,width:"100px",
+            textA:"center",setID:"mbs:"+idx,setVal:0,setFunc:(e)=>{
                 let idx = e.srcElement.id.split(":")[1] ; let dispG = getID("mbsG:"+idx)
                 if(testNum(e.srcElement.value,true))
                      {dispG.innerHTML = addEmo("✅","emoji green OK sign")}
@@ -1577,8 +1606,8 @@ function buildTool(dad,itm,idx){
             tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
                 inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
                     addEle({dad:inC,setID:"orderG:"+idx,minWidth:"25px"})
-                    addEle({dad:inC,what:"input",isInput:true,width:"100px",textA:"center",setID:"order:"+idx,
-                    setVal:0,setFunc:(e)=>{
+                    addEle({dad:inC,what:"input",numInput:true,isInput:true,width:"100px",textA:"center",
+                    setID:"order:"+idx,setVal:0,setFunc:(e)=>{
                         let idx = e.srcElement.id.split(":")[1] ; let dispG = getID("orderG:"+idx)
                         if(testNum(e.srcElement.value))
                              {dispG.innerHTML = addEmo("✅","emoji green OK sign")} 
@@ -1802,7 +1831,7 @@ function payOptions(e){
     
 
             subC = addEle({dad:cont,setClass:"contRow",justifyC:"center",alignItems:"center",margin:"5px 0"})
-                addEle({dad:subC,what:"input",isInput:true,width:"100px",setID:"loseInput:"+idx,
+                addEle({dad:subC,what:"input",isInput:true,numInput:true,width:"100px",setID:"loseInput:"+idx,
                 textA:"center",radius:"5px",setFunc:(e)=>{
                     let idx = Number(e.srcElement.id.split(":")[1])
                     let src = e.srcElement
@@ -1958,7 +1987,7 @@ function setTradeValues(e){
                         addEle({dad:tc,what:"img",imgFullSrc:srcImgs+itmO.img2,imgSize:20})
                     tc = addEle({dad:tb,what:"td",text:itmO.label,textA:"center"})
                     tc = addEle({dad:tb,what:"td"})
-                        addEle({dad:tc,what:"input",isInput:true,setVal:userI.payouts[i].val,
+                        addEle({dad:tc,what:"input",isInput:true,numInput:true,setVal:userI.payouts[i].val,
                         width:"100px",textA:"center",setID:"tradeV:"+i,setFunc:(e)=>{
                             let src = e.srcElement ; let refIdx = src.id.split(":")[1]
                             let dsp = getID(src.id.split(":")[0]+"G:"+src.id.split(":")[1])
@@ -2199,7 +2228,7 @@ function convertProject(e){
 
         cont = addEle({dad:pop,setClass:"contRow",alignItems:"center",margin:"10px 0"})
             addEle({dad:cont,text:"Inventory :"})
-            addEle({dad:cont,what:"input",isInput:true,width:"100px",textA:"center",
+            addEle({dad:cont,what:"input",isInput:true,numInput:true,width:"100px",textA:"center",
             margin:"0 5px",setID:"inputforEst:"+idx,setFunc:(e)=>{
                 let el = e.srcElement
                 if(testNum(el.value)){
@@ -2439,14 +2468,91 @@ function multiOfunc(){
                 lockScroll(false)
             }})
 
+        subC = addEle({dad:cont,setClass:"contRow",margin:"10px 0",alignItems:"center"})
+            addEle({dad:subC,text:"Rate Set :",minWidth:"90px",textA:"right",paddingL:"5px"})
+            addEle({dad:subC,setID:"multiSet",textC:yellow,marginL:"5px",minWidth:"60px",textA:"center"})
 
-        addEle({dad:cont,text:"under construction",fontS:"30px",marginT:"20px"})
+            addEle({dad:subC,what:"checkbox",isInput:true,setID:"toggleMultiSet",setClass:"toggle-checkbox"
+            ,setFunc:(e)=>{
+                let workC = getID("multiFr")
+                cleanParent(workC)
+                getID("multiSet").innerHTML = e.srcElement.checked ? "Custom" : "Basic" 
+                let arr = getID("toggleMultiSet").checked ? userI.rateU : rateB
+                arr = arr.filter(it=>it.display === true)
+                arr.forEach(it=>{
+                    buildRate(it,workC,it.ind,"solid teal 2px",5,"multPop","multiAmt:"+it.ind)
+                })
+    
+            }})
+            addEle({dad:subC,what:"label",setFor:"toggleMultiSet",setClass:"toggle-label",marginL:"10px"})
+            getID("toggleMultiSet").checked = userI.currentSet === "Basic" ? false : true
+        addEle({dad:cont,text:"( "+spanText("","Does not show hidden tools","16px",false,yellow+"3px dotted")+" )",
+        margin:"0 0 10px 10px"})
+
+        subC = addEle({dad:cont,setClass:"contRow",marginT:"5px",alignItems:"center"})
+            addEle({dad:subC,text:"Customer Name :",marginR:"10px",minWidth:"160px",textA:"right",paddingL:"5px"})
+            addEle({dad:subC,what:"input",isInput:true,width:"100px",textA:"center",setID:"multiName"})
+
+        subC = addEle({dad:cont,setClass:"contRow",marginT:"10px",alignItems:"center"})
+            addEle({dad:subC,text:"Customer MB size :",marginR:"10px",minWidth:"160px",textA:"right",paddingL:"5px"})
+            addEle({dad:subC,what:"input",isInput:true,width:"100px",textA:"center",setID:"multiMB"})
+            addEle({dad:subC,minWidth:"25px",setID:"multiMBG"})
+
+        subC = addEle({dad:cont,setClass:"contCol",marginT:"10px",maxHeight:"200px",overflowX:"hidden",setID:"multiFr"})
+
+
+        let ev = new Event("change") ; getID("toggleMultiSet").dispatchEvent(ev)
+
+
+
+
+
+//        addEle({dad:cont,text:"under construction",fontS:"30px",marginT:"20px"})
 
 
 
 
         pop.showModal()
         lockScroll()
+}
+
+function calcMultiAmt(id){
+    let src = getID(id)
+    let dspG = getID(id.split(":")[0]+"G:"+id.split(":")[1])
+
+    if(testNum(src.value) && src.value !==""){
+        dspG.innerHTML = addEmo("✅","emoji green OK sign")
+        let itm = getCurrItem(id,true)
+        console.log(itm)
+        let ret = calcConvert(src.value,itm.rate.split(":")[0],itm.rate.split(":")[1],itm.bonus,itm.rounding,itm.type)
+
+        console.log(ret)
+
+    } else {
+        dspG.innerHTML = addEmo("⛔","emoji green OK sign")
+    }
+
+
+//    let grp = document.getElementsByName("multiAmts")
+
+ //   console.log(grp)
+
+    
+
+
+    /*
+    console.log(id)
+    let srcV = getID(id).value
+    let dispG = getID(id.split(":")[0] + "G:" + id.split(":")[1]) 
+
+
+    if(testNum(srcV) && srcV !=="" ){
+
+        dispG.innerHTML = addEmo("✅","emoji green OK sign")
+    } else {dispG.innerHTML = addEmo("⛔","emoji prohibited sign")}
+    */
+
+
 }
 
 loadSav()
