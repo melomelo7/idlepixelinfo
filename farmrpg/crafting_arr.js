@@ -14,6 +14,7 @@ function addEle({
     setID = "",
     setClass = "none",
     isInput = false,
+    numInput = false,
     disabled = false,
     setName = "",
     setFor = "",
@@ -138,6 +139,35 @@ function addEle({
             default : console.log("missing correct addeventlistener here")
             } 
         }
+
+    if(numInput){
+
+        thisObj.setAttribute("type","number")
+        thisObj.setAttribute("inputmode","decimal")
+        thisObj.setAttribute("step","any")
+
+        // Optional: Restrict to numeric with decimal point
+        thisObj.addEventListener('keypress', function(e) {
+            // Allow digits, decimal point, and control keys
+            if (!/[0-9.]/.test(e.key)) {
+            e.preventDefault();
+            }
+            // Prevent multiple decimal points
+            if (e.key === '.' && e.target.value.includes('.')) {
+            e.preventDefault();
+            }
+        });
+
+        // Optional: Prevent invalid pasted content
+        thisObj.addEventListener('paste', function(e) {
+            const pasteData = e.clipboardData.getData('text');
+            if (!/^\d*\.?\d*$/.test(pasteData)) {
+            e.preventDefault();
+            }
+        });
+    }
+  
+
 
     if(textC!==""){thisObj.style.color = textC}
 
@@ -283,7 +313,6 @@ function spanText(spanColor="",spanTxt,sz=undefined,striked=false,underL="",setI
             } else {txt+= spanColor +`;`}
         }
         if(sz!==undefined){txt+= ` font-size:`+sz+`px;`}
-//        if(striked){txt+= ` text-decoration:red 2px line-through; -webkit-text-decoration:red 2px line-through;`}
         if(striked){txt+= ` text-decoration: line-through; text-decoration-color: red; text-decoration-thickness: 2px;`}
 
         if(underL!==""){txt+=` border-bottom:`+underL}

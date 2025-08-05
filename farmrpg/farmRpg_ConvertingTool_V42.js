@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 08/04 14:00
+Last up 2025 08/05 20:50
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -154,9 +154,10 @@ let userI = {
     ]
 }
 
-function getCurrItem(id){
+function getCurrItem(id,multiOrder=false){
     let idx = Number(id.split(":")[1])
-    src = getID("toggleCurrRate").checked ? userI.rateU : rateB
+    let checkB = multiOrder ? "toggleMultiSet" : "toggleCurrRate" 
+    src = getID(checkB).checked ? userI.rateU : rateB
     return src.filter(x=>x.ind===idx)[0]
 }
 
@@ -891,8 +892,7 @@ function buildRate(itm,dad,idx,border="teal solid 2px",margin=5,area="tool",amtI
     let rateC = addEle({dad:dad,setClass:"contCol",border:border,margin:margin+"px",padding:"3px",setID:area+":"+idx})
         let subC = addEle({dad:rateC,setClass:"contRow",alignItems:"center"})
         if(amtID!==""){
-            console.log(amtID)
-            addEle({dad:subC,what:"input",isInput:true,setID:amtID,marginL:"5px",width:"100px",textA:"center",
+            addEle({dad:subC,what:"input",isInput:true,setID:amtID,margin:"0 3px 0 5px",width:"100px",textA:"center",
             setVal:0,setName:"multiAmts",setFunc:(e)=>{calcMultiAmt(e.srcElement.id)}})
             addEle({dad:subC,minWidth:"25px",fontS:fS,setID:amtID.split(":")[0] + "G:" + amtID.split(":")[1]})
         }
@@ -1605,8 +1605,8 @@ function buildTool(dad,itm,idx){
             tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
                 inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
                     addEle({dad:inC,setID:"orderG:"+idx,minWidth:"25px"})
-                    addEle({dad:inC,what:"input",isInput:true,width:"100px",textA:"center",setID:"order:"+idx,
-                    setVal:0,setFunc:(e)=>{
+                    addEle({dad:inC,what:"input",numInput:true,isInput:true,width:"100px",textA:"center",
+                    setID:"order:"+idx,setVal:0,setFunc:(e)=>{
                         let idx = e.srcElement.id.split(":")[1] ; let dispG = getID("orderG:"+idx)
                         if(testNum(e.srcElement.value))
                              {dispG.innerHTML = addEmo("✅","emoji green OK sign")} 
@@ -2494,11 +2494,7 @@ function multiOfunc(){
 
         subC = addEle({dad:cont,setClass:"contRow",marginT:"10px",alignItems:"center"})
             addEle({dad:subC,text:"Customer MB size :",marginR:"10px",minWidth:"160px",textA:"right",paddingL:"5px"})
-            addEle({dad:subC,what:"input",isInput:true,width:"100px",textA:"center",setID:"multiMB",setFunc:(e)=>{
-                getID("multiMBG").innerHTML = testNum(e.srcElement.value,true) && e.srcElement.value !=="" ?
-                addEmo("✅","emoji green OK sign") : addEmo("⛔","emoji prohibited sign")
-                calcMultiAmt()
-            }})
+            addEle({dad:subC,what:"input",isInput:true,width:"100px",textA:"center",setID:"multiMB"})
             addEle({dad:subC,minWidth:"25px",setID:"multiMBG"})
 
         subC = addEle({dad:cont,setClass:"contCol",marginT:"10px",maxHeight:"200px",overflowX:"hidden",setID:"multiFr"})
@@ -2520,10 +2516,28 @@ function multiOfunc(){
 }
 
 function calcMultiAmt(id){
+    let src = getID(id)
+    let dspG = getID(id.split(":")[0]+"G:"+id.split(":")[1])
 
-    let grp = document.getElementsByName("multiAmts")
+    if(testNum(src.value) && src.value !==""){
+        dspG.innerHTML = addEmo("✅","emoji green OK sign")
+        let itm = getCurrItem(id,true)
+        console.log(itm)
+        let ret = calcConvert(src.value,itm.rate.split(":")[0],itm.rate.split(":")[1],itm.bonus,itm.rounding,itm.type)
 
-    console.log(grp)
+        console.log(ret)
+
+    } else {
+        dspG.innerHTML = addEmo("⛔","emoji green OK sign")
+    }
+
+
+//    let grp = document.getElementsByName("multiAmts")
+
+ //   console.log(grp)
+
+    
+
 
     /*
     console.log(id)
