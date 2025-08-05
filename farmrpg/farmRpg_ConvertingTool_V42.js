@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 08/05 20:50
+Last up 2025 08/05 21:45
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -32,7 +32,9 @@ every functionality of the tools.<br><br>
 also something you can switch on-off in : Settings \\ Tools-Displays.<br><br>
 `+addEmo("🟢","emoji green sphere")+` Hide this tool / show all tools if you wish
 to have more or less tools on the page.
-(available on both sets Basic & Custom)
+(available on both sets Basic & Custom)<br><br>
+`+addEmo("🟢","emoji green sphere")+` Input fields are now more formated to receive
+actual numbers which should display smarter on mobiles. (no more full keyboard)
 `
 let lemonConv = `
 Lemon converting is 2 options being LEMONADE or AP...<br><br>
@@ -306,7 +308,7 @@ function infoBox(info,txtCol="",closeFunc=undefined){
     let infoPop = addEle({dad:body,what:"dialog",maxWidth:"300px",radius:"20px",
     backC:"black",fontS:18+"px",textC:"white",display:"flex",flDir:"column",opacity:0.9,
     alignItems:"center",border:"teal solid 3px"})
-        addEle({dad:infoPop,text:info,textC:txtCol})
+        addEle({dad:infoPop,text:info,textC:txtCol,maxHeight:"400px",overflowX:"hidden",paddingR:"20px"})
         addEle({dad:infoPop,setClass:"btn",text:"OK",width:"50%",
         marginT:"20px", setFunc:()=>{if(closeFunc){closeFunc()} ; infoPop.remove() ; lockScroll(false)}})
         infoPop.showModal()
@@ -954,11 +956,11 @@ function addRateSetup(){
             subC = addEle({dad:cont,setClass:"contRow",alignItems:"center",justifyC:"space-around",
             marginT:"10px"})
                 addEle({dad:subC,text:"[A]",textA:"center",fontS:"18px",marginR:"5px"})
-                addEle({dad:subC,what:"input",isInput:true,textA:"center",fontS:"14px",setID:"rateApart",
-                width:"60px",disabled:true,textC:"blue",setVal:0,setFunc:testCalcAmt})
+                addEle({dad:subC,what:"input",isInput:true,numInput:true,textA:"center",fontS:"14px",
+                setID:"rateApart",width:"70px",disabled:true,textC:"blue",setVal:0,setFunc:testCalcAmt})
                 addEle({dad:subC,text:":",textA:"center",fontS:"18px",margin:"0 5px"})
-                addEle({dad:subC,what:"input",isInput:true,textA:"center",fontS:"14px",setID:"rateBpart",
-                width:"60px",disabled:true,textC:"blue",setVal:0,setFunc:testCalcAmt})
+                addEle({dad:subC,what:"input",isInput:true,numInput:true,textA:"center",fontS:"14px",
+                setID:"rateBpart",width:"70px",disabled:true,textC:"blue",setVal:0,setFunc:testCalcAmt})
                 addEle({dad:subC,text:"[B]",textA:"center",fontS:"18px",marginL:"5px"})
 
         let txt = "(Order amount divided by [A] multiplied by [B])"
@@ -984,8 +986,8 @@ function addRateSetup(){
         subC = addEle({dad:cont,setClass:"contRow",alignItems:"center",justifyC:"space-around",
         marginB:"5px",paddingT:"5px"})
             addEle({dad:subC,text:"Test Converting ? Amount =",textA:"center",fontS:"18px"})
-            addEle({dad:subC,what:"input",isInput:true,textA:"center",fontS:"14px",setID:"testAmt",
-            width:"90px",setVal:0,setFunc:testCalcAmt})
+            addEle({dad:subC,what:"input",isInput:true,numInput:true,textA:"center",fontS:"14px",
+            setID:"testAmt",width:"90px",setVal:0,setFunc:testCalcAmt})
         subC = addEle({dad:cont,setClass:"contRow",marginB:"5px"})
         addEle({dad:subC,text:"=>",fontS:"18px",marginR:"5px"})
         addEle({dad:subC,text:0,fontS:"16px",marginR:"5px",setID:"dispCalc",minHeight:"40px"})
@@ -1202,9 +1204,8 @@ function userUpdate(){
             invo.forEach(inv=>{
                 subC = addEle({dad:frm,setClass:"contRow",marginT:"10px",alignItems:"center"})
                     addEle({dad:subC,text:inv.txt,margin:"0 5px",minWidth:len+"px",textA:"right",marginR:"5px"})
-                    addEle({dad:subC,what:"input",isInput:true,width:"60px",textA:"center",setVal:inv.val,
-                    setID:inv.ref+":"+cpt,
-                    setFunc:(e)=>{
+                    addEle({dad:subC,what:"input",isInput:true,numInput:true,width:"70px",textA:"center",
+                    setVal:inv.val,setID:inv.ref+":"+cpt,setFunc:(e)=>{
                         let disp = getID(e.srcElement.id+"G") 
                         if(testNum(e.srcElement.value)){
                             disp.innerHTML = addEmo("✅","emoji green OK sign")
@@ -1249,9 +1250,8 @@ function userUpdate(){
             userI.mms.forEach(mm=>{
                 subC = addEle({dad:frm,setClass:"contRow",marginT:"10px",alignItems:"center"})
                     addEle({dad:subC,text:mm.label+" :",margin:"0 5px",minWidth:len+"px",textA:"right",paddingR:"30px"})
-                    addEle({dad:subC,what:"input",isInput:true,width:"60px",textA:"center",setVal:mm.progress,
-                    setID:"mm:"+cpt,
-                    setFunc:(e)=>{
+                    addEle({dad:subC,what:"input",isInput:true,numInput:true,width:"80px",textA:"center",
+                    setVal:mm.progress,setID:"mm:"+cpt,setFunc:(e)=>{
                         let disp = getID(e.srcElement.id+"G") 
                         if(testNum(e.srcElement.value)){
                             disp.innerHTML = addEmo("✅","emoji green OK sign")
@@ -1501,12 +1501,13 @@ function buildTool(dad,itm,idx){
                 toolCalc(e.srcElement.id,false)
             }})
 
+        /*
             let ham = addEle({dad:inC,setClass:"hamburger-button",setID:"hamBtn:"+idx,setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line1",setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line2",setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line3",setFunc:multiOfunc})
             setInfoTip(getID("hamBtn:"+idx),"hamBtnT:"+idx,"Multi<br>Orders",-40,266)
-
+        */
 
 
         tr = addEle({dad:tb,what:"tr"})
@@ -1580,8 +1581,8 @@ function buildTool(dad,itm,idx){
             inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
             addEle({dad:inC,setID:"mbsG:"+idx,minWidth:"25px"})
 
-            addEle({dad:inC,what:"input",isInput:true,width:"100px",textA:"center",setID:"mbs:"+idx,
-            setVal:0,setFunc:(e)=>{
+            addEle({dad:inC,what:"input",isInput:true,numInput:true,width:"100px",
+            textA:"center",setID:"mbs:"+idx,setVal:0,setFunc:(e)=>{
                 let idx = e.srcElement.id.split(":")[1] ; let dispG = getID("mbsG:"+idx)
                 if(testNum(e.srcElement.value,true))
                      {dispG.innerHTML = addEmo("✅","emoji green OK sign")}
@@ -1830,7 +1831,7 @@ function payOptions(e){
     
 
             subC = addEle({dad:cont,setClass:"contRow",justifyC:"center",alignItems:"center",margin:"5px 0"})
-                addEle({dad:subC,what:"input",isInput:true,width:"100px",setID:"loseInput:"+idx,
+                addEle({dad:subC,what:"input",isInput:true,numInput:true,width:"100px",setID:"loseInput:"+idx,
                 textA:"center",radius:"5px",setFunc:(e)=>{
                     let idx = Number(e.srcElement.id.split(":")[1])
                     let src = e.srcElement
@@ -1986,7 +1987,7 @@ function setTradeValues(e){
                         addEle({dad:tc,what:"img",imgFullSrc:srcImgs+itmO.img2,imgSize:20})
                     tc = addEle({dad:tb,what:"td",text:itmO.label,textA:"center"})
                     tc = addEle({dad:tb,what:"td"})
-                        addEle({dad:tc,what:"input",isInput:true,setVal:userI.payouts[i].val,
+                        addEle({dad:tc,what:"input",isInput:true,numInput:true,setVal:userI.payouts[i].val,
                         width:"100px",textA:"center",setID:"tradeV:"+i,setFunc:(e)=>{
                             let src = e.srcElement ; let refIdx = src.id.split(":")[1]
                             let dsp = getID(src.id.split(":")[0]+"G:"+src.id.split(":")[1])
@@ -2227,7 +2228,7 @@ function convertProject(e){
 
         cont = addEle({dad:pop,setClass:"contRow",alignItems:"center",margin:"10px 0"})
             addEle({dad:cont,text:"Inventory :"})
-            addEle({dad:cont,what:"input",isInput:true,width:"100px",textA:"center",
+            addEle({dad:cont,what:"input",isInput:true,numInput:true,width:"100px",textA:"center",
             margin:"0 5px",setID:"inputforEst:"+idx,setFunc:(e)=>{
                 let el = e.srcElement
                 if(testNum(el.value)){
