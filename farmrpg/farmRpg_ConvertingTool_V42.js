@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 08/05 21:45
+Last up 2025 08/06 06:45
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -894,8 +894,8 @@ function buildRate(itm,dad,idx,border="teal solid 2px",margin=5,area="tool",amtI
     let rateC = addEle({dad:dad,setClass:"contCol",border:border,margin:margin+"px",padding:"3px",setID:area+":"+idx})
         let subC = addEle({dad:rateC,setClass:"contRow",alignItems:"center"})
         if(amtID!==""){
-            addEle({dad:subC,what:"input",isInput:true,setID:amtID,margin:"0 3px 0 5px",width:"100px",textA:"center",
-            setVal:0,setName:"multiAmts",setFunc:(e)=>{calcMultiAmt(e.srcElement.id)}})
+            addEle({dad:subC,what:"input",isInput:true,numInput:true,setID:amtID,margin:"0 3px 0 5px",width:"100px",
+            textA:"center",setVal:0,setName:"multiAmts",setFunc:calcMultiAmt})
             addEle({dad:subC,minWidth:"25px",fontS:fS,setID:amtID.split(":")[0] + "G:" + amtID.split(":")[1]})
         }
             addEle({dad:subC,what:"img",imgFullSrc:srcImgs+itmO.img1,imgSize:20,imgAlt:itmO.chat1+"icon"})
@@ -917,11 +917,11 @@ function buildRate(itm,dad,idx,border="teal solid 2px",margin=5,area="tool",amtI
         }
         if(amtID!==""){
             subC = addEle({dad:rateC,setClass:"contRow",justifyC:"space-around",alignItems:"center"})
-                addEle({dad:subC,text:"Craft : " + `<span id="craft:`+idx+`"> </span>`,fontS:fS})
-                addEle({dad:subC,text:"Lose : " + `<span id="lose:`+idx+`"> </span>`,fontS:fS})
-                addEle({dad:subC,text:"Payout : " + `<span id="payout:`+idx+`"> </span>`,fontS:fS})
+                addEle({dad:subC,text:"Craft : " + `<span id="craftM:`+idx+`"> </span>`,fontS:fS})
+                addEle({dad:subC,text:"Lose : " + `<span id="loseM:`+idx+`"> </span>`,fontS:fS,marginL:"teal dotted 2px",marginR:"teal dotted 2px"})
+                addEle({dad:subC,text:"Payout : " + `<span id="payoutM:`+idx+`"> </span>`,fontS:fS})
             if(userI.displayOptions.customerMB){
-                addEle({dad:rateC,text:"Detail : " + `<span id="detail:`+idx+`"> </span>`,fontS:fS})
+                addEle({dad:rateC,text:"Detail : " + `<span id="detailM:`+idx+`"> </span>`,fontS:fS})
             }
 
         }
@@ -1501,13 +1501,11 @@ function buildTool(dad,itm,idx){
                 toolCalc(e.srcElement.id,false)
             }})
 
-        /*
             let ham = addEle({dad:inC,setClass:"hamburger-button",setID:"hamBtn:"+idx,setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line1",setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line2",setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line3",setFunc:multiOfunc})
             setInfoTip(getID("hamBtn:"+idx),"hamBtnT:"+idx,"Multi<br>Orders",-40,266)
-        */
 
 
         tr = addEle({dad:tb,what:"tr"})
@@ -2491,14 +2489,33 @@ function multiOfunc(){
 
         subC = addEle({dad:cont,setClass:"contRow",marginT:"5px",alignItems:"center"})
             addEle({dad:subC,text:"Customer Name :",marginR:"10px",minWidth:"160px",textA:"right",paddingL:"5px"})
-            addEle({dad:subC,what:"input",isInput:true,width:"100px",textA:"center",setID:"multiName"})
+            addEle({dad:subC,what:"input",isInput:true,width:"100px",textA:"center",setID:"multiName",setVal:"Farmer "+(userI.multiOrders.length+1)})
 
         subC = addEle({dad:cont,setClass:"contRow",marginT:"10px",alignItems:"center"})
             addEle({dad:subC,text:"Customer MB size :",marginR:"10px",minWidth:"160px",textA:"right",paddingL:"5px"})
-            addEle({dad:subC,what:"input",isInput:true,width:"100px",textA:"center",setID:"multiMB"})
+            addEle({dad:subC,what:"input",isInput:true,numInput:true,width:"100px",textA:"center",setVal:0,
+            setID:"multiMB",setFunc:calcMultiAmt})
             addEle({dad:subC,minWidth:"25px",setID:"multiMBG"})
 
         subC = addEle({dad:cont,setClass:"contCol",marginT:"10px",maxHeight:"200px",overflowX:"hidden",setID:"multiFr"})
+
+
+        addEle({dad:cont,setClass:"btn",text:"Dispatch amounts to all tools",width:"93%",setFunc:()=>{
+            console.log("dispatch")
+            let grp = document.getElementsByName("multiAmts")
+            grp.forEach(am =>{
+                if(testNum(am.value) && am.value !=="" && am.value > 0){
+                    let idx = Number(am.id.split(":")[1])
+                    if(userI.displayOptions.customerMB && testNum(getID("multiMB").value) && getID("multiMB").value !=="" && getID("multiMB").value > 0){
+                        getID("mbs:"+idx).value = getID("multiMB").value 
+                    }
+                    getID("order:"+idx).value = Number(am.value)
+                    let ev = new Event("input") ; getID("order:"+idx).dispatchEvent(ev)
+                }
+            })
+
+//            "order:"+idx
+        }})
 
 
         let ev = new Event("change") ; getID("toggleMultiSet").dispatchEvent(ev)
@@ -2516,41 +2533,73 @@ function multiOfunc(){
         lockScroll()
 }
 
-function calcMultiAmt(id){
-    let src = getID(id)
-    let dspG = getID(id.split(":")[0]+"G:"+id.split(":")[1])
-
-    if(testNum(src.value) && src.value !==""){
-        dspG.innerHTML = addEmo("✅","emoji green OK sign")
-        let itm = getCurrItem(id,true)
-        console.log(itm)
-        let ret = calcConvert(src.value,itm.rate.split(":")[0],itm.rate.split(":")[1],itm.bonus,itm.rounding,itm.type)
-
-        console.log(ret)
-
-    } else {
-        dspG.innerHTML = addEmo("⛔","emoji green OK sign")
-    }
-
-
-//    let grp = document.getElementsByName("multiAmts")
-
- //   console.log(grp)
-
-    
-
+function calcMultiAmt(){
 
     /*
-    console.log(id)
-    let srcV = getID(id).value
-    let dispG = getID(id.split(":")[0] + "G:" + id.split(":")[1]) 
-
-
-    if(testNum(srcV) && srcV !=="" ){
-
-        dispG.innerHTML = addEmo("✅","emoji green OK sign")
-    } else {dispG.innerHTML = addEmo("⛔","emoji prohibited sign")}
+    let src = getID(id)
+    let dspG = getID(id.split(":")[0]+"G:"+id.split(":")[1])
     */
+    let grp = document.getElementsByName("multiAmts")
+
+    grp.forEach(am =>{
+
+        let dspG = getID(am.id.split(":")[0]+"G:"+am.id.split(":")[1])
+
+        if(testNum(am.value) && am.value !==""){
+            dspG.innerHTML = addEmo("✅","emoji green OK sign")
+
+            let idx = Number(am.id.split(":")[1])
+            let itm = getCurrItem(am.id,true)
+            let dspCr = getID("craftM:"+idx)
+            let dspLo = getID("loseM:"+idx)
+            let dspPa = getID("payoutM:"+idx)
+            let dspDe = getID("detailM:"+idx)
+    
+            let ret = calcConvert(Number(am.value),itm.rate.split(":")[0],itm.rate.split(":")[1],itm.bonus,itm.rounding,itm.type)
+            let payT = ret.payR+ret.bonR
+    
+            let txt = testNum(ret.bonR) ? 
+            ret.payR.toLocaleString() +"(+ "+ ret.bonR +")<br> = "+ payT.toLocaleString() 
+            : ret.payR.toLocaleString()
+    
+            dspPa.innerHTML = txt
+            dspCr.innerHTML = ret.craft.toLocaleString()
+            dspLo.innerHTML = !testNum(ret.bonR) ? 
+            (ret.payR - ret.craft).toLocaleString() :
+            (ret.payR - ret.craft).toLocaleString() + "(+ " +ret.bonR + ")<br> = " + 
+            (ret.payR - ret.craft + ret.bonR).toLocaleString()
+    
+            if(userI.displayOptions.customerMB){
+                let mbs = getID("multiMB").value
+        
+                if (testNum(mbs,true) && mbs !==""){
+                    getID("multiMBG").innerHTML = addEmo("✅","emoji green OK sign")
+                    mbs = Number(mbs)
+                    if(mbs > 0){
+                        let rnds1 = Math.floor(payT/mbs)
+                        let rnds2 = Math.floor(ret.payR/mbs)
+                        let txt = payT+" ⇒ "+ rnds1 + "x " + mbs + "=" +(rnds1*mbs)+ " + " + (payT-(rnds1*mbs)) 
+                        if(ret.bonR>0)
+                        {txt += "<br>"+ ret.payR +" ⇒ "+ rnds2 + "x " + mbs + "=" +(rnds2*mbs)  + " + " + (ret.payR-(rnds2*mbs))}
+                        dspDe.innerHTML = txt
+                    }
+                } else { 
+                    getID("multiMBG").innerHTML = addEmo("⛔","emoji green OK sign")
+                    dspDe.innerHTML = spanText(purple,"---") 
+                }
+                setTimeout(()=>{getID("multiMBG").innerHTML = ""},1500)
+            }
+
+
+
+        } else { dspG.innerHTML = addEmo("⛔","emoji green OK sign") }
+
+        setTimeout(()=>{dspG.innerHTML = ""},1500)
+
+    })
+
+
+
 
 
 }
