@@ -2556,4 +2556,7 @@ function calcMultiAmt(id){
 }
 
 loadSav()
+
 setPage()
+
+console.log(userI)
