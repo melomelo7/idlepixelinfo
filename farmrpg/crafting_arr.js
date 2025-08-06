@@ -10,6 +10,8 @@ function addEle({
     addToTop = false,
     dad = undefined,
     what = "div",
+    areaRows = "",
+    areaCols = "",
     text = "",
     setID = "",
     setClass = "none",
@@ -124,7 +126,9 @@ function addEle({
 
     if(setFor!==""){thisObj.setAttribute("for",setFor)}
 
-    if(setVal!==""){thisObj.setAttribute("value",setVal)}
+    //if(setVal!==""){thisObj.setAttribute("value",setVal)}
+
+    if(setVal!==""){thisObj.value = setVal}
 
     if(min!==""){thisObj.min = min}
     if(max!==""){thisObj.max = max}
@@ -167,7 +171,11 @@ function addEle({
         });
     }
   
-
+    if(what="textarea"){
+        thisObj.setAttribute("rows",areaRows)
+        thisObj.setAttribute("cols",areaCols)
+        thisObj.style.resize = "none"
+    }
 
     if(textC!==""){thisObj.style.color = textC}
 

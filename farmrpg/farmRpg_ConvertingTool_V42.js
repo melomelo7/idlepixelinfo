@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 08/06 06:45
+Last up 2025 08/06 23:30
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -34,7 +34,9 @@ also something you can switch on-off in : Settings \\ Tools-Displays.<br><br>
 to have more or less tools on the page.
 (available on both sets Basic & Custom)<br><br>
 `+addEmo("🟢","emoji green sphere")+` Input fields are now more formated to receive
-actual numbers which should display smarter on mobiles. (no more full keyboard)
+actual numbers which should display smarter on mobiles. (no more full keyboard)<br><br>
+`+addEmo("🟢","emoji green sphere")+` Advertising is now an open text field so it
+should be easier to do changes before copy. Hopefully no bugs pops let me know ...<br><br>
 `
 let lemonConv = `
 Lemon converting is 2 options being LEMONADE or AP...<br><br>
@@ -85,17 +87,17 @@ let eventMastery = [0,10,14,20]
 
 let rateB =[
 {ind:0,label:"OJ",type:outputs[0].type,rate:"3:1",bonus:0,rounding:roundings[0].label,orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
+orderIdx:undefined,orderTimer:undefined,advertising:false,display:true,serial:"B1"},
 {ind:1,label:"Lemonade",type:outputs[1].type,rate:"3:1",bonus:0,rounding:roundings[0].label,orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
+orderIdx:undefined,orderTimer:undefined,advertising:false,display:true,serial:"B2"},
 {ind:2,label:"AP",type:outputs[2].type,rate:"30:1",bonus:0,rounding:roundings[0].label,orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
+orderIdx:undefined,orderTimer:undefined,advertising:false,display:true,serial:"B3"},
 {ind:3,label:"LN",type:outputs[4].type,rate:"1000:70",bonus:0,rounding:roundings[0].label,orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
+orderIdx:undefined,orderTimer:undefined,advertising:false,display:true,serial:"B4"},
 {ind:4,label:"Cider",type:outputs[5].type,rate:"20:1",bonus:0,rounding:roundings[0].label,orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
+orderIdx:undefined,orderTimer:undefined,advertising:false,display:true,serial:"B5"},
 {ind:5,label:"AP",type:outputs[3].type,rate:"1000:80",bonus:0,rounding:roundings[0].label,orderMem:[],
-orderIdx:undefined,orderTimer:undefined,advertising:false,display:true},
+orderIdx:undefined,orderTimer:undefined,advertising:false,display:true,serial:"B6"},
 ]
 
 let pageVer = "3.0"
@@ -104,6 +106,7 @@ let userI = {
     pageV:pageVer,
     currentSet:"Basic",
     basicDisplays:[],
+    basicAdvertising:[false,false,false,false,false,false],
     rateU:[],
     toolPerLine:2,
     memoCap:10,
@@ -300,7 +303,13 @@ function loadSav(){
         userI.multiOrders = []
     } userI.multiOrders = []
 
-//console.log(userI)
+    if(!userI.hasOwnProperty("basicAdvertising")){
+        userI.basicAdvertising = [false,false,false,false,false,false]
+    } else {
+        for(let i=0;i<rateB.length;i++){
+            rateB[i].advertising = userI.basicAdvertising[i]
+        }
+    }
 
 }
 
@@ -1501,12 +1510,13 @@ function buildTool(dad,itm,idx){
                 toolCalc(e.srcElement.id,false)
             }})
 
+            /*
             let ham = addEle({dad:inC,setClass:"hamburger-button",setID:"hamBtn:"+idx,setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line1",setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line2",setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line3",setFunc:multiOfunc})
             setInfoTip(getID("hamBtn:"+idx),"hamBtnT:"+idx,"Multi<br>Orders",-40,266)
-
+            */
 
         tr = addEle({dad:tb,what:"tr"})
             tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
@@ -2186,22 +2196,32 @@ function advertising(){
         arrG.forEach(it=>{
             txt+=it.text
         })
-        txt = txt.slice(0,txt.length-3) + " (pls Ping me amounts and wait for my call Ty)"
+        txt = txt.slice(0,txt.length-3) + " (pls Ping me amounts angnd wait for my call Ty)"
 
         let cont = addEle({dad:workC,setClass:"contCol",border:"teal 2px solid",radius:"5px",
         padding:"5px",maxWidth:"450px",margin:"10px 0 0 10px"})
-        addEle({dad:cont,text:txt,setID:"advMsg",marginB:"10px"})
+
+    //    addEle({dad:cont,text:txt,setID:"advMsg",marginB:"10px"})
+
+        addEle({dad:cont,what:"textarea",areaRows:6,areaCols:50,setID:"advMsg",marginB:"10px",setVal:txt})
 
         let subC = addEle({dad:cont,setClass:"contRow",alignItems:"center",width:"fit-content"})
             txt = `Copy Advertising (to paste in game chat)`
             addEle({dad:subC,setClass:"btn",text:txt,padding:"5px 10px",
             setFunc:()=>{
-                navigator.clipboard.writeText(getID("advMsg").innerHTML)
+                navigator.clipboard.writeText(getID("advMsg").value)
                 getID("info4").innerHTML = "✅"
                 setTimeout(() => {getID("info4").innerHTML = ""}, 2000);
             }})
             addEle({dad:subC,marginL:"5px",textC:purple,setID:"info4"})
     }
+
+    if(userI.currentSet === "Basic"){
+        let arr = []
+        rateB.forEach(r=>{arr.push(r.advertising)})
+        userI.basicAdvertising = arr   
+    }
+
     savUserI()
 }
 
