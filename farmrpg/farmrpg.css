@@ -220,3 +220,10 @@ body {
     transition: none; /* Ensures no animation */
     justify-content: baseline;
   }
+
+  .textArea {
+    background-color: #2c2c2c; 
+    color: #ffffff; 
+    border: none; 
+    padding: 10px; 
+  }

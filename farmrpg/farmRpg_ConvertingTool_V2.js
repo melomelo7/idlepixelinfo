@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 08/06 23:50
+Last up 2025 08/06 23:55
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -2203,7 +2203,8 @@ function advertising(){
 
     //    addEle({dad:cont,text:txt,setID:"advMsg",marginB:"10px"})
 
-        addEle({dad:cont,what:"textarea",areaRows:6,areaCols:50,setID:"advMsg",marginB:"10px",fontS:"17px",setVal:txt})
+        addEle({dad:cont,what:"textarea",setClass:"textArea",areaRows:6,areaCols:50,setID:"advMsg",
+        marginB:"10px",fontS:"17px",setVal:txt})
 
         let subC = addEle({dad:cont,setClass:"contRow",alignItems:"center",width:"fit-content"})
             txt = `Copy Advertising (to paste in game chat)`
