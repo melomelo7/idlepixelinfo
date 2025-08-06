@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 08/06 23:55
+Last up 2025 08/07 00:00
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -2196,7 +2196,7 @@ function advertising(){
         arrG.forEach(it=>{
             txt+=it.text
         })
-        txt = txt.slice(0,txt.length-3) + " (pls Ping me amounts angnd wait for my call Ty)"
+        txt = txt.slice(0,txt.length-3) + " (pls Ping me amounts and wait for my call Ty)"
 
         let cont = addEle({dad:workC,setClass:"contCol",border:"teal 2px solid",radius:"5px",
         padding:"5px",maxWidth:"450px",margin:"10px 0 0 10px"})
