@@ -13,13 +13,12 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 08/06 23:30
+Last up 2025 08/08 01:15
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
 "Tools Display-Use Options" under<br>
 -- User Settings --`)
-
 
 
 
@@ -311,6 +310,13 @@ function loadSav(){
         }
     }
 
+    for(let i=0;i<userI.rateU.length;i++){
+        if(!userI.rateU[i].hasOwnProperty("serial")){
+            userI.rateU[i].serial = "C"+(i+1)
+        }
+    }
+
+//    console.log(userI.rateU)
 }
 
 function infoBox(info,txtCol="",closeFunc=undefined){
@@ -827,7 +833,8 @@ function dispRateSet(arr){
     if(arr){
         for(let i=0;i<arr.length;i++){
             let area = "rateSets"
-            buildRate(arr.filter(x=>x.ind===i)[0],workC,i,"teal solid 2px",5,area)
+            let itm = arr.filter(x=>x.ind===i)[0]
+            buildRate(itm,workC,i,"teal solid 2px",5,area)
 
             if(getID("toggleRate").checked){
                 subC = addEle({dad: getID(area+":"+i),setClass:"contRow",alignItems:"center"})
@@ -837,8 +844,8 @@ function dispRateSet(arr){
                     addEle({dad:subC,text:addEmo("🔽","emoji arrow pointing down","swapE:"+i),setClass:"btn",
                     padding:"0",margin:"0",fontS:"12px", setID:"swap:"+i,setFunc:(e)=>{swapUD(e,"D")}})
                 }
-                addEle({dad:subC,text:addEmo("❌","emoji red cross")+" Delete",setClass:"btn",padding:"0 5px",marginL:"20px",fontS:"12px",
-                setID:"customDel:"+i,setFunc:(e)=>{blastRate(e)}})
+                addEle({dad:subC,text:addEmo("❌","emoji red cross")+" Delete",setClass:"btn",padding:"0 5px",
+                marginL:"20px",fontS:"12px",setID:itm.serial,setFunc:(e)=>{blastRate(e)}})
             }
         }
     }
@@ -875,9 +882,9 @@ function swapUD(e,di){
 }
 
 function blastRate(e){
-    let idx = Number(e.srcElement.id.split(":")[1])
+    let idx = userI.rateU.findIndex(x=>x.serial === e.srcElement.id )
     userI.rateU.splice(idx,1)
-
+    
     let ev = undefined
     if(userI.rateU.length === 0){
         getID("toggleCurrRate").checked = false // userI.currentSet = "Custom" ; 
@@ -1024,6 +1031,7 @@ function addRateSetup(){
                         orderTimer:undefined,
                         advertising:false,
                         display:true,
+                        serial:"S:"+new Date()
                     })
 
                     let ev = new Event("change") ; getID("toggleRate").dispatchEvent(ev)
@@ -1510,13 +1518,11 @@ function buildTool(dad,itm,idx){
                 toolCalc(e.srcElement.id,false)
             }})
 
-            /*
             let ham = addEle({dad:inC,setClass:"hamburger-button",setID:"hamBtn:"+idx,setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line1",setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line2",setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line3",setFunc:multiOfunc})
             setInfoTip(getID("hamBtn:"+idx),"hamBtnT:"+idx,"Multi<br>Orders",-40,266)
-            */
 
         tr = addEle({dad:tb,what:"tr"})
             tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
@@ -2196,14 +2202,13 @@ function advertising(){
         arrG.forEach(it=>{
             txt+=it.text
         })
-        txt = txt.slice(0,txt.length-3) + " (pls Ping me amounts angnd wait for my call Ty)"
+        txt = txt.slice(0,txt.length-3) + " (pls Ping me amounts and wait for my call Ty)"
 
         let cont = addEle({dad:workC,setClass:"contCol",border:"teal 2px solid",radius:"5px",
         padding:"5px",maxWidth:"450px",margin:"10px 0 0 10px"})
 
-    //    addEle({dad:cont,text:txt,setID:"advMsg",marginB:"10px"})
-
-        addEle({dad:cont,what:"textarea",areaRows:6,areaCols:50,setID:"advMsg",marginB:"10px",setVal:txt})
+    addEle({dad:cont,what:"textarea",setClass:"textArea",areaRows:6,areaCols:50,setID:"advMsg",
+    marginB:"10px",fontS:"17px",setVal:txt})
 
         let subC = addEle({dad:cont,setClass:"contRow",alignItems:"center",width:"fit-content"})
             txt = `Copy Advertising (to paste in game chat)`
@@ -2497,9 +2502,12 @@ function multiOfunc(){
                 getID("multiSet").innerHTML = e.srcElement.checked ? "Custom" : "Basic" 
                 let arr = getID("toggleMultiSet").checked ? userI.rateU : rateB
                 arr = arr.filter(it=>it.display === true)
-                arr.forEach(it=>{
+                for(let i=0;i<arr.length;i++){
+                    let it = arr.filter(x=>x.ind === i)[0]
                     buildRate(it,workC,it.ind,"solid teal 2px",5,"multPop","multiAmt:"+it.ind)
-                })
+                }
+                getID("toggleCurrRate").checked = getID("toggleMultiSet").checked
+                let ev = new Event("change") ; getID("toggleCurrRate").dispatchEvent(ev)
     
             }})
             addEle({dad:subC,what:"label",setFor:"toggleMultiSet",setClass:"toggle-label",marginL:"10px"})
@@ -2509,24 +2517,108 @@ function multiOfunc(){
 
         subC = addEle({dad:cont,setClass:"contRow",marginT:"5px",alignItems:"center"})
             addEle({dad:subC,text:"Customer Name :",marginR:"10px",minWidth:"160px",textA:"right",paddingL:"5px"})
-            addEle({dad:subC,what:"input",isInput:true,width:"100px",textA:"center",setID:"multiName",setVal:"Farmer "+(userI.multiOrders.length+1)})
+            addEle({dad:subC,what:"input",isInput:true,width:"100px",textA:"center",setID:"multiName",
+            setVal:"Farmer "+(userI.multiOrders.length+1)})
 
+    if (userI.displayOptions.customerMB){
         subC = addEle({dad:cont,setClass:"contRow",marginT:"10px",alignItems:"center"})
             addEle({dad:subC,text:"Customer MB size :",marginR:"10px",minWidth:"160px",textA:"right",paddingL:"5px"})
             addEle({dad:subC,what:"input",isInput:true,numInput:true,width:"100px",textA:"center",setVal:0,
             setID:"multiMB",setFunc:calcMultiAmt})
             addEle({dad:subC,minWidth:"25px",setID:"multiMBG"})
+    }
 
         subC = addEle({dad:cont,setClass:"contCol",marginT:"10px",maxHeight:"200px",overflowX:"hidden",setID:"multiFr"})
 
+        subC = addEle({dad:cont,setClass:"contRow",marginT:"10px",alignItems:"center"})
+            addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross","multiMemoX"),
+            fontS:"10px",setID:"multiMemoX",backC:"teal",setFunc:()=>{
+                let obj = getID("multiMemoSelect")
+                if(obj.selectedIndex !== 0){
+                    userI.multiOrders.splice(obj.selectedIndex-1)
+                    loadSelectMulti()
+                }
+            }})
+            txt = "Delete<br>Memo"
+            setInfoTip(getID("multiMemoX"),"delMMemoTip",txt,-35,-8)
+
+
+            addEle({dad:subC,what:"select",fontS:"12px",setID:"multiMemoSelect",padding:"5px",
+            backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white",
+            minWidth:"190px",marginL:"5px",setFunc:(e)=>{
+                if(getID("multiMemoSelect").selectedIndex !== 0){
+                    cleanMultis()
+                    let cpt = 0
+                    let order = userI.multiOrders[getID("multiMemoSelect").selectedIndex-1]
+                    let basicT = getID("toggleMultiSet").checked ? false : true
+                    if(basicT !== order.basic){
+                        getID("toggleMultiSet").checked = order.basic ? false : true
+                        let ev = new Event("change") ; getID("toggleMultiSet").dispatchEvent(ev)
+                    }
+                    let src = getID("toggleMultiSet").checked ? userI.rateU : rateB
+                    let arr = src.filter(x=>x.display)
+
+                    getID("multiName").value = order.name
+                    if(userI.displayOptions.customerMB){getID("multiMB").value = order.mbs}
+                    
+                    order.orders.forEach(or=>{
+                        let itm = arr.filter(x=>x.serial === or.serial)[0]
+                        if(itm){
+                            cpt++
+                            getID("multiAmt:"+itm.ind).value = or.val
+                        }
+                    })
+                    
+                    calcMultiAmt()
+
+                    if(order.orders.length !== cpt){
+
+                        console.log(order)
+                        console.log(cpt)
+
+                        let msg = "Since changes have been made in User Settings | rates / ratios<br>"
+                        if(cpt===0){msg+="Could not find any amount to restore for this order, its empty."}
+                        else {msg+="Unable to restore full order amounts, only "+
+                                    cpt+"/"+order.orders.length}
+                        infoBox(msg)
+                    }
+
+                }
+            }})
+            loadSelectMulti()
+            addEle({dad:subC,setID:"multiMemoG",minWidth:"25px"})
+            addEle({dad:subC,setClass:"btn",text:"Add Memo",backC:"teal",fontS:"14px",setID:"multiMemoAdd",setFunc:(e)=>{
+                let grp = document.getElementsByName("multiAmts")
+                let arr = []
+                grp.forEach(amt=>{ if(testNum(amt.value) && amt.value !==""){ arr.push( {nb:Number(amt.id.split(":")[1]),val:amt.value} ) } })
+
+                if(arr.length > 0){
+                    if(getID("multiName").value !==""){
+                        getID("multiMemoG").innerHTML = addEmo("✅","emoji green OK sign")
+                        let idx = userI.multiOrders.findIndex(x=> x.name === getID("multiName").value)
+                        if(idx > -1){userI.multiOrders.splice(idx,1)}
+                        addMultiMemo(arr)
+                    } else {getID("multiMemoG").innerHTML = addEmo("⛔","emoji green OK sign")}
+                } else {getID("multiMemoG").innerHTML = addEmo("⛔","emoji green OK sign")}
+                setTimeout(()=>{if(getID("multiMemoG")){getID("multiMemoG").innerHTML = ""}}, 1500);
+            }})
+
+        txt = `(multi Memos are saved / managed using the Customer Name 
+        so another order with same name will replace / correct the old one)`
+        addEle({dad:cont,text:txt,padding:"10px",fontS:"14px"})
 
         addEle({dad:cont,setClass:"btn",text:"Dispatch amounts to all tools",width:"93%",setFunc:()=>{
-            console.log("dispatch")
+            setTools()
             let grp = document.getElementsByName("multiAmts")
             grp.forEach(am =>{
                 if(testNum(am.value) && am.value !=="" && am.value > 0){
                     let idx = Number(am.id.split(":")[1])
-                    if(userI.displayOptions.customerMB && testNum(getID("multiMB").value) && getID("multiMB").value !=="" && getID("multiMB").value > 0){
+                    if(userI.displayOptions.customerName){
+                        getID("farmer:"+idx).value = getID("multiName").value
+                    }
+
+                    if(userI.displayOptions.customerMB && testNum(getID("multiMB").value) && 
+                    getID("multiMB").value !=="" && getID("multiMB").value > 0){
                         getID("mbs:"+idx).value = getID("multiMB").value 
                     }
                     getID("order:"+idx).value = Number(am.value)
@@ -2534,33 +2626,84 @@ function multiOfunc(){
                 }
             })
 
-//            "order:"+idx
         }})
 
-
         let ev = new Event("change") ; getID("toggleMultiSet").dispatchEvent(ev)
-
-
-
-
-
-//        addEle({dad:cont,text:"under construction",fontS:"30px",marginT:"20px"})
-
-
-
 
         pop.showModal()
         lockScroll()
 }
 
+function cleanMultis(){
+    getID("multiName").value ="Farmer " + (userI.multiOrders.length+1)
+    if(userI.displayOptions.customerMB){getID("multiMB").value = 0}
+    document.getElementsByName("multiAmts").forEach(it=>{it.value = 0})
+}
+
+function loadSelectMulti(){
+    let sel = getID("multiMemoSelect")
+    cleanParent(sel)
+    addEle({dad:sel,what:"option",text:"multi Memos "+userI.multiOrders.length+" -- Select --"})
+    if(userI.multiOrders.length > 0){
+        userI.multiOrders.forEach(o=>{
+            let txt = o.date + " | " + o.name
+            addEle({dad:sel,what:"option",text:txt})
+        })
+    }
+
+    cleanMultis()
+}
+
+function addMultiMemo(arr){
+    let src = undefined
+
+    let newMemo = {
+        date : undefined,
+        name : undefined,
+        mbs : undefined,
+        basic : undefined,
+        orders : [],
+    }
+
+    let dt = new Date()
+    let hr = dt.getHours() < 10  ? "0"+dt.getHours() : dt.getHours()
+    let mn = dt.getMinutes() < 10 ? "0"+dt.getMinutes() : dt.getMinutes()
+    let sc = dt.getSeconds() < 10 ? "0"+dt.getSeconds() : dt.getSeconds()
+    newMemo.date = (dt.getMonth()+1)+"/"+dt.getDate()+" | "+hr+":"+mn+":"+sc
+
+    newMemo.name = getID("multiName").value
+
+    if(userI.displayOptions.customerMB){
+        if(testNum(getID("multiMB").value) && getID("multiMB").value !=="")
+             {newMemo.mbs = getID("multiMB").value}
+        else {newMemo.mbs = 0}
+    } else {
+        newMemo.mbs = 0
+    }
+
+    if(getID("toggleMultiSet").checked){
+        src =  userI.rateU
+        newMemo.basic = false
+    } else {
+        src =  rateB
+        newMemo.basic = true
+    }
+
+    arr.forEach(Obj=>{
+        let itm = src.filter(x=>x.ind === Obj.nb)[0]
+        newMemo.orders.push({serial:itm.serial,val:Obj.val})
+    })
+
+    userI.multiOrders.push(newMemo)
+    loadSelectMulti()
+
+    cleanMultis()
+}
+
+
+
 function calcMultiAmt(){
-
-    /*
-    let src = getID(id)
-    let dspG = getID(id.split(":")[0]+"G:"+id.split(":")[1])
-    */
     let grp = document.getElementsByName("multiAmts")
-
     grp.forEach(am =>{
 
         let dspG = getID(am.id.split(":")[0]+"G:"+am.id.split(":")[1])
@@ -2617,10 +2760,6 @@ function calcMultiAmt(){
         setTimeout(()=>{dspG.innerHTML = ""},1500)
 
     })
-
-
-
-
 
 }
 
