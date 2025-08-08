@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 08/08 19:05
+Last up 2025 08/08 20:00
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -2502,10 +2502,24 @@ function multiOfunc(){
                 getID("multiSet").innerHTML = e.srcElement.checked ? "Custom" : "Basic" 
                 let arr = getID("toggleMultiSet").checked ? userI.rateU : rateB
                 arr = arr.filter(it=>it.display === true)
-                for(let i=0;i<arr.length;i++){
-                    let it = arr.filter(x=>x.ind === i)[0]
-                    buildRate(it,workC,it.ind,"solid teal 2px",5,"multPop","multiAmt:"+it.ind)
+                console.log(arr)
+
+                let cpt=0
+                arr.forEach(rt=>{
+                    if(rt.ind>cpt){cpt=rt.ind}
+                })
+
+                console.log(cpt)
+
+                for(let i=0;i<=cpt;i++){
+                    let it = arr.filter(x=>x.ind===i)[0]
+                    if(it){
+                        buildRate(it,workC,it.ind,"solid teal 2px",5,"multPop","multiAmt:"+it.ind)                        
+                    }
+//                    let it = arr.filter(x=>x.ind === i)[0]
+//                    buildRate(it,workC,it.ind,"solid teal 2px",5,"multPop","multiAmt:"+it.ind)
                 }
+
                 getID("toggleCurrRate").checked = getID("toggleMultiSet").checked
                 let ev = new Event("change") ; getID("toggleCurrRate").dispatchEvent(ev)
     
