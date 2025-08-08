@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 08/08 01:15
+Last up 2025 08/08 19:05
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -2622,7 +2622,7 @@ function multiOfunc(){
                         getID("mbs:"+idx).value = getID("multiMB").value 
                     }
                     getID("order:"+idx).value = Number(am.value)
-                    let ev = new Event("input") ; getID("order:"+idx).dispatchEvent(ev)
+                    toolCalc("order:"+idx,false)
                 }
             })
 
