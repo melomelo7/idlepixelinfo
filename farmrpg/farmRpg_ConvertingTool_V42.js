@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 08/08 20:00
+Last up 2025 08/09 08:55
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -31,12 +31,16 @@ every functionality of the tools.<br><br>
 also something you can switch on-off in : Settings \\ Tools-Displays.<br><br>
 `+addEmo("🟢","emoji green sphere")+` Hide this tool / show all tools if you wish
 to have more or less tools on the page.
-(available on both sets Basic & Custom)<br><br>
+( available on both sets Basic & Custom )<br><br>
 `+addEmo("🟢","emoji green sphere")+` Input fields are now more formated to receive
-actual numbers which should display smarter on mobiles. (no more full keyboard)<br><br>
+actual numbers which should display smarter on mobiles. ( no more full keyboard )<br><br>
 `+addEmo("🟢","emoji green sphere")+` Advertising is now an open text field so it
 should be easier to do changes before copy. Hopefully no bugs pops let me know ...<br><br>
+`+addEmo("🟢","emoji green sphere")+` For people converting more than 1 item that
+would then receive more "detailed" orders from the same customer, there is now a
+new option of quick window.<br>( see the top of every tool where you can click [Hide] & [Reset] )
 `
+
 let lemonConv = `
 Lemon converting is 2 options being LEMONADE or AP...<br><br>
 Lemonades represens a loss for yourself of 27% while
@@ -2208,7 +2212,7 @@ function advertising(){
         padding:"5px",maxWidth:"450px",margin:"10px 0 0 10px"})
 
     addEle({dad:cont,what:"textarea",setClass:"textArea",areaRows:6,areaCols:50,setID:"advMsg",
-    marginB:"10px",fontS:"17px",setVal:txt})
+    marginB:"10px",fontS:"17px",border:"teal 2px dashed",setVal:txt})
 
         let subC = addEle({dad:cont,setClass:"contRow",alignItems:"center",width:"fit-content"})
             txt = `Copy Advertising (to paste in game chat)`
