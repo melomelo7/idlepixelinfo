@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 08/09 08:55
+Last up 2025 08/09 09:30
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -108,7 +108,7 @@ let pageVer = "3.0"
 let userI = {
     pageV:pageVer,
     currentSet:"Basic",
-    basicDisplays:[],
+    basicDisplays:[true,true,true,true,true,true],
     basicAdvertising:[false,false,false,false,false,false],
     rateU:[],
     toolPerLine:2,
@@ -1521,13 +1521,13 @@ function buildTool(dad,itm,idx){
                 getID("orderG:"+idx).innerHTML = ""
                 toolCalc(e.srcElement.id,false)
             }})
-
+/*
             let ham = addEle({dad:inC,setClass:"hamburger-button",setID:"hamBtn:"+idx,setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line1",setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line2",setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line3",setFunc:multiOfunc})
             setInfoTip(getID("hamBtn:"+idx),"hamBtnT:"+idx,"Multi<br>Orders",-40,266)
-
+*/
         tr = addEle({dad:tb,what:"tr"})
             tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
                 buildRate(itm,tc,idx,"",0)
@@ -2212,7 +2212,7 @@ function advertising(){
         padding:"5px",maxWidth:"450px",margin:"10px 0 0 10px"})
 
     addEle({dad:cont,what:"textarea",setClass:"textArea",areaRows:6,areaCols:50,setID:"advMsg",
-    marginB:"10px",fontS:"17px",border:"teal 2px dashed",setVal:txt})
+    marginB:"10px",fontS:"17px",border:"teal 2px dotted",setVal:txt})
 
         let subC = addEle({dad:cont,setClass:"contRow",alignItems:"center",width:"fit-content"})
             txt = `Copy Advertising (to paste in game chat)`
