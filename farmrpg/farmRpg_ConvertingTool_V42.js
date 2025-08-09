@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 08/09 09:50
+Last up 2025 08/09 10:30
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -1484,6 +1484,15 @@ function setTools(){
             cpt++
         }
     }
+    if(arr.length===0){
+        txt = `
+        Your Custom rates list is currently empty ...`+addEmo("😮","face with open mouth")+`<br>
+        Add a custom converting rate by going to :<br> - User Settings<br>
+        - Rates / Ratios <br> - toggle from Basic Rates to Custom Rates<br>- ... where the [ ADD ] button is found.
+        `
+        addEle({dad:workC,border:yellow+" dashed 2px",radius:"10px",text:txt,padding:"10px",
+        margin:"20px",width:"fit-content",maxWidth:"320px"})
+    }
 }
 
 
@@ -2212,7 +2221,7 @@ function advertising(){
         padding:"5px",maxWidth:"450px",margin:"10px 0 0 10px"})
 
     addEle({dad:cont,what:"textarea",setClass:"textArea",areaRows:6,areaCols:50,setID:"advMsg",
-    marginB:"10px",fontS:"17px",border:"teal 2px dotted",setVal:txt})
+    marginB:"10px",fontS:"17px",border:"teal 2px dashed",setVal:txt})
 
         let subC = addEle({dad:cont,setClass:"contRow",alignItems:"center",width:"fit-content"})
             txt = `Copy Advertising (to paste in game chat)`
