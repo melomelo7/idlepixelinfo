@@ -1,0 +1,262 @@
+html,body{
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    margin: 0;
+    color: rgb(187, 181, 181);
+    background-color: rgb(7, 9, 12); /**/
+}
+
+.contRow{
+    display: flex;
+    flex-direction: row;
+}
+
+.contCol{
+    display: flex;
+    flex-direction: column;
+}
+
+.btn {
+    border:rgb(212, 212, 74) solid 2px;
+    background-color: rgb(45, 88, 128);
+    color: white;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 5px;
+    text-align: center;
+    cursor: pointer;
+    width: fit-content;
+    box-shadow: 2px 4px #999;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.btn:active{
+    box-shadow: 2px 2px #666;
+    transform:translate(2px,2px);
+}
+.btn:hover{
+    opacity: 0.8;
+}
+
+.arrowToggler{
+    border:rgb(212, 212, 74) solid 2px;
+    border-radius: 5px;
+    padding: 1px 1px 2px 1px;
+    cursor: pointer;
+}
+
+.tealCell{
+    border:teal solid 2px;
+    border-radius: 7px;
+    padding: 3px;
+    text-align: center;
+}
+
+.tealCellBt{
+    border:teal dotted 2px;
+
+    /*
+    border-bottom: teal solid 2px;
+    border-left: teal solid 2px;
+    border-right: teal solid 2px;
+    */
+
+    padding: 3px;
+    text-align: center;
+}
+
+.rating{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100px;
+    background-color: teal;
+    padding: 2px;
+    margin-left: 5px;
+    border-radius: 5px;
+}
+
+.crossedTxt{
+    position: relative;
+    display: inline-block;
+    opacity: 0.5;
+}
+.crossedTxt:after{
+    position: absolute;
+    content: '';
+    top: 50%;
+    left: 5%;
+    width: 95%;
+    height: 2px;
+    background: red;
+}
+
+.valChecker{
+    margin: 5px;
+    min-width: 22px;
+    min-height: 22px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.rangeSt::-webkit-slider-runnable-track{
+    width: 100%;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+    background: #917979;
+    border-radius: 1px;
+    border: 0.2px solid #010101;
+    border-radius: 15px;
+}
+
+.rangeSt:focus::-webkit-slider-runnable-track{
+    background: #917979;
+}
+
+.toggle-checkbox {
+    display: none;
+}
+  
+/* Style the label to look like a toggle switch */
+.toggle-label {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+    background-color: grey;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Create the circle (knob) inside the toggle */
+.toggle-label::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 21px;
+    height: 21px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+/* Change background and move the knob when checked */
+.toggle-checkbox:checked + .toggle-label {
+    background-color: green;
+}
+
+.toggle-checkbox:checked + .toggle-label::before {
+    transform: translateX(25px);
+    background-color: white;
+}
+
+
+.myDialog{
+    padding: 10px;
+    border-radius: 20px;
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    display:flex ;
+    flex-direction: column;
+    align-items: center;
+    border: teal solid 3px;
+    opacity: 0.9;
+}
+
+.myDialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.hamburger-button {
+    background: transparent;
+    border: rgb(212, 212, 74) solid 2px;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 3px;
+    display: flex;
+    flex-direction: column;
+/*    align-items: center;*/
+    box-shadow: 2px 4px #999;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.hamburger-button:active{
+    box-shadow: 2px 2px #666;
+    transform:translate(2px,2px);
+}
+.hamburger-button:hover{
+    opacity: 0.8;
+}
+  
+  .line1 {
+    width: 7px;
+    height: 2px;
+    background-color: teal;
+    margin: 2px 0;
+    transition: none; /* Ensures no animation */
+  }
+
+  .line2 {
+    width: 12px;
+    height: 2px;
+    background-color: teal;
+    margin: 2px 0;
+    transition: none; /* Ensures no animation */
+  }
+
+  .line3 {
+    width: 17px;
+    height: 2px;
+    background-color: teal;
+    margin: 2px 0;
+    transition: none; /* Ensures no animation */
+    justify-content: baseline;
+  }
+
+
+
+
+
+  #intro {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Blood Blood Blood', cursive; /* Replace with an appropriate blood-like font if available */
+    font-size: 3em;
+    color: red;
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+    animation: bloodFade 5s forwards;
+  }
+
+  @keyframes bloodFade {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  .select {
+    background-color: #8A0303; /* Blood-like dark red */
+    color: black;               /* Red text */
+    border: 2px solid #5A0000; /* Optional: darker border for effect */
+    border-radius: 5px;
+    padding: 5px;
+    font-family: Arial, sans-serif;
+    margin:5px;
+  }
+
+  .option {
+    border-radius: 0;
+  }
