@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 08/09 09:30
+Last up 2025 08/09 09:50
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -1521,13 +1521,13 @@ function buildTool(dad,itm,idx){
                 getID("orderG:"+idx).innerHTML = ""
                 toolCalc(e.srcElement.id,false)
             }})
-/*
+
             let ham = addEle({dad:inC,setClass:"hamburger-button",setID:"hamBtn:"+idx,setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line1",setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line2",setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line3",setFunc:multiOfunc})
             setInfoTip(getID("hamBtn:"+idx),"hamBtnT:"+idx,"Multi<br>Orders",-40,266)
-*/
+
         tr = addEle({dad:tb,what:"tr"})
             tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
                 buildRate(itm,tc,idx,"",0)
