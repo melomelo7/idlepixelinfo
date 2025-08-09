@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 08/08 01:00
+Last up 2025 08/09 10:50
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -31,12 +31,19 @@ every functionality of the tools.<br><br>
 also something you can switch on-off in : Settings \\ Tools-Displays.<br><br>
 `+addEmo("🟢","emoji green sphere")+` Hide this tool / show all tools if you wish
 to have more or less tools on the page.
-(available on both sets Basic & Custom)<br><br>
+( available on both sets Basic & Custom )<br><br>
 `+addEmo("🟢","emoji green sphere")+` Input fields are now more formated to receive
-actual numbers which should display smarter on mobiles. (no more full keyboard)<br><br>
+actual numbers which should display smarter on mobiles. ( no more full keyboard )<br><br>
 `+addEmo("🟢","emoji green sphere")+` Advertising is now an open text field so it
 should be easier to do changes before copy. Hopefully no bugs pops let me know ...<br><br>
 `
+/*
++addEmo("🟢","emoji green sphere")+` For people converting more than 1 item that
+would then receive more "detailed" orders from the same customer, there is now a
+new option of quick window.<br>( see the top of every tool where you can click [Hide] & [Reset] )
+`
+*/
+
 let lemonConv = `
 Lemon converting is 2 options being LEMONADE or AP...<br><br>
 Lemonades represens a loss for yourself of 27% while
@@ -104,7 +111,7 @@ let pageVer = "3.0"
 let userI = {
     pageV:pageVer,
     currentSet:"Basic",
-    basicDisplays:[],
+    basicDisplays:[true,true,true,true,true,true],
     basicAdvertising:[false,false,false,false,false,false],
     rateU:[],
     toolPerLine:2,
@@ -1480,6 +1487,15 @@ function setTools(){
             cpt++
         }
     }
+    if(arr.length===0){
+        txt = `
+        Your Custom rates list is currently empty ...`+addEmo("😮","face with open mouth")+`<br>
+        Add a custom converting rate by going to :<br> - User Settings<br>
+        - Rates / Ratios <br> - toggle from Basic Rates to Custom Rates<br>- ... where the [ ADD ] button is found.
+        `
+        addEle({dad:workC,border:yellow+" dashed 2px",radius:"10px",text:txt,padding:"10px",
+        margin:"20px",width:"fit-content",maxWidth:"320px"})
+    }
 }
 
 
@@ -1517,15 +1533,13 @@ function buildTool(dad,itm,idx){
                 getID("orderG:"+idx).innerHTML = ""
                 toolCalc(e.srcElement.id,false)
             }})
-
-            /*
+/*
             let ham = addEle({dad:inC,setClass:"hamburger-button",setID:"hamBtn:"+idx,setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line1",setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line2",setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line3",setFunc:multiOfunc})
             setInfoTip(getID("hamBtn:"+idx),"hamBtnT:"+idx,"Multi<br>Orders",-40,266)
-            */
-
+*/
         tr = addEle({dad:tb,what:"tr"})
             tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
                 buildRate(itm,tc,idx,"",0)
@@ -2210,7 +2224,7 @@ function advertising(){
         padding:"5px",maxWidth:"450px",margin:"10px 0 0 10px"})
 
     addEle({dad:cont,what:"textarea",setClass:"textArea",areaRows:6,areaCols:50,setID:"advMsg",
-    marginB:"10px",fontS:"17px",setVal:txt})
+    marginB:"10px",fontS:"17px",border:"teal 2px dashed",setVal:txt})
 
         let subC = addEle({dad:cont,setClass:"contRow",alignItems:"center",width:"fit-content"})
             txt = `Copy Advertising (to paste in game chat)`
@@ -2504,10 +2518,24 @@ function multiOfunc(){
                 getID("multiSet").innerHTML = e.srcElement.checked ? "Custom" : "Basic" 
                 let arr = getID("toggleMultiSet").checked ? userI.rateU : rateB
                 arr = arr.filter(it=>it.display === true)
-                for(let i=0;i<arr.length;i++){
-                    let it = arr.filter(x=>x.ind === i)[0]
-                    buildRate(it,workC,it.ind,"solid teal 2px",5,"multPop","multiAmt:"+it.ind)
+                console.log(arr)
+
+                let cpt=0
+                arr.forEach(rt=>{
+                    if(rt.ind>cpt){cpt=rt.ind}
+                })
+
+                console.log(cpt)
+
+                for(let i=0;i<=cpt;i++){
+                    let it = arr.filter(x=>x.ind===i)[0]
+                    if(it){
+                        buildRate(it,workC,it.ind,"solid teal 2px",5,"multPop","multiAmt:"+it.ind)                        
+                    }
+//                    let it = arr.filter(x=>x.ind === i)[0]
+//                    buildRate(it,workC,it.ind,"solid teal 2px",5,"multPop","multiAmt:"+it.ind)
                 }
+
                 getID("toggleCurrRate").checked = getID("toggleMultiSet").checked
                 let ev = new Event("change") ; getID("toggleCurrRate").dispatchEvent(ev)
     
@@ -2552,7 +2580,6 @@ function multiOfunc(){
                     cleanMultis()
                     let cpt = 0
                     let order = userI.multiOrders[getID("multiMemoSelect").selectedIndex-1]
-//                    console.log(order)
                     let basicT = getID("toggleMultiSet").checked ? false : true
                     if(basicT !== order.basic){
                         getID("toggleMultiSet").checked = order.basic ? false : true
@@ -2606,6 +2633,9 @@ function multiOfunc(){
                 setTimeout(()=>{if(getID("multiMemoG")){getID("multiMemoG").innerHTML = ""}}, 1500);
             }})
 
+        txt = `(multi Memos are saved / managed using the Customer Name 
+        so another order with same name will replace / correct the old one)`
+        addEle({dad:cont,text:txt,padding:"10px",fontS:"14px"})
 
         addEle({dad:cont,setClass:"btn",text:"Dispatch amounts to all tools",width:"93%",setFunc:()=>{
             setTools()
@@ -2622,24 +2652,13 @@ function multiOfunc(){
                         getID("mbs:"+idx).value = getID("multiMB").value 
                     }
                     getID("order:"+idx).value = Number(am.value)
-                    let ev = new Event("input") ; getID("order:"+idx).dispatchEvent(ev)
+                    toolCalc("order:"+idx,false)
                 }
             })
 
-//            "order:"+idx
         }})
 
-
         let ev = new Event("change") ; getID("toggleMultiSet").dispatchEvent(ev)
-
-
-
-
-
-//        addEle({dad:cont,text:"under construction",fontS:"30px",marginT:"20px"})
-
-
-
 
         pop.showModal()
         lockScroll()
@@ -2714,13 +2733,7 @@ function addMultiMemo(arr){
 
 
 function calcMultiAmt(){
-
-    /*
-    let src = getID(id)
-    let dspG = getID(id.split(":")[0]+"G:"+id.split(":")[1])
-    */
     let grp = document.getElementsByName("multiAmts")
-
     grp.forEach(am =>{
 
         let dspG = getID(am.id.split(":")[0]+"G:"+am.id.split(":")[1])
@@ -2777,10 +2790,6 @@ function calcMultiAmt(){
         setTimeout(()=>{dspG.innerHTML = ""},1500)
 
     })
-
-
-
-
 
 }
 
