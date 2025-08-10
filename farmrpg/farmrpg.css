@@ -227,3 +227,34 @@ body {
     border: none; 
     padding: 10px; 
   }
+
+  .tooltip-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    /* display: inline-block;*/
+
+  }
+
+  .tooltip-text {
+    position: absolute;
+    bottom: 100%; /* Position above the element */
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 4px; /* Space between tooltip and element */
+    background-color: #444;
+    color: #fff;
+    padding: 3px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+    visibility: hidden; /* Hidden by default */
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
