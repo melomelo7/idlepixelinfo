@@ -13,14 +13,18 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 08/09 10:50
+Last up 2025 08/10 16:00
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
 "Tools Display-Use Options" under<br>
 -- User Settings --`)
 
-
+function addEmo(emoji="emoji",lbl="emoji label",id="",mirrored=false){
+    let style = ""
+    if(mirrored){style = "display:inline-block; transform: scaleX(-1);"}
+    return `<span id="`+id+`" style="`+style+`" role="img" aria-label="`+lbl+`">`+emoji+`</span>`
+}
 
 let recentChanges = `
 `+addEmo("🟢","emoji green sphere")+` the multiple green infos have been replaced
@@ -37,12 +41,12 @@ actual numbers which should display smarter on mobiles. ( no more full keyboard 
 `+addEmo("🟢","emoji green sphere")+` Advertising is now an open text field so it
 should be easier to do changes before copy. Hopefully no bugs pops let me know ...<br><br>
 `
-/*
+
 +addEmo("🟢","emoji green sphere")+` For people converting more than 1 item that
 would then receive more "detailed" orders from the same customer, there is now a
 new option of quick window.<br>( see the top of every tool where you can click [Hide] & [Reset] )
 `
-*/
+
 
 let lemonConv = `
 Lemon converting is 2 options being LEMONADE or AP...<br><br>
@@ -350,7 +354,7 @@ function setPage(){
         addEle({dad:subC,setClass:"btn",text:"-- Starting Infos --",backC:"darkgreen",
         border:"rgb(212, 212, 74) solid 2px",margin:"10px",setFunc:()=>{infoBox(startInfos)}}) 
 
-        addEle({dad:subC,setClass:"btn",text:"Recent Changes "+addEmo("👀","eyes looking to the left"),backC:"darkgreen",
+        addEle({dad:subC,setClass:"btn",text:addEmo("👀","eyes looking to the left","",true)+" Recent Changes",backC:"darkgreen",
         border:"rgb(212, 212, 74) solid 2px",margin:"10px",setFunc:()=>{infoBox(recentChanges)}})
 
     addEle({dad:body,setClass:"btn",text:addEmo("📉","chart")+" Advice for LEMONS Converters "+addEmo("🤓","smiling face with glasses"),
@@ -951,10 +955,6 @@ function buildRate(itm,dad,idx,border="teal solid 2px",margin=5,area="tool",amtI
 
 }
 
-function addEmo(emoji="emoji",lbl="emoji label",id=""){
-    return `<span id="`+id+`" role="img" aria-label="`+lbl+`">`+emoji+`</span>`
-}
-
 function addRateSetup(){
     let pop2 = getDialogTopFrame()
     let cont = addEle({dad:pop2,setClass:"contCol",width:"fit-content",
@@ -1511,7 +1511,7 @@ function buildTool(dad,itm,idx){
             tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
             let inC = addEle({dad:tc,setClass:"contRow",alignItems:"center",justifyC:"space-around"})
 
-            txt = spanText("","👀",14,true,"","hideE:"+idx,"eyes crossed with red line")+" Hide this tool"
+            txt = spanText("","👀",14,true,"","hideE:"+idx,"eyes crossed with red line",true)+" Hide this tool"
             addEle({dad:inC,setClass:"btn",text:txt,setID:"hide:"+idx,height:"fit-content",setFunc:(e)=>{
                 let itm = getCurrItem(e.srcElement.id)
                 itm.display = false
@@ -1523,6 +1523,8 @@ function buildTool(dad,itm,idx){
                 savUserI()
                 setTools()
             }})
+            let srcA = userI.currentSet === "Basic" ? rateB : userI.rateU
+            addEle({dad:inC,text:addEmo("👀","eyes looking to the right","",true)+srcA.filter(x=>x.display).length+"/"+srcA.length,marginL:"-25px"})
 
 
             addEle({dad:inC,setClass:"btn",text:"Reset",setID:"reset:"+idx,height:"fit-content",setFunc:(e)=>{
@@ -1533,13 +1535,13 @@ function buildTool(dad,itm,idx){
                 getID("orderG:"+idx).innerHTML = ""
                 toolCalc(e.srcElement.id,false)
             }})
-/*
+
             let ham = addEle({dad:inC,setClass:"hamburger-button",setID:"hamBtn:"+idx,setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line1",setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line2",setFunc:multiOfunc})
                 addEle({dad:ham,setClass:"line3",setFunc:multiOfunc})
             setInfoTip(getID("hamBtn:"+idx),"hamBtnT:"+idx,"Multi<br>Orders",-40,266)
-*/
+
         tr = addEle({dad:tb,what:"tr"})
             tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
                 buildRate(itm,tc,idx,"",0)
