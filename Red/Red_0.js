@@ -257,7 +257,7 @@ function centerScreen(element){
 
 }
 
-function spanText(spanColor="",spanTxt,sz=undefined,striked=false,underL="",setID="",setAlt=""){
+function spanText(spanColor="",spanTxt,sz=undefined,striked=false,underL="",setID="",setAlt="",mirrored=false){
 
     let rbc = ["#ef5350","#f48fb1","#7e57c2","#2196f3","#26c6da",
     "#43a047","#eeff41","#f9a825","#ff5722"]
@@ -285,6 +285,8 @@ function spanText(spanColor="",spanTxt,sz=undefined,striked=false,underL="",setI
         if(sz!==undefined){txt+= ` font-size:`+sz+`px;`}
         if(striked){txt+= ` text-decoration: line-through; text-decoration-color: red; text-decoration-thickness: 2px;`}
 
+        if(mirrored){txt+=` display:inline-block; transform: scaleX(-1);`}
+        
         if(underL!==""){txt+=` border-bottom:`+underL}
          txt+= `">` + ch + `</span>`
         ret+= txt
@@ -338,7 +340,7 @@ function simpleMsg(msg,setFunc=""){
             if(setFunc!==""){setFunc()}
         }})
 
-        addEle({dad:cont,text:msg,margin:"20px"})
+        addEle({dad:cont,text:msg,margin:"20px",fontS:"18px"})
 
     pop.showModal()
     lockScroll()

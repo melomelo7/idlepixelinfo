@@ -6,7 +6,7 @@ html,body{
 body {
     margin: 0;
     color: rgb(187, 181, 181);
-    background-color: rgb(7, 9, 12); /**/
+    background-color: rgb(7, 9, 12);    
 }
 
 .contRow{
@@ -174,55 +174,6 @@ body {
     background: rgba(0, 0, 0, 0.5);
 }
 
-.hamburger-button {
-    background: transparent;
-    border: rgb(212, 212, 74) solid 2px;
-    border-radius: 8px;
-    cursor: pointer;
-    padding: 3px;
-    display: flex;
-    flex-direction: column;
-/*    align-items: center;*/
-    box-shadow: 2px 4px #999;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-.hamburger-button:active{
-    box-shadow: 2px 2px #666;
-    transform:translate(2px,2px);
-}
-.hamburger-button:hover{
-    opacity: 0.8;
-}
-  
-  .line1 {
-    width: 7px;
-    height: 2px;
-    background-color: teal;
-    margin: 2px 0;
-    transition: none; /* Ensures no animation */
-  }
-
-  .line2 {
-    width: 12px;
-    height: 2px;
-    background-color: teal;
-    margin: 2px 0;
-    transition: none; /* Ensures no animation */
-  }
-
-  .line3 {
-    width: 17px;
-    height: 2px;
-    background-color: teal;
-    margin: 2px 0;
-    transition: none; /* Ensures no animation */
-    justify-content: baseline;
-  }
-
-
-
 
 
   #intro {
@@ -230,11 +181,10 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-family: 'Blood Blood Blood', cursive; /* Replace with an appropriate blood-like font if available */
     font-size: 3em;
     color: red;
     text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
-    animation: bloodFade 5s forwards;
+    animation: bloodFade 4s forwards;
   }
 
   @keyframes bloodFade {
@@ -247,16 +197,11 @@ body {
     }
   }
 
-  .select {
-    background-color: #8A0303; /* Blood-like dark red */
-    color: black;               /* Red text */
-    border: 2px solid #5A0000; /* Optional: darker border for effect */
+
+.select {
+    background-color: black;
+    color: #8A0303;
+    border: 2px solid #5A0000;
     border-radius: 5px;
     padding: 5px;
-    font-family: Arial, sans-serif;
-    margin:5px;
-  }
-
-  .option {
-    border-radius: 0;
   }
