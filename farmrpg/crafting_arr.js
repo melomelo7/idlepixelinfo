@@ -86,6 +86,7 @@ function addEle({
     whiteSpace = "",
     noFocus = false,
     log = false,
+    mirror = false,
     opacity = "", }){
 
     let thisObj = undefined
@@ -263,6 +264,8 @@ function addEle({
     if(opacity!==""){thisObj.style.opacity = opacity}
 
     if(whiteSpace!==""){thisObj.style.whiteSpace = whiteSpace}
+
+    if(mirror){thisObj.style.transform = "scaleX(-1)"}
 
     if(log){
         console.log(setVal)
