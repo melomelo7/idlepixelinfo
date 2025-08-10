@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 08/10 16:00
+Last up 2025 08/11 07:30
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -490,9 +490,10 @@ function setDispOptions(){
         let mW = 220
 
         let lbl = "AdvEval" ; let infoLb = "Advertise | Estimate Converting" ; let infoT = `
-        Option to Auto-build advertising message to use in game chat. (Change content if needed 
-        in any text tool or by opening a new message in your ingame message box, paste info and modify it there)
-        <br><br> ... and a Tool to Estimate how far you can convert with current inventory
+        Option to Auto-build advertising message to use in game chat. <br>( You may change 
+        content if youd like directly in the text square area, then click the Copy button 
+        and go paste it in game chat )<br><br> 
+        ... and a Tool to Estimate how far you can convert with current inventory items.
         `
         inC = addEle({dad:dispOptionsC,setClass:"contCol",marginT:"10px",border:"teal solid 2px",radius:"8px"})
             subC = addEle({dad:inC,setClass:"contRow",alignItems:"center",borderB:"teal solid 2px",radiusTR:"6px",
@@ -551,7 +552,8 @@ function setDispOptions(){
         lbl = "custMB" ; infoLb = "Customer [MB](Mailbox) Size" ; infoT = `
         Optional, yet recommended Information, that will be included in the [Memo] ... 
         and also allow to view the Payout Details like how many MB needed and what
-        remains to pay for the last MB`
+        remains to pay for the last MB<br><br>The "Multi-orders quick window" is also
+        concerned if you toggle this ON / OFF`
         inC = addEle({dad:dispOptionsC,setClass:"contCol",marginT:"10px",border:"teal solid 2px",radius:"8px"})
             subC = addEle({dad:inC,setClass:"contRow",alignItems:"center",borderB:"teal solid 2px",radiusTR:"6px",
             radiusTL:"6px",backC:"rgb(45, 88, 128)",justifyC:"space-between"})
@@ -1509,22 +1511,23 @@ function buildTool(dad,itm,idx){
     
         tr = addEle({dad:tb,what:"tr"})
             tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
-            let inC = addEle({dad:tc,setClass:"contRow",alignItems:"center",justifyC:"space-around"})
-
-            txt = spanText("","👀",14,true,"","hideE:"+idx,"eyes crossed with red line",true)+" Hide this tool"
-            addEle({dad:inC,setClass:"btn",text:txt,setID:"hide:"+idx,height:"fit-content",setFunc:(e)=>{
-                let itm = getCurrItem(e.srcElement.id)
-                itm.display = false
-                if(userI.currentSet ==="Basic"){
-                    let arr = []
-                    rateB.forEach(r=>{arr.push(r.display)})
-                    userI.basicDisplays = arr
-                }
-                savUserI()
-                setTools()
-            }})
-            let srcA = userI.currentSet === "Basic" ? rateB : userI.rateU
-            addEle({dad:inC,text:addEmo("👀","eyes looking to the right","",true)+srcA.filter(x=>x.display).length+"/"+srcA.length,marginL:"-25px"})
+            let inC = addEle({dad:tc,setClass:"contRow",alignItems:"center",justifyC:"space-around"})//
+                let inC2 = addEle({dad:inC,setClass:"contRow",alignItems:"center"})
+                    txt = spanText("","👀",14,true,"","hideE:"+idx,"eyes crossed with red line",true)+" Hide this tool"
+                    addEle({dad:inC2,setClass:"btn",text:txt,setID:"hide:"+idx,height:"fit-content",setFunc:(e)=>{
+                        let itm = getCurrItem(e.srcElement.id)
+                        itm.display = false
+                        if(userI.currentSet ==="Basic"){
+                            let arr = []
+                            rateB.forEach(r=>{arr.push(r.display)})
+                            userI.basicDisplays = arr
+                        }
+                        savUserI()
+                        setTools()
+                    }})
+                    let srcA = userI.currentSet === "Basic" ? rateB : userI.rateU
+                    addEle({dad:inC2,text:addEmo("👀","eyes looking to the right","",true)+srcA.filter(x=>x.display).length+
+                    "/"+srcA.length,marginL:"-5px"})//let inC = addEle({dad:tc,setClass:"contRow",alignItems:"center",})
 
 
             addEle({dad:inC,setClass:"btn",text:"Reset",setID:"reset:"+idx,height:"fit-content",setFunc:(e)=>{
@@ -1536,11 +1539,13 @@ function buildTool(dad,itm,idx){
                 toolCalc(e.srcElement.id,false)
             }})
 
-            let ham = addEle({dad:inC,setClass:"hamburger-button",setID:"hamBtn:"+idx,setFunc:multiOfunc})
-                addEle({dad:ham,setClass:"line1",setFunc:multiOfunc})
-                addEle({dad:ham,setClass:"line2",setFunc:multiOfunc})
-                addEle({dad:ham,setClass:"line3",setFunc:multiOfunc})
-            setInfoTip(getID("hamBtn:"+idx),"hamBtnT:"+idx,"Multi<br>Orders",-40,266)
+            let ttC = addEle({dad:inC,setClass:"tooltip-container"})
+                let ham = addEle({dad:ttC,setClass:"hamburger-button",setID:"hamBtn:"+idx,margin:"0 5px",setFunc:multiOfunc})
+                    addEle({dad:ham,setClass:"line1",setFunc:multiOfunc})
+                    addEle({dad:ham,setClass:"line2",setFunc:multiOfunc})
+                    addEle({dad:ham,setClass:"line3",setFunc:multiOfunc})
+                addEle({dad:ttC,setClass:"tooltip-text",text:"Multi<br>Orders"})
+//            setInfoTip(getID("hamBtn:"+idx),"hamBtnT:"+idx,"Multi<br>Orders",-40,266)
 
         tr = addEle({dad:tb,what:"tr"})
             tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
@@ -1551,29 +1556,35 @@ function buildTool(dad,itm,idx){
             tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
 
             let cr = addEle({dad:tc,setClass:"contRow",justifyC:"space-around",padding:"2px"}) 
-                inC = addEle({dad:cr,setClass:"contRow",alignItems:"center"})
-                    addEle({dad:inC,text:"Advertise",marginR:"5px",padding:"5px 8px",setID:"advT:"+idx})
-                    setInfoTip(getID("advT:"+idx),"advTtip:"+idx,"Advertise in Chat",-25,10)
+                inC = addEle({dad:cr,setClass:"contRow"})
+                  let ttC = addEle({dad:inC,setClass:"tooltip-container",alignItems:"center"})
+  
+                    addEle({dad:ttC,text:"Advertise",marginR:"5px",padding:"5px 8px",setID:"advT:"+idx})
+    //                setInfoTip(getID("advT:"+idx),"advTtip:"+idx,"Advertise in Chat",-25,10)
 
-                    addEle({dad:inC,what:"checkbox",isInput:true,accentCol:green,setName:"advertise",setClass:"toggle-checkbox",
+                    addEle({dad:ttC,what:"checkbox",isInput:true,accentCol:green,setName:"advertise",setClass:"toggle-checkbox",
                     setID:"adv:"+idx,setFunc:(e)=>{itm.advertising = e.srcElement.checked ? true : false ; advertising()}})
-                    addEle({dad:inC,what:"label",setFor:"adv:"+idx,setClass:"toggle-label",setID:"advL:"+idx})
+                    addEle({dad:ttC,what:"label",setFor:"adv:"+idx,setClass:"toggle-label",setID:"advL:"+idx})
                     if(itm.advertising){getID("adv:"+idx).checked=true ; let ev = new Event("change") ; getID("adv:"+idx).dispatchEvent(ev) }
-                    setInfoTip(getID("advL:"+idx),"advTip:"+idx,"Advertise in Chat",-25,10)
+      //              setInfoTip(getID("advL:"+idx),"advTip:"+idx,"Advertise in Chat",-25,10)
+                  addEle({dad:ttC,setClass:"tooltip-text",text:"Advertise in Chat"})
 
-                inC = addEle({dad:cr,setClass:"contRow",alignItems:"center"})
-                    addEle({dad:inC,text:"Estimate Max",marginR:"5px",padding:"5px 8px",setID:"ECT:"+idx})
-                    setInfoTip(getID("ECT:"+idx),"ECTtip:"+idx,"Estimate conversion",-25,25)
+                inC = addEle({dad:cr,setClass:"contRow"})
+                  ttC = addEle({dad:inC,setClass:"tooltip-container",alignItems:"center"})
+
+                    addEle({dad:ttC,text:"Estimate Max",marginR:"5px",padding:"5px 8px",setID:"ECT:"+idx})
+//                    setInfoTip(getID("ECT:"+idx),"ECTtip:"+idx,"Estimate conversion",-25,25)
 
                     txt = outputs.filter(it=>it.type===itm.type)[0]
-                    let subC = addEle({dad:inC,setClass:"btn",padding:"0",display:"flex",flDir:"row",
+                    let subC = addEle({dad:ttC,setClass:"btn",padding:"0",display:"flex",flDir:"row",
                     alignItems:"center",setID:"convertProBtn:"+idx,setFunc:(e)=>{convertProject(e)}})
                         addEle({dad:subC,what:"img",imgFullSrc:srcImgs+txt.img2,imgSize:20,
                         setID:"convertProImg1:"+idx,imgAlt:txt.chat2})
                         addEle({dad:subC,text:"?",margin:"0 5px",setID:"convertProTxt:"+idx})
                         addEle({dad:subC,what:"img",imgFullSrc:srcImgs+txt.img1,imgSize:20,
                         setID:"convertProImg2:"+idx,imgAlt:txt.chat1})
-                    setInfoTip(getID("convertProBtn:"+idx),"convTip:"+idx,"Estimate conversion",-25,25)
+//                    setInfoTip(getID("convertProBtn:"+idx),"convTip:"+idx,"Estimate conversion",-25,25)
+                  addEle({dad:ttC,setClass:"tooltip-text",text:"Estimate conversion"})
     }
 
     if(userI.displayOptions.customerName){
@@ -1581,18 +1592,22 @@ function buildTool(dad,itm,idx){
         tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
             inC = addEle({dad:tc,setClass:"contRow",alignItems:"center",justifyC:"flex-end"})        
             addEle({dad:inC,text:"Customer Name",textA:"center",marginL:"25px"})
-            addEle({dad:inC,setClass:"btn",text:"Ping",fontS:"11px",padding:"1px",margin:"3px 10px",
-            setID:"ping:"+idx,marginL:"15px",setFunc:(e)=>{
-                let idx = e.srcElement.id.split(":")[1]
-                txt = getID("farmer:"+idx).value
-                txt = txt.replace("@","")
-                txt = txt.replace(":","")
-                txt = "@"+txt+":"
-                navigator.clipboard.writeText(txt)
-                getID("farmerG:"+idx).innerHTML = addEmo("✅","emoji green OK sign")
-                setTimeout(() => {getID("farmerG:"+idx).innerHTML = ""}, 2000);
-            }})
-            setInfoTip(getID("ping:"+idx),"pingTip:"+idx,"Copy Name",-25,130)
+
+            let ttC = addEle({dad:inC,setClass:"tooltip-container"})
+                addEle({dad:ttC,setClass:"btn",text:"Ping",fontS:"11px",padding:"1px",margin:"3px 10px",
+                setID:"ping:"+idx,marginL:"15px",setFunc:(e)=>{
+                    let idx = e.srcElement.id.split(":")[1]
+                    txt = getID("farmer:"+idx).value
+                    txt = txt.replace("@","")
+                    txt = txt.replace(":","")
+                    txt = "@"+txt+":"
+                    navigator.clipboard.writeText(txt)
+                    getID("farmerG:"+idx).innerHTML = addEmo("✅","emoji green OK sign")
+                    setTimeout(() => {getID("farmerG:"+idx).innerHTML = ""}, 2000);
+                }})
+                //setInfoTip(getID("ping:"+idx),"pingTip:"+idx,"Copy Name",-25,130)
+                addEle({dad:ttC,setClass:"tooltip-text",text:"Copy Name"})
+
             addEle({dad:inC,setID:"info:"+idx})
 
         tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
@@ -1657,10 +1672,13 @@ function buildTool(dad,itm,idx){
         tr = addEle({dad:tb,what:"tr"})
             tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
                 inC = addEle({dad:tc,setClass:"contRow",alignItems:"center"})
-                    addEle({dad:inC,setClass:"btn",text:addEmo("❌","emoji red cross","memoX:"+idx),
-                    fontS:"10px",setID:"memoX:"+idx,setFunc:(e)=>{memoDel(e.srcElement.id)}})
-                    txt = "Delete<br>Memo"
-                    setInfoTip(getID("memoX:"+idx),"delMemoTip:"+idx,txt,-35,-8)
+
+                    let ttC = addEle({dad:inC,setClass:"tooltip-container"})
+                        addEle({dad:ttC,setClass:"btn",text:addEmo("❌","emoji red cross","memoX:"+idx),
+                        fontS:"10px",setID:"memoX:"+idx,setFunc:(e)=>{memoDel(e.srcElement.id)}})
+//                        txt = "Delete<br>Memo"
+//                        setInfoTip(getID("memoX:"+idx),"delMemoTip:"+idx,txt,-35,-8)
+                        addEle({dad:ttC,setClass:"tooltip-text",text:"Delete<br>Memo"})
 
                     addEle({dad:inC,what:"select",fontS:"12px",setID:"memoSelect:"+idx,padding:"5px",
                     backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white",
@@ -1688,9 +1706,12 @@ function buildTool(dad,itm,idx){
                     addEle({dad:inC1,text:"Lose : " + `<span id="lose:`+idx+`"> </span>`})
 
     if(userI.displayOptions.alternatePayouts){
-                addEle({dad:inC1,setClass:"btn",setID:"payoutBt:"+idx,text:"Payout : " + `<span id="payout:`+idx+`"> </span>`,
+
+            let ttC = addEle({dad:inC1,setClass:"tooltip-container"})
+                addEle({dad:ttC,setClass:"btn",setID:"payoutBt:"+idx,text:"Payout : " + `<span id="payout:`+idx+`"> </span>`,
                 setFunc:payOptions})
-                setInfoTip(getID("payoutBt:"+idx),"payoutBtTip:"+idx,"Alternate<br>Split Payout",-40,235)
+                //setInfoTip(getID("payoutBt:"+idx),"payoutBtTip:"+idx,"Alternate<br>Split Payout",-40,235)
+                addEle({dad:ttC,setClass:"tooltip-text",text:"Alternate<br>Split Payout"})
 
     } else {
                 addEle({dad:inC1,text:"Payout : " + `<span id="payout:`+idx+`"> </span>`})
@@ -1768,8 +1789,12 @@ function buildTool(dad,itm,idx){
 
                 inC = addEle({dad:expC,setClass:"contRow",justifyC:"center",alignItems:"center"})
                     addEle({dad:inC,text:"Use",setID:"stewBoxLb:"+idx,})
-                    addEle({dad:inC,what:"img",imgFullSrc:srcImgs+"mushroomstew.png",imgSize:20,margin:"0 5px",setID:"mush:"+idx})
-                    setInfoTip(getID("mush:"+idx),"mushT:"+idx,"Mushroom Stew",-20,-10)
+                    
+                    let ttC = addEle({dad:inC,setClass:"tooltip-container"})
+                        addEle({dad:ttC,what:"img",imgFullSrc:srcImgs+"mushroomstew.png",imgSize:25,margin:"0 5px",setID:"mush:"+idx})
+                        //setInfoTip(getID("mush:"+idx),"mushT:"+idx,"Mushroom Stew",-20,-10)
+                        addEle({dad:ttC,setClass:"tooltip-text",text:"Mushroom Stew"})
+
                     addEle({dad:inC,text:"(Exp Bonus)",setID:"stewBoxLb:"+idx,})
 
                     addEle({dad:inC,what:"checkbox",isInput:true,accentCol:green,setClass:"toggle-checkbox",
@@ -2038,7 +2063,7 @@ function setTradeValues(e){
 
 }
 
-
+/*
 function setInfoTip(refEl=undefined,id=undefined,msg="message",posTop=-30,posLeft=0){
     let dad = refEl.parentElement
     dad.style.position = "relative"
@@ -2052,6 +2077,7 @@ function setInfoTip(refEl=undefined,id=undefined,msg="message",posTop=-30,posLef
     })
     refEl.addEventListener("mouseout",()=>{getID(id).style.visibility = "hidden"})
 }
+*/
 
 function setWarnTip(refEl=undefined,id=undefined,msg="message",posTop=-30,posLeft=0){
     let dad = refEl.parentElement
@@ -2520,14 +2546,11 @@ function multiOfunc(){
                 getID("multiSet").innerHTML = e.srcElement.checked ? "Custom" : "Basic" 
                 let arr = getID("toggleMultiSet").checked ? userI.rateU : rateB
                 arr = arr.filter(it=>it.display === true)
-                console.log(arr)
 
                 let cpt=0
                 arr.forEach(rt=>{
                     if(rt.ind>cpt){cpt=rt.ind}
                 })
-
-                console.log(cpt)
 
                 for(let i=0;i<=cpt;i++){
                     let it = arr.filter(x=>x.ind===i)[0]
@@ -2563,17 +2586,19 @@ function multiOfunc(){
         subC = addEle({dad:cont,setClass:"contCol",marginT:"10px",maxHeight:"200px",overflowX:"hidden",setID:"multiFr"})
 
         subC = addEle({dad:cont,setClass:"contRow",marginT:"10px",alignItems:"center"})
-            addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross","multiMemoX"),
-            fontS:"10px",setID:"multiMemoX",backC:"teal",setFunc:()=>{
-                let obj = getID("multiMemoSelect")
-                if(obj.selectedIndex !== 0){
-                    userI.multiOrders.splice(obj.selectedIndex-1)
-                    loadSelectMulti()
-                }
-            }})
-            txt = "Delete<br>Memo"
-            setInfoTip(getID("multiMemoX"),"delMMemoTip",txt,-35,-8)
 
+            let ttC = addEle({dad:subC,setClass:"tooltip-container"})
+                addEle({dad:ttC,setClass:"btn",text:addEmo("❌","emoji red cross","multiMemoX"),
+                fontS:"10px",setID:"multiMemoX",backC:"teal",setFunc:()=>{
+                    let obj = getID("multiMemoSelect")
+                    if(obj.selectedIndex !== 0){
+                        userI.multiOrders.splice(obj.selectedIndex-1)
+                        loadSelectMulti()
+                    }
+                }})
+    //            txt = "Delete<br>Memo"
+    //          setInfoTip(getID("multiMemoX"),"delMMemoTip",txt,-35,-8)
+                addEle({dad:ttC,setClass:"tooltip-text",text:"Delete<br>Memo",fontS:"13px"})
 
             addEle({dad:subC,what:"select",fontS:"12px",setID:"multiMemoSelect",padding:"5px",
             backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white",
