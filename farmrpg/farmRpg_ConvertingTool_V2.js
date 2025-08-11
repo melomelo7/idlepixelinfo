@@ -361,13 +361,15 @@ function setPage(){
     
 
     contR = addEle({dad:body,setClass:"contRow",margin:"20px 10px 10px 10px",alignItems:"center"})
-        addEle({dad:contR,what:"img",imgFullSrc:srcImgs+"raptoregg.png",imgSize:30,marginR:"5px",imgAlt:"Raptor Egg image",mirror:true})
+        let txt = "https://farmrpg.com/img/mailboxes/mailbox12.png" 
+        addEle({dad:contR,what:"img",imgFullSrc:txt,imgSize:50,marginL:"5px", imgAlt:"Hatched Raptor Egg image",mirror:true})
+//        addEle({dad:contR,what:"img",imgFullSrc:srcImgs+"raptoregg.png",imgSize:30,marginR:"5px",imgAlt:"Raptor Egg image",mirror:true})
         addEle({dad:contR,what:"select",fontS:"16px",setID:"settingsSelect",padding:"5px",
         backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white",
         setFunc:userSettingPick})
         settingsArr.forEach(itm=>{addEle({dad:getID("settingsSelect"),what:"option",text:itm})})
-        addEle({dad:contR,what:"img",imgFullSrc:srcImgs+"raptoregg.png",imgSize:30,marginL:"5px", imgAlt:"Raptor Egg image"})
-
+//      addEle({dad:contR,what:"img",imgFullSrc:srcImgs+"raptoregg.png",imgSize:30,marginL:"5px", imgAlt:"Raptor Egg image"})
+        addEle({dad:contR,what:"img",imgFullSrc:txt,imgSize:50,marginL:"5px", imgAlt:"Hatched Raptor Egg image"})
 
     let settingsFr = addEle({dad:body,setClass:"contCol",padding:"5px",width:"100%"})
 
@@ -2795,3 +2797,4 @@ function calcMultiAmt(){
 loadSav()
 
 setPage()
+
