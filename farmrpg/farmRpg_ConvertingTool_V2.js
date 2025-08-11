@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 08/11 09:00
+Last up 2025 08/11 20:00
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -1362,6 +1362,7 @@ function updateInvProdMM(e,info){
                 getID(txt+"G").innerHTML = addEmo("✅","emoji green OK sign")
                 cpt++
                 userI.resSaver = Number(getID(txt).value)
+                userI.resCraft = 1+(userI.resSaver/100)
             }            
         } else {getID(txt+"G").innerHTML = addEmo("⛔","emoji prohibited sign")}
     
@@ -2792,4 +2793,5 @@ function calcMultiAmt(){
 }
 
 loadSav()
+
 setPage()
