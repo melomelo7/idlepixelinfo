@@ -1245,17 +1245,17 @@ function userUpdate(){
                 cpt++
             })
 
-            addEle({dad:frm,text:"Owned / Used Artifacts",textA:"center",border:"teal solid 2px",marginT:"10px",
+            addEle({dad:frm,text:"Owned / Used Artifacts perks",textA:"center",border:"teal solid 2px",marginT:"10px",
             backC:"rgb(45, 88, 128)"})
             subC = addEle({dad:frm,setClass:"contRow",marginT:"10px",alignItems:"center"})
-                addEle({dad:subC,what:"img",imgFullSrc:srcImgs+"615.png",imgSize:20,margin:"0 20px",imgAlt:"Tree Shaker artifact icon"})
+                addEle({dad:subC,what:"img",imgFullSrc:srcImgs+"615.png",imgSize:20,margin:"0 20px",imgAlt:"Spring Bangle artifact icon"})
                 addEle({dad:subC,text:spanText("yellow","Tree Shaker")+" (T170)",margin:"0 5px",minWidth:"160px"})
                 addEle({dad:subC,what:"checkbox",isInput:true,setID:"toggleArti1",setClass:"toggle-checkbox"
                 ,setFunc:reviewProductionChg})
                 addEle({dad:subC,what:"label",setFor:"toggleArti1",setClass:"toggle-label"})
 
             subC = addEle({dad:frm,setClass:"contRow",marginT:"10px",alignItems:"center",borderB:"teal solid 2px",paddingB:"10px"})
-                addEle({dad:subC,what:"img",imgFullSrc:srcImgs+"3320.png",imgSize:20,margin:"0 20px",imgAlt:"Antler Snare artifact icon"})
+                addEle({dad:subC,what:"img",imgFullSrc:srcImgs+"3320.png",imgSize:20,margin:"0 20px",imgAlt:"Serpent of Trym artifact icon"})
                 addEle({dad:subC,text:spanText("yellow","Antler Snare")+" (T160)",margin:"0 5px",minWidth:"160px"})
                 addEle({dad:subC,what:"checkbox",isInput:true,setID:"toggleArti2",setClass:"toggle-checkbox"
                 ,setFunc:reviewProductionChg})
