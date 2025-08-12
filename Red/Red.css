@@ -19,10 +19,40 @@ body {
     flex-direction: column;
 }
 
+#intro {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3em;
+    color: red;
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+    animation: bloodFade 4s forwards;
+  }
+
+  @keyframes bloodFade {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+.select {
+    background-color: black;
+    color: #8A0303;
+    border: 2px solid #5A0000;
+    border-radius: 5px;
+    padding: 5px;
+  }
+
 .btn {
-    border:rgb(212, 212, 74) solid 2px;
-    background-color: rgb(45, 88, 128);
-    color: white;
+    border:#8A0303 solid 2px;
+
+    background-color: black;
+    color: rgb(187, 181, 181);
     border-radius: 5px;
     padding: 3px;
     margin: 5px;
@@ -41,6 +71,61 @@ body {
 .btn:hover{
     opacity: 0.8;
 }
+
+.prog-cont{
+    width: 300px;
+    height: 20px;
+    background-color: #ccc;
+    margin: 10px 0;
+    position: relative;
+}
+
+.prog-bar{
+    height: 100%;
+    width: 0;
+    background-color: #4caf50;
+}
+
+.prog-logs{
+    margin-top: 20px;
+    height: 150px;
+    overflow-y: auto;
+    border: 1px solid #999;
+    padding: 10px;
+    color: rgb(127, 224, 224);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .arrowToggler{
     border:rgb(212, 212, 74) solid 2px;
@@ -176,32 +261,3 @@ body {
 
 
 
-  #intro {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 3em;
-    color: red;
-    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
-    animation: bloodFade 4s forwards;
-  }
-
-  @keyframes bloodFade {
-    0% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-      visibility: hidden;
-    }
-  }
-
-
-.select {
-    background-color: black;
-    color: #8A0303;
-    border: 2px solid #5A0000;
-    border-radius: 5px;
-    padding: 5px;
-  }

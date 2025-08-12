@@ -330,6 +330,7 @@ function lockScroll(lock=true){
 function simpleMsg(msg,setFunc=""){
 
     let pop = getDialogTopFrame()
+    pop.setAttribute("id","msgPop")
 
     let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content"})
 
