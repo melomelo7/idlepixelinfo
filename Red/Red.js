@@ -1,11 +1,11 @@
 const body = document.querySelector("body")
 const loadT = 4000 
 
-last = `
+let last = `
 14/08/2025 21:07
 `
 
-addEle({dad:body,text:localStorage,margin:"10px"})
+addEle({dad:body,text:last,margin:"10px"})
 
 addEle({dad:body,setClass:"contRow",setID:"topLine"})
     const statsCont = addEle({dad:getID("topLine"),setClass:"contCol",margin:"10px"})
