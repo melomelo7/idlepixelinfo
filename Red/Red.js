@@ -1,6 +1,12 @@
 const body = document.querySelector("body")
 const loadT = 4000 
 
+last = `
+14/08/2025 21:07
+`
+
+addEle({dad:body,text:localStorage,margin:"10px"})
+
 addEle({dad:body,setClass:"contRow",setID:"topLine"})
     const statsCont = addEle({dad:getID("topLine"),setClass:"contCol",margin:"10px"})
     const actionsCont = addEle({dad:getID("topLine"),margin:"0 10px"})
@@ -21,6 +27,7 @@ let player = {
         {lbl:"Strength",disp:false,val:2},
         {lbl:"Protection",disp:false,val:1},
         {lbl:"Speed",disp:false,val:300},
+        {lbl:"Accuracy",disp:false,val:0.5}
     ],
     skills:[{lbl:"Hunting",lvl:0,next:10,inc:1}],
     actions:["-- Actions --","Hunt"],
@@ -28,8 +35,8 @@ let player = {
 }
 
 let animals = [
-    {lbl:"Rat"   ,hp:5 ,prot:1,exp:2,spd:400,atk:[{lbl:"Infectious* Bite",dmg:"1~3"}]},
-    {lbl:"Rabbit",hp:10,prot:1,exp:3,spd:200,atk:[{lbl:"Bite",dmg:"2"},{lbl:"Kick",dmg:"2~3"}],}
+    {lbl:"Rat"   ,hp:5,accuracy:0.5,prot:1,exp:2,spd:400,atk:[{lbl:"Infectious* Bite",dmg:"1~3"}]},
+    {lbl:"Rabbit",hp:8,accuracy:0.6,prot:1,exp:3,spd:200,atk:[{lbl:"Bite",dmg:"2"},{lbl:"Kick",dmg:"2~3"}],}
 ]
 
 let locations = [
@@ -218,3 +225,15 @@ setBack()
 
 console.log(player)
 
+/*
+let endv = 5
+for(let i=0;i<endv;i++){
+    let thisV1 = testHit(getStat("Accuracy").val)
+    let thisV2 = testHit(animals[0].accuracy)
+    let thisV3 = testHit(animals[1].accuracy)
+    let txt = "player>"+thisV1.hit+"<"+thisV1.rnd.toFixed(2)
+    txt += " -- Rat>"+thisV2.hit+"<"+thisV2.rnd.toFixed(2)
+    txt += " -- Rabbit>"+thisV3.hit+"<"+thisV3.rnd.toFixed(2)
+    console.log(txt)
+}
+*/

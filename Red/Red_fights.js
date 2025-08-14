@@ -15,8 +15,10 @@ function startFight(workC,enemies){
       border:"solid 2px #8A0303",marginR:"5px",radius:"10px",minWidth:minFrW+"px"})
       let E_Cont = addEle({dad:fork,setClass:"contCol",padding:"10px",
       border:"solid 2px #8A0303",radius:"10px",minWidth:minFrW+"px"})
-    
-
+/*
+      addEle({dad:P_Cont,what:"img",imgFullSrc:"./imgs/sword.jpg",imgSize:24,backC:"black"})
+      addEle({dad:P_Cont,what:"img",imgFullSrc:"./imgs/shield.jpg",imgSize:24,backC:"black"})
+*/
       let nbCol = "rgb(127, 224, 224)"
       let stat = getStat("Strength")
       let txt = "You<br>"+addEmo("⚔️","emoji of swords")+spanText(nbCol,stat.val)+" | " 
@@ -33,17 +35,25 @@ function startFight(workC,enemies){
 addEmo()
 
       enemies.forEach(en=>{
-        console.log(en)
-        let itm = animals.filter(x=>x.lbl === en.lbl)[0]
-        let txt = itm.lbl+ "<br>"+addEmo("⚔️","emoji of swords") + spanText(nbCol,getFDR(itm)) 
-        txt += " | " + addEmo("🛡️","emoji of a shield") + spanText(nbCol,itm.prot) + " )"
-        addEle({dad:E_Cont,text:txt,borderB:"solid 2px #8A0303",textA:"center"})
-        
-
+          console.log(en)
+          let itm = animals.filter(x=>x.lbl === en.lbl)[0]
+          let txt = itm.lbl+ "<br>"+addEmo("⚔️","emoji of swords") + spanText(nbCol,getFDR(itm)) 
+          txt += " | " + addEmo("🛡️","emoji of a shield") + spanText(nbCol,itm.prot) + " )"
+          addEle({dad:E_Cont,text:txt,borderB:"solid 2px #8A0303",textA:"center"})
+          subC = addEle({dad:E_Cont,setClass:"contRow",marginT:"10px",justifyC:"center"})
+            addEle({dad:subC,text:"HP : ",marginR:"5px",textA:"right"})
+            addEle({dad:subC,text:itm.hp,setID:"hpPlayer",textC:nbCol})
 
       })
 
 
+}
+
+
+function testHit(accuracy){
+    let rnd = Math.random()
+    let hit = rnd <= accuracy ? true : false
+    return {rnd:rnd,hit:hit}
 }
 
 function getFDR(itm){ // getFullDmgRange
