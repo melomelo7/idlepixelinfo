@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 08/16 22:15
+Last up 2025 08/16 22:40
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -2281,8 +2281,17 @@ function convertProject(e){
                 let el = e.srcElement
                 if(testNum(el.value)){
                     let invItm = Number(el.value)
-                    getID("projectionRes").innerHTML =convertProjectLooper(itm,itmSrc,invItm).toLocaleString()
-                    getID("projectionRes2").innerHTML = maxConvertingAnal(itm,invItm)
+                    let form1 = convertProjectLooper(itm,itmSrc,invItm)
+                    let form2 = maxConvertingAnal(itm,invItm)
+                    getID("projectionRes").innerHTML = form1.toLocaleString()
+                    getID("projectionRes2").innerHTML = form2.toLocaleString()
+                    if(form1 && form2){
+                        getID("projectionRes3").innerHTML = ((form1 + form2)/2).toLocaleString()
+                    } else {
+                        if(!form1){getID("projectionRes3").innerHTML = "Error in Formula 1"}
+                        if(!form2){getID("projectionRes3").innerHTML = "Error in Formula 1"}
+                    }
+
                 } else {getID("projectionRes").innerHTML = spanText(purple,"---")}
             }})
             addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img2,imgSize:25})
@@ -2299,6 +2308,12 @@ function convertProject(e){
             addEle({dad:cont,text:"Inventory :",margin:"0 10px",setID:"projectionRes2",
             text:spanText(purple,"---"),textA:"center"})
             addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img1,imgSize:25})
+
+        cont = addEle({dad:pop,setClass:"contRow",alignItems:"center",marginT:"10px"})
+            addEle({dad:cont,text:"Inventory :",margin:"0 10px",setID:"projectionRes3",
+            text:spanText(purple,"---"),textA:"center"})
+            addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img1,imgSize:25})
+
 ////////////
 
 
@@ -2320,7 +2335,7 @@ function maxConvertingAnal(itm,invQt){
     let recipeInputItems = undefined
     switch(itm.type){
         case outputs[0].type : case outputs[1].type : recipeInputItems = 6 ; break
-        case outputs[2].type : recipeInputItems = (6*20) ; break
+        case outputs[2].type : recipeInputItems = (6*20/resourceSaverBonus) ; break
         case outputs[3].type : recipeInputItems = 20 ; break
         case outputs[4].type : recipeInputItems = 25 ; break
         case outputs[5].type : recipeInputItems = 40 ; break
@@ -2328,7 +2343,7 @@ function maxConvertingAnal(itm,invQt){
     }
     let convertMax = Math.floor(numInput/((rateMul/rateDiv) - (resourceSaverBonus/recipeInputItems)))
 
-    return(convertMax.toLocaleString())
+    return convertMax
 }
 
 
