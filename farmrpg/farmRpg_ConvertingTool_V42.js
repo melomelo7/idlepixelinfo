@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 08/16 22:40
+Last up 2025 08/16 22:45
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -2286,7 +2286,7 @@ function convertProject(e){
                     getID("projectionRes").innerHTML = form1.toLocaleString()
                     getID("projectionRes2").innerHTML = form2.toLocaleString()
                     if(form1 && form2){
-                        getID("projectionRes3").innerHTML = ((form1 + form2)/2).toLocaleString()
+                        getID("projectionRes3").innerHTML = (Math.floor((form1 + form2)/2)).toLocaleString()
                     } else {
                         if(!form1){getID("projectionRes3").innerHTML = "Error in Formula 1"}
                         if(!form2){getID("projectionRes3").innerHTML = "Error in Formula 1"}
