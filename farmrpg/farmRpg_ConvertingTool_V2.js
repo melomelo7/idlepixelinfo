@@ -893,8 +893,11 @@ function swapUD(e,di){
         newA[i].ind = i
     }
 
+    userI.rateU = newA
+    
     let ev = new Event("change") ; getID("toggleRate").dispatchEvent(ev)
     setTools()
+    savUserI()
 }
 
 function blastRate(e){
@@ -2797,4 +2800,5 @@ function calcMultiAmt(){
 loadSav()
 
 setPage()
+
 
