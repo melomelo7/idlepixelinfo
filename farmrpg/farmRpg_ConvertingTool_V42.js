@@ -5,7 +5,7 @@ const srcImgs = "https://farmrpg.com/img/items/"
 
 let lnk = undefined
 
-let purple = "rgb(185, 76, 185)"//"rgb(226, 72, 226)"
+let purple = "rgb(185, 76, 185)"
 let green = "rgb(18, 184, 18)"
 let yellow = "rgb(184, 184, 27)"
 let brown = "rgb(160, 107, 9)"
@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 08/11 08:30
+Last up 2025 08/16 22:15
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -327,7 +327,6 @@ function loadSav(){
         }
     }
 
-//    console.log(userI.rateU)
 }
 
 function infoBox(info,txtCol="",closeFunc=undefined){
@@ -362,13 +361,15 @@ function setPage(){
     
 
     contR = addEle({dad:body,setClass:"contRow",margin:"20px 10px 10px 10px",alignItems:"center"})
-        addEle({dad:contR,what:"img",imgFullSrc:srcImgs+"raptoregg.png",imgSize:30,marginR:"5px",imgAlt:"Raptor Egg image",mirror:true})
+        let txt = "https://farmrpg.com/img/mailboxes/mailbox12.png" 
+        addEle({dad:contR,what:"img",imgFullSrc:txt,imgSize:50,marginL:"5px", imgAlt:"Hatched Raptor Egg image",mirror:true})
+//        addEle({dad:contR,what:"img",imgFullSrc:srcImgs+"raptoregg.png",imgSize:30,marginR:"5px",imgAlt:"Raptor Egg image",mirror:true})
         addEle({dad:contR,what:"select",fontS:"16px",setID:"settingsSelect",padding:"5px",
         backC:"teal",border:"rgb(212, 212, 74) solid 2px",radius:"5px",textC:"white",
         setFunc:userSettingPick})
         settingsArr.forEach(itm=>{addEle({dad:getID("settingsSelect"),what:"option",text:itm})})
-        addEle({dad:contR,what:"img",imgFullSrc:srcImgs+"raptoregg.png",imgSize:30,marginL:"5px", imgAlt:"Raptor Egg image"})
-
+//      addEle({dad:contR,what:"img",imgFullSrc:srcImgs+"raptoregg.png",imgSize:30,marginL:"5px", imgAlt:"Raptor Egg image"})
+        addEle({dad:contR,what:"img",imgFullSrc:txt,imgSize:50,marginL:"5px", imgAlt:"Hatched Raptor Egg image"})
 
     let settingsFr = addEle({dad:body,setClass:"contCol",padding:"5px",width:"100%"})
 
@@ -892,8 +893,11 @@ function swapUD(e,di){
         newA[i].ind = i
     }
 
+    userI.rateU = newA
+    
     let ev = new Event("change") ; getID("toggleRate").dispatchEvent(ev)
     setTools()
+    savUserI()
 }
 
 function blastRate(e){
@@ -1246,17 +1250,17 @@ function userUpdate(){
                 cpt++
             })
 
-            addEle({dad:frm,text:"Owned / Used Artifacts",textA:"center",border:"teal solid 2px",marginT:"10px",
+            addEle({dad:frm,text:"Owned / Used Artifacts perks",textA:"center",border:"teal solid 2px",marginT:"10px",
             backC:"rgb(45, 88, 128)"})
             subC = addEle({dad:frm,setClass:"contRow",marginT:"10px",alignItems:"center"})
-                addEle({dad:subC,what:"img",imgFullSrc:srcImgs+"615.png",imgSize:20,margin:"0 20px",imgAlt:"Tree Shaker artifact icon"})
+                addEle({dad:subC,what:"img",imgFullSrc:srcImgs+"615.png",imgSize:20,margin:"0 20px",imgAlt:"Spring Bangle artifact icon"})
                 addEle({dad:subC,text:spanText("yellow","Tree Shaker")+" (T170)",margin:"0 5px",minWidth:"160px"})
                 addEle({dad:subC,what:"checkbox",isInput:true,setID:"toggleArti1",setClass:"toggle-checkbox"
                 ,setFunc:reviewProductionChg})
                 addEle({dad:subC,what:"label",setFor:"toggleArti1",setClass:"toggle-label"})
 
             subC = addEle({dad:frm,setClass:"contRow",marginT:"10px",alignItems:"center",borderB:"teal solid 2px",paddingB:"10px"})
-                addEle({dad:subC,what:"img",imgFullSrc:srcImgs+"3320.png",imgSize:20,margin:"0 20px",imgAlt:"Antler Snare artifact icon"})
+                addEle({dad:subC,what:"img",imgFullSrc:srcImgs+"3320.png",imgSize:20,margin:"0 20px",imgAlt:"Serpent of Trym artifact icon"})
                 addEle({dad:subC,text:spanText("yellow","Antler Snare")+" (T160)",margin:"0 5px",minWidth:"160px"})
                 addEle({dad:subC,what:"checkbox",isInput:true,setID:"toggleArti2",setClass:"toggle-checkbox"
                 ,setFunc:reviewProductionChg})
@@ -1363,6 +1367,7 @@ function updateInvProdMM(e,info){
                 getID(txt+"G").innerHTML = addEmo("✅","emoji green OK sign")
                 cpt++
                 userI.resSaver = Number(getID(txt).value)
+                userI.resCraft = 1+(userI.resSaver/100)
             }            
         } else {getID(txt+"G").innerHTML = addEmo("⛔","emoji prohibited sign")}
     
@@ -1529,7 +1534,7 @@ function buildTool(dad,itm,idx){
                     }})
                     let srcA = userI.currentSet === "Basic" ? rateB : userI.rateU
                     addEle({dad:inC2,text:addEmo("👀","eyes looking to the right","",true)+srcA.filter(x=>x.display).length+
-                    "/"+srcA.length,marginL:"-5px"})//let inC = addEle({dad:tc,setClass:"contRow",alignItems:"center",})
+                    "/"+srcA.length,marginL:"-5px"})
 
 
             addEle({dad:inC,setClass:"btn",text:"Reset",setID:"reset:"+idx,height:"fit-content",setFunc:(e)=>{
@@ -1547,7 +1552,6 @@ function buildTool(dad,itm,idx){
                     addEle({dad:ham,setClass:"line2",setFunc:multiOfunc})
                     addEle({dad:ham,setClass:"line3",setFunc:multiOfunc})
                 addEle({dad:ttC,setClass:"tooltip-text",text:"Multi<br>Orders"})
-//            setInfoTip(getID("hamBtn:"+idx),"hamBtnT:"+idx,"Multi<br>Orders",-40,266)
 
         tr = addEle({dad:tb,what:"tr"})
             tc = addEle({dad:tr,what:"td",border:"solid teal 2px",colSpan:2})
@@ -1562,20 +1566,17 @@ function buildTool(dad,itm,idx){
                   let ttC = addEle({dad:inC,setClass:"tooltip-container",alignItems:"center"})
   
                     addEle({dad:ttC,text:"Advertise",marginR:"5px",padding:"5px 8px",setID:"advT:"+idx})
-    //                setInfoTip(getID("advT:"+idx),"advTtip:"+idx,"Advertise in Chat",-25,10)
 
                     addEle({dad:ttC,what:"checkbox",isInput:true,accentCol:green,setName:"advertise",setClass:"toggle-checkbox",
                     setID:"adv:"+idx,setFunc:(e)=>{itm.advertising = e.srcElement.checked ? true : false ; advertising()}})
                     addEle({dad:ttC,what:"label",setFor:"adv:"+idx,setClass:"toggle-label",setID:"advL:"+idx})
                     if(itm.advertising){getID("adv:"+idx).checked=true ; let ev = new Event("change") ; getID("adv:"+idx).dispatchEvent(ev) }
-      //              setInfoTip(getID("advL:"+idx),"advTip:"+idx,"Advertise in Chat",-25,10)
                   addEle({dad:ttC,setClass:"tooltip-text",text:"Advertise in Chat"})
 
                 inC = addEle({dad:cr,setClass:"contRow"})
                   ttC = addEle({dad:inC,setClass:"tooltip-container",alignItems:"center"})
 
                     addEle({dad:ttC,text:"Estimate Max",marginR:"5px",padding:"5px 8px",setID:"ECT:"+idx})
-//                    setInfoTip(getID("ECT:"+idx),"ECTtip:"+idx,"Estimate conversion",-25,25)
 
                     txt = outputs.filter(it=>it.type===itm.type)[0]
                     let subC = addEle({dad:ttC,setClass:"btn",padding:"0",display:"flex",flDir:"row",
@@ -1585,7 +1586,6 @@ function buildTool(dad,itm,idx){
                         addEle({dad:subC,text:"?",margin:"0 5px",setID:"convertProTxt:"+idx})
                         addEle({dad:subC,what:"img",imgFullSrc:srcImgs+txt.img1,imgSize:20,
                         setID:"convertProImg2:"+idx,imgAlt:txt.chat1})
-//                    setInfoTip(getID("convertProBtn:"+idx),"convTip:"+idx,"Estimate conversion",-25,25)
                   addEle({dad:ttC,setClass:"tooltip-text",text:"Estimate conversion"})
     }
 
@@ -1607,7 +1607,6 @@ function buildTool(dad,itm,idx){
                     getID("farmerG:"+idx).innerHTML = addEmo("✅","emoji green OK sign")
                     setTimeout(() => {getID("farmerG:"+idx).innerHTML = ""}, 2000);
                 }})
-                //setInfoTip(getID("ping:"+idx),"pingTip:"+idx,"Copy Name",-25,130)
                 addEle({dad:ttC,setClass:"tooltip-text",text:"Copy Name"})
 
             addEle({dad:inC,setID:"info:"+idx})
@@ -1678,8 +1677,6 @@ function buildTool(dad,itm,idx){
                     let ttC = addEle({dad:inC,setClass:"tooltip-container"})
                         addEle({dad:ttC,setClass:"btn",text:addEmo("❌","emoji red cross","memoX:"+idx),
                         fontS:"10px",setID:"memoX:"+idx,setFunc:(e)=>{memoDel(e.srcElement.id)}})
-//                        txt = "Delete<br>Memo"
-//                        setInfoTip(getID("memoX:"+idx),"delMemoTip:"+idx,txt,-35,-8)
                         addEle({dad:ttC,setClass:"tooltip-text",text:"Delete<br>Memo"})
 
                     addEle({dad:inC,what:"select",fontS:"12px",setID:"memoSelect:"+idx,padding:"5px",
@@ -1712,7 +1709,6 @@ function buildTool(dad,itm,idx){
             let ttC = addEle({dad:inC1,setClass:"tooltip-container"})
                 addEle({dad:ttC,setClass:"btn",setID:"payoutBt:"+idx,text:"Payout : " + `<span id="payout:`+idx+`"> </span>`,
                 setFunc:payOptions})
-                //setInfoTip(getID("payoutBt:"+idx),"payoutBtTip:"+idx,"Alternate<br>Split Payout",-40,235)
                 addEle({dad:ttC,setClass:"tooltip-text",text:"Alternate<br>Split Payout"})
 
     } else {
@@ -1781,7 +1777,7 @@ function buildTool(dad,itm,idx){
 
                 inC = addEle({dad:cont,setClass:"contRow",justifyC:"center",alignItems:"center",})
         
-                    addEle({dad:inC,text:"Eval. reaching MM",textA:"center",})//marginT:"5px"
+                    addEle({dad:inC,text:"Eval. reaching MM",textA:"center",})
 
                     txt = "(current exp ratio :"+`<span id="xpRatio:`+idx+`"></span>`+")"
                     addEle({dad:inC,text:txt,marginL:"5px"})
@@ -1794,7 +1790,6 @@ function buildTool(dad,itm,idx){
                     
                     let ttC = addEle({dad:inC,setClass:"tooltip-container"})
                         addEle({dad:ttC,what:"img",imgFullSrc:srcImgs+"mushroomstew.png",imgSize:25,margin:"0 5px",setID:"mush:"+idx})
-                        //setInfoTip(getID("mush:"+idx),"mushT:"+idx,"Mushroom Stew",-20,-10)
                         addEle({dad:ttC,setClass:"tooltip-text",text:"Mushroom Stew"})
 
                     addEle({dad:inC,text:"(Exp Bonus)",setID:"stewBoxLb:"+idx,})
@@ -2065,22 +2060,6 @@ function setTradeValues(e){
 
 }
 
-/*
-function setInfoTip(refEl=undefined,id=undefined,msg="message",posTop=-30,posLeft=0){
-    let dad = refEl.parentElement
-    dad.style.position = "relative"
-
-    addEle({dad:dad,setID:id,what:"span",visibility:"hidden",backC:"#333",textC:"#fff",
-    padding:"5px 8px",radius:"6px",fontS:"14px",position:"absolute",textA:"center",text:msg,
-    top:posTop+"px",left:posLeft+"px",whiteSpace:"nowrap"})
-
-    refEl.addEventListener("mouseover",()=>{
-        if(getID(id).style.visibility === "hidden"){getID(id).style.visibility = "visible"}
-    })
-    refEl.addEventListener("mouseout",()=>{getID(id).style.visibility = "hidden"})
-}
-*/
-
 function setWarnTip(refEl=undefined,id=undefined,msg="message",posTop=-30,posLeft=0){
     let dad = refEl.parentElement
     dad.style.position = "relative"
@@ -2303,6 +2282,7 @@ function convertProject(e){
                 if(testNum(el.value)){
                     let invItm = Number(el.value)
                     getID("projectionRes").innerHTML =convertProjectLooper(itm,itmSrc,invItm).toLocaleString()
+                    getID("projectionRes2").innerHTML = maxConvertingAnal(itm,invItm)
                 } else {getID("projectionRes").innerHTML = spanText(purple,"---")}
             }})
             addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img2,imgSize:25})
@@ -2314,6 +2294,14 @@ function convertProject(e){
             text:spanText(purple,"---"),textA:"center"})
             addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img1,imgSize:25})
 
+/////////////
+        cont = addEle({dad:pop,setClass:"contRow",alignItems:"center",marginT:"10px"})
+            addEle({dad:cont,text:"Inventory :",margin:"0 10px",setID:"projectionRes2",
+            text:spanText(purple,"---"),textA:"center"})
+            addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img1,imgSize:25})
+////////////
+
+
         addEle({dad:pop,text:spanText(green,"*Estimate only, not 100% accurate"),
         borderT:"dotted 2px teal",marginT:"10px",paddingT:"10px"})
 
@@ -2323,6 +2311,26 @@ function convertProject(e){
     pop.showModal()
     lockScroll()
 }
+
+function maxConvertingAnal(itm,invQt){
+    let numInput = invQt
+    let rateMul = Number(itm.rate.split(":")[1])
+    let rateDiv = Number(itm.rate.split(":")[0])
+    let resourceSaverBonus = userI.resCraft
+    let recipeInputItems = undefined
+    switch(itm.type){
+        case outputs[0].type : case outputs[1].type : recipeInputItems = 6 ; break
+        case outputs[2].type : recipeInputItems = (6*20) ; break
+        case outputs[3].type : recipeInputItems = 20 ; break
+        case outputs[4].type : recipeInputItems = 25 ; break
+        case outputs[5].type : recipeInputItems = 40 ; break
+        default:console.log("Error Input in formula Function : maxConvertingAnal")
+    }
+    let convertMax = Math.floor(numInput/((rateMul/rateDiv) - (resourceSaverBonus/recipeInputItems)))
+
+    return(convertMax.toLocaleString())
+}
+
 
 function convertProjectLooper(itm, itmSrc,invQt){
     let cpt = 0
@@ -2559,8 +2567,6 @@ function multiOfunc(){
                     if(it){
                         buildRate(it,workC,it.ind,"solid teal 2px",5,"multPop","multiAmt:"+it.ind)                        
                     }
-//                    let it = arr.filter(x=>x.ind === i)[0]
-//                    buildRate(it,workC,it.ind,"solid teal 2px",5,"multPop","multiAmt:"+it.ind)
                 }
 
                 getID("toggleCurrRate").checked = getID("toggleMultiSet").checked
@@ -2598,8 +2604,6 @@ function multiOfunc(){
                         loadSelectMulti()
                     }
                 }})
-    //            txt = "Delete<br>Memo"
-    //          setInfoTip(getID("multiMemoX"),"delMMemoTip",txt,-35,-8)
                 addEle({dad:ttC,setClass:"tooltip-text",text:"Delete<br>Memo",fontS:"13px"})
 
             addEle({dad:subC,what:"select",fontS:"12px",setID:"multiMemoSelect",padding:"5px",
@@ -2823,4 +2827,8 @@ function calcMultiAmt(){
 }
 
 loadSav()
+
 setPage()
+
+
+
