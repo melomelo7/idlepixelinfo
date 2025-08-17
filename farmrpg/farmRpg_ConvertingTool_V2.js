@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 08/11 20:00
+Last up 2025 08/17 20:00
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -50,7 +50,7 @@ new option of quick window.<br>( see the top of every tool where you can click [
 
 let lemonConv = `
 Lemon converting is 2 options being LEMONADE or AP...<br><br>
-Lemonades represens a loss for yourself of 27% while
+Lemonades represents a loss for yourself of 27% while
 AP represents 47% (with old standard 30:1 ratio)<br>
 This is huge and in my Opinion, evolution should happen.
 I suggest you go for 35:1 (38% loss) anytime possible unless if your
@@ -2281,7 +2281,23 @@ function convertProject(e){
                 let el = e.srcElement
                 if(testNum(el.value)){
                     let invItm = Number(el.value)
-                    getID("projectionRes").innerHTML =convertProjectLooper(itm,itmSrc,invItm).toLocaleString()
+                    let form1 = convertProjectLooper(itm,itmSrc,invItm)
+                    let form2 = maxConvertingAnal(itm,invItm)
+//                    getID("projectionRes").innerHTML = form1.toLocaleString()
+  //                  getID("projectionRes2").innerHTML = form2.toLocaleString()
+                    if(form1 && form2){
+                        getID("projectionRes").innerHTML = (Math.floor((form1 + form2)/2)).toLocaleString()
+                    } else {
+                        if(!form1){
+                            getID("projectionRes").innerHTML = form2.toLocaleString()
+                            console.log("Error in Formula 1")
+                        }
+                        if(!form2){
+                            getID("projectionRes").innerHTML = form1.toLocaleString()
+                            console.log("Error in Formula 2")
+                        }
+                    }
+
                 } else {getID("projectionRes").innerHTML = spanText(purple,"---")}
             }})
             addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img2,imgSize:25})
@@ -2293,6 +2309,21 @@ function convertProject(e){
             text:spanText(purple,"---"),textA:"center"})
             addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img1,imgSize:25})
 
+            /*
+/////////////
+        cont = addEle({dad:pop,setClass:"contRow",alignItems:"center",marginT:"10px"})
+            addEle({dad:cont,text:"Inventory :",margin:"0 10px",setID:"projectionRes2",
+            text:spanText(purple,"---"),textA:"center"})
+            addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img1,imgSize:25})
+
+        cont = addEle({dad:pop,setClass:"contRow",alignItems:"center",marginT:"10px"})
+            addEle({dad:cont,text:"Inventory :",margin:"0 10px",setID:"projectionRes3",
+            text:spanText(purple,"---"),textA:"center"})
+            addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img1,imgSize:25})
+
+////////////
+*/
+
         addEle({dad:pop,text:spanText(green,"*Estimate only, not 100% accurate"),
         borderT:"dotted 2px teal",marginT:"10px",paddingT:"10px"})
 
@@ -2302,6 +2333,26 @@ function convertProject(e){
     pop.showModal()
     lockScroll()
 }
+
+function maxConvertingAnal(itm,invQt){
+    let numInput = invQt
+    let rateMul = Number(itm.rate.split(":")[1])
+    let rateDiv = Number(itm.rate.split(":")[0])
+    let resourceSaverBonus = userI.resCraft
+    let recipeInputItems = undefined
+    switch(itm.type){
+        case outputs[0].type : case outputs[1].type : recipeInputItems = 6 ; break
+        case outputs[2].type : recipeInputItems = (6*20/resourceSaverBonus) ; break
+        case outputs[3].type : recipeInputItems = 20 ; break
+        case outputs[4].type : recipeInputItems = 25 ; break
+        case outputs[5].type : recipeInputItems = 40 ; break
+        default:console.log("Error Input in formula Function : maxConvertingAnal")
+    }
+    let convertMax = Math.floor(numInput/((rateMul/rateDiv) - (resourceSaverBonus/recipeInputItems)))
+
+    return convertMax
+}
+
 
 function convertProjectLooper(itm, itmSrc,invQt){
     let cpt = 0
@@ -2800,5 +2851,6 @@ function calcMultiAmt(){
 loadSav()
 
 setPage()
+
 
 
