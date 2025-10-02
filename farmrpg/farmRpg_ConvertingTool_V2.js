@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2025 08/17 20:00
+Last up 2025 10/02 20:30
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -203,6 +203,14 @@ function round5(val){
         }
     }
     return rVal
+}
+
+function cleanName(e){
+    let src = e.srcElement
+    let txt = src.value
+    txt = txt.replace("@","")
+    txt = txt.replace(":","")
+    src.value = txt
 }
 
 function calcConvert(amtV,amtD,amtM,amtB,amtR,itmType=undefined){
@@ -1615,7 +1623,7 @@ function buildTool(dad,itm,idx){
             inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
             addEle({dad:inC,setID:"farmerG:"+idx,minWidth:"25px"})
             addEle({dad:inC,what:"input",isInput:true,width:"100px",textA:"center",setID:"farmer:"+idx,
-            setVal:"Farmer X"})
+            setVal:"Farmer X",setFunc:(e)=>{cleanName(e)}})
     }
 
     if(userI.displayOptions.customerMB){
@@ -2603,7 +2611,7 @@ function multiOfunc(){
         subC = addEle({dad:cont,setClass:"contRow",marginT:"5px",alignItems:"center"})
             addEle({dad:subC,text:"Customer Name :",marginR:"10px",minWidth:"160px",textA:"right",paddingL:"5px"})
             addEle({dad:subC,what:"input",isInput:true,width:"100px",textA:"center",setID:"multiName",
-            setVal:"Farmer "+(userI.multiOrders.length+1)})
+            setVal:"Farmer "+(userI.multiOrders.length+1),setFunc:(e)=>{cleanName(e)}})
 
     if (userI.displayOptions.customerMB){
         subC = addEle({dad:cont,setClass:"contRow",marginT:"10px",alignItems:"center"})
