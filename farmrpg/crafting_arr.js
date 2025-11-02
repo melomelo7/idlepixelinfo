@@ -1356,6 +1356,8 @@ let recipes = [
         {label:"Onion",quantity:50},
     ]
     },
+    {folk:"George",recipe:"Acorn Pie",level:72,owned:false,
+    special:"Quest reward. Finish Sweet Tooth III",ingredients:[]},
     {folk:"ROOMBA",recipe:"Over The Moon",level:20,owned:false,
     time:120,exp:600,requireCook:10,ingredients:[
         {label:"Coal",quantity:120},
@@ -1453,10 +1455,11 @@ let friendshipRewards = [
         {lv:99,details:"1x Holger Bobblehead"},
         ]},
     {label : "George",rewards:[
-        {lv:10,details:"1x George's Onion Soup & 100x Onion"},
+        {lv:10,details:"1x George's Onion Soup Recipe & 100x Onion"},
         {lv:20,details:"1x Mug of Beer & 1x Blue Purse"},
         {lv:30,details:"10x Green Shield & 2x Red Shield"},
         {lv:40,details:"1x Onion Soup & 200x Coal"},
+        {lv:72,details:"1x George's Acorn Pie recipe"},
         {lv:99,details:"1x George Bobblehead"},
         ]},
     {label : "Jill",rewards:[
