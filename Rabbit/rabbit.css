@@ -5,7 +5,7 @@ html,body{
 
 body {
     margin: 0;
-    color: rgb(187, 181, 181);
+    color: white;
     background-color: rgb(7, 9, 12);
     font-size: 18px; 
 }
@@ -30,10 +30,11 @@ body {
   }
 
 .btn {
-    border:#8A0303 solid 2px;
+    border:rgb(212, 212, 74) solid 2px;
+    background-color: rgb(45, 88, 128);
 
-    background-color: black;
-    color: rgb(187, 181, 181);
+
+    color: white;
     border-radius: 5px;
     padding: 3px;
     margin: 5px;

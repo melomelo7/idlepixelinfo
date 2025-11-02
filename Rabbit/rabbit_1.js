@@ -8,6 +8,8 @@ let rates = [
 
 let savN = "rabbit_Calculator"
 
+let last = "02/11/2025 12:00"
+
 let global = addEle({dad:body,setClass:"contCol",padding:"20px"})
 
 function testNum(num,zeroGood=false){
@@ -21,6 +23,11 @@ function testNum(num,zeroGood=false){
     return test
 }
 
+function sav(){
+    let mySav = JSON.stringify(rates)
+    localStorage.setItem(savN,mySav)
+}
+
 function checkSav(){
     let mySav = localStorage.getItem(savN)
     if(mySav){
@@ -31,65 +38,89 @@ function checkSav(){
 
 checkSav()
 
-for(let i=1;i<rates.length+1;i++){
+function setPg(){
+    cleanParent(global)
 
-    let cont = addEle({dad:global,setClass:"contRow",alignItems:"center",marginT:"10px"})
-        addEle({dad:cont,text:rates[i-1].lbl,minWidth:"100px",textA:"center"})
-        addEle({dad:cont,setClass:"btn",text:"値段変更",minWidth:"75px",setID:"changeBtn:"+i,
-        fontS:"15px",setFunc:(e)=>{
-            let idx = Number(e.srcElement.id.split(":")[1])
-            if(getID("rate:"+idx).disabled){
-                e.srcElement.innerHTML = "セーブ"
-                getID("rate:"+idx).disabled = false
-            } else {
-                e.srcElement.innerHTML = "値段変更"
-                getID("rate:"+idx).disabled = true
-                updRates(e)
-            }
-            
-        }})
-        addEle({dad:cont,what:"input",width:"50px",textA:"center",setID:"rate:"+i,
-        textC:"blue",margin:"0 10px 0 5px",setVal:rates[i-1].val,setFunc:calcTot})
-        getID("rate:"+i).disabled = true
+    for(let i=1;i<rates.length+1;i++){
+        let cont = addEle({dad:global,setClass:"contRow",alignItems:"center",marginT:"10px"})
+            let txt = rates[i-1].lbl + " (" + rates[i-1].val + "円)"
+            addEle({dad:cont,text:txt,minWidth:"160px",textA:"right",paddingR:"5px",marginR:"10px"})
 
-        addEle({dad:cont,text:"注文"})
-        addEle({dad:cont,what:"input",width:"50px",textA:"center",setID:"order:"+i,
-        textC:"blue",margin:"0 10px 0 5px",setVal:0,setFunc:calcTot})
+            addEle({dad:cont,text:"注文"})
+            addEle({dad:cont,what:"input",width:"50px",textA:"center",setID:"order:"+i,
+            textC:"blue",margin:"0 10px 0 5px",setVal:0,setFunc:calcTot})
 
-        addEle({dad:cont,text:"="})
-        addEle({dad:cont,what:"input",width:"50px",textA:"center",setID:"total:"+i,
-        textC:"blue",margin:"0 10px 0 5px",setVal:0})
-        getID("total:"+i).disabled = true
-
-
-}
-let cont = addEle({dad:global,setClass:"contRow",alignItems:"center",marginT:"20px"})
-    addEle({dad:cont,text:"合計",textA:"right",minWidth:"376px",paddingR:"10px"})
-    addEle({dad:cont,what:"input",width:"50px",textA:"center",setID:"total",
-    textC:"blue",margin:"0 10px 0 5px",setVal:0})
-    getID("total").disabled = true
-
-
-
-
-function updRates(e){
-    let idx = Number(e.srcElement.id.split(":")[1])
-    let rate = getID("rate:"+idx).value
-    if(testNum(rate)){
-        rates[idx-1].val = Number(rate)
-        let mySav = JSON.stringify(rates)
-        localStorage.setItem(savN,mySav)
+            addEle({dad:cont,text:"="})
+            addEle({dad:cont,what:"input",width:"50px",textA:"center",setID:"total:"+i,
+            textC:"blue",margin:"0 10px 0 5px",setVal:0})
+            getID("total:"+i).disabled = true
     }
+    let cont = addEle({dad:global,setClass:"contRow",alignItems:"center",marginT:"20px"})
+        addEle({dad:cont,setClass:"btn",text:"値段変更",minWidth:"75px",
+        setID:"changeBtn",fontS:"15px",setFunc:updRates})
+        addEle({dad:cont,text:"合計",textA:"right",minWidth:"188px",paddingR:"10px"})
+        addEle({dad:cont,what:"input",width:"50px",textA:"center",setID:"total",
+        textC:"blue",margin:"0 10px 0 5px",setVal:0})
+        getID("total").disabled = true
+    addEle({dad:global,text:spanText("green","Last up "+last),marginT:"20px"})
 
 }
 
+function updRates(){
+    let pop = getDialogTopFrame()
+    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content",minHeight:"",
+    maxWidth:"360px"})
 
-function calcTot(e){
+    let subC = addEle({dad:cont,setClass:"contRow",padding:"0 10px 5px 10px",alignItems:"center",
+    justifyC:"space-between",backC:"rgb(45, 88, 128)",border:"teal solid 2px",radius:"8px",})
+    
+        addEle({dad:subC,text:"値段変更",marginR:"20px"})
+    
+        addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),
+        setID:"closePop",setFunc:()=>{
+            pop.remove()
+            lockScroll(false)
+        }})
+    
+    for(let i=0;i<rates.length;i++){
+        subC = addEle({dad:cont,setClass:"contRow",marginT:"10px"})
+            addEle({dad:subC,text:rates[i].lbl,textA:"center",minWidth:"100px"})
+
+            addEle({dad:subC,what:"input",width:"50px",textA:"center",setID:"rateP:"+i,
+            textC:"blue",marginL:"10px",setVal:rates[i].val,setFunc:(e)=>{
+                let idx = e.srcElement.id.split(":")[1]
+                let tgt = getID("testRP:"+idx)
+                if(testNum(e.srcElement.value))
+                    {tgt.innerHTML = "✅"} else {tgt.innerHTML = "⛔"}
+            }})
+            addEle({dad:subC,setID:"testRP:"+i,minWidth:"15px",marginL:"5px"})
+            if(testNum(getID("rateP:"+i).value))
+            {getID("testRP:"+i).innerHTML = "✅"} else {getID("testRP:"+i).innerHTML = "⛔"}
+    }
+    
+    addEle({dad:cont,setClass:"btn",text:"Save all ✅",width:"90%",marginT:"10px",setFunc:()=>{
+        let modif = false
+        for(let i=0;i<rates.length;i++){
+            let val = getID("rateP:"+i).value
+            if(testNum(val) && rates[i].val !== Number(val) ){
+                rates[i].val = Number(val) ; modif = true
+            }
+        }
+        if(modif){sav() ; setPg() ; getID("closePop").click()}
+    }})
+
+    pop.showModal()
+    lockScroll()
+}
+
+
+function calcTot(){
     let ttl = 0
     for(let i=1;i<rates.length+1;i++){
-        let rate = getID("rate:"+i).value
+        let rate = rates[i-1].val
         let qt = getID("order:"+i).value
-        if(testNum(rate) && testNum(qt)){
+        if(testNum(qt)){
+            qt = Number(qt)
             getID("total:"+i).value = rate * qt
             ttl+= rate * qt
         } else {
@@ -98,3 +129,6 @@ function calcTot(e){
     }
     getID("total").value = ttl
 }
+
+
+setPg()
