@@ -6,7 +6,8 @@ html,body{
 body {
     margin: 0;
     color: rgb(187, 181, 181);
-    background-color: rgb(7, 9, 12);    
+    background-color: rgb(7, 9, 12);
+    font-size: 18px; 
 }
 
 .contRow{
@@ -42,10 +43,11 @@ body {
 
 .select {
     background-color: black;
-    color: #8A0303;
+    color: rgb(187, 181, 181);/*#8A0303;*/
     border: 2px solid #5A0000;
     border-radius: 5px;
     padding: 5px;
+    font-size: 18px;
   }
 
 .btn {

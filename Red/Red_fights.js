@@ -1,6 +1,10 @@
+let enArr = []
 
 function startFight(workC,enemies){
     //let workC = getID("fightCont")
+
+console.log(enemies)
+
     cleanParent(workC)
 
     let subC = addEle({dad:workC,setClass:"contCol",justifyC:"flex-end"})
@@ -10,18 +14,16 @@ function startFight(workC,enemies){
       }})
 
     let minFrW = 120
-    let fork = addEle({dad:workC,setClass:"contRow"})
+    let fork = addEle({dad:workC,setClass:"contCol"})
       let P_Cont = addEle({dad:fork,setClass:"contCol",padding:"10px",
       border:"solid 2px #8A0303",marginR:"5px",radius:"10px",minWidth:minFrW+"px"})
       let E_Cont = addEle({dad:fork,setClass:"contCol",padding:"10px",
       border:"solid 2px #8A0303",radius:"10px",minWidth:minFrW+"px"})
-/*
-      addEle({dad:P_Cont,what:"img",imgFullSrc:"./imgs/sword.jpg",imgSize:24,backC:"black"})
-      addEle({dad:P_Cont,what:"img",imgFullSrc:"./imgs/shield.jpg",imgSize:24,backC:"black"})
-*/
+
+
       let nbCol = "rgb(127, 224, 224)"
       let stat = getStat("Strength")
-      let txt = "You<br>"+addEmo("⚔️","emoji of swords")+spanText(nbCol,stat.val)+" | " 
+      let txt = "You : "+addEmo("⚔️","emoji of swords")+spanText(nbCol,stat.val)+" | " 
       stat = getStat("Protection")
       txt += addEmo("🛡️","emoji of a shield")+spanText(nbCol,stat.val)
       addEle({dad:P_Cont,text:txt,borderB:"solid 2px #8A0303",textA:"center"})
@@ -31,19 +33,37 @@ function startFight(workC,enemies){
           addEle({dad:subC,text:stat.val,setID:"hpPlayer",textC:nbCol})
           addEle({dad:subC,marginL:"5px",textC:"#8A0303",minWidth:"20px",
           setID:"hitPlayer",text:"-1"})
+      subC = addEle({dad:P_Cont,setClass:"contRow",marginT:"10px",justifyC:"center"})
+        let cont = addEle({dad:subC,width:"80px",border:"orangered 2px solid",radius:"10px",
+        margin:"0",height:"12px",padding:"1px"})
+            addEle({dad:cont,backC:"orange",setID:"playerAtk",height:"100%",width:"1%",radius:"7px"})
 
-addEmo()
-
+      enArr = []
       enemies.forEach(en=>{
           console.log(en)
-          let itm = animals.filter(x=>x.lbl === en.lbl)[0]
+          let itm = enemyPool.filter(x=>x.lbl === en.lbl)[0]
+
+          console.log(itm)
+          for(let i=0;i<en.nbr;i++){
+              enArr.push({
+                hp:itm.hp,prot:itm.prot,exp:itm.exp,spd:itm.spd,atk:itm.atk
+              })
+          }
+
+
+          
+          console.log(enArr)
+
           let txt = itm.lbl+ "<br>"+addEmo("⚔️","emoji of swords") + spanText(nbCol,getFDR(itm)) 
           txt += " | " + addEmo("🛡️","emoji of a shield") + spanText(nbCol,itm.prot) + " )"
           addEle({dad:E_Cont,text:txt,borderB:"solid 2px #8A0303",textA:"center"})
-          subC = addEle({dad:E_Cont,setClass:"contRow",marginT:"10px",justifyC:"center"})
+          for(let i=0;i<en.nbr;i++){
+            subC = addEle({dad:E_Cont,setClass:"contRow",marginT:"10px",justifyC:"center"})
             addEle({dad:subC,text:"HP : ",marginR:"5px",textA:"right"})
-            addEle({dad:subC,text:itm.hp,setID:"hpPlayer",textC:nbCol})
-
+            addEle({dad:subC,text:itm.hp,setID:"hpEnemy",textC:nbCol})
+            addEle({dad:subC,marginL:"5px",textC:"#8A0303",minWidth:"20px",
+            setID:"hitEnemy",text:"-1"})
+          }
       })
 
 

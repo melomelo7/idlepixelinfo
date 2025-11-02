@@ -22,7 +22,7 @@ let player = {
     stats:[
         {lbl:"Level",disp:true,val:0,next:10},
         {lbl:"Exp",disp:true,val:0},
-        {lbl:"Energy",disp:true,val:10,cap:10},
+        {lbl:"Energy",disp:true,val:10,cap:10,pace:1000,inc:1,timer:undefined},
         {lbl:"HP",disp:false,val:10,cap:10},
         {lbl:"Strength",disp:false,val:2},
         {lbl:"Protection",disp:false,val:1},
@@ -30,13 +30,21 @@ let player = {
         {lbl:"Accuracy",disp:false,val:0.5}
     ],
     skills:[{lbl:"Hunting",lvl:0,next:10,inc:1}],
-    actions:["-- Actions --","Hunt"],
+    actions:["-- Actions --","Rest","Hunt"],
     items:[],
+    infected:false,
 }
 
-let animals = [
-    {lbl:"Rat"   ,hp:5,accuracy:0.5,prot:1,exp:2,spd:400,atk:[{lbl:"Infectious* Bite",dmg:"1~3"}]},
-    {lbl:"Rabbit",hp:8,accuracy:0.6,prot:1,exp:3,spd:200,atk:[{lbl:"Bite",dmg:"2"},{lbl:"Kick",dmg:"2~3"}],}
+let enemyPool = [
+    {lbl:"Rat"   ,hp:5,prot:1,exp:2,spd:350,
+    atk:[{lbl:"Infectious* Bite",dmg:"1~3",accuracy:0.5}],
+    drops:[],
+    },
+    
+    {lbl:"Rabbit",hp:8,prot:1,exp:3,spd:250,
+    atk:[{lbl:"Bite",dmg:"2",accuracy:0.5},{lbl:"Kick",dmg:"2~3",accuracy:0.6}],
+    drops:[],
+    },
 ]
 
 let locations = [
@@ -51,6 +59,10 @@ function getStat(skillNm){
 
 function getSkill(skillNm){
     return player.skills.filter(s=>s.lbl===skillNm)[0]
+}
+
+function getAtkStr(min,max){
+    return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
 // save load delete player save /////////////////////////
@@ -117,19 +129,21 @@ function fillActions(){
 
 function selectAction(e){
     switch(e.srcElement.value){
-        case player.actions[1] : setHunt() ; break
+        case player.actions[1] : setRest() ; break
+        case player.actions[2] : setHunt() ; break
     }
 }
 
-function setHunt(){
+function setRest(){
 
     let win1 = getDialogTopFrame()
     
-    let cont = addEle({dad:win1,setClass:"contCol",width:"fit-content",minHeight:"400px",textC:"rgb(187, 181, 181)"})
+    let cont = addEle({dad:win1,setClass:"contCol",width:"fit-content",minHeight:"400px",
+    textC:"rgb(187, 181, 181)",fontS:"18px"})
 
         let subC = addEle({dad:cont,setClass:"contRow",marginT:"10px 0",justifyC:"space-between",
             alignItems:"center",minWidth:"200px"})
-            addEle({dad:subC,text:"Hunting ...",borderB:"2px solid #5A0000",fontS:"22px",marginL:"20px",textC:"rgb(187, 181, 181)"})
+            addEle({dad:subC,text:"Resting ...",borderB:"2px solid #5A0000",fontS:"22px",marginL:"20px"})
 
             addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),setFunc:()=>{
                 win1.remove()
@@ -137,9 +151,103 @@ function setHunt(){
                 getID("actions").selectedIndex = 0
             }})
 
-        subC = addEle({dad:cont,setClass:"contCol",setID:"huntBtnCont"})
-            addEle({dad:subC,text:"Hunt small animals (1 Energy)",setClass:"btn",margin:"20px",fontS:"18px",
-            setFunc:()=>{startHunt("Small",1)}})
+        subC = addEle({dad:cont,setClass:"contRow",margin:"20px 0 0 20px"})
+            addEle({dad:subC,text:"Energy :",fontS:"18px",marginR:"5px"})
+            let stat = getStat("Energy")
+            addEle({dad:subC,text:stat.val+"/"+stat.cap,fontS:"18px",marginR:"5px",textC:"teal",setID:"restEnergy"})
+
+        addEle({dad:cont,text:"Lay down and close your eyes ...",setClass:"btn",fontS:"18px",minWidth:250+"px",
+        margin:"40px 20px",setID:"restBtn",setFunc:(e)=>{
+            let btn = e.srcElement
+            let txt1 = "Lay down and close your eyes ..."
+            let txt2 = "Stop"
+            let stat = getStat("Energy")
+        
+            if(btn.innerHTML === txt1){
+                btn.innerHTML = txt2
+                runRest()
+            } else {
+                clearTimeout(stat.timer)
+                btn.innerHTML = txt1
+                getID("restStatus").innerHTML = ""
+            }
+        }})
+
+        addEle({dad:cont,setID:"restStatus",fontS:"18px",textC:"teal",margin:"20px",textA:"center"})
+
+    win1.showModal()
+    lockScroll()
+
+    console.log("Resting")
+
+}
+
+function runRest(){
+    let btn = getID("restBtn")
+    let stat = getStat("Energy")
+
+    let pace = stat.pace
+    let dt = new Date()
+    let pairT = dt.getSeconds() % 2 === 0 ? ".." : "...."
+    getID("restStatus").innerHTML = "Resting "+pairT
+    if(stat.val >= stat.cap){
+        getID("restStatus").innerHTML = "You are fully Rested."
+        btn.innerHTML = "Lay down and close your eyes ..."
+    } else {
+        stat.timer = setTimeout(()=>{
+            stat.val = (stat.val + stat.inc) > stat.cap ? stat.cap : stat.val + stat.inc
+            getID("restEnergy").innerHTML = stat.val+"/"+stat.cap
+            runRest()
+        }, pace);
+    }
+
+/*
+    if(stat.val >= stat.cap){
+        getID("restStatus").innerHTML = "You are fully Rested."
+        btn.innerHTML = txt1
+    } else {
+        if(btn.innerHTML === txt2){
+            stat.timer = setTimeout(()=>{
+                stat.val = (stat.val + stat.inc) > stat.cap ? stat.cap : stat.val + stat.inc
+                getID("restEnergy").innerHTML = stat.val+"/"+stat.cap
+                runRest()
+            }, pace);
+        } else {
+            clearTimeout(stat.timer)
+            btn.innerHTML === txt1
+        }
+    }
+*/
+
+
+
+
+}
+
+function setHunt(){
+
+    let win1 = getDialogTopFrame()
+    
+    let cont = addEle({dad:win1,setClass:"contCol",width:"fit-content",minHeight:"400px",textC:"rgb(187, 181, 181)",fontS:"18px"})
+
+        let subC = addEle({dad:cont,setClass:"contRow",marginT:"10px 0",justifyC:"space-between",
+            alignItems:"center",minWidth:"200px"})
+            addEle({dad:subC,text:"Hunting ...",borderB:"2px solid #5A0000",fontS:"22px",marginL:"20px"})
+
+            addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),setFunc:()=>{
+                win1.remove()
+                lockScroll(false)
+                getID("actions").selectedIndex = 0
+            }})
+
+        subC = addEle({dad:cont,setClass:"contRow",margin:"0 20px"})
+            addEle({dad:subC,text:"Energy :",fontS:"18px",marginR:"5px"})
+            let stat = getStat("Energy")
+            addEle({dad:subC,text:stat.val+"/"+stat.cap,fontS:"18px",marginR:"5px",textC:"teal",setID:"huntEnergy"})
+
+        subC = addEle({dad:cont,setClass:"contCol",setID:"huntBtnCont",margin:"10px 20px"})
+            addEle({dad:subC,text:"Hunt small animals (1 Energy)",setClass:"btn",fontS:"18px",
+            setID:"huntSmall",setFunc:(e)=>{startHunt(e.srcElement,"Small",1)}})
 
         subC = addEle({dad:cont,setClass:"contCol",setID:"fightCont",minHeight:"30px",justifyC:"center"})
 
@@ -149,11 +257,13 @@ function setHunt(){
     console.log("hunting")
 }
 
-function startHunt(size,energyCost){
+function startHunt(btn,size,energyCost){
+    if(btn.disabled){console.log("out") ; return}
 
-    let srcE = player.stats.filter(x=>x.lbl==="Energy")[0]
+    let srcE = getStat("Energy")
     if(srcE.val >= energyCost){
         srcE.val -= energyCost
+        getID("huntEnergy").innerHTML = srcE.val+"/"+srcE.cap
         dispStats()
 
         let workC = getID("fightCont")
@@ -164,15 +274,14 @@ function startHunt(size,energyCost){
         let cpt = 0
         let txt = ""
         let id = setInterval(() => {
+            btn.disabled = true
             cpt++
             txt+=" ."
             getID("huntInfo").innerHTML = txt
-//            workC.innerHTML = txt
             if(cpt>=5){clearInterval(id)}
         }, 400)
 
         setTimeout(()=>{
-//            workC.innerHTML = ""
             getID("huntInfo").innerHTML = ""
             let skill = getSkill("Hunting")
             let enemy = getEnemy(skill,"Forest",size)
@@ -186,10 +295,11 @@ function startHunt(size,energyCost){
                     addEle({dad:subC,setClass:"btn",text:"Attack !",marginL:"20px",setFunc:()=>{
                         getID("huntBtnCont").style.visibility = "hidden"
                         let enemies = [{lbl:getID("enemyNm").innerHTML,
-                        nbr:Number(getID("enemyNb").innerHTML)}]
+                        nbr:3}]//Number(getID("enemyNb").innerHTML)
                         startFight(getID("fightCont"),enemies)
                     }})
-    
+
+            btn.disabled = false
         },2500)
     
 
@@ -237,3 +347,4 @@ for(let i=0;i<endv;i++){
     console.log(txt)
 }
 */
+
