@@ -354,3 +354,43 @@ const romans = [
    "LXXXI","LXXXII","LXXXIII","LXXXIV","LXXXV","LXXXVI","LXXXVII","LXXXVIII","LXXXIX","XC",
    "XCI","XCII","XCIII","XCIV","XCV","XCVI","XCVII","XCVIII","XCIX","C"
    ]
+
+
+   function getDialogTopFrame(cxlEsc=true){
+    let Obj = addEle({dad:body,what:"dialog",setClass:"myDialog",width:"fit-content",
+    maxWidth:"300px",height:"fit-content",border:"2px solid crimson"})
+    if(cxlEsc){ Obj.addEventListener('keydown', (e)=>{ if (e.key === 'Escape'){e.preventDefault()} }) }
+    return Obj
+}
+
+function lockScroll(lock=true){
+    document.body.style.overflow = lock ? "hidden" : ""
+    document.body.style.touchAction = lock ? 'none' : ""
+}
+
+
+function simpleMsg(msg,setFunc=""){
+
+    let pop = getDialogTopFrame()
+    pop.setAttribute("id","msgPop")
+
+    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content"})
+
+        let subC = addEle({dad:cont,setClass:"contRow",marginT:"10px 0",justifyC:"flex-end"})
+        addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),setFunc:()=>{
+            pop.remove()
+            lockScroll(false)
+            if(setFunc!==""){setFunc()}
+        }})
+
+        addEle({dad:cont,text:msg,margin:"20px",fontS:"18px"})
+
+    pop.showModal()
+    lockScroll()
+
+    return pop
+}
+
+function addEmo(emoji="emoji",lbl="emoji label",id=""){
+    return `<span id="`+id+`" role="img" aria-label="`+lbl+`">`+emoji+`</span>`
+}

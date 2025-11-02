@@ -8,7 +8,7 @@ let rates = [
 
 let savN = "rabbit_Calculator"
 
-let last = "02/11/2025 12:15"
+let last = "03/11/2025 08:20"
 
 let global = addEle({dad:body,setClass:"contCol",padding:"20px"})
 
