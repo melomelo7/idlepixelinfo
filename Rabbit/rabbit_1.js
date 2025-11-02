@@ -48,7 +48,7 @@ function setPg(){
 
             addEle({dad:cont,text:"注文"})
             addEle({dad:cont,what:"input",width:"50px",textA:"center",setID:"order:"+i,
-            textC:"blue",margin:"0 10px 0 5px",setVal:0,setFunc:calcTot})
+            numInput:true,textC:"blue",margin:"0 10px 0 5px",setVal:0,setFunc:calcTot})
 
             addEle({dad:cont,text:"="})
             addEle({dad:cont,what:"input",width:"50px",textA:"center",setID:"total:"+i,

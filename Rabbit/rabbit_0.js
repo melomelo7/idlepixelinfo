@@ -10,10 +10,13 @@ function addEle({
     addToTop = false,
     dad = undefined,
     what = "div",
+    areaRows = "",
+    areaCols = "",
     text = "",
     setID = "",
     setClass = "none",
     isInput = false,
+    numInput = false,
     disabled = false,
     setName = "",
     setFor = "",
@@ -83,6 +86,7 @@ function addEle({
     whiteSpace = "",
     noFocus = false,
     log = false,
+    mirror = false,
     opacity = "", }){
 
     let thisObj = undefined
@@ -123,7 +127,9 @@ function addEle({
 
     if(setFor!==""){thisObj.setAttribute("for",setFor)}
 
-    if(setVal!==""){thisObj.setAttribute("value",setVal)}
+    //if(setVal!==""){thisObj.setAttribute("value",setVal)}
+
+    if(setVal!==""){thisObj.value = setVal}
 
     if(min!==""){thisObj.min = min}
     if(max!==""){thisObj.max = max}
@@ -138,6 +144,39 @@ function addEle({
             default : console.log("missing correct addeventlistener here")
             } 
         }
+
+    if(numInput){
+
+        thisObj.setAttribute("type","number")
+        thisObj.setAttribute("inputmode","decimal")
+        thisObj.setAttribute("step","any")
+
+        // Optional: Restrict to numeric with decimal point
+        thisObj.addEventListener('keypress', function(e) {
+            // Allow digits, decimal point, and control keys
+            if (!/[0-9.]/.test(e.key)) {
+            e.preventDefault();
+            }
+            // Prevent multiple decimal points
+            if (e.key === '.' && e.target.value.includes('.')) {
+            e.preventDefault();
+            }
+        });
+
+        // Optional: Prevent invalid pasted content
+        thisObj.addEventListener('paste', function(e) {
+            const pasteData = e.clipboardData.getData('text');
+            if (!/^\d*\.?\d*$/.test(pasteData)) {
+            e.preventDefault();
+            }
+        });
+    }
+  
+    if(what="textarea"){
+        thisObj.setAttribute("rows",areaRows)
+        thisObj.setAttribute("cols",areaCols)
+        thisObj.style.resize = "none"
+    }
 
     if(textC!==""){thisObj.style.color = textC}
 
@@ -226,6 +265,8 @@ function addEle({
 
     if(whiteSpace!==""){thisObj.style.whiteSpace = whiteSpace}
 
+    if(mirror){thisObj.style.transform = "scaleX(-1)"}
+
     if(log){
         console.log(setVal)
         console.log(dad)
@@ -286,8 +327,9 @@ function spanText(spanColor="",spanTxt,sz=undefined,striked=false,underL="",setI
         if(striked){txt+= ` text-decoration: line-through; text-decoration-color: red; text-decoration-thickness: 2px;`}
 
         if(mirrored){txt+=` display:inline-block; transform: scaleX(-1);`}
-        
+
         if(underL!==""){txt+=` border-bottom:`+underL}
+
          txt+= `">` + ch + `</span>`
         ret+= txt
     })
@@ -312,43 +354,3 @@ const romans = [
    "LXXXI","LXXXII","LXXXIII","LXXXIV","LXXXV","LXXXVI","LXXXVII","LXXXVIII","LXXXIX","XC",
    "XCI","XCII","XCIII","XCIV","XCV","XCVI","XCVII","XCVIII","XCIX","C"
    ]
-
-
-function getDialogTopFrame(cxlEsc=true){
-    let Obj = addEle({dad:body,what:"dialog",setClass:"myDialog",width:"fit-content",
-    maxWidth:"300px",height:"fit-content",border:"2px solid crimson"})
-    if(cxlEsc){ Obj.addEventListener('keydown', (e)=>{ if (e.key === 'Escape'){e.preventDefault()} }) }
-    return Obj
-}
-
-function lockScroll(lock=true){
-    document.body.style.overflow = lock ? "hidden" : ""
-    document.body.style.touchAction = lock ? 'none' : ""
-}
-
-
-function simpleMsg(msg,setFunc=""){
-
-    let pop = getDialogTopFrame()
-    pop.setAttribute("id","msgPop")
-
-    let cont = addEle({dad:pop,setClass:"contCol",width:"fit-content"})
-
-        let subC = addEle({dad:cont,setClass:"contRow",marginT:"10px 0",justifyC:"flex-end"})
-        addEle({dad:subC,setClass:"btn",text:addEmo("❌","emoji red cross"),setFunc:()=>{
-            pop.remove()
-            lockScroll(false)
-            if(setFunc!==""){setFunc()}
-        }})
-
-        addEle({dad:cont,text:msg,margin:"20px",fontS:"18px"})
-
-    pop.showModal()
-    lockScroll()
-
-    return pop
-}
-
-function addEmo(emoji="emoji",lbl="emoji label",id=""){
-    return `<span id="`+id+`" role="img" aria-label="`+lbl+`">`+emoji+`</span>`
-}
