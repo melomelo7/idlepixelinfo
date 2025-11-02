@@ -62,7 +62,7 @@ function setPg(){
         addEle({dad:cont,what:"input",width:"50px",textA:"center",setID:"total",
         textC:"blue",margin:"0 10px 0 5px",setVal:0})
         getID("total").disabled = true
-    addEle({dad:global,text:spanText("green","Last up "+last),marginT:"20px"})
+    addEle({dad:global,text:spanText("lime","Last up "+last),marginT:"20px"})
 
 }
 
