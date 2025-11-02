@@ -8,7 +8,7 @@ let rates = [
 
 let savN = "rabbit_Calculator"
 
-let last = "03/11/2025 08:25"
+let last = "03/11/2025 08:40"
 
 let global = addEle({dad:body,setClass:"contCol",padding:"20px"})
 
@@ -43,12 +43,12 @@ function setPg(){
 
     for(let i=1;i<rates.length+1;i++){
         let cont = addEle({dad:global,setClass:"contRow",alignItems:"center",marginT:"10px"})
-            let txt = rates[i-1].lbl + " <br>(" + rates[i-1].val + "円)"
+            let txt = rates[i-1].lbl + " <br>( " + rates[i-1].val + "円 )"
             addEle({dad:cont,text:txt,minWidth:"100px",textA:"right",paddingR:"5px",marginR:"10px"})
 
             addEle({dad:cont,text:"注文"})
             addEle({dad:cont,what:"input",width:"60px",textA:"center",setID:"order:"+i,
-            numInput:true,textC:"blue",margin:"0 10px 0 5px",setVal:0,setFunc:calcTot})
+            numInput:true,textC:"blue",margin:"0 10px 0 5px",setFunc:calcTot})
 
             addEle({dad:cont,text:"="})
             addEle({dad:cont,what:"input",width:"50px",textA:"center",setID:"total:"+i,
@@ -58,7 +58,7 @@ function setPg(){
     let cont = addEle({dad:global,setClass:"contRow",alignItems:"center",marginT:"20px"})
         addEle({dad:cont,setClass:"btn",text:"値段変更",minWidth:"75px",
         setID:"changeBtn",fontS:"15px",setFunc:updRates})
-        addEle({dad:cont,text:"合計",textA:"right",minWidth:"188px",paddingR:"10px"})
+        addEle({dad:cont,text:"合計",textA:"right",minWidth:"138px",paddingR:"10px"})
         addEle({dad:cont,what:"input",width:"50px",textA:"center",setID:"total",
         textC:"blue",margin:"0 10px 0 5px",setVal:0})
         getID("total").disabled = true
