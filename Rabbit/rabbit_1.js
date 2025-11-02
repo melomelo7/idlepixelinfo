@@ -8,7 +8,7 @@ let rates = [
 
 let savN = "rabbit_Calculator"
 
-let last = "02/11/2025 12:00"
+let last = "02/11/2025 12:15"
 
 let global = addEle({dad:body,setClass:"contCol",padding:"20px"})
 
@@ -43,7 +43,7 @@ function setPg(){
 
     for(let i=1;i<rates.length+1;i++){
         let cont = addEle({dad:global,setClass:"contRow",alignItems:"center",marginT:"10px"})
-            let txt = rates[i-1].lbl + " (" + rates[i-1].val + "円)"
+            let txt = rates[i-1].lbl + " <br>(" + rates[i-1].val + "円)"
             addEle({dad:cont,text:txt,minWidth:"160px",textA:"right",paddingR:"5px",marginR:"10px"})
 
             addEle({dad:cont,text:"注文"})
