@@ -8,7 +8,7 @@ let rates = [
 
 let savN = "rabbit_Calculator"
 
-let last = "03/11/2025 08:40"
+let last = "03/11/2025 09:20"
 
 let global = addEle({dad:body,setClass:"contCol",padding:"20px"})
 
@@ -87,15 +87,7 @@ function updRates(){
             addEle({dad:subC,text:rates[i].lbl,textA:"center",minWidth:"100px"})
 
             addEle({dad:subC,what:"input",width:"50px",textA:"center",setID:"rateP:"+i,
-            textC:"blue",marginL:"10px",setVal:rates[i].val,setFunc:(e)=>{
-                let idx = e.srcElement.id.split(":")[1]
-                let tgt = getID("testRP:"+idx)
-                if(testNum(e.srcElement.value))
-                    {tgt.innerHTML = "✅"} else {tgt.innerHTML = "⛔"}
-            }})
-            addEle({dad:subC,setID:"testRP:"+i,minWidth:"15px",marginL:"5px"})
-            if(testNum(getID("rateP:"+i).value))
-            {getID("testRP:"+i).innerHTML = "✅"} else {getID("testRP:"+i).innerHTML = "⛔"}
+            textC:"blue",marginL:"10px",setVal:rates[i].val,numInput:true})
     }
     
     addEle({dad:cont,setClass:"btn",text:"Save all ✅",width:"90%",marginT:"10px",setFunc:()=>{
