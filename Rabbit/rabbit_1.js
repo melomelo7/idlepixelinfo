@@ -90,7 +90,7 @@ function updRates(){
             textC:"blue",marginL:"10px",setVal:rates[i].val,numInput:true})
     }
     
-    addEle({dad:cont,setClass:"btn",text:"Save all ✅",width:"90%",marginT:"10px",setFunc:()=>{
+    addEle({dad:cont,setClass:"btn",text:"Save",width:"90%",marginT:"10px",setFunc:()=>{
         let modif = false
         for(let i=0;i<rates.length;i++){
             let val = getID("rateP:"+i).value
