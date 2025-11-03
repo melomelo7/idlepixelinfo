@@ -20,11 +20,6 @@ get similar tools by changing <br>
 "Tools Display-Use Options" under<br>
 -- User Settings --`)
 
-function addEmo(emoji="emoji",lbl="emoji label",id="",mirrored=false){
-    let style = ""
-    if(mirrored){style = "display:inline-block; transform: scaleX(-1);"}
-    return `<span id="`+id+`" style="`+style+`" role="img" aria-label="`+lbl+`">`+emoji+`</span>`
-}
 
 let recentChanges = `
 `+addEmo("🟢","emoji green sphere")+` the multiple green infos have been replaced
@@ -419,17 +414,6 @@ let startInfos = `
      You start with the Basic full set of tools, but you can<br>
      make your own under --User Settings-- >> Rates / Ratios
 `
-
-function getDialogTopFrame(cxlEsc=true){
-    let Obj = addEle({dad:body,what:"dialog",setClass:"myDialog",width:"fit-content",height:"fit-content"})
-    if(cxlEsc){ Obj.addEventListener('keydown', (e)=>{ if (e.key === 'Escape'){e.preventDefault()} }) }
-    return Obj
-}
-
-function lockScroll(lock=true){
-    document.body.style.overflow = lock ? "hidden" : ""
-    document.body.style.touchAction = lock ? 'none' : ""
-}
 
 function userSettingPick(){
     if(getID("settingsSelect").value !=="-- User Settings --"){

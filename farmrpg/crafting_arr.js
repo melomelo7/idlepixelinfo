@@ -147,7 +147,7 @@ function addEle({
 
     if(numInput){
 
-        thisObj.setAttribute("type","number")
+        thisObj.setAttribute("type","text")
         thisObj.setAttribute("inputmode","decimal")
         thisObj.setAttribute("step","any")
 
@@ -341,6 +341,25 @@ function getID(id){return document.getElementById(id)}
 function cleanParent(parent){while(parent.children.length >0){parent.removeChild(parent.lastChild)}}
 
 function nBr(text){return text.includes(",") ? Number(text.replace(",","")) : Number(text)}
+
+
+function getDialogTopFrame(cxlEsc=true){
+    let Obj = addEle({dad:body,what:"dialog",setClass:"myDialog",width:"fit-content",height:"fit-content"})
+    if(cxlEsc){ Obj.addEventListener('keydown', (e)=>{ if (e.key === 'Escape'){e.preventDefault()} }) }
+    return Obj
+}
+
+function lockScroll(lock=true){
+    document.body.style.overflow = lock ? "hidden" : ""
+    document.body.style.touchAction = lock ? 'none' : ""
+}
+
+function addEmo(emoji="emoji",lbl="emoji label",id="",mirrored=false){
+    let style = ""
+    if(mirrored){style = "display:inline-block; transform: scaleX(-1);"}
+    return `<span id="`+id+`" style="`+style+`" role="img" aria-label="`+lbl+`">`+emoji+`</span>`
+}
+
 
 const romans = [
     "I","II","III","IV","V","VI","VII","VIII","IX","X",
