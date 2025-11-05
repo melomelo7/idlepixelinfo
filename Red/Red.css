@@ -97,23 +97,19 @@ body {
     color: rgb(127, 224, 224);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.toast{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-image: 
+    linear-gradient(
+        to bottom right, #1cf74b55, #22242f 75%
+    ); 
+    color: #fff;
+    border: solid 2px green;
+    padding: 10px;
+    border-radius: 20px;
+  }
 
 
 

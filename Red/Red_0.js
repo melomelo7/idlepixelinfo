@@ -10,10 +10,13 @@ function addEle({
     addToTop = false,
     dad = undefined,
     what = "div",
+    areaRows = "",
+    areaCols = "",
     text = "",
     setID = "",
     setClass = "none",
     isInput = false,
+    numInput = false,
     disabled = false,
     setName = "",
     setFor = "",
@@ -83,7 +86,10 @@ function addEle({
     whiteSpace = "",
     noFocus = false,
     log = false,
-    opacity = "", }){
+    mirror = false,
+    opacity = "",
+    holder = "",
+    }){
 
     let thisObj = undefined
 
@@ -123,7 +129,9 @@ function addEle({
 
     if(setFor!==""){thisObj.setAttribute("for",setFor)}
 
-    if(setVal!==""){thisObj.setAttribute("value",setVal)}
+    //if(setVal!==""){thisObj.setAttribute("value",setVal)}
+
+    if(setVal!==""){thisObj.value = setVal}
 
     if(min!==""){thisObj.min = min}
     if(max!==""){thisObj.max = max}
@@ -138,6 +146,43 @@ function addEle({
             default : console.log("missing correct addeventlistener here")
             } 
         }
+
+    if(holder){
+        thisObj.setAttribute("placeholder",holder)
+    }
+    
+    if(numInput){
+
+        thisObj.setAttribute("type","text")
+        thisObj.setAttribute("inputmode","decimal")
+        thisObj.setAttribute("step","any")
+
+        // Optional: Restrict to numeric with decimal point
+        thisObj.addEventListener('keypress', function(e) {
+            // Allow digits, decimal point, and control keys
+            if (!/[0-9.]/.test(e.key)) {
+            e.preventDefault();
+            }
+            // Prevent multiple decimal points
+            if (e.key === '.' && e.target.value.includes('.')) {
+            e.preventDefault();
+            }
+        });
+
+        // Optional: Prevent invalid pasted content
+        thisObj.addEventListener('paste', function(e) {
+            const pasteData = e.clipboardData.getData('text');
+            if (!/^\d*\.?\d*$/.test(pasteData)) {
+            e.preventDefault();
+            }
+        });
+    }
+  
+    if(what="textarea"){
+        thisObj.setAttribute("rows",areaRows)
+        thisObj.setAttribute("cols",areaCols)
+        thisObj.style.resize = "none"
+    }
 
     if(textC!==""){thisObj.style.color = textC}
 
@@ -226,6 +271,8 @@ function addEle({
 
     if(whiteSpace!==""){thisObj.style.whiteSpace = whiteSpace}
 
+    if(mirror){thisObj.style.transform = "scaleX(-1)"}
+
     if(log){
         console.log(setVal)
         console.log(dad)
@@ -286,8 +333,9 @@ function spanText(spanColor="",spanTxt,sz=undefined,striked=false,underL="",setI
         if(striked){txt+= ` text-decoration: line-through; text-decoration-color: red; text-decoration-thickness: 2px;`}
 
         if(mirrored){txt+=` display:inline-block; transform: scaleX(-1);`}
-        
+
         if(underL!==""){txt+=` border-bottom:`+underL}
+
          txt+= `">` + ch + `</span>`
         ret+= txt
     })
@@ -349,6 +397,35 @@ function simpleMsg(msg,setFunc=""){
     return pop
 }
 
-function addEmo(emoji="emoji",lbl="emoji label",id=""){
-    return `<span id="`+id+`" role="img" aria-label="`+lbl+`">`+emoji+`</span>`
+function addEmo(emoji="emoji",lbl="emoji label",id="",mirrored=false){
+    let style = ""
+    if(mirrored){style = "display:inline-block; transform: scaleX(-1);"}
+    return `<span id="`+id+`" style="`+style+`" role="img" aria-label="`+lbl+`">`+emoji+`</span>`
+}
+
+function notif(type="Misc",txt="Notif"){
+    addLog(type,txt)
+    addEle({dad:body,setClass:"toast",text:txt,setID:"toastNotif"})
+    setTimeout(() => {
+        let opc = 1
+        let btm = 20
+        let endNotif = setInterval(()=>{
+            opc-=0.05
+            btm+=1
+            getID("toastNotif").style.opacity = opc
+            getID("toastNotif").style.bottom = btm+"px"
+            if(opc<0){clearInterval(endNotif) ; getID("toastNotif").remove() }
+        },50)
+    }, 500);
+}
+
+function addLog(type="Misc",txt="new Log X"){
+    let dt = new Date()
+    let hr = dt.getHours()   < 10 ? "0"+dt.getHours()   : dt.getHours()
+    let mn = dt.getMinutes() < 10 ? "0"+dt.getMinutes() : dt.getMinutes()
+    let sc = dt.getSeconds() < 10 ? "0"+dt.getSeconds() : dt.getSeconds()
+    let tpx = hr+":"+mn+":"+sc
+    player.logs.push({type:type,txt:tpx+" >> "+txt})
+    if(player.logs.length>player.logsCap){player.logs.shift()}
+    savPlayer()
 }
