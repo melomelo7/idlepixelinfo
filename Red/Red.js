@@ -13,6 +13,10 @@ addEle({dad:body,setClass:"contRow",setID:"topLine"})
         addEle({dad:actionsCont,what:"select",setClass:"select",setID:"actions",
         display:"none",marginT:"10px",setFunc:(e)=>{selectAction(e)}})
 
+addEle({dad:actionsCont,setClass:"btn",text:"del",setFunc:()=>{
+    removePlayer()
+} })
+
 let player_back = {
     start:true,
     stats:[
