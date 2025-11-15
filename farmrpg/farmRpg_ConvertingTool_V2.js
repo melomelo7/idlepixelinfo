@@ -372,7 +372,9 @@ function setPage(){
         setFunc:userSettingPick})
         settingsArr.forEach(itm=>{addEle({dad:getID("settingsSelect"),what:"option",text:itm})})
 //      addEle({dad:contR,what:"img",imgFullSrc:srcImgs+"raptoregg.png",imgSize:30,marginL:"5px", imgAlt:"Raptor Egg image"})
-        addEle({dad:contR,what:"img",imgFullSrc:txt,imgSize:50,marginL:"5px", imgAlt:"Hatched Raptor Egg image"})
+        addEle({dad:contR,what:"img",imgFullSrc:txt,imgSize:50,marginL:"5px", imgAlt:"Hatched Raptor Egg image",setFunc:()=>{
+            window.open("farmRpg_Bob1_Farm_Back.html","_blank")
+        }})
 
     let settingsFr = addEle({dad:body,setClass:"contCol",padding:"5px",width:"100%"})
 
@@ -1451,7 +1453,7 @@ function setDeleteFrame(){
         }})
 
         pop.showModal()
-        lockScroll()  
+        lockScroll()
 }
 
 

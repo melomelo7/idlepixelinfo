@@ -13,7 +13,7 @@ let last = "15/11/2025"
 
 let global = addEle({dad:body,setClass:"contCol",padding:"20px"})
 
-addEle({dad:global,text:spanText("lime","Last up : "+last)})
+addEle({dad:global,text:spanText("lime","Last up : "+last),margin:"0 0 10px 10px"})
 
 let subC = addEle({dad:global,setClass:"contCol",padding:"10px",
 border:"teal 2px solid",radius:"20px",width:"fit-content"})
