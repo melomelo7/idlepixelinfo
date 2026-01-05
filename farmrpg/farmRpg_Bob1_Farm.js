@@ -248,11 +248,17 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content"})
         window.open(lnk,"_self")
     }})
 
-    addEle({dad:cont,setClass:"btn",text:"⇒ Bob1 Converter Tools (Old Version)",
-    textC:"lime",margin:"10px",setFunc:()=>{
-        let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmRpg_ConvertingTool.html"
-        window.open(lnk,"_self")
-    }})
+
+// spanText(spanColor="",spanTxt,sz=undefined,striked=false,underL="",setID="",setAlt="",mirrored=false)
+
+    addEle({dad:cont,setClass:"btn",text:spanText("","⇒ Bob1 Converter Tools (Old Version)","",true),
+    textC:"lime",margin:"10px",}) // "⇒ Bob1 Converter Tools (Old Version)"
+/* 
+setFunc:()=>{
+    let lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmRpg_ConvertingTool.html"
+    window.open(lnk,"_self")
+}
+*/
 
     addEle({dad:cont,setClass:"btn",text:"⇒ Apple Lord Converter Tools (New Version)",
     textC:"lime",margin:"10px",setFunc:()=>{
