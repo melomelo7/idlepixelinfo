@@ -87,7 +87,9 @@ function addEle({
     noFocus = false,
     log = false,
     mirror = false,
-    opacity = "", }){
+    opacity = "",
+    holder = "",
+    }){
 
     let thisObj = undefined
 
@@ -144,6 +146,10 @@ function addEle({
             default : console.log("missing correct addeventlistener here")
             } 
         }
+
+    if(holder){
+        thisObj.setAttribute("placeholder",holder)
+    }
 
     if(numInput){
 
@@ -1639,7 +1645,7 @@ let folkGifts = [
     hate:["Cheese","Worms"]},
 
     {label:"Charles Horsington III",
-    love:["Apple","Gold Carrot","Apple Cider","Box of Chocolate 01","Valentines Card","Peach"],
+    love:["Apple","Gold Carrot","Apple Cider","Box of Chocolate 01","Valentines Card","Peach","Horseshoe","4-leaf Clover"],
     like:["Carrot","3-leaf Clover","Twine","Grasshopper"],
     hate:["Worms","Stone","Green Chromis","Blue Crab","Lemon","Lemonade","Bone","Cheese","Grubs","Snail","Spider"],},
 
@@ -1931,4 +1937,3 @@ frozenMasteries = [
 ]
 
 // 28 pigs buy 3.4M
-
