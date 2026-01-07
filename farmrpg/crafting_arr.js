@@ -1615,17 +1615,17 @@ let folkGifts = [
     hate:["Horned Beetle","Stone","Worms"]},
      
     {label:"Beatrix",
-    love:["Black Powder","Explosive","Iced Tea","Fireworks"],
+    love:["Black Powder","Explosive","Iced Tea","Fireworks","Bottle Rocket"],
     like:["Hops","Coal","Bird Egg","Carbon Sphere","Hammer","Oak"],
     hate:["Worms","Grubs","Horned Beetle","Fire Ant"]},
     
     {label:"Borgen",
-    love:["Wooden Box","Cheese","Gold Catfish"],
+    love:["Wooden Box","Cheese","Gold Catfish","Ancient Coin"],
     like:["Glass Orb","Milk","Gold Carrot","Gold Peas","Gold Cucumber","Slimestone"],
     hate:["Worms","Purple Flower","Old Boot","Grubs","Green Dye","Valentines Card"]},
     
     {label:"Buddy",
-    love:["Purple Flower","Pirate Flag","Pirate Bandana","Valentines Card"],
+    love:["Purple Flower","Pirate Flag","Pirate Bandana","Valentines Card","Buddystone"],
     like:["Bucket","Mushroom","Bone","Gold Peppers","Gummy Worms","Snail","Giant Centipede","Spider"],
     hate:["Peppers","Drum","Worms","Crappie","Lemon","Lemonade","Grubs","Snowball"]},
     
@@ -1670,12 +1670,12 @@ let folkGifts = [
     hate:["Worms","Fish Bones","Bone","Cheese"],},
     
     {label:"Holger",
-    love:["Potato","Gold Trout","Mug of Beer","Wooden Table"],
+    love:["Potato","Gold Trout","Mug of Beer"],
     like:["Largemouth Bass","Peas","Trout","Arrowhead","Bluegill","Carp","Horn","Cheese","Apple Cider","Peach","Mushroom Stew"],
     hate:["Worms","Aquamarine","Milk","Valentines Card"],},
 
     {label:"Jill",
-    love:["Yellow Perch","Mushroom Paste","Leather","Peach","MIAB"],
+    love:["Yellow Perch","Mushroom Paste","Leather","Peach","MIAB","Corn","Corn Husk Doll"],
     like:["Tomato","Milk","Old Boot","Grapes","Cheese","Scrap Metal"],
     hate:["Worms","Hops","Stingray","Grubs","Spider","Snowball"],},
     
@@ -1690,7 +1690,7 @@ let folkGifts = [
     hate:["Worms","Black Powder","Explosive","Spider"],},
         
     {label:"Mummy",
-    love:["Bone","Spider","Valentines Card"],
+    love:["Bone","Spider","Valentines Card","Pumpkin Spiced Milk","Toilet Paper"],
     like:["Fish Bones","Hammer","Treat Bag 02","Yarn"],
     hate:["Drum","Worms","Coal","Cheese","Snowball","Box of Chocolate 01"]},
     
@@ -1705,12 +1705,12 @@ let folkGifts = [
     hate:["Worms","Milk","Acorn","Arrowhead","Bird Egg","3-leaf Clover","Snowball"],},
 
     {label:"Rosalie",
-    love:["Gold Carrot","Green Dye","Box of Chocolate 01","Valentines Card","Blue Dye","Red Dye","Purple Dye"],
+    love:["Gold Carrot","Green Dye","Box of Chocolate 01","Valentines Card","Blue Dye","Red Dye","Purple Dye","Garnet Ring","Ruby Ring"],
     like:["Carrot","Aquamarine","Apple","Purple Flower","Iced Tea","Caterpillar","Apple Cider","Fireworks"],
     hate:["Worms","Fish Bones","Coal","Old Boot","Iron Cup","Carp","Grubs","Horned Beetle","Fire Ant","Spider"],},
     
     {label:"Star Meerif",
-    love:["Blue Feathers","Gold Feather"],
+    love:["Blue Feathers","Gold Feather","Linked Lantern"],
     like:["Eggs","Feathers"],
     hate:["Worms","Lemon","Lemonade","Bone","Iron Cup","Cheese","Grubs"]},
         
