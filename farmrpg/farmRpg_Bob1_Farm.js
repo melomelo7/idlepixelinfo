@@ -18,6 +18,7 @@ let copyNb = 0
 let MCP = 100000
 let orderPool = []
 let savK = "farmRPGOrders"
+const srcImgs = "https://farmrpg.com/img/items/"
 
 let shopOpen = true
 
@@ -217,7 +218,10 @@ cont = addEle({dad:body,setClass:"contRow",margin:"5px 30px",alignItems:"center"
     addEle({dad:cont,text:"🤠",fontS:"30px",marginL:"20px"})
 addEle({dad:body,text:intro,margin:"10px 30px",setID:"words",border:"lime solid 2px",
 radius:"30px",display:"none",padding:"10px",width:"fit-content"})
-
+    addEle({dad:getID("words"),setClass:"contRow",setID:"wordsC",alignItems:"center",margin:"10px 0"})
+        addEle({dad:getID("wordsC"),text:spanText("yellow", "Completed")})
+        addEle({dad:getID("wordsC"),what:"img",imgFullSrc:srcImgs+"ap.png",imgSize:20,margin:"0 10px"})
+        addEle({dad:getID("wordsC"),text:spanText("yellow", "MM on 8 Jan. 2025 ( Ranking#2 after KittenToast#1 )")})
 
 cont = addEle({dad:body,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
     addEle({dad:cont,text:"🟣 Game Help , Infos ... Tools",margin:"0 20px"})
@@ -856,7 +860,9 @@ radius:"30px",display:"none",padding:"10px",width:"fit-content"})
         tr = addEle({dad:tb,what:"tr"})
         addEle({dad:tr,what:"td",text:"Subs overall",textA:"right"})
         tc = addEle({dad:tr,what:"td",paddingL:"10px"})
-            getPrgBar(tc,overall.val,overall.cap,"orange")            
+            getPrgBar(tc,overall.val,overall.cap,"orange")
+            
+addEle({dad:body,minHeight:"20px"})
 
 function getPrgBar(dad,val,cap,borderC="green"){
     let percent = Math.floor(val/cap*100)
