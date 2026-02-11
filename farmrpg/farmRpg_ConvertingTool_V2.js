@@ -1598,8 +1598,7 @@ function buildTool(dad,itm,idx){
                     txt = txt.replace(":","")
                     txt = "@"+txt+":"
                     navigator.clipboard.writeText(txt)
-                    getID("farmerG:"+idx).innerHTML = addEmo("✅","emoji green OK sign")
-                    setTimeout(() => {getID("farmerG:"+idx).innerHTML = ""}, 2000);
+                    showToast("Copied!",1500,"success")
                 }})
                 addEle({dad:ttC,setClass:"tooltip-text",text:"Copy Name"})
 
@@ -1607,7 +1606,6 @@ function buildTool(dad,itm,idx){
 
         tc = addEle({dad:tr,what:"td",border:"solid teal 2px"})
             inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
-            addEle({dad:inC,setID:"farmerG:"+idx,minWidth:"25px"})
             addEle({dad:inC,what:"input",isInput:true,width:"100px",textA:"center",setID:"farmer:"+idx,
             setVal:"Farmer X",setFunc:(e)=>{cleanName(e)}})
     }
@@ -2234,10 +2232,8 @@ function advertising(){
             addEle({dad:subC,setClass:"btn",text:txt,padding:"5px 10px",
             setFunc:()=>{
                 navigator.clipboard.writeText(getID("advMsg").value)
-                getID("info4").innerHTML = "✅"
-                setTimeout(() => {getID("info4").innerHTML = ""}, 2000);
+                showToast("Copied!",1500,"success")
             }})
-            addEle({dad:subC,marginL:"5px",textC:purple,setID:"info4"})
     }
 
     if(userI.currentSet === "Basic"){

@@ -2,13 +2,42 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="farmrpg.css">
         <link rel="shortcut icon" href="#">
-        <title>FarmRpg Quests</title>
+        <title>Apple Lord - Quests</title>
     </head>
-    <body>
+    <body class="page-quests">
+        <nav class="site-nav">
+            <div class="nav-brand">
+                <span class="nav-icon">🌾</span>
+                <span class="nav-title">Apple Lord's Farm</span>
+            </div>
+            <div class="nav-links">
+                <a href="farmRpg_Bob1_Farm.html" class="nav-link">
+                    <span class="nav-link-icon">🏠</span>Hub
+                </a>
+                <a href="farmpg_folks.html" class="nav-link">
+                    <span class="nav-link-icon">👥</span>Folks
+                </a>
+                <a href="farmpg_truffles.html" class="nav-link">
+                    <span class="nav-link-icon">🍄</span>Truffles
+                </a>
+                <a href="farmpg_quests.html" class="nav-link active">
+                    <span class="nav-link-icon">📜</span>Quests
+                </a>
+                <a href="farmRpg_ConvertingTool_V2.html" class="nav-link">
+                    <span class="nav-link-icon">⚗️</span>Converter
+                </a>
+            </div>
+            <button class="nav-toggle" onclick="this.closest('.site-nav').classList.toggle('open')">
+                <span></span><span></span><span></span>
+            </button>
+        </nav>
         <script src="crafting_arr.js"> </script>
         <script src="farmpg_quest_lines.js"> </script>
         <script src="farmpg_quests.js"> </script>
     </body>
-</html> 
+</html>
