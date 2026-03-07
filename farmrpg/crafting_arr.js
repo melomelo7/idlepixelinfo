@@ -344,7 +344,10 @@ function spanText(spanColor="",spanTxt,sz=undefined,striked=false,underL="",setI
 
 function getID(id){return document.getElementById(id)}
 
-function cleanParent(parent){while(parent.children.length >0){parent.removeChild(parent.lastChild)}}
+function cleanParent(parent,removeParent = false){
+    while(parent.children.length >0){parent.removeChild(parent.lastChild)}
+    if(removeParent){ parent.remove() }
+}
 
 function nBr(text){return text.includes(",") ? Number(text.replace(",","")) : Number(text)}
 
@@ -1606,6 +1609,17 @@ let friendshipRewards = [
         {lv:40,details:"10x Gold Leaf & 10x Gold Trout"},
         {lv:99,details:"1x Gary Bobblehead"},
         ]},
+
+
+    {label : "Goostav",rewards:[
+        {lv:10,details:"250x Orange Juice & 10x Bait Bag 01"}, // 250x Orange Juice & 10x Bait Bag 01
+        {lv:20,details:"250x Arnold Palmer & 10x Bag of Spring Seeds"},
+        {lv:30,details:"250x Large Net & 10x Gold Seed Bag 01"},
+        {lv:40,details:"250x Apple Cider & 10x Bug Bag 01"},
+        {lv:50,details:"1x Picnic Basket 01 & 1x Buddy Doll Bag 01"},
+        {lv:80,details:`"A Slime Covered Wish" questline`},
+        ]},
+
     ]
 
 let folkGifts = [
@@ -1669,6 +1683,11 @@ let folkGifts = [
     like:["Hops","Glass Orb","Orange Juice","Arrowhead","Bird Egg","Mushroom Stew"],
     hate:["Worms","Fish Bones","Bone","Cheese"],},
     
+    {label:"Goostav",
+    love:["Glowshroom","Slime Egg","Shell","Gold Slimeback","Swamp Gourd","Mini Slime Squid"],
+    like:["Snail","Slimestone","Essence of Slime","Frog","Green Butterfly","Swamp Algae","Sporefly"],
+    hate:["Worms","Welcome Card","Sand","Salt Rock","Salt"],},
+
     {label:"Holger",
     love:["Potato","Gold Trout","Mug of Beer"],
     like:["Largemouth Bass","Peas","Trout","Arrowhead","Bluegill","Carp","Horn","Cheese","Apple Cider","Peach","Mushroom Stew"],
