@@ -88,7 +88,7 @@ const roundings = [
     {label:"Closest 5",alt:5},
     ]
 
-let eventMastery = [0,10,14,20]
+let eventMastery = [0,10,14,17,20]
 
 let rateB =[
 {ind:0,label:"OJ",type:outputs[0].type,rate:"3:1",bonus:0,rounding:roundings[0].label,orderMem:[],
