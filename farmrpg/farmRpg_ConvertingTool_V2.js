@@ -1535,7 +1535,7 @@ function buildTool(dad,itm,idx){
                 let idx = e.srcElement.id.split(":")[1]
                 getID("order:"+idx).value = 0
                 if(userI.displayOptions.customerMB){getID("mbs:"+idx).value = 0}
-                if(userI.displayOptions.customerName){getID("farmer:"+idx).value = "FarmerX"}
+                if(userI.displayOptions.customerName){getID("farmer:"+idx).value = "Farmer_X"}
                 getID("orderG:"+idx).innerHTML = ""
                 toolCalc(e.srcElement.id,false)
             }})
@@ -1609,7 +1609,7 @@ function buildTool(dad,itm,idx){
             inC = addEle({dad:tc,setClass:"contRow",justifyC:"center"})
             addEle({dad:inC,setID:"farmerG:"+idx,minWidth:"25px"})
             addEle({dad:inC,what:"input",isInput:true,width:"100px",textA:"center",setID:"farmer:"+idx,
-            setVal:"Farmer X",setFunc:(e)=>{cleanName(e)}})
+            setVal:"Farmer_X",setFunc:(e)=>{cleanName(e)}})
     }
 
     if(userI.displayOptions.customerMB){
@@ -2597,7 +2597,7 @@ function multiOfunc(){
         subC = addEle({dad:cont,setClass:"contRow",marginT:"5px",alignItems:"center"})
             addEle({dad:subC,text:"Customer Name :",marginR:"10px",minWidth:"160px",textA:"right",paddingL:"5px"})
             addEle({dad:subC,what:"input",isInput:true,width:"100px",textA:"center",setID:"multiName",
-            setVal:"Farmer "+(userI.multiOrders.length+1),setFunc:(e)=>{cleanName(e)}})
+            setVal:"Farmer_"+(userI.multiOrders.length+1),setFunc:(e)=>{cleanName(e)}})
 
     if (userI.displayOptions.customerMB){
         subC = addEle({dad:cont,setClass:"contRow",marginT:"10px",alignItems:"center"})
@@ -2714,7 +2714,7 @@ function multiOfunc(){
 }
 
 function cleanMultis(){
-    getID("multiName").value ="Farmer " + (userI.multiOrders.length+1)
+    getID("multiName").value ="Farmer_" + (userI.multiOrders.length+1)
     if(userI.displayOptions.customerMB){getID("multiMB").value = 0}
     document.getElementsByName("multiAmts").forEach(it=>{it.value = 0})
 }
