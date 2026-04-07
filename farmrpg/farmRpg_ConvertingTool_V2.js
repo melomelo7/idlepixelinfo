@@ -1535,7 +1535,7 @@ function buildTool(dad,itm,idx){
                 let idx = e.srcElement.id.split(":")[1]
                 getID("order:"+idx).value = 0
                 if(userI.displayOptions.customerMB){getID("mbs:"+idx).value = 0}
-                if(userI.displayOptions.customerName){getID("farmer:"+idx).value = "Farmer X"}
+                if(userI.displayOptions.customerName){getID("farmer:"+idx).value = "FarmerX"}
                 getID("orderG:"+idx).innerHTML = ""
                 toolCalc(e.srcElement.id,false)
             }})
