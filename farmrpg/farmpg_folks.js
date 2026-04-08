@@ -6,7 +6,8 @@ let update = "last up 8/20 20:15"
 const frame = addEle({dad:body,setClass:"contCol"})
 
     const fr1 = addEle({dad:frame,setClass:"contRow",alignItems:"center"})
-        addEle({dad:fr1,setClass:"btn",text:"Folk Full List<br>Love-Like-Hate",setFunc:()=>{
+        addEle({dad:fr1,setClass:"btn",text:"Folk Full List<br>Love-Like-Hate",setFunc:(e)=>{
+            setActiveBtn(e.currentTarget, fr1)
             cleanParent(fr2)
             cleanParent(fr3)
             cleanParent(fr4)
@@ -14,7 +15,8 @@ const frame = addEle({dad:body,setClass:"contCol"})
             showFolks()
         }})
         addEle({dad:fr1,setClass:"btn",text:"Pick 1 Townfolk<br>Full Details",
-        setFunc:()=>{
+        setFunc:(e)=>{
+            setActiveBtn(e.currentTarget, fr1)
             cleanParent(fr2)
             cleanParent(fr3)
             cleanParent(fr4)
@@ -28,9 +30,10 @@ const frame = addEle({dad:body,setClass:"contCol"})
         let subC = addEle({dad:fr1,setClass:"contCol",border:"yellow solid 3px",radius:"10px"
         ,alignItems:"center",marginT:"5px",paddingB:"5px"})
         addEle({dad:subC,setClass:"btn",text:"Use Related Item<br>or type item to search",
-        setFunc:()=>{
+        setFunc:(e)=>{
+            setActiveBtn(e.currentTarget, fr1)
             cleanParent(fr2)
-            cleanParent(fr3)            
+            cleanParent(fr3)
             cleanParent(fr4)
             cleanParent(fr5)
             let itms = folksItems()
@@ -53,17 +56,19 @@ const frame = addEle({dad:body,setClass:"contCol"})
             })
         }})
 
-        addEle({dad:fr1,setClass:"btn",text:"Recipes<br>Full List",setFunc:()=>{
+        addEle({dad:fr1,setClass:"btn",text:"Recipes<br>Full List",setFunc:(e)=>{
+            setActiveBtn(e.currentTarget, fr1)
             cleanParent(fr2)
-            cleanParent(fr3)            
+            cleanParent(fr3)
             cleanParent(fr4)
             cleanParent(fr5)
             dispRecipes()
         }})
 
-        addEle({dad:fr1,setClass:"btn",text:"Friendship<br>Rewards",setFunc:()=>{
+        addEle({dad:fr1,setClass:"btn",text:"Friendship<br>Rewards",setFunc:(e)=>{
+            setActiveBtn(e.currentTarget, fr1)
             cleanParent(fr2)
-            cleanParent(fr3)            
+            cleanParent(fr3)
             cleanParent(fr4)
             cleanParent(fr5)
             dispAllRewards()
@@ -76,7 +81,8 @@ const frame = addEle({dad:body,setClass:"contCol"})
         }})
 
         addEle({dad:fr1,marginL:"50px",text:update})
-       
+
+    fr1.querySelector(".btn").classList.add("btn--active")
 
     addEle({dad:frame,border:"solid 2px lime",width:"100%",margin:"10px 0"})
 

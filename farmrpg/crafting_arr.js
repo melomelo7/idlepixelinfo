@@ -369,6 +369,32 @@ function addEmo(emoji="emoji",lbl="emoji label",id="",mirrored=false){
     return `<span id="`+id+`" style="`+style+`" role="img" aria-label="`+lbl+`">`+emoji+`</span>`
 }
 
+function showToast(message, duration = 2000, variant = "") {
+    let existing = document.querySelector(".toast")
+    if (existing) existing.remove()
+    let t = document.createElement("div")
+    t.className = "toast" + (variant ? " toast--" + variant : "")
+    t.textContent = message
+    document.body.appendChild(t)
+    requestAnimationFrame(() => { t.classList.add("toast--visible") })
+    setTimeout(() => {
+        t.classList.remove("toast--visible")
+        setTimeout(() => t.remove(), 300)
+    }, duration)
+}
+
+function toggleSection(sectionId, arrowEl) {
+    let section = getID(sectionId)
+    let isOpen = section.classList.contains("open")
+    section.classList.toggle("open")
+    arrowEl.innerHTML = isOpen ? addEmo("🔽","down arrow") : addEmo("🔼","up arrow")
+}
+
+function setActiveBtn(clickedBtn, container) {
+    container.querySelectorAll(".btn").forEach(b => b.classList.remove("btn--active"))
+    clickedBtn.classList.add("btn--active")
+}
+
 
 const romans = [
     "I","II","III","IV","V","VI","VII","VIII","IX","X",
