@@ -1477,6 +1477,22 @@ function setTools(){
             setTools()
         }})
 
+
+    subC = addEle({dad:workC,setClass:"contRow",padding:"5px",alignItems:"center"})
+        addEle({dad:subC,text:"Event +10% craft bonus  :",marginL:"5px",fontS:"20px"})
+        addEle({dad:subC,setID:"eventCraftB",margin:"0 20px 0 10px",minWidth:"40px",
+        fontS:"20px",textC:yellow,textA:"center"})
+        addEle({dad:subC,what:"checkbox",isInput:true,setID:"eventCraftBtog",setClass:"toggle-checkbox",
+        margin:"50px",setFunc:(e)=>{
+            getID("eventCraftB").innerHTML = e.srcElement.checked ? "ON" : "OFF"
+            userI.resCraft = e.srcElement.checked ?
+            Math.floor((1+(userI.resSaver/100))*1.1*100)/100 :
+            1+(userI.resSaver/100)
+        }})
+        addEle({dad:subC,what:"label",setFor:"eventCraftBtog",setClass:"toggle-label",marginR:"10px"})        
+
+    let ev = new Event("change") ; getID("eventCraftBtog").dispatchEvent(ev)
+
     let tbC = addEle({dad:workC})
     let tb = addEle({dad:tbC,what:"table"})
     let tr = addEle({dad:tb,what:"tr"})
@@ -2520,7 +2536,7 @@ function mmEstimate(id,ratio=undefined){
 
         switch(itm.type){
             case outputs[0].type : case outputs[1].type : goal = goal * 6 ; break
-            case outputs[2].type : goal = Math.ceil((goal *20)/1.45*6) ; break
+            case outputs[2].type : goal = Math.ceil((goal *20)/userI.resCraft*6) ; break
             case outputs[3].type : goal = goal * 20 ; break
             case outputs[4].type : goal = goal * 25 ; break
             case outputs[5].type : goal = goal * 40 ; break
