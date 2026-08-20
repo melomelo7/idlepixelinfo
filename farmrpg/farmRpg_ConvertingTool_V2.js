@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2026 08/16 20:45
+Last up 2026 08/20 19:50
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -35,11 +35,11 @@ to have more or less tools on the page.
 actual numbers which should display smarter on mobiles. ( no more full keyboard )<br><br>
 `+addEmo("🟢","emoji green sphere")+` Advertising is now an open text field so it
 should be easier to do changes before copy. Hopefully no bugs pops let me know ...<br><br>
-`
-
-+addEmo("🟢","emoji green sphere")+` For people converting more than 1 item that
+`+addEmo("🟢","emoji green sphere")+` For people converting more than 1 item that
 would then receive more "detailed" orders from the same customer, there is now a
-new option of quick window.<br>( see the top of every tool where you can click [Hide] & [Reset] )
+new option of quick window.<br>( see the top of every tool where you can click [Hide] & [Reset] )<br><br>
+`+addEmo("🟢","emoji green sphere")+` When a monthly event has a special giving a
+10% Crafting Bonus, you may now turn it ON. (OFF by default, not so often to happen)
 `
 
 
@@ -51,7 +51,8 @@ This is huge and in my Opinion, evolution should happen.
 I suggest you go for 35:1 (38% loss) anytime possible unless if your
 desperate for whatever reason. <br><br>
 Old stubborn players will have to learn flexibility while other
-players already are fine about it.
+players already are fine about it.<br><br>
+Review your rating if the Event Craft Bonus is on as it means fewer loss ...
 `
 
 const outputs = [
@@ -414,7 +415,8 @@ let startInfos = `
      everything else is additional tools and infos `+ addEmo("🤠","emoji smiling farmer") +`<br><br>
      Review the User Settings, in particular Display Options !<br><br>
      You start with the Basic full set of tools, but you can<br>
-     make your own under --User Settings-- >> Rates / Ratios
+     make your own under --User Settings-- >> Rates / Ratios<br><br>
+     ** Should you notice any issue / bug kindly message me ingame @`+spanText(yellow,"Apple Lord")+` Ty ! 🤠
 `
 
 function userSettingPick(){
@@ -1488,6 +1490,23 @@ function setTools(){
             userI.resCraft = e.srcElement.checked ?
             Math.floor((1+(userI.resSaver/100))*1.1*100)/100 :
             1+(userI.resSaver/100)
+
+            if(userI.currentSet==="Basic"){
+                for(let i=0;i<userI.basicDisplays.length;i++){
+                    if(userI.basicDisplays[i] === true){
+                        let tgtE = getID("order:"+i)
+                        if(tgtE){let ev = new Event("input") ; getID("order:"+i).dispatchEvent(ev)}
+                    }
+                }
+            } else {
+                for(let i=0;i<userI.rateU.length;i++){
+                    if(userI.rateU[i].display === true){
+                        let tgtE = getID("order:"+i)
+                        if(tgtE){let ev = new Event("input") ; getID("order:"+i).dispatchEvent(ev)}
+                    }
+
+                }
+            }
         }})
         addEle({dad:subC,what:"label",setFor:"eventCraftBtog",setClass:"toggle-label",marginR:"10px"})        
 
@@ -2423,10 +2442,9 @@ function addSelectMemo(id){
         if(itm.orderMem.length>userI.memoCap){itm.orderMem.splice(0,1)}
 
         loadMemos(id)
-
-        dispG.innerHTML = addEmo("✅","emoji green OK sign")
-    } else {dispG.innerHTML = addEmo("⛔","emoji prohibited sign")}
-    setTimeout(() => {dispG.innerHTML =""}, 1000);
+        if(dispG){dispG.innerHTML = addEmo("✅","emoji green OK sign")}
+    } else {if(dispG){dispG.innerHTML = addEmo("⛔","emoji prohibited sign")}}
+    setTimeout(() => {if(dispG){dispG.innerHTML =""}}, 1000);
 }
 
 function loadMemos(id){

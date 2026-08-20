@@ -283,7 +283,7 @@ function addEle({
     if(addToTop)
         {dad.prepend(thisObj)}
     else
-        {dad.appendChild(thisObj)}
+        {if(dad){dad.appendChild(thisObj)}}
     
     return thisObj
 }
@@ -345,8 +345,10 @@ function spanText(spanColor="",spanTxt,sz=undefined,striked=false,underL="",setI
 function getID(id){return document.getElementById(id)}
 
 function cleanParent(parent,removeParent = false){
-    while(parent.children.length >0){parent.removeChild(parent.lastChild)}
-    if(removeParent){ parent.remove() }
+    if(parent){
+        while(parent.children.length >0){parent.removeChild(parent.lastChild)}
+        if(removeParent){ parent.remove() }
+    }
 }
 
 function nBr(text){return text.includes(",") ? Number(text.replace(",","")) : Number(text)}
@@ -391,7 +393,7 @@ const truffles = {
     },
     black:{// 158 360 504  ⇔　619 032 766
         low:158360504,
-        high:619032766,
+        high:619936310,
     }
 }
 
