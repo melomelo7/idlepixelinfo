@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2026 08/20 19:50
+Last up 2026 08/21 23:35
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -39,7 +39,9 @@ should be easier to do changes before copy. Hopefully no bugs pops let me know .
 would then receive more "detailed" orders from the same customer, there is now a
 new option of quick window.<br>( see the top of every tool where you can click [Hide] & [Reset] )<br><br>
 `+addEmo("🟢","emoji green sphere")+` When a monthly event has a special giving a
-10% Crafting Bonus, you may now turn it ON. (OFF by default, not so often to happen)
+10% Crafting Bonus, you may now turn it ON. (OFF by default, not so often to happen)<br><br>
+`+addEmo("🟢","emoji green sphere")+` Estimate Max now also returns the void point if
+you have updated your max inventory in Settings/User Details<br><br>
 `
 
 
@@ -2327,7 +2329,24 @@ function convertProject(e){
                         }
                     }
 
+                    let voiDisp = getID("projectionCap")
+                    if(invItm<=userI.inventoryMax){
+                        let diff = userI.inventoryMax - invItm
+                        let voidV = 0
+                        switch(itm.type){
+                            case outputs[0].type : case outputs[1].type : voidV = Math.ceil(diff/userI.resCraft*6) ; break
+                            case outputs[2].type : voidV = Math.ceil(Math.ceil(diff/userI.resCraft*20)/userI.resCraft*6) ; break
+                            case outputs[3].type : voidV = Math.ceil(diff/userI.resCraft*20) ; break
+                            case outputs[4].type : voidV = Math.ceil(diff/userI.resCraft*25)  ; break
+                            case outputs[5].type : voidV = Math.ceil(diff/userI.resCraft*40) ; break
+                            default:console.log(itm.type)
+                        }
+                        voiDisp.innerHTML = voidV.toLocaleString()
+
+                    } else {voiDisp.innerHTML = spanText(purple,"-----")}
+
                 } else {getID("projectionRes").innerHTML = spanText(purple,"---")}
+
             }})
             addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img2,imgSize:25})
         
@@ -2335,23 +2354,21 @@ function convertProject(e){
 
         cont = addEle({dad:pop,setClass:"contRow",alignItems:"center",marginT:"10px"})
             addEle({dad:cont,text:"Inventory :",margin:"0 10px",setID:"projectionRes",
-            text:spanText(purple,"---"),textA:"center"})
+            text:spanText(purple,"-----"),textA:"center"})
             addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img1,imgSize:25})
 
-            /*
-/////////////
-        cont = addEle({dad:pop,setClass:"contRow",alignItems:"center",marginT:"10px"})
-            addEle({dad:cont,text:"Inventory :",margin:"0 10px",setID:"projectionRes2",
-            text:spanText(purple,"---"),textA:"center"})
-            addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img1,imgSize:25})
+        let txt = "Current Max Inventory : "+spanText(yellow,userI.inventoryMax.toLocaleString())+
+        "<br>"+spanText(yellow,"*update User Details in Settings if needed")
+        addEle({dad:pop,text:txt,textA:"center",paddingT:"10px"})
 
-        cont = addEle({dad:pop,setClass:"contRow",alignItems:"center",marginT:"10px"})
-            addEle({dad:cont,text:"Inventory :",margin:"0 10px",setID:"projectionRes3",
-            text:spanText(purple,"---"),textA:"center"})
-            addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img1,imgSize:25})
+        cont = addEle({dad:pop,setClass:"contRow",alignItems:"center",marginT:"5px"})
+            addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img2,imgSize:25})
+            addEle({dad:cont,text:"will reach inventory cap/void",marginL:"5px"})
 
-////////////
-*/
+        cont = addEle({dad:pop,setClass:"contRow",alignItems:"center",marginT:"5px"})
+            addEle({dad:cont,text:"after collecting ~ "})
+            addEle({dad:cont,text:spanText(purple,"-----"),margin:"0 5px",setID:"projectionCap"})
+            addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img1,imgSize:25})
 
         addEle({dad:pop,text:spanText(green,"*Estimate only, not 100% accurate"),
         borderT:"dotted 2px teal",marginT:"10px",paddingT:"10px"})
