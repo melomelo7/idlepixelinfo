@@ -13,7 +13,7 @@ let yellowL = "rgb(212, 212, 74)"
 
 
 let lastUpd = `
-Last up 2026 08/21 23:35
+Last up 2026 08/22 00:25
 <br>`+spanText(green,`
 Users coming from Old version may<br>
 get similar tools by changing <br>
@@ -2341,7 +2341,7 @@ function convertProject(e){
                             case outputs[5].type : voidV = Math.ceil(diff/userI.resCraft*40) ; break
                             default:console.log(itm.type)
                         }
-                        voiDisp.innerHTML = voidV.toLocaleString()
+                        voiDisp.innerHTML = (voidV+userI.inventoryMax).toLocaleString()
 
                     } else {voiDisp.innerHTML = spanText(purple,"-----")}
 
@@ -2369,6 +2369,13 @@ function convertProject(e){
             addEle({dad:cont,text:"after collecting ~ "})
             addEle({dad:cont,text:spanText(purple,"-----"),margin:"0 5px",setID:"projectionCap"})
             addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img1,imgSize:25})
+
+        addEle({dad:pop,text:"(reduce this value by the amount of /"})
+
+        cont = addEle({dad:pop,setClass:"contRow",alignItems:"center",marginT:"5px"})
+            addEle({dad:cont,text:"IF any"})
+            addEle({dad:cont,what:"img",imgFullSrc:srcImgs+itmSrc.img1,imgSize:25,margin:"0 5px"})
+            addEle({dad:cont,text:"currently in your inventory)"})
 
         addEle({dad:pop,text:spanText(green,"*Estimate only, not 100% accurate"),
         borderT:"dotted 2px teal",marginT:"10px",paddingT:"10px"})
