@@ -208,31 +208,29 @@ radius:"30px",textA:"center",width:"fit-content"})
 addEle({dad:cont,what:"img",imgFullSrc:"./apple lord.jpg",img2Sizes:"350:240",
 border:"lime solid 2px",radius:"50%"})
 
-cont = addEle({dad:body,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
+cont = addEle({dad:body,setClass:"contRow section-header",margin:"5px 30px",alignItems:"center"})
     addEle({dad:cont,text:"🟢 A few words...",margin:"0 20px"})
     addEle({dad:cont,text:"🔽",border:"lime solid 2px",radius:"5px",
     cursor:"pointer",height:"fit-content",setFunc:(e)=>{
-        getID("words").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
-        e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
+        toggleSection("words", e.srcElement)
     }})
     addEle({dad:cont,text:"🤠",fontS:"30px",marginL:"20px"})
 addEle({dad:body,text:intro,margin:"10px 30px",setID:"words",border:"lime solid 2px",
-radius:"30px",display:"none",padding:"10px",width:"fit-content"})
+radius:"30px",padding:"10px",width:"fit-content",setClass:"collapsible"})
     addEle({dad:getID("words"),setClass:"contRow",setID:"wordsC",alignItems:"center",margin:"10px 0"})
         addEle({dad:getID("wordsC"),text:spanText("yellow", "Completed")})
         addEle({dad:getID("wordsC"),what:"img",imgFullSrc:srcImgs+"ap.png",imgSize:20,margin:"0 10px"})
         addEle({dad:getID("wordsC"),text:spanText("yellow", "MM on 8 Jan. 2025 ( Ranking#2 after KittenToast#1 )")})
 
-cont = addEle({dad:body,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
+cont = addEle({dad:body,setClass:"contRow section-header",margin:"5px 30px",alignItems:"center"})
     addEle({dad:cont,text:"🟣 Game Help , Infos ... Tools",margin:"0 20px"})
     addEle({dad:cont,text:"🔽",border:"lime solid 2px",radius:"5px",setID:"helpCont",
     cursor:"pointer",height:"fit-content",setFunc:(e)=>{
-        getID("infosCont").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
-        e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
+        toggleSection("infosCont", e.srcElement)
     }})
     addEle({dad:cont,text:"🤠",fontS:"30px",marginL:"20px"})
 cont = addEle({dad:body,margin:"10px 30px",setID:"infosCont",border:"lime solid 2px",
-radius:"30px",display:"none",padding:"10px",width:"fit-content"})
+radius:"30px",padding:"10px",width:"fit-content",setClass:"collapsible"})
 
     addEle({dad:cont,setClass:"btn",text:"⇒ Buddy Farm",
     textC:"lime",margin:"10px",setFunc:()=>{
@@ -320,14 +318,13 @@ getID("helpCont").click()
         })
     */
 
-cont = addEle({dad:body,setClass:"contRow",margin:"10px 30px",alignItems:"center"})
+cont = addEle({dad:body,setClass:"contRow section-header",margin:"10px 30px",alignItems:"center"})
     addEle({dad:cont,text:"🟢 Conversion Shop "+spanText("yellow","V"+shopV,20)+spanText("fuchsia","<br> (Not Working Anymore, Info only)"),margin:"0 20px"})
     addEle({dad:cont,text:"🔽",border:"lime solid 2px",radius:"5px",setID:"shopCont",
     cursor:"pointer",height:"fit-content",setFunc:(e)=>{
         if(shopOpen){
-            getID("shop").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
-            e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽"
-            if(getID("comboArrow").innerHTML==="⏪"){getID("comboArrow").click()}
+            toggleSection("shop", e.srcElement)
+            if(getID("combo").classList.contains("open")){getID("comboArrow").click()}
         }
     }})
     addEle({dad:cont,text:"🏠",fontS:"30px",marginL:"20px"})
@@ -338,7 +335,7 @@ cont = addEle({dad:body,setClass:"contRow",margin:"10px 30px",alignItems:"center
 let liner = addEle({dad:body,setClass:"contRow"})
 
 cont = addEle({dad:liner,margin:"10px 5px 10px 30px",setID:"shop",border:"lime solid 2px",
-radius:"30px",display:"none",padding:"10px",width:"fit-content",height:"fit-content"})
+radius:"30px",padding:"10px",width:"fit-content",height:"fit-content",setClass:"collapsible"})
 
 
 let contR = addEle({dad:cont,setClass:"contRow",justifyC:"space-between"})
@@ -346,18 +343,19 @@ let contR = addEle({dad:cont,setClass:"contRow",justifyC:"space-between"})
         addEle({dad:subC1,text:"🟡 Shop Ratios History",marginR:"10px"})
         addEle({dad:subC1,text:"🔽",border:"lime solid 2px",radius:"5px",
         cursor:"pointer",height:"fit-content",setFunc:(e)=>{
-            getID("convTxtCt").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
-            e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
+            toggleSection("convTxtCt", e.srcElement)
         }})
-        addEle({dad:cont,text:convTxt,setID:"convTxtCt",display:"none",padding:"5px",
-        border:"yellow solid 2px",radius:"10px"})
+        addEle({dad:cont,text:convTxt,setID:"convTxtCt",padding:"5px",
+        border:"yellow solid 2px",radius:"10px",setClass:"collapsible"})
 
     subC1 = addEle({dad:contR,setClass:"contRow",margin:"5px",alignItems:"center",marginR:"10px"})
         addEle({dad:subC1,text:"🟡 Combo Informations",marginR:"10px"})
         addEle({dad:subC1,text: "⏩",border:"lime solid 2px",radius:"5px",backC:"",
         cursor:"pointer",height:"fit-content",setID:"comboArrow",setFunc:(e)=>{
-            getID("combo").style.display = e.srcElement.innerHTML==="⏩" ? "block" : "none"
-            e.srcElement.innerHTML = e.srcElement.innerHTML==="⏩" ? "⏪" : "⏩" 
+            let section = getID("combo")
+            let isOpen = section.classList.contains("open")
+            section.classList.toggle("open")
+            e.srcElement.innerHTML = isOpen ? "⏩" : "⏪"
         }})
 
         
@@ -365,8 +363,7 @@ subC1 = addEle({dad:cont,setClass:"contRow",margin:"10px 0 0 5px"})
     addEle({dad:subC1,text:"🟣 Business Hours and Informations"+spanText("",""),marginR:"10px"})
     addEle({dad:subC1,text:"🔽",border:"lime solid 2px",radius:"5px",setID:"InfoClick",
     cursor:"pointer",height:"fit-content",setFunc:(e)=>{
-        getID("dailyTxt").style.display = e.srcElement.innerHTML==="🔽" ? "flex" : "none"
-        e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
+        toggleSection("dailyTxt", e.srcElement)
     }})
     addEle({dad:subC1,text:"🚨",margin:"-5px 5px",fontS:"22px"})
 
@@ -395,8 +392,8 @@ until 4AM<br>
 `,16)
 */
 
-    subC2 = addEle({dad:cont,setClass:"contRow",with:"100%",
-    marginT:"10px",setID:"dailyTxt",display:"none"})
+    subC2 = addEle({dad:cont,setClass:"contRow collapsible",with:"100%",
+    marginT:"10px",setID:"dailyTxt"})
         addEle({dad:subC2,text:txt,border:"rgb(123,89,186) solid 3px",radius:"10px",
         width:"fit-content",textA:"center",padding:"10px",setID:"infoCont",fontS:"26px"})
 
@@ -406,12 +403,11 @@ subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px",alignItems:"center"})
     addEle({dad:subC1,marginR:"10px",setID:"dailyModsText",borderB:"orangered solid 2px"})
     addEle({dad:subC1,text:"🔽",border:"lime solid 2px",radius:"5px",marginT:"10px",
     cursor:"pointer",height:"fit-content",setFunc:(e)=>{
-        getID("dailyMods").style.display = e.srcElement.innerHTML==="🔽" ? "flex" : "none"
-        e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
+        toggleSection("dailyMods", e.srcElement)
     }})
 
-    subC2 = addEle({dad:cont,setClass:"contCol",with:"100%",
-    justifyC:"center",marginT:"10px",setID:"dailyMods",display:"none",width:"fit-content",
+    subC2 = addEle({dad:cont,setClass:"contCol collapsible",with:"100%",
+    justifyC:"center",marginT:"10px",setID:"dailyMods",width:"fit-content",
     border:"2px solid orangered",padding:"5px",radius:"10px"})
     
     function checkDailyMods(){
@@ -442,12 +438,11 @@ subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px",alignItems:"center"})
         addEle({dad:subC1,text:spanText("yellow","BIG Tip",22),margin:"0 10px"})
         addEle({dad:subC1,text:"🔽",border:"lime solid 2px",radius:"5px",
         cursor:"pointer",height:"fit-content",setFunc:(e)=>{
-            getID("bigTip").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
-            e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
-        }}) // 
+            toggleSection("bigTip", e.srcElement)
+        }})
         addEle({dad:subC1,text:"💡",backC:"",radius:"10px",fontS:"24px"})
-        addEle({dad:cont,setID:"bigTip",display:"none",padding:"5px",
-        border:"yellow solid 2px",radius:"10px"})
+        addEle({dad:cont,setID:"bigTip",padding:"5px",
+        border:"yellow solid 2px",radius:"10px",setClass:"collapsible"})
             subC2 = addEle({dad:getID("bigTip"),setClass:"contRow",alignItems:"center",justifyC:"space-around"})
                 txt = "./cleverBox.jpg"
                 addEle({dad:subC2,what:"img",img2Sizes:"350:350",imgFullSrc:txt,radius:"10px"})
@@ -547,10 +542,10 @@ let subC4 = addEle({dad:cont,setClass:"contRow",alignItems:"center"})
         subC1.children[3].click()
 
       subC1 = addEle({dad:subC4,setClass:"contCol",alignItems:"center",justifyC:"center"})
-        addEle({dad:subC1,setClass:"btn",text:spanText("yellow","Copy NOLA",20)+"<br>* to paste in ingame msg for me *",
+        addEle({dad:subC1,setClass:"btn glow-pulse",text:spanText("yellow","Copy NOLA",20)+"<br>* to paste in ingame msg for me *",
         border:"orange solid 2px", height:"fit-content",Width:"100%",padding:"10px",
         backC:"#2C5B52",textC:"lime",marginL:"10px",
-        setFunc:()=>{navigator.clipboard.writeText(nolaP.value)}})
+        setFunc:()=>{navigator.clipboard.writeText(nolaP.value);showToast("Copied!",1500,"success")}})
     
 
     subC1 = addEle({dad:cont,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
@@ -558,11 +553,10 @@ let subC4 = addEle({dad:cont,setClass:"contRow",alignItems:"center"})
         margin:"0 10px",textC:"yellow"})
         addEle({dad:subC1,text:"🔽",border:"lime solid 2px",radius:"5px",
         cursor:"pointer",height:"fit-content",setFunc:(e)=>{
-            getID("lemonSplit").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
-            e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
+            toggleSection("lemonSplit", e.srcElement)
         }})
     addEle({dad:cont,margin:"10px 30px",setID:"lemonSplit",border:"yellow solid 2px",
-    radius:"10px",display:"none",padding:"10px",width:"fit-content"})
+    radius:"10px",padding:"10px",width:"fit-content",setClass:"collapsible"})
         subC2 = addEle({dad:getID("lemonSplit"),setClass:"contRow"})
             addEle({dad:subC2,text:"Split AP Generated by the order :"})
             addEle({dad:subC2,what:"input",isInput:true,margin:"0 5px",setID:"apBank1",
@@ -606,7 +600,7 @@ function evalSplit(e){
 
 
 cont = addEle({dad:liner,margin:"10px 0",setID:"combo",border:"lime solid 2px",
-radius:"30px",display:"none",padding:"10px",width:"fit-content",display:"none"})
+radius:"30px",padding:"10px",width:"fit-content",setClass:"collapsible"})
     addEle({dad:cont,text:comboTxt1})
     subC1 = addEle({dad:cont,margin:"10px 0"})
     tb = addEle({dad:subC1,what:"table"})
@@ -813,16 +807,15 @@ let masteriesArr = {
             {label:"AP Mastery GM",val:APM > MCP ? MCP : APM,cap:MCP},]
 }
 
-cont = addEle({dad:body,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
+cont = addEle({dad:body,setClass:"contRow section-header",margin:"5px 30px",alignItems:"center"})
     addEle({dad:cont,text:"🟢 Shop Goals",margin:"0 20px"})
     addEle({dad:cont,text:"🔽",border:"lime solid 2px",radius:"5px",
     cursor:"pointer",height:"fit-content",setFunc:(e)=>{
-        getID("goals").style.display = e.srcElement.innerHTML==="🔽" ? "block" : "none"
-        e.srcElement.innerHTML = e.srcElement.innerHTML==="🔽" ? "🔼" : "🔽" 
+        toggleSection("goals", e.srcElement)
     }})
     addEle({dad:cont,text:"📈",fontS:"22px",marginL:"10px"})
 addEle({dad:body,margin:"10px 30px",setID:"goals",border:"lime solid 2px",
-radius:"30px",display:"none",padding:"10px",width:"fit-content"})
+radius:"30px",padding:"10px",width:"fit-content",setClass:"collapsible"})
     let overall = {val:0,cap:0}
     let mcont = addEle({dad:getID("goals"),setClass:"contCol"})
     subC1=addEle({dad:mcont})
@@ -866,10 +859,10 @@ addEle({dad:body,minHeight:"20px"})
 
 function getPrgBar(dad,val,cap,borderC="green"){
     let percent = Math.floor(val/cap*100)
-    let col = percent >= 100 ? "lime" : "yellow"
-    subC1 = addEle({dad:dad,border:borderC+" solid 3px",radius:"20px",height:"10px",
-    width:"100px",padding:"1px"})
-        addEle({dad:subC1,height:"100%",width:percent+"%",backC:col,radius:"20px"})
+    let track = addEle({dad:dad,setClass:"progress-track"})
+    addEle({dad:track,setClass:"progress-fill" + (percent >= 100 ? " progress-fill--complete" : ""),
+    width:Math.min(percent,100)+"%"})
+    addEle({dad:track,setClass:"progress-text",text:percent+"%"})
 }
 
 function saveToBrowser(key=savK){
