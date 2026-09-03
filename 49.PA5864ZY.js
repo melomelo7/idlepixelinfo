@@ -1,204 +1,632 @@
 
-function cleanParent(parent){while(parent.children.length >0){parent.removeChild(parent.lastChild)}}
-function getID(id){return document.getElementById(id)}
+function isSafari() {
+    const ua = navigator.userAgent;
+    const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
+    return isSafari;
+  }
+
+
 function addEle({
-    addToTop = false,dad = undefined,what = "div",text = "",setID = "",setClass = "none",isInput = false,disabled = false,setName = "",
-    setVal = "",setFunc = undefined,textC = "",textA = "",backC = "",backG = "",height = "",width = "",minWidth = "",maxWidth = "",border = "",
-    radius = "",radiusTL = "",radiusTR ="",radiusBL = "",radiusBR = "",padding = "",margin = "",marginT="",marginL="",marginR="",
-    marginB="",display = "",justifyR = false,alignItems = "",overflowX = "",flDir = "",log = false})
-    {let thisObj = undefined
-    if(!isInput){thisObj = document.createElement(what)}
-    else{thisObj = document.createElement("input"); thisObj.setAttribute("type",what)}
+    addToTop = false,
+    dad = undefined,
+    what = "div",
+    areaRows = "",
+    areaCols = "",
+    text = "",
+    setID = "",
+    setClass = "none",
+    isInput = false,
+    numInput = false,
+    disabled = false,
+    setName = "",
+    setFor = "",
+    setVal = "",
+    maxLen = "",
+    min = "",
+    max = "",
+    setFunc = undefined,
+    textC = "",
+    fontS = "",
+    fontB = "",
+    backC = "",
+    backG = "",
+    height = "",
+    minHeight = "",
+    maxHeight = "",
+    width = "",
+    minWidth = "",
+    maxWidth = "",
+    border = "",
+    borderL = "",
+    borderR = "",
+    borderT = "",
+    borderB = "",
+    radius = "",
+    radiusTL = "",
+    radiusTR ="",
+    radiusBL = "",
+    radiusBR = "",
+    padding = "",
+    paddingT = "",
+    paddingB = "",
+    paddingL = "",
+    paddingR = "",
+    margin = "",
+    marginT="",
+    marginL="",
+    marginR="",
+    marginB="",
+    display = "",
+    visibility = "",
+    justifyR = false,
+    alignItems = "",
+    textA = "",
+    overflow = "",
+    overflowX = "",
+    flDir = "",
+    flWrap = "",
+    justifyC = "",
+    float = "",
+    cursor = "",
+    tableLayout = "",
+    imgSize = "",
+    img2Sizes = "",
+    imgSrc = "",
+    imgFullSrc = "",
+    imgAlt = "",
+    accentCol = "",
+    position = "",
+    top = "",
+    left = "",
+    right = "",
+    bottom = "",
+    zIdx = "",
+    userSelect = "",
+    colSpan = "",
+    rowSpan = "",
+    resize = "",
+    url = "",
+    whiteSpace = "",
+    noFocus = false,
+    log = false,
+    mirror = false,
+    transform = "",
+    opacity = "",
+    holder = "",
+    }){
+
+    let thisObj = undefined
+
+    if(!isInput){
+        if(what==="img" || what==="image"){
+            if(img2Sizes!==""){thisObj = 
+                new Image(Number(img2Sizes.split(":")[0]),Number(img2Sizes.split(":")[1]))}
+            else if(imgSize!==""){thisObj = new Image(imgSize,imgSize)}
+            else{thisObj = new Image()}
+            
+            if(imgFullSrc!==""){thisObj.src = imgFullSrc}
+            else{thisObj.src = path1 + imgSrc + path2}
+
+            if(imgAlt!==""){thisObj.alt = imgAlt}
+            }
+        else
+            {thisObj = document.createElement(what)}
+    } else {
+        thisObj = document.createElement("input"); thisObj.setAttribute("type",what)
+    }
+
+    if(url!==""){
+        thisObj = document.createElement("a")
+        thisObj.setAttribute("href","mailto:"+url)
+        thisObj.innerHTML = url
+    }
+
+    if(accentCol!==""){thisObj.style.accentColor = accentCol}
+
     if(text!==""){thisObj.innerHTML = text}
+
     if(setID!==""){thisObj.setAttribute("id",setID)}
+
     if(setClass!=="none"){thisObj.setAttribute("class",setClass)}
+
     if(setName!==""){thisObj.setAttribute("name",setName)}
-    if(setVal!==""){thisObj.setAttribute("value",setVal)}
-    if(setFunc){switch(what){
-        case "div" : thisObj.addEventListener("click",setFunc) ; break
-        case "radio" : thisObj.addEventListener("change",setFunc) ; break
-        default : console.log("missing correct addeventlistener here")}}
+
+    if(setFor!==""){thisObj.setAttribute("for",setFor)}
+
+    if(maxLen!==""){thisObj.setAttribute("maxlength",maxLen)}
+
+    if(setVal!==""){thisObj.value = setVal}
+
+    if(min!==""){thisObj.min = min}
+    if(max!==""){thisObj.max = max}
+
+    if(setFunc){
+        switch(what){
+            case "div" : case "td" : case "option" : thisObj.addEventListener("click",setFunc) ; break
+            case "select" : case "radio" : case "range" : case "checkbox" : thisObj.addEventListener("change",setFunc) ; break
+            case "input" : thisObj.addEventListener("input",setFunc) ; break
+            case "img" : thisObj.addEventListener("click",setFunc) ; break
+            case "select" : thisObj.addEventListener("input",setFunc) ; break
+            default : console.log("missing correct addeventlistener here")
+            } 
+        }
+
+    if(holder){
+        thisObj.setAttribute("placeholder",holder)
+    }
+
+    if(numInput){
+
+        thisObj.setAttribute("type","text")
+        thisObj.setAttribute("inputmode","decimal")
+        thisObj.setAttribute("step","any")
+
+        // Optional: Restrict to numeric with decimal point
+        thisObj.addEventListener('keypress', function(e) {
+            // Allow digits, decimal point, and control keys
+            if (!/[0-9.]/.test(e.key)) {
+            e.preventDefault();
+            }
+            // Prevent multiple decimal points
+            if (e.key === '.' && e.target.value.includes('.')) {
+            e.preventDefault();
+            }
+        });
+
+        // Optional: Prevent invalid pasted content
+        thisObj.addEventListener('paste', function(e) {
+            const pasteData = e.clipboardData.getData('text');
+            if (!/^\d*\.?\d*$/.test(pasteData)) {
+            e.preventDefault();
+            }
+        });
+    }
+  
+    if(what="textarea"){
+        thisObj.setAttribute("rows",areaRows)
+        thisObj.setAttribute("cols",areaCols)
+        thisObj.style.resize = "none"
+    }
+
     if(textC!==""){thisObj.style.color = textC}
-    if(textA!==""){thisObj.style.textAlign = textA}
+
+    if(fontS!==""){thisObj.style.fontSize = fontS}
+
+    if(fontB!==""){thisObj.style.fontWeight = fontB}
+
     if(backC!==""){thisObj.style.backgroundColor = backC}
+
     if(backG!==""){thisObj.style.background = backG}
+
     if(height!==""){thisObj.style.height = height}
+    if(minHeight!==""){thisObj.style.minHeight = minHeight}
+    if(maxHeight!==""){thisObj.style.maxHeight = maxHeight}
+
     if(width!==""){thisObj.style.width = width}
+    if(minWidth!==""){thisObj.style.minWidth=minWidth}
+    if(maxWidth!==""){thisObj.style.maxWidth=maxWidth}
+
     if(border!==""){thisObj.style.border = border}
+    if(borderL!==""){thisObj.style.borderLeft = borderL}
+    if(borderR!==""){thisObj.style.borderRight = borderR}
+    if(borderT!==""){thisObj.style.borderTop = borderT}
+    if(borderB!==""){thisObj.style.borderBottom = borderB}
+
     if(radius!==""){thisObj.style.borderRadius = radius}
     if(radiusTL!==""){thisObj.style.borderTopLeftRadius = radiusTL}
     if(radiusTR!==""){thisObj.style.borderTopRightRadius = radiusTR}
     if(radiusBL!==""){thisObj.style.borderBottomLeftRadius = radiusBL}
     if(radiusBR!==""){thisObj.style.borderBottomRightRadius = radiusBR}
-    if(minWidth!==""){thisObj.style.minWidth=minWidth}
-    if(maxWidth!==""){thisObj.style.maxWidth=maxWidth}
+
     if(padding!==""){thisObj.style.padding=padding}
+    if(paddingT!==""){thisObj.style.paddingTop =paddingT}
+    if(paddingB!==""){thisObj.style.paddingBottom =paddingB}
+    if(paddingL!==""){thisObj.style.paddingLeft=paddingL}
+    if(paddingR!==""){thisObj.style.paddingRight=paddingR}
+
     if(margin!==""){thisObj.style.margin=margin}
     if(marginT!==""){thisObj.style.marginTop=marginT}
     if(marginL!==""){thisObj.style.marginLeft=marginL}
     if(marginR!==""){thisObj.style.marginRight=marginR}
     if(marginB!==""){thisObj.style.marginBottom=marginB}
+
     if(display!==""){thisObj.style.display=display}
+
+    if(visibility!==""){thisObj.style.visibility = visibility}
+
     if(disabled){thisObj.disabled = true}
+
     if(justifyR){thisObj.style.justifyContent = "right"}
+
     if(alignItems!==""){thisObj.style.alignItems = alignItems}
+
+    if(textA!==""){thisObj.style.textAlign = textA}
+
+    if(overflow !== ""){thisObj.style.overflow = overflow}
     if(overflowX !== ""){thisObj.style.overflowX = overflowX}
+
     if(flDir !== ""){thisObj.style.flexDirection = flDir}
-    if(addToTop){dad.prepend(thisObj)}
-    else{dad.appendChild(thisObj)}
-    return thisObj}
+
+    if(flWrap !== ""){thisObj.style.flexWrap = flWrap}
+
+    if(justifyC !== ""){thisObj.style.justifyContent = justifyC}
+
+    if(float !== ""){thisObj.style.float = float}
+
+    if(cursor !== ""){thisObj.style.cursor = cursor}
+
+    if(tableLayout!==""){thisObj.style.tableLayout = tableLayout}
+
+    if(position !==""){thisObj.style.position = position}
+
+    if(top !==""){thisObj.style.top = top}
+    if(bottom !==""){thisObj.style.bottom = bottom}
+    if(left !==""){thisObj.style.left = left}
+    if(right !==""){thisObj.style.right = right}
+
+    if(zIdx!==""){thisObj.style.zIndex = zIdx}
+
+    if(userSelect!==""){thisObj.style.userSelect = userSelect}
+
+    if(colSpan!==""){thisObj.colSpan = colSpan}
+    if(rowSpan!==""){thisObj.rowSpan = rowSpan}
+
+    if(resize!==""){thisObj.style.resize = resize}
+
+    if(opacity!==""){thisObj.style.opacity = opacity}
+
+    if(whiteSpace!==""){thisObj.style.whiteSpace = whiteSpace}
+
+    if(transform!==""){thisObj.style.transform = transform}
+
+    if(mirror){thisObj.style.transform = "scaleX(-1)"}
+
+    if(log){
+        console.log(setVal)
+        console.log(dad)
+        console.log(setClass)
+        console.log(isInput)
+        }
+
+    if(addToTop)
+        {dad.prepend(thisObj)}
+    else
+        {dad.appendChild(thisObj)}
+    
+    return thisObj
+}
+
+function centerScreen(element){
+    element.style.position = "absolute"
+    let rect = element.getBoundingClientRect()
+    let posW = window.innerWidth/2 - rect.width/2
+    let posH = window.innerHeight/2 - rect.height/2
+  
+
+    element.style.top = posH + window.scrollY -10 + "px"
+    element.style.left = posW + window.scrollX +5 + "px"
+
+//    element.style.top = posH + window.scrollY -10 + "px"
+//    element.style.left = posW + window.scrollX +5 + "px"
+
+
+}
+
+function spanText2(spanColor="",spanTxt,sz=undefined,striked=false,underL="",setID="",setAlt="",mirrored=false){
+
+    let rbc = ["#ef5350","#f48fb1","#7e57c2","#2196f3","#26c6da",
+    "#43a047","#eeff41","#f9a825","#ff5722"]
+
+    let txtA = []
+    let ret = ""
+    let txt = ""
+    let cpt = 0
+
+    if(spanColor!=="rainbow"){txtA.push(spanTxt)}
+    else {for(let i=0;i<spanTxt.length;i++){txtA.push(spanTxt[i])}}
+
+    txtA.forEach(ch=>{
+        txt = `<span `
+        if(setID!==""){txt+=` id="`+setID+`" `}
+        if(setAlt!==""){txt+=`role="img" aria-label="`+setAlt+`"`}
+        txt += `style="`
+        if(spanColor!==""){
+            txt+=`color:`
+            if(spanColor === "rainbow"){
+                txt+= rbc[cpt] +`;`
+                cpt++ ; if(cpt>rbc.length-1){cpt=0}
+            } else {txt+= spanColor +`;`}
+        }
+        if(sz!==undefined){txt+= ` font-size:`+sz+`px;`}
+        if(striked){txt+= ` text-decoration: line-through; text-decoration-color: red; text-decoration-thickness: 2px;`}
+
+        if(mirrored){txt+=` display:inline-block; transform: scaleX(-1);`}
+
+        if(underL!==""){txt+=` border-bottom:`+underL}
+
+         txt+= `">` + ch + `</span>`
+        ret+= txt
+    })
+    return ret
+}
+
+function spanText({text="test",col="black",textS=undefined,striked=false,underLine="",
+                    id="",setAlt="",mirrored=false}){
+    let txt = `<span `
+    if(id!==""){txt+=` id="`+id+`" `}
+    if(setAlt!==""){txt+=`role="img" aria-label="`+setAlt+`"`}
+    txt += `style="`
+    if(col!==""){txt+=`color:`+ col +`;`}
+    if(textS!==undefined){txt+= ` font-size:`+textS+`px;`}
+    if(striked){txt+= ` text-decoration: line-through; text-decoration-color: red; text-decoration-thickness: 2px;`}
+    if(mirrored){txt+=` display:inline-block; transform: scaleX(-1);`}
+    if(underLine!==""){txt+=` border-bottom:`+underLine}
+    txt+= `">` + text + `</span>`
+    return txt
+}
+
+
+
+function getID(id){return document.getElementById(id)}
+
+function cleanParent(parent){while(parent.children.length >0){parent.removeChild(parent.lastChild)}}
+
+function bKr(x, n=0){ // bKr = bankersRound
+    const p = Math.pow(10, n);
+    const y = x * p;
+    const absY = Math.abs(y);
+    const intPart = Math.trunc(absY);
+    const frac = absY - intPart;
+    const sign = x < 0 ? -1 : 1;
+    if (Math.abs(frac - 0.5) < 1e-12) {
+   return sign * ((intPart % 2 === 0 ? intPart : intPart + 1) / p);
+    }
+    return Math.round(x * p) / p;
+  }
+
+
+function forNum(num){
+    val = Number(num)
+    let mag = 1000
+    if(val>999){
+        if(val<mag*1000){val = (val/mag).toFixed(2)+"K"}
+        mag*=1000
+        if(val<mag*1000){val = (val/mag).toFixed(2)+"M"}
+        mag*=1000
+        if(val<mag*1000){val = (val/mag).toFixed(2)+"B"}
+        mag*=1000
+        if(val<mag*1000){val = (val/mag).toFixed(2)+"T"}        
+        mag*=1000
+        if(val<mag*1000){val = (val/mag).toFixed(2)+"q"}
+        mag*=1000
+        if(val<mag*1000){val = (val/mag).toFixed(2)+"Q"}
+        mag*=1000
+        if(val<mag*1000){val = (val/mag).toFixed(2)+"s"}
+        mag*=1000
+        if(val<mag*1000){val = (val/mag).toFixed(2)+"S"}
+        mag*=1000
+        if(val<mag*1000){val = (val/mag).toFixed(2)+"O"}
+        mag*=1000
+        if(val<mag*1000){val = (val/mag).toFixed(2)+"N"}
+        mag*=1000
+        if(val<mag*1000){val = (val/mag).toFixed(2)+"D"}
+
+    }
+    return val
+}
+
+
+
+
+
+
+
+
+
+
+
+function nBr(text){return text.includes(",") ? Number(text.replace(",","")) : Number(text)}
+
+
+function getDialogTopFrame(cxlEsc=true){
+    let Obj = addEle({dad:body,what:"dialog",setClass:"myDialog",width:"fit-content",height:"fit-content"})
+    if(cxlEsc){ Obj.addEventListener('keydown', (e)=>{ if (e.key === 'Escape'){e.preventDefault()} }) }
+    return Obj
+}
+
+function lockScroll(lock=true){
+    document.body.style.overflow = lock ? "hidden" : ""
+    document.body.style.touchAction = lock ? 'none' : ""
+}
+
+function addEmo(emoji="emoji",lbl="emoji label",id="",mirrored=false){
+    let style = ""
+    if(mirrored){style = "display:inline-block; transform: scaleX(-1);"}
+    return `<span id="`+id+`" style="`+style+`" role="img" aria-label="`+lbl+`">`+emoji+`</span>`
+}
+
+
+const romans = [
+    "I","II","III","IV","V","VI","VII","VIII","IX","X",
+   "XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX",
+   "XXI","XXII","XXIII","XXIV","XXV","XXVI","XXVII","XXVIII","XXIX","XXX",
+   "XXXI","XXXII","XXXIII","XXXIV","XXXV","XXXVI","XXXVII","XXXVIII","XXXIX","XL",
+   "XLI","XLII","XLIII","XLIV","XLV","XLVI","XLVII","XLVIII","XLIX","L",
+   "LI","LII","LIII","LIV","LV","LVI","LVII","LVIII","LIX","LX",
+   "LXI","LXII","LXIII","LXIV","LXV","LXVI","LXVII","LXVIII","LXIX","LXX",
+   "LXXI","LXXII","LXXIII","LXXIV","LXXV","LXXVI","LXXVII","LXXVIII","LXXIX","LXXX",
+   "LXXXI","LXXXII","LXXXIII","LXXXIV","LXXXV","LXXXVI","LXXXVII","LXXXVIII","LXXXIX","XC",
+   "XCI","XCII","XCIII","XCIV","XCV","XCVI","XCVII","XCVIII","XCIX","C"
+   ]
+
+/*
+function getUnlock(lbl){
+    let ret = undefined
+    let src = player.unlockedElements
+    let idx = src.findIndex(x=>x.lbl===lbl)
+    if(idx>-1){ret = src[idx]}
+    return ret
+}
+*/
+
+function getResource(lbl){
+    let ret = undefined
+    let src = player.resources
+    let idx = src.findIndex(x=>x.lbl===lbl)
+    if(idx>-1){ret = src[idx]}
+    return ret
+}
+
+function getAction(lbl){
+    let ret = undefined
+    let src = player.actions
+    let idx = src.findIndex(x=>x.lbl===lbl)
+    if(idx>-1){ret = src[idx]}
+    return ret
+}
+
+
+function addBtn(dad,lbl,func,id=undefined,borders=undefined,textCol=undefined,backCol=undefined){
+    let src = player.visuals
+    return addEle({dad:dad,text:lbl,setClass:"btn",setFunc:func,
+    setID:id !== undefined ? id : "", border:borders !== undefined ? borders : src.btnBrd.new,
+    textC:textCol !== undefined ? textCol : src.btnTxt.new, backC:backCol !== undefined ? backCol : src.btnBG.new
+})
+}
+
+function addImg(dad,imgName,imgSize,borders=undefined,margins=undefined,func=undefined,
+    id=undefined,imgType="jpeg"){
+    return addEle({dad:dad,what:"img",imgFullSrc:"imgs/"+imgName+"."+imgType,imgSize:imgSize,
+    border:borders !== undefined ? borders : "", radius:"50px",
+    setFunc:func !== undefined ? func : undefined, setID:id !== "" ? id : "",
+    margin:margins !== undefined ? margins : ""
+})
+}
+
+function strInOuts(src){
+    let ret = "Get/s : "
+    if(src.outputs.length === 0){
+        ret += "--"
+    } else {
+        src.outputs.forEach(i =>{ret += i.val+" "+i.lbl+", "})
+        ret = ret.slice(0,ret.length-2)
+    }
+    ret += " | Cost/s : "
+    if(src.costs.length===0){
+        ret += "--"
+    } else {
+        src.costs.forEach(i=>{ret += i.val+" "+i.lbl+", "})
+        ret = ret.slice(0,ret.length-2)
+    }
+    return ret
+}
+
+function setTip(ele,txt){
+    ele.addEventListener("mouseover",()=>{info.innerHTML=txt})
+    ele.addEventListener("mouseout",()=>{info.innerHTML=""})
+}
+
+function StrFunc(txt){
+    switch(txt){
+        case "rest":return rest ; break
+        case "studyBook" : return studyBook ; break
+        case "explore" : return explore ; break
+        default : console.log(txt+" not set yet")
+    }
+}
+
+function randInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function randomChance(Xpercent){
+    let ret = {val:undefined,result:undefined}
+    ret.val = Math.random()
+    ret.result = ret.val < Xpercent/100
+    return ret
+}
+
+
+function clock(seconds) {
+    seconds = Math.floor(seconds);
+  
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+  
+    return [
+      String(hours).padStart(2, "0"),
+      String(minutes).padStart(2, "0"),
+      String(secs).padStart(2, "0")
+    ].join(":");
+  }
+
+function getItm(lbl){
+    let ret = undefined
+    let src = player.items
+    let idx = src.findIndex(x=>x.lbl===lbl)
+    if(idx>-1){ret = src[idx]}
+    return ret
+}
+
+function getCrop(lbl){
+    let ret = undefined
+    let src = crops
+    let idx = src.findIndex(x=>x.lbl===lbl)
+    if(idx>-1){ret = src[idx]}
+    return ret
+}
+
 
 const body = document.querySelector("body")
-let myArr = [{label:"青",value:19},{label:"月",value:1},{label:"影",value:13},{label:"虎",value:20},{label:"日",value:0},{label:"雪",value:27},{label:"粉",value:21},{label:"光",value:25},{label:"土",value:6},{label:"魚",value:23},{label:"糖",value:15},{label:"風",value:28},{label:"黒",value:12},{label:"銀",value:17},{label:"木",value:4},{label:"君",value:9},{label:"雷",value:22},{label:"米",value:14},{label:"白",value:11},{label:"温",value:18},{label:"火",value:2},{label:"石",value:24},{label:"願",value:16},{label:"水",value:3},{label:"菜",value:26},{label:"牛",value:29},{label:"塩",value:10},{label:"金",value:5},{label:"升",value:7},{label:"赤",value:8},]
-let refArr = []
-let cpt = 0
-let tpArr = []
-myArr.forEach((x)=>{tpArr.push(x.label)})
-let rnd = undefined
-while(tpArr.length > 0){rnd = Math.floor(Math.random()*tpArr.length);refArr.push(tpArr[rnd]);tpArr.splice(rnd,1);cpt++;if(cpt > 30){break}}
 
-let idx=0
-let miss1=0
-let radX = 0
-let select = []
-let bla = {q1t:"クイズ1 : 本は？",q2t:"当たり、クイズ2 : 本を数字で言うと？",chau0:"違います...じゃ先を教えてね...(ミス：",chau1:"違います...じゃ後を教えてね...(ミス：",chau2:"違います、クイズ終了...<br>",q2good1:"当たり　!! クイズ　完成　おめでとう<br>",qmiss1:"クイズ 1 : ミス ",qmiss2:"クイズ 2 : ミス ",q2bad1:"違います、",br:"<br>",qkai:"回",shut:")",tbla:"了解",r1BtLb:"カニクリーム米コロッケ",r2BtLb:"美味しい生地",yeast:"イースト"}
-addEle({dad:body,text:bla.q1t,margin:"10px",setID:"info"})
-addEle({dad:body,setClass:"tab",setID:"cont1"})
-    for(i=0;i<(myArr.length/6);i++){
-        addEle({dad:getID("cont1"),setClass:"contRow",setID:"cont1L"+i})
-        for(j=0;j<6;j++){
-            radX++
-            addEle({dad:getID("cont1L"+i),what:"radio",isInput:true,setVal:refArr[idx],setName:"quizz1",
-            setID:"radioQ1-"+radX,display:"none",setFunc:()=>{
-                let thisGRP = document.getElementsByName("quizz1")
-                thisGRP.forEach((x)=>{if(x.checked){
-                    let thisItm = myArr.filter(y=>y.label === x.value)[0]
-                    let mdt = new Date()
-                    let refV = undefined
-                    switch(miss1){
-                        case 0 :
-                            refV = mdt.getDay()
-                            if(thisItm.value === refV)
-                                {getID("info").innerHTML = bla.q2t
-                                getID("cont1").style.display = "none"
-                                getID("cont2").style.display = "flex"}
-                            else 
-                                {miss1++ ; x.checked = false
-                                getID("info").innerHTML = bla.chau0+miss1+bla.qkai+bla.shut}
-                            break
-                        case 1 :
-                            refV = mdt.getDay() === 0 ? 6 : mdt.getDay() -1
-                            if(thisItm.value === refV)
-                                {getID("info").innerHTML = bla.q2t
-                                getID("cont1").style.display = "none"
-                                getID("cont2").style.display = "flex"}
-                            else 
-                                {miss1++ ; x.checked = false
-                                getID("info").innerHTML = bla.chau1+miss1+bla.qkai+bla.shut}
-                            break
-                        case 2 :
-                            refV = mdt.getDay() === 6 ? 0 : mdt.getDay() +1
-                            if(thisItm.value === refV)
-                                {getID("info").innerHTML = bla.q2t
-                                getID("cont1").style.display = "none"
-                                getID("cont2").style.display = "flex"}
-                            else 
-                                {miss1++ ; getID("info").innerHTML = bla.chau2+bla.qmiss1+miss1+bla.qkai ; getID("cont1").style.display = "none"}
-                            break
-                    } select.push( myArr.filter(y=>y.label === x.value )[0].value ) ; if( select.length === 3 && select[0] === 20 && select[1] === 9 && select[2] === 16 ){ getID("info").style.display="none" ; getID("cont3").style.display = "flex" }
-                }})
-            }})
-            addEle({dad:getID("cont1L"+i),text:refArr[idx],setID:"radioQ1L-"+radX,border:"solid 2px blue",
-            padding:"5px",radius:"5px",setFunc:(e)=>{
-                getID("radioQ1-"+e.srcElement.id.split("-")[1]).click()
-            }})
-            idx++
-        }
-    }
+let baseA = {
+    rice:1600,
+    water:2000,
+    sauce:720,
+    pea:100,
+    daily:180,
+}
 
-idx = 0
-radX = 0
-let miss2=0
-addEle({dad:body,setClass:"tab",setID:"cont2",display:"none",width:"fit-content"})
-    for(let i=0;i<5;i++){
-        addEle({dad:getID("cont2"),setClass:"contRow",setID:"cont2L"+i})
-        for(let j=0;j<10;j++){
-            idx++
-            radX++
-            addEle({dad:getID("cont2L"+i),what:"radio",isInput:true,setVal:idx,setName:"quizz2",
-            setID:"radioQ2-"+radX ,display:"none",setFunc:()=>{
-                let thisGRP = document.getElementsByName("quizz2")
-                let mdt = new Date
-                thisGRP.forEach((x)=>{if(x.checked){
-                    if(mdt.getDate() === Number(x.value)){
-                        getID("info").innerHTML = bla.q2good1+bla.qmiss1+miss1+bla.qkai+bla.br+bla.qmiss2+miss2+bla.qkai
-                        getID("cont2").style.display = "none"
-                    } else {
-                        miss2++
-                        thisGRP.forEach((x)=>{x.checked=false})
-                        getID("info").innerHTML = bla.q2bad1+bla.qmiss2+miss2+bla.qkai
-                        if(miss2 > 2){
-                            getID("info").innerHTML = bla.chau2+bla.qmiss1+miss1+bla.qkai+bla.br+bla.qmiss2+miss2+bla.qkai
-                            getID("cont2").style.display = "none"
-                        }
-                    }
-                }})
-            }})
-            addEle({dad:getID("cont2L"+i),setID:"radioQ2L-"+radX ,text: idx < 10 ? "0"+idx : idx,
-            border:"solid 2px blue",padding:"5px",radius:"5px",setFunc:(e)=>{
-                getID("radioQ2-"+e.srcElement.id.split("-")[1]).click()
-            }})
-        }
-    }
+let baseB = {
+    rice:113.64,
+    water:136.37,
+    sauce:49.1,
+    pea:6.82,
+    daily:12.3,
+}
 
 
-let mw = 40;let bk = [{label:bla.r1BtLb,ref:myArr.filter(x=>x.value===7)[0].label,min:0.5,max:10,mult:0.5,det:[{label:myArr.filter(x=>x.value===14)[0].label,base:[{val:800,unit:"g"},{val:1,unit:"xR",isSet:"calc",}]},{label:myArr.filter(x=>x.value===3)[0].label,base:[{val:975,unit:"cc"},]},{label:"ソース",base:[{val:360,unit:"cc"},{val:2,unit:"x180ccR",isSet:"calc",},{val:336,unit:"g"}]},{label:"ミックス",base:[{val:90,unit:"g"},]}]}   ,   {label:bla.r2BtLb,ref:bla.yeast,min:0.35,max:7,mult:0.35,det:[{label:myArr.filter(x=>x.value===8)[0].label+myArr.filter(x=>x.value===21)[0].label,base:[{val:100,unit:"g"},]},{label:myArr.filter(x=>x.value===11)[0].label+myArr.filter(x=>x.value===21)[0].label,base:[{val:334,unit:"g"},]},{label:myArr.filter(x=>x.value===10)[0].label,base:[{val:11,unit:"g"},]},{label:myArr.filter(x=>x.value===3)[0].label,base:[{val:250,unit:"cc"},]},{label:myArr.filter(x=>x.value===3)[0].label+myArr.filter(x=>x.value===18)[0].label,base:[{val:"22°～",unit:"",isSet:"none",},]},]},]
-addEle({dad:body,setClass:"tab",setID:"cont3",display:"none",width:"fit-content",})
-    addEle({dad:getID("cont3"),text:bla.tbla})
-    addEle({dad:getID("cont3"),setClass:"tab",setID:"cont4",width:"fit-content",})
-        for(cpt=0;cpt<bk.length;cpt++){
-            addEle({dad:getID("cont4"),setClass:"clickBtn",setID:"bkBtn"+cpt,text:bk[cpt].label,setFunc:(e)=>{
-                idx = e.srcElement.id.split("bkBtn")[1]
-                getID("bklbl").innerHTML = bk[idx].ref
-                getID("bkref").innerHTML = idx
-                getID("cont5").style.display = "flex"
-                getID("kcont").style.display = "none"
-                getID("bkmult").innerHTML = 0
-                getID("bkmultlbl").innerHTML = "(+/-"+bk[idx].mult+")"}})}
-        addEle({dad:getID("cont4"),setClass:"tab",setID:"cont5",display:"none"})
-            addEle({dad:getID("cont5"),setClass:"contRow",setID:"cont5Fork"})
-                addEle({dad:getID("cont5Fork"),setClass:"contCol",setID:"cont5ForkA",})
-                    addEle({dad:getID("cont5ForkA"),setClass:"contRow",setID:"cont5ForkAL1"})
-                        addEle({dad:getID("cont5ForkAL1"),text:0,setID:"bkmult",minWidth:"50px",textA:"center"})
-                        addEle({dad:getID("cont5ForkAL1"),setID:"bkref",marginL:"10px",display:"none"})
-                    addEle({dad:getID("cont5ForkA"),setClass:"contRow",setID:"cont5ForkAL2"})
-                        addEle({dad:getID("cont5ForkAL2"),setID:"bklbl",marginL:"10px"})
-                    addEle({dad:getID("cont5ForkA"),setClass:"contRow",setID:"cont5ForkAL3"})
-                        addEle({dad:getID("cont5ForkAL3"),setClass:"clickBtn",setID:"rcp1",text:"-",minWidth:mw+"px",setFunc:setK})
-                        addEle({dad:getID("cont5ForkAL3"),setClass:"clickBtn",setID:"rcp1",text:"+",minWidth:mw+"px",setFunc:setK})
-                    addEle({dad:getID("cont5ForkA"),setClass:"contRow",setID:"cont5ForkAL4"})
-                        addEle({dad:getID("cont5ForkAL4"),setID:"bkmultlbl",})
-                addEle({dad:getID("cont5Fork"),setClass:"contCol",setID:"cont5ForkB",})
-                    addEle({dad:getID("cont5ForkB"),setClass:"tab",setID:"kcont",display:"none",padding:"10px",marginL:"10px"})
+let cr = addEle({dad:body,setClass:"contRow",margin:"10px"})
+    let sel = addEle({dad:cr,what:"select",setClass:"select",textA:"center",setID:"sel",
+        setFunc:(e)=>{
+            let nb = Number(e.srcElement.value) ; console.log("do it "+nb)
+            calc(getID("f1"),nb,baseA)
+        }})
+    for(let i=2;i<=12;i++){addEle({dad:sel,what:"option",text:(i*.5)})}
 
-function setK(e){
-    idx = e.srcElement.id.split("rcp")[1]
-    let thisL = getID("bkmult")
-    let val = Number(thisL.innerHTML)
-    let thisItm = bk[getID("bkref").innerHTML]
-    switch(e.srcElement.innerHTML){case "+": val+=thisItm.mult ; break ; case "-": val-=thisItm.mult ; break }
-    if(val < thisItm.min || val > thisItm.max){thisL.innerHTML = val.toFixed(2) ; getID("kcont").style.display = "none"}
-    else {
-        thisL.innerHTML = val.toFixed(2)
-        let cont = getID("kcont")
-        cleanParent(cont)
-        cont.style.display = "flex"
-        thisItm.det.forEach((itm)=>{
-            let txt = itm.label + " : "
-            itm.base.forEach((itmB)=>{
-                if(itmB.isSet===undefined){txt += (itmB.val * (val/thisItm.mult)).toFixed(2)  +itmB.unit + "/"}
-                else{if(itmB.isSet==="none"){txt += itmB.val +itmB.unit + "/"}
-                    else{txt += (itmB.val * (val/thisItm.mult)) +itmB.unit + "/"}}})
-            txt = txt.slice(0,txt.length-1)                
-            addEle({dad:cont,text:txt})
-        })}}
+    addEle({dad:cr,text:"#",margin:"0 10px 0 60px"})
+
+    addEle({dad:cr,what:"input",isInput:true,setVal:0,textA:"center",width:"40px",
+    numInput:true,setFunc:(e)=>{
+        let nb = Number(e.srcElement.value)
+        console.log(nb)
+        calc(getID("f2"),Math.ceil(nb),baseB)
+    }})
+
+cr = addEle({dad:body,setClass:"contRow"})
+    let F1 = addEle({dad:cr,setClass:"contCol",setID:"f1",padding:"5px",margin:"10px"})
+    let F2 = addEle({dad:cr,setClass:"contCol",setID:"f2",padding:"5px",margin:"10px"})
+
+
+let ev = new Event("change") ; getID("sel").dispatchEvent(ev) //sel.dispatchEvent(ev)
+
+function calc(fr,nb,bs){
+    cleanParent(fr)
+
+    addEle({dad:fr,text:"Rice " + Math.round(nb*bs.rice)})
+    addEle({dad:fr,text:"Water " + Math.round(nb*bs.water)})
+    addEle({dad:fr,text:"Sauce " + Math.round(nb*bs.sauce)})
+    addEle({dad:fr,text:"Pea " + Math.round(nb*bs.pea)})
+    addEle({dad:fr,text:"Daily " + Math.round(nb*bs.daily)})
+}
