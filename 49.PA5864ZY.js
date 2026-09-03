@@ -605,7 +605,7 @@ let cr = addEle({dad:body,setClass:"contRow",margin:"10px"})
         }})
     for(let i=2;i<=12;i++){addEle({dad:sel,what:"option",text:(i*.5)})}
 
-    addEle({dad:cr,text:"#",margin:"0 10px 0 60px"})
+    addEle({dad:cr,text:"#",margin:"0 10px 0 80px"})
 
     addEle({dad:cr,what:"input",isInput:true,setVal:0,textA:"center",width:"40px",
     numInput:true,setFunc:(e)=>{
@@ -619,14 +619,14 @@ cr = addEle({dad:body,setClass:"contRow"})
     let F2 = addEle({dad:cr,setClass:"contCol",setID:"f2",padding:"5px",margin:"10px"})
 
 
-let ev = new Event("change") ; getID("sel").dispatchEvent(ev) //sel.dispatchEvent(ev)
+let ev = new Event("change") ; getID("sel").dispatchEvent(ev)
 
 function calc(fr,nb,bs){
     cleanParent(fr)
 
     addEle({dad:fr,text:"Rice " + Math.round(nb*bs.rice)})
     addEle({dad:fr,text:"Water " + Math.round(nb*bs.water)})
-    addEle({dad:fr,text:"Sauce " + Math.round(nb*bs.sauce)})
+    addEle({dad:fr,text:"Sauce " + Math.round(nb*bs.sauce)+"("+Math.round((nb*bs.sauce)/180)+")"})
     addEle({dad:fr,text:"Pea " + Math.round(nb*bs.pea)})
     addEle({dad:fr,text:"Daily " + Math.round(nb*bs.daily)})
 }
