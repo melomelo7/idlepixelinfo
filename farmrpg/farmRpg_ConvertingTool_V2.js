@@ -54,7 +54,7 @@ I suggest you go for 35:1 (38% loss) anytime possible unless if your
 desperate for whatever reason. <br><br>
 Old stubborn players will have to learn flexibility while other
 players already are fine about it.<br><br>
-Review your rating if the Event Craft Bonus is on as it means fewer loss ...
+Review your rating if the Event Craft Bonus is ON as it means fewer loss ...
 `
 
 const outputs = [
