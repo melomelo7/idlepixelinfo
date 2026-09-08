@@ -596,6 +596,12 @@ let baseB = {
     daily:12.3,
 }
 
+let tempo = "Sauce " + Math.round(26*baseB.sauce)+"("+((26*baseB.sauce)/180).toFixed(2)+")"
+addEle({dad:body,margin:"10px",text:tempo})
+tempo = (1200*3/12.56).toFixed(2)
+addEle({dad:body,margin:"10px",text:tempo})
+tempo = "test "+(1200*3/12.56).toFixed(2)
+addEle({dad:body,margin:"10px",text:tempo})
 
 let cr = addEle({dad:body,setClass:"contRow",margin:"10px"})
     let sel = addEle({dad:cr,what:"select",setClass:"select",textA:"center",setID:"sel",
@@ -617,6 +623,7 @@ let cr = addEle({dad:body,setClass:"contRow",margin:"10px"})
 cr = addEle({dad:body,setClass:"contRow"})
     let F1 = addEle({dad:cr,setClass:"contCol",setID:"f1",padding:"5px",margin:"10px"})
     let F2 = addEle({dad:cr,setClass:"contCol",setID:"f2",padding:"5px",margin:"10px"})
+    let F3 = addEle({dad:cr,setClass:"contCol",setID:"f3",padding:"5px",margin:"10px"})
 
 
 let ev = new Event("change") ; getID("sel").dispatchEvent(ev)
@@ -626,7 +633,7 @@ function calc(fr,nb,bs){
 
     addEle({dad:fr,text:"Rice " + Math.round(nb*bs.rice)})
     addEle({dad:fr,text:"Water " + Math.round(nb*bs.water)})
-    addEle({dad:fr,text:"Sauce " + Math.round(nb*bs.sauce)+"("+Math.round((nb*bs.sauce)/180)+")"})
+    addEle({dad:fr,text:"Sauce " + Math.round(nb*bs.sauce)+"("+((nb*bs.sauce)/180).toFixed(1)+")"})
     addEle({dad:fr,text:"Pea " + Math.round(nb*bs.pea)})
     addEle({dad:fr,text:"Daily " + Math.round(nb*bs.daily)})
 }
