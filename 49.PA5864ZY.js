@@ -596,22 +596,56 @@ let baseB = {
     daily:12.3,
 }
 
+let baseC = {
+    rice:118.75,
+    water:142.51,
+    sauce:51.31,
+    pea:7.13,
+    daily:12.85,
+}
+
+let link = false
+
 let cr = addEle({dad:body,setClass:"contRow",margin:"10px"})
     let sel = addEle({dad:cr,what:"select",setClass:"select",textA:"center",setID:"sel",
         setFunc:(e)=>{
-            let nb = Number(e.srcElement.value) ; console.log("do it "+nb)
-            calc(getID("f1"),nb,baseA)
+            let nb = Number(e.srcElement.value)
+            calc(getID("f1"),nb,baseA,nb*13)
         }})
     for(let i=2;i<=12;i++){addEle({dad:sel,what:"option",text:(i*.5)})}
 
     addEle({dad:cr,text:"#",margin:"0 10px 0 80px"})
 
     addEle({dad:cr,what:"input",isInput:true,setVal:0,textA:"center",width:"40px",
-    numInput:true,setFunc:(e)=>{
+    numInput:true,setID:"in1",setFunc:(e)=>{
         let nb = Number(e.srcElement.value)
-        console.log(nb)
-        calc(getID("f2"),Math.ceil(nb),baseB)
+        calc(getID("f2"),Math.ceil(nb),baseB,Math.ceil(nb))
+        if(getID("link").checked && !link){
+            link = true
+            getID("in2").value = nb
+            let ev = new Event("input") ; getID("in2").dispatchEvent(ev)
+            link = false
+        }
     }})
+
+    addEle({dad:cr,what:"checkbox",isInput:true,margin:"0 30px",setID:"link",setFunc:()=>{
+
+    }}).checked = true
+
+    addEle({dad:cr,text:"#",margin:"0 10px 0 0"})
+
+    addEle({dad:cr,what:"input",isInput:true,setVal:0,textA:"center",width:"40px",
+    numInput:true,setID:"in2",setFunc:(e)=>{
+        let nb = Number(e.srcElement.value)
+        calc(getID("f3"),nb,baseC,nb)
+        if(getID("link").checked && !link){
+            link = true
+            getID("in1").value = nb
+            let ev = new Event("input") ; getID("in1").dispatchEvent(ev)
+            link = false
+        }
+    }})
+
 
 cr = addEle({dad:body,setClass:"contRow"})
     let F1 = addEle({dad:cr,setClass:"contCol",setID:"f1",padding:"5px",margin:"10px"})
@@ -621,12 +655,13 @@ cr = addEle({dad:body,setClass:"contRow"})
 
 let ev = new Event("change") ; getID("sel").dispatchEvent(ev)
 
-function calc(fr,nb,bs){
+function calc(fr,nb,bs,balls){
     cleanParent(fr)
 
-    addEle({dad:fr,text:"Rice " + Math.round(nb*bs.rice)})
-    addEle({dad:fr,text:"Water " + Math.round(nb*bs.water)})
-    addEle({dad:fr,text:"Sauce " + Math.round(nb*bs.sauce)+"("+((nb*bs.sauce)/180).toFixed(1)+")"})
-    addEle({dad:fr,text:"Pea " + Math.round(nb*bs.pea)})
-    addEle({dad:fr,text:"Daily " + Math.round(nb*bs.daily)})
+    addEle({dad:fr,text:"Balls : " + balls})
+    addEle({dad:fr,text:"Rice : " + Math.round(nb*bs.rice)})
+    addEle({dad:fr,text:"Water : " + Math.round(nb*bs.water)})
+    addEle({dad:fr,text:"Sauce : " + Math.round(nb*bs.sauce)+"("+((nb*bs.sauce)/180).toFixed(1)+")"})
+    addEle({dad:fr,text:"Pea : " + Math.round(nb*bs.pea)})
+    addEle({dad:fr,text:"Daily : " + Math.round(nb*bs.daily)})
 }
