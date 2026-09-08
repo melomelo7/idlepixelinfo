@@ -596,13 +596,6 @@ let baseB = {
     daily:12.3,
 }
 
-let tempo = "Sauce " + Math.round(26*baseB.sauce)+"("+((26*baseB.sauce)/180).toFixed(2)+")"
-addEle({dad:body,margin:"10px",text:tempo})
-tempo = (1200*3/12.56).toFixed(2)
-addEle({dad:body,margin:"10px",text:tempo})
-tempo = "test "+(1200*3/12.56).toFixed(2)
-addEle({dad:body,margin:"10px",text:tempo})
-
 let cr = addEle({dad:body,setClass:"contRow",margin:"10px"})
     let sel = addEle({dad:cr,what:"select",setClass:"select",textA:"center",setID:"sel",
         setFunc:(e)=>{
