@@ -597,11 +597,11 @@ let baseB = {
 }
 
 let baseC = {
-    rice:118.75,
-    water:142.51,
-    sauce:51.31,
-    pea:7.13,
-    daily:12.85,
+    rice:122.31,
+    water:146.78,
+    sauce:52.85,
+    pea:7.34,
+    daily:13.24,
 }
 
 let link = false
