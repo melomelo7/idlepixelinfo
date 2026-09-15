@@ -270,11 +270,18 @@ setFunc:()=>{
         window.open(lnk,"_self")
     }})
 
-    addEle({dad:cont,setClass:"btn",text:"⇒Fauna & SupakoolDude Ref Chart for Trade Prices",
+    addEle({dad:cont,setClass:"btn",text:"⇒SupakoolDude Ref Chart for Trade Prices",
     textC:"lime",margin:"10px",setFunc:()=>{
         let lnk = "https://farmrpg-pricecheck.free.nf/index.html"
         window.open(lnk,"_self")
     }})
+
+    addEle({dad:cont,setClass:"btn",text:"⇒frpg Lottery (work in progress)",
+    textC:"lime",margin:"10px",setFunc:()=>{
+        let lnk = "https://melomelo7.github.io/idlepixelinfo/frpgLottery/frpgLottery.html"
+        window.open(lnk,"_self")
+    }})
+
    
 getID("helpCont").click()
 
@@ -919,6 +926,5 @@ function readH(){
     let myS = loadFromBrowser()
     console.log(myS)
 }
-
 
 checkDailyMods()
