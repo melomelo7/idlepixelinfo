@@ -89,7 +89,9 @@ function setNumberPool(){
 
 }
 
-
+lnk = "https://melomelo7.github.io/idlepixelinfo/farmrpg/farmRpg_Bob1_Farm.html"
+addEle({dad:bodyTop,setClass:"btn",text:addEmo("⇦","emoji arrow pointing left")+
+" Go Back",backG:"",backC:"rgb(49,75,134)",setFunc:()=>{window.open(lnk,"_self")}})
 
 function setPage(){
   addEle({dad:bodyTop,text:`for page smooth processing all inputs are set to lower case.<br>
@@ -157,7 +159,15 @@ function addNewItem(){
   let cr = addEle({dad:tgt,setClass:"contRow",margin:"10px"})
     addEle({dad:cr,text:"Item Name :",marginR:"10px"})
     addEle({dad:cr,what:"input",isInput:true,textA:"center",setID:"newItm",
-    setFunc:(e)=>{e.srcElement.value = e.srcElement.value.toLowerCase()}})
+    setFunc:(e)=>{
+      e.srcElement.value = e.srcElement.value.toLowerCase()
+      cleanParent(getID("itemMatch"))
+      let arr = player.items.filter(x=>x.includes(e.srcElement.value))
+      arr.forEach(it=>{
+        console.log(it)
+        addEle({dad:getID("itemMatch"),text:"- "+it})
+      })
+    }})
 
     getID("newItm").addEventListener("keydown", (event) => {
       if (event.key === "Enter") {getID("addItmBtn").click()}
@@ -183,6 +193,10 @@ function addNewItem(){
         }
       }
     }})
+
+  addEle({dad:tgt,text:"Possible matches in current list",borderB:"green solid 2px"})
+
+  addEle({dad:tgt,setClass:"contCol",setID:"itemMatch",marginT:"5px"})
 
   getID("newItm").focus()
 }
