@@ -206,7 +206,10 @@ addEle({dad:cont,text:welcome,margin:"20px",padding:"5px",border:"blue solid 3px
 radius:"30px",textA:"center",width:"fit-content"})
 
 addEle({dad:cont,what:"img",imgFullSrc:"./apple lord.jpg",img2Sizes:"350:240",
-border:"lime solid 2px",radius:"50%"})
+border:"lime solid 2px",radius:"50%",setFunc:()=>{
+    let lnk = "https://melomelo7.github.io/idlepixelinfo/frpgLottery/frpgLottery.html"
+    window.open(lnk,"_self")
+})
 
 cont = addEle({dad:body,setClass:"contRow",margin:"5px 30px",alignItems:"center"})
     addEle({dad:cont,text:"🟢 A few words...",margin:"0 20px"})
