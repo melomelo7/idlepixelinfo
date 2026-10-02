@@ -998,7 +998,7 @@ function checkNum(){
       }
       let txt = player.rewards.filter(x=>x.winner!==undefined).length+"/"+
       player.rewards.filter(x=>x.number!==undefined).length
-      getID("rwdSts").innerHTML = txt
+      getID("lotWrew").innerHTML = txt
 
     }})
  
@@ -1061,15 +1061,57 @@ function checkProgress(){
   let tgt = getID("manageSub")
   cleanParent(tgt)
 
-  let rwC = player.rewards.filter(x=>x.use).length
+  let rwdA = getRwdSt()
 
-  let rwW = player.rewards.filter(x=>x.winner!==undefined).length
+  console.log(rwdA)
 
-  let cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",margin:"10px 0 0 10px"})
-    addEle({dad:cr,text:"Rewards in the Lottery :",marginR:"5px"})
-    addEle({dad:cr,text:rwC,textC:YG})
 
-  cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",margin:"10px 0 0 10px"})
-    addEle({dad:cr,text:"Rewards won :",marginR:"5px"})
-    addEle({dad:cr,text:rwW+"/"+rwC,textC:YG})
+
+  let cont = addEle({dad:tgt,margin:"5px 0 0 5px"})
+    let tb = addEle({dad:cont,what:"table"})
+      let tr = addEle({dad:tb,what:"tr"})
+        let txt = "Items"
+        addEle({dad:tr,what:"td",text:txt,fontS:"14px",padding:"5px",textA:"center",borderB:"teal solid 2px"})
+        txt = "Won / Total"
+        addEle({dad:tr,what:"td",text:txt,fontS:"14px",padding:"5px",textA:"center",border:"teal solid 2px",borderT:"none"})
+        txt = "Remaining"
+        addEle({dad:tr,what:"td",text:txt,fontS:"14px",padding:"5px",textA:"center",borderB:"teal solid 2px"})
+
+      for(let i = 0;i<rwdA.length;i++){
+        let itm = rwdA[i]
+        tr = addEle({dad:tb,what:"tr"})
+          txt = itm.lbl
+          addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center",padding:"5px"})
+          txt = spanText({text:itm.won,col:YG}) + " / " + itm.total
+          addEle({dad:tr,what:"td",text:txt,textA:"center",border:"teal solid 2px",borderT:"none",borderB:"none"})
+          txt = itm.total - itm.won
+          addEle({dad:tr,what:"td",text:txt,textA:"center"})
+
+      }
+
+
+
 }
+
+
+function getRwdSt(){
+  let newA = []
+  player.rewards.forEach(r=>{
+    r.content.forEach(c=>{
+      let idx = newA.findIndex(x=>x.lbl===c.lbl)
+      if(idx===-1){
+        let tpI = {lbl:c.lbl,won:0,total:0}
+        tpI.total += c.val
+        if(r.winner!==undefined){tpI.won += c.val}
+        newA.push(tpI)
+      } else {
+        newA[idx].total += c.val
+        if(r.winner!==undefined){newA[idx].won += c.val}
+      }
+    })
+  })
+  return newA
+}
+
+
+// [ buying ((Heart-shaped Gem)) ] 150g
