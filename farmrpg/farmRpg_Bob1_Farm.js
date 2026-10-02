@@ -207,7 +207,7 @@ radius:"30px",textA:"center",width:"fit-content"})
 
 addEle({dad:cont,what:"img",imgFullSrc:"./apple lord.jpg",img2Sizes:"350:240",
 border:"lime solid 2px",radius:"50%",setFunc:()=>{
-    let lnk = "https://melomelo7.github.io/idlepixelinfo/frpgLottery/frpgLottery.html"
+    let lnk = "https://melomelo7.github.io/idlepixelinfo/frpgLottery/frpgLotteryII.html"
     window.open(lnk,"_self")
 }})
 
