@@ -182,10 +182,12 @@ function addEle({
         });
     }
   
-    if(what="textarea"){
+    if(what==="textarea"){
         thisObj.setAttribute("rows",areaRows)
         thisObj.setAttribute("cols",areaCols)
         thisObj.style.resize = "none"
+    } else if(what==="table"){
+        thisObj.style.borderSpacing = "0"
     }
 
     if(textC!==""){thisObj.style.color = textC}
