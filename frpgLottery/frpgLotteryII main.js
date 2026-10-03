@@ -299,17 +299,28 @@ function setMiscs(){
 
 }
 
+
+
+
+
+
 function setItems(){
   let info = bodyMid
   cleanParent(info)
   let main = bodySub
   cleanParent(main)
 
+  /*
   let minMax = 160
   addEle({dad:main,setClass:"contCol",setID:"mainFr",minHeight:minMax+"px",maxHeight:minMax+"px",overflowX:"auto",
   width:"fit-content",padding:"5px 0 5px 20px",width:"300px",borderB:"teal 2px dashed",marginL:"10px"})
+  */
 
-  addEle({dad:main,setClass:"contCol",setID:"mainFr2",marginT:"5px"})
+  let minMax = 160
+  addEle({dad:main,setClass:"contCol",setID:"mainFr",height:"700px",overflowX:"auto",
+  width:"fit-content",padding:"5px 0 5px 10px"})
+
+
 
   let cont = addEle({dad:info,margin:"5px 0 0 5px"})
     let tb = addEle({dad:cont,what:"table"})
@@ -339,11 +350,12 @@ function setItems(){
 
   let cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"10px 0 5px 10px"})
     addEle({dad:cr,text:"Filter Name :",marginR:"5px"})
-    addEle({dad:cr,what:"input",isInput:true,width:"100px",textA:"center",setID:"inFilItm",
-    marginR:"10px",border:"green solid 3px",radius:"10px",setFunc:(e)=>{
+    addEle({dad:cr,what:"input",isInput:true,textA:"center",setID:"inFilItm",
+    marginR:"10px",border:"green solid 3px",radius:"10px",maxLen:25,setFunc:(e)=>{
       let dispFr = getID("mainFr") 
       if(!dispFr){return}
       cleanParent(dispFr)
+      getID("lenlen1").innerHTML = e.srcElement.value.length
       let txt = e.srcElement.value.toLowerCase()
       let arr = []
       if(txt.length===0)
@@ -370,8 +382,52 @@ function setItems(){
           addEle({dad:cr,text:"- "+itm.lbl,margin:"0 10px",backC:"green",width:"200px",paddingL:"5px"})
       }
     }})
-    addEle({dad:cr,setClass:"btn",border:"green solid 2px",backC:"darkgreen",text:"+ Add Custom Item",
-    fontS:"14px",setFunc:addNItm})
+    addEle({dad:cr,setID:"lenlen1"})
+
+  cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"5px"})
+      addEle({dad:cr,text:"Didnt find it ? Add your Custom Item",borderB:"green solid 2px",margin:"0 5px"})
+      addEle({dad:cr,setClass:"arrowToggler",text:"🔽",setFunc:(e)=>{
+        let src = e.srcElement
+        let disp = getID("AddItmFr")
+        disp.style.display = src.innerHTML === "🔼" ? "none" : "flex"
+        src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
+        if(src.innerHTML === "🔼"){
+          if(getID("inFilItm").value.length>0){getID("newItmNm").value = getID("inFilItm").value}
+          getID("newItmNm").focus()
+        }
+      }}) // 🔼
+  
+  let itmAddFr = addEle({dad:info,setClass:"contCol",setID:"AddItmFr",margin:"5px 10px",
+  border:"green solid 2px",radius:"5px",padding:"5px",width:"fit-content",display:"none"})
+    cr = addEle({dad:itmAddFr,setClass:"contRow",alignItems:"center",margin:"5px"})
+      addEle({dad:cr,text:"Name :",margin:"0 5px 0 10px"})
+      addEle({dad:cr,what:"input",isInput:true,textA:"center",setID:"newItmNm",
+      marginR:"10px",border:"green solid 3px",radius:"10px",maxLen:25,
+      setFunc:(e)=>{getID("lenlen2").innerHTML = e.srcElement.value.length}})
+      addEle({dad:cr,setID:"lenlen2",text:"0"})
+    cr = addEle({dad:itmAddFr,setClass:"contRow",alignItems:"center",margin:"5px"})
+      addEle({dad:cr,setClass:"btn",text:"Save this new Item",border:"green solid 2px",
+      backC:"darkgreen",minWidth:"190px",setFunc:()=>{
+        let txt = getID("newItmNm").value.toLowerCase().replace(/[()]/g, "")
+
+        if(txt.length>0){
+          player.items.custom.push({
+            idx:"c"+(player.items.custom.length+1),
+            default:false,
+            lbl:txt,
+          })
+        }
+        joinItems()
+        savPlayer()
+        setItems()
+      }})
+      addEle({dad:cr,setClass:"arrowToggler",text:"X",border:"red solid 2px",
+      padding:"1px 4px",marginL:"10px",fontS:"18px",setFunc:(e)=>{setItems()}})
+
+    addEle({dad:itmAddFr,text:`Copy an item name from the game is<br>possible :
+    ((Stone)) will be saved as stone.`,textC:YG,fontS:"16px"})
+
+
 
   let ev = new Event("input") ; getID("inFilItm").dispatchEvent(ev)
 }
@@ -382,31 +438,105 @@ function addNItm(){
 
   getID("inFilItm").disabled = true
 
-  let cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",margin:"5px 10px"})
-    addEle({dad:cr,text:"Item Name :",marginR:"5px"})
-    addEle({dad:cr,what:"input",isInput:true,width:"100px",textA:"center",setID:"newItmNm",
-    marginR:"10px",border:"green solid 3px",radius:"10px"}).focus()
-    addEle({dad:cr,setClass:"btn",text:"Save new Item",border:"green solid 2px",backC:"darkgreen",setFunc:()=>{
-      let txt = getID("newItmNm").value.toLowerCase().replace(/[()]/g, "")
-
-      if(txt.length>0){
-        player.items.custom.push({
-          idx:"c"+(player.items.custom.length+1),
-          default:false,
-          lbl:txt,
-        })
-      }
-      joinItems()
-      savPlayer()
-      setItems()
-    }})
-    addEle({dad:cr,setClass:"arrowToggler",text:"X",border:"red solid 2px",
-    padding:"1px 4px",marginL:"10px",fontS:"18px",setFunc:(e)=>{setItems()}})
-  
-  addEle({dad:tgt,text:`Copy an item name from the game is possible<br>Example : 
-  ((Stone)) will be saved as stone.`,textC:YG,marginL:"20px"})
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function setRewards(){
@@ -729,6 +859,99 @@ function dispDraft(){
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function setLottery(){
   let info = bodyMid
   cleanParent(info)
@@ -869,6 +1092,8 @@ function getRange(){
 function rollRwd(){
   let arr = player.rewards.filter(x=>x.use)
   if(arr.length>0){
+    player.playersNB = []
+
     let nbR = getRange()
     player.poolMin = nbR.min
     player.poolMax = nbR.max
@@ -959,6 +1184,9 @@ function checkNum(){
       if(src.value === ""){src.focus() ; return}
       let nb = Number(src.value)
       if(nb<player.poolMin || nb>player.poolMax){src.focus() ; return}
+
+      let idx = player.playersNB.indexOf(nb)
+      if(idx === -1){player.playersNB.push(nb)}
 
       let rwd = player.rewards.filter(x=>x.number === nb)[0]
       cleanParent(getID("rwdDet"))
@@ -1061,13 +1289,14 @@ function checkProgress(){
   let tgt = getID("manageSub")
   cleanParent(tgt)
 
-  let rwdA = getRwdSt()
+  let rwdA = arrSorting(getRwdSt())
 
-  console.log(rwdA)
+  let minMax = 160
+  let cc = addEle({dad:tgt,setClass:"contCol",minHeight:minMax+"px",
+  maxHeight:minMax+"px",overflowX:"auto",width:"fit-content",padding:"5px 0 0 5px",
+  width:"280px",borderB:"teal 2px dashed"})
 
-
-
-  let cont = addEle({dad:tgt,margin:"5px 0 0 5px"})
+  let cont = addEle({dad:cc,margin:"10px 0 0 5px"})
     let tb = addEle({dad:cont,what:"table"})
       let tr = addEle({dad:tb,what:"tr"})
         let txt = "Items"
@@ -1086,10 +1315,52 @@ function checkProgress(){
           addEle({dad:tr,what:"td",text:txt,textA:"center",border:"teal solid 2px",borderT:"none",borderB:"none"})
           txt = itm.total - itm.won
           addEle({dad:tr,what:"td",text:txt,textA:"center"})
-
       }
 
+  addEle({dad:tgt,text:`
+  Next step is Publishing the Lottery status<br>
+  in your Mailbox Lookfor. To make it clean,<br>
+  maybe have other`})
 
+  let cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",margin:"10px 0 0 5px"})
+    addEle({dad:cr,text:"Save / Restore Mailbox Look For",borderB:"teal solid 2px"})
+      addEle({dad:cr,setClass:"arrowToggler",setID:"togRwdDet",text:"🔽",
+      marginL:"5px",setFunc:(e)=>{
+        let src = e.srcElement
+        let disp = getID("savLFfr")
+        disp.style.display = src.innerHTML === "🔼" ? "none" : "flex"
+        src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
+      }}) // 🔼
+  cc = addEle({dad:tgt,setClass:"contCol",border:"teal solid 2px",radius:"5px",
+    display:"none",setID:"savLFfr",padding:"5px",margin:"5px 0 0 10px",width:"fit-content"})
+      addEle({dad:cc,text:`** To avoid any loss of information<br>make sure to save also in a text<br>
+      document of your choice on your device`,textC:"yellow",marginB:"10px"})
+      addEle({dad:cc,text:"* Ingame copy the text from :",textC:YG,marginB:"5px"})
+      addEle({dad:cc,text:"* My Settings ><br> Change Bio / Looking For"})
+      addEle({dad:cc,text:"* and paste inside this white field :",textC:YG,margin:"5px 0"})
+      addEle({dad:cc,what:"textarea",setID:"lookforinfo",overflow:"scroll",
+      })
+
+    cr = addEle({dad:cc,setClass:"contRow",alignItems:"center",margin:"5px 0"})
+      addEle({dad:cr,setClass:"btn",border:"green solid 2px",backC:"darkgreen",
+      text:"Save Text",minWidth:"40%",setFunc:()=>{
+        if(getID("lookforinfo").value.length>0){
+//          player.mailbox.lookforBack = JSON.stringify(getID("lookforinfo").value)
+          player.mailbox.lookforBack = getID("lookforinfo").value
+          savPlayer()
+        }
+      }})
+
+      addEle({dad:cr,setClass:"btn",border:"green solid 2px",backC:"darkgreen",
+      text:"Restore Text",minWidth:"40%",setFunc:()=>{
+//        let txt = JSON.parse(player.mailbox.lookforBack)
+        let txt = player.mailbox.lookforBack
+        getID("lookforinfo").value = txt 
+        navigator.clipboard.writeText(txt)
+      }})
+  
+    addEle({dad:cc,text:"* Restore Text saves the text in the clipboard<br>so you just need to paste it back.",textC:YG,marginB:"5px"})
+    
 
 }
 
@@ -1113,5 +1384,21 @@ function getRwdSt(){
   return newA
 }
 
+
+/*
+console.log(crafts.length)
+console.log(crafts[0])
+
+cleanParent(bodySub)
+
+let maxCC = 0
+let maxCCN = ""
+crafts.forEach(c=>{
+  if(c.lbl.length>maxCC){maxCC = c.lbl.length ; maxCCN = c.lbl}
+  addEle({dad:bodySub,text:c.lbl+" ["+c.lbl.length+"]"})
+})
+addEle({dad:bodySub,text:"longest : "+maxCC,marginT:"20px"})
+addEle({dad:bodySub,text:"is : "+maxCCN,marginT:"20px"})
+*/
 
 // [ buying ((Heart-shaped Gem)) ] 150g
