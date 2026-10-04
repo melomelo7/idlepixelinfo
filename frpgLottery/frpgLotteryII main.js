@@ -207,7 +207,7 @@ const body = document.querySelector("body")
   backC:"rgb(38, 38, 38)",setID:"bodySub"})
 
 ////////////////////////
-let last = "10/04 12:40"
+let last = "10/04 14:05"
 ////////////////////////
 
 
@@ -463,7 +463,7 @@ function setRewards(){
 }
 
 
-function setMasterPool(){
+function setMasterPool(){ // nets bef reset 1416
   let tgt = bodySub
   let bds = "green dotted 2px"
   let fork = addEle({dad:tgt,setClass:"contRow"})
@@ -485,7 +485,7 @@ function setMasterPool(){
       padding:"5px",setID:"forkB2"})
 
       let forkB3 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",padding:"5px",
-      setID:"forkB3",borderT:"none",radiusBL:"5px",radiusBR:"5px"})
+      setID:"forkB3",borderT:"none",radiusBL:"5px",radiusBR:"5px",maxHeight:"500px",overflowX:"auto"})
     
 
 
@@ -511,6 +511,7 @@ function setMasterPool(){
           lbl:nm,
           val:qt
         })
+        getID("addItmQ").value = 1
         player.masterPool = arrSorting(player.masterPool)
         savPlayer()
         getID("poolCt1").innerHTML = "("+ spanText({text:player.masterPool.length,col:YG}) + ")"
@@ -618,7 +619,7 @@ function showMaster(){
         }})
       addEle({dad:tr,what:"td",text:itm.val.toLocaleString(),textC:YG,padding:"0 5px"})
       addEle({dad:tr,what:"td",text:itm.lbl})
-    tc = addEle({dad:tr,what:"td"})
+    tc = addEle({dad:tr,what:"td",paddingL:"10px"})
         addEle({dad:tc,setClass:"arrowToggler",text:"X",border:"red solid 2px",
         padding:"1px 4px",width:"fit-content",setID:"delMas:"+i,margin:"3px 0",setFunc:(e)=>{
           let idx = e.srcElement.id.split(":")[1]
@@ -629,8 +630,10 @@ function showMaster(){
           fillForB3()
           showMaster()
           if(player.masterPool.length>0){document.getElementsByName("masterIRads")[0].click()}
+          document.getElementsByName("itmRads")[0].click()
         }})
   }
+  if(document.getElementsByName("itmRads")[0]){document.getElementsByName("itmRads")[0].click()}
 }
 
 
