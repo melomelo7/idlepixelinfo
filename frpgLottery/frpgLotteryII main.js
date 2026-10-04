@@ -176,7 +176,7 @@ let player = {
     all:[]
   },
   masterPool:[],
-  rewards:[],
+  poolRewards:[],
   poolMin:1,
   poolMax:100,
   playersNB:[],
@@ -205,6 +205,8 @@ const body = document.querySelector("body")
   const bodyMid = addEle({dad:body,backC:"rgb(64, 64, 64)",setID:"bodyMid"})
   const bodySub = addEle({dad:body,setClass:"contCol",height:"100%",
   backC:"rgb(38, 38, 38)",setID:"bodySub"})
+  bodySub.style.height = "max-content"
+//  bodySub.style.width = "max-content"
 
 ////////////////////////
 let last = "10/04 14:05"
@@ -316,17 +318,8 @@ function setItems(){
   let main = bodySub
   cleanParent(main)
 
-  /*
-  let minMax = 160
-  addEle({dad:main,setClass:"contCol",setID:"mainFr",minHeight:minMax+"px",maxHeight:minMax+"px",overflowX:"auto",
-  width:"fit-content",padding:"5px 0 5px 20px",width:"300px",borderB:"teal 2px dashed",marginL:"10px"})
-  */
-
-//  let minMax = 160
   addEle({dad:main,setClass:"contCol",setID:"mainFr",height:"700px",overflowX:"auto",
   width:"fit-content",padding:"5px 0 5px 10px"})
-
-
 
   let cont = addEle({dad:info,margin:"5px 0 0 5px"})
     let tb = addEle({dad:cont,what:"table"})
@@ -449,21 +442,44 @@ function setRewards(){
   cleanParent(main)
 
   let cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"10px 0 5px 10px"})
-    addEle({dad:cr,text:"Set your Giveaway Pool",borderB:"green solid 2px"})
-    addEle({dad:cr,setClass:"arrowToggler",text:"🔽",marginL:"5px",setName:"arrGrp",setID:"arr:1",
+    addEle({dad:cr,setClass:"arrowToggler",text:"🔽",marginR:"5px",setName:"arrGrp",setID:"arr:1",
     setFunc:(e)=>{
       let src = e.srcElement
+      document.getElementsByName("arrGrp").forEach(x=>{
+        if(x.id!==src.id){x.innerHTML = "🔽"}
+      })
+
       let disp = bodySub
       cleanParent(disp)
       src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
       if(src.innerHTML === "🔼"){setMasterPool()}
     }}) // 🔼
+    addEle({dad:cr,text:"Set your Giveaway Pool",borderB:"green solid 2px"})
     let txt = "("+ spanText({text:player.masterPool.length,col:YG}) + ")"
     addEle({dad:cr,marginL:"5px",setID:"poolCt1",text:txt})
+
+
+  cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"10px 0 5px 10px"})
+    addEle({dad:cr,setClass:"arrowToggler",text:"🔽",marginR:"5px",setName:"arrGrp",setID:"arr:2",
+    setFunc:(e)=>{
+      let src = e.srcElement
+      document.getElementsByName("arrGrp").forEach(x=>{
+        if(x.id!==src.id){x.innerHTML = "🔽"}
+      })
+
+      let disp = bodySub
+      cleanParent(disp)
+      src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
+      if(src.innerHTML === "🔼"){setPoolRewards()}
+    }}) // 🔼
+    addEle({dad:cr,text:"Set Rewards from Pool",borderB:"green solid 2px"})
+    txt = "("+ spanText({text:player.poolRewards.length,col:YG}) + ")"
+    addEle({dad:cr,marginL:"5px",setID:"rwdCt1",text:txt})
+
 }
 
 
-function setMasterPool(){ // nets bef reset 1416
+function setMasterPool(){ // nets bef reset 1416 --- 4514 = 3098
   let tgt = bodySub
   let bds = "green dotted 2px"
   let fork = addEle({dad:tgt,setClass:"contRow"})
@@ -634,6 +650,11 @@ function showMaster(){
         }})
   }
   if(document.getElementsByName("itmRads")[0]){document.getElementsByName("itmRads")[0].click()}
+}
+
+
+function setPoolRewards(){
+
 }
 
 
