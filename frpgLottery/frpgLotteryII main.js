@@ -202,13 +202,13 @@ const body = document.querySelector("body")
   tom`,textC:YG,margin:"5px 10px",fontS:"16px",fontS:"14px"})//,
 
   const bodyTop = addEle({dad:body,backC:"rgb(38, 38, 38)",setID:"bodyTop"})//padding:"5px 10px"
-  const bodyMid = addEle({dad:body,backC:"rgb(64, 64, 64)",setID:"bodyMid",display:"inline-block"})
+  const bodyMid = addEle({dad:body,backC:"rgb(64, 64, 64)",setID:"bodyMid",display:"inline-block",width:"100%"})
   const bodySub = addEle({dad:body,setClass:"contCol",height:"100%",setID:"bodySub"})//backC:"rgb(38, 38, 38)",
 //  bodySub.style.height = "max-content"
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/04 16:15"
+let last = "10/04 16:35"
 ////////////////////////
 
 
@@ -478,7 +478,7 @@ function setRewards(){
 }
 
 
-function setMasterPool(){ // nets bef reset 1416 --- 4514 = 3098
+function setMasterPool(){
   let tgt = bodySub
   let bds = "green dotted 2px"
   let fork = addEle({dad:tgt,setClass:"contRow"})
@@ -533,6 +533,7 @@ function setMasterPool(){ // nets bef reset 1416 --- 4514 = 3098
         getID("poolCt2").innerHTML = "("+ spanText({text:player.masterPool.length,col:YG}) + ")"
         fillForB3()
         showMaster()
+        document.getElementsByName("masterIRads")[0].click()
       }
     }})
 
@@ -652,8 +653,34 @@ function showMaster(){
 }
 
 
-function setPoolRewards(){
-
+function setPoolRewards(){ // [ selling ((Large Net)) ] 4k 50g
+  let tgt = bodySub
+  if(player.masterPool.length>0){
+    let bds = "green dotted 2px"
+    let fork = addEle({dad:tgt,setClass:"contRow"})
+      let forkA = addEle({dad:fork,setClass:"contCol",margin:"5px 0 0 5px"})
+        let forkA1 = addEle({dad:forkA,setClass:"contCol",border:"green solid 2px",radiusTL:"5px",
+        radiusTR:"5px"})
+        let forkA2 = addEle({dad:forkA,setClass:"contCol",border:"green solid 2px",borderT:"none",
+        padding:"5px"})
+        let forkA3 = addEle({dad:forkA,setClass:"contCol",border:"green solid 2px",borderT:"none",
+        padding:"5px"})
+        let forkA4 = addEle({dad:forkA,setClass:"contCol",border:bds,radius:"5px",
+        padding:"5px",setID:"forkA4",maxHeight:"500px",overflowX:"auto"})
+  
+      let forkB = addEle({dad:fork,setClass:"contCol",margin:"5px 0 0 5px"})
+        let forkB1 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",radiusTL:"5px",
+        radiusTR:"5px",padding:""})
+  
+        let forkB2 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",borderT:"none",
+        padding:"5px",setID:"forkB2"})
+  
+        let forkB3 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",padding:"5px",
+        setID:"forkB3",borderT:"none",radiusBL:"5px",radiusBR:"5px",maxHeight:"500px",overflowX:"auto"})
+  
+  } else {
+    addEle({dad:tgt,text:"You need to Set your Giveaway Pool first",textC:accts[1],margin:"5px 0 0 5px"})
+  }
 }
 
 
