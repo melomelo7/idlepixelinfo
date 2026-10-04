@@ -202,13 +202,13 @@ const body = document.querySelector("body")
   tom`,textC:YG,margin:"5px 10px",fontS:"16px",fontS:"14px"})//,
 
   const bodyTop = addEle({dad:body,backC:"rgb(38, 38, 38)",setID:"bodyTop"})//padding:"5px 10px"
-  const bodyMid = addEle({dad:body,backC:"rgb(64, 64, 64)",setID:"bodyMid"})
+  const bodyMid = addEle({dad:body,backC:"rgb(64, 64, 64)",setID:"bodyMid",display:"inline-block"})
   const bodySub = addEle({dad:body,setClass:"contCol",height:"100%",setID:"bodySub"})//backC:"rgb(38, 38, 38)",
 //  bodySub.style.height = "max-content"
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/04 15:30"
+let last = "10/04 16:15"
 ////////////////////////
 
 
