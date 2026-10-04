@@ -203,9 +203,8 @@ const body = document.querySelector("body")
 
   const bodyTop = addEle({dad:body,backC:"rgb(38, 38, 38)",setID:"bodyTop"})//padding:"5px 10px"
   const bodyMid = addEle({dad:body,backC:"rgb(64, 64, 64)",setID:"bodyMid"})
-  const bodySub = addEle({dad:body,setClass:"contCol",height:"100%",
-  backC:"rgb(38, 38, 38)",setID:"bodySub"})
-  bodySub.style.height = "max-content"
+  const bodySub = addEle({dad:body,setClass:"contCol",height:"100%",setID:"bodySub"})//backC:"rgb(38, 38, 38)",
+//  bodySub.style.height = "max-content"
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
