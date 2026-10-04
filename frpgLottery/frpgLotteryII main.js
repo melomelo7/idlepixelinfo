@@ -175,6 +175,7 @@ let player = {
     custom:[],
     all:[]
   },
+  masterPool:[],
   rewards:[],
   poolMin:1,
   poolMax:100,
@@ -200,11 +201,14 @@ const body = document.querySelector("body")
   to lower case.<br>Example : A Big Cat Named TOM => a big cat named 
   tom`,textC:YG,margin:"5px 10px",fontS:"16px",fontS:"14px"})//,
 
-  const bodyTop = addEle({dad:body,backC:"rgb(38, 38, 38)"})//padding:"5px 10px"
-  const bodyMid = addEle({dad:body,backC:"rgb(64, 64, 64)"})
-  const bodySub = addEle({dad:body,setClass:"contCol",height:"100%",backC:"rgb(38, 38, 38)"})
+  const bodyTop = addEle({dad:body,backC:"rgb(38, 38, 38)",setID:"bodyTop"})//padding:"5px 10px"
+  const bodyMid = addEle({dad:body,backC:"rgb(64, 64, 64)",setID:"bodyMid"})
+  const bodySub = addEle({dad:body,setClass:"contCol",height:"100%",
+  backC:"rgb(38, 38, 38)",setID:"bodySub"})
 
-
+////////////////////////
+let last = "10/04 12:40"
+////////////////////////
 
 
 function setPage(){
@@ -233,6 +237,8 @@ function setPage(){
         }
       }
     }})
+
+    addEle({dad:cr,text:"last up : "+last,marginL:"10px",fontS:"14px",textC:accts[1]})
 
 
   /*
@@ -316,7 +322,7 @@ function setItems(){
   width:"fit-content",padding:"5px 0 5px 20px",width:"300px",borderB:"teal 2px dashed",marginL:"10px"})
   */
 
-  let minMax = 160
+//  let minMax = 160
   addEle({dad:main,setClass:"contCol",setID:"mainFr",height:"700px",overflowX:"auto",
   width:"fit-content",padding:"5px 0 5px 10px"})
 
@@ -432,13 +438,199 @@ function setItems(){
   let ev = new Event("input") ; getID("inFilItm").dispatchEvent(ev)
 }
 
-function addNItm(){
-  let tgt = getID("mainFr2")
+
+
+
+
+function setRewards(){
+  let info = bodyMid
+  cleanParent(info)
+  let main = bodySub
+  cleanParent(main)
+
+  let cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"10px 0 5px 10px"})
+    addEle({dad:cr,text:"Set your Giveaway Pool",borderB:"green solid 2px"})
+    addEle({dad:cr,setClass:"arrowToggler",text:"🔽",marginL:"5px",setName:"arrGrp",setID:"arr:1",
+    setFunc:(e)=>{
+      let src = e.srcElement
+      let disp = bodySub
+      cleanParent(disp)
+      src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
+      if(src.innerHTML === "🔼"){setMasterPool()}
+    }}) // 🔼
+    let txt = "("+ spanText({text:player.masterPool.length,col:YG}) + ")"
+    addEle({dad:cr,marginL:"5px",setID:"poolCt1",text:txt})
+}
+
+
+function setMasterPool(){
+  let tgt = bodySub
+  let bds = "green dotted 2px"
+  let fork = addEle({dad:tgt,setClass:"contRow"})
+    let forkA = addEle({dad:fork,setClass:"contCol",margin:"5px 0 0 5px"})
+      let forkA1 = addEle({dad:forkA,setClass:"contCol",border:"green solid 2px",radiusTL:"5px",
+      radiusTR:"5px"})
+      let forkA2 = addEle({dad:forkA,setClass:"contCol",border:"green solid 2px",borderT:"none",
+      padding:"5px"})
+      let forkA3 = addEle({dad:forkA,setClass:"contCol",border:"green solid 2px",borderT:"none",
+      padding:"5px"})
+      let forkA4 = addEle({dad:forkA,setClass:"contCol",border:bds,radius:"5px",
+      padding:"5px",setID:"forkA4",maxHeight:"500px",overflowX:"auto"})
+
+    let forkB = addEle({dad:fork,setClass:"contCol",margin:"5px 0 0 5px"})
+      let forkB1 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",radiusTL:"5px",
+      radiusTR:"5px",padding:""})
+
+      let forkB2 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",borderT:"none",
+      padding:"5px",setID:"forkB2"})
+
+      let forkB3 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",padding:"5px",
+      setID:"forkB3"})
+    
+
+
+  let txt = "Item Bank (" + spanText({text:player.items.all.length,col:"yellow"}) + ")"
+  addEle({dad:forkA1,text:txt,textA:"center"})
+
+  cr = addEle({dad:forkA2,setClass:"contRow",alignItems:"center",margin:""})
+    addEle({dad:cr,textC:"white",textA:"center",setID:"addItmN",minWidth:"220px",marginL:"",backC:"green"})
+  cr = addEle({dad:forkA2,setClass:"contRow",alignItems:"center",margin:"10px 0 5px 0",justifyC:"center"})
+    addEle({dad:cr,text:"Total :",marginR:"5px"})
+    addEle({dad:cr,what:"input",isInput:true,numInput:true,width:"40px",setVal:1,
+    textA:"center",setID:"addItmQ"})
+  cr = addEle({dad:forkA2,setClass:"contRow",alignItems:"center",justifyC:"center"})
+    addEle({dad:cr,setClass:"btn",text:"Save item to Giveaway pool",border:"green solid 2px",
+    backC:"darkgreen",marginL:"",setFunc:()=>{
+      let nm = getID("addItmN").innerHTML
+      let qt = Number(getID("addItmQ").value)
+      qt = qt>0 ? qt : 1
+      if(!nm.includes("---")){
+        console.log(qt+" "+nm)
+        player.masterPool.push({
+          idx:player.masterPool.length+1,
+          lbl:nm,
+          val:qt
+        })
+        player.masterPool = arrSorting(player.masterPool)
+        savPlayer()
+        getID("poolCt1").innerHTML = "("+ spanText({text:player.masterPool.length,col:YG}) + ")"
+        getID("poolCt2").innerHTML = "("+ spanText({text:player.masterPool.length,col:YG}) + ")"
+        fillForB3()
+        showMaster()
+      }
+    }})
+
+  cr = addEle({dad:forkA3,setClass:"contRow",alignItems:"center",justifyC:"center"})
+    addEle({dad:cr,text:"Filter Items :",marginR:"5px"})
+    addEle({dad:cr,setID:"itmCt"})
+  cr = addEle({dad:forkA3,setClass:"contRow",alignItems:"center",justifyC:"center"})
+    addEle({dad:cr,what:"input",isInput:true,maxLen:25,margin:"5px 5px 5px 0",
+    textA:"center",setID:"itmFiltIn",setFunc:(e)=>{
+      fillForB3()
+      document.getElementsByName("itmRads")[0].click()
+    }})
+
+
+
+  cr = addEle({dad:forkB1,setClass:"contRow",alignItems:"center",justifyC:"center"})
+    addEle({dad:cr,text:"Giveaway Pool",textA:"center",marginR:"5px"})
+    addEle({dad:cr,setID:"poolCt2"})
+
+  cr = addEle({dad:forkB2,setClass:"contRow",alignItems:"center",margin:""})
+    addEle({dad:cr,textC:"white",textA:"center",setID:"masterItmN",minWidth:"220px",marginL:"",backC:"green"})
+  cr = addEle({dad:forkB2,setClass:"contRow",alignItems:"center",margin:"10px 0 5px 0",justifyC:"center"})
+    addEle({dad:cr,text:"Adjust Total :",marginR:"5px"})
+    addEle({dad:cr,what:"input",isInput:true,numInput:true,width:"40px",setVal:1,
+    textA:"center",setID:"masterItmQ"})
+  cr = addEle({dad:forkB2,setClass:"contRow",alignItems:"center",justifyC:"center"})
+    addEle({dad:cr,setClass:"btn",text:"Save new Total",border:"green solid 2px",
+    backC:"darkgreen",marginL:"",setFunc:()=>{
+      let txt = getID("masterItmN").innerHTML
+      let idx = player.masterPool.findIndex(x=>x.lbl===txt)
+      let qt = Number(getID("masterItmQ").value)
+      qt = qt > 0 ? qt : 1
+      player.masterPool[idx].val = qt
+      savPlayer()
+      showMaster()
+    }})
+
+
+  showMaster()
+  let ev = new Event("input") ; getID("itmFiltIn").dispatchEvent(ev)
+  document.getElementsByName("itmRads")[0].click()
+  if(player.masterPool.length>0){document.getElementsByName("masterIRads")[0].click()}
+  getID("itmFiltIn").focus()
+
+  
+}
+function getItmArr(){
+  let txt = getID("itmFiltIn").value.toLowerCase()
+  let arr = []
+  if(txt.length === 0)
+       {player.items.all.forEach(x=>{arr.push(x.lbl)})}
+  else {player.items.all.filter(x=>x.lbl.includes(txt)).forEach(x=>arr.push(x.lbl))}
+  if(player.masterPool.length>0){
+    player.masterPool.forEach(m=>{
+      let idx = arr.findIndex(x=>x===m.lbl)
+      if(idx!==-1){
+        arr.splice(idx,1)
+      }
+    })
+  }
+  return arr
+}
+
+function fillForB3(){
+  let tgt = getID("forkA4")
   cleanParent(tgt)
+  let tb = addEle({dad:tgt,what:"table"})
+  let arr = getItmArr()
+  for(let i=0;i<arr.length;i++){
+    let itm = arr[i]
+    let tr = addEle({dad:tb,what:"tr"})
+      let tc = addEle({dad:tr,what:"td"})
+        addEle({dad:tc,what:"radio",isInput:true,setID:"itmRad:"+i,setName:"itmRads",
+        marginR:"5px",accentCol:accts[player.misc.radios],setFunc:(e)=>{
+          let idx = Number(e.srcElement.id.split(":")[1])
+          let arr = getItmArr()
+          getID("addItmN").innerHTML = arr[idx]
+        }})
+      addEle({dad:tr,what:"td",text:itm})
+  }
+  getID("itmCt").innerHTML = "(" + spanText({text:getItmArr().length,col:"yellow"}) + ")"
+}
 
-  getID("inFilItm").disabled = true
-
-
+function showMaster(){
+  let tgt = getID("forkB3")
+  cleanParent(tgt)
+  let tb = addEle({dad:tgt,what:"table"})
+  for(let i=0;i<player.masterPool.length;i++){
+    let itm = player.masterPool[i]
+    let tr = addEle({dad:tb,what:"tr"})
+      let tc = addEle({dad:tr,what:"td"})
+        addEle({dad:tc,what:"radio",isInput:true,setID:"masterIRad:"+i,setName:"masterIRads",
+        marginR:"5px",accentCol:accts[player.misc.radios],setFunc:(e)=>{
+          let idx = Number(e.srcElement.id.split(":")[1])
+          let itm = player.masterPool[idx]
+          getID("masterItmN").innerHTML = itm.lbl
+          getID("masterItmQ").value = itm.val
+          getID("poolCt2").innerHTML = "("+ spanText({text:player.masterPool.length,col:YG}) + ")"
+        }})
+      addEle({dad:tr,what:"td",text:itm.val.toLocaleString(),textC:YG,padding:"0 5px"})
+      addEle({dad:tr,what:"td",text:itm.lbl})
+    tc = addEle({dad:tr,what:"td"})
+        addEle({dad:tc,setClass:"arrowToggler",text:"X",border:"red solid 2px",
+        padding:"1px 4px",width:"fit-content",setID:"delMas:"+i,margin:"3px 0",setFunc:(e)=>{
+          let idx = e.srcElement.id.split(":")[1]
+          player.masterPool.splice(idx,1)
+          savPlayer()
+          getID("poolCt1").innerHTML = "("+ spanText({text:player.masterPool.length,col:YG}) + ")"
+          getID("poolCt2").innerHTML = "("+ spanText({text:player.masterPool.length,col:YG}) + ")"
+          fillForB3()
+          showMaster()
+          if(player.masterPool.length>0){document.getElementsByName("masterIRads")[0].click()}
+        }})
+  }
 }
 
 
@@ -533,13 +725,7 @@ function addNItm(){
 
 
 
-
-
-
-
-
-
-function setRewards(){
+function setRewards2(){
   let info = bodyMid
   cleanParent(info)
   let main = bodySub
@@ -1402,3 +1588,7 @@ addEle({dad:bodySub,text:"is : "+maxCCN,marginT:"20px"})
 */
 
 // [ buying ((Heart-shaped Gem)) ] 150g
+
+// [ selling ((Large Net)) ] 2k 25g (few times) **small inventory players : split-pause is possible so you use the nets and get next round, tell me your inventory size**
+
+/// [ selling ((Large Net)) ] 2k 25g (few times) **Closing shop when advertising is off chat
