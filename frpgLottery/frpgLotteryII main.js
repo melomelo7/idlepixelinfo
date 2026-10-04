@@ -485,7 +485,7 @@ function setMasterPool(){
       padding:"5px",setID:"forkB2"})
 
       let forkB3 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",padding:"5px",
-      setID:"forkB3"})
+      setID:"forkB3",borderT:"none",radiusBL:"5px",radiusBR:"5px"})
     
 
 
