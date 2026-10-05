@@ -203,12 +203,14 @@ const body = document.querySelector("body")
 
   const bodyTop = addEle({dad:body,backC:"rgb(38, 38, 38)",setID:"bodyTop"})//padding:"5px 10px"
   const bodyMid = addEle({dad:body,backC:"rgb(64, 64, 64)",setID:"bodyMid",display:"inline-block",width:"100%"})
+  bodyMid.style.overflowWrap = "anywhere"
+  bodyMid.style.boxSizing = "border-box"
   const bodySub = addEle({dad:body,setClass:"contCol",height:"100%",setID:"bodySub"})//backC:"rgb(38, 38, 38)",
 //  bodySub.style.height = "max-content"
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/04 16:35"
+let last = "10/05 18:15"
 ////////////////////////
 
 
@@ -524,7 +526,8 @@ function setMasterPool(){
         player.masterPool.push({
           idx:player.masterPool.length+1,
           lbl:nm,
-          val:qt
+          val:qt,
+          selected:false,
         })
         getID("addItmQ").value = 1
         player.masterPool = arrSorting(player.masterPool)
@@ -554,7 +557,8 @@ function setMasterPool(){
     addEle({dad:cr,setID:"poolCt2"})
 
   cr = addEle({dad:forkB2,setClass:"contRow",alignItems:"center",margin:""})
-    addEle({dad:cr,textC:"white",textA:"center",setID:"masterItmN",minWidth:"220px",marginL:"",backC:"green"})
+    addEle({dad:cr,textC:"white",textA:"center",setID:"masterItmN",minWidth:"220px",
+    marginL:"",backC:"green",text:spanText({text:"---",col:accts[6]})})
   cr = addEle({dad:forkB2,setClass:"contRow",alignItems:"center",margin:"10px 0 5px 0",justifyC:"center"})
     addEle({dad:cr,text:"Adjust Total :",marginR:"5px"})
     addEle({dad:cr,what:"input",isInput:true,numInput:true,width:"40px",setVal:1,
@@ -562,13 +566,16 @@ function setMasterPool(){
   cr = addEle({dad:forkB2,setClass:"contRow",alignItems:"center",justifyC:"center"})
     addEle({dad:cr,setClass:"btn",text:"Save new Total",border:"green solid 2px",
     backC:"darkgreen",marginL:"",setFunc:()=>{
-      let txt = getID("masterItmN").innerHTML
-      let idx = player.masterPool.findIndex(x=>x.lbl===txt)
-      let qt = Number(getID("masterItmQ").value)
-      qt = qt > 0 ? qt : 1
-      player.masterPool[idx].val = qt
-      savPlayer()
-      showMaster()
+      if(!getID("masterItmN").innerHTML.includes("---")){
+        let txt = getID("masterItmN").innerHTML
+        let idx = player.masterPool.findIndex(x=>x.lbl===txt)
+        let qt = Number(getID("masterItmQ").value)
+        qt = qt > 0 ? qt : 1
+        player.masterPool[idx].val = qt
+        savPlayer()
+        showMaster()
+        if(player.masterPool.length>0){document.getElementsByName("masterIRads")[0].click()}
+      }
     }})
 
 
@@ -640,6 +647,8 @@ function showMaster(){
         padding:"1px 4px",width:"fit-content",setID:"delMas:"+i,margin:"3px 0",setFunc:(e)=>{
           let idx = e.srcElement.id.split(":")[1]
           player.masterPool.splice(idx,1)
+          getID("masterItmN").innerHTML = spanText({text:"---",col:accts[6]})
+          getID("masterItmQ").value = 1
           savPlayer()
           getID("poolCt1").innerHTML = "("+ spanText({text:player.masterPool.length,col:YG}) + ")"
           getID("poolCt2").innerHTML = "("+ spanText({text:player.masterPool.length,col:YG}) + ")"
@@ -653,7 +662,7 @@ function showMaster(){
 }
 
 
-function setPoolRewards(){ // [ selling ((Large Net)) ] 4k 50g
+function setPoolRewards(){ // [ selling ((Large Net)) ] 2k 25g (last 2k)
   let tgt = bodySub
   if(player.masterPool.length>0){
     let bds = "green dotted 2px"
@@ -677,10 +686,45 @@ function setPoolRewards(){ // [ selling ((Large Net)) ] 4k 50g
   
         let forkB3 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",padding:"5px",
         setID:"forkB3",borderT:"none",radiusBL:"5px",radiusBR:"5px",maxHeight:"500px",overflowX:"auto"})
-  
+
+        
+        cr = addEle({dad:forkA1,setClass:"contRow",alignItems:"center",justifyC:"center",padding:"0 5px"})
+          addEle({dad:cr,text:"Pool Bank",textA:"center",marginR:"5px"})
+          let txt = "(" + spanText({text:player.masterPool.length,col:"yellow"}) + ")"
+          addEle({dad:cr,text:txt,textA:"center",setID:"poolBCt"})
+
+//        txt = "Rewards Bank (" + spanText({text:player.masterPool.length,col:"yellow"}) + ")"
+  //      addEle({dad:forkA1,text:txt,textA:"center"})
+
+        cr = addEle({dad:forkB1,setClass:"contRow",alignItems:"center",justifyC:"center",padding:"0 5px"})
+          addEle({dad:cr,text:"Rewards Bank",textA:"center",marginR:"5px"})
+          txt = "(" + spanText({text:player.poolRewards.length,col:"yellow"}) + ")"
+          addEle({dad:cr,text:txt,textA:"center",setID:"poolBCt"})
+
+
+        showPoolBank()
   } else {
     addEle({dad:tgt,text:"You need to Set your Giveaway Pool first",textC:accts[1],margin:"5px 0 0 5px"})
   }
+}
+
+function showPoolBank(){
+  let tgt = getID("forkA4")
+  cleanParent(tgt)
+
+  let tb = addEle({dad:tgt,what:"table"})
+  let arr = player.masterPool
+  for(let i=0;i<arr.length;i++){
+    let itm = arr[i]
+    console.log(itm)
+    let tr = addEle({dad:tb,what:"tr"})
+      let tc = addEle({dad:tb,what:"td"})
+        addEle({dad:tc,what:"checkbox",isInput:true})
+
+      addEle({dad:tb,what:"td",text:itm.lbl,padding:"0 10px"})
+      addEle({dad:tb,what:"td",text:itm.val,textC:YG})
+  }
+
 }
 
 
@@ -1640,5 +1684,10 @@ addEle({dad:bodySub,text:"is : "+maxCCN,marginT:"20px"})
 // [ buying ((Heart-shaped Gem)) ] 150g
 
 // [ selling ((Large Net)) ] 2k 25g (few times) **small inventory players : split-pause is possible so you use the nets and get next round, tell me your inventory size**
+// [ selling ((Large Net)) ] 2k 25g (last 2k) **small inventory players : split-pause is possible so you use the nets and get next round, tell me your inventory size**
 
 /// [ selling ((Large Net)) ] 2k 25g (few times) **Closing shop when advertising is off chat
+
+// [ selling ((Large Net)) ] 2k for 25g (or 5 for 60) *10k remaining atm
+
+//af 208 251 1906 
