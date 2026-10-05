@@ -210,7 +210,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/05 18:15"
+let last = "10/06 00:15"
 ////////////////////////
 
 
@@ -473,7 +473,7 @@ function setRewards(){
       src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
       if(src.innerHTML === "🔼"){setPoolRewards()}
     }}) // 🔼
-    addEle({dad:cr,text:"Set Rewards from Pool",borderB:"green solid 2px"})
+    addEle({dad:cr,text:"Set Rewards from the Pool",borderB:"green solid 2px"})
     txt = "("+ spanText({text:player.poolRewards.length,col:YG}) + ")"
     addEle({dad:cr,marginL:"5px",setID:"rwdCt1",text:txt})
 
@@ -528,6 +528,7 @@ function setMasterPool(){
           lbl:nm,
           val:qt,
           selected:false,
+          tempo:1,
         })
         getID("addItmQ").value = 1
         player.masterPool = arrSorting(player.masterPool)
@@ -669,17 +670,17 @@ function setPoolRewards(){ // [ selling ((Large Net)) ] 2k 25g (last 2k)
     let fork = addEle({dad:tgt,setClass:"contRow"})
       let forkA = addEle({dad:fork,setClass:"contCol",margin:"5px 0 0 5px"})
         let forkA1 = addEle({dad:forkA,setClass:"contCol",border:"green solid 2px",radiusTL:"5px",
-        radiusTR:"5px"})
+        radiusTR:"5px",setID:"forkA1"})
         let forkA2 = addEle({dad:forkA,setClass:"contCol",border:"green solid 2px",borderT:"none",
-        padding:"5px"})
+        padding:"5px",setID:"forkA2"})
         let forkA3 = addEle({dad:forkA,setClass:"contCol",border:"green solid 2px",borderT:"none",
-        padding:"5px"})
+        padding:"5px",setID:"forkA3"})
         let forkA4 = addEle({dad:forkA,setClass:"contCol",border:bds,radius:"5px",
         padding:"5px",setID:"forkA4",maxHeight:"500px",overflowX:"auto"})
   
       let forkB = addEle({dad:fork,setClass:"contCol",margin:"5px 0 0 5px"})
         let forkB1 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",radiusTL:"5px",
-        radiusTR:"5px",padding:""})
+        radiusTR:"5px",setID:"forkB1"})
   
         let forkB2 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",borderT:"none",
         padding:"5px",setID:"forkB2"})
@@ -693,6 +694,17 @@ function setPoolRewards(){ // [ selling ((Large Net)) ] 2k 25g (last 2k)
           let txt = "(" + spanText({text:player.masterPool.length,col:"yellow"}) + ")"
           addEle({dad:cr,text:txt,textA:"center",setID:"poolBCt"})
 
+        addEle({dad:forkA2,text:"Pick Items to include<br>in the next Reward",textA:"center"})
+
+        cr = addEle({dad:forkA3,setClass:"contRow",alignItems:"center",justifyC:"center",padding:"2px"})
+          addEle({dad:cr,setClass:"btn",text:"Clear Selection",border:"red solid 2px",margin:"0",
+          backC:"darkgreen",width:"80%",setFunc:()=>{
+            player.masterPool.forEach(x=>x.selected = false)
+            showPoolBank()
+            showNextRwd()
+          }})
+
+
 //        txt = "Rewards Bank (" + spanText({text:player.masterPool.length,col:"yellow"}) + ")"
   //      addEle({dad:forkA1,text:txt,textA:"center"})
 
@@ -701,8 +713,14 @@ function setPoolRewards(){ // [ selling ((Large Net)) ] 2k 25g (last 2k)
           txt = "(" + spanText({text:player.poolRewards.length,col:"yellow"}) + ")"
           addEle({dad:cr,text:txt,textA:"center",setID:"poolBCt"})
 
+        /*
+        cr = addEle({dad:forkB2,setClass:"contRow",alignItems:"center",justifyC:"center",padding:"0 5px"})
+          addEle({dad:cr,text:"Rewards Bank",textA:"center",marginR:"5px"})
+        */
+
 
         showPoolBank()
+        showNextRwd()
   } else {
     addEle({dad:tgt,text:"You need to Set your Giveaway Pool first",textC:accts[1],margin:"5px 0 0 5px"})
   }
@@ -716,16 +734,70 @@ function showPoolBank(){
   let arr = player.masterPool
   for(let i=0;i<arr.length;i++){
     let itm = arr[i]
-    console.log(itm)
     let tr = addEle({dad:tb,what:"tr"})
-      let tc = addEle({dad:tb,what:"td"})
-        addEle({dad:tc,what:"checkbox",isInput:true})
+      let tc = addEle({dad:tr,what:"td"})
+        addEle({dad:tc,what:"checkbox",isInput:true,setID:"poolBCheck:"+i,setName:"poolBChecks",
+        setFunc:(e)=>{
+          let idx = Number(e.srcElement.id.split(":")[1])
+          player.masterPool[idx].selected = e.srcElement.checked
+          showNextRwd()
 
-      addEle({dad:tb,what:"td",text:itm.lbl,padding:"0 10px"})
-      addEle({dad:tb,what:"td",text:itm.val,textC:YG})
+          console.log(player.masterPool)
+        }})
+      addEle({dad:tr,what:"td",text:itm.lbl,padding:"0 5px"})
+      let txt = (itm.val-itm.tempo+1).toLocaleString() + "/" + itm.val.toLocaleString()
+      addEle({dad:tr,what:"td",text:txt,textC:YG})
   }
 
+  console.log("Materpool")
+  console.log(player.masterPool)
 }
+
+
+function showNextRwd(){
+  let tgt = getID("forkB2")
+  cleanParent(tgt)
+
+  cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",marginB:"5px"})//,justifyC:"center"
+    addEle({dad:cr,text:"next Reward:",borderB:"green dotted 2px",width:"fit-content"})
+    addEle({dad:cr,text:"#"+(player.poolRewards.length+1),marginL:"5px"})
+
+  let arr = player.masterPool.filter(x=>x.selected)
+  if(arr.length > 0){
+    let tb = addEle({dad:tgt,what:"table"})
+    for(let i=0;i<arr.length;i++){
+      let itm = arr[i]
+      console.log(itm)
+      let tr = addEle({dad:tb,what:"tr"})
+        addEle({dad:tr,what:"td",text:itm.lbl})
+      let tc = addEle({dad:tr,what:"td",padding:"0 5px 5px 5px"})
+        addEle({dad:tc,what:"input",isInput:true,numInput:true,width:"40px",textA:"center",
+        setVal:itm.tempo,setID:"itmQt:"+itm.idx,setFunc:(e)=>{
+          let idx= Number(e.srcElement.id.split(":")[1])
+          let itm = player.masterPool.filter(x=>x.idx===idx)[0]
+          let max = itm.val-itm.tempo+1
+          let nb = Number(e.srcElement.value)
+          if(nb<1){nb=1}
+          if(nb>max){nb=max}
+          e.srcElement.value = nb
+        }})
+      addEle({dad:tr,what:"td",text:"/"+spanText({text:(itm.val-itm.tempo+1),col:YG})})
+    }
+    cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",justifyC:"center"})
+      addEle({dad:cr,setClass:"btn",text:"Save Reward",border:"green solid 2px",
+      backC:"darkgreen",width:"80%",setFunc:()=>{
+
+    }})
+  } else {
+    addEle({dad:tgt,text:spanText({text:"---",col:accts[6]})})
+  }
+}
+
+
+
+
+
+
 
 
 
@@ -1691,3 +1763,4 @@ addEle({dad:bodySub,text:"is : "+maxCCN,marginT:"20px"})
 // [ selling ((Large Net)) ] 2k for 25g (or 5 for 60) *10k remaining atm
 
 //af 208 251 1906 
+// 1722 0259 6016
