@@ -580,6 +580,10 @@ function getCrop(lbl){
 
 const body = document.querySelector("body")
 
+let last = "8/10 20:20"
+
+addEle({dad:body,textC:"yellowgreen",margin:"5px 0 0 10px",text:"last up : "+last})
+
 let baseA = {
     rice:1600,
     water:2000,
@@ -611,6 +615,24 @@ let cr = addEle({dad:body,setClass:"contRow",margin:"10px"})
         setFunc:(e)=>{
             let nb = Number(e.srcElement.value)
             calc(getID("f1"),nb,baseA,nb*13)
+            switch(nb){
+                case 1 : 
+                    getID("in1").value = 13
+                    break
+                case 1.5 :
+                    getID("in1").value = 21
+                    break
+                case 2 :
+                    getID("in1").value = 25
+                    break
+                case 2.5 :
+                    getID("in1").value = 35
+                    break
+                case 3 :
+                    getID("in1").value = 43
+                    break
+            }
+            let ev = new Event("input") ; getID("in1").dispatchEvent(ev)
         }})
     for(let i=2;i<=12;i++){addEle({dad:sel,what:"option",text:(i*.5)})}
 
