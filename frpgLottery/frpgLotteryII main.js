@@ -212,7 +212,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/10 17:30"
+let last = "10/10 18:00"
 ////////////////////////
 
 
@@ -699,15 +699,12 @@ function setPoolRewards(){
         addEle({dad:forkA2,text:"Pick Items to include<br>in the next Reward",textA:"center"})
 
         cr = addEle({dad:forkA3,setClass:"contRow",alignItems:"center",justifyC:"center",padding:"2px"})
-          addEle({dad:cr,setClass:"btn",text:"Clear Selection",border:"red solid 2px",margin:"0",
-          backC:"darkgreen",width:"",setFunc:()=>{
+          addEle({dad:cr,setClass:"btn",text:"Clear",border:"red solid 2px",backC:"darkgreen",width:"80%",
+          setFunc:()=>{
+            player.rwdRefID = undefined
             player.masterPool.forEach(x=>x.selected = false)
             showPoolBank()
             showNextRwd()
-          }})
-
-          addEle({dad:cr,setClass:"btn",text:"New Reward",border:"red solid 2px",margin:"0",
-          backC:"darkgreen",width:"",setFunc:()=>{
           }})
 
         cr = addEle({dad:forkB1,setClass:"contRow",alignItems:"center",justifyC:"center",padding:"0 5px"})
