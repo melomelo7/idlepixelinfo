@@ -177,6 +177,7 @@ let player = {
   },
   masterPool:[],
   poolRewards:[],
+  playerPool:[],
   rwdRefID:undefined,
   poolMin:1,
   poolMax:100,
@@ -212,7 +213,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/10 18:00"
+let last = "10/10 19:05"
 ////////////////////////
 
 
@@ -232,6 +233,8 @@ function setPage(){
           case "Items" : setItems()
             break
           case "Rewards": setRewards()
+            break
+          case "Players": setPlayers()
             break
           case "Misc." : setMiscs()
             break
@@ -255,6 +258,7 @@ function setTopSel(){
   addEle({dad:tgt,what:"option",text:"Infos"})
   addEle({dad:tgt,what:"option",text:"Items"})
   addEle({dad:tgt,what:"option",text:"Rewards"})
+  addEle({dad:tgt,what:"option",text:"Players"})
   addEle({dad:tgt,what:"option",text:"Misc."})
   addEle({dad:tgt,what:"option",text:"Delete Save"})
 }
@@ -783,7 +787,12 @@ function updDispTtls(){
     if(grp[i]){
       let itm = arr[i]
       let cap = Number(document.getElementsByName("itmQts")[i].value)
-      let dispo = itm.val-dispatchedVal(itm)
+      let dispo = itm.val - dispatchedVal(itm)
+      if(player.rwdRefID !== undefined){
+        let srcR = player.poolRewards.filter(x=>x.idx === player.rwdRefID)[0]
+        let srcI = srcR.content.filter(x=>x.itmID === itm.idx)[0]
+        dispo += srcI.val
+      }
       let tcol = cap > dispo ? accts[6] : YG
       grp[i].innerHTML = "/"+spanText({text:dispo,col:tcol})
     }
@@ -833,6 +842,11 @@ function showNextRwd(){
           let itm = player.masterPool.filter(x=>x.idx===idx)[0]
           let max = itm.val - dispatchedVal(itm)
           let nb = Number(e.srcElement.value)
+          if(player.rwdRefID !== undefined){
+            let srcR = player.poolRewards.filter(x=>x.idx === player.rwdRefID)[0]
+            let srcI = srcR.content.filter(x=>x.itmID === itm.idx)[0]
+            max += srcI.val
+          }
           if(nb<1){nb=1}
           if(nb>max){nb=max}
           e.srcElement.value = nb
@@ -857,11 +871,20 @@ function showNextRwd(){
           let itm = player.masterPool.filter(x=>x.idx===itmID)[0]
 
           dispatcher.push({id:itmID,val:val})
-          if(itm.val-dispatchedVal(itm) < val){savGood = false}
+          let cap = itm.val - dispatchedVal(itm)
+          if(player.rwdRefID !== undefined){
+            let srcR = player.poolRewards.filter(x=>x.idx === player.rwdRefID)[0]
+            let srcI = srcR.content.filter(x=>x.itmID === itm.idx)[0]
+            cap += srcI.val
+          }
+          if(cap < val){savGood = false}
         })
 
         let thisID = player.rwdRefID === undefined ? crypto.randomUUID() : player.rwdRefID
         if (savGood){
+
+          console.log("good")
+
           let newRwd = {
             title:undefined,
             idx:thisID,
@@ -884,6 +907,9 @@ function showNextRwd(){
             player.poolRewards.push(newRwd)
             getID("nextRwdT").innerHTML = "#"+(player.poolRewards.length+1)
           }
+
+          console.log(player.poolRewards)
+
           for(let i=0;i<player.poolRewards.length;i++){player.poolRewards[i].title = "#"+(i+1)}
           savPlayer()
         }
@@ -932,6 +958,16 @@ function showRwdINbank(){
 
 
 
+
+
+function setPlayers(){
+  let info = bodyMid
+  cleanParent(info)
+  let main = bodySub
+  cleanParent(main)
+
+  addEle({dad:info,text:"behave baby" })
+}
 
 
 
