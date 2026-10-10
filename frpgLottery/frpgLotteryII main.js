@@ -177,6 +177,7 @@ let player = {
   },
   masterPool:[],
   poolRewards:[],
+  rwdRefID:undefined,
   poolMin:1,
   poolMax:100,
   playersNB:[],
@@ -195,6 +196,7 @@ let player = {
 let YG = "yellowgreen" 
 
 loadPlayer()
+player.rwdRefID = undefined
 
 const body = document.querySelector("body")
   addEle({dad:body,text:`for page smooth processing all inputs are set 
@@ -210,7 +212,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/06 00:15"
+let last = "10/10 17:30"
 ////////////////////////
 
 
@@ -231,8 +233,6 @@ function setPage(){
             break
           case "Rewards": setRewards()
             break
-          case "Lottery": setLottery()
-            break
           case "Misc." : setMiscs()
             break
           case "Delete Save" : DelSave()
@@ -243,12 +243,6 @@ function setPage(){
 
     addEle({dad:cr,text:"last up : "+last,marginL:"10px",fontS:"14px",textC:accts[1]})
 
-
-  /*
-  addEle({dad:cont,setClass:"btn",text:"Items list and Rewards",setFunc:itemsMenu})
-  addEle({dad:cont,setClass:"btn",text:"Game Pool",setFunc:setGamePool})
-  addEle({dad:cont,setClass:"btn",text:"Delete Save",border:"solid red 2px",setFunc:burnSav})
-  */
 
   setTopSel()
 }
@@ -261,7 +255,6 @@ function setTopSel(){
   addEle({dad:tgt,what:"option",text:"Infos"})
   addEle({dad:tgt,what:"option",text:"Items"})
   addEle({dad:tgt,what:"option",text:"Rewards"})
-  addEle({dad:tgt,what:"option",text:"Lottery"})
   addEle({dad:tgt,what:"option",text:"Misc."})
   addEle({dad:tgt,what:"option",text:"Delete Save"})
 }
@@ -446,9 +439,8 @@ function setRewards(){
     addEle({dad:cr,setClass:"arrowToggler",text:"🔽",marginR:"5px",setName:"arrGrp",setID:"arr:1",
     setFunc:(e)=>{
       let src = e.srcElement
-      document.getElementsByName("arrGrp").forEach(x=>{
-        if(x.id!==src.id){x.innerHTML = "🔽"}
-      })
+      document.getElementsByName("arrGrp").forEach(x=>{if(x.id!==src.id){x.innerHTML = "🔽"}})
+      player.rwdRefID = undefined
 
       let disp = bodySub
       cleanParent(disp)
@@ -456,17 +448,14 @@ function setRewards(){
       if(src.innerHTML === "🔼"){setMasterPool()}
     }}) // 🔼
     addEle({dad:cr,text:"Set your Giveaway Pool",borderB:"green solid 2px"})
-    let txt = "("+ spanText({text:player.masterPool.length,col:YG}) + ")"
-    addEle({dad:cr,marginL:"5px",setID:"poolCt1",text:txt})
-
+    addEle({dad:cr,marginL:"5px",setID:"poolCt1"})
 
   cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"10px 0 5px 10px"})
     addEle({dad:cr,setClass:"arrowToggler",text:"🔽",marginR:"5px",setName:"arrGrp",setID:"arr:2",
     setFunc:(e)=>{
       let src = e.srcElement
-      document.getElementsByName("arrGrp").forEach(x=>{
-        if(x.id!==src.id){x.innerHTML = "🔽"}
-      })
+      document.getElementsByName("arrGrp").forEach(x=>{if(x.id!==src.id){x.innerHTML = "🔽"}})
+      player.rwdRefID = undefined
 
       let disp = bodySub
       cleanParent(disp)
@@ -474,9 +463,8 @@ function setRewards(){
       if(src.innerHTML === "🔼"){setPoolRewards()}
     }}) // 🔼
     addEle({dad:cr,text:"Set Rewards from the Pool",borderB:"green solid 2px"})
-    txt = "("+ spanText({text:player.poolRewards.length,col:YG}) + ")"
-    addEle({dad:cr,marginL:"5px",setID:"rwdCt1",text:txt})
-
+    addEle({dad:cr,marginL:"5px",setID:"rwdCt1"})
+    updDispTtls()
 }
 
 
@@ -513,25 +501,28 @@ function setMasterPool(){
     addEle({dad:cr,textC:"white",textA:"center",setID:"addItmN",minWidth:"220px",marginL:"",backC:"green"})
   cr = addEle({dad:forkA2,setClass:"contRow",alignItems:"center",margin:"10px 0 5px 0",justifyC:"center"})
     addEle({dad:cr,text:"Total :",marginR:"5px"})
-    addEle({dad:cr,what:"input",isInput:true,numInput:true,width:"40px",setVal:1,
+    let inQ = addEle({dad:cr,what:"input",isInput:true,numInput:true,width:"40px",setVal:1,
     textA:"center",setID:"addItmQ"})
+    inQ.addEventListener('keydown', function(event) 
+    {if (event.key === 'Enter'){  getID("savtoPool").click()}})
+
   cr = addEle({dad:forkA2,setClass:"contRow",alignItems:"center",justifyC:"center"})
     addEle({dad:cr,setClass:"btn",text:"Save item to Giveaway pool",border:"green solid 2px",
-    backC:"darkgreen",marginL:"",setFunc:()=>{
+    backC:"darkgreen",marginL:"",setID:"savtoPool",setFunc:()=>{
       let nm = getID("addItmN").innerHTML
       let qt = Number(getID("addItmQ").value)
       qt = qt>0 ? qt : 1
       if(!nm.includes("---")){
-        console.log(qt+" "+nm)
         player.masterPool.push({
-          idx:player.masterPool.length+1,
+          idx:crypto.randomUUID(),
           lbl:nm,
           val:qt,
           selected:false,
-          tempo:1,
         })
         getID("addItmQ").value = 1
         player.masterPool = arrSorting(player.masterPool)
+//        for(let i=0;i<player.masterPool.length;i++){player.masterPool[i].idx=(i+1)}
+//        console.log(player.masterPool)
         savPlayer()
         getID("poolCt1").innerHTML = "("+ spanText({text:player.masterPool.length,col:YG}) + ")"
         getID("poolCt2").innerHTML = "("+ spanText({text:player.masterPool.length,col:YG}) + ")"
@@ -548,7 +539,8 @@ function setMasterPool(){
     addEle({dad:cr,what:"input",isInput:true,maxLen:25,margin:"5px 5px 5px 0",
     textA:"center",setID:"itmFiltIn",setFunc:(e)=>{
       fillForB3()
-      document.getElementsByName("itmRads")[0].click()
+      if(document.getElementsByName("itmRads")[0]){document.getElementsByName("itmRads")[0].click()}
+//      document.getElementsByName("itmRads")[0].click()
     }})
 
 
@@ -656,16 +648,26 @@ function showMaster(){
           fillForB3()
           showMaster()
           if(player.masterPool.length>0){document.getElementsByName("masterIRads")[0].click()}
-          document.getElementsByName("itmRads")[0].click()
+          if(document.getElementsByName("itmRads")[0]){document.getElementsByName("itmRads")[0].click()}
+//          document.getElementsByName("itmRads")[0].click()
         }})
   }
   if(document.getElementsByName("itmRads")[0]){document.getElementsByName("itmRads")[0].click()}
 }
 
 
-function setPoolRewards(){ // [ selling ((Large Net)) ] 2k 25g (last 2k)
+
+
+
+
+
+
+function setPoolRewards(){
   let tgt = bodySub
   if(player.masterPool.length>0){
+
+    player.masterPool.forEach(x=>x.selected =false)
+
     let bds = "green dotted 2px"
     let fork = addEle({dad:tgt,setClass:"contRow"})
       let forkA = addEle({dad:fork,setClass:"contCol",margin:"5px 0 0 5px"})
@@ -698,32 +700,37 @@ function setPoolRewards(){ // [ selling ((Large Net)) ] 2k 25g (last 2k)
 
         cr = addEle({dad:forkA3,setClass:"contRow",alignItems:"center",justifyC:"center",padding:"2px"})
           addEle({dad:cr,setClass:"btn",text:"Clear Selection",border:"red solid 2px",margin:"0",
-          backC:"darkgreen",width:"80%",setFunc:()=>{
+          backC:"darkgreen",width:"",setFunc:()=>{
             player.masterPool.forEach(x=>x.selected = false)
             showPoolBank()
             showNextRwd()
           }})
 
-
-//        txt = "Rewards Bank (" + spanText({text:player.masterPool.length,col:"yellow"}) + ")"
-  //      addEle({dad:forkA1,text:txt,textA:"center"})
+          addEle({dad:cr,setClass:"btn",text:"New Reward",border:"red solid 2px",margin:"0",
+          backC:"darkgreen",width:"",setFunc:()=>{
+          }})
 
         cr = addEle({dad:forkB1,setClass:"contRow",alignItems:"center",justifyC:"center",padding:"0 5px"})
           addEle({dad:cr,text:"Rewards Bank",textA:"center",marginR:"5px"})
           txt = "(" + spanText({text:player.poolRewards.length,col:"yellow"}) + ")"
-          addEle({dad:cr,text:txt,textA:"center",setID:"poolBCt"})
-
-        /*
-        cr = addEle({dad:forkB2,setClass:"contRow",alignItems:"center",justifyC:"center",padding:"0 5px"})
-          addEle({dad:cr,text:"Rewards Bank",textA:"center",marginR:"5px"})
-        */
-
+          addEle({dad:cr,text:txt,textA:"center",setID:"rwdBCt"})
 
         showPoolBank()
         showNextRwd()
   } else {
     addEle({dad:tgt,text:"You need to Set your Giveaway Pool first",textC:accts[1],margin:"5px 0 0 5px"})
   }
+}
+
+
+function dispatchedVal(itm){
+  let sum = 0
+  player.poolRewards.forEach(x=>{
+    x.content.forEach(c=>{
+      if(c.itmID === itm.idx){sum += c.val}
+    })
+  })
+  return sum
 }
 
 function showPoolBank(){
@@ -736,1005 +743,206 @@ function showPoolBank(){
     let itm = arr[i]
     let tr = addEle({dad:tb,what:"tr"})
       let tc = addEle({dad:tr,what:"td"})
-        addEle({dad:tc,what:"checkbox",isInput:true,setID:"poolBCheck:"+i,setName:"poolBChecks",
+        let cbx = addEle({dad:tc,what:"checkbox",isInput:true,setID:"poolBCheck:"+i,setName:"poolBChecks",
         setFunc:(e)=>{
           let idx = Number(e.srcElement.id.split(":")[1])
           player.masterPool[idx].selected = e.srcElement.checked
+          if(player.rwdRefID !== undefined){
+            let srcI = player.masterPool[idx]
+            let rwd = player.poolRewards.filter(x=>x.idx === player.rwdRefID)[0]
+            if(!e.srcElement.checked){
+              let idx2 = rwd.content.findIndex(x=>x.itmID === srcI.idx)
+              rwd.content.splice(idx2,1)
+            } else {
+              rwd.content.push({itmID:srcI.idx,lbl:srcI.lbl,val:0})
+            }
+          }
           showNextRwd()
-
-          console.log(player.masterPool)
         }})
-      addEle({dad:tr,what:"td",text:itm.lbl,padding:"0 5px"})
-      let txt = (itm.val-itm.tempo+1).toLocaleString() + "/" + itm.val.toLocaleString()
-      addEle({dad:tr,what:"td",text:txt,textC:YG})
+        if(itm.selected){cbx.checked = true}
+      addEle({dad:tr,what:"td",text:itm.lbl,padding:"0 5px",setID:"poolBCheckT:"+i,setFunc:(e)=>{
+        let idx = Number(e.srcElement.id.split(":")[1])
+        getID("poolBCheck:"+idx).click()
+      }})
+      addEle({dad:tr,what:"td",textC:YG,textA:"right",setName:"grpMasterBk"})
+  }
+  updDispTtls()
+}
+
+
+
+function updDispTtls(){
+  let grp = document.getElementsByName("grpMasterBk")
+  for(let i=0;i<player.masterPool.length;i++){
+    if(grp[i]){
+      let itm = player.masterPool[i]
+      grp[i].innerHTML = (itm.val - dispatchedVal(itm)).toLocaleString() + "/" + itm.val.toLocaleString()
+    }
   }
 
-  console.log("Materpool")
-  console.log(player.masterPool)
+  grp = document.getElementsByName("grpRwdBk")
+  let arr = player.masterPool.filter(x=>x.selected)
+  for(let i=0;i<arr.length;i++){
+    if(grp[i]){
+      let itm = arr[i]
+      let cap = Number(document.getElementsByName("itmQts")[i].value)
+      let dispo = itm.val-dispatchedVal(itm)
+      let tcol = cap > dispo ? accts[6] : YG
+      grp[i].innerHTML = "/"+spanText({text:dispo,col:tcol})
+    }
+  }
+
+  let txt = "("+ spanText({text:player.masterPool.length,col:YG}) + ")"
+  getID("poolCt1").innerHTML = txt
+  txt = "(" + spanText({text:player.poolRewards.length,col:"yellow"}) + ")"
+  getID("rwdCt1").innerHTML = txt
+  if(getID("rwdBCt")){getID("rwdBCt").innerHTML = txt}
 }
+
 
 
 function showNextRwd(){
   let tgt = getID("forkB2")
   cleanParent(tgt)
 
-  cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",marginB:"5px"})//,justifyC:"center"
-    addEle({dad:cr,text:"next Reward:",borderB:"green dotted 2px",width:"fit-content"})
-    addEle({dad:cr,text:"#"+(player.poolRewards.length+1),marginL:"5px"})
+  let refRwd = undefined
+  if(player.rwdRefID !==undefined){
+    refRwd = player.poolRewards.filter(x=>x.idx === player.rwdRefID)[0]
+    player.masterPool.forEach(x=>{x.selected = false})
+    refRwd.content.forEach(c=>{
+      player.masterPool.filter(x=>x.idx===c.itmID)[0].selected = true
+    })
+    showPoolBank()
+  }
+
+  cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",marginB:"5px"})
+    let txt = refRwd === undefined ? "next Reward :" : "Reward :"
+    addEle({dad:cr,text:txt,borderB:"green dotted 2px",width:"fit-content"})
+    txt = refRwd === undefined ? "#"+(player.poolRewards.length+1) : refRwd.title
+    addEle({dad:cr,text:txt,marginL:"5px",setID:"nextRwdT"})
 
   let arr = player.masterPool.filter(x=>x.selected)
   if(arr.length > 0){
     let tb = addEle({dad:tgt,what:"table"})
     for(let i=0;i<arr.length;i++){
       let itm = arr[i]
-      console.log(itm)
       let tr = addEle({dad:tb,what:"tr"})
         addEle({dad:tr,what:"td",text:itm.lbl})
       let tc = addEle({dad:tr,what:"td",padding:"0 5px 5px 5px"})
-        addEle({dad:tc,what:"input",isInput:true,numInput:true,width:"40px",textA:"center",
-        setVal:itm.tempo,setID:"itmQt:"+itm.idx,setFunc:(e)=>{
-          let idx= Number(e.srcElement.id.split(":")[1])
+        txt = refRwd === undefined ? 1 : refRwd.content.filter(x=>x.itmID === itm.idx)[0].val
+        let inQ = addEle({dad:tc,what:"input",isInput:true,numInput:true,width:"40px",textA:"center",
+        setVal:txt,setID:"itmQt:"+itm.idx,setName:"itmQts",setFunc:(e)=>{
+          let idx= e.srcElement.id.split(":")[1]
           let itm = player.masterPool.filter(x=>x.idx===idx)[0]
-          let max = itm.val-itm.tempo+1
+          let max = itm.val - dispatchedVal(itm)
           let nb = Number(e.srcElement.value)
           if(nb<1){nb=1}
           if(nb>max){nb=max}
           e.srcElement.value = nb
         }})
-      addEle({dad:tr,what:"td",text:"/"+spanText({text:(itm.val-itm.tempo+1),col:YG})})
+        inQ.addEventListener('keydown', function(event) 
+        {if (event.key === 'Enter'){getID("savRwd").click()}})
+      addEle({dad:tr,what:"td",setID:"itmQtM:"+itm.idx,setName:"grpRwdBk"})
+      let ev = new Event("input") ; inQ.dispatchEvent(ev)
     }
-    cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",justifyC:"center"})
-      addEle({dad:cr,setClass:"btn",text:"Save Reward",border:"green solid 2px",
-      backC:"darkgreen",width:"80%",setFunc:()=>{
 
+    cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",justifyC:"center"})
+      txt = refRwd === undefined ? "Save new Reward" : "Save Reward changes"
+      addEle({dad:cr,setClass:"btn",text:txt,border:"green solid 2px",
+      backC:"darkgreen",width:"80%",setID:"savRwd",setFunc:()=>{
+        let savGood = true
+        let dispatcher = []
+
+        let grp = document.getElementsByName("itmQts")
+        grp.forEach(inp=>{
+          let itmID = inp.id.split(":")[1]
+          let val = Number(inp.value)
+          let itm = player.masterPool.filter(x=>x.idx===itmID)[0]
+
+          dispatcher.push({id:itmID,val:val})
+          if(itm.val-dispatchedVal(itm) < val){savGood = false}
+        })
+
+        let thisID = player.rwdRefID === undefined ? crypto.randomUUID() : player.rwdRefID
+        if (savGood){
+          let newRwd = {
+            title:undefined,
+            idx:thisID,
+            content:[],
+            winner:undefined,
+          }
+
+          dispatcher.forEach(obj=>{
+            let itm = player.masterPool.filter(x=>x.idx === obj.id)[0]
+            newRwd.content.push({
+              itmID:itm.idx,
+              lbl:itm.lbl,
+              val:obj.val,
+          })})
+
+          if(player.rwdRefID !==undefined){
+            let idx = player.poolRewards.findIndex(x=>x.idx === player.rwdRefID)
+            player.poolRewards[idx] = newRwd
+          } else {
+            player.poolRewards.push(newRwd)
+            getID("nextRwdT").innerHTML = "#"+(player.poolRewards.length+1)
+          }
+          for(let i=0;i<player.poolRewards.length;i++){player.poolRewards[i].title = "#"+(i+1)}
+          savPlayer()
+        }
+        showRwdINbank()
+        updDispTtls()
     }})
   } else {
     addEle({dad:tgt,text:spanText({text:"---",col:accts[6]})})
   }
+  showRwdINbank()
+  updDispTtls()
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function setRewards2(){
-  let info = bodyMid
-  cleanParent(info)
-  let main = bodySub
-  cleanParent(main)
-
-  for(let i=0;i<player.rewards.length;i++){
-    player.rewards[i].idx = (i+1)
-  } savPlayer()
-
-  let minMax = 160
-  addEle({dad:main,setClass:"contCol",setID:"rwdLstFr",minHeight:minMax+"px",maxHeight:minMax+"px",overflowX:"auto",
-  width:"fit-content",padding:"5px 0 0 5px",width:"320px",borderB:"teal 2px dashed"})
-
-  addEle({dad:main,setClass:"contCol",setID:"mainFr",width:"fit-content",padding:"5px 0 5px 5px"})
-
-  let cont = addEle({dad:info,margin:"5px 0 0 5px"})
-    let tb = addEle({dad:cont,what:"table"})
-      let tr = addEle({dad:tb,what:"tr"})
-        let txt = "in Bank<br>( Total )"
-        addEle({dad:tr,what:"td",text:txt,fontS:"14px",padding:"5px",textA:"center",borderB:"teal solid 2px"})
-        txt = "Used for<br>Lottery"
-        addEle({dad:tr,what:"td",text:txt,fontS:"14px",padding:"5px",textA:"center",border:"teal solid 2px",borderT:"none"})
-        txt = "Displayed"
-        addEle({dad:tr,what:"td",text:txt,fontS:"14px",padding:"5px",textA:"center",borderB:"teal solid 2px"})
-
-      tr = addEle({dad:tb,what:"tr"})
-        txt = player.rewards.length
-        addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center"})
-        txt = player.rewards.filter(x=>x.use).length
-        addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center",border:"teal solid 2px",borderT:"none",borderB:"none"})
-        addEle({dad:tr,what:"td",setID:"rwdDispC",textC:YG,textA:"center"})
-
-  let cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"0 0 5px 10px"})
-    addEle({dad:cr,text:"Filter Name :",marginR:"5px"})
-    addEle({dad:cr,what:"input",isInput:true,width:"100px",textA:"center",setID:"inFilRwd",
-    marginR:"10px",border:"green solid 3px",radius:"10px",setFunc:(e)=>{
-      if(player.rewards.length>0){
-        let tgt = getID("rwdLstFr")
-        cleanParent(tgt)
-        cleanParent(getID("mainFr"))
-
-        let txt = e.srcElement.value.toLowerCase()
-        let arr = []
-        if(txt.length===0)
-             {arr = player.rewards} 
-        else {arr = player.rewards.filter(x=>x.lbl.includes(txt))}
-        getID("rwdDispC").innerHTML = arr.length
-  
-        if(arr.length>0){
-          let cont = addEle({dad:tgt,margin:""})
-          let tb = addEle({dad:cont,what:"table",setID:"tb2"})
-            let tr = addEle({dad:tb,what:"tr"})
-              let txt2 = "Select"
-              addEle({dad:tr,what:"td",text:txt2,fontS:"14px",padding:"5px",textA:"center"})
-              txt2 = "Use"
-              addEle({dad:tr,what:"td",text:txt2,fontS:"14px",padding:"5px",textA:"center",
-              border:"teal solid 2px",borderB:"none",borderT:"none"})
-              txt2 = "#Ref"
-              addEle({dad:tr,what:"td",text:txt2,fontS:"14px",padding:"5px",textA:"center"
-              ,borderR:"teal solid 2px"})
-              txt2 = "Name"
-              addEle({dad:tr,what:"td",text:txt2,fontS:"14px",padding:"5px",textA:"center"})
-              addEle({dad:tr,what:"td",text:"",fontS:"14px",padding:"5px",textA:"center"})
-        }
-
-        for(let i=0;i<arr.length;i++){
-          let itm = arr[i]
-
-          let tr = addEle({dad:getID("tb2"),what:"tr"})
-            let tc = addEle({dad:tr,what:"td",padding:"5px",textA:"center",borderT:"teal solid 2px"})
-              addEle({dad:tc,what:"radio",isInput:true,setName:"rwdRads",setID:"rwdRad:"+i,
-              width:"18px",height:"18px",accentCol:accts[player.misc.radios],setFunc:(e)=>{ 
-              let idx = Number(e.srcElement.id.split(":")[1])
-              showRwd(player.rewards[idx]) }})
-
-            tc = addEle({dad:tr,what:"td",padding:"5px",textA:"center",border:"teal solid 2px",borderB:"none"})
-              let tog = addEle({dad:tc,what:"checkbox",isInput:true,setID:"togRwd:"+i,
-              setClass:"toggle-checkbox",setFunc:(e)=>{
-                let idx = Number(e.srcElement.id.split(":")[1])
-                player.rewards[idx].use = e.srcElement.checked
-                if(player.rewards[idx].use===false){
-                  player.rewards[idx].number = undefined
-                  player.rewards[idx].winner = undefined
-                }
-                savPlayer()
-                setRewards()
-              }})
-              addEle({dad:tc,what:"label",setFor:"togRwd:"+i,setClass:"toggle-label",margin:""})
-              if(itm.use){tog.checked=true}
-      
-            addEle({dad:tr,what:"td",text:"#"+itm.idx,padding:"5px",textA:"center",border:"teal solid 2px"
-            ,borderL:"none",borderB:"none",fontS:"14px"})
-
-            addEle({dad:tr,what:"td",text:spanText({text:itm.lbl,col:YG}),padding:"5px",textA:"center",
-            borderT:"teal solid 2px",fontS:"14px"})
-            
-            tc = addEle({dad:tr,what:"td",padding:"5px",textA:"center",borderT:"teal solid 2px"})
-              addEle({dad:tc,setClass:"arrowToggler",text:"X",border:"red solid 2px",
-              padding:"1px 4px",marginR:"5px",setID:"del:"+i,setFunc:(e)=>{
-                let idx = Number(e.srcElement.id.split(":")[1])
-                player.rewards.splice(idx,1)
-                setRewards()       
-              }})
-
-            /*
-          let cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",marginB:"10px"})
-
-            addEle({dad:cr,what:"radio",isInput:true,setName:"rwdRads",setID:"rwdRad:"+i,
-            width:"18px",height:"18px",accentCol:accts[player.misc.radios],setFunc:(e)=>{ 
-            let idx = Number(e.srcElement.id.split(":")[1])
-            showRwd(player.rewards[idx]) }})
-
-            addEle({dad:cr,text:"Use :",margin:"0 -5px 0 10px"})
-            let tog = addEle({dad:cr,what:"checkbox",isInput:true,setID:"togRwd:"+i,
-            setClass:"toggle-checkbox",setFunc:(e)=>{
-              let idx = Number(e.srcElement.id.split(":")[1])
-              player.rewards[idx].use = e.srcElement.checked
-              if(player.rewards[idx].use===false){player.rewards[idx].number = undefined}
-              savPlayer()
-              setRewards()
-            }})
-            addEle({dad:cr,what:"label",setFor:"togRwd:"+i,setClass:"toggle-label",margin:"0 10px"})
-            if(itm.use){tog.checked=true}
-
-            addEle({dad:cr,text:"#"+itm.idx,minWidth:"40px",textA:"center"})
-
-            addEle({dad:cr,setClass:"arrowToggler",text:"X",border:"red solid 2px",
-            padding:"1px 4px",marginR:"5px",setID:"del:"+i,setFunc:(e)=>{
-              let idx = Number(e.srcElement.id.split(":")[1])
-              console.log(idx)
-              player.rewards.splice(idx,1)
-              setRewards()       
-            }})
-            addEle({dad:cr,text:"- " + spanText({text:itm.lbl,col:YG})})
-*/
-
-
-        }
-
-        if(document.getElementsByName("rwdRads")[0]){
-          document.getElementsByName("rwdRads")[0].click()
-        }
-
-      }
-    }})
-    addEle({dad:cr,setClass:"btn",border:"green solid 2px",backC:"darkgreen",
-    text:"+ Add new Reward",fontS:"14px",setFunc:()=>{showRwd()}})
-
-
-  let ev = new Event("input") ; getID("inFilRwd").dispatchEvent(ev)
-  if(document.getElementsByName("rwdRads")[0]){
-    document.getElementsByName("rwdRads")[0].click()
-  }
-}
-
-
-function showRwd(rwd=undefined){
-  let tgt = getID("mainFr")
+function showRwdINbank(){
+  let tgt = getID("forkB3")
   cleanParent(tgt)
 
-  let newId = player.rewards.length+1
-  let multi = true
-
-  let newRwd = {
-    idx:newId,
-    lbl:"reward #"+newId,
-    use:true,
-    content:[],
-    copies:1,
-  }
-
-  if(rwd){
-    multi = false
-    newRwd.idx = rwd.idx
-    newRwd.lbl = rwd.lbl
-    newRwd.use = rwd.use
-    rwd.content.forEach(c=>{newRwd.content.push(c)})
-  }
-
-  player.draftRwd = newRwd
-
-  let cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",margin:"10px"})
-    addEle({dad:cr,text:"Reward Name :",marginR:"5px"})
-    addEle({dad:cr,what:"input",isInput:true,textA:"center",setVal:player.draftRwd.lbl
-    ,border:"solid green 3px",radius:"10px",setID:"inRwdNm"})
-
-  if(multi){
-  cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",margin:"0 0 5px 10px"})
-    addEle({dad:cr,marginR:"10px",textC:YG,text:"*Build 1 or more copies of this Reward"})
-    addEle({dad:cr,what:"input",isInput:true,width:"30px",numInput:true,textA:"center",
-    setVal:player.draftRwd.copies,setFunc:(e)=>{
-      player.draftRwd.copies = Number(e.srcElement.value) > 0 ? Number(e.srcElement.value) : 1
-    }})
-  }
-
-  cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",borderB:"teal dashed 2px",
-  width:"325px",padding:"0 0 10px 10px"})
-    txt = "Reward #"+player.draftRwd.idx+" contains " + 
-    spanText({text:player.draftRwd.content.length,col:YG}) + " items"
-    addEle({dad:cr,text:txt,marginR:"10px",setID:"rwdTxt"})
-
-  addEle({dad:tgt,setClass:"contCol",padding:"5px",borderL:"teal dashed 2px",setID:"draftContent",
-  minHeight:"20px",maxHeight:"60px",overflowX:"auto",marginL:"10px",backC:"rgb(64, 64, 64)",width:"315px"})
-  if(player.draftRwd.content.length>0){dispDraft()}
-
-  let cc = addEle({dad:tgt,setClass:"contCol",border:"solid 2px teal",padding:"5px",
-  width:"320px",radius:"5px",marginL:"5px",setID:"addItmRwdFr"})
-    addEle({dad:cc,text:"Add Items to fill the Reward :",borderB:"solid 2px teal",width:"fit-content",margin:"0 0 5px 10px"})
-
-    cr = addEle({dad:cc,setClass:"contRow",alignItems:"center",marginL:"10px"})
-      addEle({dad:cr,text:"Filter Items Pick :",marginR:"10px"})
-      addEle({dad:cr,what:"input",isInput:true,textA:"center",width:"100px",
-      border:"green solid 3px",radius:"10px",setID:"filtItm",setFunc:(e)=>{
-        let txt = e.srcElement.value
-        let tgt = getID("selRwd")
-        cleanParent(tgt)
-        addEle({dad:selRwd,what:"option",text:"- Pick an Item -"})
-        if(txt.length===0){
-          player.items.all.forEach(it=>{addEle({dad:selRwd,what:"option",text:it.lbl})})
-        } else {
-          let arr = player.items.all.filter(x=>x.lbl.includes(txt))
-          arr.forEach(it=>{addEle({dad:selRwd,what:"option",text:it.lbl})})
-        }
-        txt = "("+ spanText({text:tgt.options.length-1,col:"yellowgreen"}) + ")"
-        getID("itmSelCt").innerHTML = txt 
-      }})
-      addEle({dad:cr,setID:"itmSelCt",marginL:"10px"})
-  
-
-    cr = addEle({dad:cc,setClass:"contRow",margin:"",alignItems:"center",marginL:"10px"})
-      addEle({dad:cr,what:"input",isInput:true,width:"40px",numInput:true,setVal:1,
-      textA:"center",margin:"0 5px 0 0",setID:"itmQt"})
-
-      let selRwd = addEle({dad:cr,what:"select",setClass:"select",textA:"center",
-      border:"green solid 2px",setID:"selRwd"})
-
-      let ev = new Event("input") ; getID("filtItm").dispatchEvent(ev)
-
-      addEle({dad:cr,setClass:"btn",text:"Add",width:"50px",border:"solid green 2px"
-      ,fontS:"14px",backC:"darkgreen",setFunc:()=>{
-        let val1 = getID("selRwd").selectedIndex
-        let val2 = Math.ceil(getID("itmQt").value)
-        if(val1 > 0 && val2 > 0){
-          player.draftRwd.content.push({
-            lbl:getID("selRwd").value,
-            val:val2
-          })
-          dispDraft()
-        }
-      }})
-
-    cc = addEle({dad:tgt,setClass:"contCol",setID:"savdr",marginT:"10px"})
-      addEle({dad:cc,text:"When the reward(s) seems ready for use ...",marginL:"10px"})
-      let btnTxt = player.draftRwd.idx <= player.rewards.length ?
-      "Save any changes to this reward" : "Save the new Reward(s)"
-      addEle({dad:cc,setClass:"btn",text:btnTxt,border:"solid green 2px",
-      width:"300px",backC:"darkgreen",marginL:"10px",setFunc:()=>{
-        let dispInfo = getID("savRwdSt") 
-        if(player.draftRwd.content.length > 0){
-          dispInfo.innerHTML = ""
-          if(player.draftRwd.idx<=player.rewards.length){
-            let rwd = player.rewards.filter(x=>x.idx===player.draftRwd.idx)[0]
-            let rwdName = getID("inRwdNm").value.length>0 ?
-            getID("inRwdNm").value.toLowerCase() :
-            "reward #"+player.draftRwd.idx
-            rwd.lbl = rwdName
-            rwd.content = player.draftRwd.content
-            savPlayer()
-            dispInfo.innerHTML = "Changes are now Saved !"
-            setTimeout(()=>{setRewards()},1500)
-          } else {
-            for(let i=0;i<player.draftRwd.copies;i++){
-              let nextId = player.rewards.length+1
-              let rwdName = getID("inRwdNm").value.length>0 ?
-              getID("inRwdNm").value.toLowerCase() :
-              "reward #"+nextId
-              let tempR = {
-                idx:nextId,
-                lbl:rwdName,
-                content:player.draftRwd.content,
-                use:true,
-                number:undefined,
-                winner:undefined,
-              }
-              player.rewards.push(tempR)
-            }
-            savPlayer()
-            dispInfo.innerHTML = "Saved "+spanText({text:player.draftRwd.copies,col:YG})+" new reward(s) !"
-            setTimeout(()=>{setRewards()},1500)
-          }
-        } else {
-          dispInfo.innerHTML = "Reward is empty, Add some items to save it."
-          setTimeout(()=>{dispInfo.innerHTML=""},1500)
-        }
-      }})
-      addEle({dad:tgt,setID:"savRwdSt",textC:accts[1],width:"340px",textA:"center"})
-}
-
-function dispDraft(){
-  let tgt = getID("draftContent")
-  cleanParent(tgt)
-
-  getID("rwdTxt").innerHTML = "Reward #"+player.draftRwd.idx+" contains "
-  +spanText({text:player.draftRwd.content.length,col:"yellowgreen"})+" item(s)"
-
-  for(let i=0;i<player.draftRwd.content.length;i++){
-    let itm = player.draftRwd.content[i]
-    let cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center"})
-      addEle({dad:cr,setClass:"arrowToggler",text:"X",border:"solid 2px red",padding:"1px 4px",
-      setID:"del:"+i,margin:"5px",setFunc:(e)=>{
-        let idx = Number(e.srcElement.id.split(":")[1])
-        player.draftRwd.content.splice(idx,1)
-        dispDraft()
-      }})
-      addEle({dad:cr,text:"- " +spanText({text:itm.val+"x ",col:"yellowgreen"})+itm.lbl})
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function setLottery(){
-  let info = bodyMid
-  cleanParent(info)
-  let main = bodySub
-  cleanParent(main)
-
-  let usedA = player.rewards.filter(x=>x.use)
-  let usedNumberedA = usedA.filter(x=>x.number!==undefined)
-
-  /*
-  let cr = addEle({dad:info,setClass:"contRow",alignItems:"center",marginL:"10px"})
-    addEle({dad:cr,text:"Rewards :",marginR:"5px"})
-    addEle({dad:cr,text:player.rewards.filter(x=>x.use).length+"/"+player.rewards.length,textC:YG})
-    addEle({dad:cr,text:"(Used / Total)",marginL:"10px"})
-
-  cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"0 0 5px 10px"})
-    addEle({dad:cr,text:"Rewards with Lottery Numbers :",marginR:"5px"})
-    addEle({dad:cr,text:usedNumberedA.length+"/"+usedA.length,textC:YG})
-  */
-
-  let cont = addEle({dad:info})
-    let tb = addEle({dad:cont,what:"table"})
-      let tr = addEle({dad:tb,what:"tr"})
-        let txt = "Rewards<br>in Bank"
-        addEle({dad:tr,what:"td",text:txt,fontS:"14px",padding:"5px",textA:"center",borderB:"teal solid 2px"})
-        txt = "Rewards Used<br>for the Lottery"
-        addEle({dad:tr,what:"td",text:txt,fontS:"14px",padding:"5px",textA:"center",border:"teal solid 2px",borderT:"none"})
-        txt = "Rewards with<br>Lottery Numbers"
-        addEle({dad:tr,what:"td",text:txt,fontS:"14px",padding:"5px",textA:"center",borderB:"teal solid 2px",borderR:"teal solid 2px"})
-        txt = "Won<br>Rewards"
-        addEle({dad:tr,what:"td",text:txt,fontS:"14px",padding:"5px",textA:"center",borderB:"teal solid 2px"})
-
-
-      tr = addEle({dad:tb,what:"tr"})
-        txt = player.rewards.length
-        addEle({dad:tr,what:"td",text:txt,textA:"center"})
-        txt = player.rewards.filter(x=>x.use).length
-        addEle({dad:tr,what:"td",text:txt,textA:"center",border:"teal solid 2px",borderT:"none",borderB:"none"})
-        txt = player.rewards.filter(x=>x.number!==undefined).length
-        let txC = player.rewards.filter(x=>x.number!==undefined).length === 
-        player.rewards.filter(x=>x.use).length ? YG : accts[6]
-        addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center",textC:txC,setID:"lotNbi",borderR:"teal solid 2px"})
-        txt = player.rewards.filter(x=>x.winner!==undefined).length + "/" +
-        player.rewards.filter(x=>x.number!==undefined).length
-        addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center",setID:"lotWrew"})
-
-
-
-  addEle({dad:info,textC:accts[1],margin:"5px 10px",setID:"warnMsg",fontS:"14px"})
-
-  if(player.rewards.length>0){
-    if(usedA.length>0){
-
-      getID("warnMsg").innerHTML = 
-      usedA.length===usedNumberedA.length ?  "" :
-      `To have a Lottery working well, all used<br>Rewards will need a Lottery Number.`
-
-      let cr = addEle({dad:main,setClass:"contRow",alignItems:"center",margin:"5px 0 0 5px"})
-        addEle({dad:cr,setClass:"arrowToggler",text:"🔽",setFunc:(e)=>{
-          let src = e.srcElement
-          let disp = getID("lotWinNumSet")
-          disp.style.display = src.innerHTML === "🔼" ? "none" : "flex"
-          src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
-          if(src.innerHTML === "🔼"){dispLotNb()}
-        }}) // 🔼
-        addEle({dad:cr,text:"Set Lottery Winning Numbers",margin:"0 0 5px 5px",borderB:"teal solid 2px"})
-      let cc = addEle({dad:main,setClass:"contCol",setID:"lotWinNumSet",marginL:"30px",
-      borderL:"teal dashed 2px",padding:"",display:"none"})
-          cr = addEle({dad:cc,setClass:"contRow",alignItems:"center"})
-          addEle({dad:cr,text:"Range :",margin:"0 5px"})
-          addEle({dad:cr,what:"input",isInput:true,numInput:true,width:"40px",textA:"center"
-          ,setVal:player.poolMin,setID:"bound1",setFunc:getRange})
-          addEle({dad:cr,what:"input",isInput:true,numInput:true,width:"40px",textA:"center"
-          ,setVal:player.poolMax,setID:"bound2",margin:"0 10px",setFunc:getRange})
-          addEle({dad:cr,setClass:"btn",text:"Roll Numbers",setFunc:rollRwd,
-          border:"green solid 2px",backC:"darkgreen"})
-        addEle({dad:cc,setID:"curRange",marginT:"5px",marginL:"5px",text:"Range used : "
-        +player.poolMin+" ~ "+player.poolMax})
-        addEle({dad:cc,setID:"curRange",marginT:"5px",marginL:"5px",text:"(All numbers including first and last)"})
-
-        let minMax = 160
-        addEle({dad:cc,setClass:"contCol",minHeight:minMax+"px",maxHeight:minMax+"px",
-        borderT:"dashed teal 2px",padding:"5px",width:"280px",marginT:"10px",setID:"rolledNb"
-        ,overflowX:"auto",borderB:"dashed teal 2px"})
-
-
-
-      cr = addEle({dad:main,setClass:"contRow",alignItems:"center",margin:"5px 0 0 5px"})
-        addEle({dad:cr,setClass:"arrowToggler",text:"🔽",setFunc:(e)=>{
-          let src = e.srcElement
-          let disp = getID("manLotFr")
-          disp.style.display = src.innerHTML === "🔼" ? "none" : "flex"
-          src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
-        }}) // 🔼
-        addEle({dad:cr,text:"Manage Lottery",margin:"0 0 5px 5px",borderB:"teal solid 2px"})
-      cc = addEle({dad:main,setClass:"contCol",setID:"manLotFr",marginL:"30px",
-      borderL:"teal dashed 2px",padding:"",display:"none"})
-
-        let Lsel = addEle({dad:cc,what:"select",setClass:"select",textA:"center",marginL:"5px",
-          border:"green 3px solid",setID:"lotterySel",setFunc:(e)=>{}})
-            addEle({dad:Lsel,what:"option",text:"-- Select --"})
-            addEle({dad:Lsel,what:"option",text:"Check Player's provided number",setFunc:checkNum})
-            addEle({dad:Lsel,what:"option",text:"Check Lottery Progression",setFunc:checkProgress})
-
-        addEle({dad:cc,setClass:"contColl",setID:"manageSub"})
-
-
-    } else {
-      getID("warnMsg").innerHTML = `
-      Having Rewards built in your list is good.<br>
-      Now, make sure the Rewards you want in your<br>
-      Lottery pool are set to : USE.`      
-    }
-  } else {
-    getID("warnMsg").innerHTML = "To run the Lottery you need to build the Rewards first"
-  }
-}
-
-function getRange(){
-  let v1 = Number(getID("bound1").value)
-  let v2 = Number(getID("bound2").value)
-  let min = undefined
-  let max = undefined
-  if(v1>v2){max = v1 ; min = v2} 
-  else     {max = v2 ; min = v1}
-  min = min<=0 ? 1 : min
-  max = max<player.rewards.filter(x=>x.use).length ?
-  player.rewards.filter(x=>x.use).length : max
-  if(max-min+1<player.rewards.filter(x=>x.use).length){
-    max = min+player.rewards.filter(x=>x.use).length-1
-  }
-  getID("curRange").innerHTML = "Range used : "+min+"~"+max
-  return {min:min,max:max}
-}
-
-
-
-function rollRwd(){
-  let arr = player.rewards.filter(x=>x.use)
-  if(arr.length>0){
-    player.playersNB = []
-
-    let nbR = getRange()
-    player.poolMin = nbR.min
-    player.poolMax = nbR.max
-
-    let rolls = []
-    let cpt = 0
-    while(rolls.length < arr.length){
-      cpt++
-      let test = rndNB(player.poolMin,player.poolMax)
-      let idx = rolls.indexOf(test)
-      if(idx===-1){rolls.push(test)}
-      if(cpt>100){break}
-    }
-  
-    for(let i=0;i<arr.length;i++){arr[i].number = rolls[i]}
-    savPlayer()
-    getID("lotNbi").innerHTML = spanText({text:player.rewards.filter(x=>x.number!==undefined).length,col:YG})
-    getID("warnMsg").innerHTML = ""
-  }
-  dispLotNb()
-}
-
-function dispLotNb(){
-  let tgt = getID("rolledNb")
-  cleanParent(tgt)
-
-  let arr = player.rewards.filter(x=>x.use)
-  for(let i=0;i<arr.length;i++){
-    let itm = arr[i] 
-    let cc = addEle({dad:tgt,setClass:"contCol",border:"solid teal 2px",
-    padding:"5px",marginB:"5px"})
-      let cr = addEle({dad:cc,setClass:"contRow",marginL:"5px",alignItems:"center"})
-        addEle({dad:cr,text:"Number :",marginR:"10px"})
-        addEle({dad:cr,text:itm.number,textC:accts[6],marginR:"20px"})
-        let txt = itm.content.length > 1 ? 
-        "[ "+itm.content.length+" Items ]"  : "[ "+itm.content.length+" Item ]"
-        addEle({dad:cr,text:txt,textC:accts[0]})
-      cr = addEle({dad:cc,setClass:"contRow",alignItems:"center"})
-        addEle({dad:cr,setClass:"arrowToggler",setID:"tog:"+i,text:"🔽",
-        margin:"5px 5px 0 0",setFunc:(e)=>{
-          let src = e.srcElement
-          let idx = Number(src.id.split(":")[1])
-          let disp = getID("rwdCont:"+idx)
-          disp.style.display = src.innerHTML === "🔼" ? "none" : "flex"
-          src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
-        }}) // 🔼
-        addEle({dad:cr,text:"Reward #"+itm.idx,marginR:"10px"})
-        addEle({dad:cr,text:itm.lbl,textC:YG})
-
-      let cc2 = addEle({dad:cc,setClass:"contCol",setID:"rwdCont:"+i,
-      display:"none",borderL:"dotted 2px teal",padding:"5px",marginL:"10px"})
-        itm.content.forEach(c=>{
-          let cr = addEle({dad:cc2,setClass:"contRow",alignItems:"center"})
-            addEle({dad:cr,text:c.val+"x",textC:YG})
-            addEle({dad:cr,text:c.lbl,marginL:"10px"})
-        })
-  }
-}
-
-
-function checkNum(){
-  let tgt = getID("manageSub")
-  cleanParent(tgt)
-
-  if(getID("winnerN")){getID("winnerN").style.display = "none"}
-  if(getID("winnerY")){getID("winnerY").style.display = "none"}
-
-  /*
-  cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",margin:"5px 10px"})
-    addEle({dad:cr,text:"Rewards Won :",marginR:"5px"})
-    let txt = player.rewards.filter(x=>x.winner!==undefined).length+"/"+
-    player.rewards.filter(x=>x.number!==undefined).length
-    addEle({dad:cr,text:txt,marginR:"5px",minWidth:"220px",setID:"rwdSts",textC:YG})
-  */
-
-  cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",margin:"10px 0 5px 10px"})
-    addEle({dad:cr,text:"Range for Number : "+player.poolMin+" ~ "+player.poolMax,marginR:"5px"})
-
-  cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",margin:"10px 0 5px 10px"})
-    addEle({dad:cr,text:"Number :",marginR:"5px"})
-    addEle({dad:cr,what:"input",isInput:true,numInput:true,width:"40px",
-    textA:"center",border:"green solid 3px",radius:"10px",setID:"inNB"})
-    addEle({dad:cr,setClass:"btn",border:"green solid 2px",backC:"darkgreen",
-    text:"Check",setFunc:()=>{
-      getID("winnerN").style.display = "none"
-      getID("winnerY").style.display = "none"
-      let src = getID("inNB")
-      if(src.value === ""){src.focus() ; return}
-      let nb = Number(src.value)
-      if(nb<player.poolMin || nb>player.poolMax){src.focus() ; return}
-
-      let idx = player.playersNB.indexOf(nb)
-      if(idx === -1){player.playersNB.push(nb)}
-
-      let rwd = player.rewards.filter(x=>x.number === nb)[0]
-      cleanParent(getID("rwdDet"))
-
-      let arrow = getID("togRwdDet")
-      if(arrow.innerHTML = "🔼"){arrow.click()} ;
-
-      if(rwd){
-        getID("rwdYN").innerHTML = spanText({text:"Yes",col:YG})
-        getID("togRwdDet").style.display = "block"
-        getID("rwdWd").style.borderBottom = "green dotted 2px" 
-        rwd.content.forEach(c=>{
-          addEle({dad:getID("rwdDet"),marginL:"10px",
-          text:"- "+spanText({text:c.val+"x ",col:YG})+c.lbl})
-        })
-        if(rwd.winner!==undefined){
-          getID("winYN").innerHTML = spanText({text:"Yes",col:YG})
-
-          getID("winnerN").style.display = "none"
-          getID("winnerY").style.display = "flex"
-          getID("winNm").innerHTML = rwd.winner
-
-        } else {
-          getID("winYN").innerHTML = spanText({text:"No",col:accts[6]})
-
-          getID("winnerN").style.display = "flex"
-          getID("winnerY").style.display = "none"
-          getID("inWin").focus()
-
-        }
-
-      } else {
-        getID("rwdYN").innerHTML = spanText({text:"No",col:accts[6]})
-        getID("winYN").innerHTML = spanText({text:"---",col:accts[6]})
-        getID("togRwdDet").style.display = "none"
-        getID("rwdWd").style.borderBottom = ""
-      }
-      let txt = player.rewards.filter(x=>x.winner!==undefined).length+"/"+
-      player.rewards.filter(x=>x.number!==undefined).length
-      getID("lotWrew").innerHTML = txt
-
-    }})
- 
-  cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",margin:"5px 10px 0 10px"})
-    addEle({dad:cr,text:"Reward",setID:"rwdWd"})
-    addEle({dad:cr,text:"for this Number ?",margin:"0 5px",minWidth:"140px"})
-    addEle({dad:cr,text:"---",textC:accts[6],setID:"rwdYN"})
-    addEle({dad:cr,setClass:"arrowToggler",setID:"togRwdDet",text:"🔽",
-    display:"none",marginL:"5px",setFunc:(e)=>{
-      let src = e.srcElement
-      let disp = getID("rwdDet")
-      disp.style.display = src.innerHTML === "🔼" ? "none" : "flex"
-      src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
-    }}) // 🔼
-  addEle({dad:tgt,setClass:"contCol",borderL:"green dotted 2px",
-  display:"none",setID:"rwdDet",marginL:"20px"})
-
-
-  cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",margin:"5px 10px"})
-    addEle({dad:cr,text:"Reward already won ?",marginR:"5px",minWidth:"200px"})
-    addEle({dad:cr,text:"---",textC:accts[6],setID:"winYN"})
-  
-  let cc = addEle({dad:tgt,setClass:"contCol",margin:"5px 5px",setID:"winnerY",
-  border:"green solid 2px",radius:"5px",padding:"5px",width:"fit-content",display:"none"}) 
-    cr = addEle({dad:cc,setClass:"contRow",alignItems:"center",})
-      addEle({dad:cr,text:"Winner Name :",margin:"0 5px 0 10px"})
-      addEle({dad:cr,text:"---",textC:YG,setID:"winNm"})
-    addEle({dad:cc,setClass:"btn",border:accts[6]+" solid 2px",backC:"darkgreen",
-    text:"Remove Winner",width:"200px",setFunc:()=>{
-      let nb = Number(getID("inNB").value)
-      let rwd = player.rewards.filter(x=>x.number === nb)[0]
-      if(rwd){rwd.winner = undefined}
-      getID("lotWrew").innerHTML = player.rewards.filter(x=>x.winner!==undefined).length + "/" +
-      player.rewards.filter(x=>x.number!==undefined).length
-      savPlayer()
-      checkNum()
-    }})
-
-  cc = addEle({dad:tgt,setClass:"contCol",margin:"5px 5px",setID:"winnerN",
-  border:"green solid 2px",radius:"5px",padding:"5px",width:"fit-content",display:"none"}) 
-    addEle({dad:cc,text:"Set reward's Winner Name :",marginL:"10px"})
-    addEle({dad:cc,what:"input",isInput:true,width:"190px",margin:"5px 0 5px 10px",
-    textA:"center",border:"green solid 3px",radius:"10px",setID:"inWin"})
-    addEle({dad:cc,setClass:"btn",border:"green solid 2px",backC:"darkgreen",
-    text:"Save",width:"180px",margin:"0 20px 0 10px",setFunc:()=>{
-      let nb = Number(getID("inNB").value)
-      let nm = getID("inWin").value
-      let rwd = player.rewards.filter(x=>x.number === nb)[0]
-      if(rwd && nm!==undefined){rwd.winner = nm}
-      getID("lotWrew").innerHTML = player.rewards.filter(x=>x.winner!==undefined).length + "/" +
-      player.rewards.filter(x=>x.number!==undefined).length
-      savPlayer()
-      checkNum()
-    }})
-
-}
-
-
-function checkProgress(){
-  let tgt = getID("manageSub")
-  cleanParent(tgt)
-
-  let rwdA = arrSorting(getRwdSt())
-
-  let minMax = 160
-  let cc = addEle({dad:tgt,setClass:"contCol",minHeight:minMax+"px",
-  maxHeight:minMax+"px",overflowX:"auto",width:"fit-content",padding:"5px 0 0 5px",
-  width:"280px",borderB:"teal 2px dashed"})
-
-  let cont = addEle({dad:cc,margin:"10px 0 0 5px"})
-    let tb = addEle({dad:cont,what:"table"})
-      let tr = addEle({dad:tb,what:"tr"})
-        let txt = "Items"
-        addEle({dad:tr,what:"td",text:txt,fontS:"14px",padding:"5px",textA:"center",borderB:"teal solid 2px"})
-        txt = "Won / Total"
-        addEle({dad:tr,what:"td",text:txt,fontS:"14px",padding:"5px",textA:"center",border:"teal solid 2px",borderT:"none"})
-        txt = "Remaining"
-        addEle({dad:tr,what:"td",text:txt,fontS:"14px",padding:"5px",textA:"center",borderB:"teal solid 2px"})
-
-      for(let i = 0;i<rwdA.length;i++){
-        let itm = rwdA[i]
-        tr = addEle({dad:tb,what:"tr"})
-          txt = itm.lbl
-          addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center",padding:"5px"})
-          txt = spanText({text:itm.won,col:YG}) + " / " + itm.total
-          addEle({dad:tr,what:"td",text:txt,textA:"center",border:"teal solid 2px",borderT:"none",borderB:"none"})
-          txt = itm.total - itm.won
-          addEle({dad:tr,what:"td",text:txt,textA:"center"})
-      }
-
-  addEle({dad:tgt,text:`
-  Next step is Publishing the Lottery status<br>
-  in your Mailbox Lookfor. To make it clean,<br>
-  maybe have other`})
-
-  let cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",margin:"10px 0 0 5px"})
-    addEle({dad:cr,text:"Save / Restore Mailbox Look For",borderB:"teal solid 2px"})
-      addEle({dad:cr,setClass:"arrowToggler",setID:"togRwdDet",text:"🔽",
-      marginL:"5px",setFunc:(e)=>{
-        let src = e.srcElement
-        let disp = getID("savLFfr")
-        disp.style.display = src.innerHTML === "🔼" ? "none" : "flex"
-        src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
-      }}) // 🔼
-  cc = addEle({dad:tgt,setClass:"contCol",border:"teal solid 2px",radius:"5px",
-    display:"none",setID:"savLFfr",padding:"5px",margin:"5px 0 0 10px",width:"fit-content"})
-      addEle({dad:cc,text:`** To avoid any loss of information<br>make sure to save also in a text<br>
-      document of your choice on your device`,textC:"yellow",marginB:"10px"})
-      addEle({dad:cc,text:"* Ingame copy the text from :",textC:YG,marginB:"5px"})
-      addEle({dad:cc,text:"* My Settings ><br> Change Bio / Looking For"})
-      addEle({dad:cc,text:"* and paste inside this white field :",textC:YG,margin:"5px 0"})
-      addEle({dad:cc,what:"textarea",setID:"lookforinfo",overflow:"scroll",
-      })
-
-    cr = addEle({dad:cc,setClass:"contRow",alignItems:"center",margin:"5px 0"})
-      addEle({dad:cr,setClass:"btn",border:"green solid 2px",backC:"darkgreen",
-      text:"Save Text",minWidth:"40%",setFunc:()=>{
-        if(getID("lookforinfo").value.length>0){
-//          player.mailbox.lookforBack = JSON.stringify(getID("lookforinfo").value)
-          player.mailbox.lookforBack = getID("lookforinfo").value
+  let tb = addEle({dad:tgt,what:"table"})
+  for(let i=0;i<player.poolRewards.length;i++){
+    let itm = player.poolRewards[i]
+    let tr = addEle({dad:tb,what:"tr"})
+      let tc = addEle({dad:tr,what:"td"})
+        let radE = addEle({dad:tc,what:"radio",isInput:true,setID:"rwdINbk:"+i,setName:"rwdINbks",
+        accentCol:accts[player.misc.radios],setFunc:(e)=>{
+          let idx = Number(e.srcElement.id.split(":")[1])
+          player.rwdRefID = player.poolRewards[idx].idx
+          showNextRwd()
+        }})
+        if(itm.idx === player.rwdRefID){radE.checked = true}
+
+      addEle({dad:tr,what:"td",text:itm.title,padding:"0 10px 0 5px"})
+      addEle({dad:tr,what:"td",text:"item(s) : " + spanText({text:itm.content.length,col:YG})})
+      tc = addEle({dad:tr,what:"td",paddingL:"10px"})
+        addEle({dad:tc,setClass:"arrowToggler",text:"X",border:"red solid 2px",
+        padding:"1px 4px",width:"fit-content",setID:"delRwd:"+i,margin:"3px 0",setFunc:(e)=>{
+          let idx = Number(e.srcElement.id.split(":")[1])
+          if(player.poolRewards[idx].idx === player.rwdRefID){player.rwdRefID = undefined}
+          player.poolRewards.splice(idx,1)
+          for(let i=0;i<player.poolRewards.length;i++){player.poolRewards[i].title = "#"+(i+1)}
           savPlayer()
-        }
-      }})
-
-      addEle({dad:cr,setClass:"btn",border:"green solid 2px",backC:"darkgreen",
-      text:"Restore Text",minWidth:"40%",setFunc:()=>{
-//        let txt = JSON.parse(player.mailbox.lookforBack)
-        let txt = player.mailbox.lookforBack
-        getID("lookforinfo").value = txt 
-        navigator.clipboard.writeText(txt)
-      }})
-  
-    addEle({dad:cc,text:"* Restore Text saves the text in the clipboard<br>so you just need to paste it back.",textC:YG,marginB:"5px"})
-    
-
+          showNextRwd()
+        }})
+  }
 }
 
 
-function getRwdSt(){
-  let newA = []
-  player.rewards.forEach(r=>{
-    r.content.forEach(c=>{
-      let idx = newA.findIndex(x=>x.lbl===c.lbl)
-      if(idx===-1){
-        let tpI = {lbl:c.lbl,won:0,total:0}
-        tpI.total += c.val
-        if(r.winner!==undefined){tpI.won += c.val}
-        newA.push(tpI)
-      } else {
-        newA[idx].total += c.val
-        if(r.winner!==undefined){newA[idx].won += c.val}
-      }
-    })
-  })
-  return newA
-}
+
+
+
+
+
+
+
+
+
 
 
 /*
