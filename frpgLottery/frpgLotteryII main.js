@@ -877,14 +877,11 @@ function showNextRwd(){
             let srcI = srcR.content.filter(x=>x.itmID === itm.idx)[0]
             cap += srcI.val
           }
-          if(cap < val){savGood = false}
+          if(cap < val || val === 0){savGood = false}
         })
 
         let thisID = player.rwdRefID === undefined ? crypto.randomUUID() : player.rwdRefID
         if (savGood){
-
-          console.log("good")
-
           let newRwd = {
             title:undefined,
             idx:thisID,
@@ -907,8 +904,6 @@ function showNextRwd(){
             player.poolRewards.push(newRwd)
             getID("nextRwdT").innerHTML = "#"+(player.poolRewards.length+1)
           }
-
-          console.log(player.poolRewards)
 
           for(let i=0;i<player.poolRewards.length;i++){player.poolRewards[i].title = "#"+(i+1)}
           savPlayer()
