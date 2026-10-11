@@ -178,12 +178,11 @@ let player = {
   masterPool:[],
   poolRewards:[],
   playerPool:[],
-  lottery:[],
+  lottery:{
+    players:[],
+    rewards:[],
+  },
   rwdRefID:undefined,
-  poolMin:1,
-  poolMax:100,
-  playersNB:[],
-  draftRwd:undefined,
   misc:{
     radios:4,
     radiosdef:4,
@@ -214,7 +213,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/11 12:35"
+let last = "10/11 14:25"
 ////////////////////////
 
 
@@ -1178,17 +1177,39 @@ function setLottery(){
     addEle({dad:tr,what:"td",text:player.playerPool.length,textC:YG})
 
 
-
+shufflePlayers()
 
 }
 
 function shufflePlayers(){
-  let srcA = []
+  let srcA = player.playerPool
   let masterA = []
 
-  let prio1A = player.playerPool
+  let prio1A = srcA.filter(x=>x.priority===1)
+  let prio2A = srcA.filter(x=>x.priority===2)
+  let prio3A = srcA.filter(x=>x.priority===3)
+
+  shuffleArr(prio1A)
+//  shuffleArr(prio2A)
+  //shuffleArr(prio3A)
 }
 
+function shuffleArr(arr){
+  let newA = []
+  let tpA = structuredClone(arr)
+
+  let cpt = 0
+  while(newA.length<arr.length){
+    let rnd = Math.floor(Math.random() * tpA.length) + 1
+    let itm = tpA.splice((rnd-1),1)[0]
+    newA.push(itm)
+    cpt++
+    if(cpt>1000){break}
+  }
+  console.log(arr)
+  console.log(newA)
+
+}
 
 
 
