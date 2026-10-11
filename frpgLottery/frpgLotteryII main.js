@@ -213,7 +213,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/10 19:10"
+let last = "10/11 10:00"
 ////////////////////////
 
 
@@ -353,7 +353,8 @@ function setItems(){
       if(!dispFr){return}
       cleanParent(dispFr)
       getID("lenlen1").innerHTML = e.srcElement.value.length
-      let txt = e.srcElement.value.toLowerCase()
+      let txt = e.srcElement.value.toLowerCase().replaceAll("(","").replaceAll(")","")
+      getID("newItmNm").value = txt
       let arr = []
       if(txt.length===0)
            {arr = player.items.all} 
@@ -374,7 +375,8 @@ function setItems(){
             }
             joinItems()
             savPlayer()
-            setItems()            
+            let ev = new Event("input") ; getID("inFilItm").dispatchEvent(ev)
+//            setItems()            
           }})
           addEle({dad:cr,text:"- "+itm.lbl,margin:"0 10px",backC:"green",width:"200px",paddingL:"5px"})
       }
@@ -389,7 +391,6 @@ function setItems(){
         disp.style.display = src.innerHTML === "🔼" ? "none" : "flex"
         src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
         if(src.innerHTML === "🔼"){
-          if(getID("inFilItm").value.length>0){getID("newItmNm").value = getID("inFilItm").value}
           getID("newItmNm").focus()
         }
       }}) // 🔼
@@ -397,14 +398,23 @@ function setItems(){
   let itmAddFr = addEle({dad:info,setClass:"contCol",setID:"AddItmFr",margin:"5px 10px",
   border:"green solid 2px",radius:"5px",padding:"5px",width:"fit-content",display:"none"})
     cr = addEle({dad:itmAddFr,setClass:"contRow",alignItems:"center",margin:"5px"})
-      addEle({dad:cr,text:"Name :",margin:"0 5px 0 10px"})
-      addEle({dad:cr,what:"input",isInput:true,textA:"center",setID:"newItmNm",
-      marginR:"10px",border:"green solid 3px",radius:"10px",maxLen:25,
-      setFunc:(e)=>{getID("lenlen2").innerHTML = e.srcElement.value.length}})
+      addEle({dad:cr,text:"Name :",marginR:"0 5px 0 5px"})
+      let itmN = addEle({dad:cr,what:"input",isInput:true,textA:"center",setID:"newItmNm",
+      border:"green solid 3px",radius:"10px",maxLen:25,
+      setFunc:(e)=>{
+        getID("lenlen2").innerHTML = e.srcElement.value.length
+        getID("inFilItm").value = e.srcElement.value
+        let ev = new Event("input") ; getID("inFilItm").dispatchEvent(ev)
+      }})
+      addEle({dad:cr,text:"E",textC:"yellow",margin:"0 10px 0 5px"})
       addEle({dad:cr,setID:"lenlen2",text:"0"})
+      itmN.addEventListener('keydown', function(event) 
+      {if (event.key === 'Enter'){getID("savNit").click()}})
+
+
     cr = addEle({dad:itmAddFr,setClass:"contRow",alignItems:"center",margin:"5px"})
-      addEle({dad:cr,setClass:"btn",text:"Save this new Item",border:"green solid 2px",
-      backC:"darkgreen",minWidth:"190px",setFunc:()=>{
+      addEle({dad:cr,setClass:"btn",text:"Save this new Item [E]",border:"green solid 2px",
+      backC:"darkgreen",minWidth:"190px",setID:"savNit",setFunc:()=>{
         let txt = getID("newItmNm").value.toLowerCase().replace(/[()]/g, "")
 
         if(txt.length>0){
@@ -416,7 +426,11 @@ function setItems(){
         }
         joinItems()
         savPlayer()
-        setItems()
+        getID("newItmNm").value = ""
+        getID("inFilItm").value = ""
+        let ev = new Event("input") ; getID("inFilItm").dispatchEvent(ev)
+        getID("newItmNm").focus()
+//        setItems()
       }})
       addEle({dad:cr,setClass:"arrowToggler",text:"X",border:"red solid 2px",
       padding:"1px 4px",marginL:"10px",fontS:"18px",setFunc:(e)=>{setItems()}})
@@ -511,7 +525,7 @@ function setMasterPool(){
     {if (event.key === 'Enter'){  getID("savtoPool").click()}})
 
   cr = addEle({dad:forkA2,setClass:"contRow",alignItems:"center",justifyC:"center"})
-    addEle({dad:cr,setClass:"btn",text:"Save item to Giveaway pool",border:"green solid 2px",
+    addEle({dad:cr,setClass:"btn",text:"Save item to Giveaway pool [E]",border:"green solid 2px",
     backC:"darkgreen",marginL:"",setID:"savtoPool",setFunc:()=>{
       let nm = getID("addItmN").innerHTML
       let qt = Number(getID("addItmQ").value)
@@ -858,7 +872,7 @@ function showNextRwd(){
     }
 
     cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",justifyC:"center"})
-      txt = refRwd === undefined ? "Save new Reward" : "Save Reward changes"
+      txt = refRwd === undefined ? "Save new Reward [E]" : "Save Reward changes [E]"
       addEle({dad:cr,setClass:"btn",text:txt,border:"green solid 2px",
       backC:"darkgreen",width:"80%",setID:"savRwd",setFunc:()=>{
         let savGood = true
@@ -961,7 +975,115 @@ function setPlayers(){
   let main = bodySub
   cleanParent(main)
 
-  addEle({dad:info,text:"behave baby" })
+  let cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"10px 0 5px 10px"})
+    addEle({dad:cr,text:"Filter Name :",marginR:"5px"})
+    addEle({dad:cr,what:"input",isInput:true,textA:"center",setID:"inFilPla",
+    marginR:"10px",border:"green solid 3px",radius:"10px",setFunc:(e)=>{
+      let dispFr = main 
+      cleanParent(dispFr)
+      let txt = e.srcElement.value.toLowerCase().replace("@","").replace(":","")
+      getID("playerName").value = txt
+      console.log(txt)
+      let arr = []
+      if(txt.length===0)
+           {arr = player.playerPool} 
+      else {arr = player.playerPool.filter(x=>x.name.includes(txt))}
+//    getID("itmArr").innerHTML = arr.length
+      let fr = addEle({dad:dispFr,margin:"5px"})
+      let tb = addEle({dad:fr,what:"table"})
+      for(let i=0;i<arr.length;i++){
+        let itm = arr[i]
+        console.log(itm)
+
+        let tr = addEle({dad:tb,what:"tr"})
+          let tc = addEle({dad:tr,what:"td",padding:"0 5px 5px 5px"})
+            addEle({dad:tc,setClass:"arrowToggler",text:"X",border:"red solid 2px",
+            padding:"1px 4px",width:"fit-content",setID:"delPlay:"+i,margin:"3px 0",setFunc:(e)=>{
+              let idx = Number(e.srcElement.id.split(":")[1])
+              console.log(idx)
+              player.playerPool.splice(idx,1)
+              let ev = new Event("input") ; getID("inFilPla").dispatchEvent(ev)
+            }})
+          addEle({dad:tr,what:"td",padding:"0 5px 5px 5px",text:itm.name})
+    
+      }
+
+/*
+      
+      for(let i=0;i<arr.length;i++){
+        let cr = addEle({dad:dispFr,setClass:"contRow",alignItems:"center",margin:"5px"})
+          addEle({dad:cr,setClass:"arrowToggler",text:"X",border:"red solid 2px",
+          padding:"1px 4px",setID:"del:"+itm.idx,setFunc:(e)=>{
+            let itmID = e.srcElement.id.split(":")[1]
+            if(itmID.includes("d")){
+              let idx = player.items.default.findIndex(x=>x.idx===itmID)
+              player.items.default.splice(idx,1)
+            } else {
+              let idx = player.items.custom.findIndex(x=>x.idx===itmID)
+              player.items.custom.splice(idx,1)
+            }
+            joinItems()
+            savPlayer()
+            setItems()            
+          }})
+          addEle({dad:cr,text:"- "+itm.lbl,margin:"0 10px",backC:"green",width:"200px",paddingL:"5px"})
+      }
+      */
+
+
+    }})
+
+
+
+    cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"5px"})
+    addEle({dad:cr,text:"Didnt find them ? Add new Player",borderB:"green solid 2px",margin:"0 5px"})
+    addEle({dad:cr,setClass:"arrowToggler",text:"🔽",setFunc:(e)=>{
+      let src = e.srcElement
+      let disp = getID("AddPlayerFr")
+      disp.style.display = src.innerHTML === "🔼" ? "none" : "flex"
+      src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
+      if(src.innerHTML === "🔼"){
+
+      }
+    }}) // 🔼
+
+    let AddPlayerFr = addEle({dad:info,setClass:"contCol",setID:"AddPlayerFr",margin:"5px 10px",
+    border:"green solid 2px",radius:"5px",padding:"5px",width:"fit-content",display:"none"})
+
+
+    cr = addEle({dad:AddPlayerFr,setClass:"contRow",alignItems:"center",margin:"5px"})
+      addEle({dad:cr,text:"Name :",margin:"0 5px 0 10px"})
+      let inN = addEle({dad:cr,what:"input",isInput:true,textA:"center",setID:"playerName",
+      marginR:"10px",border:"green solid 3px",radius:"10px",setFunc:(e)=>{
+        getID("inFilPla").value = getID("playerName").value 
+        let ev = new Event("input") ; getID("inFilPla").dispatchEvent(ev)
+      }})
+      inN.addEventListener('keydown', function(event) 
+      {if (event.key === 'Enter'){getID("savPn").click()}})
+
+    cr = addEle({dad:AddPlayerFr,setClass:"contRow",alignItems:"center",margin:"5px"})
+      addEle({dad:cr,setClass:"btn",text:"Save Player name [E]",border:"green solid 2px",
+      backC:"darkgreen",minWidth:"190px",setID:"savPn",setFunc:()=>{
+        let txt = getID("playerName").value.toLowerCase().replace("@","").replace(":","")
+        if(txt.length>0){
+          player.playerPool.push({
+            idx:crypto.randomUUID(),
+            name:txt,
+            selected:true,
+            priority:1,
+          })
+          savPlayer()
+          getID("playerName").value = ""
+          getID("inFilPla").value = ""
+          let ev = new Event("input") ; getID("inFilPla").dispatchEvent(ev)
+          getID("playerName").focus()
+        }
+      }})
+      addEle({dad:cr,setClass:"arrowToggler",text:"X",border:"red solid 2px",
+      padding:"1px 4px",marginL:"10px",fontS:"18px",setFunc:(e)=>{setPlayers()}})
+
+  let ev = new Event("input") ; getID("inFilPla").dispatchEvent(ev)
+
 }
 
 
