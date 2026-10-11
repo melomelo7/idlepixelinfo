@@ -178,6 +178,7 @@ let player = {
   masterPool:[],
   poolRewards:[],
   playerPool:[],
+  lottery:[],
   rwdRefID:undefined,
   poolMin:1,
   poolMax:100,
@@ -236,6 +237,8 @@ function setPage(){
             break
           case "Players": setPlayers()
             break
+          case "Lottery": setLottery()
+            break
           case "Misc." : setMiscs()
             break
           case "Delete Save" : DelSave()
@@ -259,6 +262,7 @@ function setTopSel(){
   addEle({dad:tgt,what:"option",text:"Items"})
   addEle({dad:tgt,what:"option",text:"Rewards"})
   addEle({dad:tgt,what:"option",text:"Players"})
+  addEle({dad:tgt,what:"option",text:"Lottery"})
   addEle({dad:tgt,what:"option",text:"Misc."})
   addEle({dad:tgt,what:"option",text:"Delete Save"})
 }
@@ -1094,11 +1098,7 @@ function setPlayers(){
               }})}
             prio.value = itm.priority
       }
-
-
-
     }})
-
 
 
     cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"5px"})
@@ -1159,6 +1159,35 @@ function setPlayers(){
 
 
 
+
+function setLottery(){
+  let info = bodyMid
+  cleanParent(info)
+  let main = bodySub
+  cleanParent(main)
+
+  info.style.padding = "5px"
+
+  let fr = addEle({dad:info})
+  let tb = addEle({dad:fr,what:"table"})
+    let tr = addEle({dad:tb,what:"tr"})
+      addEle({dad:tr,what:"td",text:"Rewards Pool :",textA:"right",paddingR:"5px"})
+      addEle({dad:tr,what:"td",text:player.poolRewards.length,textC:YG})
+    tr = addEle({dad:tb,what:"tr"})
+    addEle({dad:tr,what:"td",text:"Players Pool :",textA:"right",paddingR:"5px"})
+    addEle({dad:tr,what:"td",text:player.playerPool.length,textC:YG})
+
+
+
+
+}
+
+function shufflePlayers(){
+  let srcA = []
+  let masterA = []
+
+  let prio1A = player.playerPool
+}
 
 
 
