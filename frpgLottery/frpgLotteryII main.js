@@ -181,6 +181,7 @@ let player = {
   lottery:{
     players:[],
     rewards:[],
+    merge:[],
   },
   rwdRefID:undefined,
   misc:{
@@ -213,7 +214,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/11 14:25"
+let last = "10/11 15:50"
 ////////////////////////
 
 
@@ -1036,6 +1037,7 @@ function setPlayers(){
               addEle({dad:cc,text:"Include"})
               addEle({dad:cc,setClass:"btn",backC:"darkgreen",border:"green solid 2px",text:"All",
               minWidth:"40px",setFunc:()=>{
+                if(player.playerPool.length===0){return}
                 let onOff = player.playerPool[0].selected ? false : true
                 document.getElementsByName("togPlaSels").forEach(x=>x.checked = onOff)
                 player.playerPool.forEach(x=>{x.selected = onOff})
@@ -1051,7 +1053,7 @@ function setPlayers(){
                 addEle({dad:cr,setClass:"btn",backC:"darkgreen",border:"green solid 2px",text:i,
                 setFunc:(e)=>{
                   let nb = Number(e.srcElement.innerHTML)
-                  document.getElementsByName("prioSels").forEach(x=>x.value = nb)//togPlaSels
+                  document.getElementsByName("prioSels").forEach(x=>x.value = nb)
                   player.playerPool.forEach(x=>{x.priority = nb})
                   savPlayer()
                   updPlayersI()
@@ -1167,14 +1169,27 @@ function setLottery(){
 
   info.style.padding = "5px"
 
-  let fr = addEle({dad:info})
-  let tb = addEle({dad:fr,what:"table"})
+  let cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"5px"})
+
+//  let fr = addEle({dad:info})
+  let tb = addEle({dad:cr,what:"table"})
     let tr = addEle({dad:tb,what:"tr"})
       addEle({dad:tr,what:"td",text:"Rewards Pool :",textA:"right",paddingR:"5px"})
       addEle({dad:tr,what:"td",text:player.poolRewards.length,textC:YG})
     tr = addEle({dad:tb,what:"tr"})
     addEle({dad:tr,what:"td",text:"Players Pool :",textA:"right",paddingR:"5px"})
     addEle({dad:tr,what:"td",text:player.playerPool.length,textC:YG})
+
+    addEle({dad:cr,setClass:"btn",border:"green solid 2px",backC:"darkgreen",marginL:"10px",
+    text:"Run Full Lottery ( I + II + III )<br>* Replace shuffles + Display *",setFunc:()=>{}})
+
+  cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"5px"})
+    addEle({dad:cr,setClass:"btn",border:"green solid 2px",backC:"darkgreen",
+    text:"I - Shuffle Players",setFunc:()=>{}})
+    addEle({dad:cr,setClass:"btn",border:"green solid 2px",backC:"darkgreen",
+    text:"II - Shuffle Rewards",setFunc:()=>{}})
+    addEle({dad:cr,setClass:"btn",border:"green solid 2px",backC:"darkgreen",
+    text:"III - Display Lottery",setFunc:()=>{}})
 
 
 shufflePlayers()
