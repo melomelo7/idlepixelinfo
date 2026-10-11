@@ -213,7 +213,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/11 10:20"
+let last = "10/11 12:00"
 ////////////////////////
 
 
@@ -721,7 +721,7 @@ function setPoolRewards(){
         addEle({dad:forkA2,text:"Pick Items to include<br>in the next Reward",textA:"center"})
 
         cr = addEle({dad:forkA3,setClass:"contRow",alignItems:"center",justifyC:"center",padding:"2px"})
-          addEle({dad:cr,setClass:"btn",text:"Clear",border:"red solid 2px",backC:"darkgreen",width:"80%",
+          addEle({dad:cr,setClass:"btn",text:"Clear / Next",border:"red solid 2px",backC:"darkgreen",width:"80%",
           setFunc:()=>{
             player.rwdRefID = undefined
             player.masterPool.forEach(x=>x.selected = false)
@@ -982,6 +982,46 @@ function setPlayers(){
   let main = bodySub
   cleanParent(main)
 
+  let cont = addEle({dad:info,margin:"5px 0 0 5px"})
+    let tbi = addEle({dad:cont,what:"table"})
+      let tr = addEle({dad:tbi,what:"tr"})
+        let txt = "in Bank<br>( Total )"
+        addEle({dad:tr,what:"td",text:txt,padding:"5px",textA:"center",borderB:"teal solid 2px"})
+        txt = "Included<br>in Lottery"
+        addEle({dad:tr,what:"td",padding:"5px",border:"teal solid 2px",borderT:"none"
+          ,display:"flex",flDir:"column",textA:"center",text:txt,})
+        txt = "Priority<br>1 | 2 | 3"
+        addEle({dad:tr,what:"td",text:txt,padding:"5px",textA:"center",border:"teal solid 2px",
+        borderT:"none",borderL:"none",borderR:"none"})
+
+      tr = addEle({dad:tbi,what:"tr"})
+        txt = player.playerPool.length
+        addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center"})
+        txt = player.playerPool.filter(x=>x.selected).length
+        addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center",border:"teal solid 2px",borderB:"none",borderT:"none"})
+        txt = player.playerPool.filter(x=>x.priority===1).length +" | "+
+        player.playerPool.filter(x=>x.priority===2).length +" | "+
+        player.playerPool.filter(x=>x.priority===3).length
+        addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center",borderR:"teal solid 2px",borderR:"none"})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   let cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"10px 0 5px 10px"})
     addEle({dad:cr,text:"Filter Name :",marginR:"5px"})
     addEle({dad:cr,what:"input",isInput:true,textA:"center",setID:"inFilPla",
@@ -990,20 +1030,44 @@ function setPlayers(){
       cleanParent(dispFr)
       let txt = e.srcElement.value.toLowerCase().replace("@","").replace(":","")
       getID("playerName").value = txt
-      console.log(txt)
       let arr = []
       if(txt.length===0)
            {arr = player.playerPool} 
       else {arr = player.playerPool.filter(x=>x.name.includes(txt))}
-//    getID("itmArr").innerHTML = arr.length
       let fr = addEle({dad:dispFr,margin:"5px"})
       let tb = addEle({dad:fr,what:"table"})
+        let tr = addEle({dad:tb,what:"tr",marginB:"20px"})
+          addEle({dad:tr,what:"td",colSpan:2,textA:"center",text:"Player",borderB:"green solid 2px"})
+          let tc = addEle({dad:tr,what:"td",textA:"center",padding:"0 10px",border:"green solid 2px",
+          borderT:"none",marginB:"10px"})
+            let cc = addEle({dad:tc,setClass:"contCol",alignItems:"center"})
+              addEle({dad:cc,text:"Include"})
+              addEle({dad:cc,setClass:"btn",backC:"darkgreen",border:"green solid 2px",text:"All",
+              minWidth:"40px",setFunc:()=>{
+                let onOff = player.playerPool[0].selected ? false : true 
+                player.playerPool.forEach(x=>{x.selected = onOff})
+                savPlayer()
+                setPlayers()
+              }})
+
+          tc = addEle({dad:tr,what:"td",textA:"center",borderB:"green solid 2px",paddingL:"5px"})
+            cc = addEle({dad:tc,setClass:"contCol"})
+              addEle({dad:cc,text:"Priority"})
+            let cr = addEle({dad:tc,setClass:"contRow",alignItems:"center"})
+              for(let i=1;i<=3;i++){
+                addEle({dad:cr,setClass:"btn",backC:"darkgreen",border:"green solid 2px",text:i,
+                setFunc:(e)=>{
+                  player.playerPool.forEach(x=>{x.priority = Number(e.srcElement.innerHTML)})
+                  savPlayer()
+                  setPlayers()
+                }})
+              }
+            
+
       for(let i=0;i<arr.length;i++){
         let itm = arr[i]
-        console.log(itm)
-
         let tr = addEle({dad:tb,what:"tr"})
-          let tc = addEle({dad:tr,what:"td",padding:"0 5px 5px 5px"})
+          let tc = addEle({dad:tr,what:"td",alignItems:"center",padding:"5px 0"})
             addEle({dad:tc,setClass:"arrowToggler",text:"X",border:"red solid 2px",
             padding:"1px 4px",width:"fit-content",setID:"delPlay:"+i,margin:"3px 0",setFunc:(e)=>{
               let idx = Number(e.srcElement.id.split(":")[1])
@@ -1011,31 +1075,33 @@ function setPlayers(){
               player.playerPool.splice(idx,1)
               let ev = new Event("input") ; getID("inFilPla").dispatchEvent(ev)
             }})
-          addEle({dad:tr,what:"td",padding:"0 5px 5px 5px",text:itm.name})
+          addEle({dad:tr,what:"td",textA:"center",text:itm.name,padding:"0 5px"})
     
+          tc = addEle({dad:tr,what:"td",textA:"center"})
+            let inc = addEle({dad:tc,what:"checkbox",isInput:true,setID:"togPlaSel:"+i,setClass:"toggle-checkbox"
+            ,setFunc:(e)=>{
+              let idx = Number(e.srcElement.id.split(":")[1])
+              let itm = player.playerPool[idx]
+              itm.selected = e.srcElement.checked
+              savPlayer()
+              setPlayers()
+            }})
+            addEle({dad:tc,what:"label",setFor:"togPlaSel:"+i,setClass:"toggle-label",margin:"0 5px"})
+            inc.checked = itm.selected
+
+          tc = addEle({dad:tr,what:"td",textA:"center"})
+            let prio = addEle({dad:tc,what:"select",setClass:"select",border:"green solid 3px",paddingL:"10px"})
+              for(let j=1;j<=3;j++){addEle({dad:prio,what:"option",text:j,setID:"selOp:"+i,setFunc:(e)=>{
+                let idx = Number(e.srcElement.id.split(":")[1])
+                let itm = player.playerPool[idx]
+                let pr = Number(e.srcElement.innerHTML)
+                itm.priority = pr
+                savPlayer()
+                setPlayers()
+              }})}
+            prio.value = itm.priority
       }
 
-/*
-      
-      for(let i=0;i<arr.length;i++){
-        let cr = addEle({dad:dispFr,setClass:"contRow",alignItems:"center",margin:"5px"})
-          addEle({dad:cr,setClass:"arrowToggler",text:"X",border:"red solid 2px",
-          padding:"1px 4px",setID:"del:"+itm.idx,setFunc:(e)=>{
-            let itmID = e.srcElement.id.split(":")[1]
-            if(itmID.includes("d")){
-              let idx = player.items.default.findIndex(x=>x.idx===itmID)
-              player.items.default.splice(idx,1)
-            } else {
-              let idx = player.items.custom.findIndex(x=>x.idx===itmID)
-              player.items.custom.splice(idx,1)
-            }
-            joinItems()
-            savPlayer()
-            setItems()            
-          }})
-          addEle({dad:cr,text:"- "+itm.lbl,margin:"0 10px",backC:"green",width:"200px",paddingL:"5px"})
-      }
-      */
 
 
     }})
@@ -1061,12 +1127,14 @@ function setPlayers(){
     cr = addEle({dad:AddPlayerFr,setClass:"contRow",alignItems:"center",margin:"5px"})
       addEle({dad:cr,text:"Name :",margin:"0 5px 0 10px"})
       let inN = addEle({dad:cr,what:"input",isInput:true,textA:"center",setID:"playerName",
-      marginR:"10px",border:"green solid 3px",radius:"10px",setFunc:(e)=>{
+      marginR:"",border:"green solid 3px",radius:"10px",setFunc:(e)=>{
         getID("inFilPla").value = getID("playerName").value 
         let ev = new Event("input") ; getID("inFilPla").dispatchEvent(ev)
       }})
       inN.addEventListener('keydown', function(event) 
       {if (event.key === 'Enter'){getID("savPn").click()}})
+      addEle({dad:cr,text:"E",textC:"yellow",marginL:"5px",fontS:"12px"})
+
 
     cr = addEle({dad:AddPlayerFr,setClass:"contRow",alignItems:"center",margin:"5px"})
       addEle({dad:cr,setClass:"btn",text:"Save Player name [E]",border:"green solid 2px",
