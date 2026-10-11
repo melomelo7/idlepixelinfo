@@ -214,7 +214,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/11 15:50"
+let last = "10/11 18:30"
 ////////////////////////
 
 
@@ -1110,7 +1110,7 @@ function setPlayers(){
       disp.style.display = src.innerHTML === "🔼" ? "none" : "flex"
       src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
       if(src.innerHTML === "🔼"){
-
+        getID("playerName").focus()
       }
     }}) // 🔼
 
@@ -1178,36 +1178,80 @@ function setLottery(){
       addEle({dad:tr,what:"td",text:player.poolRewards.length,textC:YG})
     tr = addEle({dad:tb,what:"tr"})
     addEle({dad:tr,what:"td",text:"Players Pool :",textA:"right",paddingR:"5px"})
-    addEle({dad:tr,what:"td",text:player.playerPool.length,textC:YG})
+    let txt = player.playerPool.filter(x=>x.selected).length + "/" + player.playerPool.length
+    addEle({dad:tr,what:"td",text:txt,textC:YG})
 
     addEle({dad:cr,setClass:"btn",border:"green solid 2px",backC:"darkgreen",marginL:"10px",
-    text:"Run Full Lottery ( I + II + III )<br>* Replace shuffles + Display *",setFunc:()=>{}})
+    text:"Run Full Lottery<br>( Shuffles + Display )",setFunc:()=>{
+      shufflePlayers()
+      shuffleRewards()
+    }})
 
+  
   cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"5px"})
-    addEle({dad:cr,setClass:"btn",border:"green solid 2px",backC:"darkgreen",
-    text:"I - Shuffle Players",setFunc:()=>{}})
-    addEle({dad:cr,setClass:"btn",border:"green solid 2px",backC:"darkgreen",
-    text:"II - Shuffle Rewards",setFunc:()=>{}})
-    addEle({dad:cr,setClass:"btn",border:"green solid 2px",backC:"darkgreen",
-    text:"III - Display Lottery",setFunc:()=>{}})
+    addEle({dad:cr,text:"Check the Process step by step ?",borderB:"green solid 2px",margin:"0 5px"})
+    addEle({dad:cr,setClass:"arrowToggler",text:"🔽",setFunc:(e)=>{
 
+      let src = e.srcElement
+      let disp = getID("processFr")
+      disp.style.display = src.innerHTML === "🔼" ? "none" : "flex"
+      src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
 
-shufflePlayers()
+      if(src.innerHTML === "🔼"){
+        
+      }
+    }}) // 🔼
 
+  cc = addEle({dad:info,setClass:"contCol",alignItems:"center",margin:"5px",
+    width:"fit-content",display:"none",setID:"processFr"})
+
+    wd = 140
+    cr = addEle({dad:cc,setClass:"contRow",alignItems:"center",margin:"5px"})
+      addEle({dad:cr,border:"green solid 2px",backC:"darkgreen",radius:"5px",
+      text:"I",width:"20px",textA:"center",marginR:"5px"})
+      addEle({dad:cr,setClass:"btn",border:"green solid 2px",backC:"darkgreen",
+      text:"Shuffle Players",minWidth:wd+"px",setFunc:()=>{
+        shufflePlayers()
+        dispLotteryPlayers()
+      }})
+
+    cr = addEle({dad:cc,setClass:"contRow",alignItems:"center",margin:"5px"})
+      addEle({dad:cr,border:"green solid 2px",backC:"darkgreen",radius:"5px",
+      text:"II",width:"20px",textA:"center",marginR:"5px"})
+      addEle({dad:cr,setClass:"btn",border:"green solid 2px",backC:"darkgreen",
+      text:"Shuffle Rewards",minWidth:wd+"px",setFunc:()=>{
+        shuffleRewards()
+        dispLotteryRewards()
+      }})
+
+    cr = addEle({dad:cc,setClass:"contRow",alignItems:"center",margin:"5px"})
+      addEle({dad:cr,border:"green solid 2px",backC:"darkgreen",radius:"5px",
+      text:"III",width:"20px",textA:"center",marginR:"5px"})
+      addEle({dad:cr,setClass:"btn",border:"green solid 2px",backC:"darkgreen",
+      text:"Display Lottery",minWidth:wd+"px",setFunc:()=>{}})
 }
 
 function shufflePlayers(){
-  let srcA = player.playerPool
+  player.lottery.players = []
+  savPlayer()
+  let srcA = player.playerPool.filter(x=>x.selected)
+  if(srcA.length===0){
+    addEle({dad:bodySub,text:"You have to fill the Player Pool first ...",textC:accts[1],margin:"5px"})
+    return
+  }
   let masterA = []
-
-  let prio1A = srcA.filter(x=>x.priority===1)
-  let prio2A = srcA.filter(x=>x.priority===2)
-  let prio3A = srcA.filter(x=>x.priority===3)
-
-  shuffleArr(prio1A)
-//  shuffleArr(prio2A)
-  //shuffleArr(prio3A)
+  let tpA = []
+  for(let i=3;i>0;i--){
+    let prioA = srcA.filter(x=>x.priority === i)
+    if(prioA.length>0){
+      tpA = shuffleArr(prioA)
+      tpA.forEach(x=>{masterA.push(x)})
+    }   
+  }
+  player.lottery.players = masterA
+  savPlayer()
 }
+
 
 function shuffleArr(arr){
   let newA = []
@@ -1221,13 +1265,85 @@ function shuffleArr(arr){
     cpt++
     if(cpt>1000){break}
   }
-  console.log(arr)
-  console.log(newA)
-
+  return newA
 }
 
+function dispLotteryPlayers(){
+  let tgt = bodySub
+  cleanParent(bodySub)
 
+  let src1 = player.playerPool.filter(x=>x.selected)
+  let src2 = player.lottery.players
+  if(src2.length === 0){
+    addEle({dad:tgt,text:"Check that you have some Players<br>Included in the Player pool.",
+    margin:"5px",textC:accts[1],textA:"center",width:"fit-content"})
+    return
+  }
+  let fr = addEle({dad:tgt,margin:"10px"})
+  let tb = addEle({dad:fr,what:"table"})
+    let tr = addEle({dad:tb,what:"tr"})
+      addEle({dad:tr,what:"td",text:"Before<br>Shuffle",textA:"center",border:"green solid 2px",
+      borderL:"none",borderT:"none"})
+      addEle({dad:tr,what:"td",text:"After<br>Shuffle",textA:"center",borderB:"green solid 2px"})
+    for(let i=0;i<src2.length;i++){
+      let itm1 = src1[i]
+      let itm2 = src2[i]
+      let tr = addEle({dad:tb,what:"tr"})
+        addEle({dad:tr,what:"td",text:itm1.name+" (P"+itm1.priority+")",textA:"right",paddingR:"10px",
+        borderR:"green solid 2px"})
+        addEle({dad:tr,what:"td",text:itm2.name+" (P"+itm2.priority+")",textA:"right",paddingL:"5px"})
+    }
+}
 
+function shuffleRewards(){
+  player.lottery.rewards = []
+  savPlayer()
+  let srcA = player.poolRewards
+
+  if(srcA.length===0){
+    addEle({dad:bodySub,text:"You have to Set some Rewards from the Giveaway Pool ...",
+    textC:accts[1],margin:"5px"})
+    return
+  }
+  let newA = []
+  let tpA = structuredClone(srcA)
+  let cpt = 0
+  while(newA.length<srcA.length){
+    let rnd = Math.floor(Math.random() * tpA.length) + 1
+    let itm = tpA.splice((rnd-1),1)[0]
+    newA.push(itm)
+    cpt++
+    if(cpt>1000){break}
+  }
+  player.lottery.rewards = newA
+}
+
+function dispLotteryRewards(){
+  let tgt = bodySub
+  cleanParent(bodySub)
+
+  let src1 = player.poolRewards
+  let src2 = player.lottery.rewards
+  if(src2.length === 0){return}
+  let fr = addEle({dad:tgt,margin:"10px"})
+  let tb = addEle({dad:fr,what:"table"})
+    let tr = addEle({dad:tb,what:"tr"})
+      addEle({dad:tr,what:"td",text:"Before<br>Shuffle",textA:"center",border:"green solid 2px",
+      borderL:"none",borderT:"none",colSpan:2})
+      addEle({dad:tr,what:"td",text:"After<br>Shuffle",textA:"center",borderB:"green solid 2px",colSpan:2})
+    for(let i=0;i<src2.length;i++){
+      let itm1 = src1[i]
+      let itm2 = src2[i]
+
+      let tr = addEle({dad:tb,what:"tr"})
+        addEle({dad:tr,what:"td",text:"Reward ",textA:"right"})
+        addEle({dad:tr,what:"td",text:itm1.title,textA:"right",paddingR:"10px",
+        borderR:"green solid 2px"})
+
+        addEle({dad:tr,what:"td",text:"Reward ",textA:"right",paddingL:"10px"})
+        addEle({dad:tr,what:"td",text:itm2.title,textA:"right"})
+    }
+}
 
 /*
 console.log(crafts.length)
