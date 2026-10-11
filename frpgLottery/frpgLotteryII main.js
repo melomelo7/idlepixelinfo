@@ -213,7 +213,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/11 10:00"
+let last = "10/11 10:20"
 ////////////////////////
 
 
@@ -406,7 +406,7 @@ function setItems(){
         getID("inFilItm").value = e.srcElement.value
         let ev = new Event("input") ; getID("inFilItm").dispatchEvent(ev)
       }})
-      addEle({dad:cr,text:"E",textC:"yellow",margin:"0 10px 0 5px"})
+      addEle({dad:cr,text:"E",textC:"yellow",margin:"0 10px 0 5px",fontS:"12px"})
       addEle({dad:cr,setID:"lenlen2",text:"0"})
       itmN.addEventListener('keydown', function(event) 
       {if (event.key === 'Enter'){getID("savNit").click()}})
@@ -522,7 +522,8 @@ function setMasterPool(){
     let inQ = addEle({dad:cr,what:"input",isInput:true,numInput:true,width:"40px",setVal:1,
     textA:"center",setID:"addItmQ"})
     inQ.addEventListener('keydown', function(event) 
-    {if (event.key === 'Enter'){  getID("savtoPool").click()}})
+    {if (event.key === 'Enter'){getID("savtoPool").click()}})
+    addEle({dad:cr,text:"E",textC:"yellow",marginL:"5px",fontS:"12px"})
 
   cr = addEle({dad:forkA2,setClass:"contRow",alignItems:"center",justifyC:"center"})
     addEle({dad:cr,setClass:"btn",text:"Save item to Giveaway pool [E]",border:"green solid 2px",
@@ -558,7 +559,6 @@ function setMasterPool(){
     textA:"center",setID:"itmFiltIn",setFunc:(e)=>{
       fillForB3()
       if(document.getElementsByName("itmRads")[0]){document.getElementsByName("itmRads")[0].click()}
-//      document.getElementsByName("itmRads")[0].click()
     }})
 
 
@@ -572,11 +572,15 @@ function setMasterPool(){
     marginL:"",backC:"green",text:spanText({text:"---",col:accts[6]})})
   cr = addEle({dad:forkB2,setClass:"contRow",alignItems:"center",margin:"10px 0 5px 0",justifyC:"center"})
     addEle({dad:cr,text:"Adjust Total :",marginR:"5px"})
-    addEle({dad:cr,what:"input",isInput:true,numInput:true,width:"40px",setVal:1,
+    let inQ2 = addEle({dad:cr,what:"input",isInput:true,numInput:true,width:"40px",setVal:1,
     textA:"center",setID:"masterItmQ"})
+    inQ2.addEventListener('keydown', function(event) 
+    {if (event.key === 'Enter'){getID("savNttl").click()}})
+    addEle({dad:cr,text:"E",textC:"yellow",marginL:"5px",fontS:"12px"})
+
   cr = addEle({dad:forkB2,setClass:"contRow",alignItems:"center",justifyC:"center"})
-    addEle({dad:cr,setClass:"btn",text:"Save new Total",border:"green solid 2px",
-    backC:"darkgreen",marginL:"",setFunc:()=>{
+    addEle({dad:cr,setClass:"btn",text:"Save new Total [E]",border:"green solid 2px",
+    backC:"darkgreen",setID:"savNttl",marginL:"",setFunc:()=>{
       if(!getID("masterItmN").innerHTML.includes("---")){
         let txt = getID("masterItmN").innerHTML
         let idx = player.masterPool.findIndex(x=>x.lbl===txt)
@@ -849,8 +853,9 @@ function showNextRwd(){
       let tr = addEle({dad:tb,what:"tr"})
         addEle({dad:tr,what:"td",text:itm.lbl})
       let tc = addEle({dad:tr,what:"td",padding:"0 5px 5px 5px"})
+       let cr = addEle({dad:tc,setClass:"contRow",alignItems:"center"})
         txt = refRwd === undefined ? 1 : refRwd.content.filter(x=>x.itmID === itm.idx)[0].val
-        let inQ = addEle({dad:tc,what:"input",isInput:true,numInput:true,width:"40px",textA:"center",
+        let inQ = addEle({dad:cr,what:"input",isInput:true,numInput:true,width:"40px",textA:"center",
         setVal:txt,setID:"itmQt:"+itm.idx,setName:"itmQts",setFunc:(e)=>{
           let idx= e.srcElement.id.split(":")[1]
           let itm = player.masterPool.filter(x=>x.idx===idx)[0]
@@ -867,6 +872,8 @@ function showNextRwd(){
         }})
         inQ.addEventListener('keydown', function(event) 
         {if (event.key === 'Enter'){getID("savRwd").click()}})
+        addEle({dad:cr,text:"E",textC:"yellow",marginL:"5px",fontS:"12px"})
+
       addEle({dad:tr,what:"td",setID:"itmQtM:"+itm.idx,setName:"grpRwdBk"})
       let ev = new Event("input") ; inQ.dispatchEvent(ev)
     }
@@ -874,7 +881,7 @@ function showNextRwd(){
     cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",justifyC:"center"})
       txt = refRwd === undefined ? "Save new Reward [E]" : "Save Reward changes [E]"
       addEle({dad:cr,setClass:"btn",text:txt,border:"green solid 2px",
-      backC:"darkgreen",width:"80%",setID:"savRwd",setFunc:()=>{
+      backC:"darkgreen",width:"",setID:"savRwd",setFunc:()=>{
         let savGood = true
         let dispatcher = []
 
