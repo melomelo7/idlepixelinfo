@@ -213,7 +213,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/11 12:30"
+let last = "10/11 12:35"
 ////////////////////////
 
 
@@ -984,7 +984,6 @@ function updPlayersI(){
   player.playerPool.filter(x=>x.priority===3).length
   getID("playerPrio").innerHTML = txt
 }
-
 function setPlayers(){
   let info = bodyMid
   cleanParent(info)
@@ -1004,41 +1003,12 @@ function setPlayers(){
         borderT:"none",borderL:"none",borderR:"none"})
 
       tr = addEle({dad:tbi,what:"tr"})
-        /*
-        txt = player.playerPool.length
-        addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center",setID:"playerTtl"})
-        txt = player.playerPool.filter(x=>x.selected).length
-        addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center",border:"teal solid 2px",
-        borderB:"none",borderT:"none",setID:"playerInc"})
-        txt = player.playerPool.filter(x=>x.priority===1).length +" | "+
-        player.playerPool.filter(x=>x.priority===2).length +" | "+
-        player.playerPool.filter(x=>x.priority===3).length
-        addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center",borderR:"teal solid 2px",
-        borderR:"none",setID:"playerPrio"})
-        */
-
         addEle({dad:tr,what:"td",textC:YG,textA:"center",setID:"playerTtl"})
         addEle({dad:tr,what:"td",textC:YG,textA:"center",border:"teal solid 2px",
         borderB:"none",borderT:"none",setID:"playerInc"})
         addEle({dad:tr,what:"td",textC:YG,textA:"center",borderR:"teal solid 2px",
         borderR:"none",setID:"playerPrio"})
-
         updPlayersI()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   let cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"10px 0 5px 10px"})
@@ -1063,10 +1033,11 @@ function setPlayers(){
               addEle({dad:cc,text:"Include"})
               addEle({dad:cc,setClass:"btn",backC:"darkgreen",border:"green solid 2px",text:"All",
               minWidth:"40px",setFunc:()=>{
-                let onOff = player.playerPool[0].selected ? false : true 
+                let onOff = player.playerPool[0].selected ? false : true
+                document.getElementsByName("togPlaSels").forEach(x=>x.checked = onOff)
                 player.playerPool.forEach(x=>{x.selected = onOff})
                 savPlayer()
-                setPlayers()
+                updPlayersI()
               }})
 
           tc = addEle({dad:tr,what:"td",textA:"center",borderB:"green solid 2px",paddingL:"5px"})
@@ -1076,9 +1047,11 @@ function setPlayers(){
               for(let i=1;i<=3;i++){
                 addEle({dad:cr,setClass:"btn",backC:"darkgreen",border:"green solid 2px",text:i,
                 setFunc:(e)=>{
-                  player.playerPool.forEach(x=>{x.priority = Number(e.srcElement.innerHTML)})
+                  let nb = Number(e.srcElement.innerHTML)
+                  document.getElementsByName("prioSels").forEach(x=>x.value = nb)//togPlaSels
+                  player.playerPool.forEach(x=>{x.priority = nb})
                   savPlayer()
-                  setPlayers()
+                  updPlayersI()
                 }})
               }
             
@@ -1097,20 +1070,20 @@ function setPlayers(){
           addEle({dad:tr,what:"td",textA:"center",text:itm.name,padding:"0 5px"})
     
           tc = addEle({dad:tr,what:"td",textA:"center"})
-            let inc = addEle({dad:tc,what:"checkbox",isInput:true,setID:"togPlaSel:"+i,setClass:"toggle-checkbox"
-            ,setFunc:(e)=>{
+            let inc = addEle({dad:tc,what:"checkbox",isInput:true,setID:"togPlaSel:"+i,setClass:"toggle-checkbox",
+            setName:"togPlaSels",setFunc:(e)=>{
               let idx = Number(e.srcElement.id.split(":")[1])
               let itm = player.playerPool[idx]
               itm.selected = e.srcElement.checked
               savPlayer()
               updPlayersI()
-//              setPlayers()
             }})
             addEle({dad:tc,what:"label",setFor:"togPlaSel:"+i,setClass:"toggle-label",margin:"0 5px"})
             inc.checked = itm.selected
 
           tc = addEle({dad:tr,what:"td",textA:"center"})
-            let prio = addEle({dad:tc,what:"select",setClass:"select",border:"green solid 3px",paddingL:"10px"})
+            let prio = addEle({dad:tc,what:"select",setClass:"select",border:"green solid 3px",
+            paddingL:"10px",setName:"prioSels"})
               for(let j=1;j<=3;j++){addEle({dad:prio,what:"option",text:j,setID:"selOp:"+i,setFunc:(e)=>{
                 let idx = Number(e.srcElement.id.split(":")[1])
                 let itm = player.playerPool[idx]
@@ -1118,7 +1091,6 @@ function setPlayers(){
                 itm.priority = pr
                 savPlayer()
                 updPlayersI()
-//                setPlayers()
               }})}
             prio.value = itm.priority
       }
