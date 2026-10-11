@@ -182,6 +182,7 @@ let player = {
     players:[],
     rewards:[],
     merge:[],
+    mergeBackup:[],
   },
   rwdRefID:undefined,
   misc:{
@@ -214,7 +215,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/11 18:30"
+let last = "10/12 00:40"
 ////////////////////////
 
 
@@ -1185,6 +1186,9 @@ function setLottery(){
     text:"Run Full Lottery<br>( Shuffles + Display )",setFunc:()=>{
       shufflePlayers()
       shuffleRewards()
+      mergeLottery()
+      showMergeResult()
+      getID("arrTR").click()
     }})
 
   
@@ -1228,7 +1232,10 @@ function setLottery(){
       addEle({dad:cr,border:"green solid 2px",backC:"darkgreen",radius:"5px",
       text:"III",width:"20px",textA:"center",marginR:"5px"})
       addEle({dad:cr,setClass:"btn",border:"green solid 2px",backC:"darkgreen",
-      text:"Display Lottery",minWidth:wd+"px",setFunc:()=>{}})
+      text:"Display Lottery",minWidth:wd+"px",setFunc:()=>{
+        mergeLottery()
+        showMergeResult()
+      }})
 }
 
 function shufflePlayers(){
@@ -1316,6 +1323,7 @@ function shuffleRewards(){
     if(cpt>1000){break}
   }
   player.lottery.rewards = newA
+  savPlayer()
 }
 
 function dispLotteryRewards(){
@@ -1344,6 +1352,166 @@ function dispLotteryRewards(){
         addEle({dad:tr,what:"td",text:itm2.title,textA:"right"})
     }
 }
+
+
+
+function mergeLottery(){
+  let tgt = bodySub
+  cleanParent(bodySub)
+  player.lottery.merge = []
+
+  let srcP = structuredClone(player.lottery.players)
+  let srcR = structuredClone(player.lottery.rewards)
+
+  if(srcP.length === 0 || srcR.length === 0){
+    addEle({dad:tgt,text:`You need to check you have both<br>
+       Rewards build from your Giveaway<br>pool and Filled your Player list`,
+      textA:"center",margin:"10px",textC:accts[1],width:"fit-content"})
+    return
+  }
+
+  let tpA = []
+  for(let i=0;i<srcP.length;i++){
+    let itm = srcP[i]
+    tpA.push({
+      idx:itm.idx,
+      name:itm.name,
+      priority:itm.priority,
+      rwds:[],
+      synth:[],
+    })
+  }
+
+  let j=-1
+  for(let i=0;i<srcR.length;i++){
+    j++ ; if(j>tpA.length-1){j=0}
+    let rwd = srcR[i]
+    let pla = tpA[j]
+    pla.rwds.push({
+      idx:rwd.idx,
+      title:rwd.title,
+      content:rwd.content,
+    })
+  }
+
+  player.lottery.merge = tpA
+  savPlayer()
+}
+
+
+function showMergeResult(){
+  let tgt = bodySub
+  cleanParent(tgt)
+
+  let cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",margin:"5px 0 0 15px"})
+    addEle({dad:cr,text:"Result",borderB:"green solid 2px",marginR:"5px"})
+    addEle({dad:cr,setClass:"arrowToggler",text:"🔽",setID:"arrTR",setFunc:(e)=>{
+      let src = e.srcElement
+      let disp = getID("resultFr")
+      disp.style.display = src.innerHTML === "🔼" ? "none" : "flex"
+      src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
+      if(src.innerHTML === "🔼"){
+        fillResultFr()
+      }
+    }}) // 🔼
+  let cc = addEle({dad:tgt,setClass:"contCol",setID:"resultFr",margin:"5px 10px",
+  border:"green solid 2px",radius:"5px",padding:"5px",width:"fit-content",display:"none"})
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function synthRwd(rwdA){
+  let itmA = []
+  rwdA.forEach(r=>{
+    r.content.forEach(c=>{
+      let idx = itmA.findIndex(x=>x.itmID === c.itmID)
+      if(idx === -1){
+        itmA.push({
+          itmID:c.itmID,
+          lbl:c.lbl,
+          val:c.val,
+          paid:0,
+        })
+      } else {
+        itmA[idx].val += c.val 
+      }
+    })
+  })
+return itmA
+}
+
+function fillResultFr(){
+  let tgt = getID("resultFr")
+  cleanParent(tgt)
+
+  let arr = structuredClone(player.lottery.merge)
+
+  let tb = addEle({dad:tgt,what:"table"})
+    let tr = addEle({dad:tb,what:"tr"})
+      addEle({dad:tr,what:"td",text:"Player",paddingR:"10px"})
+      addEle({dad:tr,what:"td",text:"Rewards",padding:"0 10px",
+      borderL:"green solid 2px",borderR:"green solid 2px"})
+      addEle({dad:tr,what:"td",text:"Rewarded",textA:"center",colSpan:2})
+
+  for(let i=0;i<arr.length;i++){
+    tr = addEle({dad:tb,what:"tr"})
+    let pla = arr[i]
+    pla.synth = synthRwd(pla.rwds)
+      addEle({dad:tr,what:"td",text:pla.name,textA:"center",borderT:"green solid 2px",paddingR:"10px"})
+      addEle({dad:tr,what:"td",text:pla.rwds.length,textA:"center",border:"green solid 2px",borderB:"none"})
+    let tc = addEle({dad:tr,what:"td",textA:"center",borderT:"green solid 2px"})
+      let tb2 = addEle({dad:tc,what:"table"})
+      for(let j=0;j<pla.synth.length;j++){
+        let syn = pla.synth[j]
+        let tr2 = addEle({dad:tb2,what:"tr"})
+          addEle({dad:tr2,what:"td",text:syn.lbl,textA:"right",padding:"0 10px"})
+          addEle({dad:tr2,what:"td",text:syn.val.toLocaleString(),textA:"left"})
+
+      }
+
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 console.log(crafts.length)
