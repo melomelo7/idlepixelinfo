@@ -213,7 +213,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/11 12:00"
+let last = "10/11 12:30"
 ////////////////////////
 
 
@@ -974,7 +974,16 @@ function showRwdINbank(){
 
 
 
-
+function updPlayersI(){
+  let txt = player.playerPool.length
+  getID("playerTtl").innerHTML = txt
+  txt = player.playerPool.filter(x=>x.selected).length
+  getID("playerInc").innerHTML = txt
+  txt = player.playerPool.filter(x=>x.priority===1).length +" | "+
+  player.playerPool.filter(x=>x.priority===2).length +" | "+
+  player.playerPool.filter(x=>x.priority===3).length
+  getID("playerPrio").innerHTML = txt
+}
 
 function setPlayers(){
   let info = bodyMid
@@ -995,16 +1004,26 @@ function setPlayers(){
         borderT:"none",borderL:"none",borderR:"none"})
 
       tr = addEle({dad:tbi,what:"tr"})
+        /*
         txt = player.playerPool.length
-        addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center"})
+        addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center",setID:"playerTtl"})
         txt = player.playerPool.filter(x=>x.selected).length
-        addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center",border:"teal solid 2px",borderB:"none",borderT:"none"})
+        addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center",border:"teal solid 2px",
+        borderB:"none",borderT:"none",setID:"playerInc"})
         txt = player.playerPool.filter(x=>x.priority===1).length +" | "+
         player.playerPool.filter(x=>x.priority===2).length +" | "+
         player.playerPool.filter(x=>x.priority===3).length
-        addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center",borderR:"teal solid 2px",borderR:"none"})
+        addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center",borderR:"teal solid 2px",
+        borderR:"none",setID:"playerPrio"})
+        */
 
+        addEle({dad:tr,what:"td",textC:YG,textA:"center",setID:"playerTtl"})
+        addEle({dad:tr,what:"td",textC:YG,textA:"center",border:"teal solid 2px",
+        borderB:"none",borderT:"none",setID:"playerInc"})
+        addEle({dad:tr,what:"td",textC:YG,textA:"center",borderR:"teal solid 2px",
+        borderR:"none",setID:"playerPrio"})
 
+        updPlayersI()
 
 
 
@@ -1084,7 +1103,8 @@ function setPlayers(){
               let itm = player.playerPool[idx]
               itm.selected = e.srcElement.checked
               savPlayer()
-              setPlayers()
+              updPlayersI()
+//              setPlayers()
             }})
             addEle({dad:tc,what:"label",setFor:"togPlaSel:"+i,setClass:"toggle-label",margin:"0 5px"})
             inc.checked = itm.selected
@@ -1097,7 +1117,8 @@ function setPlayers(){
                 let pr = Number(e.srcElement.innerHTML)
                 itm.priority = pr
                 savPlayer()
-                setPlayers()
+                updPlayersI()
+//                setPlayers()
               }})}
             prio.value = itm.priority
       }
@@ -1151,6 +1172,7 @@ function setPlayers(){
           getID("playerName").value = ""
           getID("inFilPla").value = ""
           let ev = new Event("input") ; getID("inFilPla").dispatchEvent(ev)
+          updPlayersI()
           getID("playerName").focus()
         }
       }})
