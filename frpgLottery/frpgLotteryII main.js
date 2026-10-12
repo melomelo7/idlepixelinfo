@@ -300,7 +300,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/12 18:30"
+let last = "10/12 18:55"
 ////////////////////////
 
 
@@ -470,6 +470,7 @@ function setItems(){
             }
             joinItems()
             savPlayer()
+            getID("inFilItm").value = ""
             let ev = new Event("input") ; getID("inFilItm").dispatchEvent(ev)
           }})
           addEle({dad:cr,text:"- "+itm.lbl,margin:"0 10px",backC:"green",width:"200px",paddingL:"5px"})
@@ -633,8 +634,6 @@ function setMasterPool(){
         })
         getID("addItmQ").value = 1
         player.masterPool = arrSorting(player.masterPool)
-//        for(let i=0;i<player.masterPool.length;i++){player.masterPool[i].idx=(i+1)}
-//        console.log(player.masterPool)
         savPlayer()
         getID("poolCt1").innerHTML = "("+ spanText({text:player.masterPool.length,col:YG}) + ")"
         getID("poolCt2").innerHTML = "("+ spanText({text:player.masterPool.length,col:YG}) + ")"
@@ -1155,10 +1154,12 @@ function setPlayers(){
         let tr = addEle({dad:tb,what:"tr"})
           let tc = addEle({dad:tr,what:"td",alignItems:"center",padding:"5px 0"})
             addEle({dad:tc,setClass:"arrowToggler",text:"X",border:"red solid 2px",
-            padding:"1px 4px",width:"fit-content",setID:"delPlay:"+i,margin:"3px 0",setFunc:(e)=>{
+            padding:"1px 4px",width:"fit-content",setID:"delPlay:"+itm.idx,margin:"3px 0",setFunc:(e)=>{
               let idx = Number(e.srcElement.id.split(":")[1])
-              console.log(idx)
-              player.playerPool.splice(idx,1)
+              let pos = player.playerPool.findIndex(x=>x.idx===idx)
+              player.playerPool.splice(pos,1)
+              savPlayer()
+              getID("inFilPla").value = ""
               let ev = new Event("input") ; getID("inFilPla").dispatchEvent(ev)
             }})
           addEle({dad:tr,what:"td",textA:"center",text:itm.name,padding:"0 5px"})
@@ -1223,6 +1224,8 @@ function setPlayers(){
       addEle({dad:cr,setClass:"btn",text:"Save Player name [E]",border:"green solid 2px",
       backC:"darkgreen",minWidth:"190px",setID:"savPn",setFunc:()=>{
         let txt = getID("playerName").value.toLowerCase().replace("@","").replace(":","")
+        let idx = player.playerPool.findIndex(x=>x.name === txt)
+        if(idx > -1){return}
         if(txt.length>0){
           player.playerPool.push({
             idx:crypto.randomUUID(),
@@ -1230,16 +1233,20 @@ function setPlayers(){
             selected:true,
             priority:1,
           })
+          player.playerPool.sort((a,b)=>a-b)
           savPlayer()
           getID("playerName").value = ""
           getID("inFilPla").value = ""
           let ev = new Event("input") ; getID("inFilPla").dispatchEvent(ev)
           updPlayersI()
           getID("playerName").focus()
+          getID("savGdisp").style.visibility = "visible"
+          setTimeout(()=>{getID("savGdisp").style.visibility = "hidden"},700)
         }
       }})
+      addEle({dad:cr,text:"✅",margin:"0 3px 0 -2px",visibility:"hidden",setID:"savGdisp"})
       addEle({dad:cr,setClass:"arrowToggler",text:"X",border:"red solid 2px",
-      padding:"1px 4px",marginL:"10px",fontS:"18px",setFunc:(e)=>{setPlayers()}})
+      padding:"1px 4px",fontS:"18px",setFunc:(e)=>{setPlayers()}})
 
   let ev = new Event("input") ; getID("inFilPla").dispatchEvent(ev)
 
