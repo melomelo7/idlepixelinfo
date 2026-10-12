@@ -21,14 +21,74 @@ function setInfoPg(){
 
   */
 
-    addEle({dad:info,text:"Infos :",textC:YG,borderB:"yellow solid 2px",
-    width:"fit-content",margin:"10px"})
+  addEle({dad:info,text:"Infos :",textC:YG,borderB:"yellow solid 2px",
+  width:"fit-content",margin:"10px"})
 
   let txt = `
-  `+spanText({text:"Infos:",col:YG,underLine:"solid 2px yellow"})+`<br><br>  
   -Q- What is this page meant to be doing ?<br>
   -A- Its meant to help players do giveaway in the form<br>
-  of a Lottery system.<br><br>
+  of a Lottery-Raffle system.<br><br>` 
+  addEle({dad:info,text:txt,marginL:"5px"})
+
+  txt = `
+  Sidenote : When you see a white field with a `+spanText({text:"E",col:"yellow"})+` on the<br>
+  side, it means keyboard users can also press `+spanText({text:"E",col:"yellow"})+`nter to<br>
+  simulate a click on the button below.`
+  addEle({dad:info,text:txt,textC:YG,marginL:"5px"})
+
+  let crM = cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"5px"})
+    cr = addEle({dad:crM,setClass:"contRow",alignItems:"center"})
+      addEle({dad:cr,text:"Items Section",borderB:"green solid 2px",margin:"0 5px"})
+      addEle({dad:cr,setClass:"arrowToggler",text:"🔽",setFunc:(e)=>{
+        let src = e.srcElement
+        cleanParent(bodySub)
+        src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
+        if(src.innerHTML === "🔼"){
+          let txt = `
+            Pretty much the backbone of the giveaway, have a list including<br>
+            all items you will need to conduct your giveaway.Any missing ones<br>
+            that wont show after filtering, you can add yourself.<br><br>
+            Default list is preset and Customs are your items.
+          `
+          addEle({dad:bodySub,text:txt})
+
+        } else {}
+      }}) // 🔼
+
+    cr = addEle({dad:crM,setClass:"contRow",alignItems:"center"})
+      addEle({dad:cr,text:"Rewards Section",borderB:"green solid 2px",margin:"0 5px"})
+      addEle({dad:cr,setClass:"arrowToggler",text:"🔽",setFunc:(e)=>{
+        let src = e.srcElement
+        cleanParent(bodySub)
+        src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
+        if(src.innerHTML === "🔼"){
+          let txt = `
+            Here we have 2 sub-sections :<br>
+            - Giveaway pool = the global total for every item you will<br>
+            be using for the lottery. Example : 5000 OJ, 4500 LNs, etc ...<br><br>
+            - Rewards (from pool) = split all those big load of items into<br>
+            "Rewards" that will be sent to players.
+
+          `
+          addEle({dad:bodySub,text:txt})
+
+        } else {}
+      }}) // 🔼
+
+//  let cc = addEle({dad:info,setClass:"contCol",alignItems:"center",padding:"5px",
+//  display:"none",setID:"infoFr",border:"green dashed 2px",radius:"5px"})
+
+
+
+
+
+
+
+
+
+  /*
+  txt = `
+  `+spanText({text:"Infos:",col:YG,underLine:"solid 2px yellow"})+`<br><br>  
   -Q- steps to use this page ?<br>
   -A- `+spanText({text:"(step 1)",col:"yellow"})+` Check "`+spanText({text:"Items",col:YG})+`", see if the items you want<br>
   to use are available in the preset listing... if you cant<br>
@@ -57,6 +117,9 @@ function setInfoPg(){
   `+spanText({text:"Check Player numbers.",col:YG})
 
   addEle({dad:info,text:txt,margin:"10px"})
+  */
+
+
 }
 
 const savKey = "frpgLotterySav"
@@ -237,7 +300,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/12 12:35"
+let last = "10/12 18:15"
 ////////////////////////
 
 
@@ -335,7 +398,12 @@ function setMiscs(){
 
 
 
-
+function updItmInfos(arr = undefined){
+  getID("itmBkTtl").innerHTML = player.items.all.length
+  getID("itmDefC").innerHTML = player.items.default.length
+  getID("itmCusC").innerHTML = player.items.custom.length
+  if(arr!==undefined){getID("itmDisC").innerHTML = arr.length}
+}
 
 function setItems(){
   let info = bodyMid
@@ -364,13 +432,13 @@ function setItems(){
         addEle({dad:tr,what:"td",text:txt,fontS:"14px",padding:"5px",textA:"center",borderB:"teal solid 2px"})
 
       tr = addEle({dad:tb,what:"tr"})
-        txt = player.items.all.length
-        addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center"})
-        txt = player.items.default.length
-        addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center",border:"teal solid 2px",borderB:"none",borderT:"none"})
-        txt = player.items.custom.length
-        addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center",borderR:"teal solid 2px"})
-        addEle({dad:tr,what:"td",setID:"itmArr",textC:YG,textA:"center",textC:"yellow"})
+        addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center",setID:"itmBkTtl"})
+        addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center",border:"teal solid 2px",
+        borderB:"none",borderT:"none",setID:"itmDefC"})
+        addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center",borderR:"teal solid 2px",setID:"itmCusC"})
+        addEle({dad:tr,what:"td",textC:YG,textA:"center",textC:"yellow",setID:"itmDisC"})
+
+  updItmInfos()
 
   let cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"10px 0 5px 10px"})
     addEle({dad:cr,text:"Filter Name :",marginR:"5px"})
@@ -386,7 +454,7 @@ function setItems(){
       if(txt.length===0)
            {arr = player.items.all} 
       else {arr = player.items.all.filter(x=>x.lbl.includes(txt))}
-      getID("itmArr").innerHTML = arr.length
+      updItmInfos(arr)
       for(let i=0;i<arr.length;i++){
         let itm = arr[i]
         let cr = addEle({dad:dispFr,setClass:"contRow",alignItems:"center",margin:"5px"})
@@ -403,7 +471,6 @@ function setItems(){
             joinItems()
             savPlayer()
             let ev = new Event("input") ; getID("inFilItm").dispatchEvent(ev)
-//            setItems()            
           }})
           addEle({dad:cr,text:"- "+itm.lbl,margin:"0 10px",backC:"green",width:"200px",paddingL:"5px"})
       }
@@ -457,16 +524,12 @@ function setItems(){
         getID("inFilItm").value = ""
         let ev = new Event("input") ; getID("inFilItm").dispatchEvent(ev)
         getID("newItmNm").focus()
-//        setItems()
       }})
       addEle({dad:cr,setClass:"arrowToggler",text:"X",border:"red solid 2px",
       padding:"1px 4px",marginL:"10px",fontS:"18px",setFunc:(e)=>{setItems()}})
 
     addEle({dad:itmAddFr,text:`Copy an item name from the game is<br>possible :
     ((Stone)) will be saved as stone.`,textC:YG,fontS:"16px"})
-
-
-
   let ev = new Event("input") ; getID("inFilItm").dispatchEvent(ev)
 }
 
