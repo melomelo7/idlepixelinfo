@@ -300,7 +300,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/12 18:15"
+let last = "10/12 18:30"
 ////////////////////////
 
 
@@ -517,6 +517,8 @@ function setItems(){
             default:false,
             lbl:txt,
           })
+          getID("savGdisp").style.visibility = "visible"
+          setTimeout(()=>{getID("savGdisp").style.visibility = "hidden"},700)
         }
         joinItems()
         savPlayer()
@@ -525,8 +527,9 @@ function setItems(){
         let ev = new Event("input") ; getID("inFilItm").dispatchEvent(ev)
         getID("newItmNm").focus()
       }})
+      addEle({dad:cr,text:"✅",margin:"0 3px 0 -2px",visibility:"hidden",setID:"savGdisp"})
       addEle({dad:cr,setClass:"arrowToggler",text:"X",border:"red solid 2px",
-      padding:"1px 4px",marginL:"10px",fontS:"18px",setFunc:(e)=>{setItems()}})
+      padding:"1px 4px",marginL:"",fontS:"18px",setFunc:(e)=>{setItems()}})
 
     addEle({dad:itmAddFr,text:`Copy an item name from the game is<br>possible :
     ((Stone)) will be saved as stone.`,textC:YG,fontS:"16px"})
