@@ -4,6 +4,26 @@ function setInfoPg(){
   let main = bodySub
   cleanParent(main)
 
+  /*
+  cr = addEle({dad:info,setClass:"contRow",alignItems:"center",marginB:"5px"})
+    addEle({dad:cr,text:"Review Result",borderB:"green solid 2px",margin:"0 5px"})
+    addEle({dad:cr,setClass:"arrowToggler",text:"🔽",setFunc:(e)=>{
+      let src = e.srcElement
+      let disp = getID("processFr")
+      if(disp.style.display === "flex"){disp.style.display = "none"}
+      src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
+      if(src.innerHTML === "🔼"){
+        mergeLottery()
+        showMergeResult()
+        getID("arrTR").click()
+      } else {cleanParent(bodySub)}
+    }}) // 🔼
+
+  */
+
+    addEle({dad:info,text:"Infos :",textC:YG,borderB:"yellow solid 2px",
+    width:"fit-content",margin:"10px"})
+
   let txt = `
   `+spanText({text:"Infos:",col:YG,underLine:"solid 2px yellow"})+`<br><br>  
   -Q- What is this page meant to be doing ?<br>
@@ -217,7 +237,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/12 11:05"
+let last = "10/12 12:35"
 ////////////////////////
 
 
@@ -1171,6 +1191,14 @@ function setLottery(){
   cleanParent(main)
 
   info.style.padding = "5px"
+
+  let testMsg = ""
+  if(player.poolRewards.length===0){testMsg += `You didnt set the Rewards from your Giveaway pool yet.<br>`}
+  if(player.playerPool.length===0){testMsg += `You didnt build the Players pool yet.<br>`}
+  if(testMsg.length>1){
+    addEle({dad:info,text:testMsg,textC:accts[1]})
+    return
+  }
 
   let cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"5px"})
     let txt = "Rewards Pool : "+ spanText({text:player.poolRewards.length,col:YG}) 
