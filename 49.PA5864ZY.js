@@ -580,7 +580,7 @@ function getCrop(lbl){
 
 const body = document.querySelector("body")
 
-let last = "8/10 20:20"
+let last = "13/10 21:25"
 
 addEle({dad:body,textC:"yellowgreen",margin:"5px 0 0 10px",text:"last up : "+last})
 
@@ -626,7 +626,7 @@ let cr = addEle({dad:body,setClass:"contRow",margin:"10px"})
                     getID("in1").value = 25
                     break
                 case 2.5 :
-                    getID("in1").value = 35
+                    getID("in1").value = 34
                     break
                 case 3 :
                     getID("in1").value = 43
