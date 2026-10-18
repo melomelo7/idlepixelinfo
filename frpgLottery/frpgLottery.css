@@ -28,6 +28,7 @@ body {
     background-color: black;
     color: #ccc;
     border: 2px solid blue;
+    cursor: pointer;
     border-radius: 8px;
     /*padding: 5px;*/
     font-size: 16px;
@@ -35,6 +36,25 @@ body {
 }
 
 .btn {
+    border:blue solid 2px;
+    color: #ccc;
+    border-radius: 10px;
+    padding: 3px 6px;
+    margin: 5px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: fit-content;
+}
+.btn:hover{
+    opacity: 0.8;
+}
+
+
+.sbtn {
     border:blue solid 2px;
 /*    background-color: black;*/
     background: linear-gradient(to bottom left,rgba(0,0,0,0) 60%,rgba(169,169,169,1));
@@ -49,9 +69,11 @@ body {
     user-select: none;
     width: fit-content;
 }
-.btn:hover{
+.sbtn:hover{
     opacity: 0.8;
 }
+
+
 
 .infoBtn{
     border:green solid 2px;
