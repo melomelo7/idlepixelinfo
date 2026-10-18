@@ -260,6 +260,7 @@ let player = {
   },
   masterPool:[],
   poolRewards:[],
+  favoriteRewards:[],
   playerPool:[],
   lottery:{
     players:[],
@@ -300,7 +301,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/12 18:55"
+let last = "10/18 15:25"
 ////////////////////////
 
 
@@ -541,6 +542,22 @@ function setItems(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function setRewards(){
   let info = bodyMid
   cleanParent(info)
@@ -631,6 +648,7 @@ function setMasterPool(){
           lbl:nm,
           val:qt,
           selected:false,
+          tempoVal:0,
         })
         getID("addItmQ").value = 1
         player.masterPool = arrSorting(player.masterPool)
@@ -776,6 +794,31 @@ function showMaster(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function updRwdFromPool(){
+  getID("rwdCt1").innerHTML = "(" + spanText({text:player.poolRewards.length,col:"yellow"}) + ")"
+  getID("poolCt1").innerHTML = "("+ spanText({text:player.masterPool.length,col:YG}) + ")"
+  if(getID("poolBCt")){getID("poolBCt").innerHTML = "(" + spanText({text:player.masterPool.length,col:YG}) + ")"}
+  if(getID("rwdBCt")){getID("rwdBCt").innerHTML = "(" + spanText({text:player.poolRewards.length,col:"yellow"}) + ")"}
+}
 function setPoolRewards(){
   let tgt = bodySub
   if(player.masterPool.length>0){
@@ -788,49 +831,73 @@ function setPoolRewards(){
         let forkA1 = addEle({dad:forkA,setClass:"contCol",border:"green solid 2px",radiusTL:"5px",
         radiusTR:"5px",setID:"forkA1"})
         let forkA2 = addEle({dad:forkA,setClass:"contCol",border:"green solid 2px",borderT:"none",
-        padding:"5px",setID:"forkA2"})
+        setID:"forkA2"})
         let forkA3 = addEle({dad:forkA,setClass:"contCol",border:"green solid 2px",borderT:"none",
         padding:"5px",setID:"forkA3"})
-        let forkA4 = addEle({dad:forkA,setClass:"contCol",border:bds,radius:"5px",
-        padding:"5px",setID:"forkA4",maxHeight:"500px",overflowX:"auto"})
+        let forkA4 = addEle({dad:forkA,setClass:"contCol",border:"green solid 2px",borderT:"none",
+        padding:"5px",setID:"forkA4"})
+          let forkA4T = addEle({dad:forkA4,setClass:"contCol"})
+            addEle({dad:forkA4T,setID:"forkA4T",textA:"center"})
+            addEle({dad:forkA4T,what:"input",isInput:true,setID:"forkA4ID",display:"none"})//
+          let forkA4C = addEle({dad:forkA4,setClass:"contCol",setID:"forkA4C",marginT:"5px"})
+
+        let forkA5 = addEle({dad:forkA,setClass:"contCol",border:"green solid 2px",padding:"5px",
+        radiusBL:"5px",radiusBR:"5px",setID:"forkA5",maxHeight:"500px",overflowX:"auto",borderT:"none"})
   
       let forkB = addEle({dad:fork,setClass:"contCol",margin:"5px 0 0 5px"})
         let forkB1 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",radiusTL:"5px",
-        radiusTR:"5px",setID:"forkB1"})
+        radiusTR:"5px",setID:"forkB1",backC:"darkblue"})
   
+        /*
         let forkB2 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",borderT:"none",
         padding:"5px",setID:"forkB2"})
   
-        let forkB3 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",padding:"5px",
-        setID:"forkB3",borderT:"none",radiusBL:"5px",radiusBR:"5px",maxHeight:"500px",overflowX:"auto"})
+        let forkB3 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",borderT:"none",
+        padding:"5px",setID:"forkB3"})
+        */
+
+        let forkB2 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",padding:"5px",
+        setID:"forkB2",borderT:"none",radiusBL:"5px",radiusBR:"5px",maxHeight:"500px",overflowX:"auto"})
+
+
 
         
         cr = addEle({dad:forkA1,setClass:"contRow",alignItems:"center",justifyC:"center",padding:"0 5px"})
-          addEle({dad:cr,text:"Pool Bank",textA:"center",marginR:"5px"})
-          let txt = "(" + spanText({text:player.masterPool.length,col:"yellow"}) + ")"
-          addEle({dad:cr,text:txt,textA:"center",setID:"poolBCt"})
+          addEle({dad:cr,text:"Items Pool Bank",textA:"center",marginR:"5px"})
+          addEle({dad:cr,textA:"center",setID:"poolBCt"})
 
-        addEle({dad:forkA2,text:"Pick Items to include<br>in the next Reward",textA:"center"})
+        cr = addEle({dad:forkA2,setClass:"contRow",alignItems:"center",justifyC:"center",padding:"0 5px"})
+          addEle({dad:cr,text:"Rewards Bank",textA:"center",marginR:"5px"})
+          addEle({dad:cr,textA:"center",setID:"rwdBCt"})
 
-        cr = addEle({dad:forkA3,setClass:"contRow",alignItems:"center",justifyC:"center",padding:"2px"})
-          addEle({dad:cr,setClass:"btn",text:"Clear / Next",border:"red solid 2px",backC:"darkgreen",width:"80%",
-          setFunc:()=>{
-            player.rwdRefID = undefined
-            player.masterPool.forEach(x=>x.selected = false)
+        cr = addEle({dad:forkA3,setClass:"contRow",alignItems:"center",justifyC:"space-around"})
+          addEle({dad:cr,setClass:"btn",border:"green solid 2px",backC:"darkgreen",text:"Add new Reward",
+          setID:"addNRbtn",setFunc:()=>{
+            for(let i=0;i<player.poolRewards.length;i++){
+              if(player.poolRewards[i].content.length < 1){
+                console.log(i)
+                player.poolRewards.splice(i,1)
+              }
+
+
+            }
+            for(let i=0;i<player.poolRewards.length;i++){player.poolRewards[i].title = "#"+(i+1)}
+            player.masterPool.forEach(x=>{x.selected = false ; x.tempoVal = 0})
+            getID("forkA4ID").value = crypto.randomUUID()
             showPoolBank()
-            showNextRwd()
-          }})
+            buildReward()
+            showRwdINbank()
+          }}).click()
 
         cr = addEle({dad:forkB1,setClass:"contRow",alignItems:"center",justifyC:"center",padding:"0 5px"})
-          addEle({dad:cr,text:"Rewards Bank",textA:"center",marginR:"5px"})
-          txt = "(" + spanText({text:player.poolRewards.length,col:"yellow"}) + ")"
-          addEle({dad:cr,text:txt,textA:"center",setID:"rwdBCt"})
+          addEle({dad:cr,text:"Review Rewards"})
 
-        showPoolBank()
-        showNextRwd()
   } else {
     addEle({dad:tgt,text:"You need to Set your Giveaway Pool first",textC:accts[1],margin:"5px 0 0 5px"})
   }
+
+  updRwdFromPool()
+
 }
 
 
@@ -845,7 +912,7 @@ function dispatchedVal(itm){
 }
 
 function showPoolBank(){
-  let tgt = getID("forkA4")
+  let tgt = getID("forkA5")
   cleanParent(tgt)
 
   let tb = addEle({dad:tgt,what:"table"})
@@ -854,22 +921,8 @@ function showPoolBank(){
     let itm = arr[i]
     let tr = addEle({dad:tb,what:"tr"})
       let tc = addEle({dad:tr,what:"td"})
-        let cbx = addEle({dad:tc,what:"checkbox",isInput:true,setID:"poolBCheck:"+i,setName:"poolBChecks",
-        setFunc:(e)=>{
-          let idx = Number(e.srcElement.id.split(":")[1])
-          player.masterPool[idx].selected = e.srcElement.checked
-          if(player.rwdRefID !== undefined){
-            let srcI = player.masterPool[idx]
-            let rwd = player.poolRewards.filter(x=>x.idx === player.rwdRefID)[0]
-            if(!e.srcElement.checked){
-              let idx2 = rwd.content.findIndex(x=>x.itmID === srcI.idx)
-              rwd.content.splice(idx2,1)
-            } else {
-              rwd.content.push({itmID:srcI.idx,lbl:srcI.lbl,val:0})
-            }
-          }
-          showNextRwd()
-        }})
+        let cbx = addEle({dad:tc,what:"checkbox",isInput:true,setID:"poolBCheck:"+itm.idx,setName:"poolBChecks",
+        setFunc:(e)=>{GApoolCheck(e.srcElement.id.split(":")[1],e.srcElement.checked)}})
         if(itm.selected){cbx.checked = true}
       addEle({dad:tr,what:"td",text:itm.lbl,padding:"0 5px",setID:"poolBCheckT:"+i,setFunc:(e)=>{
         let idx = Number(e.srcElement.id.split(":")[1])
@@ -878,6 +931,31 @@ function showPoolBank(){
       addEle({dad:tr,what:"td",textC:YG,textA:"right",setName:"grpMasterBk"})
   }
   updDispTtls()
+}
+function GApoolCheck(itmIdx,checked){
+  let GAPitem = player.masterPool.filter(x=>x.idx ===itmIdx)[0]
+  let togl = checked
+  if(dispatchedVal(GAPitem)>=GAPitem.val){togl = false}
+  
+  let rwdPos = player.poolRewards.findIndex(x=>x.idx === getID("forkA4ID").value)
+  if(rwdPos>-1){
+    let rwd = player.poolRewards[rwdPos]
+    let itmPos = rwd.content.findIndex(x=>x.itmID === GAPitem.idx)
+    if(!checked){
+      
+      GAPitem.selected = false
+      console.log(itmPos)
+      rwd.content.splice(itmPos,1)
+      savPlayer()
+    } else {
+      if(itmPos>-1){togl = true}
+    }
+  }
+
+  GAPitem.selected = togl
+  showPoolBank()
+//  showRwdINbank()
+  buildReward()
 }
 
 
@@ -898,25 +976,213 @@ function updDispTtls(){
       let itm = arr[i]
       let cap = Number(document.getElementsByName("itmQts")[i].value)
       let dispo = itm.val - dispatchedVal(itm)
-      if(player.rwdRefID !== undefined){
-        let srcR = player.poolRewards.filter(x=>x.idx === player.rwdRefID)[0]
+      let posRwd = player.poolRewards.findIndex(x=>x.idx === getID("forkA4ID").value)
+      if(posRwd > -1){
+        let srcR = player.poolRewards[posRwd]
         let srcI = srcR.content.filter(x=>x.itmID === itm.idx)[0]
-        dispo += srcI.val
+        if(srcI){dispo += srcI.val} 
       }
       let tcol = cap > dispo ? accts[6] : YG
       grp[i].innerHTML = "/"+spanText({text:dispo,col:tcol})
     }
   }
+  updRwdFromPool()
+}
 
-  let txt = "("+ spanText({text:player.masterPool.length,col:YG}) + ")"
-  getID("poolCt1").innerHTML = txt
-  txt = "(" + spanText({text:player.poolRewards.length,col:"yellow"}) + ")"
-  getID("rwdCt1").innerHTML = txt
-  if(getID("rwdBCt")){getID("rwdBCt").innerHTML = txt}
+
+function buildReward(){
+  let tgt = getID("forkA4C")
+  cleanParent(tgt)
+
+  let refReward = undefined
+  let rwTx = ""
+  let rwdBk = "green"
+  let posRwd = player.poolRewards.findIndex(x=>x.idx === getID("forkA4ID").value)
+  if(posRwd > -1){
+    refReward = player.poolRewards[posRwd]
+    refReward.content.forEach(c=>{
+      let poolRwd = player.masterPool.filter(x=>x.idx===c.itmID)[0]
+      poolRwd.selected = true
+      poolRwd.tempoVal = c.val
+    })
+    showPoolBank()
+    rwdBk = "blue"
+    rwTx = "Review Reward : "+refReward.title+"<br>Pick items to include"
+    getID("forkA4ID").value = refReward.idx
+  } else {
+    rwTx = "New Reward : #" + (player.poolRewards.length+1) + "<br>Pick items to include"
+  //  getID("forkA4ID").value = crypto.randomUUID()
+  }
+  getID("forkA4T").innerHTML = rwTx
+  getID("forkA4T").style.backgroundColor = rwdBk
+
+  let arr = player.masterPool.filter(x=>x.selected)
+  if(arr.length > 0){
+    let tb = addEle({dad:tgt,what:"table"})
+    for(let i=0;i<arr.length;i++){
+      let itm = arr[i]
+      let tr = addEle({dad:tb,what:"tr"})
+        
+        let tc = addEle({dad:tr,what:"td",padding:"0 5px 5px 5px"})
+          addEle({dad:tc,text:itm.lbl})
+        tc = addEle({dad:tr,what:"td",padding:"0 5px 5px 5px"})
+          let cr = addEle({dad:tc,setClass:"contRow",alignItems:"center"})
+//          txt = refRwd === undefined ? 1 : refRwd.content.filter(x=>x.itmID === itm.idx)[0].val
+          let inQ = addEle({dad:cr,what:"input",isInput:true,numInput:true,width:"40px",textA:"center",
+          setVal:itm.tempoVal,setID:"itmQt:"+itm.idx,setName:"itmQts",setFunc:(e)=>{
+
+            let idx = e.srcElement.id.split(":")[1]
+            let itm = player.masterPool.filter(x=>x.idx===idx)[0]
+
+            let max = itm.val - dispatchedVal(itm)
+            let nb = Number(e.srcElement.value)
+
+            let posRwd = player.poolRewards.findIndex(x=>x.idx === getID("forkA4ID").value)
+            if(posRwd > -1){
+              let srcR = player.poolRewards[posRwd]
+              let srcI = srcR.content.filter(x=>x.itmID === itm.idx)[0]
+              if(srcI){max += srcI.val}
+            }
+            if(nb<1){nb=0}
+            if(nb>max){nb=max}
+            itm.tempoVal = nb
+            savPlayer()
+            e.srcElement.value = nb
+
+            updDispTtls()
+          }})
+          inQ.addEventListener('keydown', function(event) 
+          {if (event.key === 'Enter'){getID("savRwd").click()}})
+          addEle({dad:cr,text:"E",textC:"yellow",marginL:"5px",fontS:"12px"})
+      tc = addEle({dad:tr,what:"td",padding:"0 5px 5px 5px"})
+        addEle({dad:tc,setID:"itmQtM:"+itm.idx,setName:"grpRwdBk"})
+      let ev = new Event("input") ; inQ.dispatchEvent(ev)
+    }
+
+    let mW = 180 
+    cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",justifyC:"center"})
+      txt = refReward === undefined ? "Save new Reward [E]" : "Save Reward changes [E]"
+      addEle({dad:cr,setClass:"btn",text:txt,border:"green solid 2px",
+      backC:"darkgreen",width:mW+"px",setID:"savRwd",setFunc:savReward})
+
+    cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",justifyC:"center"})
+      addEle({dad:cr,setClass:"btn",text:"Copy this Reward",border:"green solid 2px",
+      backC:"brown",width:mW+"px",setFunc:()=>{
+        getID("forkA4ID").value = crypto.randomUUID()
+        getID("savRwd").click()
+      }})
+
+
+    addEle({dad:tgt,text:`
+    Only items with quantity > 0 are saved`,textC:YG,fontS:"14px"})
+
+  }
+
+  //showRwdINbank()
+  updDispTtls()
+
+}
+function savReward(){
+
+  let dispatcher = []
+  let posRwd = player.poolRewards.findIndex(x=>x.idx === getID("forkA4ID").value)
+
+  let grp = document.getElementsByName("itmQts")
+  grp.forEach(inp=>{
+    let itmID = inp.id.split(":")[1]
+    let val = Number(inp.value)
+    let itm = player.masterPool.filter(x=>x.idx===itmID)[0]
+
+    let cap = itm.val - dispatchedVal(itm)
+    if(posRwd > -1){
+      let srcR = player.poolRewards[posRwd]
+      let srcI = srcR.content.filter(x=>x.itmID === itm.idx)[0]
+      if(srcI){cap += srcI.val}
+      
+    }
+
+    if(val > 0 && val <= cap){dispatcher.push({id:itmID,val:val})}
+  })
+
+  if(dispatcher.length > 0){
+    let newRwd = {
+      title:undefined,
+      idx:getID("forkA4ID").value,
+      content:[],
+      winner:undefined,
+    }
+
+    dispatcher.forEach(obj=>{
+      let itm = player.masterPool.filter(x=>x.idx === obj.id)[0]
+      newRwd.content.push({
+        itmID:itm.idx,
+        lbl:itm.lbl,
+        val:obj.val,
+    })})
+
+    if(posRwd > -1){
+      player.poolRewards[posRwd] = newRwd
+    } else {
+      player.poolRewards.push(newRwd)
+    }
+    for(let i=0;i<player.poolRewards.length;i++){player.poolRewards[i].title = "#"+(i+1)}
+    showRwdINbank()
+    savPlayer()
+  }
+  updDispTtls()
+}
+
+
+function showRwdINbank(){
+  let tgt = getID("forkB2")
+  cleanParent(tgt)
+
+  let tb = addEle({dad:tgt,what:"table"})
+  for(let i=0;i<player.poolRewards.length;i++){
+    let itm = player.poolRewards[i]
+    let tr = addEle({dad:tb,what:"tr"})
+      let tc = addEle({dad:tr,what:"td"})
+        let radE = addEle({dad:tc,what:"radio",isInput:true,setID:"rwdINbk:"+itm.idx,setName:"rwdINbks",
+        accentCol:accts[player.misc.radios],setFunc:(e)=>{
+
+          player.masterPool.forEach(x=>{x.selected = false ; x.tempoVal = 0})
+          let idx = e.srcElement.id.split(":")[1]
+          getID("forkA4ID").value = idx
+          let refReward = player.poolRewards.filter(x=>x.idx === idx)[0]
+          refReward.content.forEach(c=>{
+            let tgtItm = player.masterPool.filter(x=>x.idx === c.itmID)[0]
+            tgtItm.selected = true
+            tgtItm.tempoVal = c.val
+          })
+
+          buildReward()
+
+        }})
+        if(getID("forkA4ID").value === itm.idx){radE.click()}// = true
+
+      addEle({dad:tr,what:"td",text:itm.title,padding:"0 10px 0 5px"})
+      addEle({dad:tr,what:"td",text:"item(s) : " + spanText({text:itm.content.length,col:YG})})
+      tc = addEle({dad:tr,what:"td",paddingL:"10px"})
+        addEle({dad:tc,setClass:"arrowToggler",text:"X",border:"red solid 2px",
+        padding:"1px 4px",width:"fit-content",setID:"delRwd:"+itm.idx,margin:"3px 0",setFunc:(e)=>{
+
+          let rwdPos = player.poolRewards.findIndex(x=>x.idx === e.srcElement.id.split(":")[1])
+          player.poolRewards.splice(rwdPos,1)
+          for(let i=0;i<player.poolRewards.length;i++){player.poolRewards[i].title = "#"+(i+1)}
+          savPlayer()          
+          getID("addNRbtn").click()
+
+        }})
+  }
 }
 
 
 
+
+
+
+
+/*
 function showNextRwd(){
   let tgt = getID("forkB2")
   cleanParent(tgt)
@@ -974,6 +1240,8 @@ function showNextRwd(){
       txt = refRwd === undefined ? "Save new Reward [E]" : "Save Reward changes [E]"
       addEle({dad:cr,setClass:"btn",text:txt,border:"green solid 2px",
       backC:"darkgreen",width:"",setID:"savRwd",setFunc:()=>{
+
+
         let savGood = true
         let dispatcher = []
 
@@ -994,6 +1262,8 @@ function showNextRwd(){
         })
 
         let thisID = player.rwdRefID === undefined ? crypto.randomUUID() : player.rwdRefID
+
+
         if (savGood){
           let newRwd = {
             title:undefined,
@@ -1021,8 +1291,13 @@ function showNextRwd(){
           for(let i=0;i<player.poolRewards.length;i++){player.poolRewards[i].title = "#"+(i+1)}
           savPlayer()
         }
+
+
+
         showRwdINbank()
         updDispTtls()
+
+
     }})
   } else {
     addEle({dad:tgt,text:spanText({text:"---",col:accts[6]})})
@@ -1030,39 +1305,44 @@ function showNextRwd(){
   showRwdINbank()
   updDispTtls()
 }
+*/
 
 
-function showRwdINbank(){
-  let tgt = getID("forkB3")
-  cleanParent(tgt)
 
-  let tb = addEle({dad:tgt,what:"table"})
-  for(let i=0;i<player.poolRewards.length;i++){
-    let itm = player.poolRewards[i]
-    let tr = addEle({dad:tb,what:"tr"})
-      let tc = addEle({dad:tr,what:"td"})
-        let radE = addEle({dad:tc,what:"radio",isInput:true,setID:"rwdINbk:"+i,setName:"rwdINbks",
-        accentCol:accts[player.misc.radios],setFunc:(e)=>{
-          let idx = Number(e.srcElement.id.split(":")[1])
-          player.rwdRefID = player.poolRewards[idx].idx
-          showNextRwd()
-        }})
-        if(itm.idx === player.rwdRefID){radE.checked = true}
 
-      addEle({dad:tr,what:"td",text:itm.title,padding:"0 10px 0 5px"})
-      addEle({dad:tr,what:"td",text:"item(s) : " + spanText({text:itm.content.length,col:YG})})
-      tc = addEle({dad:tr,what:"td",paddingL:"10px"})
-        addEle({dad:tc,setClass:"arrowToggler",text:"X",border:"red solid 2px",
-        padding:"1px 4px",width:"fit-content",setID:"delRwd:"+i,margin:"3px 0",setFunc:(e)=>{
-          let idx = Number(e.srcElement.id.split(":")[1])
-          if(player.poolRewards[idx].idx === player.rwdRefID){player.rwdRefID = undefined}
-          player.poolRewards.splice(idx,1)
-          for(let i=0;i<player.poolRewards.length;i++){player.poolRewards[i].title = "#"+(i+1)}
-          savPlayer()
-          showNextRwd()
-        }})
-  }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1735,3 +2015,19 @@ addEle({dad:bodySub,text:"is : "+maxCCN,marginT:"20px"})
 
 //af 208 251 1906 
 // 1722 0259 6016
+
+/*
+
+buying baby crops 30 ((Orange Juice))/k : 
+[ 25k ((peppers))] 
+[ 15k ((eggplant))] 
+[ 25k ((carrot))] 
+[ 25k ((peas))] 
+[ 7k ((cucumber))]
+
+[ selling ] 5k ((Veggie Juice)) 10gk(200ap) or 45g all
+ ... ((Orange Juice)) 2k for 15g or 5k for 35g
+
+[ selling ((Apple Cider)) ] 10k 15g/k or all for 140
+
+*/
