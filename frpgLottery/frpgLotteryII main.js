@@ -301,7 +301,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/19 19:05"
+let last = "10/19 19:10"
 ////////////////////////
 
 
@@ -336,7 +336,7 @@ function setPage(){
 
     addEle({dad:cr,text:"last up : "+last,marginL:"10px",fontS:"14px",textC:accts[1]})
 
-    addEle({dad:cr,text:"⭐",marginL:"10px"})
+//    addEle({dad:cr,text:"⭐",marginL:"10px"})
 
   setTopSel()
 }
