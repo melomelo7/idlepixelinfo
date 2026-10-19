@@ -301,7 +301,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/18 15:25"
+let last = "10/19 18:30"
 ////////////////////////
 
 
@@ -873,14 +873,7 @@ function setPoolRewards(){
         cr = addEle({dad:forkA3,setClass:"contRow",alignItems:"center",justifyC:"space-around"})
           addEle({dad:cr,setClass:"btn",border:"green solid 2px",backC:"darkgreen",text:"Add new Reward",
           setID:"addNRbtn",setFunc:()=>{
-            for(let i=0;i<player.poolRewards.length;i++){
-              if(player.poolRewards[i].content.length < 1){
-                console.log(i)
-                player.poolRewards.splice(i,1)
-              }
-
-
-            }
+            cleanEmpties()
             for(let i=0;i<player.poolRewards.length;i++){player.poolRewards[i].title = "#"+(i+1)}
             player.masterPool.forEach(x=>{x.selected = false ; x.tempoVal = 0})
             getID("forkA4ID").value = crypto.randomUUID()
@@ -900,6 +893,18 @@ function setPoolRewards(){
 
 }
 
+
+function cleanEmpties(){
+  let found = false
+  console.log("cleaning empties")
+  for(let i=0;i<player.poolRewards.length;i++){
+    if(player.poolRewards[i].content.length < 1){
+      player.poolRewards.splice(i,1)
+      found = true
+    }
+  }
+  return found
+}
 
 function dispatchedVal(itm){
   let sum = 0
@@ -933,7 +938,7 @@ function showPoolBank(){
   updDispTtls()
 }
 function GApoolCheck(itmIdx,checked){
-  let GAPitem = player.masterPool.filter(x=>x.idx ===itmIdx)[0]
+  let GAPitem = player.masterPool.filter(x=>x.idx === itmIdx)[0]
   let togl = checked
   if(dispatchedVal(GAPitem)>=GAPitem.val){togl = false}
   
@@ -942,11 +947,13 @@ function GApoolCheck(itmIdx,checked){
     let rwd = player.poolRewards[rwdPos]
     let itmPos = rwd.content.findIndex(x=>x.itmID === GAPitem.idx)
     if(!checked){
-      
+      console.log(GAPitem.selected)
       GAPitem.selected = false
-      console.log(itmPos)
-      rwd.content.splice(itmPos,1)
-      savPlayer()
+      if(itmPos>-1){
+        rwd.content.splice(itmPos,1)
+        showRwdINbank()
+        savPlayer()
+      }
     } else {
       if(itmPos>-1){togl = true}
     }
@@ -954,7 +961,6 @@ function GApoolCheck(itmIdx,checked){
 
   GAPitem.selected = togl
   showPoolBank()
-//  showRwdINbank()
   buildReward()
 }
 
@@ -1011,7 +1017,6 @@ function buildReward(){
     getID("forkA4ID").value = refReward.idx
   } else {
     rwTx = "New Reward : #" + (player.poolRewards.length+1) + "<br>Pick items to include"
-  //  getID("forkA4ID").value = crypto.randomUUID()
   }
   getID("forkA4T").innerHTML = rwTx
   getID("forkA4T").style.backgroundColor = rwdBk
@@ -1144,7 +1149,11 @@ function showRwdINbank(){
       let tc = addEle({dad:tr,what:"td"})
         let radE = addEle({dad:tc,what:"radio",isInput:true,setID:"rwdINbk:"+itm.idx,setName:"rwdINbks",
         accentCol:accts[player.misc.radios],setFunc:(e)=>{
-
+          if(cleanEmpties()){
+            showRwdINbank()
+            getID("rwdINbk:"+e.srcElement.id.split(":")[1]).click()
+            return
+          }
           player.masterPool.forEach(x=>{x.selected = false ; x.tempoVal = 0})
           let idx = e.srcElement.id.split(":")[1]
           getID("forkA4ID").value = idx
@@ -1154,11 +1163,9 @@ function showRwdINbank(){
             tgtItm.selected = true
             tgtItm.tempoVal = c.val
           })
-
           buildReward()
-
         }})
-        if(getID("forkA4ID").value === itm.idx){radE.click()}// = true
+        if(getID("forkA4ID").value === itm.idxo){radE.click()}
 
       addEle({dad:tr,what:"td",text:itm.title,padding:"0 10px 0 5px"})
       addEle({dad:tr,what:"td",text:"item(s) : " + spanText({text:itm.content.length,col:YG})})
@@ -2029,5 +2036,7 @@ buying baby crops 30 ((Orange Juice))/k :
  ... ((Orange Juice)) 2k for 15g or 5k for 35g
 
 [ selling ((Apple Cider)) ] 10k 15g/k or all for 140
+
+[ selling ((Arnold Palmer)) ] 50gk up to 6k
 
 */
