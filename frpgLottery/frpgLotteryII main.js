@@ -301,7 +301,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/19 18:30"
+let last = "10/19 19:00"
 ////////////////////////
 
 
@@ -837,7 +837,7 @@ function setPoolRewards(){
         let forkA4 = addEle({dad:forkA,setClass:"contCol",border:"green solid 2px",borderT:"none",
         padding:"5px",setID:"forkA4"})
           let forkA4T = addEle({dad:forkA4,setClass:"contCol"})
-            addEle({dad:forkA4T,setID:"forkA4T",textA:"center"})
+            addEle({dad:forkA4T,setID:"forkA4T",textA:"center",paddingB:"3px"})
             addEle({dad:forkA4T,what:"input",isInput:true,setID:"forkA4ID",display:"none"})//
           let forkA4C = addEle({dad:forkA4,setClass:"contCol",setID:"forkA4C",marginT:"5px"})
 
@@ -1012,7 +1012,7 @@ function buildReward(){
       poolRwd.tempoVal = c.val
     })
     showPoolBank()
-    rwdBk = "blue"
+    rwdBk = "darkblue"
     rwTx = "Review Reward : "+refReward.title+"<br>Pick items to include"
     getID("forkA4ID").value = refReward.idx
   } else {
@@ -1064,19 +1064,18 @@ function buildReward(){
       let ev = new Event("input") ; inQ.dispatchEvent(ev)
     }
 
-    let mW = 180 
     cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",justifyC:"center"})
       txt = refReward === undefined ? "Save new Reward [E]" : "Save Reward changes [E]"
       addEle({dad:cr,setClass:"btn",text:txt,border:"green solid 2px",
-      backC:"darkgreen",width:mW+"px",setID:"savRwd",setFunc:savReward})
+      backC:"darkgreen",setID:"savRwd",setFunc:savReward})
 
     cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",justifyC:"center"})
       addEle({dad:cr,setClass:"btn",text:"Copy this Reward",border:"green solid 2px",
-      backC:"brown",width:mW+"px",setFunc:()=>{
+      backC:"brown",setFunc:()=>{
         getID("forkA4ID").value = crypto.randomUUID()
         getID("savRwd").click()
       }})
-
+      addEle({dad:cr,text:"✅",margin:"0 3px 0 -2px",visibility:"hidden",setID:"savGdisp"})
 
     addEle({dad:tgt,text:`
     Only items with quantity > 0 are saved`,textC:YG,fontS:"14px"})
@@ -1131,6 +1130,10 @@ function savReward(){
       player.poolRewards.push(newRwd)
     }
     for(let i=0;i<player.poolRewards.length;i++){player.poolRewards[i].title = "#"+(i+1)}
+
+    getID("savGdisp").style.visibility = "visible"
+    setTimeout(()=>{getID("savGdisp").style.visibility = "hidden"},500)
+
     showRwdINbank()
     savPlayer()
   }
