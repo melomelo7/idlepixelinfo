@@ -301,7 +301,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/21 00:35"
+let last = "10/22 06:50"
 ////////////////////////
 
 
@@ -1443,9 +1443,11 @@ function setLottery(){
 
   cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"5px 0"})
     addEle({dad:cr,text:"Set up Lottery",borderB:"green solid 2px",margin:"0 5px"})
-    addEle({dad:cr,setClass:"arrowToggler",setID:"setLot",text:"🔽",setFunc:(e)=>{
-
+    addEle({dad:cr,setClass:"arrowToggler",setID:"setLot1",setName:"setLots",text:"🔽",
+    setFunc:(e)=>{
       let src = e.srcElement
+      document.getElementsByName("setLots").forEach(x=>{if(x.id!==src.id){x.innerHTML = "🔽"}})
+
       let disp = getID("processFr")
       disp.style.display = src.innerHTML === "🔼" ? "none" : "flex"
       src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
@@ -1466,7 +1468,7 @@ function setLottery(){
       }
     }})
 
-  addEle({dad:info,setID:"lotWarn",display:"none",text:`
+  addEle({dad:info,setID:"lotWarn",display:"none",marginB:"5px",text:`
   ** Blue buttons will Overwrite Lottery Details,<br>
   do not use them when you have a running Lottery,<br>
   especially IF you started to payout Players **`,textC:accts[0]})
@@ -1476,8 +1478,11 @@ function setLottery(){
 
   cr = addEle({dad:info,setClass:"contRow",alignItems:"center",marginB:"5px"})
     addEle({dad:cr,text:"Review Result",borderB:"green solid 2px",margin:"0 5px"})
-    addEle({dad:cr,setClass:"arrowToggler",text:"🔽",setFunc:(e)=>{
+    addEle({dad:cr,setClass:"arrowToggler",setID:"setLot2",setName:"setLots",text:"🔽",
+    setFunc:(e)=>{
       let src = e.srcElement
+      document.getElementsByName("setLots").forEach(x=>{if(x.id!==src.id){x.innerHTML = "🔽"}})
+
       let disp = getID("processFr")
       if(disp.style.display === "flex"){disp.style.display = "none"}
       src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
@@ -1487,6 +1492,25 @@ function setLottery(){
         getID("arrTR").click()
       } else {cleanParent(bodySub)}
     }}) // 🔼
+
+
+  cr = addEle({dad:info,setClass:"contRow",alignItems:"center",marginB:"5px"})
+  addEle({dad:cr,text:"Review Payout",borderB:"green solid 2px",margin:"0 5px"})
+  addEle({dad:cr,setClass:"arrowToggler",setID:"setLot3",setName:"setLots",text:"🔽",
+  setFunc:(e)=>{
+    let src = e.srcElement
+    document.getElementsByName("setLots").forEach(x=>{if(x.id!==src.id){x.innerHTML = "🔽"}})
+
+    let disp = getID("processFr")
+    if(disp.style.display === "flex"){disp.style.display = "none"}
+    src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
+    if(src.innerHTML === "🔼"){
+
+
+
+    } else {cleanParent(bodySub)}
+  }}) // 🔼
+
 
 }
 
@@ -1867,9 +1891,9 @@ function fillResultFr(){
   console.log(player.lottery.merge)
 
   addEle({dad:tgt,what:"textarea",setID:"resultOut",overflow:"scroll",
-  height:"150px",width:"300px",minHeight:"150px",minWidth:"300px",
-  maxHeight:"150px",maxWidth:"300px",border:"green solid 2px",backC:"grey",
-  resize:"none",padding:"10px 0 0 10px",text:"hola chikita"})//,backG:"#2C5B52",textC:"lime"
+  height:"150px",width:"300px",minHeight:"150px",minWidth:"300px",textC:"rgb(200,200,202)",
+  maxHeight:"150px",maxWidth:"300px",border:"green solid 2px",backC:"rgb(24,26,30)",
+  resize:"none",padding:"10px 0 0 10px",text:"hola chikita"})
 
   addEle({dad:tgt,text:"* Modify text if needed before copy *",textC:YG,margin:"5px"})
 
@@ -1909,7 +1933,6 @@ function publishResult(){
     txt=txt.slice(0,txt.length-1)
 
   })
-
 
   tgt.value = txt
 
