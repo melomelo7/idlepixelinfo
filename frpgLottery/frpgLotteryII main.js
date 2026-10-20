@@ -301,7 +301,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/19 19:10"
+let last = "10/21 00:20"
 ////////////////////////
 
 
@@ -745,7 +745,10 @@ function fillForB3(){
           let arr = getItmArr()
           getID("addItmN").innerHTML = arr[idx]
         }})
-      addEle({dad:tr,what:"td",text:itm})
+      addEle({dad:tr,what:"td",text:itm,setID:"itmRadT:"+i,setFunc:(e)=>{
+        let idx = Number(e.srcElement.id.split(":")[1])
+        getID("itmRad:"+idx).click()
+      }})
   }
   getID("itmCt").innerHTML = "(" + spanText({text:getItmArr().length,col:"yellow"}) + ")"
 }
@@ -841,27 +844,14 @@ function setPoolRewards(){
             addEle({dad:forkA4T,setID:"forkA4T",textA:"center",paddingB:"3px"})
             addEle({dad:forkA4T,what:"input",isInput:true,setID:"forkA4ID",display:"none"})//
           let forkA4C = addEle({dad:forkA4,setClass:"contCol",setID:"forkA4C",marginT:"5px"})
-
         let forkA5 = addEle({dad:forkA,setClass:"contCol",border:"green solid 2px",padding:"5px",
         radiusBL:"5px",radiusBR:"5px",setID:"forkA5",maxHeight:"500px",overflowX:"auto",borderT:"none"})
   
       let forkB = addEle({dad:fork,setClass:"contCol",margin:"5px 0 0 5px"})
         let forkB1 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",radiusTL:"5px",
         radiusTR:"5px",setID:"forkB1",backC:"darkblue"})
-  
-        /*
-        let forkB2 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",borderT:"none",
-        padding:"5px",setID:"forkB2"})
-  
-        let forkB3 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",borderT:"none",
-        padding:"5px",setID:"forkB3"})
-        */
-
         let forkB2 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",padding:"5px",
         setID:"forkB2",borderT:"none",radiusBL:"5px",radiusBR:"5px",maxHeight:"500px",overflowX:"auto"})
-
-
-
         
         cr = addEle({dad:forkA1,setClass:"contRow",alignItems:"center",justifyC:"center",padding:"0 5px"})
           addEle({dad:cr,text:"Items Pool Bank",textA:"center",marginR:"5px"})
@@ -930,8 +920,8 @@ function showPoolBank(){
         let cbx = addEle({dad:tc,what:"checkbox",isInput:true,setID:"poolBCheck:"+itm.idx,setName:"poolBChecks",
         setFunc:(e)=>{GApoolCheck(e.srcElement.id.split(":")[1],e.srcElement.checked)}})
         if(itm.selected){cbx.checked = true}
-      addEle({dad:tr,what:"td",text:itm.lbl,padding:"0 5px",setID:"poolBCheckT:"+i,setFunc:(e)=>{
-        let idx = Number(e.srcElement.id.split(":")[1])
+      addEle({dad:tr,what:"td",text:itm.lbl,padding:"0 5px",setID:"poolBCheckT:"+itm.idx,setFunc:(e)=>{
+        let idx = e.srcElement.id.split(":")[1]
         getID("poolBCheck:"+idx).click()
       }})
       addEle({dad:tr,what:"td",textC:YG,textA:"right",setName:"grpMasterBk"})
@@ -1186,140 +1176,6 @@ function showRwdINbank(){
         }})
   }
 }
-
-
-
-
-
-
-
-/*
-function showNextRwd(){
-  let tgt = getID("forkB2")
-  cleanParent(tgt)
-
-  let refRwd = undefined
-  if(player.rwdRefID !==undefined){
-    refRwd = player.poolRewards.filter(x=>x.idx === player.rwdRefID)[0]
-    player.masterPool.forEach(x=>{x.selected = false})
-    refRwd.content.forEach(c=>{
-      player.masterPool.filter(x=>x.idx===c.itmID)[0].selected = true
-    })
-    showPoolBank()
-  }
-
-  cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",marginB:"5px"})
-    let txt = refRwd === undefined ? "next Reward :" : "Reward :"
-    addEle({dad:cr,text:txt,borderB:"green dotted 2px",width:"fit-content"})
-    txt = refRwd === undefined ? "#"+(player.poolRewards.length+1) : refRwd.title
-    addEle({dad:cr,text:txt,marginL:"5px",setID:"nextRwdT"})
-
-  let arr = player.masterPool.filter(x=>x.selected)
-  if(arr.length > 0){
-    let tb = addEle({dad:tgt,what:"table"})
-    for(let i=0;i<arr.length;i++){
-      let itm = arr[i]
-      let tr = addEle({dad:tb,what:"tr"})
-        addEle({dad:tr,what:"td",text:itm.lbl})
-      let tc = addEle({dad:tr,what:"td",padding:"0 5px 5px 5px"})
-       let cr = addEle({dad:tc,setClass:"contRow",alignItems:"center"})
-        txt = refRwd === undefined ? 1 : refRwd.content.filter(x=>x.itmID === itm.idx)[0].val
-        let inQ = addEle({dad:cr,what:"input",isInput:true,numInput:true,width:"40px",textA:"center",
-        setVal:txt,setID:"itmQt:"+itm.idx,setName:"itmQts",setFunc:(e)=>{
-          let idx= e.srcElement.id.split(":")[1]
-          let itm = player.masterPool.filter(x=>x.idx===idx)[0]
-          let max = itm.val - dispatchedVal(itm)
-          let nb = Number(e.srcElement.value)
-          if(player.rwdRefID !== undefined){
-            let srcR = player.poolRewards.filter(x=>x.idx === player.rwdRefID)[0]
-            let srcI = srcR.content.filter(x=>x.itmID === itm.idx)[0]
-            max += srcI.val
-          }
-          if(nb<1){nb=1}
-          if(nb>max){nb=max}
-          e.srcElement.value = nb
-        }})
-        inQ.addEventListener('keydown', function(event) 
-        {if (event.key === 'Enter'){getID("savRwd").click()}})
-        addEle({dad:cr,text:"E",textC:"yellow",marginL:"5px",fontS:"12px"})
-
-      addEle({dad:tr,what:"td",setID:"itmQtM:"+itm.idx,setName:"grpRwdBk"})
-      let ev = new Event("input") ; inQ.dispatchEvent(ev)
-    }
-
-    cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",justifyC:"center"})
-      txt = refRwd === undefined ? "Save new Reward [E]" : "Save Reward changes [E]"
-      addEle({dad:cr,setClass:"btn",text:txt,border:"green solid 2px",
-      backC:"darkgreen",width:"",setID:"savRwd",setFunc:()=>{
-
-
-        let savGood = true
-        let dispatcher = []
-
-        let grp = document.getElementsByName("itmQts")
-        grp.forEach(inp=>{
-          let itmID = inp.id.split(":")[1]
-          let val = Number(inp.value)
-          let itm = player.masterPool.filter(x=>x.idx===itmID)[0]
-
-          dispatcher.push({id:itmID,val:val})
-          let cap = itm.val - dispatchedVal(itm)
-          if(player.rwdRefID !== undefined){
-            let srcR = player.poolRewards.filter(x=>x.idx === player.rwdRefID)[0]
-            let srcI = srcR.content.filter(x=>x.itmID === itm.idx)[0]
-            cap += srcI.val
-          }
-          if(cap < val || val === 0){savGood = false}
-        })
-
-        let thisID = player.rwdRefID === undefined ? crypto.randomUUID() : player.rwdRefID
-
-
-        if (savGood){
-          let newRwd = {
-            title:undefined,
-            idx:thisID,
-            content:[],
-            winner:undefined,
-          }
-
-          dispatcher.forEach(obj=>{
-            let itm = player.masterPool.filter(x=>x.idx === obj.id)[0]
-            newRwd.content.push({
-              itmID:itm.idx,
-              lbl:itm.lbl,
-              val:obj.val,
-          })})
-
-          if(player.rwdRefID !==undefined){
-            let idx = player.poolRewards.findIndex(x=>x.idx === player.rwdRefID)
-            player.poolRewards[idx] = newRwd
-          } else {
-            player.poolRewards.push(newRwd)
-            getID("nextRwdT").innerHTML = "#"+(player.poolRewards.length+1)
-          }
-
-          for(let i=0;i<player.poolRewards.length;i++){player.poolRewards[i].title = "#"+(i+1)}
-          savPlayer()
-        }
-
-
-
-        showRwdINbank()
-        updDispTtls()
-
-
-    }})
-  } else {
-    addEle({dad:tgt,text:spanText({text:"---",col:accts[6]})})
-  }
-  showRwdINbank()
-  updDispTtls()
-}
-*/
-
-
-
 
 
 
@@ -1656,7 +1512,7 @@ spanText({text:"II",col:YG}) + " + " + spanText({text:"III",col:YG}) + " )",
 margin:"-10px 0 0 50px"})
 
 
-addEle({dad:cc,text:"... OR go step by step ...",
+addEle({dad:cc,text:"... OR go step by step : Shuffle and Display",
 width:"fit-content",paddingB:"5px",margin:"10px 5px"})
 
 tb = addEle({dad:cc,what:"table"})
@@ -1903,7 +1759,6 @@ function showMergeResult(){
 
 
 
-
 }
 
 
@@ -1925,7 +1780,7 @@ function showMergeResult(){
 
 
 
-function synthRwd(rwdA){
+function synthRwd2(rwdA){
   let itmA = []
   rwdA.forEach(r=>{
     r.content.forEach(c=>{
@@ -1945,11 +1800,41 @@ function synthRwd(rwdA){
 return itmA
 }
 
+
+function synthRwd(arr){
+  arr.forEach(p=>{
+    let itmA = []
+    p.rwds.forEach(r=>{
+      r.content.forEach(c=>{
+        let idx = itmA.findIndex(x=>x.itmID === c.itmID)
+        if(idx === -1){
+          itmA.push({
+            itmID:c.itmID,
+            lbl:c.lbl,
+            val:c.val,
+            paid:0,
+          })
+        } else {
+          itmA[idx].val += c.val 
+        }
+      })
+  
+    })
+    p.synth = itmA
+  })
+}
+
+
+
 function fillResultFr(){
   let tgt = getID("resultFr")
   cleanParent(tgt)
 
-  let arr = structuredClone(player.lottery.merge)
+//  let arr = structuredClone(player.lottery.merge)
+
+  let arr = player.lottery.merge
+
+  synthRwd(arr)
 
   let tb = addEle({dad:tgt,what:"table"})
     let tr = addEle({dad:tb,what:"tr"})
@@ -1961,7 +1846,7 @@ function fillResultFr(){
   for(let i=0;i<arr.length;i++){
     tr = addEle({dad:tb,what:"tr"})
     let pla = arr[i]
-    pla.synth = synthRwd(pla.rwds)
+//    pla.synth = synthRwd(pla.rwds)
       addEle({dad:tr,what:"td",text:pla.name,textA:"center",borderT:"green solid 2px",paddingR:"10px"})
       addEle({dad:tr,what:"td",text:pla.rwds.length,textA:"center",border:"green solid 2px",borderB:"none"})
     let tc = addEle({dad:tr,what:"td",textA:"center",borderT:"green solid 2px"})
@@ -1977,6 +1862,46 @@ function fillResultFr(){
       }
 
   }
+
+  addEle({dad:tgt,text:"Share Result :<br>( copy-paste in your mailbox look for )",margin:"10px 0"})
+  console.log(player.lottery.merge)
+
+  let resTA = addEle({dad:tgt,what:"textarea",setID:"resultOut",overflow:"scroll",
+  height:"150px",width:"300px",minHeight:"150px",minWidth:"300px",
+  maxHeight:"150px",maxWidth:"300px",border:"green solid 2px",backC:"grey",
+  resize:"none",padding:"10px 0 0 10px",text:"hola chikita"})//,backG:"#2C5B52",textC:"lime"
+
+  addEle({dad:tgt,text:"* Modify text if needed before copy *",textC:YG,margin:"5px"})
+
+  let cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",margin:"5px"})
+    addEle({dad:cr,what:"checkbox",isInput:true,accentCol:"green",setID:"chRwCt",setFunc:publishResult}).checked = true
+    addEle({dad:cr,text:"Include Reward Count",marginL:"10px",setFunc:()=>{getID("chRwCt").click()}})
+
+
+  publishResult()
+}
+
+function publishResult(){
+  let tgt = getID("resultOut")
+
+  let txt ="Results\n"
+  let cap = txt.length
+  for(let i=0;i<cap+2;i++){txt+="-"}
+  player.lottery.merge.forEach(p=>{
+    txt+= "\n"
+    console.log(p)
+    txt+=p.name
+    if(getID("chRwCt").checked){txt+=" ("+p.rwds.length+" Rewards) "}
+    p.synth.forEach(s=>{
+      txt+= "(("+s.lbl+"))x "+s.val+","
+    })
+    txt=txt.slice(0,txt.length-1)
+
+  })
+
+
+  tgt.value = txt
+
 }
 
 
