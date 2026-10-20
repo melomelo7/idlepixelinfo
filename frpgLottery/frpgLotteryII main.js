@@ -301,7 +301,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/21 00:20"
+let last = "10/21 00:35"
 ////////////////////////
 
 
@@ -1866,7 +1866,7 @@ function fillResultFr(){
   addEle({dad:tgt,text:"Share Result :<br>( copy-paste in your mailbox look for )",margin:"10px 0"})
   console.log(player.lottery.merge)
 
-  let resTA = addEle({dad:tgt,what:"textarea",setID:"resultOut",overflow:"scroll",
+  addEle({dad:tgt,what:"textarea",setID:"resultOut",overflow:"scroll",
   height:"150px",width:"300px",minHeight:"150px",minWidth:"300px",
   maxHeight:"150px",maxWidth:"300px",border:"green solid 2px",backC:"grey",
   resize:"none",padding:"10px 0 0 10px",text:"hola chikita"})//,backG:"#2C5B52",textC:"lime"
@@ -1876,6 +1876,17 @@ function fillResultFr(){
   let cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",margin:"5px"})
     addEle({dad:cr,what:"checkbox",isInput:true,accentCol:"green",setID:"chRwCt",setFunc:publishResult}).checked = true
     addEle({dad:cr,text:"Include Reward Count",marginL:"10px",setFunc:()=>{getID("chRwCt").click()}})
+
+  cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",margin:"5px"})
+    addEle({dad:cr,setClass:"btn",backC:"darkgreen",border:"orange solid 2px",text:"Copy Text",
+    width:"200px",setFunc:()=>{
+      navigator.clipboard.writeText(getID("resultOut").value)
+      getID("copyOK").style.visibility = "visible"
+      setTimeout(()=>{getID("copyOK").style.visibility = "hidden"},700)
+
+    }})
+    addEle({dad:cr,text:"✅",margin:"0 3px 0 -2px",visibility:"hidden",setID:"copyOK"})
+
 
 
   publishResult()
