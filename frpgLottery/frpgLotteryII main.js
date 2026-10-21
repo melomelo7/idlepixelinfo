@@ -252,6 +252,15 @@ function joinItems(){
   player.items.all = arrSorting(arr)
 }
 
+let numCap = 500000
+function chkNumInput(val){
+  val = Number(val)
+  val = Math.ceil(val)
+  if(val < 0){val = 0}
+  if(val > numCap){val = numCap}
+  return val
+}
+
 let player = {
   items :{
     default:[],
@@ -301,7 +310,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/22 06:50"
+let last = "10/21 21:55"
 ////////////////////////
 
 
@@ -437,7 +446,7 @@ function setItems(){
         addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center",setID:"itmBkTtl"})
         addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center",border:"teal solid 2px",
         borderB:"none",borderT:"none",setID:"itmDefC"})
-        addEle({dad:tr,what:"td",text:txt,textC:YG,textA:"center",borderR:"teal solid 2px",setID:"itmCusC"})
+        addEle({dad:tr,what:"td",text:txt,textC:accts[0],textA:"center",borderR:"teal solid 2px",setID:"itmCusC"})
         addEle({dad:tr,what:"td",textC:YG,textA:"center",textC:"yellow",setID:"itmDisC"})
 
   updItmInfos()
@@ -475,7 +484,9 @@ function setItems(){
             getID("inFilItm").value = ""
             let ev = new Event("input") ; getID("inFilItm").dispatchEvent(ev)
           }})
-          addEle({dad:cr,text:"- "+itm.lbl,margin:"0 10px",backC:"green",width:"200px",paddingL:"5px"})
+          let tbk = itm.idx.includes("d") ? "green" : accts[0]
+          let txc = itm.idx.includes("d") ? "#ccc" : "black"
+          addEle({dad:cr,text:"- "+itm.lbl,margin:"0 10px",textC:txc,backC:tbk,width:"200px",paddingL:"5px"})
       }
     }})
     addEle({dad:cr,setID:"lenlen1"})
@@ -631,8 +642,11 @@ function setMasterPool(){
     addEle({dad:cr,textC:"white",textA:"center",setID:"addItmN",minWidth:"220px",marginL:"",backC:"green"})
   cr = addEle({dad:forkA2,setClass:"contRow",alignItems:"center",margin:"10px 0 5px 0",justifyC:"center"})
     addEle({dad:cr,text:"Total :",marginR:"5px"})
-    let inQ = addEle({dad:cr,what:"input",isInput:true,numInput:true,width:"40px",setVal:1,
-    textA:"center",setID:"addItmQ"})
+    let inQ = addEle({dad:cr,what:"input",isInput:true,numInput:true,width:"50px",setVal:1,
+    textA:"center",setID:"addItmQ",setFunc:(e)=>{
+      let src = e.srcElement
+      src.value = chkNumInput(src.value)
+    }})
     inQ.addEventListener('keydown', function(event) 
     {if (event.key === 'Enter'){getID("savtoPool").click()}})
     addEle({dad:cr,text:"E",textC:"yellow",marginL:"5px",fontS:"12px"})
@@ -657,8 +671,7 @@ function setMasterPool(){
         getID("poolCt1").innerHTML = "("+ spanText({text:player.masterPool.length,col:YG}) + ")"
         getID("poolCt2").innerHTML = "("+ spanText({text:player.masterPool.length,col:YG}) + ")"
         fillForB3()
-        showMaster()
-        document.getElementsByName("masterIRads")[0].click()
+        showMaster(nm)
       }
     }})
 
@@ -683,8 +696,11 @@ function setMasterPool(){
     marginL:"",backC:"green",text:spanText({text:"---",col:accts[6]})})
   cr = addEle({dad:forkB2,setClass:"contRow",alignItems:"center",margin:"10px 0 5px 0",justifyC:"center"})
     addEle({dad:cr,text:"Adjust Total :",marginR:"5px"})
-    let inQ2 = addEle({dad:cr,what:"input",isInput:true,numInput:true,width:"40px",setVal:1,
-    textA:"center",setID:"masterItmQ"})
+    let inQ2 = addEle({dad:cr,what:"input",isInput:true,numInput:true,width:"50px",setVal:1,
+    textA:"center",setID:"masterItmQ",setFunc:(e)=>{
+      let src = e.srcElement
+      src.value = chkNumInput(src.value)
+    }})
     inQ2.addEventListener('keydown', function(event) 
     {if (event.key === 'Enter'){getID("savNttl").click()}})
     addEle({dad:cr,text:"E",textC:"yellow",marginL:"5px",fontS:"12px"})
@@ -699,8 +715,7 @@ function setMasterPool(){
         qt = qt > 0 ? qt : 1
         player.masterPool[idx].val = qt
         savPlayer()
-        showMaster()
-        if(player.masterPool.length>0){document.getElementsByName("masterIRads")[0].click()}
+        showMaster(player.masterPool[idx].lbl)
       }
     }})
 
@@ -753,7 +768,7 @@ function fillForB3(){
   getID("itmCt").innerHTML = "(" + spanText({text:getItmArr().length,col:"yellow"}) + ")"
 }
 
-function showMaster(){
+function showMaster(nm = undefined){
   let tgt = getID("forkB3")
   cleanParent(tgt)
   let tb = addEle({dad:tgt,what:"table"})
@@ -769,6 +784,11 @@ function showMaster(){
           getID("masterItmQ").value = itm.val
           getID("poolCt2").innerHTML = "("+ spanText({text:player.masterPool.length,col:YG}) + ")"
         }})
+
+      if(nm && nm === itm.lbl){
+        getID("masterIRad:"+i).click()
+        getID("masterItmQ").focus()
+      }
       addEle({dad:tr,what:"td",text:itm.val.toLocaleString(),textC:YG,padding:"0 5px"})
       addEle({dad:tr,what:"td",text:itm.lbl})
     tc = addEle({dad:tr,what:"td",paddingL:"10px"})
@@ -788,6 +808,8 @@ function showMaster(){
 //          document.getElementsByName("itmRads")[0].click()
         }})
   }
+
+
   if(document.getElementsByName("itmRads")[0]){document.getElementsByName("itmRads")[0].click()}
 }
 
@@ -1062,7 +1084,7 @@ function buildReward(){
 
     cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",justifyC:"center"})
       addEle({dad:cr,setClass:"btn",text:"Copy this Reward",border:"green solid 2px",
-      backC:"brown",setFunc:()=>{
+      backC:"brown",width:"120px",setFunc:()=>{
         getID("forkA4ID").value = crypto.randomUUID()
         getID("savRwd").click()
       }})
@@ -1925,7 +1947,7 @@ function publishResult(){
   player.lottery.merge.forEach(p=>{
     txt+= "\n"
     console.log(p)
-    txt+=p.name
+    txt+=p.name+" "
     if(getID("chRwCt").checked){txt+=" ("+p.rwds.length+" Rewards) "}
     p.synth.forEach(s=>{
       txt+= "(("+s.lbl+"))x "+s.val+","
