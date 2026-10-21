@@ -310,7 +310,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/22 05:40"
+let last = "10/22 05:45"
 ////////////////////////
 
 
@@ -899,7 +899,7 @@ function setPoolRewards(){
           cr = addEle({dad:cc,setClass:"contRow",alignItems:"center",justifyC:"center",padding:"0 5px"})
             addEle({dad:cr,text:"Review Rewards"})
           cr = addEle({dad:cc,setClass:"contRow",alignItems:"center",justifyC:"center",padding:"0 5px"})
-            addEle({dad:cr,what:"checkbox",isInput:true,accentCol:"green",setID:"chReRw",setFunc:showRwdINbank})
+            addEle({dad:cr,what:"checkbox",isInput:true,accentCol:"green",setID:"chReRw",setFunc:showRwdINbank}).checked = true
             addEle({dad:cr,text:"Show details",marginL:"10px",setFunc:()=>{getID("chReRw").click()}})
 
       getID("addNRbtn").click()
@@ -1193,13 +1193,13 @@ function showRwdINbank(){
       addEle({dad:tr,what:"td",text:itm.title,padding:"0 10px 0 5px",borderB:bd})
 
       tc = addEle({dad:tr,what:"td",paddingL:"10px",borderB:bd})
-        let cc = addEle({dad:tc,setClass:"contCol"})
-        addEle({dad:cc,text:"item(s) : " + spanText({text:itm.content.length,col:YG})})
-        let fr = addEle({dad:cc,setClass:"contCol"})
         if(getID("chReRw").checked){
+          let fr = addEle({dad:tc,setClass:"contCol"})
           itm.content.forEach(c=>{
             addEle({dad:fr,text:spanText({text:c.val+"x ",col:YG})+c.lbl})
           })
+        } else {
+          addEle({dad:tc,text:"item(s) : " + spanText({text:itm.content.length,col:YG})})
         }
 
       tc = addEle({dad:tr,what:"td",paddingL:"10px",borderB:bd})
