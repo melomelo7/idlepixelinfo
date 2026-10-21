@@ -310,7 +310,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/21 21:55"
+let last = "10/22 05:40"
 ////////////////////////
 
 
@@ -893,10 +893,16 @@ function setPoolRewards(){
             showPoolBank()
             buildReward()
             showRwdINbank()
-          }}).click()
+          }})
 
-        cr = addEle({dad:forkB1,setClass:"contRow",alignItems:"center",justifyC:"center",padding:"0 5px"})
-          addEle({dad:cr,text:"Review Rewards"})
+        let cc = addEle({dad:forkB1,setClass:"contCol"})
+          cr = addEle({dad:cc,setClass:"contRow",alignItems:"center",justifyC:"center",padding:"0 5px"})
+            addEle({dad:cr,text:"Review Rewards"})
+          cr = addEle({dad:cc,setClass:"contRow",alignItems:"center",justifyC:"center",padding:"0 5px"})
+            addEle({dad:cr,what:"checkbox",isInput:true,accentCol:"green",setID:"chReRw",setFunc:showRwdINbank})
+            addEle({dad:cr,text:"Show details",marginL:"10px",setFunc:()=>{getID("chReRw").click()}})
+
+      getID("addNRbtn").click()
 
   } else {
     addEle({dad:tgt,text:"You need to Set your Giveaway Pool first",textC:accts[1],margin:"5px 0 0 5px"})
@@ -1162,7 +1168,8 @@ function showRwdINbank(){
   for(let i=0;i<player.poolRewards.length;i++){
     let itm = player.poolRewards[i]
     let tr = addEle({dad:tb,what:"tr"})
-      let tc = addEle({dad:tr,what:"td"})
+      let bd = i < player.poolRewards.length-1 ? "green solid 2px" : "" 
+      let tc = addEle({dad:tr,what:"td",borderB:bd})
         let radE = addEle({dad:tc,what:"radio",isInput:true,setID:"rwdINbk:"+itm.idx,setName:"rwdINbks",
         accentCol:accts[player.misc.radios],setFunc:(e)=>{
           if(cleanEmpties()){
@@ -1183,18 +1190,26 @@ function showRwdINbank(){
         }})
         if(getID("forkA4ID").value === itm.idxo){radE.click()}
 
-      addEle({dad:tr,what:"td",text:itm.title,padding:"0 10px 0 5px"})
-      addEle({dad:tr,what:"td",text:"item(s) : " + spanText({text:itm.content.length,col:YG})})
-      tc = addEle({dad:tr,what:"td",paddingL:"10px"})
+      addEle({dad:tr,what:"td",text:itm.title,padding:"0 10px 0 5px",borderB:bd})
+
+      tc = addEle({dad:tr,what:"td",paddingL:"10px",borderB:bd})
+        let cc = addEle({dad:tc,setClass:"contCol"})
+        addEle({dad:cc,text:"item(s) : " + spanText({text:itm.content.length,col:YG})})
+        let fr = addEle({dad:cc,setClass:"contCol"})
+        if(getID("chReRw").checked){
+          itm.content.forEach(c=>{
+            addEle({dad:fr,text:spanText({text:c.val+"x ",col:YG})+c.lbl})
+          })
+        }
+
+      tc = addEle({dad:tr,what:"td",paddingL:"10px",borderB:bd})
         addEle({dad:tc,setClass:"arrowToggler",text:"X",border:"red solid 2px",
         padding:"1px 4px",width:"fit-content",setID:"delRwd:"+itm.idx,margin:"3px 0",setFunc:(e)=>{
-
           let rwdPos = player.poolRewards.findIndex(x=>x.idx === e.srcElement.id.split(":")[1])
           player.poolRewards.splice(rwdPos,1)
           for(let i=0;i<player.poolRewards.length;i++){player.poolRewards[i].title = "#"+(i+1)}
           savPlayer()          
           getID("addNRbtn").click()
-
         }})
   }
 }
