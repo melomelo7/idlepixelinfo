@@ -310,7 +310,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/25 16:30"
+let last = "10/26 06:15"
 ////////////////////////
 
 
@@ -864,7 +864,7 @@ function setPoolRewards(){
         padding:"5px",setID:"forkA4"})
           let forkA4T = addEle({dad:forkA4,setClass:"contCol"})
             addEle({dad:forkA4T,setID:"forkA4T",textA:"center",paddingB:"3px"})
-            addEle({dad:forkA4T,what:"input",isInput:true,setID:"forkA4ID",display:"none"})//
+            addEle({dad:forkA4T,what:"input",isInput:true,setID:"forkA4ID"})//,display:"none"
           let forkA4C = addEle({dad:forkA4,setClass:"contCol",setID:"forkA4C",marginT:"5px"})
         let forkA5 = addEle({dad:forkA,setClass:"contCol",border:"green solid 2px",padding:"5px",
         radiusBL:"5px",radiusBR:"5px",setID:"forkA5",maxHeight:"500px",overflowX:"auto",borderT:"none"})
@@ -915,7 +915,6 @@ function setPoolRewards(){
 
 function cleanEmpties(){
   let found = false
-  console.log("cleaning empties")
   for(let i=0;i<player.poolRewards.length;i++){
     if(player.poolRewards[i].content.length < 1){
       player.poolRewards.splice(i,1)
@@ -986,6 +985,7 @@ function GApoolCheck(itmIdx,checked){
 
 
 function updDispTtls(){
+  console.log("updating")
   let grp = document.getElementsByName("grpMasterBk")
   for(let i=0;i<player.masterPool.length;i++){
     if(grp[i]){
@@ -1003,10 +1003,12 @@ function updDispTtls(){
       let dispo = itm.val - dispatchedVal(itm)
       let posRwd = player.poolRewards.findIndex(x=>x.idx === getID("forkA4ID").value)
       if(posRwd > -1){
+        console.log("is a rewarded")
         let srcR = player.poolRewards[posRwd]
         let srcI = srcR.content.filter(x=>x.itmID === itm.idx)[0]
         if(srcI){dispo += srcI.val} 
       }
+      console.log("cap:"+cap+" | dispo:"+dispo)
       let tcol = cap > dispo ? accts[6] : YG
       grp[i].innerHTML = "/"+spanText({text:dispo,col:tcol})
     }
@@ -1087,14 +1089,37 @@ function buildReward(){
       txt = refReward === undefined ? "Save new Reward [E]" : "Save Reward changes [E]"
       addEle({dad:cr,setClass:"btn",text:txt,border:"green solid 2px",
       backC:"darkgreen",setID:"savRwd",setFunc:savReward})
+      addEle({dad:cr,text:"✅",margin:"0 3px 0 -2px",visibility:"hidden",setID:"savGdisp"})
 
     cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",justifyC:"center"})
       addEle({dad:cr,setClass:"btn",text:"Copy this Reward",border:"green solid 2px",
-      backC:"brown",width:"120px",setFunc:()=>{
+      backC:"brown",setFunc:()=>{
         getID("forkA4ID").value = crypto.randomUUID()
         getID("savRwd").click()
       }})
-      addEle({dad:cr,text:"✅",margin:"0 3px 0 -2px",visibility:"hidden",setID:"savGdisp"})
+      
+      addEle({dad:cr,setClass:"btn",text:"Max",border:"green solid 2px",
+      backC:"brown",setFunc:()=>{
+        let max = 0
+        let grp = document.getElementsByName("itmQts")
+        grp.forEach(inp=>{
+          let tgtIdx = inp.id.split(":")[1]
+          let itm = player.masterPool.filter(x=>x.idx === tgtIdx)[0]
+          let dispo = itm.val - dispatchedVal(itm)
+          let qt = Number(inp.value)
+          let rounds = Math.floor(dispo/qt)
+          if(rounds > 0){
+            if(max === 0)
+              {max = rounds}
+            else {if(rounds < max){max = rounds}}
+          }
+        })
+
+        for(let i=0;i<max;i++){
+          getID("forkA4ID").value = crypto.randomUUID()
+          getID("savRwd").click()
+        }
+      }})
 
     addEle({dad:tgt,text:`
     Only items with quantity > 0 are saved`,textC:YG,fontS:"14px"})
@@ -1127,6 +1152,7 @@ function savReward(){
     if(val > 0 && val <= cap){dispatcher.push({id:itmID,val:val})}
   })
 
+  console.log("dispatche : "+dispatcher.length)
   if(dispatcher.length > 0){
     let newRwd = {
       title:undefined,
@@ -1155,7 +1181,15 @@ function savReward(){
 
     showRwdINbank()
     savPlayer()
+
+    if(getID("savRwd").innerHTML === "Save new Reward [E]"){
+      getID("forkA4ID").value = crypto.randomUUID()
+    }
+
+    
+
   }
+  console.log("now")
   updDispTtls()
 }
 
@@ -1174,7 +1208,7 @@ function showRwdINbank(){
         accentCol:accts[player.misc.radios],setFunc:(e)=>{
           if(cleanEmpties()){
             showRwdINbank()
-            getID("rwdINbk:"+e.srcElement.id.split(":")[1]).click()
+            if(getID("rwdINbk:"+e.srcElement.id.split(":")[1])){getID("rwdINbk:"+e.srcElement.id.split(":")[1]).click()}
             return
           }
           player.masterPool.forEach(x=>{x.selected = false ; x.tempoVal = 0})
@@ -1846,7 +1880,6 @@ function showMergeResult(){
 
 
 function synthRwd(arr){
-  console.log("synthesize")
   arr.forEach(p=>{
     let itmA = []
     p.rwds.forEach(r=>{
@@ -1939,7 +1972,6 @@ function fillResultFr(){
 function publishResult(){
   let tgt = getID("resultOut")
 
-  console.log(player.lottery.merge)
   let arr = []
   if(getID("chNoRw").checked){
     arr = player.lottery.merge
@@ -1998,18 +2030,20 @@ function reviewPayout2(){
 
   let srcA = player.lottery.merge
   switch(filt){
-    case "All" : console.log(filt)
+    case "All" :
       arr = srcA
       break
-    case "Unpaid" : console.log(filt)
+    case "Unpaid" :
       arr = srcA.map(dad =>({...dad,synth: dad.synth.filter(x=>!x.fullyPaid && x.paid<x.val)}))
       .filter(dad => dad.synth.length > 0)
       break
-    case "Fully Paid" : console.log(filt)
+    case "Fully Paid" :
       arr = srcA.map(dad =>({...dad,synth: dad.synth.filter(x=>x.fullyPaid || x.paid === x.val)}))
       .filter(dad => dad.synth.length > 0)
       break
   }
+
+  arr = arr.filter(x=>x.rwds.length>0)
 
   let fr = addEle({dad:tgt,margin:"5px"})
   let tb = addEle({dad:fr,what:"table"})
