@@ -310,7 +310,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/25 13:25"
+let last = "10/25 14:20"
 ////////////////////////
 
 
@@ -399,7 +399,7 @@ function setMiscs(){
     addEle({dad:cr,what:"radio",isInput:true,height:"18px",width:"18px",setID:"tstRad"})
     addEle({dad:cr,textC:YG,marginL:"10px",setID:"colNb"})
 
-  addEle({dad:main,text:"(base color setting is "+player.misc.radiosdef+
+  addEle({dad:main,text:"(base color setting is "+(player.misc.radiosdef+1)+
   ", changes are saved)",marginL:"5px"})
 
  getID("radcol:"+ player.misc.radios).click() 
