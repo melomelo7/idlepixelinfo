@@ -310,7 +310,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/22 05:45"
+let last = "10/25 13:25"
 ////////////////////////
 
 
@@ -1491,7 +1491,7 @@ function setLottery(){
 
       if(src.innerHTML === "🔼"){
         fillProcessFr()
-      }
+      } else {cleanParent(bodySub)}
     }}) // 🔼
     addEle({dad:cr,setClass:"arrowToggler",text:"⚠️🚨 🔽",marginL:"10px",
     border:"red solid 3px",radius:"10px",setFunc:(e)=>{
@@ -1524,7 +1524,6 @@ function setLottery(){
       if(disp.style.display === "flex"){disp.style.display = "none"}
       src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
       if(src.innerHTML === "🔼"){
-        mergeLottery()
         showMergeResult()
         getID("arrTR").click()
       } else {cleanParent(bodySub)}
@@ -1542,7 +1541,7 @@ function setLottery(){
     if(disp.style.display === "flex"){disp.style.display = "none"}
     src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
     if(src.innerHTML === "🔼"){
-
+      reviewPayout()
 
 
     } else {cleanParent(bodySub)}
@@ -1630,7 +1629,7 @@ tb = addEle({dad:cc,what:"table"})
 
     tc = addEle({dad:tr,what:"td",textA:"center"})
       fr = addEle({dad:tc,display:"flex",justifyC:"center"})
-        addEle({dad:fr,setClass:"btn",border:"green solid 2px",backC:"darkgreen",
+        addEle({dad:fr,setClass:"btn",border:"green solid 2px",backC:"darkblue",
         text:"Lottery",minWidth:wd+"px",setFunc:()=>{
           mergeLottery()
           showMergeResult()
@@ -1796,6 +1795,10 @@ function mergeLottery(){
   }
 
   player.lottery.merge = tpA
+
+  synthRwd(player.lottery.merge)
+
+
   savPlayer()
 }
 
@@ -1841,28 +1844,9 @@ function showMergeResult(){
 
 
 
-function synthRwd2(rwdA){
-  let itmA = []
-  rwdA.forEach(r=>{
-    r.content.forEach(c=>{
-      let idx = itmA.findIndex(x=>x.itmID === c.itmID)
-      if(idx === -1){
-        itmA.push({
-          itmID:c.itmID,
-          lbl:c.lbl,
-          val:c.val,
-          paid:0,
-        })
-      } else {
-        itmA[idx].val += c.val 
-      }
-    })
-  })
-return itmA
-}
-
 
 function synthRwd(arr){
+  console.log("synthesize")
   arr.forEach(p=>{
     let itmA = []
     p.rwds.forEach(r=>{
@@ -1874,6 +1858,7 @@ function synthRwd(arr){
             lbl:c.lbl,
             val:c.val,
             paid:0,
+            fullyPaid:false,
           })
         } else {
           itmA[idx].val += c.val 
@@ -1891,11 +1876,7 @@ function fillResultFr(){
   let tgt = getID("resultFr")
   cleanParent(tgt)
 
-//  let arr = structuredClone(player.lottery.merge)
-
   let arr = player.lottery.merge
-
-  synthRwd(arr)
 
   let tb = addEle({dad:tgt,what:"table"})
     let tr = addEle({dad:tb,what:"tr"})
@@ -1907,7 +1888,6 @@ function fillResultFr(){
   for(let i=0;i<arr.length;i++){
     tr = addEle({dad:tb,what:"tr"})
     let pla = arr[i]
-//    pla.synth = synthRwd(pla.rwds)
       addEle({dad:tr,what:"td",text:pla.name,textA:"center",borderT:"green solid 2px",paddingR:"10px"})
       addEle({dad:tr,what:"td",text:pla.rwds.length,textA:"center",border:"green solid 2px",borderB:"none"})
     let tc = addEle({dad:tr,what:"td",textA:"center",borderT:"green solid 2px"})
@@ -1925,7 +1905,6 @@ function fillResultFr(){
   }
 
   addEle({dad:tgt,text:"Share Result :<br>( copy-paste in your mailbox look for )",margin:"10px 0"})
-  console.log(player.lottery.merge)
 
   addEle({dad:tgt,what:"textarea",setID:"resultOut",overflow:"scroll",
   height:"150px",width:"300px",minHeight:"150px",minWidth:"300px",textC:"rgb(200,200,202)",
@@ -1961,7 +1940,6 @@ function publishResult(){
   for(let i=0;i<cap+2;i++){txt+="-"}
   player.lottery.merge.forEach(p=>{
     txt+= "\n"
-    console.log(p)
     txt+=p.name+" "
     if(getID("chRwCt").checked){txt+=" ("+p.rwds.length+" Rewards) "}
     p.synth.forEach(s=>{
@@ -1977,8 +1955,120 @@ function publishResult(){
 
 
 
+function reviewPayout(){
+  let tgt = bodySub
+  cleanParent(tgt)
 
+  addEle({dad:tgt,text:`if you paid the full amount no need to type<br>numbers
+  just clicking on Fully Paid is enough.`,textC:YG,margin:"5px 10px"})
 
+  let cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",margin:"3px 0"})
+    addEle({dad:cr,text:"Filter display :",margin:"0 5px",borderB:"solid 2px "+YG})
+    addEle({dad:cr,what:"radio",isInput:true,setName:"radDispWhat",setVal:"All",accentCol:"green",
+    setFunc:(e)=>{getID("dispWhat").innerHTML = e.srcElement.value ; reviewPayout2()}})
+    addEle({dad:cr,what:"radio",isInput:true,setName:"radDispWhat",setVal:"Unpaid",accentCol:"green",
+    setFunc:(e)=>{getID("dispWhat").innerHTML = e.srcElement.value ; reviewPayout2()}})
+    addEle({dad:cr,what:"radio",isInput:true,setName:"radDispWhat",setVal:"Fully Paid",accentCol:"green",
+    setFunc:(e)=>{getID("dispWhat").innerHTML = e.srcElement.value ; reviewPayout2()}})
+    addEle({dad:cr,setID:"dispWhat",textC:YG,marginL:"5px"})
+
+  addEle({dad:tgt,setID:"payoutFr"})
+  document.getElementsByName("radDispWhat")[0].click()
+}
+
+function reviewPayout2(){
+  let tgt = getID("payoutFr")
+  cleanParent(tgt)
+
+  let grp = document.getElementsByName("radDispWhat")
+  let arr = []
+  let filt = ""
+  grp.forEach(x=>{if(x.checked){filt = x.value}})
+
+  let srcA = player.lottery.merge
+  switch(filt){
+    case "All" : console.log(filt)
+      arr = srcA
+      break
+    case "Unpaid" : console.log(filt)
+      arr = srcA.map(dad =>({...dad,synth: dad.synth.filter(x=>!x.fullyPaid && x.paid<x.val)}))
+      .filter(dad => dad.synth.length > 0)
+      break
+    case "Fully Paid" : console.log(filt)
+      arr = srcA.map(dad =>({...dad,synth: dad.synth.filter(x=>x.fullyPaid || x.paid === x.val)}))
+      .filter(dad => dad.synth.length > 0)
+      break
+  }
+
+  let fr = addEle({dad:tgt,margin:"5px"})
+  let tb = addEle({dad:fr,what:"table"})
+    let tr = addEle({dad:tb,what:"tr"})
+    addEle({dad:tr,what:"td",text:"Player",paddingR:"10px",textA:"center"})
+    addEle({dad:tr,what:"td",text:"Amount Paid",padding:"0 10px",
+    borderL:"green solid 2px",borderR:"green solid 2px",textA:"center"})
+    addEle({dad:tr,what:"td",text:"Fully Paid",padding:"0 10px",textA:"center"})
+
+  for(let i=0;i<arr.length;i++){
+    let itm = arr[i]
+    let tr = addEle({dad:tb,what:"tr"})
+      addEle({dad:tr,what:"td",textA:"center",borderT:"green solid 2px",text:itm.name})
+
+      let tc = addEle({dad:tr,what:"td",textA:"center",border:"green solid 2px",borderB:"none",padding:"0 5px"})
+        let cc = addEle({dad:tc,setClass:"contCol"})
+          for(let j=0;j<itm.synth.length;j++){
+            let syn = itm.synth[j]
+
+            cr = addEle({dad:cc,setClass:"contRow",alignItems:"center",margin:"3px 0"})
+              addEle({dad:cr,text:syn.lbl,textA:"center",marginR:"5px",minWidth:"120px"})
+
+              let pval = addEle({dad:cr,what:"input",isInput:true,width:"50px",numInput:true,textA:"center",
+              setID:"payVal:"+itm.idx+":"+j,setVal:syn.paid,setFunc:(e)=>{
+                let val = e.srcElement.value
+                val = chkNumInput(val)
+                let srcIdx = e.srcElement.id.split(":")[1]
+                let idx = e.srcElement.id.split(":")[2]
+                let srcItm = player.lottery.merge.filter(x=>x.idx === srcIdx)[0]
+                let itm = srcItm.synth[idx]
+                val = val>itm.val ? itm.val : val
+                e.srcElement.value = val
+                itm.paid = val
+                savPlayer()
+                let txt = "togPay:" + e.srcElement.id.split(":")[1]+":"+e.srcElement.id.split(":")[2]
+                if(val===itm.val){getID(txt).click()}
+              }})
+              if(syn.fullyPaid){pval.disabled = true}
+
+              addEle({dad:cr,text:"/"+syn.val,textC:YG,marginL:"5px"})
+          }
+
+      tc = addEle({dad:tr,what:"td",textA:"center",borderT:"green solid 2px",})
+        cc = addEle({dad:tc,setClass:"contCol",alignItems:"center",justifyC:"center",textA:"center"})
+          for(let j=0;j<itm.synth.length;j++){
+            let syn = itm.synth[j]
+
+            let inc = addEle({dad:cc,what:"checkbox",isInput:true,setClass:"toggle-checkbox",
+            setID:"togPay:"+itm.idx+":"+j,setFunc:(e)=>{
+
+              let srcIdx = e.srcElement.id.split(":")[1]
+              let idx = e.srcElement.id.split(":")[2]
+              let srcItm = player.lottery.merge.filter(x=>x.idx === srcIdx)[0]
+              let itm = srcItm.synth[idx]
+
+              console.log(itm)
+
+              itm.fullyPaid = e.srcElement.checked
+              savPlayer()
+
+              let txt = "payVal:" + e.srcElement.id.split(":")[1]+":"+e.srcElement.id.split(":")[2]
+              getID(txt).disabled = e.srcElement.checked ? true : false
+
+            }})
+            addEle({dad:cc,what:"label",setFor:"togPay:"+itm.idx+":"+j,setClass:"toggle-label",margin:"5px 0",})
+            let txt = "payVal:"+itm.idx+":"+j
+            if(syn.fullyPaid || syn.paid === syn.val){inc.checked = true ; getID(txt).disabled = true}
+          }
+  }
+}
 
 
 
@@ -2037,6 +2127,10 @@ buying baby crops 30 ((Orange Juice))/k :
 
 [ selling ((Apple Cider)) ] 10k 15g/k or all for 140
 
-[ selling ((Arnold Palmer)) ] 50gk up to 6k
+[ selling ] ((Veggie Juice)) 10gk ... [ buying ((Heart-shaped Gem)) ] 150g
+
+[ selling 2k ((Veggie Juice)) ] 15g(300ap) / k
+
+[ selling ((Veggie Juice)) ] 10gk
 
 */
