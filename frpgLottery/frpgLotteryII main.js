@@ -864,7 +864,7 @@ function setPoolRewards(){
         padding:"5px",setID:"forkA4"})
           let forkA4T = addEle({dad:forkA4,setClass:"contCol"})
             addEle({dad:forkA4T,setID:"forkA4T",textA:"center",paddingB:"3px"})
-            addEle({dad:forkA4T,what:"input",isInput:true,setID:"forkA4ID"})//,display:"none"
+            addEle({dad:forkA4T,what:"input",isInput:true,setID:"forkA4ID",display:"none"})//
           let forkA4C = addEle({dad:forkA4,setClass:"contCol",setID:"forkA4C",marginT:"5px"})
         let forkA5 = addEle({dad:forkA,setClass:"contCol",border:"green solid 2px",padding:"5px",
         radiusBL:"5px",radiusBR:"5px",setID:"forkA5",maxHeight:"500px",overflowX:"auto",borderT:"none"})
