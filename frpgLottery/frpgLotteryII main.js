@@ -310,7 +310,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/25 14:20"
+let last = "10/25 16:30"
 ////////////////////////
 
 
@@ -1918,6 +1918,10 @@ function fillResultFr(){
     addEle({dad:cr,text:"Include Reward Count",marginL:"10px",setFunc:()=>{getID("chRwCt").click()}})
 
   cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",margin:"5px"})
+    addEle({dad:cr,what:"checkbox",isInput:true,accentCol:"green",setID:"chNoRw",setFunc:publishResult})
+    addEle({dad:cr,text:"Include Player with 0 rewards",marginL:"10px",setFunc:()=>{getID("chNoRw").click()}})
+
+  cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",margin:"5px"})
     addEle({dad:cr,setClass:"btn",backC:"darkgreen",border:"orange solid 2px",text:"Copy Text",
     width:"200px",setFunc:()=>{
       navigator.clipboard.writeText(getID("resultOut").value)
@@ -1935,22 +1939,29 @@ function fillResultFr(){
 function publishResult(){
   let tgt = getID("resultOut")
 
+  console.log(player.lottery.merge)
+  let arr = []
+  if(getID("chNoRw").checked){
+    arr = player.lottery.merge
+  } else {
+    arr = player.lottery.merge.filter(x=>x.rwds.length>0)
+  }
+
   let txt ="Results\n"
   let cap = txt.length
   for(let i=0;i<cap+2;i++){txt+="-"}
-  player.lottery.merge.forEach(p=>{
-    txt+= "\n"
-    txt+=p.name+" "
-    if(getID("chRwCt").checked){txt+=" ("+p.rwds.length+" Rewards) "}
-    p.synth.forEach(s=>{
+  
+  for(let i=0;i<arr.length;i++){
+    let itm = arr[i]
+    txt += "\n"
+    txt += itm.name+" "
+    if(getID("chRwCt").checked){txt += " ("+ itm.rwds.length+" Rewards) "}
+    itm.synth.forEach(s=>{
       txt+= "(("+s.lbl+"))x "+s.val+","
     })
     txt=txt.slice(0,txt.length-1)
-
-  })
-
+  }
   tgt.value = txt
-
 }
 
 
