@@ -310,7 +310,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/26 06:15"
+let last = "10/26 21:15"
 ////////////////////////
 
 
@@ -1402,10 +1402,15 @@ function setPlayers(){
                 let itm = player.playerPool[idx]
                 let pr = Number(e.srcElement.innerHTML)
                 itm.priority = pr
+
+                getID("testPrio:"+idx).innerHTML = pr
+
                 savPlayer()
                 updPlayersI()
               }})}
             prio.value = itm.priority
+
+          tc = addEle({dad:tr,what:"td",textA:"center",setID:"testPrio:"+i})
       }
     }})
 
