@@ -310,7 +310,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/26 21:30"
+let last = "10/26 21:40"
 ////////////////////////
 
 
@@ -1402,19 +1402,16 @@ function setPlayers(){
               let pr = Number(e.srcElement.value)
               itm.priority = pr
 
-              console.log(itm)
-
-              getID("testPrio:"+idx).innerHTML = pr
+              //console.log(itm)
+              //getID("testPrio:"+idx).innerHTML = pr
 
               savPlayer()
               updPlayersI()
             }})
-              for(let j=1;j<=3;j++){addEle({dad:prio,what:"option",text:j,setID:"selOp:"+i,setFunc:(e)=>{
-
-              }})}
+              for(let j=1;j<=3;j++){addEle({dad:prio,what:"option",text:j})}
             prio.value = itm.priority
 
-          tc = addEle({dad:tr,what:"td",textA:"center",setID:"testPrio:"+i})
+          //tc = addEle({dad:tr,what:"td",textA:"center",setID:"testPrio:"+i})
       }
     }})
 
