@@ -295,7 +295,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "11/03 18:35"
+let last = "11/04 00:15"
 ////////////////////////
 
 
@@ -1038,7 +1038,7 @@ function buildReward(){
           addEle({dad:tc,text:itm.lbl})
         tc = addEle({dad:tr,what:"td",padding:"0 5px 5px 5px"})
           let cr = addEle({dad:tc,setClass:"contRow",alignItems:"center"})
-          let inQ = addEle({dad:cr,what:"input",isInput:true,numInput:true,width:"40px",textA:"center",
+          addEle({dad:cr,what:"input",isInput:true,numInput:true,width:"40px",textA:"center",
           setVal:itm.tempoVal,setID:"itmQt:"+itm.idx,setName:"itmQts",setFunc:(e)=>{
 
             let idx = e.srcElement.id.split(":")[1]
@@ -1061,16 +1061,16 @@ function buildReward(){
 
             updDispTtls()
           }})
-          inQ.addEventListener('keydown', function(event) 
-          {if (event.key === 'Enter'){getID("savRwd").click()}})
-          addEle({dad:cr,text:"E",textC:"yellow",marginL:"5px",fontS:"12px"})
+//          inQ.addEventListener('keydown', function(event) 
+  //        {if (event.key === 'Enter'){getID("savRwd").click()}})
+   //       addEle({dad:cr,text:"E",textC:"yellow",marginL:"5px",fontS:"12px"})
       tc = addEle({dad:tr,what:"td",padding:"0 5px 5px 5px"})
         addEle({dad:tc,setID:"itmQtM:"+itm.idx,setName:"grpRwdBk"})
-      let ev = new Event("input") ; inQ.dispatchEvent(ev)
+      let ev = new Event("input") ; getID("itmQt:"+itm.idx).dispatchEvent(ev) // inQ.dispatchEvent(ev)
     }
 
     cr = addEle({dad:tgt,setClass:"contRow",alignItems:"center",justifyC:"center"})
-      txt = refReward === undefined ? "Save new Reward [E]" : "Save Reward changes [E]"
+      txt = refReward === undefined ? "Save new Reward" : "Save Reward changes [E]"
       addEle({dad:cr,setClass:"btn",text:txt,border:"green solid 2px",
       backC:"darkgreen",setID:"savRwd",setFunc:savReward})
       addEle({dad:cr,text:"✅",margin:"0 3px 0 -2px",visibility:"hidden",setID:"savGdisp"})
@@ -1087,21 +1087,27 @@ function buildReward(){
         let max = 0
         let grp = document.getElementsByName("itmQts")
         grp.forEach(inp=>{
-          let tgtIdx = inp.id.split(":")[1]
-          let itm = player.masterPool.filter(x=>x.idx === tgtIdx)[0]
-          let dispo = itm.val - dispatchedVal(itm)
-          let qt = Number(inp.value)
-          let rounds = Math.floor(dispo/qt)
-          if(rounds > 0){
-            if(max === 0)
-              {max = rounds}
-            else {if(rounds < max){max = rounds}}
+          if(Number(inp.value)>0){
+            let tgtIdx = inp.id.split(":")[1]
+            let itm = player.masterPool.filter(x=>x.idx === tgtIdx)[0]
+            let dispo = itm.val - dispatchedVal(itm)
+            let qt = Number(inp.value)
+            let rounds = Math.floor(dispo/qt)
+            if(rounds > 0){
+              if(max === 0)
+                {max = rounds}
+              else {if(rounds < max){max = rounds}}
+            }
           }
         })
 
+        console.log(max)
+        let cpt=0
         for(let i=0;i<max;i++){
+//          cpt++
           getID("forkA4ID").value = crypto.randomUUID()
           getID("savRwd").click()
+  //        if(cpt>1000){break}
         }
       }})
 
