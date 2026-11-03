@@ -4,22 +4,7 @@ function setInfoPg(){
   let main = bodySub
   cleanParent(main)
 
-  /*
-  cr = addEle({dad:info,setClass:"contRow",alignItems:"center",marginB:"5px"})
-    addEle({dad:cr,text:"Review Result",borderB:"green solid 2px",margin:"0 5px"})
-    addEle({dad:cr,setClass:"arrowToggler",text:"🔽",setFunc:(e)=>{
-      let src = e.srcElement
-      let disp = getID("processFr")
-      if(disp.style.display === "flex"){disp.style.display = "none"}
-      src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
-      if(src.innerHTML === "🔼"){
-        mergeLottery()
-        showMergeResult()
-        getID("arrTR").click()
-      } else {cleanParent(bodySub)}
-    }}) // 🔼
 
-  */
 
   addEle({dad:info,text:"Infos :",textC:YG,borderB:"yellow solid 2px",
   width:"fit-content",margin:"10px"})
@@ -310,7 +295,7 @@ const body = document.querySelector("body")
 //  bodySub.style.width = "max-content"
 
 ////////////////////////
-let last = "10/26 21:40"
+let last = "11/03 18:35"
 ////////////////////////
 
 
@@ -409,13 +394,25 @@ function setMiscs(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 function updItmInfos(arr = undefined){
   getID("itmBkTtl").innerHTML = player.items.all.length
   getID("itmDefC").innerHTML = player.items.default.length
   getID("itmCusC").innerHTML = player.items.custom.length
   if(arr!==undefined){getID("itmDisC").innerHTML = arr.length}
 }
-
 function setItems(){
   let info = bodyMid
   cleanParent(info)
@@ -452,78 +449,19 @@ function setItems(){
   updItmInfos()
 
   let cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"10px 0 5px 10px"})
-    addEle({dad:cr,text:"Filter Name :",marginR:"5px"})
-    addEle({dad:cr,what:"input",isInput:true,textA:"center",setID:"inFilItm",
-    marginR:"10px",border:"green solid 3px",radius:"10px",maxLen:25,setFunc:(e)=>{
-      let dispFr = getID("mainFr") 
-      if(!dispFr){return}
-      cleanParent(dispFr)
-      getID("lenlen1").innerHTML = e.srcElement.value.length
-      let txt = e.srcElement.value.toLowerCase().replaceAll("(","").replaceAll(")","")
-      getID("newItmNm").value = txt
-      let arr = []
-      if(txt.length===0)
-           {arr = player.items.all} 
-      else {arr = player.items.all.filter(x=>x.lbl.includes(txt))}
-      updItmInfos(arr)
-      for(let i=0;i<arr.length;i++){
-        let itm = arr[i]
-        let cr = addEle({dad:dispFr,setClass:"contRow",alignItems:"center",margin:"5px"})
-          addEle({dad:cr,setClass:"arrowToggler",text:"X",border:"red solid 2px",
-          padding:"1px 4px",setID:"del:"+itm.idx,setFunc:(e)=>{
-            let itmID = e.srcElement.id.split(":")[1]
-            if(itmID.includes("d")){
-              let idx = player.items.default.findIndex(x=>x.idx===itmID)
-              player.items.default.splice(idx,1)
-            } else {
-              let idx = player.items.custom.findIndex(x=>x.idx===itmID)
-              player.items.custom.splice(idx,1)
-            }
-            joinItems()
-            savPlayer()
-            getID("inFilItm").value = ""
-            let ev = new Event("input") ; getID("inFilItm").dispatchEvent(ev)
-          }})
-          let tbk = itm.idx.includes("d") ? "green" : accts[0]
-          let txc = itm.idx.includes("d") ? "#ccc" : "black"
-          addEle({dad:cr,text:"- "+itm.lbl,margin:"0 10px",textC:txc,backC:tbk,width:"200px",paddingL:"5px"})
-      }
-    }})
+    addEle({dad:cr,text:"🔍 Search :",marginR:"5px"})
+    let itmN = addEle({dad:cr,what:"input",isInput:true,textA:"center",setID:"inFilItm",
+    border:"green solid 3px",radius:"10px",maxLen:25,setFunc:(e)=>{dispItems()}})
+    addEle({dad:cr,text:"E",textC:"yellow",fontS:"12px",margin:"0 10px 0 5px"})
     addEle({dad:cr,setID:"lenlen1"})
+    itmN.addEventListener('keydown', function(event) 
+    {if (event.key === 'Enter'){getID("savNit").click()}})
 
-  cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"5px"})
-      addEle({dad:cr,text:"Didnt find it ? Add your Custom Item",borderB:"green solid 2px",margin:"0 5px"})
-      addEle({dad:cr,setClass:"arrowToggler",text:"🔽",setFunc:(e)=>{
-        let src = e.srcElement
-        let disp = getID("AddItmFr")
-        disp.style.display = src.innerHTML === "🔼" ? "none" : "flex"
-        src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
-        if(src.innerHTML === "🔼"){
-          getID("newItmNm").focus()
-        }
-      }}) // 🔼
-  
-  let itmAddFr = addEle({dad:info,setClass:"contCol",setID:"AddItmFr",margin:"5px 10px",
-  border:"green solid 2px",radius:"5px",padding:"5px",width:"fit-content",display:"none"})
-    cr = addEle({dad:itmAddFr,setClass:"contRow",alignItems:"center",margin:"5px"})
-      addEle({dad:cr,text:"Name :",marginR:"0 5px 0 5px"})
-      let itmN = addEle({dad:cr,what:"input",isInput:true,textA:"center",setID:"newItmNm",
-      border:"green solid 3px",radius:"10px",maxLen:25,
-      setFunc:(e)=>{
-        getID("lenlen2").innerHTML = e.srcElement.value.length
-        getID("inFilItm").value = e.srcElement.value
-        let ev = new Event("input") ; getID("inFilItm").dispatchEvent(ev)
-      }})
-      addEle({dad:cr,text:"E",textC:"yellow",margin:"0 10px 0 5px",fontS:"12px"})
-      addEle({dad:cr,setID:"lenlen2",text:"0"})
-      itmN.addEventListener('keydown', function(event) 
-      {if (event.key === 'Enter'){getID("savNit").click()}})
-
-
-    cr = addEle({dad:itmAddFr,setClass:"contRow",alignItems:"center",margin:"5px"})
-      addEle({dad:cr,setClass:"btn",text:"Save this new Item [E]",border:"green solid 2px",
+    cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"5px"})
+      addEle({dad:cr,setClass:"btn",text:"Save this new Custom Item [E]",border:"green solid 2px",
       backC:"darkgreen",minWidth:"190px",setID:"savNit",setFunc:()=>{
-        let txt = getID("newItmNm").value.toLowerCase().replace(/[()]/g, "")
+        let src = getID("inFilItm")
+        let txt = src.value.toLowerCase().replaceAll("(","").replaceAll(")","")
 
         if(txt.length>0){
           player.items.custom.push({
@@ -536,19 +474,64 @@ function setItems(){
         }
         joinItems()
         savPlayer()
-        getID("newItmNm").value = ""
         getID("inFilItm").value = ""
         let ev = new Event("input") ; getID("inFilItm").dispatchEvent(ev)
-        getID("newItmNm").focus()
       }})
       addEle({dad:cr,text:"✅",margin:"0 3px 0 -2px",visibility:"hidden",setID:"savGdisp"})
       addEle({dad:cr,setClass:"arrowToggler",text:"X",border:"red solid 2px",
       padding:"1px 4px",marginL:"",fontS:"18px",setFunc:(e)=>{setItems()}})
 
-    addEle({dad:itmAddFr,text:`Copy an item name from the game is<br>possible :
-    ((Stone)) will be saved as stone.`,textC:YG,fontS:"16px"})
+    addEle({dad:info,text:`Copy an item name from the game is possible<br>Example : ((Stone)) will be
+    saved as stone.`,textC:YG,fontS:"16px",margin:"0 0 10px 10px",textA:"center",width:"fit-content"})
   let ev = new Event("input") ; getID("inFilItm").dispatchEvent(ev)
+  getID("inFilItm").focus()
 }
+function dispItems(){
+  let dispFr = getID("mainFr") 
+  cleanParent(dispFr)
+
+  let src = getID("inFilItm")
+  getID("lenlen1").innerHTML = src.value.length
+  let txt = src.value.toLowerCase().replaceAll("(","").replaceAll(")","")
+
+  let arr = []
+  if(txt.length===0)
+       {arr = player.items.all} 
+  else {arr = player.items.all.filter(x=>x.lbl.includes(txt))}
+  updItmInfos(arr)
+  for(let i=0;i<arr.length;i++){
+    let itm = arr[i]
+    let cr = addEle({dad:dispFr,setClass:"contRow",alignItems:"center",margin:"5px"})
+      addEle({dad:cr,setClass:"arrowToggler",text:"X",border:"red solid 2px",
+      padding:"1px 4px",setID:"del:"+itm.idx,setFunc:(e)=>{
+        let itmID = e.srcElement.id.split(":")[1]
+        if(itmID.includes("d")){
+          let idx = player.items.default.findIndex(x=>x.idx===itmID)
+          player.items.default.splice(idx,1)
+        } else {
+          let idx = player.items.custom.findIndex(x=>x.idx===itmID)
+          player.items.custom.splice(idx,1)
+        }
+        joinItems()
+        savPlayer()
+        getID("inFilItm").value = ""
+        let ev = new Event("input") ; getID("inFilItm").dispatchEvent(ev)
+      }})
+      let tbk = itm.idx.includes("d") ? "green" : accts[0]
+      let txc = itm.idx.includes("d") ? "#ccc" : "black"
+      addEle({dad:cr,text:"- "+itm.lbl,margin:"0 10px",textC:txc,backC:tbk,width:"200px",paddingL:"5px"})
+  }
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -623,6 +606,7 @@ function setMasterPool(){
       let forkA4 = addEle({dad:forkA,setClass:"contCol",border:bds,radius:"5px",
       padding:"5px",setID:"forkA4",maxHeight:"500px",overflowX:"auto"})
 
+
     let forkB = addEle({dad:fork,setClass:"contCol",margin:"5px 0 0 5px"})
       let forkB1 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",radiusTL:"5px",
       radiusTR:"5px",padding:""})
@@ -632,7 +616,7 @@ function setMasterPool(){
 
       let forkB3 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",padding:"5px",
       setID:"forkB3",borderT:"none",radiusBL:"5px",radiusBR:"5px",maxHeight:"500px",overflowX:"auto"})
-    
+
 
 
   let txt = "Item Bank (" + spanText({text:player.items.all.length,col:"yellow"}) + ")"
@@ -868,12 +852,14 @@ function setPoolRewards(){
           let forkA4C = addEle({dad:forkA4,setClass:"contCol",setID:"forkA4C",marginT:"5px"})
         let forkA5 = addEle({dad:forkA,setClass:"contCol",border:"green solid 2px",padding:"5px",
         radiusBL:"5px",radiusBR:"5px",setID:"forkA5",maxHeight:"500px",overflowX:"auto",borderT:"none"})
+
   
       let forkB = addEle({dad:fork,setClass:"contCol",margin:"5px 0 0 5px"})
         let forkB1 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",radiusTL:"5px",
         radiusTR:"5px",setID:"forkB1",backC:"darkblue"})
         let forkB2 = addEle({dad:forkB,setClass:"contCol",border:"green solid 2px",padding:"5px",
         setID:"forkB2",borderT:"none",radiusBL:"5px",radiusBR:"5px",maxHeight:"500px",overflowX:"auto"})
+
         
         cr = addEle({dad:forkA1,setClass:"contRow",alignItems:"center",justifyC:"center",padding:"0 5px"})
           addEle({dad:cr,text:"Items Pool Bank",textA:"center",marginR:"5px"})
@@ -985,7 +971,6 @@ function GApoolCheck(itmIdx,checked){
 
 
 function updDispTtls(){
-  console.log("updating")
   let grp = document.getElementsByName("grpMasterBk")
   for(let i=0;i<player.masterPool.length;i++){
     if(grp[i]){
@@ -1053,7 +1038,6 @@ function buildReward(){
           addEle({dad:tc,text:itm.lbl})
         tc = addEle({dad:tr,what:"td",padding:"0 5px 5px 5px"})
           let cr = addEle({dad:tc,setClass:"contRow",alignItems:"center"})
-//          txt = refRwd === undefined ? 1 : refRwd.content.filter(x=>x.itmID === itm.idx)[0].val
           let inQ = addEle({dad:cr,what:"input",isInput:true,numInput:true,width:"40px",textA:"center",
           setVal:itm.tempoVal,setID:"itmQt:"+itm.idx,setName:"itmQts",setFunc:(e)=>{
 
@@ -1297,8 +1281,7 @@ function updPlayersI(){
 function setPlayers(){
   let info = bodyMid
   cleanParent(info)
-  let main = bodySub
-  cleanParent(main)
+  cleanParent(bodySub)
 
   let cont = addEle({dad:info,margin:"5px 0 0 5px"})
     let tbi = addEle({dad:cont,what:"table"})
@@ -1322,132 +1305,20 @@ function setPlayers(){
 
 
   let cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"10px 0 5px 10px"})
-    addEle({dad:cr,text:"Filter Name :",marginR:"5px"})
-    addEle({dad:cr,what:"input",isInput:true,textA:"center",setID:"inFilPla",
-    marginR:"10px",border:"green solid 3px",radius:"10px",setFunc:(e)=>{
-      let dispFr = main 
-      cleanParent(dispFr)
-      let txt = e.srcElement.value.toLowerCase().replace("@","").replace(":","")
-      getID("playerName").value = txt
-      let arr = []
-      if(txt.length===0)
-           {arr = player.playerPool} 
-      else {arr = player.playerPool.filter(x=>x.name.includes(txt))}
-      let fr = addEle({dad:dispFr,margin:"5px"})
-      let tb = addEle({dad:fr,what:"table"})
-        let tr = addEle({dad:tb,what:"tr",marginB:"20px"})
-          addEle({dad:tr,what:"td",colSpan:2,textA:"center",text:"Player",borderB:"green solid 2px"})
-          let tc = addEle({dad:tr,what:"td",textA:"center",padding:"0 10px",border:"green solid 2px",
-          borderT:"none",marginB:"10px"})
-            let cc = addEle({dad:tc,setClass:"contCol",alignItems:"center"})
-              addEle({dad:cc,text:"Include"})
-              addEle({dad:cc,setClass:"btn",backC:"darkgreen",border:"green solid 2px",text:"All",
-              minWidth:"40px",setFunc:()=>{
-                if(player.playerPool.length===0){return}
-                let onOff = player.playerPool[0].selected ? false : true
-                document.getElementsByName("togPlaSels").forEach(x=>x.checked = onOff)
-                player.playerPool.forEach(x=>{x.selected = onOff})
-                savPlayer()
-                updPlayersI()
-              }})
-
-          tc = addEle({dad:tr,what:"td",textA:"center",borderB:"green solid 2px",paddingL:"5px"})
-            cc = addEle({dad:tc,setClass:"contCol"})
-              addEle({dad:cc,text:"Priority"})
-            let cr = addEle({dad:tc,setClass:"contRow",alignItems:"center"})
-              for(let i=1;i<=3;i++){
-                addEle({dad:cr,setClass:"btn",backC:"darkgreen",border:"green solid 2px",text:i,
-                setFunc:(e)=>{
-                  let nb = Number(e.srcElement.innerHTML)
-                  document.getElementsByName("prioSels").forEach(x=>x.value = nb)
-                  player.playerPool.forEach(x=>{x.priority = nb})
-                  savPlayer()
-                  updPlayersI()
-                }})
-              }
-            
-
-      for(let i=0;i<arr.length;i++){
-        let itm = arr[i]
-        let tr = addEle({dad:tb,what:"tr"})
-          let tc = addEle({dad:tr,what:"td",alignItems:"center",padding:"5px 0"})
-            addEle({dad:tc,setClass:"arrowToggler",text:"X",border:"red solid 2px",
-            padding:"1px 4px",width:"fit-content",setID:"delPlay:"+itm.idx,margin:"3px 0",setFunc:(e)=>{
-              let idx = Number(e.srcElement.id.split(":")[1])
-              let pos = player.playerPool.findIndex(x=>x.idx===idx)
-              player.playerPool.splice(pos,1)
-              savPlayer()
-              getID("inFilPla").value = ""
-              let ev = new Event("input") ; getID("inFilPla").dispatchEvent(ev)
-            }})
-          addEle({dad:tr,what:"td",textA:"center",text:itm.name,padding:"0 5px"})
-    
-          tc = addEle({dad:tr,what:"td",textA:"center"})
-            let inc = addEle({dad:tc,what:"checkbox",isInput:true,setID:"togPlaSel:"+i,setClass:"toggle-checkbox",
-            setName:"togPlaSels",setFunc:(e)=>{
-              let idx = Number(e.srcElement.id.split(":")[1])
-              let itm = player.playerPool[idx]
-              itm.selected = e.srcElement.checked
-              savPlayer()
-              updPlayersI()
-            }})
-            addEle({dad:tc,what:"label",setFor:"togPlaSel:"+i,setClass:"toggle-label",margin:"0 5px"})
-            inc.checked = itm.selected
-
-          tc = addEle({dad:tr,what:"td",textA:"center"})
-            let prio = addEle({dad:tc,what:"select",setClass:"select",border:"green solid 3px",
-            paddingL:"10px",setName:"prioSels",setID:"selOp:"+i,setFunc:(e)=>{
-              let idx = Number(e.srcElement.id.split(":")[1])
-              let itm = player.playerPool[idx]
-              let pr = Number(e.srcElement.value)
-              itm.priority = pr
-
-              //console.log(itm)
-              //getID("testPrio:"+idx).innerHTML = pr
-
-              savPlayer()
-              updPlayersI()
-            }})
-              for(let j=1;j<=3;j++){addEle({dad:prio,what:"option",text:j})}
-            prio.value = itm.priority
-
-          //tc = addEle({dad:tr,what:"td",textA:"center",setID:"testPrio:"+i})
-      }
+//    addEle({dad:cr,text:"Filter Name :",marginR:"5px"})
+    addEle({dad:cr,text:"🔍 Search :",marginR:"5px"})
+    let inN = addEle({dad:cr,what:"input",isInput:true,textA:"center",setID:"inFilPla",
+    marginR:"",border:"green solid 3px",radius:"10px",setFunc:(e)=>{
+      dispPlayers()
     }})
-
+    inN.addEventListener('keydown', function(event) 
+    {if (event.key === 'Enter'){getID("savPn").click()}})
+    addEle({dad:cr,text:"E",textC:"yellow",marginL:"5px",fontS:"12px"})
 
     cr = addEle({dad:info,setClass:"contRow",alignItems:"center",margin:"5px"})
-    addEle({dad:cr,text:"Didnt find them ? Add new Player",borderB:"green solid 2px",margin:"0 5px"})
-    addEle({dad:cr,setClass:"arrowToggler",text:"🔽",setFunc:(e)=>{
-      let src = e.srcElement
-      let disp = getID("AddPlayerFr")
-      disp.style.display = src.innerHTML === "🔼" ? "none" : "flex"
-      src.innerHTML = src.innerHTML === "🔼" ? "🔽" : "🔼"
-      if(src.innerHTML === "🔼"){
-        getID("playerName").focus()
-      }
-    }}) // 🔼
-
-    let AddPlayerFr = addEle({dad:info,setClass:"contCol",setID:"AddPlayerFr",margin:"5px 10px",
-    border:"green solid 2px",radius:"5px",padding:"5px",width:"fit-content",display:"none"})
-
-
-    cr = addEle({dad:AddPlayerFr,setClass:"contRow",alignItems:"center",margin:"5px"})
-      addEle({dad:cr,text:"Name :",margin:"0 5px 0 10px"})
-      let inN = addEle({dad:cr,what:"input",isInput:true,textA:"center",setID:"playerName",
-      marginR:"",border:"green solid 3px",radius:"10px",setFunc:(e)=>{
-        getID("inFilPla").value = getID("playerName").value 
-        let ev = new Event("input") ; getID("inFilPla").dispatchEvent(ev)
-      }})
-      inN.addEventListener('keydown', function(event) 
-      {if (event.key === 'Enter'){getID("savPn").click()}})
-      addEle({dad:cr,text:"E",textC:"yellow",marginL:"5px",fontS:"12px"})
-
-
-    cr = addEle({dad:AddPlayerFr,setClass:"contRow",alignItems:"center",margin:"5px"})
-      addEle({dad:cr,setClass:"btn",text:"Save Player name [E]",border:"green solid 2px",
+      addEle({dad:cr,setClass:"btn",text:"Save new Player's name [E]",border:"green solid 2px",
       backC:"darkgreen",minWidth:"190px",setID:"savPn",setFunc:()=>{
-        let txt = getID("playerName").value.toLowerCase().replace("@","").replace(":","")
+        let txt = getID("inFilPla").value.toLowerCase().replace("@","").replace(":","")
         let idx = player.playerPool.findIndex(x=>x.name === txt)
         if(idx > -1){return}
         if(txt.length>0){
@@ -1457,13 +1328,12 @@ function setPlayers(){
             selected:true,
             priority:1,
           })
-          player.playerPool.sort((a,b)=>a-b)
+          player.playerPool = player.playerPool.sort((a,b)=>a.name.localeCompare(b.name))
           savPlayer()
-          getID("playerName").value = ""
           getID("inFilPla").value = ""
           let ev = new Event("input") ; getID("inFilPla").dispatchEvent(ev)
           updPlayersI()
-          getID("playerName").focus()
+          getID("inFilPla").focus()
           getID("savGdisp").style.visibility = "visible"
           setTimeout(()=>{getID("savGdisp").style.visibility = "hidden"},700)
         }
@@ -1473,8 +1343,127 @@ function setPlayers(){
       padding:"1px 4px",fontS:"18px",setFunc:(e)=>{setPlayers()}})
 
   let ev = new Event("input") ; getID("inFilPla").dispatchEvent(ev)
+  getID("inFilPla").focus()
+}
+
+function dispPlayers(){
+
+  let dispFr = bodySub 
+  cleanParent(dispFr)
+
+  let src = getID("inFilPla")
+  let txt = src.value.toLowerCase().replace("@","").replace(":","")
+  let arr = []
+  if(txt.length===0)
+       {arr = player.playerPool} 
+  else {arr = player.playerPool.filter(x=>x.name.includes(txt))}
+  let fr = addEle({dad:dispFr,margin:"5px"})
+  let tb = addEle({dad:fr,what:"table"})
+    let tr = addEle({dad:tb,what:"tr",marginB:"20px"})
+      addEle({dad:tr,what:"td",colSpan:2,textA:"center",text:"Player",borderB:"green solid 2px"})
+      let tc = addEle({dad:tr,what:"td",textA:"center",padding:"0 10px",border:"green solid 2px",
+      borderT:"none",marginB:"10px"})
+        let cc = addEle({dad:tc,setClass:"contCol",alignItems:"center"})
+          addEle({dad:cc,text:"Include"})
+          addEle({dad:cc,setClass:"btn",backC:"darkgreen",border:"green solid 2px",text:"All",
+          minWidth:"40px",setFunc:()=>{
+            if(player.playerPool.length===0){return}
+            let onOff = player.playerPool[0].selected ? false : true
+            document.getElementsByName("togPlaSels").forEach(x=>x.checked = onOff)
+            player.playerPool.forEach(x=>{x.selected = onOff})
+            savPlayer()
+            updPlayersI()
+          }})
+
+      tc = addEle({dad:tr,what:"td",textA:"center",borderB:"green solid 2px",paddingL:"5px"})
+        cc = addEle({dad:tc,setClass:"contCol"})
+          addEle({dad:cc,text:"Priority"})
+        let cr = addEle({dad:tc,setClass:"contRow",alignItems:"center"})
+          for(let i=1;i<=3;i++){
+            addEle({dad:cr,setClass:"btn",backC:"darkgreen",border:"green solid 2px",text:i,
+            setFunc:(e)=>{
+              let nb = Number(e.srcElement.innerHTML)
+              document.getElementsByName("prioSels").forEach(x=>x.value = nb)
+              player.playerPool.forEach(x=>{x.priority = nb})
+              savPlayer()
+              updPlayersI()
+            }})
+          }
+        
+
+  for(let i=0;i<arr.length;i++){
+    let itm = arr[i]
+    let tr = addEle({dad:tb,what:"tr"})
+      let tc = addEle({dad:tr,what:"td",alignItems:"center",padding:"5px 0"})
+        addEle({dad:tc,setClass:"arrowToggler",text:"X",border:"red solid 2px",
+        padding:"1px 4px",width:"fit-content",setID:"delPlay:"+itm.idx,margin:"3px 0",setFunc:(e)=>{
+          let idx = Number(e.srcElement.id.split(":")[1])
+          let pos = player.playerPool.findIndex(x=>x.idx===idx)
+          player.playerPool.splice(pos,1)
+          savPlayer()
+          getID("inFilPla").value = ""
+          let ev = new Event("input") ; getID("inFilPla").dispatchEvent(ev)
+        }})
+      addEle({dad:tr,what:"td",textA:"center",text:itm.name,padding:"0 15px 0 5px"})
+
+      tc = addEle({dad:tr,what:"td",textA:"center",borderL:"green solid 2px",borderR:"green solid 2px"})
+        let inc = addEle({dad:tc,what:"checkbox",isInput:true,setID:"togPlaSel:"+i,setClass:"toggle-checkbox",
+        setName:"togPlaSels",setFunc:(e)=>{
+          let idx = Number(e.srcElement.id.split(":")[1])
+          let itm = player.playerPool[idx]
+          itm.selected = e.srcElement.checked
+          savPlayer()
+          updPlayersI()
+        }})
+        addEle({dad:tc,what:"label",setFor:"togPlaSel:"+i,setClass:"toggle-label",margin:"0 5px"})
+        inc.checked = itm.selected
+
+      tc = addEle({dad:tr,what:"td",textA:"center"})
+        let prio = addEle({dad:tc,what:"select",setClass:"select",border:"green solid 3px",
+        paddingL:"10px",setName:"prioSels",setID:"selOp:"+i,setFunc:(e)=>{
+          let idx = Number(e.srcElement.id.split(":")[1])
+          let itm = player.playerPool[idx]
+          let pr = Number(e.srcElement.value)
+          itm.priority = pr
+          savPlayer()
+          updPlayersI()
+        }})
+          for(let j=1;j<=3;j++){addEle({dad:prio,what:"option",text:j})}
+        prio.value = itm.priority
+  }
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1993,7 +1982,9 @@ function publishResult(){
     let itm = arr[i]
     txt += "\n"
     txt += itm.name+" "
-    if(getID("chRwCt").checked){txt += " ("+ itm.rwds.length+" Rewards) "}
+    if(getID("chRwCt").checked){
+      txt += itm.rwds.length > 1 ? " ("+ itm.rwds.length+" Rewards) " : " ("+ itm.rwds.length+" Reward) "
+    }
     itm.synth.forEach(s=>{
       txt+= "(("+s.lbl+"))x "+s.val+","
     })
@@ -2182,6 +2173,33 @@ buying baby crops 30 ((Orange Juice))/k :
 
 [ selling 2k ((Veggie Juice)) ] 15g(300ap) / k
 
-[ selling ((Veggie Juice)) ] 10gk
+[ selling ((Veggie Juice)) ] 10gk or 5k 45g
 
+*opening shop* 
+** shop closing soon ** 
+** During 5mn only ** 
+[ Buying ] ((Pillow Case 02)) [02] all gold for 600g OR 150g *** returning ((Treat Bag 06)) [06] *** ... ((Heart-shaped Gem)) 150g
+... 45k ((Feathers)) 3apk ... 30k ((Arrowhead)) 2apk ...
+[ selling ] ((Large Net)) 10gk
+
+
+
+
+[ Buying ] ((Pillow Case 02)) [02] all gold for 600g OR 150g *** returning ((Treat Bag 06)) [06] *** ... ((Heart-shaped Gem)) 150g
+... around 60k ((Glass Orb)) 2apk
+[ selling ] ((Large Net)) 10gk
+
+////     addEle({dad:cr,text:"🔍 Search :",marginR:"5px"})
+
+
+**ThalTair [750] @Apple Lord 5 [06]
+
+[ Trading ] my ((Treat Bag 06)) 06* +150g for ((Pillow Case 02)) 02* [ Buying ] ((Heart-shaped Gem)) 150g [ selling ] ((Large Net)) 2k 25g or 5k for 60g .. ((Orange Juice)) 2k for 15g or 6k for 40g
+
+.. ((Lemonade)) 85apk
+for your 02(s) can do each 650g OR Trade : my ((Treat Bag 06)) 06* +150g let me know if take or pass ..
+
+in case you didnt get my meaning : I can buy for 650 or trade the 06 back with 150g lmk if your interested with any option …
+
+*offer stands 5 last mn*
 */
